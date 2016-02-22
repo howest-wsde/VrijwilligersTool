@@ -1,2 +1,2 @@
-# VrijwillgersTool
+# VrijwilligersTool
 Roeselare vrijwilligt
