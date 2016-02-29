@@ -6,6 +6,14 @@ Roeselare vrijwilligt
 ![alt tag](http://i.imgur.com/nordGSA.jpg)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
+# Querry
+```
+SELECT Firstname, Lastname, Proficiency, Skill.Name FROM user
+join UserSkill on UserSkill.Id = User.SkillId
+join SkillProficiency on SkillProficiency.Id = UserSkill.ProficiencyId
+join Skill on Skill.Id = SkillProficiency.Type
+```
+
 # SQL
 ```
 CREATE TABLE `User` (
