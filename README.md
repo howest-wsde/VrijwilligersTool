@@ -93,4 +93,4 @@ ALTER TABLE UserSkill ADD INDEX FKUserSkill759301 (ProficiencyId), ADD CONSTRAIN
 # trying to generate entities?
 ```new Acme\Bundle\BlogBundle\AcmeBlogBundle()```
 in 
-```\vrijwilligersproject\app\Appkernel.php```
+\vrijwilligersproject\app\Appkernel.php
