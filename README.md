@@ -7,6 +7,7 @@ Roeselare vrijwilligt
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
 # SQL
+```
 CREATE TABLE `User` (
   Id        int(10) NOT NULL AUTO_INCREMENT, 
   FirstName varchar(100) NOT NULL, 
@@ -75,3 +76,4 @@ ALTER TABLE Organisation ADD INDEX FKOrganisati829755 (CreatorId), ADD CONSTRAIN
 ALTER TABLE Skill ADD INDEX FKSkill850843 (SkillId), ADD CONSTRAINT FKSkill850843 FOREIGN KEY (SkillId) REFERENCES SkillType (Id);
 ALTER TABLE Skill ADD INDEX FKSkill885086 (SkillRequiredId), ADD CONSTRAINT FKSkill885086 FOREIGN KEY (SkillRequiredId) REFERENCES Vacancy (Id);
 ALTER TABLE Skill ADD INDEX FKSkill830893 (SkillRequiredId), ADD CONSTRAINT FKSkill830893 FOREIGN KEY (SkillRequiredId) REFERENCES `User` (Id);
+```
