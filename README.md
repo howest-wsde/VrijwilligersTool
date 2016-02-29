@@ -3,7 +3,7 @@ Roeselare vrijwilligt
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/Mythc5q.jpg)
+![alt tag](http://i.imgur.com/nordGSA.jpg)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
 # SQL
@@ -13,7 +13,7 @@ CREATE TABLE `User` (
   FirstName              varchar(100) NOT NULL, 
   LastName               varchar(100) NOT NULL, 
   ContactId              int(10), 
-  SkillId                int(10) NOT NULL, 
+  SkillId                int(10), 
   PRIMARY KEY (Id), 
   UNIQUE INDEX (Id)) CHARACTER SET UTF8;
 CREATE TABLE Vacancy (
@@ -24,7 +24,7 @@ CREATE TABLE Vacancy (
   EndDate                   datetime NULL, 
   CreationTime              datetime NULL, 
   OrganisationId            int(10) NOT NULL, 
-  SkillId                   int(10) NOT NULL, 
+  SkillId                   int(10), 
   PRIMARY KEY (Id), 
   UNIQUE INDEX (Id)) CHARACTER SET UTF8;
 CREATE TABLE Organisation (
@@ -79,6 +79,5 @@ ALTER TABLE Testimonial ADD INDEX FKTestimonia893114 (ReceiverId), ADD CONSTRAIN
 ALTER TABLE Organisation ADD INDEX FKOrganisati829755 (CreatorId), ADD CONSTRAINT FKOrganisati829755 FOREIGN KEY (CreatorId) REFERENCES `User` (Id);
 ALTER TABLE VacancySkill ADD INDEX FKVacancySki10694 (ProficiencyId), ADD CONSTRAINT FKVacancySki10694 FOREIGN KEY (ProficiencyId) REFERENCES SkillProficiency (Id);
 ALTER TABLE VacancySkill ADD INDEX FKVacancySki10695 (ProficiencyId), ADD CONSTRAINT FKVacancySki10695 FOREIGN KEY (ProficiencyId) REFERENCES SkillProficiency (Id);
-
 ALTER TABLE UserSkill ADD INDEX FKUserSkill759301 (ProficiencyId), ADD CONSTRAINT FKUserSkill759301 FOREIGN KEY (ProficiencyId) REFERENCES SkillProficiency (Id);
 ```
