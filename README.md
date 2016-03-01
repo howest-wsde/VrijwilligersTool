@@ -8,7 +8,7 @@ Roeselare vrijwilligt
 
 # Querry
 ```
-SELECT Firstname, Lastname, Proficiency, Skill.Name FROM user
+SELECT Firstname, Lastname, Proficiency, Skill.Name FROM User
 join UserSkill on UserSkill.Id = User.SkillId
 join SkillProficiency on SkillProficiency.Id = UserSkill.ProficiencyId
 join Skill on Skill.Id = SkillProficiency.Type
