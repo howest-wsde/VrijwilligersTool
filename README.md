@@ -264,7 +264,7 @@ ALTER TABLE `userskill`
 --
 ALTER TABLE `vacancy`
   ADD CONSTRAINT `FKVacancy396991` FOREIGN KEY (`OrganisationId`) REFERENCES `organisation` (`Id`);
-  ADD CONSTRAINT `FKVacancyVacancySkill312345` FOREIGN KEY (`SkillID`) REFERENCES `VacancySkill` (`Id`);
+  ADD CONSTRAINT `FKVacancyVacancySkill312345` FOREIGN KEY (`SkillId`) REFERENCES `VacancySkill` (`Id`);
 
 --
 -- Constraints for table `vacancyskill`
