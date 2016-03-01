@@ -89,8 +89,3 @@ ALTER TABLE VacancySkill ADD INDEX FKVacancySki10694 (ProficiencyId), ADD CONSTR
 ALTER TABLE VacancySkill ADD INDEX FKVacancySki10695 (ProficiencyId), ADD CONSTRAINT FKVacancySki10695 FOREIGN KEY (ProficiencyId) REFERENCES SkillProficiency (Id);
 ALTER TABLE UserSkill ADD INDEX FKUserSkill759301 (ProficiencyId), ADD CONSTRAINT FKUserSkill759301 FOREIGN KEY (ProficiencyId) REFERENCES SkillProficiency (Id);
 ```
-
-# trying to generate entities?
-```new Acme\Bundle\BlogBundle\AcmeBlogBundle()```
-in 
-\vrijwilligersproject\app\Appkernel.php
