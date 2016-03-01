@@ -6,12 +6,29 @@ Roeselare vrijwilligt
 ![alt tag](http://i.imgur.com/37Op7w1.png)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
-# Querry
+# Querry(sql)
 ```
 SELECT Firstname, Lastname, Proficiency, Skill.Name FROM User
 join UserSkill on UserSkill.Id = User.SkillId
 join SkillProficiency on SkillProficiency.Id = UserSkill.ProficiencyId
 join Skill on Skill.Id = SkillProficiency.Type
+where Firstname = "Jelle"
+```
+
+# Querry(php/dcotrine)
+```
+$user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->findOneByFirstname("Jelle");
+
+        $userSkill = $user->getSkill();
+
+        $skillProficiency = $userSkill->getProficiency();
+
+        $skill = $skillProficiency->getType();
+
+        $html = "<html><body>" . $user->getFirstname()." ".$user->getLastname().", "."10, ".$skill->getName()."</body></html>";
+        return new Response($html);
 ```
 
 # SQL
