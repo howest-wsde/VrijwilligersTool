@@ -27,7 +27,7 @@ $user = $this->getDoctrine()
 
         $skill = $skillProficiency->getType();
 
-        $html = "<html><body>" . $user->getFirstname()." ".$user->getLastname().", "."10, ".$skill->getName()."</body></html>";
+        $html = "<html><body>" . $user->getFirstname()." ".$user->getLastname().", ".$skillProficiency->getProficiency().", ".$skill->getName()."</body></html>";
         return new Response($html);
 ```
 
