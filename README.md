@@ -8,10 +8,11 @@ Roeselare vrijwilligt
 
 # Querry(sql)
 ```
-SELECT Firstname, Lastname, Proficiency, Skill.Name FROM User
-join UserSkill on UserSkill.Id = User.SkillId
-join SkillProficiency on SkillProficiency.Id = UserSkill.ProficiencyId
-join Skill on Skill.Id = SkillProficiency.Type
+use homestead;
+SELECT Firstname, Lastname, Proficiency, skill.Name FROM user
+join userskill on userskill.Id = user.SkillId
+join skillproficiency on skillproficiency.Id = userskill.ProficiencyId
+join skill on skill.Id = skillproficiency.Type
 where Firstname = "Jelle"
 ```
 
