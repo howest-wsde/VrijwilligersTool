@@ -3,7 +3,7 @@ Roeselare vrijwilligt
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/Fw9vfLC.png)
+![alt tag](http://i.imgur.com/37Op7w1.png)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
 # Querry
@@ -131,7 +131,7 @@ DROP TABLE IF EXISTS `skillproficiency`;
 CREATE TABLE `skillproficiency` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Type` int(10) NOT NULL,
-  `Proficiency` tinyint(5) NOT NULL,
+  `Proficiency` int(5) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKSkillProfi479319` (`Type`),
@@ -306,5 +306,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-01 11:37:16
+-- Dump completed on 2016-03-01 12:10:26
 ```
