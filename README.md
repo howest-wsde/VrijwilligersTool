@@ -3,7 +3,7 @@ Roeselare vrijwilligt
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/XwheMxS.png)
+![alt tag](http://i.imgur.com/Fw9vfLC.png)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
 # Querry
