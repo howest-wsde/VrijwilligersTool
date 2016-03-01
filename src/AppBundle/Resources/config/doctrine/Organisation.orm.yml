@@ -1,0 +1,64 @@
+AppBundle\Entity\Organisation:
+    type: entity
+    table: Organisation
+    indexes:
+        FKOrganisati891792:
+            columns:
+                - ContactId
+        FKOrganisati829755:
+            columns:
+                - CreatorId
+    uniqueConstraints:
+        Name:
+            columns:
+                - Name
+        Id:
+            columns:
+                - Id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: Id
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: Name
+        description:
+            type: string
+            nullable: false
+            length: 1000
+            options:
+                fixed: false
+            column: Description
+    manyToOne:
+        creatorid:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                CreatorId:
+                    referencedColumnName: Id
+            orphanRemoval: false
+        contactid:
+            targetEntity: Contact
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ContactId:
+                    referencedColumnName: Id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

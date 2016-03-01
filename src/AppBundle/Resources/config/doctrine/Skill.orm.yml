@@ -1,0 +1,29 @@
+AppBundle\Entity\Skill:
+    type: entity
+    table: Skill
+    uniqueConstraints:
+        Name:
+            columns:
+                - Name
+        Id:
+            columns:
+                - Id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: Id
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: Name
+    lifecycleCallbacks: {  }

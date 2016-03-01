@@ -1,0 +1,54 @@
+AppBundle\Entity\User:
+    type: entity
+    table: User
+    indexes:
+        FKUser301874:
+            columns:
+                - ContactId
+    uniqueConstraints:
+        Id:
+            columns:
+                - Id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: Id
+            generator:
+                strategy: IDENTITY
+    fields:
+        firstname:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: FirstName
+        lastname:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+            column: LastName
+        skillid:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: SkillId
+    manyToOne:
+        contactid:
+            targetEntity: Contact
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ContactId:
+                    referencedColumnName: Id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
