@@ -246,9 +246,10 @@ CREATE TABLE `vacancy` (
   UNIQUE KEY `Id` (`Id`),
   KEY `FKVacancy396991` (`OrganisationId`),
   KEY `FKVcancyVacancySkill_idx` (`SkillId`),
-  CONSTRAINT `FKCategory123` FOREIGN KEY (`OrganisationId`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `FkVacancyCategory123_idx` (`CategoryId`),
   CONSTRAINT `FKVacancy396991` FOREIGN KEY (`OrganisationId`) REFERENCES `organisation` (`Id`),
-  CONSTRAINT `FKVcancyVacancySkill` FOREIGN KEY (`SkillId`) REFERENCES `vacancyskill` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FKVcancyVacancySkill` FOREIGN KEY (`SkillId`) REFERENCES `vacancyskill` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FkVacancyCategory123` FOREIGN KEY (`CategoryId`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -353,5 +354,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-02 13:52:40
+-- Dump completed on 2016-03-02 13:59:22
 ```
