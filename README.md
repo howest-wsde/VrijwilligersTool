@@ -6,7 +6,7 @@ http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/37Op7w1.png)
+![alt tag](http://i.imgur.com/qmyYQtj.png)
 ^yes relations are not very clear(pk <-> fk), a limitation of visual paradigm.
 
 # Querry(sql)
