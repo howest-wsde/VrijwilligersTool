@@ -242,10 +242,12 @@ CREATE TABLE `vacancy` (
   `CreationTime` datetime DEFAULT NULL,
   `OrganisationId` int(10) NOT NULL,
   `SkillId` int(10) DEFAULT NULL,
+  `CategoryId` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKVacancy396991` (`OrganisationId`),
   KEY `FKVcancyVacancySkill_idx` (`SkillId`),
+  CONSTRAINT `FKCategory123` FOREIGN KEY (`OrganisationId`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FKVacancy396991` FOREIGN KEY (`OrganisationId`) REFERENCES `organisation` (`Id`),
   CONSTRAINT `FKVcancyVacancySkill` FOREIGN KEY (`SkillId`) REFERENCES `vacancyskill` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -258,6 +260,31 @@ CREATE TABLE `vacancy` (
 LOCK TABLES `vacancy` WRITE;
 /*!40000 ALTER TABLE `vacancy` DISABLE KEYS */;
 /*!40000 ALTER TABLE `vacancy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vacancycategory`
+--
+
+DROP TABLE IF EXISTS `vacancycategory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vacancycategory` (
+  `Id` int(10) NOT NULL,
+  `Name` varchar(100) NOT NULL,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `Id_UNIQUE` (`Id`),
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vacancycategory`
+--
+
+LOCK TABLES `vacancycategory` WRITE;
+/*!40000 ALTER TABLE `vacancycategory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vacancycategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -327,5 +354,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-02 11:08:15
+-- Dump completed on 2016-03-02 13:52:40
 ```
