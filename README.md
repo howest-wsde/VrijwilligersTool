@@ -6,7 +6,7 @@ http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/qmyYQtj.png)
+![alt tag](http://i.imgur.com/NyWf3M9.png)
 
 # Querry(sql)
 ```
