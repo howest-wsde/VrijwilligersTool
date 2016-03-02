@@ -16,7 +16,7 @@ join skill on skill.Id = skillproficiency.Type
 where Firstname = "Jelle"
 ```
 
-# Querry(php/dcotrine)
+# Querry(php/doctrine)
 ```
 $user = $this->getDoctrine()
             ->getRepository('AppBundle:User')
