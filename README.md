@@ -20,18 +20,26 @@ where Firstname = "Jelle"
 
 # Querry(php/doctrine)
 ```
-$user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->findOneByFirstname("Jelle");
+//all users
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:Volunteer')->findAll();
 
-        $userSkill = $user->getSkill();
-
-        $skillProficiency = $userSkill->getProficiency();
-
-        $skill = $skillProficiency->getType();
-
-        $html = "<html><body>" . $user->getFirstname()." ".$user->getLastname().", ".$skillProficiency->getProficiency().", ".$skill->getName()."</body></html>";
-        return new Response($html);
+        echo "Volunteer:";
+        echo "<br />";
+        foreach($users as $user)
+        {
+            echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
+            echo "contact: ".$user->getContactid()."<br />";
+            echo "==="."proficiencies:==="."<br />";
+            foreach ($user->getSkillproficiency() as $proficiency) {
+                echo "id: ".$proficiency->getId()."<br />";
+                echo "type: ".$proficiency->getType()->getName()."<br />";
+                echo "proficiency: ".$proficiency->getProficiency()."<br />";
+                echo "<br />";
+            }
+            echo "<br />";
+        }
+        echo "<br />";
 ```
 
 # SQL
