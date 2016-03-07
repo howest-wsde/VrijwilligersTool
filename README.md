@@ -23,12 +23,11 @@ join skill on skill.Id = skillproficiency.Type
 $em = $this->getDoctrine()->getManager();
 $users = $em->getRepository('AppBundle:Volunteer')->findAll();
 
-echo "Volunteer:";
+echo "Volunteers:";
 echo "<br />";
 foreach($users as $user)
 {
     echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-    echo "contact: ".$user->getContactid()."<br />";
     echo "==="."proficiencies:==="."<br />";
     foreach ($user->getSkillproficiency() as $proficiency) {
         echo "id: ".$proficiency->getId()."<br />";
