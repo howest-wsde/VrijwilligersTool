@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-Symfony Standard Edition
-========================
-=======
+
 # VrijwilligersTool
 Roeselare vrijwilligt
->>>>>>> origin/master
 
 # stackoverflow
 http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using-doctrine-in-symfony
