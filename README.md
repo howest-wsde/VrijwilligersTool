@@ -11,11 +11,10 @@ http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using
 # Querry(sql)
 ```
 use homestead;
-SELECT Firstname, Lastname, Proficiency, skill.Name FROM user
-join userskill on userskill.Id = user.SkillId
-join skillproficiency on skillproficiency.Id = userskill.ProficiencyId
+SELECT Firstname, Lastname, Proficiency, skill.Name FROM volunteer
+join volunteer_has_skillproficiency as vhs on vhs.volunteer_Id = volunteer.Id
+join skillproficiency on skillproficiency.Id = vhs.skillproficiency_Id
 join skill on skill.Id = skillproficiency.Type
-where Firstname = "Jelle"
 ```
 
 # Querry(php/doctrine)
