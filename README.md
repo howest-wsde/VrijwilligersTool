@@ -75,7 +75,7 @@ CREATE TABLE `contact` (
   `Telephone` varchar(10) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `contact` (
 
 LOCK TABLES `contact` WRITE;
 /*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599');
+INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599'),(2,'koen.cornelis@howest.be','ergens in eeklo','1231231231'),(3,'kurt.callewaert@howest.be','roeselare al tegaere','4564564564');
 /*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `organisation` (
   KEY `FKOrganisati829755` (`CreatorId`),
   CONSTRAINT `FKOrganisati829755` FOREIGN KEY (`CreatorId`) REFERENCES `volunteer` (`Id`),
   CONSTRAINT `FKOrganisati891792` FOREIGN KEY (`ContactId`) REFERENCES `contact` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `organisation` (
 
 LOCK TABLES `organisation` WRITE;
 /*!40000 ALTER TABLE `organisation` DISABLE KEYS */;
-INSERT INTO `organisation` VALUES (1,'Howest Brugge','Beter dan kortrijk',1,1);
+INSERT INTO `organisation` VALUES (1,'Howest Brugge','Beter dan kortrijk',1,1),(2,'Vives','for pussies',2,2);
 /*!40000 ALTER TABLE `organisation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +134,7 @@ CREATE TABLE `skill` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Name` (`Name`),
   UNIQUE KEY `Id` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +143,7 @@ CREATE TABLE `skill` (
 
 LOCK TABLES `skill` WRITE;
 /*!40000 ALTER TABLE `skill` DISABLE KEYS */;
-INSERT INTO `skill` VALUES (2,'Database design'),(1,'Programming');
+INSERT INTO `skill` VALUES (3,'Being badass'),(2,'Database design'),(1,'Programming'),(4,'security');
 /*!40000 ALTER TABLE `skill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +162,7 @@ CREATE TABLE `skillproficiency` (
   UNIQUE KEY `Id` (`Id`),
   KEY `FKSkillProfi479319` (`Type`),
   CONSTRAINT `FKSkillProfi479319` FOREIGN KEY (`Type`) REFERENCES `skill` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +171,7 @@ CREATE TABLE `skillproficiency` (
 
 LOCK TABLES `skillproficiency` WRITE;
 /*!40000 ALTER TABLE `skillproficiency` DISABLE KEYS */;
-INSERT INTO `skillproficiency` VALUES (1,1,10),(2,2,9);
+INSERT INTO `skillproficiency` VALUES (1,1,10),(2,2,9),(3,1,8),(4,2,7),(5,3,6),(6,4,5),(7,2,4);
 /*!40000 ALTER TABLE `skillproficiency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ CREATE TABLE `testimonial` (
   KEY `FKTestimonia893114` (`ReceiverId`),
   CONSTRAINT `FKTestimonia20655` FOREIGN KEY (`SenderId`) REFERENCES `volunteer` (`Id`),
   CONSTRAINT `FKTestimonia893114` FOREIGN KEY (`ReceiverId`) REFERENCES `volunteer` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,33 +202,8 @@ CREATE TABLE `testimonial` (
 
 LOCK TABLES `testimonial` WRITE;
 /*!40000 ALTER TABLE `testimonial` DISABLE KEYS */;
+INSERT INTO `testimonial` VALUES (1,'jelle be great student!',2,2);
 /*!40000 ALTER TABLE `testimonial` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `userskill`
---
-
-DROP TABLE IF EXISTS `userskill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userskill` (
-  `Id` int(10) NOT NULL,
-  `ProficiencyId` int(10) NOT NULL,
-  PRIMARY KEY (`Id`,`ProficiencyId`),
-  KEY `FKUserSkill759301` (`ProficiencyId`),
-  CONSTRAINT `FKUserSkill759301` FOREIGN KEY (`ProficiencyId`) REFERENCES `skillproficiency` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `userskill`
---
-
-LOCK TABLES `userskill` WRITE;
-/*!40000 ALTER TABLE `userskill` DISABLE KEYS */;
-INSERT INTO `userskill` VALUES (0,1),(1,1),(1,2);
-/*!40000 ALTER TABLE `userskill` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -246,17 +221,14 @@ CREATE TABLE `vacancy` (
   `EndDate` datetime DEFAULT NULL,
   `CreationTime` datetime DEFAULT NULL,
   `OrganisationId` int(10) NOT NULL,
-  `SkillId` int(10) DEFAULT NULL,
   `CategoryId` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKVacancy396991` (`OrganisationId`),
-  KEY `FKVcancyVacancySkill_idx` (`SkillId`),
   KEY `FkVacancyCategory123_idx` (`CategoryId`),
   CONSTRAINT `FKVacancy396991` FOREIGN KEY (`OrganisationId`) REFERENCES `organisation` (`Id`),
-  CONSTRAINT `FKVcancyVacancySkill` FOREIGN KEY (`SkillId`) REFERENCES `vacancyskill` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FkVacancyCategory123` FOREIGN KEY (`CategoryId`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -265,7 +237,35 @@ CREATE TABLE `vacancy` (
 
 LOCK TABLES `vacancy` WRITE;
 /*!40000 ALTER TABLE `vacancy` DISABLE KEYS */;
+INSERT INTO `vacancy` VALUES (1,'stagestudent','elastic search enzo',NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `vacancy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vacancy_has_skillproficiency`
+--
+
+DROP TABLE IF EXISTS `vacancy_has_skillproficiency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vacancy_has_skillproficiency` (
+  `vacancy_Id` int(10) NOT NULL,
+  `skillproficiency_Id` int(10) NOT NULL,
+  PRIMARY KEY (`vacancy_Id`,`skillproficiency_Id`),
+  KEY `fk_vacancy_has_skillproficiency_skillproficiency1_idx` (`skillproficiency_Id`),
+  KEY `fk_vacancy_has_skillproficiency_vacancy1_idx` (`vacancy_Id`),
+  CONSTRAINT `fk_vacancy_has_skillproficiency_skillproficiency1` FOREIGN KEY (`skillproficiency_Id`) REFERENCES `skillproficiency` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_vacancy_has_skillproficiency_vacancy1` FOREIGN KEY (`vacancy_Id`) REFERENCES `vacancy` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vacancy_has_skillproficiency`
+--
+
+LOCK TABLES `vacancy_has_skillproficiency` WRITE;
+/*!40000 ALTER TABLE `vacancy_has_skillproficiency` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vacancy_has_skillproficiency` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -294,32 +294,6 @@ LOCK TABLES `vacancycategory` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `vacancyskill`
---
-
-DROP TABLE IF EXISTS `vacancyskill`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `vacancyskill` (
-  `Id` int(10) NOT NULL,
-  `ProficiencyId` int(10) NOT NULL,
-  PRIMARY KEY (`Id`,`ProficiencyId`),
-  KEY `FKVacancySki10694` (`ProficiencyId`),
-  KEY `FKVacancySki10695` (`ProficiencyId`),
-  CONSTRAINT `FKProficiencyIdSkillProficiency123` FOREIGN KEY (`ProficiencyId`) REFERENCES `skillproficiency` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vacancyskill`
---
-
-LOCK TABLES `vacancyskill` WRITE;
-/*!40000 ALTER TABLE `vacancyskill` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vacancyskill` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `volunteer`
 --
 
@@ -331,14 +305,11 @@ CREATE TABLE `volunteer` (
   `FirstName` varchar(100) NOT NULL,
   `LastName` varchar(100) NOT NULL,
   `ContactId` int(10) DEFAULT NULL,
-  `SkillId` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKUser301874` (`ContactId`),
-  KEY `FKUserUserSKill13_idx` (`SkillId`),
-  CONSTRAINT `FKUser301874` FOREIGN KEY (`ContactId`) REFERENCES `contact` (`Id`),
-  CONSTRAINT `FKUserUserSKill13` FOREIGN KEY (`SkillId`) REFERENCES `userskill` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FKUser301874` FOREIGN KEY (`ContactId`) REFERENCES `contact` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -347,8 +318,36 @@ CREATE TABLE `volunteer` (
 
 LOCK TABLES `volunteer` WRITE;
 /*!40000 ALTER TABLE `volunteer` DISABLE KEYS */;
-INSERT INTO `volunteer` VALUES (1,'Jelle','Criel',1,1),(2,'Koen','Cornelis',NULL,NULL);
+INSERT INTO `volunteer` VALUES (1,'Jelle','Criel',1),(2,'Koen','Cornelis',2),(3,'Kurt','Callewaert',3);
 /*!40000 ALTER TABLE `volunteer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `volunteer_has_skillproficiency`
+--
+
+DROP TABLE IF EXISTS `volunteer_has_skillproficiency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `volunteer_has_skillproficiency` (
+  `volunteer_Id` int(10) NOT NULL,
+  `skillproficiency_Id` int(10) NOT NULL,
+  PRIMARY KEY (`volunteer_Id`,`skillproficiency_Id`),
+  KEY `fk_volunteer_has_skillproficiency_skillproficiency1_idx` (`skillproficiency_Id`),
+  KEY `fk_volunteer_has_skillproficiency_volunteer1_idx` (`volunteer_Id`),
+  CONSTRAINT `fk_volunteer_has_skillproficiency_skillproficiency1` FOREIGN KEY (`skillproficiency_Id`) REFERENCES `skillproficiency` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_volunteer_has_skillproficiency_volunteer1` FOREIGN KEY (`volunteer_Id`) REFERENCES `volunteer` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `volunteer_has_skillproficiency`
+--
+
+LOCK TABLES `volunteer_has_skillproficiency` WRITE;
+/*!40000 ALTER TABLE `volunteer_has_skillproficiency` DISABLE KEYS */;
+INSERT INTO `volunteer_has_skillproficiency` VALUES (1,1),(1,2),(2,2),(1,5),(3,7);
+/*!40000 ALTER TABLE `volunteer_has_skillproficiency` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -360,5 +359,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-02 13:59:22
+-- Dump completed on 2016-03-07 15:07:28
 ```
