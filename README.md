@@ -104,15 +104,15 @@ CREATE TABLE `organisation` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   `Description` varchar(1000) NOT NULL,
-  `ContactId` int(10) DEFAULT NULL,
-  `CreatorId` int(10) NOT NULL,
+  `Contact` int(10) DEFAULT NULL,
+  `Creator` int(10) NOT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Name` (`Name`),
   UNIQUE KEY `Id` (`Id`),
-  KEY `FKOrganisati891792` (`ContactId`),
-  KEY `FKOrganisati829755` (`CreatorId`),
-  CONSTRAINT `FKOrganisati829755` FOREIGN KEY (`CreatorId`) REFERENCES `volunteer` (`Id`),
-  CONSTRAINT `FKOrganisati891792` FOREIGN KEY (`ContactId`) REFERENCES `contact` (`Id`)
+  KEY `FKOrganisati891792` (`Contact`),
+  KEY `FKOrganisati829755` (`Creator`),
+  CONSTRAINT `FKOrganisati829755` FOREIGN KEY (`Creator`) REFERENCES `volunteer` (`Id`),
+  CONSTRAINT `FKOrganisati891792` FOREIGN KEY (`Contact`) REFERENCES `contact` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,16 +174,6 @@ CREATE TABLE `skillproficiency` (
 -- Dumping data for table `skillproficiency`
 --
 
-<<<<<<< HEAD
-[1]:  https://symfony.com/doc/3.0/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.0/book/doctrine.html
-[8]:  https://symfony.com/doc/3.0/book/templating.html
-[9]:  https://symfony.com/doc/3.0/book/security.html
-[10]: https://symfony.com/doc/3.0/cookbook/email.html
-[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
-=======
 LOCK TABLES `skillproficiency` WRITE;
 /*!40000 ALTER TABLE `skillproficiency` DISABLE KEYS */;
 INSERT INTO `skillproficiency` VALUES (1,1,10),(2,2,9),(3,1,8),(4,2,7),(5,3,6),(6,4,5),(7,2,4);
@@ -200,14 +190,14 @@ DROP TABLE IF EXISTS `testimonial`;
 CREATE TABLE `testimonial` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Value` varchar(2000) NOT NULL,
-  `SenderId` int(10) DEFAULT NULL,
-  `ReceiverId` int(10) DEFAULT NULL,
+  `Sender` int(10) DEFAULT NULL,
+  `Receiver` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
-  KEY `FKTestimonia20655` (`SenderId`),
-  KEY `FKTestimonia893114` (`ReceiverId`),
-  CONSTRAINT `FKTestimonia20655` FOREIGN KEY (`SenderId`) REFERENCES `volunteer` (`Id`),
-  CONSTRAINT `FKTestimonia893114` FOREIGN KEY (`ReceiverId`) REFERENCES `volunteer` (`Id`)
+  KEY `FKTestimonia20655` (`Sender`),
+  KEY `FKTestimonia893114` (`Receiver`),
+  CONSTRAINT `FKTestimonia20655` FOREIGN KEY (`Sender`) REFERENCES `volunteer` (`Id`),
+  CONSTRAINT `FKTestimonia893114` FOREIGN KEY (`Receiver`) REFERENCES `volunteer` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,14 +225,14 @@ CREATE TABLE `vacancy` (
   `StartDate` datetime DEFAULT NULL,
   `EndDate` datetime DEFAULT NULL,
   `CreationTime` datetime DEFAULT NULL,
-  `OrganisationId` int(10) NOT NULL,
-  `CategoryId` int(10) DEFAULT NULL,
+  `Organisation` int(10) NOT NULL,
+  `Category` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
-  KEY `FKVacancy396991` (`OrganisationId`),
-  KEY `FkVacancyCategory123_idx` (`CategoryId`),
-  CONSTRAINT `FKVacancy396991` FOREIGN KEY (`OrganisationId`) REFERENCES `organisation` (`Id`),
-  CONSTRAINT `FkVacancyCategory123` FOREIGN KEY (`CategoryId`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FKVacancy396991` (`Organisation`),
+  KEY `FkVacancyCategory123_idx` (`Category`),
+  CONSTRAINT `FKVacancy396991` FOREIGN KEY (`Organisation`) REFERENCES `organisation` (`Id`),
+  CONSTRAINT `FkVacancyCategory123` FOREIGN KEY (`Category`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -319,11 +309,11 @@ CREATE TABLE `volunteer` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(100) NOT NULL,
   `LastName` varchar(100) NOT NULL,
-  `ContactId` int(10) DEFAULT NULL,
+  `Contact` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
-  KEY `FKUser301874` (`ContactId`),
-  CONSTRAINT `FKUser301874` FOREIGN KEY (`ContactId`) REFERENCES `contact` (`Id`)
+  KEY `FKUser301874` (`Contact`),
+  CONSTRAINT `FKUser301874` FOREIGN KEY (`Contact`) REFERENCES `contact` (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -374,6 +364,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-07 15:11:38
+-- Dump completed on 2016-03-07 16:53:12
 ```
->>>>>>> origin/master
