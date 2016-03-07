@@ -21,25 +21,25 @@ where Firstname = "Jelle"
 # Querry(php/doctrine)
 ```
 //all users
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:Volunteer')->findAll();
+$em = $this->getDoctrine()->getManager();
+$users = $em->getRepository('AppBundle:Volunteer')->findAll();
 
-        echo "Volunteer:";
+echo "Volunteer:";
+echo "<br />";
+foreach($users as $user)
+{
+    echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
+    echo "contact: ".$user->getContactid()."<br />";
+    echo "==="."proficiencies:==="."<br />";
+    foreach ($user->getSkillproficiency() as $proficiency) {
+        echo "id: ".$proficiency->getId()."<br />";
+        echo "type: ".$proficiency->getType()->getName()."<br />";
+        echo "proficiency: ".$proficiency->getProficiency()."<br />";
         echo "<br />";
-        foreach($users as $user)
-        {
-            echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-            echo "contact: ".$user->getContactid()."<br />";
-            echo "==="."proficiencies:==="."<br />";
-            foreach ($user->getSkillproficiency() as $proficiency) {
-                echo "id: ".$proficiency->getId()."<br />";
-                echo "type: ".$proficiency->getType()->getName()."<br />";
-                echo "proficiency: ".$proficiency->getProficiency()."<br />";
-                echo "<br />";
-            }
-            echo "<br />";
-        }
-        echo "<br />";
+    }
+    echo "<br />";
+}
+echo "<br />";
 ```
 
 # SQL
