@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Skillproficiency" table="skillproficiency">
+    <indexes>
+      <index name="FKSkillProfi479319" columns="Type"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="Id" columns="Id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="Id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="proficiency" type="integer" column="Proficiency" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="type" target-entity="Skill" fetch="LAZY">
+      <join-columns>
+        <join-column name="Type" referenced-column-name="Id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="vacancy" target-entity="Vacancy" mapped-by="skillproficiency" fetch="LAZY"/>
+    <many-to-many field="volunteer" target-entity="Volunteer" mapped-by="skillproficiency" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

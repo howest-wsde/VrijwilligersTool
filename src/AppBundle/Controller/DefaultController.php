@@ -21,21 +21,31 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/db", name="databsae_entities")
+     * @Route("/db", name="userskill_testing")
      */
-    public function listDatabaseEntities()
+    public function dbTest()
     {
+        //all users
         $em = $this->getDoctrine()->getManager();
-        $tables = $em->getConnection()->getSchemaManager()->listTables();
+        $users = $em->getRepository('AppBundle:Volunteer')->findAll();
 
-        $entities = array();
-        $em = $this->getDoctrine()->getManager();
-        $meta = $em->getMetadataFactory()->getAllMetadata();
-        foreach ($meta as $m) {
-            $entities[] = $m->getName();
+        echo "Volunteers:";
+        echo "<br />";
+        foreach($users as $user)
+        {
+            echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
+            echo "==="."proficiencies:==="."<br />";
+            foreach ($user->getSkillproficiency() as $proficiency) {
+                echo "id: ".$proficiency->getId()."<br />";
+                echo "type: ".$proficiency->getType()->getName()."<br />";
+                echo "proficiency: ".$proficiency->getProficiency()."<br />";
+                echo "<br />";
+            }
+            echo "<br />";
         }
+        echo "<br />";
 
-        $html = "<html><body>" . var_dump($entities) . "</body></html>";
+        $html = "<html><body>"."<br /><br />"."</body></html>";
         return new Response($html);
     }
 }

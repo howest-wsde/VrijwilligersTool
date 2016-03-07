@@ -2,57 +2,31 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Contact
- *
- * @ORM\Table(name="Contact", uniqueConstraints={@ORM\UniqueConstraint(name="Id", columns={"Id"})})
- * @ORM\Entity
  */
 class Contact
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
-     *
-     * @ORM\Column(name="Email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Address", type="string", length=255, nullable=false)
      */
     private $address;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Telephone", type="string", length=10, nullable=false)
      */
     private $telephone;
 
-
-
     /**
-     * Get id
-     *
-     * @return integer
+     * @var integer
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $id;
+
 
     /**
      * Set email
@@ -125,4 +99,15 @@ class Contact
     {
         return $this->telephone;
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
+

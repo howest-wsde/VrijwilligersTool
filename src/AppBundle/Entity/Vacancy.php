@@ -2,87 +2,62 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Vacancy
- *
- * @ORM\Table(name="Vacancy", uniqueConstraints={@ORM\UniqueConstraint(name="Id", columns={"Id"})}, indexes={@ORM\Index(name="FKVacancy396991", columns={"OrganisationId"})})
- * @ORM\Entity
  */
 class Vacancy
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
-     *
-     * @ORM\Column(name="Title", type="string", length=150, nullable=false)
      */
     private $title;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Description", type="string", length=2000, nullable=false)
      */
     private $description;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="StartDate", type="datetime", nullable=true)
      */
     private $startdate;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="EndDate", type="datetime", nullable=true)
      */
     private $enddate;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="CreationTime", type="datetime", nullable=true)
      */
     private $creationtime;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="SkillId", type="integer", nullable=true)
      */
-    private $skillid;
+    private $id;
 
     /**
      * @var \AppBundle\Entity\Organisation
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Organisation")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="OrganisationId", referencedColumnName="Id")
-     * })
      */
-    private $organisationid;
-
-
+    private $organisation;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \AppBundle\Entity\Vacancycategory
      */
-    public function getId()
+    private $category;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $skillproficiency;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return $this->id;
+        $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -206,50 +181,95 @@ class Vacancy
     }
 
     /**
-     * Set skillid
-     *
-     * @param integer $skillid
-     *
-     * @return Vacancy
-     */
-    public function setSkillid($skillid)
-    {
-        $this->skillid = $skillid;
-
-        return $this;
-    }
-
-    /**
-     * Get skillid
+     * Get id
      *
      * @return integer
      */
-    public function getSkillid()
+    public function getId()
     {
-        return $this->skillid;
+        return $this->id;
     }
 
     /**
-     * Set organisationid
+     * Set organisation
      *
-     * @param \AppBundle\Entity\Organisation $organisationid
+     * @param \AppBundle\Entity\Organisation $organisation
      *
      * @return Vacancy
      */
-    public function setOrganisationid(\AppBundle\Entity\Organisation $organisationid = null)
+    public function setOrganisation(\AppBundle\Entity\Organisation $organisation = null)
     {
-        $this->organisationid = $organisationid;
+        $this->organisation = $organisation;
 
         return $this;
     }
 
     /**
-     * Get organisationid
+     * Get organisation
      *
      * @return \AppBundle\Entity\Organisation
      */
-    public function getOrganisationid()
+    public function getOrganisation()
     {
-        return $this->organisationid;
+        return $this->organisation;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Vacancycategory $category
+     *
+     * @return Vacancy
+     */
+    public function setCategory(\AppBundle\Entity\Vacancycategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Vacancycategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Add skillproficiency
+     *
+     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
+     *
+     * @return Vacancy
+     */
+    public function addSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
+    {
+        $this->skillproficiency[] = $skillproficiency;
+
+        return $this;
+    }
+
+    /**
+     * Remove skillproficiency
+     *
+     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
+     */
+    public function removeSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
+    {
+        $this->skillproficiency->removeElement($skillproficiency);
+    }
+
+    /**
+     * Get skillproficiency
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkillproficiency()
+    {
+        return $this->skillproficiency;
     }
 }
+

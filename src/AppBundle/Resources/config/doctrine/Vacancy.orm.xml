@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Vacancy" table="vacancy">
+    <indexes>
+      <index name="FKVacancy396991" columns="Organisation"/>
+      <index name="FkVacancyCategory123_idx" columns="Category"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="Id" columns="Id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="Id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="Title" length="150" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="string" column="Description" length="2000" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="startdate" type="datetime" column="StartDate" nullable="true"/>
+    <field name="enddate" type="datetime" column="EndDate" nullable="true"/>
+    <field name="creationtime" type="datetime" column="CreationTime" nullable="true"/>
+    <many-to-one field="organisation" target-entity="Organisation" fetch="LAZY">
+      <join-columns>
+        <join-column name="Organisation" referenced-column-name="Id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="category" target-entity="Vacancycategory" fetch="LAZY">
+      <join-columns>
+        <join-column name="Category" referenced-column-name="Id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="skillproficiency" target-entity="Skillproficiency" inversed-by="vacancy" fetch="LAZY">
+      <join-table name="vacancy_has_skillproficiency">
+        <join-columns>
+          <join-column name="vacancy_Id" referenced-column-name="Id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="skillproficiency_Id" referenced-column-name="Id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

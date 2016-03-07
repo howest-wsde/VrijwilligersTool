@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 /**
- * Skill
+ * Vacancycategory
  */
-class Skill
+class Vacancycategory
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class Skill
      *
      * @param string $name
      *
-     * @return Skill
+     * @return Vacancycategory
      */
     public function setName($name)
     {

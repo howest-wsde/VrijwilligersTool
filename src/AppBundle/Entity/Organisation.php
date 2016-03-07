@@ -2,70 +2,36 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Organisation
- *
- * @ORM\Table(name="Organisation", uniqueConstraints={@ORM\UniqueConstraint(name="Name", columns={"Name"}), @ORM\UniqueConstraint(name="Id", columns={"Id"})}, indexes={@ORM\Index(name="FKOrganisati891792", columns={"ContactId"}), @ORM\Index(name="FKOrganisati829755", columns={"CreatorId"})})
- * @ORM\Entity
  */
 class Organisation
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
-     *
-     * @ORM\Column(name="Name", type="string", length=100, nullable=false)
      */
     private $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Description", type="string", length=1000, nullable=false)
      */
     private $description;
 
     /**
-     * @var \AppBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="CreatorId", referencedColumnName="Id")
-     * })
+     * @var integer
      */
-    private $creatorid;
+    private $id;
+
+    /**
+     * @var \AppBundle\Entity\Volunteer
+     */
+    private $creator;
 
     /**
      * @var \AppBundle\Entity\Contact
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Contact")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ContactId", referencedColumnName="Id")
-     * })
      */
-    private $contactid;
+    private $contact;
 
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
@@ -116,50 +82,61 @@ class Organisation
     }
 
     /**
-     * Set creatorid
+     * Get id
      *
-     * @param \AppBundle\Entity\User $creatorid
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\Volunteer $creator
      *
      * @return Organisation
      */
-    public function setCreatorid(\AppBundle\Entity\User $creatorid = null)
+    public function setCreator(\AppBundle\Entity\Volunteer $creator = null)
     {
-        $this->creatorid = $creatorid;
+        $this->creator = $creator;
 
         return $this;
     }
 
     /**
-     * Get creatorid
+     * Get creator
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\Volunteer
      */
-    public function getCreatorid()
+    public function getCreator()
     {
-        return $this->creatorid;
+        return $this->creator;
     }
 
     /**
-     * Set contactid
+     * Set contact
      *
-     * @param \AppBundle\Entity\Contact $contactid
+     * @param \AppBundle\Entity\Contact $contact
      *
      * @return Organisation
      */
-    public function setContactid(\AppBundle\Entity\Contact $contactid = null)
+    public function setContact(\AppBundle\Entity\Contact $contact = null)
     {
-        $this->contactid = $contactid;
+        $this->contact = $contact;
 
         return $this;
     }
 
     /**
-     * Get contactid
+     * Get contact
      *
      * @return \AppBundle\Entity\Contact
      */
-    public function getContactid()
+    public function getContact()
     {
-        return $this->contactid;
+        return $this->contact;
     }
 }
+

@@ -2,63 +2,31 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Testimonial
- *
- * @ORM\Table(name="Testimonial", uniqueConstraints={@ORM\UniqueConstraint(name="Id", columns={"Id"})}, indexes={@ORM\Index(name="FKTestimonia20655", columns={"SenderId"}), @ORM\Index(name="FKTestimonia893114", columns={"ReceiverId"})})
- * @ORM\Entity
  */
 class Testimonial
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="Id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
-     *
-     * @ORM\Column(name="Value", type="string", length=2000, nullable=false)
      */
     private $value;
 
     /**
-     * @var \AppBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="SenderId", referencedColumnName="Id")
-     * })
+     * @var integer
      */
-    private $senderid;
+    private $id;
 
     /**
-     * @var \AppBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="ReceiverId", referencedColumnName="Id")
-     * })
+     * @var \AppBundle\Entity\Volunteer
      */
-    private $receiverid;
-
-
+    private $sender;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @var \AppBundle\Entity\Volunteer
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $receiver;
+
 
     /**
      * Set value
@@ -85,50 +53,61 @@ class Testimonial
     }
 
     /**
-     * Set senderid
+     * Get id
      *
-     * @param \AppBundle\Entity\User $senderid
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param \AppBundle\Entity\Volunteer $sender
      *
      * @return Testimonial
      */
-    public function setSenderid(\AppBundle\Entity\User $senderid = null)
+    public function setSender(\AppBundle\Entity\Volunteer $sender = null)
     {
-        $this->senderid = $senderid;
+        $this->sender = $sender;
 
         return $this;
     }
 
     /**
-     * Get senderid
+     * Get sender
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\Volunteer
      */
-    public function getSenderid()
+    public function getSender()
     {
-        return $this->senderid;
+        return $this->sender;
     }
 
     /**
-     * Set receiverid
+     * Set receiver
      *
-     * @param \AppBundle\Entity\User $receiverid
+     * @param \AppBundle\Entity\Volunteer $receiver
      *
      * @return Testimonial
      */
-    public function setReceiverid(\AppBundle\Entity\User $receiverid = null)
+    public function setReceiver(\AppBundle\Entity\Volunteer $receiver = null)
     {
-        $this->receiverid = $receiverid;
+        $this->receiver = $receiver;
 
         return $this;
     }
 
     /**
-     * Get receiverid
+     * Get receiver
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\Volunteer
      */
-    public function getReceiverid()
+    public function getReceiver()
     {
-        return $this->receiverid;
+        return $this->receiver;
     }
 }
+
