@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Volunteer
  */
@@ -166,12 +168,23 @@ class Volunteer
         return $this->skillproficiency;
     }
 
+    private function getSkillsString()
+    {
+        $result = "";
+        $proficiencies = $this->getSkillproficiencies();
+        foreach ($proficiencies as $index => $skill)
+        {
+            $result .= "<br />".$skill;
+        }
+        return $result;
+    }
+
     function __toString()
     {
         return "Volunteer: {id: ".$this->getId().
         ", firstname: ".$this->getFirstname().
         ", lastname: ".$this->getLastname().
-        ", contact: ".$this->getContact()."}";
-        //", skill: ".$this->getSkill()."}";
+        ", contact: ".$this->getContact().
+        ", skills: {".$this->getSkillsString()."}";
     }
 }

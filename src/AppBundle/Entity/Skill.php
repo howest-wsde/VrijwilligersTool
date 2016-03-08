@@ -8,6 +8,19 @@ namespace AppBundle\Entity;
 class Skill
 {
     /**
+     * Constructor
+     *
+     * @param string name
+     *
+     */
+    public function __construct($name)
+    {
+        $this->vacancy = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->volunteer = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->name = $name;
+    }
+
+    /**
      * @var string
      */
     private $name;

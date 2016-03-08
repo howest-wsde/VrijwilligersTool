@@ -175,8 +175,8 @@ class Skillproficiency
      */
     function __toString()
     {
-        return "id: ".$this->getId().
+        return "Skillproficiency: {id: ".$this->getId().
         ", type: ".$this->getType()->getName().
-        ", proficiency: ".$this->getProficiency();
+        ", proficiency: ".$this->getProficiency()."}";
     }
 }

@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Skillproficiency;
+use AppBundle\Entity\Skill;
 
 class DefaultController extends Controller
 {
@@ -26,31 +29,15 @@ class DefaultController extends Controller
      */
     public function dbTest()
     {
+        $em = $this->getDoctrine()->getManager();
+
         //all users
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:Volunteer')->findAll();
+        $jelle = $em->getRepository('AppBundle:Volunteer')->findOneByFirstname("Jelle");
 
-        echo "Volunteers:";
-        echo "<br />";
-        foreach($users as $user)
-        {
-            echo $user;
-            echo "<br /> - proficiencies - <br />";
-            foreach ($user->getSkillproficiencies() as $proficiency) {
-                echo $proficiency;
-                echo "<br />";
-            }
-            echo "<br />";
-        }
-        echo "<br />";
-
-        //test add volunteer
-        $volunteer = new Volunteer();
-        $volunteer->setFirstname("test");
-        $volunteer->setLastname("test");
-        $em = $this->getDoctrine()->getManager();
+        echo $jelle."<br />";
 
         $html = "<html><body>"."<br /><br />"."</body></html>";
+        
         return new Response($html);
     }
 }
