@@ -9,7 +9,7 @@ http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using
 
 ![alt tag](http://i.imgur.com/7lNZqWm.png)
 
-# Query(sql)
+# Querry(sql)
 ```
 use homestead;
 SELECT Firstname, Lastname, Proficiency, skill.Name FROM volunteer
@@ -18,7 +18,7 @@ join skillproficiency on skillproficiency.Id = vhs.skillproficiency_Id
 join skill on skill.Id = skillproficiency.Type
 ```
 
-# Query(php/doctrine)
+# Querry(php/doctrine)
 ```
 //all users
 $em = $this->getDoctrine()->getManager();
@@ -360,5 +360,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-07 16:53:12
+-- Dump completed on 2016-03-08 10:13:01
 ```

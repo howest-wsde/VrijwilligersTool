@@ -271,5 +271,16 @@ class Vacancy
     {
         return $this->skillproficiency;
     }
-}
 
+    function __toString()
+    {
+        return "id: ".$this->getId().
+        ", title: ".$this->getTitle().
+        ", description: ".$this->getDescription().
+        ", startdate: ".$this->getStartdate()->format('Y-m-d H:i:s').
+        ", enddate: ".$this->getEnddate()->format('Y-m-d H:i:s').
+        ", creationTime: ".$this->getCreationtime()->format('Y-m-d H:i:s').
+        ", organisationId: ".$this->getOrganisationid().$this->getId().
+        ", skillId: ".$this->getSkillid().$this->getId();
+    }
+}

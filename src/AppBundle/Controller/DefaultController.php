@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Volunteer;
 
 class DefaultController extends Controller
 {
@@ -33,17 +34,21 @@ class DefaultController extends Controller
         echo "<br />";
         foreach($users as $user)
         {
-            echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-            echo "==="."proficiencies:==="."<br />";
-            foreach ($user->getSkillproficiency() as $proficiency) {
-                echo "id: ".$proficiency->getId()."<br />";
-                echo "type: ".$proficiency->getType()->getName()."<br />";
-                echo "proficiency: ".$proficiency->getProficiency()."<br />";
+            echo $user;
+            echo "<br /> - proficiencies - <br />";
+            foreach ($user->getSkillproficiencies() as $proficiency) {
+                echo $proficiency;
                 echo "<br />";
             }
             echo "<br />";
         }
         echo "<br />";
+
+        //test add volunteer
+        $volunteer = new Volunteer();
+        $volunteer->setFirstname("test");
+        $volunteer->setLastname("test");
+        $em = $this->getDoctrine()->getManager();
 
         $html = "<html><body>"."<br /><br />"."</body></html>";
         return new Response($html);

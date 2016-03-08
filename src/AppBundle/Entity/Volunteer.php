@@ -89,6 +89,16 @@ class Volunteer
     }
 
     /**
+     * Get full name
+     *
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstname.$this->lastname;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -151,9 +161,17 @@ class Volunteer
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSkillproficiency()
+    public function getSkillproficiencies()
     {
         return $this->skillproficiency;
     }
-}
 
+    function __toString()
+    {
+        return "Volunteer: {id: ".$this->getId().
+        ", firstname: ".$this->getFirstname().
+        ", lastname: ".$this->getLastname().
+        ", contact: ".$this->getContact()."}";
+        //", skill: ".$this->getSkill()."}";
+    }
+}
