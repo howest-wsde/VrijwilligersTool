@@ -7,7 +7,7 @@ http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using
 
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/7lNZqWm.png)
+![alt tag](http://i.imgur.com/sPyZak3.png)
 
 # Querry(sql)
 ```
