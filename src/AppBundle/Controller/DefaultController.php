@@ -25,7 +25,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/db", name="userskill_testing")
+     * @Route("/dbs", name="userskill_testing")
      */
     public function dbTest()
     {
@@ -39,5 +39,14 @@ class DefaultController extends Controller
         $html = "<html><body>"."<br /><br />"."</body></html>";
         
         return new Response($html);
+    }
+
+
+    /**
+     * @Route("/layout/{name}")
+     */
+    public function layoutTest($name)
+    { 
+        return $this->render("vrijwilliger/show.html.twig",  ["name" => $name]); 
     }
 }
