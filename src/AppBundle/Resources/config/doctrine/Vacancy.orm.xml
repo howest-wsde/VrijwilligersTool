@@ -24,6 +24,11 @@
     <field name="startdate" type="datetime" column="StartDate" nullable="true"/>
     <field name="enddate" type="datetime" column="EndDate" nullable="true"/>
     <field name="creationtime" type="datetime" column="CreationTime" nullable="true"/>
+    <field name="lastUpdate" type="datetime" column="last_update" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
     <many-to-one field="organisation" target-entity="Organisation" fetch="LAZY">
       <join-columns>
         <join-column name="Organisation" referenced-column-name="Id"/>

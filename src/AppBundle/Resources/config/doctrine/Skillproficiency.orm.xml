@@ -15,6 +15,11 @@
         <option name="unsigned"/>
       </options>
     </field>
+    <field name="lastUpdate" type="datetime" column="last_update" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
     <many-to-one field="type" target-entity="Skill" fetch="LAZY">
       <join-columns>
         <join-column name="Type" referenced-column-name="Id"/>

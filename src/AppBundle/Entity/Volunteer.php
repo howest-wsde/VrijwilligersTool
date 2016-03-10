@@ -2,8 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Volunteer
  */
@@ -18,6 +16,11 @@ class Volunteer
      * @var string
      */
     private $lastname;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
 
     /**
      * @var integer
@@ -97,7 +100,31 @@ class Volunteer
      */
     public function getFullname()
     {
-        return $this->firstname.$this->lastname;
+        return $this->firstname." ".$this->lastname;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Volunteer
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
     /**
@@ -178,7 +205,13 @@ class Volunteer
         }
         return $result;
     }
-
+    
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
     function __toString()
     {
         return "Volunteer: {id: ".$this->getId().

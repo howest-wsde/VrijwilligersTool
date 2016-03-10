@@ -33,6 +33,11 @@ class Vacancy
     private $creationtime;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;
@@ -178,6 +183,30 @@ class Vacancy
     public function getCreationtime()
     {
         return $this->creationtime;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Vacancy
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
     /**

@@ -18,6 +18,11 @@ class Organisation
     private $description;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;
@@ -79,6 +84,30 @@ class Organisation
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Organisation
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
     /**

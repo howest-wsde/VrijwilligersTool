@@ -15,8 +15,6 @@ class Skill
      */
     public function __construct($name)
     {
-        $this->vacancy = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->volunteer = new \Doctrine\Common\Collections\ArrayCollection();
         $this->name = $name;
     }
 
