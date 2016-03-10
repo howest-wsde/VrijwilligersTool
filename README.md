@@ -28,15 +28,7 @@ echo "Volunteers:";
 echo "<br />";
 foreach($users as $user)
 {
-    echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-    echo "==="."proficiencies:==="."<br />";
-    foreach ($user->getSkillproficiency() as $proficiency) {
-        echo "id: ".$proficiency->getId()."<br />";
-        echo "type: ".$proficiency->getType()->getName()."<br />";
-        echo "proficiency: ".$proficiency->getProficiency()."<br />";
-        echo "<br />";
-    }
-    echo "<br />";
+    echo $user;
 }
 echo "<br />";
 ```
