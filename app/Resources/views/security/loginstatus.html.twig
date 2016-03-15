@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>login status</title>
-    </head>
-    <body>
-        file: loginstatus.html.twig
-        <br />
+{% extends 'base.html.twig' %}
+
+{% block title %}Login status{% endblock %}
+    
+{% block body %}
         Hi {{ app.user.username }}
         <br />
         all user data: {{ app.user }}
-    </body>
-</html>
+{% endblock %}
