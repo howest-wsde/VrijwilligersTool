@@ -3,7 +3,12 @@
 {% block title %}Login status{% endblock %}
     
 {% block body %}
-        Hi {{ app.user.username }}
         <br />
-        all user data: {{ app.user }}
+        {% if app.user is not null %}
+            Hi {{ app.user.username }}
+            <br />
+            all user data: {{ app.user }}
+        {% else %}
+            Not logged in!
+        {% endif %}
 {% endblock %}
