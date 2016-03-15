@@ -64,12 +64,12 @@ DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Email` varchar(255) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Telephone` varchar(10) NOT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Telephone` varchar(10) DEFAULT NULL,
   `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,7 +78,7 @@ CREATE TABLE `contact` (
 
 LOCK TABLES `contact` WRITE;
 /*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599','2016-03-10 14:58:35'),(2,'koen.cornelis@howest.be','ergens in eeklo','1231231231','2016-03-10 14:58:35'),(3,'kurt.callewaert@howest.be','roeselare al tegaere','4564564564','2016-03-10 14:58:35');
+INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599','2016-03-10 14:58:35'),(2,'koen.cornelis@howest.be','ergens in eeklo','1231231231','2016-03-10 14:58:35'),(3,'kurt.callewaert@howest.be','roeselare al tegaere','4564564564','2016-03-10 14:58:35'),(4,'koen.cornelis@howest.be',NULL,NULL,'2016-03-15 15:10:08');
 /*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +311,7 @@ CREATE TABLE `volunteer` (
   UNIQUE KEY `Id` (`Id`),
   KEY `FKUser301874` (`Contact`),
   CONSTRAINT `FKUser301874` FOREIGN KEY (`Contact`) REFERENCES `contact` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +320,7 @@ CREATE TABLE `volunteer` (
 
 LOCK TABLES `volunteer` WRITE;
 /*!40000 ALTER TABLE `volunteer` DISABLE KEYS */;
-INSERT INTO `volunteer` VALUES (1,'Jelle','CrielCriel','',NULL,1,'2016-03-14 13:52:14'),(2,'Koen','Cornelis','',NULL,2,'2016-03-10 15:02:30'),(3,'Kurt','Callewaert','',NULL,3,'2016-03-10 15:02:30'),(4,'tester','testest','tester testest',NULL,NULL,'2016-03-15 11:08:28'),(5,'jelle','criel','jelle','$2y$15$f7HhxWCkzcMTC6rK3TWd..ENTBZ/CVIWq8CB1qvhKiwjfFG1drjTS',1,'2016-03-15 14:11:36'),(6,'tester','testest','tester testest',NULL,NULL,'2016-03-15 12:36:54'),(7,'tester','testest','tester testest',NULL,NULL,'2016-03-15 12:37:30'),(8,'tester','testest','tester testest',NULL,NULL,'2016-03-15 12:37:51'),(9,'tester','testest','tester testest',NULL,NULL,'2016-03-15 12:40:12'),(10,'tester','testest','tester testest',NULL,NULL,'2016-03-15 13:19:43'),(11,'tester','testest','tester testest',NULL,NULL,'2016-03-15 13:54:34');
+INSERT INTO `volunteer` VALUES (1,'Jelle','CrielCriel','',NULL,1,'2016-03-14 13:52:14'),(2,'Koen','Cornelis','',NULL,2,'2016-03-10 15:02:30'),(3,'Kurt','Callewaert','',NULL,3,'2016-03-10 15:02:30'),(5,'jelle','criel','jelle','$2y$15$f7HhxWCkzcMTC6rK3TWd..ENTBZ/CVIWq8CB1qvhKiwjfFG1drjTS',1,'2016-03-15 14:11:36'),(12,'koen','cornelis','viking','$2y$15$i8Cp2v.ZmtSIjjqsxTSK3uX6w8waA0Ebd1TU3Xdt96PCCxOcw2Po.',4,'2016-03-15 15:10:08');
 /*!40000 ALTER TABLE `volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,5 +361,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-15 15:34:17
+-- Dump completed on 2016-03-15 16:36:42
 ```
