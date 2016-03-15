@@ -2,10 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
- * Volunteer
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  */
-class Volunteer
+class Volunteer implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -16,6 +20,30 @@ class Volunteer
      * @var string
      */
     private $lastname;
+
+    /**
+     * @var string
+     */
+    private $username;
+
+    /**
+     * @var string
+     */
+    private $passphrase;
+
+    /**
+     * this is not the actual email data that will be persisted to the database
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @var \DateTime
@@ -37,12 +65,78 @@ class Volunteer
      */
     private $skillproficiency;
 
+    private $isActive;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setLastUpdate(new \DateTime());
+        $this->isActive = true;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getEmailFromContact()
+    {
+        return $this->getContact()->getEmail();
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+        return null;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->passphrase,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->passphrase,
+        ) = unserialize($serialized);
     }
 
     /**
@@ -94,13 +188,51 @@ class Volunteer
     }
 
     /**
-     * Get full name
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Volunteer
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
      *
      * @return string
      */
-    public function getFullname()
+    public function getUsername()
     {
-        return $this->firstname." ".$this->lastname;
+        return $this->username;
+    }
+
+    /**
+     * Set passphrase
+     *
+     * @param string $passphrase
+     *
+     * @return Volunteer
+     */
+    public function setPassword($passphrase)
+    {
+        $this->passphrase = $passphrase;
+
+        return $this;
+    }
+
+    /**
+     * Get passphrase
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->passphrase;
     }
 
     /**
@@ -124,7 +256,7 @@ class Volunteer
      */
     public function getLastUpdate()
     {
-        return $this->lastUpdate;
+        return $lastUpdate;
     }
 
     /**
@@ -205,7 +337,7 @@ class Volunteer
         }
         return $result;
     }
-    
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *

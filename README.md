@@ -303,6 +303,8 @@ CREATE TABLE `volunteer` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(100) NOT NULL,
   `LastName` varchar(100) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `passphrase` varchar(60) DEFAULT NULL,
   `Contact` int(10) DEFAULT NULL,
   `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
@@ -318,7 +320,7 @@ CREATE TABLE `volunteer` (
 
 LOCK TABLES `volunteer` WRITE;
 /*!40000 ALTER TABLE `volunteer` DISABLE KEYS */;
-INSERT INTO `volunteer` VALUES (1,'Jelle','Criel',1,'2016-03-10 15:02:30'),(2,'Koen','Cornelis',2,'2016-03-10 15:02:30'),(3,'Kurt','Callewaert',3,'2016-03-10 15:02:30');
+INSERT INTO `volunteer` VALUES (1,'Jelle','CrielCriel','',NULL,1,'2016-03-14 13:52:14'),(2,'Koen','Cornelis','',NULL,2,'2016-03-10 15:02:30'),(3,'Kurt','Callewaert','',NULL,3,'2016-03-10 15:02:30');
 /*!40000 ALTER TABLE `volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,5 +361,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-10 16:14:35
+-- Dump completed on 2016-03-14 15:12:27
 ```
