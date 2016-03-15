@@ -31,6 +31,14 @@ class Contact
      * @var integer
      */
     private $id;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setLastUpdate(new \DateTime());
+    }
 
 
     /**
