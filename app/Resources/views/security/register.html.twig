@@ -1,16 +1,18 @@
+
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Register% endblock %}
+{% block title %}Login status{% endblock %}
     
 {% block body %}
 	{{ form_start(form) }}
-    {{ form_row (form.firstname) }}
-    {{ form_row (form.lastname) }}
-    {{ form_row (form.username) }}
-    {{ form_row (form.email) }}
-    {{ form_row (form.plainPassword.first) }}
-    {{ form_row (form.plainPassword.second) }}
-    {{ form_row (form.termsAccepted) }}
-    <button type="submit">Register</button>
-{{ form_end(form) }}
+	    {{ form_row (form.firstname) }}
+	    {{ form_row (form.lastname) }}
+	    {{ form_row (form.username) }}
+	    {{ form_row (form.email) }}
+	    {{ form_row (form.plainPassword.first) }}
+	    {{ form_row (form.plainPassword.second) }}
+	    {{ form_row (form.termsAccepted) }}
+	    <button type="submit">Register</button>
+	{{ form_end(form) }}
 {% endblock %}
