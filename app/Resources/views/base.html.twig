@@ -1,13 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="UTF-8">
+        <title>{% block title %}Talent Roeselen{% endblock %}</title>
+        {% block stylesheets %}
+           <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
+           <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
+        {% endblock %} 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block header %}
+            <header>
+                <div class="logo">
+                    <h1><span>Roeselare vrijwilligt</span></h1>
+                    <span class="baseline">Baseline</span> 
+                </div>
+                <form class="search" method="get">
+                    <input type="text" name="q" id="searchq" placeholder="Zoeken" />
+                </form>
+                <nav class="about nav">
+                    <ul>
+                        <li><a href="{{ path('over_ons') }}">Over ons</a></li>
+                        <li><a href="{{ path('contact') }}">Contact</a></li>
+                    </ul>
+                </nav>
+                <nav class="top nav">
+                    <ul>
+                        <li><a href="">Mijn profiel</a></li>
+                        <li><a href="">Vrijwilliger worden</a></li>
+                        <li><a href="">Vrijwilliger vinden</a></li>
+                        <li><a href="">Vrijwilligersinfo</a></li>
+                        <li><a href="">Tests</a></li>
+                    </ul>
+                </nav>
+            </header>
+        {% endblock %}
+        <main> 
+            {% block body %}
+            {% endblock %}
+        </main>
+        {% block footer %}
+            <nav class="bottom nav">
+                <section>
+                    <header><h1>Recente vacatures</h1></header>
+                    <ul> 
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <header><h1>Recente vrijwilligers</h1></header>
+                    <ul> 
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <header><h1>Vacature types</h1></header>
+                    <ul> 
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                        <li><a href="">Vacature</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <header><h1>Vrijwilligersinfo</h1></header>
+                    <ul> 
+                        <li><a href="">Wetgeving</a></li>
+                        <li><a href="">Profiel van een vrijwilliger</a></li>
+                        <li><a href="">Wat is vrijwilligerswerk</a></li>
+                        <li><a href="">Moeder waarom vrijwilligen wij? </a></li>
+                        <li><a href="">Spelregels</a></li>
+                        <li><a href="">Veelgestelde vragen</a></li> 
+                    </ul>
+                </section>
+                <section>
+                    <header><h1>Tests</h1></header>
+                    <ul> 
+                        <li><a href="">Welk type vrijwilliger ben ik? </a></li> 
+                        <li><a href="">Taaltest</a></li> 
+                        <li><a href="">Computervaardigheidstest</a></li> 
+                    </ul>
+                </section>
+                <section>
+                    <header><h1>Roeselare vrijwilligt</h1></header>
+                    <ul> 
+                        <li><a href="{{ path('over_ons') }}">Over ons</a></li> 
+                        <li><a href="{{ path('contact') }}">Contact</a></li> 
+                    </ul>
+                </section> 
+            </nav>
+            <section class="partners">
+                <ul>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                </ul>
+            </section>
+            <footer>
+                <address>
+                    <span>Botermarkt 2</span>
+                    <span>8800 Roeselare</span>
+                    <span class="nav"><a href="mailto:info@talentroeselen.be">info@talentroeselen.be</a></span>
+                    <span>051 26 21 11</span>
+                </address>
+                <div class="legal nav">
+                    <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
+                    <span><a href="{{ path('privacy_en_legal') }}">Privacy en legale voorwaarden</a></span>
+                </div>
+            </footer>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
