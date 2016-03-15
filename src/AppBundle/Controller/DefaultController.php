@@ -47,7 +47,7 @@ class DefaultController extends Controller
         return new Response($html);
     }
 
-<<<<<<< HEAD
+
     /**
      * @Route("/test", name="twig_testing")
      */
@@ -88,7 +88,6 @@ class DefaultController extends Controller
        return new Response('<html><body>Admin page!</body></html>');
     }
 
-=======
 
     /**
      * @Route("/layout/{name}")
@@ -97,5 +96,5 @@ class DefaultController extends Controller
     { 
         return $this->render("vrijwilliger/show.html.twig",  ["name" => $name]); 
     }
->>>>>>> origin/dev
+    
 }
