@@ -75,6 +75,13 @@ class Volunteer implements UserInterface, \Serializable
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setLastUpdate(new \DateTime());
         $this->isActive = true;
+        if (is_null($this->getContact()))
+        {
+            $this->setContact(new Contact());
+        }
+        else {
+            $this->email = getContact()->getEmail();
+        }
     }
 
     public function getPlainPassword()
@@ -89,16 +96,12 @@ class Volunteer implements UserInterface, \Serializable
 
     public function getEmail()
     {
-        return $this->email;
-    }
-
-    public function getEmailFromContact()
-    {
         return $this->getContact()->getEmail();
     }
 
     public function setEmail($email)
     {
+        $this->getContact()->setEmail($email);
         $this->email = $email;
     }
 
