@@ -41,9 +41,6 @@ class DefaultController extends Controller
         return new Response($html);
     }
 
-<<<<<<< HEAD
-=======
-
     /**
      * @Route("/test", name="twig_testing")
      */
@@ -54,8 +51,7 @@ class DefaultController extends Controller
             'base_dir' => "lel"
         ));
     }
-
->>>>>>> origin/dev
+    
     /**
      * @Route("/db", name="userskill_testing")
      */
@@ -73,21 +69,14 @@ class DefaultController extends Controller
         $volunteer->setLastname("testest");
         $volunteer->setUsername($volunteer->getFirstname()." ".$volunteer->getLastname());
 
-<<<<<<< HEAD
         $em = $this->getDoctrine()->getManager();
         
         $em->persist($volunteer);
         $em->flush();
-=======
->>>>>>> origin/dev
 
         $message = "user added to database!";
         $message .= "<br /> (not really though...)";
         $html = "<html><body><br />".$message."<br /></body></html>";
         return new Response($html);
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> origin/dev
 }
