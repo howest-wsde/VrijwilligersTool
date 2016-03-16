@@ -38,7 +38,7 @@ body {
 		ul, ol { 
 			margin: 10px 0; padding-left: 30px; 
 		}
-		p {margin: 10px; }
+		p {margin: 10px 0; }
 	}
 	nav.bottom {
 		padding: 10px; display: flex; flex-flow: column wrap; justify-content: space-between;  background: #efefef; max-height: 200px; 
@@ -79,4 +79,13 @@ body {
 .nav { 
 	a {color: black; text-decoration: none; }
 	a:hover {color: red; }
+}
+a[href=''] {
+    background-color: rgba(255, 0, 0, 0.1);  
+} 
+
+fieldset {
+	display: flex; margin-bottom: 10px; 
+	legend {font-weight: bold; margin-bottom: 5px; }
+	label {margin-top: 3px; }
 }

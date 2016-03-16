@@ -13,10 +13,10 @@
         {% block header %}
             <header>
                 <div class="logo">
-                    <h1><span>Roeselare vrijwilligt</span></h1>
+                    <h1><a href="{{ path('homepage') }}"><span>Roeselare vrijwilligt</span></a></h1>
                     <span class="baseline">Baseline</span> 
                 </div>
-                <form class="search" method="get">
+                <form class="search" method="get" action="{{ path('zoekpagina') }}">
                     <input type="text" name="q" id="searchq" placeholder="Zoeken" />
                 </form>
                 <nav class="about nav">
@@ -27,10 +27,10 @@
                 </nav>
                 <nav class="top nav">
                     <ul>
-                        <li><a href="">Mijn profiel</a></li>
-                        <li><a href="">Vrijwilliger worden</a></li>
-                        <li><a href="">Vrijwilliger vinden</a></li>
-                        <li><a href="">Vrijwilligersinfo</a></li>
+                        <li><a href="{{ path('status_testing') }}">Mijn profiel</a></li>
+                        <li><a href="{{ path('vrijwilliger_worden') }}">Vrijwilliger worden</a></li>
+                        <li><a href="{{ path('vrijwilliger_vinden') }}">Vrijwilliger vinden</a></li>
+                        <li><a href="{{ path('vrijwilligersinfo') }}">Vrijwilligersinfo</a></li>
                         <li><a href="">Tests</a></li>
                         <li><a href="{{ path('login_testing') }}">Login</a></li>
                     </ul>
@@ -46,48 +46,43 @@
                 <section>
                     <header><h1>Recente vacatures</h1></header>
                     <ul> 
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 1 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 2 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 3 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 4 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 5 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 6 }) }}">Vacature</a></li>
+                        <li><a href="{{ path('vacature_detail', { 'id': 7 }) }}">Vacature</a></li>
                     </ul>
                 </section>
                 <section>
                     <header><h1>Recente vrijwilligers</h1></header>
                     <ul> 
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
+                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
+                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
+                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "koen" }) }}">Vrijwilliger</a></li> 
                     </ul>
                 </section>
                 <section>
                     <header><h1>Vacature types</h1></header>
                     <ul> 
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
-                        <li><a href="">Vacature</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'administratie' }) }}">Administratie</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'Categorie 2' }) }}">Categorie 2</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'Categorie 3' }) }}">Categorie 3</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'Categorie 4' }) }}">Categorie 4</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'Categorie 5' }) }}">Categorie 5</a></li>
+                        <li><a href="{{ path('zoekpagina', { 'cat': 'Categorie 6' }) }}">Categorie 6</a></li> 
                     </ul>
                 </section>
                 <section>
                     <header><h1>Vrijwilligersinfo</h1></header>
                     <ul> 
-                        <li><a href="">Wetgeving</a></li>
+                        <li><a href="{{ path('wetgeving') }}">Wetgeving</a></li>
                         <li><a href="">Profiel van een vrijwilliger</a></li>
-                        <li><a href="">Wat is vrijwilligerswerk</a></li>
+                        <li><a href="{{ path('vrijwilligersinfo') }}">Wat is vrijwilligerswerk</a></li>
                         <li><a href="">Moeder waarom vrijwilligen wij? </a></li>
-                        <li><a href="">Spelregels</a></li>
-                        <li><a href="">Veelgestelde vragen</a></li> 
+                        <li><a href="{{ path('spelregels') }}">Spelregels</a></li>
+                        <li><a href="{{ path('faq') }}">Veelgestelde vragen</a></li> 
                     </ul>
                 </section>
                 <section>

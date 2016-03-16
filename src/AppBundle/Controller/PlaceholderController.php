@@ -12,30 +12,55 @@ use AppBundle\Entity\Skillproficiency;
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
-{ 
+{  
     /**
-     * @Route("/tos", name="privacy_en_legal")
+     * @Route("/vacature/{id}", name="vacature_detail")
      */
-    public function tos()
+    public function vacature($id)
     { 
-        return $this->render("info/privacy_en_legal.html.twig"); 
+        return $this->render("vacature/vacature.html.twig"); 
+    }
+
+    /**
+     * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
+     */
+    public function vrijwilliger($id)
+    { 
+        return $this->render("vrijwilliger/vrijwilliger.html.twig"); 
+    }
+
+    /**
+     * @Route("/vrijwilliger", name="vrijwilliger_worden")
+     */
+    public function vrijwilliger_worden()
+    { 
+        return $this->render("vrijwilliger/worden.html.twig"); 
     }
 
 
     /**
-     * @Route("/over_ons", name="over_ons")
+     * @Route("/vereniging/{id}", name="vereniging_detail")
      */
-    public function overons()
+    public function vereniging($id)
     { 
-        return $this->render("info/over_ons.html.twig"); 
+        return $this->render("vereniging/vereniging.html.twig"); 
     }
-
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/vereniging", name="vrijwilliger_vinden")
      */
-    public function contact()
+    public function vrijwilligerworden()
     { 
-        return $this->render("info/contact.html.twig"); 
+        return $this->render("vereniging/vrijwilliger_vinden.html.twig"); 
     }
+
+    /**
+     * @Route("/zoeken", name="zoekpagina")
+     */
+    public function zoekpagina()
+    { 
+        return $this->render("zoekpagina.html.twig"); 
+    }
+
+
 }
