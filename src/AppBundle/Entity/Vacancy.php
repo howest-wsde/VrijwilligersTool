@@ -5,11 +5,12 @@ namespace AppBundle\Entity;
 /**
  * Vacancy
  */
+
 class Vacancy
 {
     /**
      * @var string
-     */
+    */
     private $title;
 
     /**
