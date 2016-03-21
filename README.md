@@ -2,9 +2,6 @@
 # VrijwilligersTool
 Roeselare vrijwilligt
 
-# stackoverflow
-http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using-doctrine-in-symfony
-
 # DatabaseSchema:
 
 ![alt tag](http://i.imgur.com/sPyZak3.png)

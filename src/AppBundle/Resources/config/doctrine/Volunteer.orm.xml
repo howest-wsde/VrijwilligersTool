@@ -36,6 +36,7 @@
       </options>
     </field>
     <many-to-one field="contact" target-entity="Contact" fetch="LAZY">
+        <cascade><cascade-persist/></cascade>
       <join-columns>
         <join-column name="Contact" referenced-column-name="Id"/>
       </join-columns>

@@ -6,7 +6,7 @@ security:
         AppBundle\Entity\Volunteer:
             algorithm:            bcrypt
             cost:                 15
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+
     providers:
         user_db_provider:
             entity:
@@ -15,15 +15,15 @@ security:
                 # if you're using multiple entity managers
                 # manager_name: customer
 
-        in_memory:
-            memory: ~
+        # in_memory:
+        #     memory: ~
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
+            methods: [GET, POST]
             provider: user_db_provider
             anonymous: ~
             form_login:
@@ -31,7 +31,7 @@ security:
                 check_path: login
             logout:
                 path:   /logout
-                target: /status_testing
+                target: /status
 
         main:
             pattern:    ^/
@@ -40,6 +40,9 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login
+            logout:
+                path:   /logout
+                target: /register
             # activate different ways to authenticate
 
             # http_basic: ~
