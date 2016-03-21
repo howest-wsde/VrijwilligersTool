@@ -33,7 +33,7 @@ class PlaceholderController extends Controller
                 ));
         }
     }
-    
+
 
     /**
      * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
