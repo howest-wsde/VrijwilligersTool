@@ -63,17 +63,11 @@ class SecurityController extends Controller
         );
     }
 
-    /**
-    * @Route("/logout", name="logout_testing")
-    */
-    public function logoutAction(){
-        return $this->redirectToRoute("status_testing");
-    }
 
     /**
     * @Route("/status", name="status_testing")
     */
-    public function loginStatusAction(){
+    public function statusAction(){
         return $this->render('security/loginstatus.html.twig');
     }
 }
