@@ -301,7 +301,7 @@ class Vacancy
     {
         return $this->skillproficiency;
     }
-
+    
     function __toString()
     {
         return "id: ".$this->getId().
@@ -313,4 +313,10 @@ class Vacancy
         ", organisationId: ".$this->getOrganisationid().$this->getId().
         ", skillId: ".$this->getSkillid().$this->getId();
     }
+
+    public function createPDF(){
+
+    }
+
+
 }

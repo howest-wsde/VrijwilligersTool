@@ -5,16 +5,28 @@
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
-		<p>{{ vacature.description }}</p>
+		<h2>created on {{ vacature.creationtime }}</h2>
+		<div>
+			<p>{{ vacature.description }}</p>
+			<p>Ons Aanbod</p>
+		</div>
+		<div>
+			<p>vervaldatum: {{ vacature.startdate }}</p>
+			<p>organisatie: {{ vacature.organisation.name }}</p>
+			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+		</div>
 		<aside>
 			{% for category in vacature.category %}
-				{# icoontje per category i guess??#}
+				<p>category</p>
 			{% endfor %}
 		</aside>
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
 				<button>Stel je kandidaat</button>
+				<form action="/pdf/{{ vacature.id }}" target="_blank">
+					<input type="submit" value="print deze vacature"/>
+				</form>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}
