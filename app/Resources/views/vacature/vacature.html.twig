@@ -3,5 +3,18 @@
 {% block title %}Vacature{% endblock %}
 	
 {% block body %}
-	Vacature
+	<article>
+		<header><h1>{{ vacature.title }}</h1></header>
+		<p>{{ vacature.description }}</p>
+		<aside>
+			{% for category in vacature.category %}
+				{# icoontje per category i guess??#}
+			{% endfor %}
+		</aside>
+		{# nog het id hidden toevoegen of andere
+		manier om het weer te geven#}
+		<footer>{% block vacature_cta %}
+				<button>Stel je kandidaat</button>
+			{% endblock %}</footer>
+	</article>
 {% endblock %}
