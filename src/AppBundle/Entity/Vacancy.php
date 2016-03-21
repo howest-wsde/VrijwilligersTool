@@ -301,7 +301,7 @@ class Vacancy
     {
         return $this->skillproficiency;
     }
-    
+
     function __toString()
     {
         return "id: ".$this->getId().
