@@ -23,7 +23,7 @@ class VacancyType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('stardate', \DateTime::class)
+            ->add('startdate', \DateTime::class)
             ->add('enddate', \Datetime::class)
             ->add('organisation', TextType::class)
             ->add('category', ChoiceType::class, array(
