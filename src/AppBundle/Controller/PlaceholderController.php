@@ -17,8 +17,10 @@ class PlaceholderController extends Controller
      * @Route("/vacature/{id}", name="vacature_detail")
      */
     public function vacature($id)
-    { 
-        return $this->render("vacature/vacature.html.twig"); 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
+        return $this->render("vacature/vacature.html.twig",array('vacature' => $vacancy));
     }
 
     /**
