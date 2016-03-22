@@ -54,10 +54,8 @@ class VacatureController extends controller
                 $em->persist($vacancy);
                 $em->flush();
 
-                $this->addFlash('succuss-notice',
-                    'Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
+                $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
                 return $this->redirect($this->generateUrl('create_vacancy'));
-
             }
         } else {
             return $this->render('vacature/vacature_aanmaken.html.twig',

@@ -2,6 +2,10 @@
 # VrijwilligersTool
 Roeselare vrijwilligt
 
+# Stackoverflow 
+http://stackoverflow.com/questions/36156594/my-data-synchronisation-plan
+
+
 # DatabaseSchema:
 
 ![alt tag](http://i.imgur.com/sPyZak3.png)

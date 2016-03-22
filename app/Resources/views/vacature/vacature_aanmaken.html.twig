@@ -22,7 +22,7 @@
     </form>
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="succes-notice">
+        <div class="success-notice">
             <script type="text/javascript">alert("{{ flash_message }}");</script>
         </div>
     {% endfor %}
