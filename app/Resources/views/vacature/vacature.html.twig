@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Vacature{% endblock %}
-	
+
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
@@ -14,6 +14,17 @@
 			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
 			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+		</div>
+		<div class="share-buttons">
+			{#TODO: shorten url by passing it goog.l shortener #}
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}" data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">Tweeten</a>
+			<div class="fb-share-button"
+				 data-href="{{ app.request.uri }}"
+				 data-layout="button_count">
+			</div>
+
+
+
 		</div>
 		<aside>
 			{% for category in vacature.category %}
@@ -29,4 +40,9 @@
 				</form>
 			{% endblock %}</footer>
 	</article>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+	<script src="{{ asset('js/sharebuttons.js') }}"></script>
 {% endblock %}
