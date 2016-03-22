@@ -79,7 +79,4 @@ class DefaultController extends Controller
         $html = "<html><body><br />".$message."<br /></body></html>";
         return new Response($html);
     }
-
-
-
 }
