@@ -3,7 +3,7 @@
 Roeselare vrijwilligt
 
 # Stackoverflow 
-[link(http://stackoverflow.com/questions/36156594/my-data-synchronisation-plan)
+http://stackoverflow.com/questions/36156594/my-data-synchronisation-plan
 
 
 # DatabaseSchema:
