@@ -2,12 +2,9 @@
 # VrijwilligersTool
 Roeselare vrijwilligt
 
-# stackoverflow
-http://stackoverflow.com/questions/35727303/im-getting-the-wrong-data-when-using-doctrine-in-symfony
-
 # DatabaseSchema:
 
-![alt tag](http://i.imgur.com/7lNZqWm.png)
+![alt tag](http://i.imgur.com/sPyZak3.png)
 
 # Querry(sql)
 ```
@@ -28,15 +25,7 @@ echo "Volunteers:";
 echo "<br />";
 foreach($users as $user)
 {
-    echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-    echo "==="."proficiencies:==="."<br />";
-    foreach ($user->getSkillproficiency() as $proficiency) {
-        echo "id: ".$proficiency->getId()."<br />";
-        echo "type: ".$proficiency->getType()->getName()."<br />";
-        echo "proficiency: ".$proficiency->getProficiency()."<br />";
-        echo "<br />";
-    }
-    echo "<br />";
+    echo $user;
 }
 echo "<br />";
 ```
@@ -72,11 +61,12 @@ DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Email` varchar(255) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Telephone` varchar(10) NOT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `Telephone` varchar(10) DEFAULT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +75,7 @@ CREATE TABLE `contact` (
 
 LOCK TABLES `contact` WRITE;
 /*!40000 ALTER TABLE `contact` DISABLE KEYS */;
-INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599'),(2,'koen.cornelis@howest.be','ergens in eeklo','1231231231'),(3,'kurt.callewaert@howest.be','roeselare al tegaere','4564564564');
+INSERT INTO `contact` VALUES (1,'jelle.criel@student.howest.be','Sint-Corneliusstraat 7\r\n9280 Lebbeke','0477459599','2016-03-10 14:58:35'),(2,'koen.cornelis@howest.be','ergens in eeklo','1231231231','2016-03-10 14:58:35'),(3,'kurt.callewaert@howest.be','roeselare al tegaere','4564564564','2016-03-10 14:58:35'),(4,'koen.cornelis@howest.be',NULL,NULL,'2016-03-15 15:10:08');
 /*!40000 ALTER TABLE `contact` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,6 +92,7 @@ CREATE TABLE `organisation` (
   `Description` varchar(1000) NOT NULL,
   `Contact` int(10) DEFAULT NULL,
   `Creator` int(10) NOT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Name` (`Name`),
   UNIQUE KEY `Id` (`Id`),
@@ -118,7 +109,7 @@ CREATE TABLE `organisation` (
 
 LOCK TABLES `organisation` WRITE;
 /*!40000 ALTER TABLE `organisation` DISABLE KEYS */;
-INSERT INTO `organisation` VALUES (1,'Howest Brugge','Beter dan kortrijk',1,1),(2,'Vives','for pussies',2,2);
+INSERT INTO `organisation` VALUES (1,'Howest Brugge','Beter dan kortrijk',1,1,'2016-03-10 14:59:38'),(2,'Vives','for pussies',2,2,'2016-03-10 14:59:38');
 /*!40000 ALTER TABLE `organisation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,6 +150,7 @@ CREATE TABLE `skillproficiency` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Type` int(10) NOT NULL,
   `Proficiency` int(5) NOT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKSkillProfi479319` (`Type`),
@@ -172,7 +164,7 @@ CREATE TABLE `skillproficiency` (
 
 LOCK TABLES `skillproficiency` WRITE;
 /*!40000 ALTER TABLE `skillproficiency` DISABLE KEYS */;
-INSERT INTO `skillproficiency` VALUES (1,1,10),(2,2,9),(3,1,8),(4,2,7),(5,3,6),(6,4,5),(7,2,4);
+INSERT INTO `skillproficiency` VALUES (1,1,10,'2016-03-10 15:01:08'),(2,2,9,'2016-03-10 15:01:08'),(3,1,8,'2016-03-10 15:01:08'),(4,2,7,'2016-03-10 15:01:08'),(5,3,6,'2016-03-10 15:01:08'),(6,4,5,'2016-03-10 15:01:08'),(7,2,4,'2016-03-10 15:01:08');
 /*!40000 ALTER TABLE `skillproficiency` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,6 +180,7 @@ CREATE TABLE `testimonial` (
   `Value` varchar(2000) NOT NULL,
   `Sender` int(10) DEFAULT NULL,
   `Receiver` int(10) DEFAULT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKTestimonia20655` (`Sender`),
@@ -203,7 +196,7 @@ CREATE TABLE `testimonial` (
 
 LOCK TABLES `testimonial` WRITE;
 /*!40000 ALTER TABLE `testimonial` DISABLE KEYS */;
-INSERT INTO `testimonial` VALUES (1,'jelle be great student!',2,2);
+INSERT INTO `testimonial` VALUES (1,'jelle be great student!',2,2,'2016-03-10 15:01:27');
 /*!40000 ALTER TABLE `testimonial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,13 +216,14 @@ CREATE TABLE `vacancy` (
   `CreationTime` datetime DEFAULT NULL,
   `Organisation` int(10) NOT NULL,
   `Category` int(10) DEFAULT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKVacancy396991` (`Organisation`),
   KEY `FkVacancyCategory123_idx` (`Category`),
   CONSTRAINT `FKVacancy396991` FOREIGN KEY (`Organisation`) REFERENCES `organisation` (`Id`),
   CONSTRAINT `FkVacancyCategory123` FOREIGN KEY (`Category`) REFERENCES `vacancycategory` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +232,7 @@ CREATE TABLE `vacancy` (
 
 LOCK TABLES `vacancy` WRITE;
 /*!40000 ALTER TABLE `vacancy` DISABLE KEYS */;
-INSERT INTO `vacancy` VALUES (1,'stagestudent','elastic search enzo',NULL,NULL,NULL,1,NULL);
+INSERT INTO `vacancy` VALUES (1,'stagestudent','elastic search enzo_test',NULL,NULL,NULL,1,NULL,'2016-03-10 14:56:46'),(2,'test','test-edit',NULL,NULL,NULL,1,NULL,'2016-03-10 14:56:57');
 /*!40000 ALTER TABLE `vacancy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,6 +273,7 @@ DROP TABLE IF EXISTS `vacancycategory`;
 CREATE TABLE `vacancycategory` (
   `Id` int(10) NOT NULL,
   `Name` varchar(100) NOT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id_UNIQUE` (`Id`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
@@ -305,12 +300,15 @@ CREATE TABLE `volunteer` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(100) NOT NULL,
   `LastName` varchar(100) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `passphrase` varchar(60) DEFAULT NULL,
   `Contact` int(10) DEFAULT NULL,
+  `last_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Id` (`Id`),
   KEY `FKUser301874` (`Contact`),
   CONSTRAINT `FKUser301874` FOREIGN KEY (`Contact`) REFERENCES `contact` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +317,7 @@ CREATE TABLE `volunteer` (
 
 LOCK TABLES `volunteer` WRITE;
 /*!40000 ALTER TABLE `volunteer` DISABLE KEYS */;
-INSERT INTO `volunteer` VALUES (1,'Jelle','Criel',1),(2,'Koen','Cornelis',2),(3,'Kurt','Callewaert',3);
+INSERT INTO `volunteer` VALUES (1,'Jelle','CrielCriel','',NULL,1,'2016-03-14 13:52:14'),(2,'Koen','Cornelis','',NULL,2,'2016-03-10 15:02:30'),(3,'Kurt','Callewaert','',NULL,3,'2016-03-10 15:02:30'),(5,'jelle','criel','jelle','$2y$15$f7HhxWCkzcMTC6rK3TWd..ENTBZ/CVIWq8CB1qvhKiwjfFG1drjTS',1,'2016-03-15 14:11:36'),(12,'koen','cornelis','viking','$2y$15$i8Cp2v.ZmtSIjjqsxTSK3uX6w8waA0Ebd1TU3Xdt96PCCxOcw2Po.',4,'2016-03-15 15:10:08');
 /*!40000 ALTER TABLE `volunteer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,5 +358,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-08 10:13:01
+-- Dump completed on 2016-03-15 16:36:42
 ```
