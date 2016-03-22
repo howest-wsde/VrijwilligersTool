@@ -20,7 +20,7 @@ class Organisation
     /**
      * @var \DateTime
      */
-    private $lastUpdate = 'CURRENT_TIMESTAMP';
+    private $lastUpdate;
 
     /**
      * @var integer
@@ -37,6 +37,11 @@ class Organisation
      */
     private $contact;
 
+
+    public function __toString()
+    {
+     return strval($this->getId() + " " + $this->getName());
+    }
 
     /**
      * Set name

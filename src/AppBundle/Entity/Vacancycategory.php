@@ -80,5 +80,10 @@ class Vacancycategory
     {
         return $this->id;
     }
+
+    public function __toString()
+    {
+        return strval($this->getName());
+    }
 }
 

@@ -11,7 +11,7 @@
 			<p>Ons Aanbod</p>
 		</div>
 		<div>
-			<p>vervaldatum: {{ vacature.startdate }}</p>
+			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
 			<p>locatie: {{ vacature.organisation.contact.address }}</p>
 		</div>

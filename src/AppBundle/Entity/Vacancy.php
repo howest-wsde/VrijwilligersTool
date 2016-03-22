@@ -36,7 +36,7 @@ class Vacancy
     /**
      * @var \DateTime
      */
-    private $lastUpdate = 'CURRENT_TIMESTAMP';
+    private $lastUpdate;
 
     /**
      * @var integer
@@ -64,6 +64,7 @@ class Vacancy
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lastUpdate = new \DateTime("now");
     }
 
     /**

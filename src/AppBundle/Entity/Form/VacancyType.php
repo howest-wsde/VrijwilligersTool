@@ -9,8 +9,13 @@
 namespace AppBundle\Entity\Form;
 
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,15 +28,17 @@ class VacancyType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('startdate', \DateTime::class)
-            ->add('enddate', \Datetime::class)
-            ->add('organisation', TextType::class)
-            ->add('category', ChoiceType::class, array(
-                'choices'  => array(
-                    'eerste',
-                    'tweede',
-                    'derde')))
-            ->add('skillproficiency', \Doctrine\Common\Collections\Collection::class);
+            ->add('startdate', DateTimeType::class)
+            ->add('enddate', DateTimeType::class)
+            ->add('organisation', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Organisation',
+                'choice_label' => 'name'
+            ))
+            ->add('category', EntityType::class, array(
+                'class' => 'AppBundle\Entity\Vacancycategory',
+                'label' => 'categoriën'
+            ))
+            ->add('skillproficiency', CollectionType::class);
 
     }
 
