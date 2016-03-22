@@ -313,4 +313,10 @@ class Vacancy
         ", organisationId: ".$this->getOrganisationid().$this->getId().
         ", skillId: ".$this->getSkillid().$this->getId();
     }
+
+    public function createPDF(){
+
+    }
+
+
 }

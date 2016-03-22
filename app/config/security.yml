@@ -52,7 +52,14 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+<<<<<<< HEAD
 
     # uncomment to enable https on /login
     # access_control:
     #     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+=======
+    # uncomment to enable https on /login
+    # access_control:
+    #     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
+>>>>>>> 31268b4d3579e3e87e3b8a8db7f84834d037dc83

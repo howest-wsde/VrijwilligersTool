@@ -174,6 +174,7 @@ class Organisation
      * @return string
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
      */
+    /*
     function __toString()
     {
         return "id: ".$this->getId().
@@ -182,4 +183,5 @@ class Organisation
         " contactId: ".$this->getContactid()->getId().
         " creatorID: ".$this->getContactid().$this->getId();
     }
+    */
 }
