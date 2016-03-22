@@ -43,7 +43,10 @@
 		<section>
 			<h2>Kijk welke vacatures interesant zijn</h2>
 			{% for i in 1..5 %}
-				{% embed "vrijwilliger/part.vacature.html.twig" %}{% endembed %}
+				{% embed "vrijwilliger/part.vacature.html.twig" with {'id': i} %}
+					{% block vacature_cta %}
+					{% endblock %}
+				{% endembed %}
 			{% endfor %} 
 		</section>
 
@@ -59,7 +62,7 @@
 
 		<section>
 			<h2>Bekijk de spelregels</h2>
-			
+			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
 		</section>
 	</form>
 {% endblock %}
