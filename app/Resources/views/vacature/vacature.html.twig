@@ -16,11 +16,16 @@
 			<p>locatie: {{ vacature.organisation.contact.address }}</p>
 		</div>
 		<div class="share-buttons">
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
-			   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
-			Tweeten</a>
+			<div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+				   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
+				Tweeten</a>
+			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+			<div>
+				<button id="email">Email deze vacature</button>
+			</div>
 		</div>
 		<aside>
 			{% for category in vacature.category %}

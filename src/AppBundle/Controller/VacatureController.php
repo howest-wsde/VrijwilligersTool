@@ -62,4 +62,6 @@ class VacatureController extends controller
                 array('form' => $form->createView()));
         }
     }
+
+
 }
