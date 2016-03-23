@@ -17,4 +17,18 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"    >
         <button type="submit">login</button>
     </form>
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
+
+    <!--
+        INFO: Deze login zal NIET werken als dit draait op localhost.
+        De API werkt enkel op de URL die ik heb ingegeven  op developers.facebook.com/apps.
+        (Op dit moment staat de URL op koen.ml (mijn site, als test).
+    -->
+
+    {% block javascripts %}
+        <script src="{{ asset('js/social_media_login.js') }}"></script>
+    {% endblock %}
+
 {% endblock %}
