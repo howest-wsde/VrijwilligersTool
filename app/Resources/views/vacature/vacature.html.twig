@@ -16,15 +16,11 @@
 			<p>locatie: {{ vacature.organisation.contact.address }}</p>
 		</div>
 		<div class="share-buttons">
-			{#TODO: shorten url by passing it goog.l shortener #}
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}" data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">Tweeten</a>
-			<div class="fb-share-button"
-				 data-href="{{ app.request.uri }}"
-				 data-layout="button_count">
-			</div>
-
-
-
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+			   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
+			Tweeten</a>
+			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 		</div>
 		<aside>
 			{% for category in vacature.category %}
@@ -44,5 +40,6 @@
 
 {% block javascripts %}
 	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
 	<script src="{{ asset('js/sharebuttons.js') }}"></script>
 {% endblock %}
