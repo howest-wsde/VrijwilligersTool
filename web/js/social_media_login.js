@@ -92,7 +92,7 @@ function testAPI(){
     FB.api('/me', 'get', {fields: 'name,email, gender'}, function (response) {
         console.log("Facebook Name: " + response.name);
         console.log("Facebook Email: " + response.email);
-        console.log("Facebook Email: " + response.gender);
+        console.log("Facebook Gender: " + response.gender);
     });
 };
 
