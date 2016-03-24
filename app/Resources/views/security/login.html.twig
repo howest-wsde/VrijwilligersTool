@@ -18,16 +18,21 @@
         <button type="submit">login</button>
     </form>
 
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    <!--
+
+    <fb:login-button scope="public_profile,email" onlogin="facebook.checkLoginState();">
     </fb:login-button>
 
-    <!--
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
         INFO: Deze login zal NIET werken als dit draait op localhost.
-        De API werkt enkel op de URL die ik heb ingegeven  op developers.facebook.com/apps.
+        De API's werkt enkel op de ingegeven URL.
         (Op dit moment staat de URL op koen.ml (mijn site, als test).
     -->
 
     {% block javascripts %}
+        <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="{{ asset('js/social_media_login.js') }}"></script>
     {% endblock %}
 
