@@ -61,7 +61,7 @@ class DefaultController extends Controller
 
         //all users
         $jelle = $em->getRepository('AppBundle:Volunteer')
-        ->findOneByFirstname("Jelle");
+                    ->findOneByFirstname("Jelle");
         echo $jelle."<br />";
 
         $volunteer = new volunteer();

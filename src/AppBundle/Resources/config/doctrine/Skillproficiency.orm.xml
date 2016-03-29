@@ -15,7 +15,7 @@
         <option name="unsigned"/>
       </options>
     </field>
-    <field name="lastUpdate" type="datetime" column="last_update" nullable="true">
+    <field name="lastUpdate" type="timestamp" column="last_update" nullable="true">
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>
       </options>

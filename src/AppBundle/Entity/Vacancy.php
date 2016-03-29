@@ -64,7 +64,7 @@ class Vacancy
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastUpdate = new \DateTime("now");
+        $this->lastUpdate = new \DateTime("now"); 
     }
 
     /**
