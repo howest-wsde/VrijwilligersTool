@@ -38,11 +38,6 @@ class Organisation
     private $contact;
 
 
-    public function __toString()
-    {
-     return strval($this->getId() + " " + $this->getName());
-    }
-
     /**
      * Set name
      *
@@ -179,6 +174,10 @@ class Organisation
      * @return string
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
      */
+    public function __toString()
+    {
+     return strval($this->getId() + " " + $this->getName());
+    }
     /*
     function __toString()
     {

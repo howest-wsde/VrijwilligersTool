@@ -2,6 +2,10 @@
 # VrijwilligersTool
 Roeselare vrijwilligt
 
+# Minimum requirements: 
+PHP
+MySQL 5.6.5
+
 # Stackoverflow 
 http://stackoverflow.com/questions/36156594/my-data-synchronisation-plan
 
