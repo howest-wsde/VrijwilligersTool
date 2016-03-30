@@ -12,12 +12,12 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="address" type="string" column="Address" length="255" nullable="false">
+    <field name="address" type="string" column="Address" length="255" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
     </field>
-    <field name="telephone" type="string" column="Telephone" length="10" nullable="false">
+    <field name="telephone" type="string" column="Telephone" length="10" nullable="true">
       <options>
         <option name="fixed"/>
       </options>
