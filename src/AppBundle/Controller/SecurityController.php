@@ -12,7 +12,7 @@ use AppBundle\Entity\Form\UserType;
 class SecurityController extends Controller
 {
     /**
-    * @Route("/register", name="register_testing")
+    * @Route("/register", name="register_user")
     */
     public function registerAction(Request $request)
     {
