@@ -4,16 +4,18 @@ namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Category;
+// use AppBundle\Entity\Category;
 use AppBundle\Entity\Skill;
 use Symfony\Component\Validator\Validation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Unit test for the Vacancy Entity
- * The test focuses on validation of the different properties and the correct retrieval of set properties.
- * Tested properties: title(str, 150), description(str, 2000), StartDate(datetime), EndDate(datetime),
- * CreationTime(datetime), Organisation(T), Category(+, T), Skill(+, T)
+ * The test focuses on validation of the different properties and the correct
+ * retrieval of said properties.
+ * Tested properties: title(str, 150), description(str, 2000), StartDate(datetime),
+ * EndDate(datetime), CreationTime(datetime), Organisation(T),
+ * Category(+, T), Skill(+, T)
  */
 class VacancyTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,7 +69,7 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
    * The test populates an array with vacancies, setting their titles, then checking for validation errors and whether or not the getTitle method retrieves the set value correctly.
    * @dataProvider titleProvider
    * @param  multiple $title       a value from the fringe-cases array
-   * @param  integer $errorCount   the expected amount of errors for this title
+   * @param  integer $errorCount   the expected amount of errors
    */
   public function testTitle($title, $errorCount)
   {
@@ -87,7 +89,8 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
     return array(
       'normal' => array("This is a test description that's neither too long nor too short, thus detailing exactly what this vacancy entails.", 0),
       'too short' => array("too short", 1),
-      'empty' => array("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      'empty' => array('', 1),
+      'too long' => array("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
@@ -151,6 +154,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'normal' => array(new \DateTime(), 0),
       'in the past' => array($past, 1),
       'more then 3 months in the future' => array($future, 1),
+      'empty' => array('', 1),
       'object' => array(new Vacancy(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
@@ -194,6 +198,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'in the past' => array($past, 1),
       'more then one year in the future' => array($future, 1),
       'before the startDate' => array($beforeStart, 1),
+      'empty' => array('', 1),
       'object' => array(new Vacancy(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
@@ -214,7 +219,6 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
     $errors = $this->validator->validate($vacancy);
     $this->assertEquals($endDate, $vacancy->getEndDate());
     $this->assertEquals($errorCount, count($errors));
-    $this->markTestIncomplete();
   }
 
   /**
@@ -243,6 +247,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'more then one day in the future' => array($future, 1),
       'before the startDate' => array($beforeStart, 1),
       'after the endDate' => array($afterEnd, 1),
+      'empty' => array('', 1),
       'object' => array(new Vacancy(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
@@ -274,10 +279,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
     $mockBuilder =  $this->getMockBuilder('Organisation');
 
     return array(
-      'normal' => array($mockBuilder->getMock(), 0),
-      'object' => array(new Vacancy(), 1),
-      'empty' => array('', 1),
-      'numeric' => array(10, 1),
+      'normal' => array(new Organisation(), 0),
       'null' => array(null, 1),
     );
   }
@@ -304,7 +306,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function categoryProvider()
   {
-    return $this->getArrayCollection(new Category());
+    // return $this->getArrayCollection(new Category());
   }
 
   /**
@@ -316,12 +318,12 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testCategory($category, $errorCount)
   {
+    $this->markTestIncomplete("Atm Category is still incorrectly named VacancyCategory, rename before running this test and then uncomment the line in the dataprovider.");
     $vacancy = new Vacancy();
     $vacancy->setCategory($category);
     $errors = $this->validator->validate($vacancy);
     $this->assertEquals($category, $vacancy->getCategory());
     $this->assertEquals($errorCount, count($errors));
-    $this->markTestIncomplete('this test has not been finished yet');
   }
 
   /**
@@ -330,7 +332,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function skillProvider()
   {
-    return $this->getArrayCollection(new Skill());
+    return $this->getArrayCollection(new Skill('een skill'));
   }
 
   /**
@@ -342,12 +344,12 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testSkill($skill, $errorCount)
   {
+    $this->markTestIncomplete("Atm there's still skillproficiency instead of skill in vacancy");
     $vacancy = new Vacancy();
     $vacancy->setSkill($skill);
     $errors = $this->validator->validate($vacancy);
     $this->assertEquals($skill, $vacancy->getSkill());
     $this->assertEquals($errorCount, count($errors));
-    $this->markTestIncomplete('this test has not been finished yet');
   }
 
   /**
@@ -366,6 +368,5 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
-
   }
 }
