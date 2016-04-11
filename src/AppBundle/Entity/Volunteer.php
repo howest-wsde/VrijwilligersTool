@@ -273,6 +273,17 @@ class Volunteer implements UserInterface, \Serializable
     }
 
     /**
+     * Set id
+     *
+     * @return Volunteer
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * Set contact
      *
      * @param \AppBundle\Entity\Contact $contact

@@ -4,8 +4,8 @@ security:
 
     encoders:
         AppBundle\Entity\Volunteer:
-            algorithm:            bcrypt
-            cost:                 15
+            algorithm: bcrypt
+            cost: 15
 
     providers:
         user_db_provider:

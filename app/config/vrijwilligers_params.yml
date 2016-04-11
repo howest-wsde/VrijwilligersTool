@@ -1,0 +1,12 @@
+parameters:
+    elasticsearch_host: localhost
+    elasticsearch_port: 9200
+    elasticsearch_index: homestead
+
+    nl: {analyzer: nl_analyzer}
+    listener:
+        insert: true
+        update: true
+        delete: true
+        logger: true
+        # immediate: true
