@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use AppBundle\Entity\Volunteer;
 
-class elasticsearchController extends Controller
+class ElasticsearchController extends Controller
 {
     private function searchPerson($name)
     {
