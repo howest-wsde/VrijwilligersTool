@@ -24,9 +24,6 @@ Roeselare vrijwilligt
 ##migrate:
 ```php bin/console fos:elastica:populate```
 
-##create index:
-```curl -XPUT 'http://localhost:9200/homestead/'```
-
 # DatabaseSchema:
 
 ![alt tag](http://i.imgur.com/sPyZak3.png)
