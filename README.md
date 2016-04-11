@@ -7,9 +7,25 @@ PHP
 MySQL 5.6.5
 Elaticsearch v2.3 
 
-# Stackoverflow 
-http://stackoverflow.com/questions/36156594/my-data-synchronisation-plan
+# Elasticsearch 
+##read all in index
+```curl -XGET 'http://localhost:9200/homestead/_search?pretty=true&q=*:*'```
 
+
+##get all indices:
+```curl -XGET 'http://localhost:9200/_cat/indices?v'```
+
+##create index:
+```curl -XPUT 'http://localhost:9200/homestead/'```
+
+##remove all:
+```curl -XDELETE 'http://localhost:9200/_all' ```
+
+##migrate:
+```php bin/console fos:elastica:populate```
+
+##create index:
+```curl -XPUT 'http://localhost:9200/homestead/'```
 
 # DatabaseSchema:
 
