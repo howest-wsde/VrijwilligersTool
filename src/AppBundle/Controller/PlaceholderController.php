@@ -12,7 +12,7 @@ use AppBundle\Entity\Skillproficiency;
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
-{  
+{
     /**
      * @Route("/vacature/{id}", name="vacature_detail")
      */
@@ -27,16 +27,16 @@ class PlaceholderController extends Controller
      * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
      */
     public function vrijwilliger($id)
-    { 
-        return $this->render("vrijwilliger/vrijwilliger.html.twig"); 
+    {
+        return $this->render("vrijwilliger/vrijwilliger.html.twig");
     }
 
     /**
      * @Route("/vrijwilliger", name="vrijwilliger_worden")
      */
     public function vrijwilliger_worden()
-    { 
-        return $this->render("vrijwilliger/worden.html.twig"); 
+    {
+        return $this->render("vrijwilliger/worden.html.twig");
     }
 
 
@@ -44,25 +44,15 @@ class PlaceholderController extends Controller
      * @Route("/vereniging/{id}", name="vereniging_detail")
      */
     public function vereniging($id)
-    { 
-        return $this->render("vereniging/vereniging.html.twig"); 
+    {
+        return $this->render("vereniging/vereniging.html.twig");
     }
 
     /**
      * @Route("/vereniging", name="vrijwilliger_vinden")
      */
     public function vrijwilligerworden()
-    { 
-        return $this->render("vereniging/vrijwilliger_vinden.html.twig"); 
+    {
+        return $this->render("vereniging/vrijwilliger_vinden.html.twig");
     }
-
-    /**
-     * @Route("/zoeken", name="zoekpagina")
-     */
-    public function zoekpagina()
-    { 
-        return $this->render("zoekpagina.html.twig"); 
-    }
-
-
 }

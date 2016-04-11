@@ -84,6 +84,11 @@ class Volunteer implements UserInterface, \Serializable
         }
     }
 
+    public function getFullName()
+    {
+        return $this->firstname." ".$this->lastname;
+    }
+
     public function getPlainPassword()
     {
         return $this->plainPassword;

@@ -1,7 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Zoeken{% endblock %}
-	
+
 {% block body %}
 	Zoeken
+	<ul>
+    {% for result in results %}
+        <li>
+		{{ result.title }}
+		<a href={{ result.link }}>profiel</a>
+		<br />
+		body: {{ result.body }}
+		</li>
+		<br />
+    {% endfor %}
+</ul>
 {% endblock %}
