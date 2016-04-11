@@ -2,8 +2,7 @@ fos_elastica:
     clients:
         default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
     indexes:
-        homestead:
-            index_name: %elasticsearch_index%
+        %elasticsearch_index%:
             finder: ~
             settings:
                 index:
