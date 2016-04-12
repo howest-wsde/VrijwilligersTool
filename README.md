@@ -7,6 +7,9 @@ Roeselare vrijwilligt
  - MySQL 5.6.5
  - Elaticsearch v2.3 
 
+# GIT
+https://github.com/howest-wsde/VrijwilligersTool
+
 # Elasticsearch 
 
 ##read all in index
