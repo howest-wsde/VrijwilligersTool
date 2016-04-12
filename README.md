@@ -8,8 +8,12 @@ Roeselare vrijwilligt
  - Elaticsearch v2.3 
 
 # Elasticsearch 
+
 ##read all in index
 ```curl -XGET 'http://localhost:9200/homestead/_search?pretty=true&q=*:*'```
+
+## read all in type
+```curl -XGET 'localhost:9200/homestead/volunteer/_search?pretty=true' -d '{ "query" : {"match_all" : { } } }'```
 
 
 ##get all indices:
