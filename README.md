@@ -10,26 +10,7 @@ Roeselare vrijwilligt
 # GIT
 https://github.com/howest-wsde/VrijwilligersTool
 
-# Elasticsearch 
 
-##read all in index
-```curl -XGET 'http://localhost:9200/homestead/_search?pretty=true&q=*:*'```
-
-## read all in type
-```curl -XGET 'localhost:9200/homestead/volunteer/_search?pretty=true' -d '{ "query" : {"match_all" : { } } }'```
-
-
-##get all indices:
-```curl -XGET 'http://localhost:9200/_cat/indices?v'```
-
-##create index:
-```curl -XPUT 'http://localhost:9200/homestead/'```
-
-##remove all:
-```curl -XDELETE 'http://localhost:9200/_all' ```
-
-##migrate:
-```php bin/console fos:elastica:populate```
 
 # DatabaseSchema:
 
