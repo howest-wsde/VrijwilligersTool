@@ -121,6 +121,18 @@ class Organisation
     }
 
     /**
+     * Set id
+     *
+     * @return Organisation
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+
+    /**
      * Set creator
      *
      * @param \AppBundle\Entity\Volunteer $creator

@@ -8,6 +8,13 @@ class SearchResult
     private $body;
     private $link;
 
+    public static function fromEntities($entities)
+    {
+        foreach ($entities as $entity) {
+            yield SearchResult::fromEntity($entity);
+        }
+    }
+
     public static function fromEntity($entity)
     {
         $class_path = get_class($entity);
@@ -22,14 +29,25 @@ class SearchResult
         {
             $title .=" ( ".$vol->getUsername()." )";
         }
-        $body = $vol->getEmail()." "."some body examples"; // skills
-        $link = "/person/".$vol->getId();
+        $body = $vol->getEmail()." some volunteer body examples"; // skills
+        $link = "/persoon/".$vol->getId();
         return new SearchResult($title, $body, $link);
     }
 
-    private static function createOrganisationResult($contact)
+    private static function createOrganisationResult($org)
     {
-        // TODO: implement
+        $title = $org->getName();
+        $body = $org->getDescription()." some organisation body example";
+        $link = "/organisatie/".$org->getId();
+        return new SearchResult($title, $body, $link);
+    }
+
+    private static function createVacancyResult($vac)
+    {
+        $title = $vac->getTitle();
+        $body = $vac->getDescription()." some vacancy body example";
+        $link = "/vacature/".$vac->getId();
+        return new SearchResult($title, $body, $link);
     }
 
     private function __construct($title, $body, $link)

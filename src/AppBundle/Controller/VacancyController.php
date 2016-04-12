@@ -67,11 +67,12 @@ class VacancyController extends controller
     }
 
     /**
-     * @Route("/vacature/{id}", name="create_view")
+     * @Route("/vacature/{id}", name="view_vacancy")
      */
     public function viewVacancyAction($id)
     {
-        $vac = new Vacancy();
-        return $this->render('vacature/vacature.html.twig', $vac);
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
+        return $this->render("vacature/vacature.html.twig",array('vacature' => $vacancy));
     }
 }

@@ -14,16 +14,6 @@ use AppBundle\Entity\Skill;
 class PlaceholderController extends Controller
 {
     /**
-     * @Route("/vacature/{id}", name="vacature_detail")
-     */
-    public function vacature($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-        return $this->render("vacature/vacature.html.twig",array('vacature' => $vacancy));
-    }
-
-    /**
      * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
      */
     public function vrijwilliger($id)

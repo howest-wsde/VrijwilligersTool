@@ -365,10 +365,15 @@ class Volunteer implements UserInterface, \Serializable
      */
     function __toString()
     {
-        return "Volunteer: {id: ".$this->getId().
-        ", firstname: ".$this->getFirstname().
-        ", lastname: ".$this->getLastname().
-        ", contact: ".$this->getContact().
-        ", skills: {".$this->getSkillsString()."}";
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            ["Entity" => $reflect->getShortName()],
+            ["Id" => $this->getId()],
+            ["Values" => array(
+                ["Firstname" => $this->getFirstname()],
+                ["Lastname" => $this->getLastname()],
+                ["Username" => $this->getUsername()],
+            )]
+        ));
     }
 }

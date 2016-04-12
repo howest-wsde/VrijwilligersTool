@@ -30,12 +30,12 @@ class SearchController extends Controller
         return $query->getEntities();
     }
 
-    private function searchAllEntities($search)
+    private function searchForEntityResults($search)
     {
         $query = $this->get('ElasticsearchQuery');
         $params = [
             'index' => $query->getIndex(),
-            'type' => ['volunteer', 'vacancy'],
+            'type' => ['volunteer', 'vacancy', 'organisation'],
             'body' => [
                 'query' => [
                     'query_string' => [
@@ -45,7 +45,7 @@ class SearchController extends Controller
             ]
         ];
         $result = $query->search($params);
-        return $query->getEntities();
+        return $query->getSearchResults();
     }
 
     /**
@@ -65,21 +65,16 @@ class SearchController extends Controller
     /**
      * @Route("/zoeken", name="zoeken")
      */
-    public function zoekQueryAction()
+    public function searchAction()
     {
         $query = Request::createFromGlobals()->query->get("q");
-        $results_view = array();
         if ($query)
         {
-            $entities = $this->searchAllEntities($query);
-            foreach ($entities as $entity) {
-                $result = SearchResult::fromEntity($entity);
-                array_push($results_view, $result);
-            }
+            $results = $this->searchForEntityResults($query);
         }
 
         return $this->render("zoekpagina.html.twig",
-            ["results" => $results_view]
+            ["results" => $results]
         );
     }
 }

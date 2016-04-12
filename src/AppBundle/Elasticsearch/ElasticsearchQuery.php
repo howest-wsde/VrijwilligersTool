@@ -3,11 +3,12 @@
 namespace AppBundle\Elasticsearch;
 
 use Elasticsearch\ClientBuilder;
+use AppBundle\SearchResult;
 
 class ElasticsearchQuery
 {
     private $es_host;
-    private $es_port;    
+    private $es_port;
     private $index;
     private $client;
     private $raw_result;
@@ -39,6 +40,26 @@ class ElasticsearchQuery
         $this->es_port = $port;
     }
 
+    private function isEntity($value)
+    {
+        return substr($value, 3, 6) == "Entity";
+    }
+
+    private function jsonToEntity($json)
+    {
+        $json = json_decode($json, true);
+        $classname = "AppBundle\Entity\\".$json[0]["Entity"];
+        $entity = new $classname();
+        $entity->setId($json[1]["Id"]);
+        $values = $json[2]["Values"];
+        foreach ($values as $value) {
+            $key = key($value);
+            $value = $value[$key];
+            $entity->{"set".$key}($value);
+        }
+        return $entity;
+    }
+
     public function search($params)
     {
         $this->raw_result = $this->client->search($params);
@@ -48,7 +69,6 @@ class ElasticsearchQuery
     public function getEntities()
     {
         $entities = array();
-
         $hits = $this->raw_result["hits"]["hits"];
         $count = $this->raw_result["hits"]["total"];
         for ($i=0; $i < $count; $i++) {
@@ -56,6 +76,10 @@ class ElasticsearchQuery
             $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
             $entity = new $classname();
             foreach ($source as $key => $value) {
+                if ($this->isEntity($value))
+                {
+                    $value = $this->jsonToEntity($value);
+                }
                 $entity->{"set".$key}($value);
             }
             $id = $hits[$i]["_id"];
@@ -63,5 +87,10 @@ class ElasticsearchQuery
             array_push($entities, $entity);
         }
         return $entities;
+    }
+
+    public function getSearchResults()
+    {
+        return SearchResult::fromEntities($this->getEntities());
     }
 }
