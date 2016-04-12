@@ -186,18 +186,16 @@ class Organisation
      * @return string
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
      */
-    public function __toString()
-    {
-     return strval($this->getId() + " " + $this->getName());
-    }
-    /*
     function __toString()
     {
-        return "id: ".$this->getId().
-        ", name: ".$this->getName().
-        ", description: ".$this->getDescription().
-        " contactId: ".$this->getContactid()->getId().
-        " creatorID: ".$this->getContactid().$this->getId();
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Name" => $this->getName(),
+                "Description" => $this->getDescriptions()
+            )
+        ));
     }
-    */
 }

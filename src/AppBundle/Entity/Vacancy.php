@@ -64,7 +64,7 @@ class Vacancy
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastUpdate = new \DateTime("now"); 
+        $this->lastUpdate = new \DateTime("now");
     }
 
     /**
@@ -220,7 +220,7 @@ class Vacancy
     {
         return $this->id;
     }
-    
+
     /**
      * Set id
      *
@@ -314,21 +314,25 @@ class Vacancy
         return $this->skillproficiency;
     }
 
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
     function __toString()
     {
-        return "id: ".$this->getId().
-        ", title: ".$this->getTitle().
-        ", description: ".$this->getDescription().
-        ", startdate: ".$this->getStartdate()->format('Y-m-d H:i:s').
-        ", enddate: ".$this->getEnddate()->format('Y-m-d H:i:s').
-        ", creationTime: ".$this->getCreationtime()->format('Y-m-d H:i:s').
-        ", organisationId: ".$this->getOrganisationid().$this->getId().
-        ", skillId: ".$this->getSkillid().$this->getId();
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Description" => $this->getDescription(),
+                "Startdate" => $this->getStartdate()(),
+                "Enddate" => $this->getEnddate(),
+                "CreationTime" => $this->getCreationtime(),
+                "Organisation" => $this->getOrganisation()
+            )
+        ));
     }
-
-    public function createPDF(){
-
-    }
-
-
 }
