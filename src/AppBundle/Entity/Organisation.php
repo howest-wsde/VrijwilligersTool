@@ -194,7 +194,7 @@ class Organisation
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName(),
-                "Description" => $this->getDescriptions()
+                "Description" => $this->getDescription()
             )
         ));
     }
