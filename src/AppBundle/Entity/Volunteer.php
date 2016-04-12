@@ -367,13 +367,13 @@ class Volunteer implements UserInterface, \Serializable
     {
         $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            ["Entity" => $reflect->getShortName()],
-            ["Id" => $this->getId()],
-            ["Values" => array(
-                ["Firstname" => $this->getFirstname()],
-                ["Lastname" => $this->getLastname()],
-                ["Username" => $this->getUsername()],
-            )]
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Firstname" => $this->getFirstname(),
+                "Lastname" => $this->getLastname(),
+                "Username" => $this->getUsername(),
+            )
         ));
     }
 }

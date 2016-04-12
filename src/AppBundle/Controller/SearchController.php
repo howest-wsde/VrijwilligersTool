@@ -68,13 +68,15 @@ class SearchController extends Controller
     public function searchAction()
     {
         $query = Request::createFromGlobals()->query->get("q");
+        $results = null;
         if ($query)
         {
             $results = $this->searchForEntityResults($query);
         }
 
-        return $this->render("zoekpagina.html.twig",
-            ["results" => $results]
-        );
-    }
+        return $this->render("zoekpagina.html.twig", array(
+            "results" => $results,
+            "query" => $query
+        ));
+    }    
 }

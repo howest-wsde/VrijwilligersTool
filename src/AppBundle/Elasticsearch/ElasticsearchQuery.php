@@ -42,19 +42,17 @@ class ElasticsearchQuery
 
     private function isEntity($value)
     {
-        return substr($value, 3, 6) == "Entity";
+        return substr($value, 2, 6) == "Entity";
     }
 
     private function jsonToEntity($json)
     {
         $json = json_decode($json, true);
-        $classname = "AppBundle\Entity\\".$json[0]["Entity"];
+        $classname = "AppBundle\Entity\\".$json["Entity"];
         $entity = new $classname();
-        $entity->setId($json[1]["Id"]);
-        $values = $json[2]["Values"];
-        foreach ($values as $value) {
-            $key = key($value);
-            $value = $value[$key];
+        $entity->setId($json["Id"]);
+        $values = $json["Values"];
+        foreach ($values as $key => $value) {
             $entity->{"set".$key}($value);
         }
         return $entity;
@@ -87,6 +85,11 @@ class ElasticsearchQuery
             array_push($entities, $entity);
         }
         return $entities;
+    }
+
+    public function getRaw()
+    {
+        return $this->raw_result;
     }
 
     public function getSearchResults()

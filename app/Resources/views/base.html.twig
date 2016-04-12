@@ -17,7 +17,7 @@
                     <span class="baseline">Baseline</span>
                 </div>
                 <form class="search" method="get" action="{{ path('zoeken') }} ">
-                    <input type="text" name="q" id="searchq" placeholder="Zoeken" />
+                    <input type="text" name="q" id="searchq" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
                 </form>
                 <nav class="about nav">
                     <ul>
