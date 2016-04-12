@@ -220,6 +220,17 @@ class Vacancy
     {
         return $this->id;
     }
+    
+    /**
+     * Set id
+     *
+     * @return Vacancy
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * Set organisation
