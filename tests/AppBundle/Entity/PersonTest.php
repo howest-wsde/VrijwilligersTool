@@ -2,19 +2,20 @@
 
 namespace Tests\AppBundle\Entity;
 
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use Symfony\Component\Validator\Validation;
 
 /**
- * Unit test for the Organisation Entity
+ * Unit test for the Person Entity
  * The test focuses on validation of the different properties and the correct
  * retrieval of said properties.
- * Tested properties: Name(str, 100), Description(str, 1000), Email (str, 255),
- * Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
- * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Volunteer)
+ * Tested properties: FirstName(str, 50), LastName(str, 100), UserName(str, 150),
+ * Email (str, 255), Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
+ * City(str, 100), Telephone(str, 20)
+ * Untested properties: PassPhrase(str, 60) => this is already tested by Symphony and
+ * is a bcrypt hash
  */
-class OrganisationTest extends \PHPUnit_Framework_TestCase
+class PersonTest extends \PHPUnit_Framework_TestCase
 {
   /**
    * A Symfony validator allowing to check the in-built Symfony validation rules as they apply
@@ -29,85 +30,178 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
   }
 
   /**
-   * the dataProvider for testName
+   * the dataProvider for testFirstName
    * @return array containing all fringe cases identified @ current
    */
-  public function nameProvider()
+  public function firstNameProvider()
+  {
+    return array(
+      'normal' => array("Florimon", 0),
+      'hyphened' => array('Sint-Joost', 0),
+      'dot' => array("St.Joris", 0),
+      'roof' => array("Înspirationless", 0),
+      'eyes' => array("Özer", 0),
+      'tail' => array("Anná", 0),
+      'reversed tail' => array("Annà", 0),
+      '@' => array("joost@the movies straat", 1),
+      '/' => array("Sint/Jooststraat", 1),
+      ';' => array("i am a programmer; straat;", 1),
+      '<' => array("3 is < than 4 street", 1),
+      '>' => array("4 is > than 3 street", 1),
+      '(' => array("( is an opening brace street", 1),
+      ')' => array(") is a closing brace street", 1),
+      '[' => array("[ is an opening brace street", 1),
+      ']' => array("] is a closing brace street", 1),
+      '{' => array("{ is an opening brace street", 1),
+      '}' => array("} is a closing brace street", 1),
+      ':' => array(": is not allowed", 1),
+      '?' => array("? is not allowed", 1),
+      '|' => array("| is not allowed", 1),
+      '\\' => array("\ is not allowed", 1),
+      '!' => array("! is not allowed", 1),
+      '#' => array("# is not allowed", 1),
+      '$' => array("$ is not allowed", 1),
+      '%' => array("% is not allowed", 1),
+      '&' => array("& is not allowed", 1),
+      '*' => array("* is not allowed", 1),
+      '+' => array("+ is not allowed", 1),
+      '=' => array("= is not allowed", 1),
+      '€' => array("€ is not allowed", 1),
+      '_' => array("_ is not allowed", 1),
+      '`' => array("` is not allowed", 1),
+      '~' => array("~ is not allowed", 1),
+      ',' => array(", is not allowed", 1),
+      'too short' => array("a", 1),
+      'too long' => array("This name is far too long for a person i say governor", 1),
+      'empty' => array("", 1),
+      'object' => array(new Person(), 1),
+      'numeric' => array(10, 1),
+      'null' => array(null, 1),
+    );
+  }
+
+  /**
+   * Test case for the FirstName property (Type: String, maxlength = 50).
+   * The test creates a Person, setting its firstName from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * firstName equals the set firstName.
+   * @dataProvider firstNameProvider
+   * @param multiple  $firstName   a value from the fringe cases array
+   * @param integer   $errorCount  the expected amount of errors
+   */
+  public function testFirstName($firstName, $errorCount)
+  {
+    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
+    $person = new Person();
+    $person->setFirstName($firstName);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($firstName, $person->getFirstName());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+  /**
+   * the dataProvider for testLastName
+   * @return array containing all fringe cases identified @ current
+   */
+  public function lastNameProvider()
+  {
+    return array(
+      'normal' => array("Dragonslayer", 0),
+      'hyphened' => array('Sint-Joost', 0),
+      'dot' => array("St.Joris", 0),
+      'roof' => array("Înspirationless", 0),
+      'eyes' => array("Özer", 0),
+      'tail' => array("Anná", 0),
+      'reversed tail' => array("Annà", 0),
+      '@' => array("joost@the movies straat", 1),
+      '/' => array("Sint/Jooststraat", 1),
+      ';' => array("i am a programmer; straat;", 1),
+      '<' => array("3 is < than 4 street", 1),
+      '>' => array("4 is > than 3 street", 1),
+      '(' => array("( is an opening brace street", 1),
+      ')' => array(") is a closing brace street", 1),
+      '[' => array("[ is an opening brace street", 1),
+      ']' => array("] is a closing brace street", 1),
+      '{' => array("{ is an opening brace street", 1),
+      '}' => array("} is a closing brace street", 1),
+      ':' => array(": is not allowed", 1),
+      '?' => array("? is not allowed", 1),
+      '|' => array("| is not allowed", 1),
+      '\\' => array("\ is not allowed", 1),
+      '!' => array("! is not allowed", 1),
+      '#' => array("# is not allowed", 1),
+      '$' => array("$ is not allowed", 1),
+      '%' => array("% is not allowed", 1),
+      '&' => array("& is not allowed", 1),
+      '*' => array("* is not allowed", 1),
+      '+' => array("+ is not allowed", 1),
+      '=' => array("= is not allowed", 1),
+      '€' => array("€ is not allowed", 1),
+      '_' => array("_ is not allowed", 1),
+      '`' => array("` is not allowed", 1),
+      '~' => array("~ is not allowed", 1),
+      ',' => array(", is not allowed", 1),
+      'too short' => array("a", 1),
+      'too long' => array("This name is far too long for a person i say governor", 1),
+      'empty' => array("", 1),
+      'object' => array(new Person(), 1),
+      'numeric' => array(10, 1),
+      'null' => array(null, 1),
+    );
+  }
+
+  /**
+   * Test case for the LastName property (Type: String, maxlength = 100).
+   * The test creates a Person, setting its lastName from an array of fringe cases,
+   * then checking whether there are validation errors and whether the
+   * retreived lastName equals the set lastName.
+   * @dataProvider lastNameProvider
+   * @param multiple  $lastName   a value from the fringe cases array
+   * @param integer   $errorCount  the expected amount of errors
+   */
+  public function testLastName($lastName, $errorCount)
+  {
+    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
+    $person = new Person();
+    $person->setLastname($lastName);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($lastName, $person->getLastname());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+  /**
+   * the dataProvider for testUserName
+   * @return array containing all fringe cases identified @ current
+   */
+  public function userNameProvider()
   {
     return array(
       'normal' => array("Wereldwinkel Roeselare", 0),
       'too short' => array("a", 1),
       'too long' => array("This name is by far too long for any organisation, right!  I mean seriously, what are they thinking?!", 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
   }
 
   /**
-   * Test case for the Name property (Type: String, maxlength = 100, must be unique).
-   * The test creates an Organisation, setting its name from an array of
-   * fringe cases, then checking whether there are validation errors and whether the
-   * retreived name equals the set name.
-   * @dataProvider nameProvider
-   * @param multiple  $name        a value from the fringe cases array
+   * Test case for the UserName property (Type: String, maxlength = 150).
+   * The test creates a Person, setting its userName from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * userName equals the set userName.
+   * @dataProvider userNameProvider
+   * @param multiple  $userName   a value from the fringe cases array
    * @param integer   $errorCount  the expected amount of errors
    */
-  public function testName($name, $errorCount)
+  public function testUserName($userName, $errorCount)
   {
-    $organisation = new Organisation();
-    $organisation->setName($name);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($name, $organisation->getName());
-    $this->assertEquals($errorCount, count($errors));
-  }
-
-  /**
-   * the dataProvider for testDescription
-   * @return array containing all fringe cases identified @ current
-   */
-  public function descriptionProvider()
-  {
-    return array(
-      'normal' => array("This is a test description that's neither too long nor too short, thus detailing exactly what this organisation is all about.", 0),
-      'too short' => array("too short", 1),
-      'too long' => array("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dol", 1),
-      'empty' => array('', 1),
-      'object' => array(new Organisation(), 1),
-      'numeric' => array(10, 1),
-      'null' => array(null, 1),
-    );
-  }
-
-  /**
-   * Test case for the Description property (Type: String, maxlength = 1000).
-   * The test creates an Organisation, setting its description from an
-   * array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived description equals the set description.
-   * @dataProvider descriptionProvider
-   * @param multiple  $description  a value from the fringe cases array
-   * @param integer   $errorCount   the expected amount of errors
-   */
-  public function testDescription($description, $errorCount)
-  {
-    $organisation = new Organisation();
-    $organisation->setDescription($description);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($description, $organisation->getDescription());
+    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
+    $person = new Person();
+    $person->setUserName($userName);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($userName, $person->getUserName());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -302,7 +396,7 @@ tempor incididunt ut labore et dol", 1),
       'dns warn no mX record line 302' => array("test@example.com", 1),
       'dns warn no record line 303' => array("test@nic.no", 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -310,20 +404,20 @@ tempor incididunt ut labore et dol", 1),
 
   /**
    * Test case for the Email property (Type: String, maxlength = 255).
-   * The test creates an Organisation, setting its email from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived email equals the set email.
+   * The test creates a Person, setting its email from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * email equals the set email.
    * @dataProvider emailProvider
    * @param multiple  $email    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testEmail($email, $errorCount)
   {
-    $this->markTestIncomplete("The email property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setEmail($email);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($email, $organisation->getEmail());
+    $this->markTestIncomplete("The email property has not been moved from Contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setEmail($email);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($email, $person->getEmail());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -376,21 +470,22 @@ tempor incididunt ut labore et dol", 1),
   }
 
   /**
-   * Test case for the Street property (Type: String, maxlength = 255, street names cannot contain any special characters other than . or -).
-   * The test creates an Organisation, setting its street from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived street equals the set street.
+   * Test case for the Street property (Type: String, maxlength = 255, street
+   * names cannot contain any special characters other than . or -).
+   * The test creates a Person, setting its street from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * street equals the set street.
    * @dataProvider streetProvider
    * @param multiple  $street    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testStreet($street, $errorCount)
   {
-    $this->markTestIncomplete("The street property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setStreet($street);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($street, $organisation->getStreet());
+    $this->markTestIncomplete("The street property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setStreet($street);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($street, $person->getStreet());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -406,27 +501,27 @@ tempor incididunt ut labore et dol", 1),
       'too high' => array(10000, 1),
       'string' => array("", 1),
       'numeric string' => array("123", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'null' => array(null, 1),
     );
   }
 
   /**
    * Test case for the Number property (Type: integer, maxlength = 4, min 1).
-   * The test creates an Organisation, setting its number from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived number equals the set number.
+   * The test creates a Person, setting its number from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * number equals the set number.
    * @dataProvider numberProvider
    * @param multiple  $number    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testNumber($number, $errorCount)
   {
-    $this->markTestIncomplete("The number property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setNumber($number);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($number, $organisation->getNumber());
+    $this->markTestIncomplete("The number property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setNumber($number);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($number, $person->getNumber());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -441,27 +536,27 @@ tempor incididunt ut labore et dol", 1),
       'normal with letters' => array('B8', 0),
       'too long' => array('10000', 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'null' => array(null, 1),
     );
   }
 
   /**
    * Test case for the Bus property (Type: string, maxlength = 4).
-   * The test creates an Organisation, setting its bus from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived bus equals the set bus.
+   * The test creates a Person, setting its bus from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * bus equals the set bus.
    * @dataProvider busProvider
    * @param multiple  $bus    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testBus($bus, $errorCount)
   {
-    $this->markTestIncomplete("The bus property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setBus($bus);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($bus, $organisation->getBus());
+    $this->markTestIncomplete("The bus property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setBus($bus);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($bus, $person->getBus());
     $this->assertEquals($errorCount, count($errors));
   }
   /**
@@ -478,7 +573,7 @@ tempor incididunt ut labore et dol", 1),
       'string' => array("XY12", 1),
       'string starting numerically' => array("12YX", 1),
       'numeric string' => array("1234", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'null' => array(null, 1),
     );
   }
@@ -486,20 +581,20 @@ tempor incididunt ut labore et dol", 1),
   /**
    * Test case for the PostalCode property (Type: integer, maxlength = 4, min 1000,
    * max 9999).
-   * The test creates an Organisation, setting its postalCode from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived postalCode equals the set postalCode.
+   * The test creates a Person, setting its postalCode from an array of fringe cases,
+   * then checking whether there are validation errors and whether the retreived
+   * postalCode equals the set postalCode.
    * @dataProvider postalCodeProvider
    * @param multiple  $postalCode    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testPostalCode($postalCode, $errorCount)
   {
-    $this->markTestIncomplete("The postalCode property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setPostalCode($postalCode);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($postalCode, $organisation->getPostalCode());
+    $this->markTestIncomplete("The postalCode property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setPostalCode($postalCode);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($postalCode, $person->getPostalCode());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -514,7 +609,7 @@ tempor incididunt ut labore et dol", 1),
       'too short' => array("a", 1),
       'too long' => array("Taiwan boasts the longest city-name in the world, with 163 characters including spaces.  New-Zealand comes in a distant third with 85 characters including spaces.", 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -522,20 +617,20 @@ tempor incididunt ut labore et dol", 1),
 
   /**
    * Test case for the City property (Type: string, maxlength = 100, may not contain numbers, may only contain - or . as far as special signs go).
-   * The test creates an Organisation, setting its city from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived city equals the set city.
+   * The test creates a Person, setting its city from an array of fringe cases, then
+   * checking whether there are validation errors and whether the retreived city
+   * equals the set city.
    * @dataProvider cityProvider
    * @param multiple  $city    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testCity($city, $errorCount)
   {
-    $this->markTestIncomplete("The city property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setCity($city);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($city, $organisation->getCity());
+    $this->markTestIncomplete("The city property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setCity($city);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($city, $person->getCity());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -552,7 +647,7 @@ tempor incididunt ut labore et dol", 1),
       'mixed starting with numbers' => array("01ABCDEF", 1),
       'mixed' => array("ABC01DEF", 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
+      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -561,55 +656,20 @@ tempor incididunt ut labore et dol", 1),
   /**
    * Test case for the Telephone property (Type: string, maxlength = 10,
    * minlength = 8, content must be numeric).
-   * The test creates an Organisation, setting its telephone number from
-   * an array of fringe cases, then checking whether there are validation errors and
-   * whether the retreived number equals the set number.
+   * The test creates a Person, setting its telephone number from an array of fringe
+   * cases, then checking whether there are validation errors and whether the
+   * retreived number equals the set number.
    * @dataProvider telephoneProvider
    * @param multiple  $telephone    a value from the fringe cases array
    * @param integer   $errorCount   the expected amount of errors
    */
   public function testTelephone($telephone, $errorCount)
   {
-    $this->markTestIncomplete("The email property has not been moved from contact to Organisation yet, once it has been moved please remove this line to enable the testing of the property");
-    $organisation = new Organisation();
-    $organisation->setTelephone($telephone);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($telephone, $organisation->getTelephone());
-    $this->assertEquals($errorCount, count($errors));
-  }
-
-  //TODO rename the class to Person once refactored in that way.
-  /**
-   * the dataProvider for testCreator
-   * @return array containing all fringe cases identified @ current
-   */
-  public function creatorProvider()
-  {
-    return array(
-      'normal' => array(new Volunteer(), 0),
-      'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
-      'numeric' => array(10, 1),
-      'null' => array(null, 1),
-    );
-  }
-
-  /**
-   * Test case for the Creator property (Type: \AppBundle\Entity\Volunteer)
-   * The test creates an Organisation, setting its creator from an array of
-   * fringe cases, then checking whether there are validation errors and whether the
-   * retreived creator equals the set creator.
-   * @dataProvider creatorProvider
-   * @param multiple  $creator      a value from the fringe cases array
-   * @param integer   $errorCount   the expected amount of errors
-   */
-  public function testCreator($creator, $errorCount)
-  {
-    $this->markTestIncomplete("this test hasn't been completed yet");
-    $organisation = new Organisation();
-    $organisation->setCreator($creator);
-    $errors = $this->validator->validate($organisation);
-    $this->assertEquals($creator, $organisation->getCreator());
+    $this->markTestIncomplete("The email property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
+    $person = new Person();
+    $person->setTelephone($telephone);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($telephone, $person->getTelephone());
     $this->assertEquals($errorCount, count($errors));
   }
 }

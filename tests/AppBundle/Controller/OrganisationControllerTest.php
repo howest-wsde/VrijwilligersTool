@@ -4,7 +4,7 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class OrganisationControllerTest extends WebTestCase
+class OrganisationControllerTest extends \WebTestCase
 {
     public function testCreateOrganisation()
     {

@@ -4,7 +4,7 @@ namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Organisation;
-// use AppBundle\Entity\Category;
+use AppBundle\Entity\VacancyCategory;
 use AppBundle\Entity\Skill;
 use Symfony\Component\Validator\Validation;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -66,7 +66,8 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
 
   /**
    * Test case for the Title property (Type: String, maxlength=150).
-   * The test populates an array with vacancies, setting their titles, then checking for validation errors and whether or not the getTitle method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its title, then checking for validation
+   * errors and whether or not the getTitle method retrieves the set value correctly.
    * @dataProvider titleProvider
    * @param  multiple $title       a value from the fringe-cases array
    * @param  integer $errorCount   the expected amount of errors
@@ -125,7 +126,9 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
 
   /**
    * Test case for the Description property (Type: String, maxlength = 2000).
-   * The test populates an array with vacancies, setting their description, then checking for validation errors and whether or not the getDescription method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its description, then checking for
+   * validation errors and whether or not the getDescription method retrieves
+   * the set value correctly.
    * @dataProvider descriptionProvider
    * @param  String   $description  a value from the fringe-cases array
    * @param  integer  $errorCount   the expected amount of errors for this description
@@ -163,7 +166,9 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
 
   /**
    * Test case for the StartDate property (Type: DateTime, date cannot be in the past or more than 3 months in the future).
-   * The test populates an array with vacancies, setting their startDates, then checking for validation errors and whether or not the getStartDate method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its startDates, then checking for
+   * validation errors and whether or not the getStartDate method retrieves the
+   * set value correctly.
    * @dataProvider startDateProvider
    * @param  multiple $startDate    a value from the fringe-cases array
    * @param  integer $errorCount    the expected amount of errors for this title
@@ -207,7 +212,9 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
 
   /**
    * Test case for the EndDate property (Type: DateTime, date cannot be in the past or more than 1 year past the startDate in the future, nor can it be closed before the startDate).
-   * The test populates an array with vacancies, setting their endDates, then checking for validation errors and whether or not the getEndDate method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its endDates, then checking for
+   * validation errors and whether or not the getEndDate method retrieves the
+   * set value correctly.
    * @dataProvider endDateProvider
    * @param  multiple $endDate      a value from the fringe-cases array
    * @param  integer $errorCount    the expected amount of errors for this title
@@ -256,7 +263,9 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
 
   /**
    * Test case for the CreationTime property (Type: DateTime, It can not be in the past nor more than a day in the future.  It cannot be before/past the start/endDate).
-   * The test populates an array with vacancies, setting their creationTime, then checking for validation errors and whether or not the getCreationTime method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its creationTime, then checking for
+   * validation errors and whether or not the getCreationTime method retrieves
+   * the set value correctly.
    * @dataProvider creationTimeProvider
    * @param  DateTime $creationTime  a value from the fringe-cases array
    * @param  integer  $errorCount    the expected amount of errors for this title
@@ -286,7 +295,9 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
 
   /**
    * Test case for the Organisation property (Type: \AppBundle\Entity\Organisation).
-   * The test populates an array with vacancies, setting their organisation, then checking for validation errors and whether or not the getOrganisation method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its organisation, then checking for
+   * validation errors and whether or not the getOrganisation method retrieves
+   * the set value correctly.
    * @dataProvider organisationProvider
    * @param  multiple $organisation  a value from the fringe-cases array
    * @param  integer $errorCount    the expected amount of errors for this title
@@ -301,24 +312,26 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
   }
 
   /**
-   * the dataprovider for testCategory
+   * the dataprovider for testVacancyCategory
    * @return array containing all fringe cases identified @ current
    */
-  public function categoryProvider()
+  public function vacancyCategoryProvider()
   {
-    // return $this->getArrayCollection(new Category());
+    return $this->getArrayCollection(new VacancyCategory());
   }
 
   /**
-   * Test case for the Category property (Type: \Doctrine\Common\Collections\ArrayCollection of \AppBundle\Entity\Category)
-   * The test populates an array with vacancies, setting their category, then checking for validation errors and whether or not the getCategory method retrieves the set value correctly
-   * @dataProvider categoryProvider
+   * Test case for the Category property (Type: \Doctrine\Common\Collections\ArrayCollection of \AppBundle\Entity\VacancyCategory)
+   * The test creates a Vacancy, setting its category, then checking for
+   * validation errors and whether or not the getCategory method retrieves the
+   * set value correctly
+   * @dataProvider vacancyCategoryProvider
    * @param  multiple $category     a value from the fringe-cases array
    * @param  integer  $errorCount   the expected amount of errors for this title
    */
-  public function testCategory($category, $errorCount)
+  public function testVacancyCategory($category, $errorCount)
   {
-    $this->markTestIncomplete("Atm Category is still incorrectly named VacancyCategory, rename before running this test and then uncomment the line in the dataprovider.");
+    $this->markTestIncomplete("Atm there's no use of an arraycollection to keep track of all relevant vacancycategories tied to a vacancy.  Once this is solved, remove this line.");
     $vacancy = new Vacancy();
     $vacancy->setCategory($category);
     $errors = $this->validator->validate($vacancy);
@@ -332,12 +345,13 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function skillProvider()
   {
-    return $this->getArrayCollection(new Skill('een skill'));
+    return $this->getArrayCollection(new Skill('a skill'));
   }
 
   /**
    * Test case for the Skill property (Type: \Doctrine\Common\Collections\ArrayCollection of \AppBundle\Entity\Skill).
-   * The test populates an array with vacancies, setting their skills, then checking for validation errors and whether or not the getSkill method retrieves the set value correctly.
+   * The test creates a Vacancy, setting its skills, then checking for validation
+   * errors and whether or not the getSkill method retrieves the set value correctly.
    * @dataProvider skillProvider
    * @param  multiple $skill       a value from the fringe-cases array
    * @param  integer  $errorCount  the expected amount of errors for this title
@@ -363,9 +377,6 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
     return array(
       'normal' => array($arrayCollection, 0),
       'single object' => array($baseObject, 1),
-      'empty' => array('', 1),
-      'object' => array(new Vacancy(), 1),
-      'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
   }

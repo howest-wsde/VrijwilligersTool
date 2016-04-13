@@ -3,12 +3,20 @@
 namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\VacancyCategory;
+use Symfony\Component\Validator\Validation;
 
-class VacancyCategoryTest extends PHPUnit_Framework_TestCase
+class VacancyCategoryTest extends \PHPUnit_Framework_TestCase
 {
+  /**
+   * A Symfony validator allowing to check the in-built Symfony validation rules as they apply
+   * to the tested entity
+   * @var Symfony\Component\Validator\Validator\RecursiveValidator
+   */
+  public $validator;
+
   protected function setUp()
   {
-
+    $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
   }
 
   public function testCreateVacancyCategory()
