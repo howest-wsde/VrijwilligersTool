@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class VacancyController extends controller
 {
     /**
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf")
+     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf", requirements={"id" = "\d+"})
      */
     public function createPDFAction($id)
     {
@@ -65,7 +65,7 @@ class VacancyController extends controller
     }
 
     /**
-     * @Route("/vacature/{id}", name="vacancy_id")
+     * @Route("/vacature/{id}", name="vacancy_id", requirements={"id" = "\d+"})
      */
     public function viewVacancyAction($id)
     {

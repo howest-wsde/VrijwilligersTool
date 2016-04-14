@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class OrganisationController extends controller
 {
     /**
-     * @Route("/vereniging/{id}" , name="vereniging_id")
+     * @Route("/vereniging/{id}" , name="vereniging_id", requirements={"id" = "\d+"})
      */
     public function ViewOrganisationAction($id)
     {
