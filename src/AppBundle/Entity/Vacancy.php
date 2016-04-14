@@ -328,7 +328,7 @@ class Vacancy
             "Id" => $this->getId(),
             "Values" => array(
                 "Description" => $this->getDescription(),
-                "Startdate" => $this->getStartdate()(),
+                "Startdate" => $this->getStartdate(),
                 "Enddate" => $this->getEnddate(),
                 "CreationTime" => $this->getCreationtime(),
                 "Organisation" => $this->getOrganisation()
