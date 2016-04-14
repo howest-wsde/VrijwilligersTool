@@ -72,6 +72,17 @@ class Vacancycategory
     }
 
     /**
+     * Set id
+     *
+     * @return VacancyCategory
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer

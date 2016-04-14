@@ -13,9 +13,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Unit test for the Vacancy Entity
  * The test focuses on validation of the different properties and the correct
  * retrieval of said properties.
- * Tested properties: title(str, 150), description(str, 2000), StartDate(datetime),
- * EndDate(datetime), CreationTime(datetime), Organisation(T),
- * Category(+, T), Skill(+, T)
+ * Tested properties: id(int, 10), title(str, 150), description(str, 2000),
+ * StartDate(datetime), EndDate(datetime), CreationTime(datetime),
+ * Organisation(T), Category(+, T), Skill(+, T)
  */
 class VacancyTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,6 +45,56 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
   {
     $this->now = new \DateTime();
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+  }
+
+  /**
+   * the dataProvider for testId
+   * @return array containing all fringe cases identified @ current
+   */
+  public function idProvider()
+  {
+    return array(
+      'normal' => array(1, 0),
+      'empty' => array("", 1),
+      'object' => array(new Vacancy(), 1),
+      'null' => array(null, 1),
+    );
+  }
+
+  /**
+   * Test case for the Id property (Type: Integer, maxlength = 10, must be unique).
+   * The test creates a Vacancy, setting its id from an array of
+   * fringe cases, then checking whether there are validation errors and whether the
+   * retreived id equals the set id.
+   * There is a second test for the Id property: testIdUnique, just below.
+   * @dataProvider idProvider
+   * @param multiple  $id          a value from the fringe cases array
+   * @param integer   $errorCount  the expected amount of errors
+   */
+  public function testId($id, $errorCount)
+  {
+    $vacancy = new Vacancy();
+    $vacancy->setId($id);
+    $errors = $this->validator->validate($vacancy);
+    $this->assertEquals($id, $vacancy->getId());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+/**
+ * A simple test to check whether it's possible to make two Vacancy objects with
+ * the same id.  This should be impossible.
+ */
+  public function testIdUnique(){
+    $id = 1;
+    $vacancy = new Vacancy();
+    $vacancy->setId($id);
+    try {
+      $vacancy2 = new Vacancy();
+      $vacancy2->setId($id);
+      $this->assertNull($vacancy2, 'The second vacancy was instantiated with the same id as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($vacancy2, "This should be unreachable if vacancy 2 is not null");
+    }
   }
 
   /**

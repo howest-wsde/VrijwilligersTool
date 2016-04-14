@@ -47,6 +47,7 @@ class SkillTest extends \PHPUnit_Framework_TestCase
    * The test creates a Skill, setting its id from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived name equals the set name.
+   * There is a second test for the Name property: testNameUnique, just below.
    * @dataProvider nameProvider
    * @param multiple  $name        a value from the fringe cases array
    * @param integer   $errorCount  the expected amount of errors
@@ -57,8 +58,21 @@ class SkillTest extends \PHPUnit_Framework_TestCase
     $errors = $this->validator->validate($skill);
     $this->assertEquals($name, $skill->getName());
     $this->assertEquals($errorCount, count($errors));
-    $this->markTestIncomplete("test that this name is unique, and also add that test to Organisation");
+  }
 
+/**
+ * A simple test to check whether it's possible to make two Skill objects with
+ * the same name.  This should be impossible.
+ */
+  public function testNameUnique(){
+    $name = "vogelen";
+    $skill = new Skill($name);
+    try {
+      $skill2 = new Skill($name);
+      $this->assertNull($skill2, 'The second skill was instantiated with the same name as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($skill2, "This should be unreachable if skill 2 is not null");
+    }
   }
 
   /**
@@ -80,18 +94,32 @@ class SkillTest extends \PHPUnit_Framework_TestCase
    * The test creates a Skill, setting its id from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived id equals the set id.
-   * @dataProvider nameProvider
+   * There is a second test for the Id property: testIdUnique, just below.
+   * @dataProvider idProvider
    * @param multiple  $id          a value from the fringe cases array
    * @param integer   $errorCount  the expected amount of errors
    */
   public function testId($id, $errorCount)
   {
-    $this->markTestIncomplete("Skill has no setId method atm, so this test cannot be run currently");
     $skill = new Skill("kantklossen");
     $skill->setId($id);
     $errors = $this->validator->validate($skill);
     $this->assertEquals($id, $skill->getId());
     $this->assertEquals($errorCount, count($errors));
-    $this->markTestIncomplete("test that this id is unique, and also copy this test to any other entity that has an id");
+  }
+
+/**
+ * A simple test to check whether it's possible to make two Skill objects with
+ * the same id.  This should be impossible.
+ */
+  public function testIdUnique(){
+    $id = 1;
+    $skill = new Skill($id);
+    try {
+      $skill2 = new Skill($id);
+      $this->assertNull($skill2, 'The second skill was instantiated with the same id as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($skill2, "This should be unreachable if skill 2 is not null");
+    }
   }
 }

@@ -9,9 +9,9 @@ use Symfony\Component\Validator\Validation;
  * Unit test for the Person Entity
  * The test focuses on validation of the different properties and the correct
  * retrieval of said properties.
- * Tested properties: FirstName(str, 50), LastName(str, 100), UserName(str, 150),
- * Email (str, 255), Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
- * City(str, 100), Telephone(str, 20)
+ * Tested properties: Id(int, 10), FirstName(str, 50), LastName(str, 100),
+ * UserName(str, 150), Email (str, 255), Street(str, 255), Number(int, 4),
+ * Bus(str, 4), PostalCode(int, 4), City(str, 100), Telephone(str, 20)
  * Untested properties: PassPhrase(str, 60) => this is already tested by Symphony and
  * is a bcrypt hash
  */
@@ -27,6 +27,56 @@ class PersonTest extends \PHPUnit_Framework_TestCase
   protected function setUp()
   {
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+  }
+
+  /**
+   * the dataProvider for testId
+   * @return array containing all fringe cases identified @ current
+   */
+  public function idProvider()
+  {
+    return array(
+      'normal' => array(1, 0),
+      'empty' => array("", 1),
+      'object' => array(new Person(), 1),
+      'null' => array(null, 1),
+    );
+  }
+
+  /**
+   * Test case for the Id property (Type: Integer, maxlength = 10, must be unique).
+   * The test creates a Person, setting its id from an array of
+   * fringe cases, then checking whether there are validation errors and whether the
+   * retreived id equals the set id.
+   * There is a second test for the Id property: testIdUnique, just below.
+   * @dataProvider idProvider
+   * @param multiple  $id          a value from the fringe cases array
+   * @param integer   $errorCount  the expected amount of errors
+   */
+  public function testId($id, $errorCount)
+  {
+    $person = new Person();
+    $person->setId($id);
+    $errors = $this->validator->validate($person);
+    $this->assertEquals($id, $person->getId());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+/**
+ * A simple test to check whether it's possible to make two Person objects with
+ * the same id.  This should be impossible.
+ */
+  public function testIdUnique(){
+    $id = 1;
+    $person = new Person();
+    $person->setId($id);
+    try {
+      $person2 = new Person();
+      $person2->setId($id);
+      $this->assertNull($person2, 'The second person was instantiated with the same id as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($person2, "This should be unreachable if person 2 is not null");
+    }
   }
 
   /**

@@ -64,6 +64,17 @@ class Skill
     }
 
     /**
+     * Set id
+     *
+     * @return Skill
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
      * @return string

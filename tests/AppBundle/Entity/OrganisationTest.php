@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Validation;
  * Unit test for the Organisation Entity
  * The test focuses on validation of the different properties and the correct
  * retrieval of said properties.
- * Tested properties: Name(str, 100), Description(str, 1000), Email (str, 255),
- * Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
+ * Tested properties: Id(int, 10), Name(str, 100), Description(str, 1000),
+ * Email (str, 255), Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
  * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Volunteer)
  */
 class OrganisationTest extends \PHPUnit_Framework_TestCase
@@ -26,6 +26,56 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
   protected function setUp()
   {
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+  }
+
+  /**
+   * the dataProvider for testId
+   * @return array containing all fringe cases identified @ current
+   */
+  public function idProvider()
+  {
+    return array(
+      'normal' => array(1, 0),
+      'empty' => array("", 1),
+      'object' => array(new Organisation(), 1),
+      'null' => array(null, 1),
+    );
+  }
+
+  /**
+   * Test case for the Id property (Type: Integer, maxlength = 10, must be unique).
+   * The test creates a Organisation, setting its id from an array of
+   * fringe cases, then checking whether there are validation errors and whether the
+   * retreived id equals the set id.
+   * There is a second test for the Id property: testIdUnique, just below.
+   * @dataProvider idProvider
+   * @param multiple  $id          a value from the fringe cases array
+   * @param integer   $errorCount  the expected amount of errors
+   */
+  public function testId($id, $errorCount)
+  {
+    $organisation = new Organisation();
+    $organisation->setId($id);
+    $errors = $this->validator->validate($organisation);
+    $this->assertEquals($id, $organisation->getId());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+/**
+ * A simple test to check whether it's possible to make two Organisation objects with
+ * the same id.  This should be impossible.
+ */
+  public function testIdUnique(){
+    $id = 1;
+    $organisation = new Organisation();
+    $organisation->setId($id);
+    try {
+      $organisation2 = new Organisation();
+      $organisation2->setId($id);
+      $this->assertNull($organisation2, 'The second organisation was instantiated with the same id as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($organisation2, "This should be unreachable if organisation 2 is not null");
+    }
   }
 
   /**
@@ -50,6 +100,7 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
    * The test creates an Organisation, setting its name from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived name equals the set name.
+   * There is a second test for the Name property: testNameUnique, just below.
    * @dataProvider nameProvider
    * @param multiple  $name        a value from the fringe cases array
    * @param integer   $errorCount  the expected amount of errors
@@ -61,6 +112,23 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
     $errors = $this->validator->validate($organisation);
     $this->assertEquals($name, $organisation->getName());
     $this->assertEquals($errorCount, count($errors));
+  }
+
+/**
+ * A simple test to check whether it's possible to make two Organisation objects with
+ * the same name.  This should be impossible.
+ */
+  public function testNameUnique(){
+    $name = "vogelen";
+    $organisation = new Organisation();
+    $organisation->setName($name);
+    try {
+      $organisation2 = new Organisation();
+      $organisation2->setName($name);
+      $this->assertNull($organisation2, 'The second organisation was instantiated with the same name as the first: please rectify so that this becomes impossible');
+    } catch (Exception $e) {
+      $this->assertNull($organisation2, "This should be unreachable if organisation 2 is not null");
+    }
   }
 
   /**
