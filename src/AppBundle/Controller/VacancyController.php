@@ -61,7 +61,7 @@ class VacancyController extends controller
                 return $this->redirect($this->generateUrl('create_vacancy'));
             }
         } else {
-            return $this->render('vacature/vacature_aanmaken.html.twig',
+            return $this->render('vacancy/vacature_aanmaken.html.twig',
                 array('form' => $form->createView()));
         }
     }
@@ -73,6 +73,6 @@ class VacancyController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-        return $this->render("vacature/vacature.html.twig",array('vacature' => $vacancy));
+        return $this->render("vacancy/vacature.html.twig",array('vacature' => $vacancy));
     }
 }
