@@ -33,6 +33,7 @@ class VacancyType extends AbstractType
             ->add('organisation', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Organisation',
                 'choice_label' => 'name'
+                'label' => 'Organisatie'
             ))
             ->add('category', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Vacancycategory',
