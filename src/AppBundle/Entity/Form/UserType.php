@@ -16,18 +16,19 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('username', TextType::class)
+            ->add('email', EmailType::class, array('label' => 'E-mailadres,'))
+            ->add('firstname', TextType::class, array('label' => 'Voornaam'))
+            ->add('lastname', TextType::class, array('label' => 'Familienaam'))
+            ->add('username', TextType::class, array('label' => 'Gebruikersnaam'))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'first_options'  => array('label' => 'Wachtzin'),
+                'second_options' => array('label' => 'Herhaal wachtzin'),
             ))
             ->add('termsAccepted', CheckboxType::class, array(
                 'mapped' => false,
                 'constraints' => new IsTrue(),
+                'label' => 'Ik ga akkoord met de overeenkomst'
             )
         );
     }
