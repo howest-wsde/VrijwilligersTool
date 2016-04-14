@@ -32,7 +32,7 @@ class VacancyType extends AbstractType
             ->add('enddate', DateTimeType::class)
             ->add('organisation', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Organisation',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
                 'label' => 'Organisatie'
             ))
             ->add('category', EntityType::class, array(
@@ -40,7 +40,6 @@ class VacancyType extends AbstractType
                 'label' => 'categoriën'
             ))
             ->add('skillproficiency', CollectionType::class);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
