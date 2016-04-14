@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class PersonController extends controller
 {
     /**
-     * @Route("/persoon/{id}" , name="persoon_id")
+     * @Route("/persoon/{id}" , name="persoon_id", requirements={"id" = "\d+"})
      *
      * @Security("has_role('ROLE_USER')")
      */
