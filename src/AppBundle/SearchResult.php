@@ -44,7 +44,7 @@ class SearchResult
         $title = $org->getName();
         $body = substr($org->getDescription()." some organisation body example"
             , 0, SearchResult::MAX_CHARS);
-        $link = "/organisatie/".$org->getId();
+        $link = "/vereniging/".$org->getId();
         return new SearchResult($title, $body, $link);
     }
 
