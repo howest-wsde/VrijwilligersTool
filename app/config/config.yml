@@ -39,6 +39,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        fb_id: '%fb_id%'
+        linkedin_id: '%linkedin_id%'
 
 # Doctrine Configuration
 doctrine:

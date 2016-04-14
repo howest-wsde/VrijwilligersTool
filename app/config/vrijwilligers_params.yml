@@ -10,3 +10,7 @@ parameters:
         delete: true
         logger: true
         # immediate: true
+
+    fb_id: '990174991070590'
+    linkedin_id: '77lr8oxzq2u5j9'
+
