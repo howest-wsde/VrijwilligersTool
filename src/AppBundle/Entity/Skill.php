@@ -8,6 +8,17 @@ namespace AppBundle\Entity;
 class Skill
 {
     /**
+     * Constructor
+     *
+     * @param string name
+     *
+     */
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @var string
      */
     private $name;
@@ -51,5 +62,16 @@ class Skill
     {
         return $this->id;
     }
-}
 
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        return "id: ".$this->getId().
+        ", name: ".$this->getName();
+    }
+}

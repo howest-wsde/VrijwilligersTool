@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+{% block head %}
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key:   {{ linkedin_id }}
+    onLoad:    SocialMediaLogin.linkedin.onlLinkedInLoad
+    authorize: false
+    lang:      en_US
+</script>
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('login_testing') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" />
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"    >
+        <button type="submit">login</button>
+    </form>
+ 
+    <p><a href="{{ path('register_user') }}">maak een account</a></p>
+
+    <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
+    </fb:login-button>
+
+    <div class="g-signin2" data-onsuccess="SocialMediaLogin.google.onSignIn" data-theme="dark"></div>
+
+    <script type="in/Login"></script>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+        <script>window.fb_id = {{ fb_id }};</script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="{{ asset('js/social_media_login.js') }}"></script>
+    {% endblock %}
+
+{% endblock %}

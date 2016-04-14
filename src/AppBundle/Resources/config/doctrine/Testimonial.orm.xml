@@ -16,6 +16,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="lastUpdate" type="datetime" column="last_update" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
     <many-to-one field="sender" target-entity="Volunteer" fetch="LAZY">
       <join-columns>
         <join-column name="Sender" referenced-column-name="Id"/>

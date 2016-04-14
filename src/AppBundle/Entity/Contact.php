@@ -23,9 +23,22 @@ class Contact
     private $telephone;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setLastUpdate(new \DateTime());
+    }
 
 
     /**
@@ -101,6 +114,30 @@ class Contact
     }
 
     /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Contact
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -109,5 +146,29 @@ class Contact
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set id
+     *
+     * @return Contact
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        return "Contact: {id: ".$this->getId().
+        ", email: ".$this->getEmail().
+        ", address: ".$this->getAddress().
+        ", telephone: ".$this->getTelephone()."}";
+    }
+}

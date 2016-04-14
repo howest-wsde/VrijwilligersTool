@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vacature{% endblock %}
+
+{% block body %}
+	<article>
+		<header><h1>{{ vacature.title }}</h1></header>
+		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
+		<div>
+			<p>{{ vacature.description }}</p>
+			<p>Ons Aanbod</p>
+		</div>
+		<div>
+			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
+			<p>organisatie: {{ vacature.organisation.name }}</p>
+			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+		</div>
+		<div class="share-buttons">
+			<div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+				   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
+				Tweeten</a>
+			</div>
+			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+			<div>
+				<button id="email">Email deze vacature</button>
+			</div>
+		</div>
+		<aside>
+			{% for category in vacature.category %}
+				<p>category</p>
+			{% endfor %}
+		</aside>
+		{# nog het id hidden toevoegen of andere
+		manier om het weer te geven#}
+		<footer>{% block vacature_cta %}
+				<button>Stel je kandidaat</button>
+				<form action="{{ path('vacancy_pdf', {'id': vacature.id}) }}" target="_blank">
+					<input type="submit" value="Print deze vacature"/>
+				</form>
+			{% endblock %}</footer>
+	</article>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
+	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+{% endblock %}

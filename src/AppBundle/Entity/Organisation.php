@@ -18,6 +18,11 @@ class Organisation
     private $description;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate;
+
+    /**
      * @var integer
      */
     private $id;
@@ -82,6 +87,30 @@ class Organisation
     }
 
     /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Organisation
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -90,6 +119,18 @@ class Organisation
     {
         return $this->id;
     }
+
+    /**
+     * Set id
+     *
+     * @return Organisation
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
 
     /**
      * Set creator
@@ -138,5 +179,23 @@ class Organisation
     {
         return $this->contact;
     }
-}
 
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Name" => $this->getName(),
+                "Description" => $this->getDescription()
+            )
+        ));
+    }
+}

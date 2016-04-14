@@ -13,6 +13,11 @@ class Skillproficiency
     private $proficiency;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;
@@ -63,6 +68,30 @@ class Skillproficiency
     public function getProficiency()
     {
         return $this->proficiency;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Skillproficiency
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
     /**
@@ -166,5 +195,17 @@ class Skillproficiency
     {
         return $this->volunteer;
     }
-}
 
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        return "Skillproficiency: {id: ".$this->getId().
+        ", type: ".$this->getType()->getName().
+        ", proficiency: ".$this->getProficiency()."}";
+    }
+}

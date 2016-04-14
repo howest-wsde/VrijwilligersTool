@@ -5,11 +5,12 @@ namespace AppBundle\Entity;
 /**
  * Vacancy
  */
+
 class Vacancy
 {
     /**
      * @var string
-     */
+    */
     private $title;
 
     /**
@@ -31,6 +32,11 @@ class Vacancy
      * @var \DateTime
      */
     private $creationtime;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastUpdate;
 
     /**
      * @var integer
@@ -58,6 +64,7 @@ class Vacancy
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lastUpdate = new \DateTime("now");
     }
 
     /**
@@ -181,6 +188,30 @@ class Vacancy
     }
 
     /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Vacancy
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -188,6 +219,17 @@ class Vacancy
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @return Vacancy
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -271,5 +313,26 @@ class Vacancy
     {
         return $this->skillproficiency;
     }
-}
 
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Description" => $this->getDescription(),
+                "Startdate" => $this->getStartdate(),
+                "Enddate" => $this->getEnddate(),
+                "CreationTime" => $this->getCreationtime(),
+                "Organisation" => $this->getOrganisation()
+            )
+        ));
+    }
+}

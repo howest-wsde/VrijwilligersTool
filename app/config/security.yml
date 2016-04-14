@@ -2,19 +2,49 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    encoders:
+        AppBundle\Entity\Volunteer:
+            algorithm: bcrypt
+            cost: 15
+
     providers:
-        in_memory:
-            memory: ~
+        user_db_provider:
+            entity:
+                class: AppBundle:Volunteer
+                property: username
+                # if you're using multiple entity managers
+                # manager_name: customer
+
+        # in_memory:
+        #     memory: ~
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            methods: [GET, POST]
+            provider: user_db_provider
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path:   /logout
+                target: /status
 
         main:
+            pattern:    ^/
+            provider: user_db_provider
             anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path:   /logout
+                target: /register
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +52,7 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+          # uncomment to enable https on /login
+    access_control:
+        # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

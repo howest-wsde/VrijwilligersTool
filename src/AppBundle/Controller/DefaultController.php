@@ -7,6 +7,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Form\UserType;
+
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Skillproficiency;
+use AppBundle\Entity\Skill;
+
 class DefaultController extends Controller
 {
     /**
@@ -21,31 +32,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/db", name="userskill_testing")
+     * @Route("/mode", name="mode_testing")
      */
-    public function dbTest()
+    public function modeAction()
     {
-        //all users
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('AppBundle:Volunteer')->findAll();
-
-        echo "Volunteers:";
-        echo "<br />";
-        foreach($users as $user)
-        {
-            echo "name: ".$user->getFirstname()." ".$user->getLastname()."<br />";
-            echo "==="."proficiencies:==="."<br />";
-            foreach ($user->getSkillproficiency() as $proficiency) {
-                echo "id: ".$proficiency->getId()."<br />";
-                echo "type: ".$proficiency->getType()->getName()."<br />";
-                echo "proficiency: ".$proficiency->getProficiency()."<br />";
-                echo "<br />";
-            }
-            echo "<br />";
-        }
-        echo "<br />";
-
-        $html = "<html><body>"."<br /><br />"."</body></html>";
+        $mode = $this->container->get('kernel')->getEnvironment();
+        $html = "<html><body><br />".$mode."<br /></body></html>";
         return new Response($html);
     }
 }

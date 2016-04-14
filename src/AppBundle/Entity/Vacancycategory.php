@@ -13,6 +13,11 @@ class Vacancycategory
     private $name;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;
@@ -43,6 +48,30 @@ class Vacancycategory
     }
 
     /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     *
+     * @return Vacancycategory
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -50,6 +79,11 @@ class Vacancycategory
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return strval($this->getName());
     }
 }
 
