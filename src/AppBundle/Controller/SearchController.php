@@ -78,5 +78,13 @@ class SearchController extends Controller
             "results" => $results,
             "query" => $query
         ));
-    }    
+    }
+
+    /**
+     * @Route("/zoek", name="zoek")
+     */
+    public function searchRedirAction()
+    {
+        return $this->redirectToRoute("zoeken");
+    }
 }
