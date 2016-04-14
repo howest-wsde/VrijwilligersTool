@@ -31,7 +31,7 @@ class Contact
      * @var integer
      */
     private $id;
-    
+
     /**
      * Constructor
      */
@@ -145,6 +145,17 @@ class Contact
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @return Contact
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**

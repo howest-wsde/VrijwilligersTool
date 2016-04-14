@@ -5,7 +5,7 @@
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
-		<h2>created on {{ vacature.creationtime }}</h2>
+		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
 		<div>
 			<p>{{ vacature.description }}</p>
 			<p>Ons Aanbod</p>
@@ -36,8 +36,8 @@
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
 				<button>Stel je kandidaat</button>
-				<form action="/pdf/{{ vacature.id }}" target="_blank">
-					<input type="submit" value="print deze vacature"/>
+				<form action="{{ path('vacancy_pdf', {'id': vacature.id}) }}" target="_blank">
+					<input type="submit" value="Print deze vacature"/>
 				</form>
 			{% endblock %}</footer>
 	</article>

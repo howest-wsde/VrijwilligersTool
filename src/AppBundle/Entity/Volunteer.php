@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
  */
 class Volunteer implements UserInterface, \Serializable
 {
@@ -82,6 +82,11 @@ class Volunteer implements UserInterface, \Serializable
         else {
             $this->email = getContact()->getEmail();
         }
+    }
+
+    public function getFullName()
+    {
+        return $this->firstname." ".$this->lastname;
     }
 
     public function getPlainPassword()
@@ -273,6 +278,17 @@ class Volunteer implements UserInterface, \Serializable
     }
 
     /**
+     * Set id
+     *
+     * @return Volunteer
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * Set contact
      *
      * @param \AppBundle\Entity\Contact $contact
@@ -349,10 +365,15 @@ class Volunteer implements UserInterface, \Serializable
      */
     function __toString()
     {
-        return "Volunteer: {id: ".$this->getId().
-        ", firstname: ".$this->getFirstname().
-        ", lastname: ".$this->getLastname().
-        ", contact: ".$this->getContact().
-        ", skills: {".$this->getSkillsString()."}";
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Firstname" => $this->getFirstname(),
+                "Lastname" => $this->getLastname(),
+                "Username" => $this->getUsername(),
+            )
+        ));
     }
 }

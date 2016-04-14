@@ -10,14 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
 
-class VacatureController extends controller
+class VacancyController extends controller
 {
     /**
-     * @Route("/pdf/{id}" , name="vacancy_pdf")
+     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf")
      */
-    public function createPDF($id)
+    public function createPDFAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
 
@@ -27,9 +26,12 @@ class VacatureController extends controller
 
             $pdf->SetFont('Times', 'B', 12);
             $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, 'C');
-            $pdf->MultiCell(0, 20, "Gecreëerd op: \t" . strval($vacancy->getCreationtime()), 0, 'L');
-            $pdf->MultiCell(0, 20, "Beschrijving: \t" . strval($vacancy->getDescription()), 0, 'L');
-            $pdf->MultiCell(0, 20, "Organisatie: \t" . strval($vacancy->getOrganisation()->getContact()->getAddress()), 0, 'L');
+            $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
+                $vacancy->getCreationtime()->format('Y-m-d'));
+            $pdf->MultiCell(0, 20, "Beschrijving: \t".
+                $vacancy->getDescription());
+            $pdf->MultiCell(0, 20, "Organisatie: \t".
+                $vacancy->getOrganisation()->getContact()->getAddress(), 0, 'L');
             $pdf->MultiCell(0, 20, "Locatie: \t", 0, 'L');
             $pdf->Output();
             return $this->render($pdf->Output());
@@ -38,10 +40,11 @@ class VacatureController extends controller
     }
 
     /**
-     * @Route("/create", name="create_vacancy")
+     * @Route("/vacature/nieuw", name="create_vacancy")
      */
-    public function createVacancy(Request $request)
+    public function createVacancyAction(Request $request)
     {
+
         $vacancy = new Vacancy();
         $form = $this->createForm(VacancyType::class, $vacancy);
 
@@ -58,10 +61,18 @@ class VacatureController extends controller
                 return $this->redirect($this->generateUrl('create_vacancy'));
             }
         } else {
-            return $this->render('vacature/vacature_aanmaken.html.twig',
+            return $this->render('vacancy/vacature_aanmaken.html.twig',
                 array('form' => $form->createView()));
         }
     }
 
-
+    /**
+     * @Route("/vacature/{id}", name="view_vacancy")
+     */
+    public function viewVacancyAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
+        return $this->render("vacancy/vacature.html.twig",array('vacature' => $vacancy));
+    }
 }

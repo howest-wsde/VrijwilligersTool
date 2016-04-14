@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: elasticsearch.yml }
+    - { resource: vrijwilligers_params.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -37,6 +39,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        fb_id: '%fb_id%'
+        linkedin_id: '%linkedin_id%'
 
 # Doctrine Configuration
 doctrine:
@@ -70,8 +75,11 @@ swiftmailer:
     spool:     { type: memory }
 
 services:
-    my.listener:
-        class: AppBundle\Entity\EventListener\VolunteerListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-            
+    # Injectors
+    ElasticsearchQuery:
+        class: AppBundle\Elasticsearch\ElasticsearchQuery
+        calls:
+            - [setIndex, ['%elasticsearch_index%']]
+            - [setHost, ['%elasticsearch_host%']]
+            - [setPort, ['%elasticsearch_port%']]
+            - [create]

@@ -1,7 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Zoeken{% endblock %}
-	
+{% block search_term %}{{query}}{% endblock %}
+
 {% block body %}
 	Zoeken
+	<ul>
+    {% for result in results %}
+        <li>
+		<a href="{{ result.link }}">{{ result.title }}</a>
+		<br />
+		{{ result.body }}
+		</li>
+		<br />
+    {% endfor %}
+</ul>
 {% endblock %}

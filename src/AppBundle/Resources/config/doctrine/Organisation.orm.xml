@@ -26,7 +26,7 @@
       <options>
         <option name="default">CURRENT_TIMESTAMP</option>
       </options>
-    </field>
+    </field> 
     <many-to-one field="creator" target-entity="Volunteer" fetch="LAZY">
       <join-columns>
         <join-column name="Creator" referenced-column-name="Id"/>

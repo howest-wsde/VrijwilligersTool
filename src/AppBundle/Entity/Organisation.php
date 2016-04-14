@@ -38,11 +38,6 @@ class Organisation
     private $contact;
 
 
-    public function __toString()
-    {
-     return strval($this->getId() + " " + $this->getName());
-    }
-
     /**
      * Set name
      *
@@ -126,6 +121,18 @@ class Organisation
     }
 
     /**
+     * Set id
+     *
+     * @return Organisation
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+
+    /**
      * Set creator
      *
      * @param \AppBundle\Entity\Volunteer $creator
@@ -179,14 +186,16 @@ class Organisation
      * @return string
      * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
      */
-    /*
     function __toString()
     {
-        return "id: ".$this->getId().
-        ", name: ".$this->getName().
-        ", description: ".$this->getDescription().
-        " contactId: ".$this->getContactid()->getId().
-        " creatorID: ".$this->getContactid().$this->getId();
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Name" => $this->getName(),
+                "Description" => $this->getDescription()
+            )
+        ));
     }
-    */
 }
