@@ -82,6 +82,17 @@ class Testimonial
     }
 
     /**
+     * Set id
+     *
+     * @return Testimonial
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer
