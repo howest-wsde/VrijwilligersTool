@@ -8,11 +8,15 @@ class SearchResult
     private $body;
     private $link;
 
+    const MAX_CHARS = 150;
+
     public static function fromEntities($entities)
     {
+        $results = array();
         foreach ($entities as $entity) {
-            yield SearchResult::fromEntity($entity);
+            array_push($results, SearchResult::fromEntity($entity));
         }
+        return $results;
     }
 
     public static function fromEntity($entity)
@@ -29,7 +33,8 @@ class SearchResult
         {
             $title .=" ( ".$vol->getUsername()." )";
         }
-        $body = $vol->getEmail()." some volunteer body examples"; // skills
+        $body = substr($vol->getEmail()." some volunteer body examples"
+            , 0, SearchResult::MAX_CHARS); // skills
         $link = "/persoon/".$vol->getId();
         return new SearchResult($title, $body, $link);
     }
@@ -37,7 +42,8 @@ class SearchResult
     private static function createOrganisationResult($org)
     {
         $title = $org->getName();
-        $body = $org->getDescription()." some organisation body example";
+        $body = substr($org->getDescription()." some organisation body example"
+            , 0, SearchResult::MAX_CHARS);
         $link = "/organisatie/".$org->getId();
         return new SearchResult($title, $body, $link);
     }
@@ -45,7 +51,8 @@ class SearchResult
     private static function createVacancyResult($vac)
     {
         $title = $vac->getTitle();
-        $body = $vac->getDescription()." some vacancy body example";
+        $body = substr($vac->getDescription()." some vacancy body example"
+            , 0, SearchResult::MAX_CHARS);
         $link = "/vacature/".$vac->getId();
         return new SearchResult($title, $body, $link);
     }
