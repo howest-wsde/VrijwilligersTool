@@ -2,12 +2,9 @@
 
 namespace AppBundle\Controller;
 
-
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Vacancy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
 
 class VacancyController extends controller
@@ -41,10 +38,11 @@ class VacancyController extends controller
 
     /**
      * @Route("/vacature/nieuw", name="create_vacancy")
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function createVacancyAction(Request $request)
     {
-
         $vacancy = new Vacancy();
         $form = $this->createForm(VacancyType::class, $vacancy);
 
@@ -67,7 +65,7 @@ class VacancyController extends controller
     }
 
     /**
-     * @Route("/vacature/{id}", name="view_vacancy")
+     * @Route("/vacature/{id}", name="vacancy_id")
      */
     public function viewVacancyAction($id)
     {

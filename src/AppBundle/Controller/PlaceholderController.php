@@ -6,36 +6,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\Skillproficiency;
-use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
 {
-    /**
-     * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
-     */
-    public function vrijwilliger($id)
-    {
-        return $this->render("vrijwilliger/vrijwilliger.html.twig");
-    }
-
     /**
      * @Route("/vrijwilliger", name="vrijwilliger_worden")
      */
     public function vrijwilliger_worden()
     {
         return $this->render("vrijwilliger/worden.html.twig");
-    }
-
-
-    /**
-     * @Route("/vereniging/{id}", name="vereniging_detail")
-     */
-    public function vereniging($id)
-    {
-        return $this->render("vereniging/vereniging.html.twig");
     }
 
     /**
