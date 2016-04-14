@@ -12,24 +12,6 @@ use AppBundle\SearchResult;
 
 class SearchController extends Controller
 {
-    private function searchPerson($name)
-    {
-        $query = $this->get('ElasticsearchQuery');
-        $params = [
-            'index' => $query->getIndex(),
-            'type' => 'volunteer',
-            'body' => [
-                'query' => [
-                    'query_string' => [
-                        'query' => $name
-                    ]
-                ]
-            ]
-        ];
-        $result = $query->search($params);
-        return $query->getEntities();
-    }
-
     private function searchForEntityResults($search)
     {
         $query = $this->get('ElasticsearchQuery');
@@ -46,20 +28,6 @@ class SearchController extends Controller
         ];
         $result = $query->search($params);
         return $query->getSearchResults();
-    }
-
-    /**
-     * @Route("/search/volunteer/{name}", name="search_byname")
-     */
-    public function searchVolunteerByNameAction($name)
-    {
-        foreach ($this->searchPerson($name) as $entity) {
-            echo $entity."<br />";
-        }
-
-        $message = "finished! ";
-        $html = "<html><body><br />".$message."<br /></body></html>";
-        return new Response($html);
     }
 
     /**
