@@ -10,7 +10,7 @@ class Testimonial
     /**
      * @var string
      */
-    private $value;    
+    private $value;
 
     /**
      * @var integer
@@ -27,6 +27,10 @@ class Testimonial
      */
     private $receiver;
 
+    /**
+     * @var boolean
+     */
+    private $approved;
 
     /**
      * Set value
@@ -50,30 +54,6 @@ class Testimonial
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Testimonial
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
     }
 
     /**
