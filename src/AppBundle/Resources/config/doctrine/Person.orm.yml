@@ -1,0 +1,39 @@
+AppBundle\Entity\Person:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        firstname:
+            type: string
+            length: 100
+        lastname:
+            type: string
+            length: 100
+        username:
+            type: string
+            length: 150
+        passphrase:
+            type: string
+            length: 60
+        street:
+            type: string
+            scale: 255
+        number:
+            type: smallint
+        postalcode:
+            type: smallint
+        city:
+            type: string
+            scale: 100
+        email:
+            type: string
+            length: 255
+        telephone:
+            type: string
+            length: 10
+    OneToMany:
+        Organisations:
+            targetEntity: Organisation
+            mappedBy: Id

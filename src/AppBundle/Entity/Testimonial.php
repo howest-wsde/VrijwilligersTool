@@ -10,12 +10,7 @@ class Testimonial
     /**
      * @var string
      */
-    private $value;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastUpdate = 'CURRENT_TIMESTAMP';
+    private $value;    
 
     /**
      * @var integer
@@ -23,12 +18,12 @@ class Testimonial
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Volunteer
+     * @var \AppBundle\Entity\Person
      */
     private $sender;
 
     /**
-     * @var \AppBundle\Entity\Volunteer
+     * @var \AppBundle\Entity\Person
      */
     private $receiver;
 
@@ -105,11 +100,11 @@ class Testimonial
     /**
      * Set sender
      *
-     * @param \AppBundle\Entity\Volunteer $sender
+     * @param \AppBundle\Entity\Person $sender
      *
      * @return Testimonial
      */
-    public function setSender(\AppBundle\Entity\Volunteer $sender = null)
+    public function setSender(\AppBundle\Entity\Person $sender = null)
     {
         $this->sender = $sender;
 
@@ -119,7 +114,7 @@ class Testimonial
     /**
      * Get sender
      *
-     * @return \AppBundle\Entity\Volunteer
+     * @return \AppBundle\Entity\Person
      */
     public function getSender()
     {
@@ -129,11 +124,11 @@ class Testimonial
     /**
      * Set receiver
      *
-     * @param \AppBundle\Entity\Volunteer $receiver
+     * @param \AppBundle\Entity\Person $receiver
      *
      * @return Testimonial
      */
-    public function setReceiver(\AppBundle\Entity\Volunteer $receiver = null)
+    public function setReceiver(\AppBundle\Entity\Person $receiver = null)
     {
         $this->receiver = $receiver;
 
@@ -143,11 +138,10 @@ class Testimonial
     /**
      * Get receiver
      *
-     * @return \AppBundle\Entity\Volunteer
+     * @return \AppBundle\Entity\Person
      */
     public function getReceiver()
     {
         return $this->receiver;
     }
 }
-

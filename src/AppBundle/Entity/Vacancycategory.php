@@ -10,12 +10,7 @@ class Vacancycategory
     /**
      * @var string
      */
-    private $name;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastUpdate = 'CURRENT_TIMESTAMP';
+    private $name;    
 
     /**
      * @var integer
@@ -97,4 +92,3 @@ class Vacancycategory
         return strval($this->getName());
     }
 }
-

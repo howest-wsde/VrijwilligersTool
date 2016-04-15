@@ -1,0 +1,35 @@
+AppBundle\Entity\Organisation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 150
+        email:
+            type: string
+            length: 255
+        street:
+            type: string
+            scale: 255
+        number:
+            type: smallint
+        postalCode:
+            type: smallint
+        city:
+            type: string
+            scale: 100
+        telephone:
+            type: string
+            length: 10
+        description:
+            type: text
+    manyToOne:
+        creator:
+            targetEntity: Person
+            inversedBy: Organisations
+            joinColumn:
+                name: person_id
+                referencedColumnName: id

@@ -26,14 +26,14 @@ class SearchResult
         return SearchResult::{"create".$class_name."Result"}($entity);
     }
 
-    private static function createVolunteerResult($vol)
+    private static function createPersonResult($vol)
     {
         $title = $vol->getFullName();
         if ($vol->getUsername())
         {
             $title .=" ( ".$vol->getUsername()." )";
         }
-        $body = substr($vol->getEmail()." some volunteer body examples"
+        $body = substr($vol->getEmail()." some Person body examples"
             , 0, SearchResult::MAX_CHARS); // skills
         $link = "/persoon/".$vol->getId();
         return new SearchResult($title, $body, $link);

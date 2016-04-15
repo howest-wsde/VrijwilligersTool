@@ -29,16 +29,6 @@ class Vacancy
     private $enddate;
 
     /**
-     * @var \DateTime
-     */
-    private $creationtime;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastUpdate;
-
-    /**
      * @var integer
      */
     private $id;
@@ -64,7 +54,6 @@ class Vacancy
     public function __construct()
     {
         $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastUpdate = new \DateTime("now");
     }
 
     /**
@@ -281,15 +270,15 @@ class Vacancy
     }
 
     /**
-     * Add skillproficiency
+     * Add skill
      *
-     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
+     * @param \AppBundle\Entity\Skill $skill
      *
      * @return Vacancy
      */
-    public function addSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
+    public function addSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skillproficiency[] = $skillproficiency;
+        $this->skills[] = $skill;
 
         return $this;
     }
@@ -297,11 +286,11 @@ class Vacancy
     /**
      * Remove skillproficiency
      *
-     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
+     * @param \AppBundle\Entity\Skill $skill
      */
-    public function removeSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
+    public function removeSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skillproficiency->removeElement($skillproficiency);
+        $this->skills->removeElement($skill);
     }
 
     /**
@@ -311,7 +300,7 @@ class Vacancy
      */
     public function getSkillproficiency()
     {
-        return $this->skillproficiency;
+        return $this->skills;
     }
 
     /**
@@ -334,5 +323,34 @@ class Vacancy
                 "Organisation" => $this->getOrganisation()
             )
         ));
+    }
+    /**
+     * @var \AppBundle\Entity\Skill
+     */
+    private $skill;
+
+
+    /**
+     * Set skill
+     *
+     * @param \AppBundle\Entity\Skill $skill
+     *
+     * @return Vacancy
+     */
+    public function setSkill(\\AppBundle\Entity\Skill $skill)
+    {
+        $this->skill = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Get skill
+     *
+     * @return \AppBundle\Entity\Skill
+     */
+    public function getSkill()
+    {
+        return $this->skill;
     }
 }
