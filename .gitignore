@@ -17,3 +17,4 @@
 .idea
 db.sql
 *.py
+composer.lock
