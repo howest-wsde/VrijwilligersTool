@@ -31,5 +31,5 @@ AppBundle\Entity\Organisation:
             targetEntity: Person
             inversedBy: Organisations
             joinColumn:
-                name: person_id
+                name: creator_id
                 referencedColumnName: id
