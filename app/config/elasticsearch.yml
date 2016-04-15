@@ -89,7 +89,6 @@ fos_elastica:
                         description: %nl%
                         startdate: %nl%
                         enddate: %nl%
-                        creationtime: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy
