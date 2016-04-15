@@ -124,4 +124,28 @@ class Testimonial
     {
         return $this->receiver;
     }
+
+    /**
+     * Set approved
+     *
+     * @param boolean $approved
+     *
+     * @return Testimonial
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return boolean
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
 }

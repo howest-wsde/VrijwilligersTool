@@ -63,6 +63,11 @@ class Organisation
     private $telephone;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+    /**
      * Set name
      *
      * @param string $name

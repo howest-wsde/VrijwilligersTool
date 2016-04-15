@@ -39,14 +39,9 @@ class Vacancy
     private $organisation;
 
     /**
-     * @var \AppBundle\Entity\Vacancycategory
+     * @var \AppBundle\Entity\Skill
      */
-    private $category;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $skillproficiency;
+    private $skill;
 
     /**
      * Constructor
@@ -150,55 +145,7 @@ class Vacancy
     public function getEnddate()
     {
         return $this->enddate;
-    }
-
-    /**
-     * Set creationtime
-     *
-     * @param \DateTime $creationtime
-     *
-     * @return Vacancy
-     */
-    public function setCreationtime($creationtime)
-    {
-        $this->creationtime = $creationtime;
-
-        return $this;
-    }
-
-    /**
-     * Get creationtime
-     *
-     * @return \DateTime
-     */
-    public function getCreationtime()
-    {
-        return $this->creationtime;
-    }
-
-    /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Vacancy
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
+    }    
 
     /**
      * Get id
@@ -246,30 +193,6 @@ class Vacancy
     }
 
     /**
-     * Set category
-     *
-     * @param \AppBundle\Entity\Vacancycategory $category
-     *
-     * @return Vacancy
-     */
-    public function setCategory(\AppBundle\Entity\Vacancycategory $category = null)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \AppBundle\Entity\Vacancycategory
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
      * Add skill
      *
      * @param \AppBundle\Entity\Skill $skill
@@ -278,7 +201,7 @@ class Vacancy
      */
     public function addSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skills[] = $skill;
+        $this->skill[] = $skill;
 
         return $this;
     }
@@ -290,17 +213,7 @@ class Vacancy
      */
     public function removeSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skills->removeElement($skill);
-    }
-
-    /**
-     * Get skillproficiency
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSkillproficiency()
-    {
-        return $this->skills;
+        $this->skill->removeElement($skill);
     }
 
     /**
@@ -319,16 +232,10 @@ class Vacancy
                 "Description" => $this->getDescription(),
                 "Startdate" => $this->getStartdate(),
                 "Enddate" => $this->getEnddate(),
-                "CreationTime" => $this->getCreationtime(),
                 "Organisation" => $this->getOrganisation()
             )
         ));
     }
-    /**
-     * @var \AppBundle\Entity\Skill
-     */
-    private $skill;
-
 
     /**
      * Set skill
@@ -337,7 +244,7 @@ class Vacancy
      *
      * @return Vacancy
      */
-    public function setSkill(\\AppBundle\Entity\Skill $skill)
+    public function setSkill(\AppBundle\Entity\Skill $skill)
     {
         $this->skill = $skill;
 
