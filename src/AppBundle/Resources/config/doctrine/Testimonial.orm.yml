@@ -9,6 +9,7 @@ AppBundle\Entity\Testimonial:
             type: text
         approved:
             type: boolean
+            nullable: true
     manyToOne:
         sender:
             targetEntity: Person

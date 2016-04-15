@@ -33,3 +33,7 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
+    OneToMany:
+        Vacancies:
+            targetEntity: vacancy
+            mappedBy: Id

@@ -11,12 +11,24 @@ AppBundle\Entity\Vacancy:
         description:
             type: text
         startdate:
-            type: DateTime
+            type: datetime
         enddate:
-            type: DateTime
+            type: datetime
+    manyToOne:
         organisation:
-            type: AppBundle:Entity:Organisation
-        category:
-            type: AppBundle:Entity:Vacancycategory
+            targetEntity: Organisation
+            inversedBy: Organisations
+            joinColumn:
+                name: organisation_id
+                referencedColumnName: id
+    ManyToMany:
         skill:
-            type: AppBundle:Entity:Skill
+            targetEntity: Skill
+            joinTable:
+                name: vacancy_has_skills
+                joinColumns:
+                    vacancy_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    skill_id:
+                        referencedColumnName: id

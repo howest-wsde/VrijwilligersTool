@@ -7,4 +7,22 @@ AppBundle\Entity\Skill:
     fields:
         name:
             type: string
-            length: 100        
+            length: 100
+    manyToOne:
+        parent:
+            nullable: true
+            targetEntity: Skill
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+    ManyToMany:
+        vacancies:
+            targetEntity: Vacancy
+            joinTable:
+                name: vacancy_has_skills
+                joinColumns:
+                    skill_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    vacancy_id:
+                        referencedColumnName: id

@@ -33,11 +33,11 @@ AppBundle\Entity\Person:
         telephone:
             type: string
             length: 10
-    OneToMany:
+    OneToOne:
         Organisations:
             targetEntity: Organisation
             mappedBy: Id
-    OneToOne:
+    OneToMany:
         Testimonials:
             targetEntity: Testimonial
             mappedBy: Id
