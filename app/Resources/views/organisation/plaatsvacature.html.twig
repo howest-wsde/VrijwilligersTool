@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vrijwilliger vinden{% endblock %}
+	
+{% block body %}
+	<header>
+		<h1>Vrijwilliger vinden</h1>
+		<p>Op zoek naar vrijwilligers?</p>
+		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
+	</header>
+	<form action="{{ path('vrijwilliger_vinden_bekijkvrijwilligers') }}" method="post">
+		 
+		<section>
+			<fieldset>
+				<legend>Nieuwe vacature</legend>
+				<label for="titel">Titel</label>
+				<input type="text" name="titel" id="titel" placeholder="Titel van uw vacature"/>
+				<label for="omschrijving">Beknopte omschrijving</label>
+				<textarea id="omschrijving" name="omschrijving" rows="3" cols="40" maxlength="120" placeholder="Omschrijf in maximaal 120 tekens de inhoud van deze vacature."></textarea>
+				<label for="jobinhoud">Jobinhoud</label>
+				<textarea id="jobinhoud" name="jobinhoud" rows="5" cols="40" placeholder="Geef de inhoud van de job van deze vacature"></textarea>
+				<label for="vervaldatum">Vervaldatum</label>
+				<input type="date" name="vervaldatum" id="vervaldatum"/>
+				<label for="langdurig">Betreft de vacature een langdurig engagement?</label>
+				<input type="checkbox" id="langdurig" name="langdurig" value="ja">Ja</input>
+				<label for="werkuren">Geschat aantal werkuren (indien langdurig: wekelijks)</label>
+				<input type="number" name="werkuren" id="werkuren"/>
+				<label for="locatie">Op welke locatie zal de vrijwilliger werken?</label>
+				<input type="text" name="locatie" id="locatie"/>
+				<label for="hoeveelInteracties">Bemiddelingsorganisatie</label>
+				<input type="checkbox" name="hoeveelInteracties" value="alles">Alles draait rond sociale interactie</input>
+				<input type="checkbox" name="hoeveelInteracties" value="alles">Niet speciaal veel, niet speciaal weinig</input>
+				<input type="checkbox" name="hoeveelInteracties" value="alles">Sociale interactie is beperkt</input>
+				<label for="zelfstandig">Moet de vrijwilliger zelfstandig kunnen werken?</label>
+				<input type="radio" name="zelfstandig" value="ja"> Ja<br>
+				<input type="radio" name="zelfstandig" value="nee"> Nee<br>
+				<label for="categorie">Onder welke categorieën valt deze vacature?</label>
+				<select id="categorie" name="categorie">
+				</select>
+				<label for="voordelen">Voordelen voor de vrijwilliger</label>
+				<input type="checkbox" name="voordelen" value="vergoeding">Vrijwilligersvergoeding</input>
+				<input type="number" min="0.01" step="0.01" placeholder="€" />
+				<input type="checkbox" name="voordelen" value="andere">Andere</input>
+				<input type="text" name="voordelen" id="andereVoordelen" placeholder="Andere voordelen" />
+			</fieldset>
+			<input type="submit" value="Plaats vacature" />
+			<input type="submit" value="Bewaar en publiceer later" />
+		</section>
+	</form>
+{% endblock %}

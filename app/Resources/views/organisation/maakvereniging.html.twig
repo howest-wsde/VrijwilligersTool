@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vrijwilliger vinden{% endblock %}
+	
+{% block body %}
+	<header>
+		<h1>Vrijwilliger vinden</h1>
+		<p>Op zoek naar vrijwilligers?</p>
+		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
+	</header>
+	<form action="{{ path('vrijwilliger_vinden_spelregels') }}" method="post">
+		<section>
+			<h2>Maak een profiel aan voor uw vereniging</h2>
+			<fieldset>
+				<legend>Organisatiegegevens</legend>
+				<label for="naam">Naam</label>
+				<input type="text" name="naam" id="naam" placeholder="Naam van uw organisatie" />
+				<label for="type">Type vereniging</label>
+				<select id="type" name="type">
+					<option value="feitelijkeVereniging">Feitelijke vereniging</option>
+					<option value="bvba">BVBA</option>
+					<option value="nv">NV</option>
+				</select>
+				<label for="logo">Geef uw logo</label>
+				<input type="file" name="logo" id="logo" placeholder="Kies een bestand" />
+				<label for="bemiddelings">Bemiddelingsorganisatie</label>
+				<input type="checkbox" id="bemiddelings" name="bemiddelings" value="ja">Ja</input>
+				<label for="email">Email vereniging</label>
+				<input type="email" id="email" name="email" placeholder="Email van uw organisatie"/>
+				<label for="reedsAccount">Heeft de persoon die beheerder moet worden reeds een account op deze site?</label>
+				<input type="radio" name="reedsAccount" value="ja"> Ja<br>
+				<input type="radio" name="reedsAccount" value="nee"> Nee<br>
+				<label for="emailBeheerder">Email van de beheerder</label>
+				<input type="email" id="emailBeheerder" name="emailBeheerder" placeholder="Email van de beheerder"/>
+				<label for="wachtzinBeheerder">Wachtzin van de beheerder</label>
+				<input type="password" id="wachtzinBeheerder" name="wachtzinBeheerder" placeholder="Wachtzin van de beheerder" />
+			</fieldset>
+			<input type="submit" value="Maak organisatie aan" />
+		</section>
+
+	</form>
+{% endblock %}
