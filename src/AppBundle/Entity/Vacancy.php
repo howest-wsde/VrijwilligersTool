@@ -39,16 +39,16 @@ class Vacancy
     private $organisation;
 
     /**
-     * @var \AppBundle\Entity\Skill
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $skill;
+    private $skills;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->skills= new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -145,7 +145,7 @@ class Vacancy
     public function getEnddate()
     {
         return $this->enddate;
-    }    
+    }
 
     /**
      * Get id
@@ -193,7 +193,7 @@ class Vacancy
     }
 
     /**
-     * Add skill
+     * Add skills
      *
      * @param \AppBundle\Entity\Skill $skill
      *
@@ -201,19 +201,19 @@ class Vacancy
      */
     public function addSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skill[] = $skill;
+        $this->skills[] = $skill;
 
         return $this;
     }
 
     /**
-     * Remove skillproficiency
+     * Remove skill
      *
      * @param \AppBundle\Entity\Skill $skill
      */
     public function removeSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->skill->removeElement($skill);
+        $this->skills->removeElement($skill);
     }
 
     /**
@@ -238,26 +238,12 @@ class Vacancy
     }
 
     /**
-     * Set skill
+     * Get skills
      *
-     * @param \AppBundle\Entity\Skill $skill
-     *
-     * @return Vacancy
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setSkill(\AppBundle\Entity\Skill $skill)
+    public function getSkills()
     {
-        $this->skill = $skill;
-
-        return $this;
-    }
-
-    /**
-     * Get skill
-     *
-     * @return \AppBundle\Entity\Skill
-     */
-    public function getSkill()
-    {
-        return $this->skill;
+        return $this->skills;
     }
 }
