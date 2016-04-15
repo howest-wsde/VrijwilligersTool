@@ -63,7 +63,6 @@ class SecurityController extends Controller
         );
     }
 
-
     /**
     * @Route("/status", name="status_testing")
     */
