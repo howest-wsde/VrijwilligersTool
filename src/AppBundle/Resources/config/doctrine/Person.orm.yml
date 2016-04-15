@@ -37,3 +37,7 @@ AppBundle\Entity\Person:
         Organisations:
             targetEntity: Organisation
             mappedBy: Id
+    OneToOne:
+        Testimonials:
+            targetEntity: Testimonial
+            mappedBy: Id
