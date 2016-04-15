@@ -148,4 +148,25 @@ class Testimonial
     {
         return $this->approved;
     }
+
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Value" => $this->getValue(),
+                "Sender" => $this->getSender(),
+                "Receiver" => $this->getReceiver(),
+                "Approved" => $this->getApproved()
+            )
+        ));
+    }
 }
