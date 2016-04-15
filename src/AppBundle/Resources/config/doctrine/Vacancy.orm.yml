@@ -1,0 +1,22 @@
+AppBundle\Entity\Vacancy:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 100
+        description:
+            type: text
+        startdate:
+            type: DateTime
+        enddate:
+            type: DateTime
+        organisation:
+            type: AppBundle:Entity:Organisation
+        category:
+            type: AppBundle:Entity:Vacancycategory
+        skill:
+            type: AppBundle:Entity:Skill
