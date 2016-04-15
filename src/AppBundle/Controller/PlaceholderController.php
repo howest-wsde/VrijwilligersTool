@@ -18,18 +18,26 @@ class PlaceholderController extends Controller
      */
     public function vrijwilliger($id)
     {
-        return $this->render("vrijwilliger/vrijwilliger.html.twig");
+        return $this->render("person/persoon.html.twig");
     }
+ 
+    /**
+     * @Route("/vacatures", name="vacaturesopmaat")
+     */
+    public function vacaturesopmaat()
+    {
+        return $this->render("person/vacaturesopmaat.html.twig");
+    }
+ 
 
     /**
-     * @Route("/vrijwilliger", name="vrijwilliger_worden")
+     * @Route("/vrijwilligerspelregels", name="person_spelregels")
      */
-    public function vrijwilliger_worden()
+    public function person_spelregels()
     {
-        return $this->render("vrijwilliger/worden.html.twig");
+        return $this->render("person/spelregels.html.twig");
     }
-
-
+ 
     /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
      */
@@ -39,10 +47,34 @@ class PlaceholderController extends Controller
     }
 
     /**
-     * @Route("/vereniging", name="vrijwilliger_vinden")
+     * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      */
-    public function vrijwilligerworden()
+    public function maakvereniging()
     {
-        return $this->render("vereniging/vrijwilliger_vinden.html.twig");
+        return $this->render("organisation/maakvereniging.html.twig");
+    }
+
+    /**
+     * @Route("/verenigingspelregels", name="vrijwilliger_vinden_spelregels")
+     */
+    public function verenigingspelregels()
+    {
+        return $this->render("organisation/spelregels.html.twig");
+    }
+
+    /**
+     * @Route("/plaatsvacature", name="vrijwilliger_vinden_plaatsvacature")
+     */
+    public function maakvacature()
+    {
+        return $this->render("organisation/plaatsvacature.html.twig");
+    }
+
+    /**
+     * @Route("/verenigingvrijwilligers", name="vrijwilliger_vinden_bekijkvrijwilligers")
+     */
+    public function vrijwilligervinden()
+    {
+        return $this->render("organisation/vrijwilligersopmaat.html.twig");
     }
 }
