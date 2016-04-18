@@ -91,6 +91,11 @@ class Person implements UserInterface, \Serializable
     private $linkedinUrl;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $testimonials;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -282,7 +287,7 @@ class Person implements UserInterface, \Serializable
     /**
      * Add skils
      *
-     * @param \AppBundle\Entity\skill $skills
+     * @param \AppBundle\Entity\skill $skill
      *
      * @return Person
      */
@@ -315,6 +320,44 @@ class Person implements UserInterface, \Serializable
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Add testimonial
+     *
+     * @param \AppBundle\Entity\Testimonial $testimonial
+     *
+     * @return Person
+     */
+    public function addTestimonial(\AppBundle\Entity\Testimonial $testimonial)
+    {
+        $this->testimonials[] = $testimonial;
+
+        return $this;
+    }
+
+    /**
+     * Remove testimonial
+     *
+      * @param \AppBundle\Entity\Testimonial $testimonial
+     *
+     * @return Person
+     */
+    public function removeTestimonial(\AppBundle\Entity\Testimonial $testimonial)
+    {
+        $this->testimonials->removeElement($testimonial);
+
+        return $this;
+    }
+
+    /**
+     * Get testimonials
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTestimonials()
+    {
+        return $this->testimonials;
     }
 
     /**
