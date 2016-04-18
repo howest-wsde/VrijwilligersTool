@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PersonController extends controller
 {
     /**
-     * @Route("/persoon/{id}" , name="persoon_id")
+     * @Route("/persoon/{id}" , name="person_id")
      */
     public function ViewPersonAction($id)
     {
@@ -24,5 +24,5 @@ class PersonController extends controller
         return $this->render('person/persoon.html.twig', array(
             "person" => $person
         ));
-    }    
+    }
 }

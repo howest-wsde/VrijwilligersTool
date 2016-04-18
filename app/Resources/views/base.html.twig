@@ -38,7 +38,7 @@
                             <a href="{{ path('logout') }}">Uitloggen</a>
                             {% else %}
                             <a href="{{ path('login_testing') }}">Inloggen</a>
-                            {% endif %}</li> 
+                            {% endif %}</li>
                     </ul>
                 </nav>
             </header>
@@ -64,9 +64,9 @@
                 <section>
                     <header><h1>Recente vrijwilligers</h1></header>
                     <ul>
-                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('vrijwilliger_detail', { 'id': "koen" }) }}">Vrijwilliger</a></li>
+                        <li><a href="{{ path('person_id', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
+                        <li><a href="{{ path('person_id', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
+                        <li><a href="{{ path('person_id', { 'id': "koen" }) }}">Vrijwilliger</a></li>
                     </ul>
                 </section>
                 <section>

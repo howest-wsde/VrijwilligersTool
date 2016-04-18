@@ -14,21 +14,13 @@ use AppBundle\Entity\Skill;
 class PlaceholderController extends Controller
 {
     /**
-     * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
-     */
-    public function vrijwilliger($id)
-    {
-        return $this->render("person/persoon.html.twig");
-    }
- 
-    /**
      * @Route("/vacatures", name="vacaturesopmaat")
      */
     public function vacaturesopmaat()
     {
         return $this->render("person/vacaturesopmaat.html.twig");
     }
- 
+
 
     /**
      * @Route("/vrijwilligerspelregels", name="person_spelregels")
@@ -37,7 +29,7 @@ class PlaceholderController extends Controller
     {
         return $this->render("person/spelregels.html.twig");
     }
- 
+
     /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
      */
