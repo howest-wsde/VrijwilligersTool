@@ -181,10 +181,7 @@ class Organisation
                 "PostalCode" => $this->getpostalCode(),
                 "Bus" => $this->getBus(),
                 "City" => $this->getCity(),
-                "Telephone" => $this->getTelephone(),
-                "Street" => $this->getStreet(),
-                "Creator" => $this->getCreator(),
-
+                "Telephone" => $this->getTelephone()
             )
         ));
     }
