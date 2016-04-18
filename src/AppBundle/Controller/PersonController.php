@@ -15,7 +15,7 @@ class PersonController extends controller
     /**
      * @Route("/persoon/{id}" , name="person_id")
      */
-    public function ViewPersonAction($id)
+    public function ViewPersonIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
@@ -29,7 +29,7 @@ class PersonController extends controller
     /**
      * @Route("/persoon/{username}" , name="person_username")
      */
-    public function ViewPersonAction($username)
+    public function ViewPersonUsernameAction($username)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
