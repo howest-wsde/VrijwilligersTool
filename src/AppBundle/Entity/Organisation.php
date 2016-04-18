@@ -335,6 +335,31 @@ class Organisation
     }
 
     /**
+     * Set bus
+     *
+     * @param \int $bus
+     *
+     * @return Organisation
+     */
+    public function setBus($bus)
+    {
+        $this->bus = $bus;
+
+        return $this;
+    }
+
+    /**
+     * Get bus
+     *
+     * @return \int
+     */
+    public function getBus()
+    {
+        return $this->bus;
+    }
+
+
+    /**
      * Set city
      *
      * @param string $city
