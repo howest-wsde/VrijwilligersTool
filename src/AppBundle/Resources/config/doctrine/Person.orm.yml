@@ -44,11 +44,7 @@ AppBundle\Entity\Person:
     oneToOne:
         organisation:
             targetEntity: Organisation
-            mappedBy: creator
-    oneToMany:
-        testimonials:
-            targetEntity: Testimonial
-            mappedBy: receiver_id
+            mappedBy: creator    
     manyToMany:
         skills:
             targetEntity: Skill
