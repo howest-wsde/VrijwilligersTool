@@ -565,6 +565,14 @@ class Person implements UserInterface, \Serializable
                 "Firstname" => $this->getFirstname(),
                 "Lastname" => $this->getLastname(),
                 "Username" => $this->getUsername(),
+                "Email" => $this->getEmail(),
+                "Street" => $this->getStreet(),
+                "Number" => $this->getNumber(),
+                "PostalCode" => $this->getpostalCode(),
+                "Bus" => $this->getBus(),
+                "City" => $this->getCity(),
+                "Telephone" => $this->getTelephone(),
+                "LinkedinUrl" => $this->getLinkedinUrl()
             )
         ));
     }
@@ -619,7 +627,7 @@ class Person implements UserInterface, \Serializable
 
     /**
      * Get Organisation
-     * 
+     *
      * @return Organisation
      */
     public function getOrganisation()
