@@ -42,11 +42,10 @@ AppBundle\Entity\Person:
             length: 150
             nullable: true
     OneToOne:
-        Organisations:
             targetEntity: Organisation
             mappedBy: id
     OneToMany:
-        Testimonials:
+        testimonials:
             targetEntity: Testimonial
             mappedBy: id
     manyToMany:

@@ -116,30 +116,6 @@ class Organisation
     }
 
     /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Organisation
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
      * Get id
      *
      * @return integer

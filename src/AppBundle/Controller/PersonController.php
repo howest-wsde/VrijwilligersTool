@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PersonController extends controller
 {
@@ -23,5 +24,5 @@ class PersonController extends controller
         return $this->render('person/persoon.html.twig', array(
             "person" => $person
         ));
-    }
+    }    
 }
