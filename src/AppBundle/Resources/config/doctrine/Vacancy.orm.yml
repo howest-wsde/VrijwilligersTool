@@ -21,14 +21,18 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
-    ManyToMany:
+    manyToMany:
         skills:
             targetEntity: Skill
+            mappedBy: null
+            inversedBy: vacancy
             joinTable:
-                name: vacancy_has_skills
+                name: vacancy_has_skill
                 joinColumns:
-                    vacancy_id:
+                    -
+                        name: vacancy_id
                         referencedColumnName: id
                 inverseJoinColumns:
-                    skill_id:
+                    -
+                        name: skill_id
                         referencedColumnName: id

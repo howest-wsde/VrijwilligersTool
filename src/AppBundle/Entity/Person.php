@@ -86,6 +86,11 @@ class Person implements UserInterface, \Serializable
     private $telephone;
 
     /**
+     * @var string
+     */
+    private $linkedinUrl;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -254,30 +259,6 @@ class Person implements UserInterface, \Serializable
     }
 
     /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Person
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $lastUpdate;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -305,7 +286,7 @@ class Person implements UserInterface, \Serializable
      *
      * @return Person
      */
-    public function addSkills(\AppBundle\Entity\Skill $skill)
+    public function addSkill(\AppBundle\Entity\Skill $skill)
     {
         $this->skills[] = $skill;
 
@@ -316,40 +297,24 @@ class Person implements UserInterface, \Serializable
      * Remove skill
      *
      * @param \AppBundle\Entity\Skill $skill
+     *
+     * @return Person
      */
     public function removeSkill(\AppBundle\Entity\Skill $skill)
     {
         $this->skills->removeElement($skill);
+
+        return $this;
     }
 
     /**
-     * Get skill
+     * Get skills
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getSkills()
     {
         return $this->skills;
-    }
-
-    /**
-     * The __toString method allows a class to decide how it will react when it is converted to a string.
-     *
-     * @return string
-     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
-     */
-    function __toString()
-    {
-        $reflect = new \ReflectionClass($this);
-        return json_encode( array(
-            "Entity" => $reflect->getShortName(),
-            "Id" => $this->getId(),
-            "Values" => array(
-                "Firstname" => $this->getFirstname(),
-                "Lastname" => $this->getLastname(),
-                "Username" => $this->getUsername(),
-            )
-        ));
     }
 
     /**
@@ -534,5 +499,25 @@ class Person implements UserInterface, \Serializable
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Firstname" => $this->getFirstname(),
+                "Lastname" => $this->getLastname(),
+                "Username" => $this->getUsername(),
+            )
+        ));
     }
 }
