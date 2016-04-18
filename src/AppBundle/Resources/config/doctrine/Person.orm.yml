@@ -42,6 +42,7 @@ AppBundle\Entity\Person:
             length: 150
             nullable: true
     OneToOne:
+        organisation:
             targetEntity: Organisation
             mappedBy: id
     OneToMany:
