@@ -12,13 +12,27 @@ use Symfony\Component\HttpFoundation\Request;
 class OrganisationController extends controller
 {
     /**
-     * @Route("/vereniging/{id}" , name="vereniging_id")
+     * @Route("/vereniging/{id}" , name="organisation_id")
      */
-    public function ViewOrganisationAction($id)
+    public function viewOrganisationIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository('AppBundle:Organisation')
             ->findOneById($id);
+
+        return $this->render('Organisation/vereniging.html.twig', array(
+            "organisation" => $organisation
+        ));
+    }
+
+    /**
+     * @Route("/vereniging/n/{name}" , name="organisation_name")
+     */
+    public function viewOrganisationNameAction($name)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository('AppBundle:Organisation')
+            ->findOneByName($name);
 
         return $this->render('Organisation/vereniging.html.twig', array(
             "organisation" => $organisation

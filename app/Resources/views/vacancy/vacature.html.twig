@@ -5,7 +5,6 @@
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
-		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
 		<div>
 			<p>{{ vacature.description }}</p>
 			<p>Ons Aanbod</p>
@@ -13,7 +12,7 @@
 		<div>
 			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
-			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+			<p>locatie: {{ vacature.organisation.street }}</p>
 		</div>
 		<div class="share-buttons">
 			<div>
@@ -27,11 +26,11 @@
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
-		<aside>
-			{% for category in vacature.category %}
+		<!-- <aside>
+			{# for category in vacature.category %}
 				<p>category</p>
-			{% endfor %}
-		</aside>
+			{# endfor %}
+		</aside> -->
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}

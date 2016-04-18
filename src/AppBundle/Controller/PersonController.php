@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 class PersonController extends controller
 {
     /**
-     * @Route("/persoon/{id}" , name="persoon_id")
+     * @Route("/persoon/{id}" , name="person_id")
      */
-    public function ViewPersonAction($id)
+    public function ViewPersonIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
@@ -24,5 +24,19 @@ class PersonController extends controller
         return $this->render('person/persoon.html.twig', array(
             "person" => $person
         ));
-    }    
+    }
+
+    /**
+     * @Route("/persoon/u/{username}" , name="person_username")
+     */
+    public function ViewPersonUsernameAction($username)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')
+            ->findOneByUsername($username);
+
+        return $this->render('person/persoon.html.twig', array(
+            "person" => $person
+        ));
+    }
 }
