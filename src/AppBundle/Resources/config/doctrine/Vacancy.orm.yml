@@ -17,15 +17,14 @@ AppBundle\Entity\Vacancy:
     manyToOne:
         organisation:
             targetEntity: Organisation
-            inversedBy: Organisations
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
     manyToMany:
         skills:
             targetEntity: Skill
-            mappedBy: null
-            inversedBy: vacancy
+            nullable: true
+            mappedBy: null            
             joinTable:
                 name: vacancy_has_skill
                 joinColumns:
