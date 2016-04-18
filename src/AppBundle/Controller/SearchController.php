@@ -17,7 +17,7 @@ class SearchController extends Controller
         $query = $this->get('ElasticsearchQuery');
         $params = [
             'index' => $query->getIndex(),
-            'type' => ['Person', 'vacancy', 'organisation'],
+            'type' => ['person', 'vacancy', 'organisation'],
             'body' => [
                 'query' => [
                     'query_string' => [
