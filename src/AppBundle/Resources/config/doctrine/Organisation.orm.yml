@@ -29,7 +29,7 @@ AppBundle\Entity\Organisation:
     manyToOne:
         creator:
             targetEntity: Person
-            inversedBy: Organisations
+            inversedBy: Organisation
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
