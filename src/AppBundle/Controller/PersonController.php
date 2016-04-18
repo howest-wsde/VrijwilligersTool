@@ -27,7 +27,7 @@ class PersonController extends controller
     }
 
     /**
-     * @Route("/persoon/{username}" , name="person_username")
+     * @Route("/persoon/u/{username}" , name="person_username")
      */
     public function ViewPersonUsernameAction($username)
     {
