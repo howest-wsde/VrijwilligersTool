@@ -39,4 +39,4 @@ AppBundle\Entity\Organisation:
     oneToMany:
         vacancies:
             targetEntity: Vacancy
-            mappedBy: id
+            mappedBy: organisation
