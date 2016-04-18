@@ -18,51 +18,40 @@ fos_elastica:
                         firstName: %nl%
                         lastName: %nl%
                         username: %nl%
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\person
-                        provider: ~
-                        listener: %listener%
-                        finder: ~
-                        elastica_to_model_transformer:
-                            ignore_missing: true
-
-                contact:
-                    mappings:
+                        street: %nl%
+                        number: %nl%
+                        postalcode: %nl%
+                        bus: %nl%
+                        city: %nl%
                         email: %nl%
-                        address: %nl%
                         telephone: %nl%
+                        linkedinUrl: %nl%
+                        organisation: %nl%
+                        # testimonials: %nl%
+                        skills: %nl%
                     persistence:
                         driver: orm
-                        model: AppBundle\Entity\contact
+                        model: AppBundle\Entity\Person
                         provider: ~
                         listener: %listener%
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
-
                 organisation:
                     mappings:
                         name: %nl%
                         description: %nl%
                         creator: %nl%
+                        street: %nl%
+                        number: %nl%
+                        postalcode: %nl%
+                        bus: %nl%
+                        city: %nl%
+                        email: %nl%
+                        telephone: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
-                        provider: ~
-                        listener: %listener%
-                        finder: ~
-                        elastica_to_model_transformer:
-                            ignore_missing: true
-
-
-
-                skill:
-                    mappings:
-                        name: %nl%
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\Skill
                         provider: ~
                         listener: %listener%
                         finder: ~
@@ -89,6 +78,7 @@ fos_elastica:
                         description: %nl%
                         startdate: %nl%
                         enddate: %nl%
+                        organisation: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy
