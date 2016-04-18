@@ -25,4 +25,18 @@ class PersonController extends controller
             "person" => $person
         ));
     }
+
+    /**
+     * @Route("/persoon/{username}" , name="person_username")
+     */
+    public function ViewPersonAction($username)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')
+            ->findOneByUsername($username);
+
+        return $this->render('person/persoon.html.twig', array(
+            "person" => $person
+        ));
+    }
 }
