@@ -18,6 +18,9 @@ AppBundle\Entity\Organisation:
             type: smallint
         postalCode:
             type: smallint
+        bus:
+            type: smallint
+            nullable: true
         city:
             type: string
             scale: 100
@@ -29,7 +32,6 @@ AppBundle\Entity\Organisation:
     manyToOne:
         creator:
             targetEntity: Person
-            inversedBy: Organisation
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
