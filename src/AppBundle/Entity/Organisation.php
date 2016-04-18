@@ -243,7 +243,7 @@ class Organisation
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = $telephone;
+        $this->telephone = preg_replace("/\D/", "", $telephone);
 
         return $this;
     }
