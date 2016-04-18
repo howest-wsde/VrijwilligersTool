@@ -13,14 +13,14 @@ fos_elastica:
                                 language: Dutch
                             # other analyzers
             types:
-                volunteer:
+                person:
                     mappings:
                         firstName: %nl%
                         lastName: %nl%
                         username: %nl%
                     persistence:
                         driver: orm
-                        model: AppBundle\Entity\Volunteer
+                        model: AppBundle\Entity\person
                         provider: ~
                         listener: %listener%
                         finder: ~
@@ -89,7 +89,6 @@ fos_elastica:
                         description: %nl%
                         startdate: %nl%
                         enddate: %nl%
-                        creationtime: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy

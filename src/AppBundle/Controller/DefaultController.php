@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\UserType;
 
 use AppBundle\Entity\Contact;

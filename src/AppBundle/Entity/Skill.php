@@ -11,9 +11,8 @@ class Skill
      * Constructor
      *
      * @param string name
-     *
      */
-    public function __construct($name)
+    public function __construct($name = "")
     {
         $this->name = $name;
     }
@@ -28,6 +27,10 @@ class Skill
      */
     private $id;
 
+    /**
+     * @var \AppBundle\Entity\Skill
+     */
+    private $parent;
 
     /**
      * Set name
@@ -84,5 +87,29 @@ class Skill
     {
         return "id: ".$this->getId().
         ", name: ".$this->getName();
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Skill $parent
+     *
+     * @return Skill
+     */
+    public function setParent(\AppBundle\Entity\Skill $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Skill
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

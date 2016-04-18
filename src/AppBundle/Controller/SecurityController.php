@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\UserType;
 
 class SecurityController extends Controller
@@ -18,7 +18,7 @@ class SecurityController extends Controller
     public function registerAction(Request $request)
     {
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
-        $user = new Volunteer();
+        $user = new Person();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);

@@ -18,25 +18,54 @@ class Organisation
     private $description;
 
     /**
-     * @var \DateTime
-     */
-    private $lastUpdate;
-
-    /**
      * @var integer
      */
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Volunteer
+     * @var \AppBundle\Entity\Person
      */
     private $creator;
 
     /**
-     * @var \AppBundle\Entity\Contact
+     * @var string
      */
-    private $contact;
+    private $email;
 
+    /**
+     * @var string
+     */
+    private $street;
+
+    /**
+     * @var int
+     */
+    private $Number;
+
+    /**
+     * @var int
+     */
+    private $bus;
+
+    /**
+     * @var int
+     */
+    private $postalCode;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $telephone;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
 
     /**
      * Set name
@@ -131,15 +160,14 @@ class Organisation
         return $this;
     }
 
-
     /**
      * Set creator
      *
-     * @param \AppBundle\Entity\Volunteer $creator
+     * @param \AppBundle\Entity\Person $creator
      *
      * @return Organisation
      */
-    public function setCreator(\AppBundle\Entity\Volunteer $creator = null)
+    public function setCreator(\AppBundle\Entity\Person $creator = null)
     {
         $this->creator = $creator;
 
@@ -149,35 +177,11 @@ class Organisation
     /**
      * Get creator
      *
-     * @return \AppBundle\Entity\Volunteer
+     * @return \AppBundle\Entity\Person
      */
     public function getCreator()
     {
         return $this->creator;
-    }
-
-    /**
-     * Set contact
-     *
-     * @param \AppBundle\Entity\Contact $contact
-     *
-     * @return Organisation
-     */
-    public function setContact(\AppBundle\Entity\Contact $contact = null)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return \AppBundle\Entity\Contact
-     */
-    public function getContact()
-    {
-        return $this->contact;
     }
 
     /**
@@ -197,5 +201,177 @@ class Organisation
                 "Description" => $this->getDescription()
             )
         ));
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Organisation
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Organisation
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     *
+     * @return Organisation
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+    /**
+     * @var int
+     */
+    private $number;
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return Organisation
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set number
+     *
+     * @param \int $number
+     *
+     * @return Organisation
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return \int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param \int $postalCode
+     *
+     * @return Organisation
+     */
+    public function setpostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return \int
+     */
+    public function getpostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Organisation
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

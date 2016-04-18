@@ -17,7 +17,7 @@ class PersonController extends controller
     public function ViewPersonAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository('AppBundle:Volunteer')
+        $person = $em->getRepository('AppBundle:Person')
             ->findOneById($id);
 
         return $this->render('person/persoon.html.twig', array(

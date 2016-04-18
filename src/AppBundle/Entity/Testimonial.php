@@ -13,25 +13,24 @@ class Testimonial
     private $value;
 
     /**
-     * @var \DateTime
-     */
-    private $lastUpdate = 'CURRENT_TIMESTAMP';
-
-    /**
      * @var integer
      */
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Volunteer
+     * @var \AppBundle\Entity\Person
      */
     private $sender;
 
     /**
-     * @var \AppBundle\Entity\Volunteer
+     * @var \AppBundle\Entity\Person
      */
     private $receiver;
 
+    /**
+     * @var boolean
+     */
+    private $approved;
 
     /**
      * Set value
@@ -58,30 +57,6 @@ class Testimonial
     }
 
     /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Testimonial
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
      * Set id
      *
      * @return Testimonial
@@ -105,11 +80,11 @@ class Testimonial
     /**
      * Set sender
      *
-     * @param \AppBundle\Entity\Volunteer $sender
+     * @param \AppBundle\Entity\Person $sender
      *
      * @return Testimonial
      */
-    public function setSender(\AppBundle\Entity\Volunteer $sender = null)
+    public function setSender(\AppBundle\Entity\Person $sender = null)
     {
         $this->sender = $sender;
 
@@ -119,7 +94,7 @@ class Testimonial
     /**
      * Get sender
      *
-     * @return \AppBundle\Entity\Volunteer
+     * @return \AppBundle\Entity\Person
      */
     public function getSender()
     {
@@ -129,11 +104,11 @@ class Testimonial
     /**
      * Set receiver
      *
-     * @param \AppBundle\Entity\Volunteer $receiver
+     * @param \AppBundle\Entity\Person $receiver
      *
      * @return Testimonial
      */
-    public function setReceiver(\AppBundle\Entity\Volunteer $receiver = null)
+    public function setReceiver(\AppBundle\Entity\Person $receiver = null)
     {
         $this->receiver = $receiver;
 
@@ -143,11 +118,55 @@ class Testimonial
     /**
      * Get receiver
      *
-     * @return \AppBundle\Entity\Volunteer
+     * @return \AppBundle\Entity\Person
      */
     public function getReceiver()
     {
         return $this->receiver;
     }
-}
 
+    /**
+     * Set approved
+     *
+     * @param boolean $approved
+     *
+     * @return Testimonial
+     */
+    public function setApproved($approved)
+    {
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return boolean
+     */
+    public function getApproved()
+    {
+        return $this->approved;
+    }
+
+    /**
+     * The __toString method allows a class to decide how it will react when it is converted to a string.
+     *
+     * @return string
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring
+     */
+    function __toString()
+    {
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Value" => $this->getValue(),
+                "Sender" => $this->getSender(),
+                "Receiver" => $this->getReceiver(),
+                "Approved" => $this->getApproved()
+            )
+        ));
+    }
+}
