@@ -44,11 +44,12 @@ AppBundle\Entity\Person:
     oneToOne:
         organisation:
             targetEntity: Organisation
-            mappedBy: creator    
+            mappedBy: creator
     manyToMany:
         skills:
             targetEntity: Skill
             mappedBy: null
+            cascade: ["persist"]
             joinTable:
                 name: person_has_skill
                 joinColumns:
