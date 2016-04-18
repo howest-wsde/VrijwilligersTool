@@ -79,6 +79,7 @@ fos_elastica:
                         startdate: %nl%
                         enddate: %nl%
                         organisation: %nl%
+                        skills: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy
