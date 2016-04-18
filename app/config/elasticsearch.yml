@@ -28,7 +28,7 @@ fos_elastica:
                         linkedinUrl: %nl%
                         organisation: %nl%
                         # testimonials: %nl%
-                        skills: %nl%
+                        # skills: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Person
@@ -79,7 +79,7 @@ fos_elastica:
                         startdate: %nl%
                         enddate: %nl%
                         organisation: %nl%
-                        skills: %nl%
+                        # skills: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy
