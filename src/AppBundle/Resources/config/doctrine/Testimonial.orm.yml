@@ -13,13 +13,11 @@ AppBundle\Entity\Testimonial:
     manyToOne:
         sender:
             targetEntity: Person
-            inversedBy: Testimonials
             joinColumn:
                 name: sender_id
                 referencedColumnName: id
         receiver:
             targetEntity: Person
-            inversedBy: Testimonials
             joinColumn:
                 name: receiver_id
                 referencedColumnName: id
