@@ -67,12 +67,29 @@ class VacancyController extends controller
     }
 
     /**
-     * @Route("/vacature/{id}", name="view_vacancy")
+     * @Route("/vacature/{id}", name="vacancy_id")
      */
-    public function viewVacancyAction($id)
+    public function viewVacancyIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-        return $this->render("vacancy/vacature.html.twig",array('vacature' => $vacancy));
+        $vacancy = $em->getRepository('AppBundle:Vacancy')
+            ->findoneById($id);
+        return $this->render("vacancy/vacature.html.twig",array(
+            'vacature' => $vacancy)
+        );
+    }
+
+    /**
+     * @Route("/vacature/t/{title}", name="vacancy_title")
+     */
+    public function viewVacancyTitleAction($title)
+    {
+        $title = str_replace("-", " ", $title);
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository('AppBundle:Vacancy')
+            ->findOneByTitle($title);
+        return $this->render("vacancy/vacature.html.twig",array(
+            'vacature' => $vacancy)
+        );
     }
 }
