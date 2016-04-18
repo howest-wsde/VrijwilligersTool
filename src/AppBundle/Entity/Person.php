@@ -96,6 +96,11 @@ class Person implements UserInterface, \Serializable
     private $testimonials;
 
     /**
+     * @var \AppBundle\Entity\Organisation
+     */
+    private $organisation;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -417,7 +422,7 @@ class Person implements UserInterface, \Serializable
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = $telephone;
+        $this->telephone = preg_replace("/\D/", "", $telephone);
 
         return $this;
     }
@@ -560,7 +565,85 @@ class Person implements UserInterface, \Serializable
                 "Firstname" => $this->getFirstname(),
                 "Lastname" => $this->getLastname(),
                 "Username" => $this->getUsername(),
+                "Email" => $this->getEmail(),
+                "Street" => $this->getStreet(),
+                "Number" => $this->getNumber(),
+                "PostalCode" => $this->getpostalCode(),
+                "Bus" => $this->getBus(),
+                "City" => $this->getCity(),
+                "Telephone" => $this->getTelephone(),
+                "LinkedinUrl" => $this->getLinkedinUrl()
             )
         ));
+    }
+
+    /**
+     * Set bus
+     *
+     * @param integer $bus
+     *
+     * @return Person
+     */
+    public function setBus($bus)
+    {
+        $this->bus = $bus;
+
+        return $this;
+    }
+
+    /**
+     * Get bus
+     *
+     * @return integer
+     */
+    public function getBus()
+    {
+        return $this->bus;
+    }
+
+    /**
+     * Set linkedinUrl
+     *
+     * @param string $linkedinUrl
+     *
+     * @return Person
+     */
+    public function setLinkedinUrl($linkedinUrl)
+    {
+        $this->linkedinUrl = $linkedinUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedinUrl
+     *
+     * @return string
+     */
+    public function getLinkedinUrl()
+    {
+        return $this->linkedinUrl;
+    }
+
+    /**
+     * Get Organisation
+     *
+     * @return Organisation
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * Set Organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     */
+    public function setOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisation = $organisation;
+
+        return $this;
     }
 }

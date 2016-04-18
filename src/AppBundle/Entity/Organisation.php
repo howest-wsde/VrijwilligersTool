@@ -116,30 +116,6 @@ class Organisation
     }
 
     /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Organisation
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -198,7 +174,14 @@ class Organisation
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName(),
-                "Description" => $this->getDescription()
+                "Description" => $this->getDescription(),
+                "Email" => $this->getEmail(),
+                "Street" => $this->getStreet(),
+                "Number" => $this->getNumber(),
+                "PostalCode" => $this->getpostalCode(),
+                "Bus" => $this->getBus(),
+                "City" => $this->getCity(),
+                "Telephone" => $this->getTelephone()
             )
         ));
     }
@@ -260,7 +243,7 @@ class Organisation
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = $telephone;
+        $this->telephone = preg_replace("/\D/", "", $telephone);
 
         return $this;
     }
@@ -350,6 +333,31 @@ class Organisation
     {
         return $this->postalCode;
     }
+
+    /**
+     * Set bus
+     *
+     * @param \int $bus
+     *
+     * @return Organisation
+     */
+    public function setBus($bus)
+    {
+        $this->bus = $bus;
+
+        return $this;
+    }
+
+    /**
+     * Get bus
+     *
+     * @return \int
+     */
+    public function getBus()
+    {
+        return $this->bus;
+    }
+
 
     /**
      * Set city

@@ -229,6 +229,7 @@ class Vacancy
             "Entity" => $reflect->getShortName(),
             "Id" => $this->getId(),
             "Values" => array(
+                "Title" => $this->getTitle(),
                 "Description" => $this->getDescription(),
                 "Startdate" => $this->getStartdate(),
                 "Enddate" => $this->getEnddate(),

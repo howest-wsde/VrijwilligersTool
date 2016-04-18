@@ -85,8 +85,14 @@ class Skill
      */
     function __toString()
     {
-        return "id: ".$this->getId().
-        ", name: ".$this->getName();
+        $reflect = new \ReflectionClass($this);
+        return json_encode( array(
+            "Entity" => $reflect->getShortName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Name" => $this->getName()
+            )
+        ));
     }
 
     /**

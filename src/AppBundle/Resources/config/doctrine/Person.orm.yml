@@ -41,18 +41,15 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
-    OneToOne:
-        Organisations:
+    oneToOne:
+        organisation:
             targetEntity: Organisation
-            mappedBy: id
-    OneToMany:
-        Testimonials:
-            targetEntity: Testimonial
-            mappedBy: id
+            mappedBy: creator
     manyToMany:
         skills:
             targetEntity: Skill
             mappedBy: null
+            cascade: ["persist"]
             joinTable:
                 name: person_has_skill
                 joinColumns:
