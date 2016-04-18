@@ -24,6 +24,9 @@ AppBundle\Entity\Person:
             type: smallint
         postalcode:
             type: smallint
+        bus:
+            type: smallint
+            nullable: true
         city:
             type: string
             scale: 100
@@ -33,22 +36,23 @@ AppBundle\Entity\Person:
         telephone:
             type: string
             length: 10
+            nullable: true
         linkedinUrl:
             type: string
             length: 150
+            nullable: true
     OneToOne:
         Organisations:
             targetEntity: Organisation
-            mappedBy: Id
+            mappedBy: id
     OneToMany:
         Testimonials:
             targetEntity: Testimonial
-            mappedBy: Id
+            mappedBy: id
     manyToMany:
         skills:
             targetEntity: Skill
             mappedBy: null
-            inversedBy: Person
             joinTable:
                 name: person_has_skill
                 joinColumns:
