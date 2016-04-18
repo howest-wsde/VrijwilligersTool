@@ -174,7 +174,17 @@ class Organisation
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName(),
-                "Description" => $this->getDescription()
+                "Description" => $this->getDescription(),
+                "Email" => $this->getEmail(),
+                "Street" => $this->getStreet(),
+                "Number" => $this->getNumber(),
+                "PostalCode" => $this->getpostalCode(),
+                "Bus" => $this->getBus(),
+                "City" => $this->getCity(),
+                "Telephone" => $this->getTelephone(),
+                "Street" => $this->getStreet(),
+                "Creator" => $this->getCreator(),
+
             )
         ));
     }
