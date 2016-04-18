@@ -29,13 +29,14 @@ AppBundle\Entity\Organisation:
             length: 10
         description:
             type: text
-    manyToOne:
+    oneToOne:
         creator:
             targetEntity: Person
+            inversedBy: organisation
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
-    OneToMany:
-        Vacancies:
-            targetEntity: vacancy
-            mappedBy: Id
+    oneToMany:
+        vacancies:
+            targetEntity: Vacancy
+            mappedBy: id

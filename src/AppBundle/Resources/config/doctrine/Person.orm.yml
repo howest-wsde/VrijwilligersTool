@@ -41,14 +41,14 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
-    OneToOne:
+    oneToOne:
         organisation:
             targetEntity: Organisation
-            mappedBy: id
-    OneToMany:
+            mappedBy: creator
+    oneToMany:
         testimonials:
             targetEntity: Testimonial
-            mappedBy: id
+            mappedBy: receiver_id
     manyToMany:
         skills:
             targetEntity: Skill
