@@ -44,27 +44,26 @@ class VacancyController extends controller
      */
     public function createVacancyAction(Request $request)
     {
-
         $vacancy = new Vacancy();
+        // $vacancy->setStartdate(new \DateTime())
+        //     ->setEnddate(new \DateTime());
         $form = $this->createForm(VacancyType::class, $vacancy);
 
         //TODO: check if dates are valid with constraints
 
-        if ($request->getMethod() == 'POST') {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($vacancy);
-                $em->flush();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($vacancy);
+            $em->flush();
 
-                $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
-                return $this->redirect($this->generateUrl('create_vacancy'));
-            }
-        } else {
-            return $this->render('vacancy/vacature_aanmaken.html.twig',
-                array('form' => $form->createView()));
+            $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
+            return $this->redirect($this->generateUrl('create_vacancy'));
         }
-    }
+
+        return $this->render('vacancy/vacature_nieuw.html.twig',
+            array('form' => $form->createView()));
+        }
 
     /**
      * @Route("/vacature/{id}", name="vacancy_id")

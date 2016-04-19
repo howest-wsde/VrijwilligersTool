@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Vacancy
  */
@@ -10,21 +12,34 @@ class Vacancy
 {
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Gelieve een titel op te geven")
     */
     private $title;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Gelieve een omschrijving op te geven")
      */
     private $description;
 
     /**
-     * @var \DateTime
+     * @var \Date
+     *
+     * @Assert\NotBlank(message="Gelieve een begindatum op te geven")
+     * @Assert\Type("\Date")
+     * @Assert\GreaterThan("today")
+     * @Assert\GreaterThan("enddate")
      */
     private $startdate;
 
     /**
-     * @var \DateTime
+     * @var \Date
+     *
+     * @Assert\NotBlank(message="Gelieve een einddatum op te geven")
+     * @Assert\Type("\Date")
+     * @Assert\GreaterThan("today")
      */
     private $enddate;
 
@@ -102,7 +117,7 @@ class Vacancy
     /**
      * Set startdate
      *
-     * @param \DateTime $startdate
+     * @param \Date $startdate
      *
      * @return Vacancy
      */
@@ -116,7 +131,7 @@ class Vacancy
     /**
      * Get startdate
      *
-     * @return \DateTime
+     * @return \Date
      */
     public function getStartdate()
     {
@@ -126,7 +141,7 @@ class Vacancy
     /**
      * Set enddate
      *
-     * @param \DateTime $enddate
+     * @param \Date $enddate
      *
      * @return Vacancy
      */
@@ -140,7 +155,7 @@ class Vacancy
     /**
      * Get enddate
      *
-     * @return \DateTime
+     * @return \Date
      */
     public function getEnddate()
     {

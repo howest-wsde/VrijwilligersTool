@@ -11,9 +11,9 @@ AppBundle\Entity\Vacancy:
         description:
             type: text
         startdate:
-            type: datetime
+            type: date
         enddate:
-            type: datetime
+            type: date
     manyToOne:
         organisation:
             targetEntity: Organisation
