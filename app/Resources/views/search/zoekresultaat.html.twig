@@ -1,0 +1,9 @@
+{% for result in results %}
+    <div class="display_box" align="left">
+        <b>{{result.title}}</b>
+        <br />
+        {{result.body}}
+        <br />
+        <input type="hidden" id="referer" value="{{result.link}}" />
+    </div>
+{% endfor %}
