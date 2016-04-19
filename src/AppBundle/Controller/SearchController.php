@@ -69,9 +69,9 @@ class SearchController extends Controller
         }
         $response = new Response(
             $this->renderView("search/zoekresultaat.html.twig",
-            array("results" => $results)),
-            200
-        );
+                array("results" => $results)),
+                200
+            );
         $response->headers->set("Access-Control-Allow-Origin", "*");
         return $response;
     }
