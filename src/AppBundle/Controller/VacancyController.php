@@ -73,7 +73,7 @@ class VacancyController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository('AppBundle:Vacancy')
-            ->findoneById($id);
+            ->findOneById($id);
         return $this->render("vacancy/vacature.html.twig",array(
             'vacature' => $vacancy)
         );

@@ -51,8 +51,28 @@ class SearchController extends Controller
     /**
      * @Route("/zoek", name="zoek")
      */
-    public function searchRedirAction()
+    public function searchRedirectAction()
     {
         return $this->redirectToRoute("zoeken");
+    }
+
+    /**
+     * @Route("/api/search", name="api_search")
+     */
+    public function apiSearchAction()
+    {
+        $query = Request::createFromGlobals()->query->get("q");
+        $results = null;
+        if ($query)
+        {
+            $results = $this->searchForEntityResults($query);
+        }
+        $response = new Response(
+            $this->renderView("search/zoekresultaat.html.twig",
+                array("results" => $results)),
+                200
+            );
+        $response->headers->set("Access-Control-Allow-Origin", "*");
+        return $response;
     }
 }
