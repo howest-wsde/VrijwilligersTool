@@ -1,6 +1,6 @@
 fos_elastica:
     clients:
-        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
+        default: { host: "%elasticsearch_host%", port: "%elasticsearch_port%" }
     indexes:
         %elasticsearch_index%:
             finder: ~
@@ -15,20 +15,20 @@ fos_elastica:
             types:
                 person:
                     mappings:
-                        firstName: %nl%
-                        lastName: %nl%
-                        username: %nl%
-                        street: %nl%
-                        number: %nl%
-                        postalcode: %nl%
-                        bus: %nl%
-                        city: %nl%
-                        email: %nl%
-                        telephone: %nl%
-                        linkedinUrl: %nl%
-                        organisation: %nl%
-                        # testimonials: %nl%
-                        # skills: %nl%
+                        firstName: "%nl%"
+                        lastName: "%nl%"
+                        username: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
+                        linkedinUrl: "%nl%"
+                        organisation: "%nl%"
+                        # testimonials: "%nl%"
+                        # skills: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Person
@@ -39,16 +39,16 @@ fos_elastica:
                             ignore_missing: true
                 organisation:
                     mappings:
-                        name: %nl%
-                        description: %nl%
-                        creator: %nl%
-                        street: %nl%
-                        number: %nl%
-                        postalcode: %nl%
-                        bus: %nl%
-                        city: %nl%
-                        email: %nl%
-                        telephone: %nl%
+                        name: "%nl%"
+                        description: "%nl%"
+                        creator: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
@@ -60,9 +60,9 @@ fos_elastica:
 
                 testimonial:
                     mappings:
-                        value: %nl%
-                        sender: %nl%
-                        receiver: %nl%
+                        value: "%nl%"
+                        sender: "%nl%"
+                        receiver: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Testimonial
@@ -74,12 +74,12 @@ fos_elastica:
 
                 vacancy:
                     mappings:
-                        title: %nl%
-                        description: %nl%
-                        startdate: %nl%
-                        enddate: %nl%
-                        organisation: %nl%
-                        # skills: %nl%
+                        title: "%nl%"
+                        description: "%nl%"
+                        startdate: "%nl%"
+                        enddate: "%nl%"
+                        organisation: "%nl%"
+                        # skills: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy
