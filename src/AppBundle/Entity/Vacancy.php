@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Vacancy
@@ -11,25 +13,50 @@ class Vacancy
 {
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 100,
+     *      minMessage = "vacancy.title.min_message",
+     *      maxMessage = "vacancy.title.max_message"
+     * )
     */
     private $title;
 
     /**
      * @var string
-     *
-     */
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 2000,
+     *      minMessage = "vacancy.description.min_message",
+     *      maxMessage = "vacancy.description.max_message"
+     * )
+    */
     private $description;
 
     /**
-     * @var \Date
-     *
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
      */
     private $startdate;
 
+    //TODO: Assert later that startdate
     /**
-     * @var \Date
-     *    
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
      */
     private $enddate;
 
@@ -107,7 +134,7 @@ class Vacancy
     /**
      * Set startdate
      *
-     * @param \Date $startdate
+     * @param \DateTime $startdate
      *
      * @return Vacancy
      */
@@ -121,7 +148,7 @@ class Vacancy
     /**
      * Get startdate
      *
-     * @return \Date
+     * @return \DateTime
      */
     public function getStartdate()
     {
@@ -131,7 +158,7 @@ class Vacancy
     /**
      * Set enddate
      *
-     * @param \Date $enddate
+     * @param \DateTime $enddate
      *
      * @return Vacancy
      */
@@ -145,7 +172,7 @@ class Vacancy
     /**
      * Get enddate
      *
-     * @return \Date
+     * @return \DateTime
      */
     public function getEnddate()
     {

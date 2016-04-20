@@ -24,45 +24,24 @@ class VacancyType extends AbstractType
             ->add("title", TextType::class, array(
                 "label" => "vacancy.label.title",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.label.title"),
+                "attr" => array("placeholder" => "vacancy.label.title")
             ))
             ->add("description", TextareaType::class, array(
                 "label" => "vacancy.label.description",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.label.description"),
-                "constraints" => array(
-                    new Length(array(
-                        "min" => 20,
-                        "max" => 2000,
-                        "minMessage" => "vacancy.description.min_message",
-                        "maxMessage" => "vacancy.description.max_message"
-                    ))
-                )
+                "attr" => array("placeholder" => "vacancy.label.description")
             ))
             ->add("startdate", DateType::class, array(
                 "label" => "vacancy.label.startdate",
                 "translation_domain" => "validators",
                 "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text",
-                "constraints" => array(
-                    new Type(array(
-                        "type" => "\DateTime",
-                        "message" => "vacancy.date.message"
-                    )),
-                    new GreaterThanOrEqual("today")
-                )
+                "widget" => "single_text"
             ))
             ->add("enddate", DateType::class, array(
                 "label" => "vacancy.label.enddate",
                 "translation_domain" => "validators",
-                "widget" => "single_text",
                 "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "constraints" => array(
-                    new Date(array(
-                        "message" => "vacancy.date.message"
-                    )),
-                    new GreaterThanOrEqual("today")
-                )
+                "widget" => "single_text"
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "vacancy.label.submit",
