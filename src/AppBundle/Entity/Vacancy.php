@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Vacancy
@@ -13,33 +12,24 @@ class Vacancy
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Gelieve een titel op te geven")
     */
     private $title;
 
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="Gelieve een omschrijving op te geven")
      */
     private $description;
 
     /**
      * @var \Date
      *
-     * @Assert\NotBlank(message="Gelieve een begindatum op te geven")
-     * @Assert\Type("\Date")
-     * @Assert\GreaterThan("today")
-     * @Assert\GreaterThan("enddate")
      */
     private $startdate;
 
     /**
      * @var \Date
-     *
-     * @Assert\NotBlank(message="Gelieve een einddatum op te geven")
-     * @Assert\Type("\Date")
-     * @Assert\GreaterThan("today")
+     *    
      */
     private $enddate;
 
