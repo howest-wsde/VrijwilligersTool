@@ -2,25 +2,40 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Organisation
  */
 class Organisation
 {
     /**
+     * @var int
+    */
+    private $id;
+
+    /**
      * @var string
-     */
+     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 150,
+     *      minMessage = "organisation.name.min_message",
+     *      maxMessage = "organisation.name.max_message"
+     * )
+    */
     private $name;
 
     /**
      * @var string
-     */
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 2000,
+     *      minMessage = "vacancy.description.min_message",
+     *      maxMessage = "vacancy.description.max_message"
+     * )
+    */
     private $description;
-
-    /**
-     * @var integer
-     */
-    private $id;
 
     /**
      * @var \AppBundle\Entity\Person
@@ -29,18 +44,27 @@ class Organisation
 
     /**
      * @var string
+     * @Assert\Email(
+     *     message = "organisation.email.valid",
+     *     checkHost = true
      */
     private $email;
 
     /**
      * @var string
+     * @Assert\NotNull("organisation.not_blank")
+     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "organisation.max_message"
+     * )
      */
     private $street;
 
     /**
      * @var int
      */
-    private $Number;
+    private $number;
 
     /**
      * @var int
@@ -257,10 +281,6 @@ class Organisation
     {
         return $this->telephone;
     }
-    /**
-     * @var int
-     */
-    private $number;
 
     /**
      * Set street

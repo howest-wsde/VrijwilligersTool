@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Vacancy
  */
@@ -13,22 +12,24 @@ class Vacancy
 {
     /**
      * @var string
+     * @Assert\NotBlank("organisation.not_blank")
      * @Assert\Length(
      *      min = 4,
      *      max = 100,
-     *      minMessage = "vacancy.title.min_message",
-     *      maxMessage = "vacancy.title.max_message"
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy..max_message"
      * )
     */
     private $title;
 
     /**
      * @var string
+     * @Assert\NotBlank("organisation.not_blank")
      * @Assert\Length(
      *      min = 20,
      *      max = 2000,
-     *      minMessage = "vacancy.description.min_message",
-     *      maxMessage = "vacancy.description.max_message"
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
      * )
     */
     private $description;
@@ -46,7 +47,7 @@ class Vacancy
      */
     private $startdate;
 
-    //TODO: Assert later that startdate
+    //TODO: Assert later than startdate
     /**
      * @var \Datetime
      * @Assert\Type(

@@ -36,14 +36,14 @@ class OrganisationController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($vacancy);
+            $em->persist($organisation);
             $em->flush();
 
-            $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
+            $this->addFlash("success-notice","Uw vereniging werd correct ontvangen en opgeslagen");
             return $this->redirect($this->generateUrl("create_organisation"));
         }
 
-        return $this->render("zoekpagina.html.twig", array(
+        return $this->render("organisation\maakvereniging.html.twig", array(
             "form" => $form->createView()
         ));
     }

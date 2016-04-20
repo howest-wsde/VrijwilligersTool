@@ -14,7 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\{
     DateType,
     TextareaType,
     TextType,
-    SubmitType};
+    SubmitType,
+    EmailType,
+    NumberType};
 
 class OrganisationType extends AbstractType
 {
@@ -24,27 +26,51 @@ class OrganisationType extends AbstractType
             ->add("name", TextType::class, array(
                 "label" => "organisation.label.name",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.label.title")
+                "attr" => array("placeholder" => "organisation.label.name")
             ))
             ->add("description", TextareaType::class, array(
-                "label" => "vacancy.label.description",
+                "label" => "organisation.label.description",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.label.description")
+                "attr" => array("placeholder" => "organisation.label.description")
             ))
-            ->add("startdate", DateType::class, array(
-                "label" => "vacancy.label.startdate",
+            ->add("email", EmailType::class, array(
+                "label" => "organisation.label.email",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
+                "attr" => array("placeholder" => "organisation.placeholder.email")
             ))
-            ->add("enddate", DateType::class, array(
-                "label" => "vacancy.label.enddate",
+            ->add("street", TextType::class, array(
+                "label" => "organisation.label.street",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
+                "attr" => array("placeholder" => "organisation.label.street")
+            ))
+            ->add("number", NumberType::class, array(
+                "label" => "organisation.label.number",
+                "translation_domain" => "validators",
+                "attr" => array("placeholder" => "organisation.label.number")
+            ))
+            ->add("bus", NumberType::class, array(
+                "label" => "organisation.label.bus",
+                "translation_domain" => "validators",
+                "attr" => array("placeholder" => "organisation.label.bus"),
+                "required" => false
+            ))
+            ->add("postalCode", NumberType::class, array(
+                "label" => "organisation.label.postalcode",
+                "translation_domain" => "validators",
+                "attr" => array("placeholder" => "organisation.label.postalcode")
+            ))
+            ->add("city", TextType::class, array(
+                "label" => "organisation.label.city",
+                "translation_domain" => "validators",
+                "attr" => array("placeholder" => "organisation.label.city")
+            ))
+            ->add("telephone", TextType::class, array(
+                "label" => "organisation.label.telephone",
+                "translation_domain" => "validators",
+                "attr" => array("placeholder" => "organisation.placeholder.telephone")
             ))
             ->add("submit", SubmitType::class, array(
-                "label" => "vacancy.label.submit",
+                "label" => "organisation.label.submit",
                 "translation_domain" => "validators",
             ));
     }
