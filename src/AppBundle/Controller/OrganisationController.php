@@ -38,4 +38,26 @@ class OrganisationController extends controller
             "organisation" => $organisation
         ));
     }
+
+    /**
+     * @Route("/vereniging/nieuw" , name="create_organisation")
+     */
+    public function createOrganisationAction(Request $request)
+    {
+        $organisation = new Organisation();
+        $form = $this->createForm(OrganisationType::class, $organisation);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($vacancy);
+            $em->flush();
+
+            $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen');
+            return $this->redirect($this->generateUrl('create_organisation'));
+        }
+
+        return $this->render('organisatie/maakvereniging.html.twig',
+            array('form' => $form->createView()));
+    }
 }
