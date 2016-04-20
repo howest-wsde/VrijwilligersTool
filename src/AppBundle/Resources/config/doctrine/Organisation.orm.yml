@@ -34,7 +34,7 @@ AppBundle\Entity\Organisation:
         telephone:
             type: string
             length: 10
-            nullable: true        
+            nullable: true
     oneToOne:
         creator:
             targetEntity: Person
@@ -44,5 +44,6 @@ AppBundle\Entity\Organisation:
                 referencedColumnName: id
     oneToMany:
         vacancies:
+            nullable: true
             targetEntity: Vacancy
             mappedBy: organisation
