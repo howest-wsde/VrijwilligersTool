@@ -16,13 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\{
     TextType,
     SubmitType};
 
-use Symfony\Component\Validator\Constraints\{
-    Length,
-    NotBlank,
-    Date,
-    GreaterThan,
-    GreaterThanOrEqual};
-
 class VacancyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,14 +25,7 @@ class VacancyType extends AbstractType
                 "label" => "vacancy.label.title",
                 "translation_domain" => "validators",
                 "attr" => array("placeholder" => "vacancy.label.title"),
-                "constraints" => array(
-                    new Length(array(
-                        "min" => 4,
-                        "max" => 100,
-                        "minMessage" => "vacancy.title.min_message",
-                        "maxMessage" => "vacancy.title.max_message"),
-                    new NotBlank(array("message" => "vacancy.not_blank"))
-            ))))
+            ))
             ->add("description", TextareaType::class, array(
                 "label" => "vacancy.label.description",
                 "translation_domain" => "validators",
@@ -49,20 +35,23 @@ class VacancyType extends AbstractType
                         "min" => 20,
                         "max" => 2000,
                         "minMessage" => "vacancy.description.min_message",
-                        "maxMessage" => "vacancy.description.max_message"),
-                    new NotBlank(array("message" => "vacancy.not_blank"))
-            ))))
+                        "maxMessage" => "vacancy.description.max_message"
+                    ))
+                )
+            ))
             ->add("startdate", DateType::class, array(
                 "label" => "vacancy.label.startdate",
                 "translation_domain" => "validators",
                 "attr" => array("placeholder" => "vacancy.placeholder.date"),
                 "widget" => "single_text",
                 "constraints" => array(
-                    new Date(array(
+                    new Type(array(
+                        "type" => "\DateTime",
                         "message" => "vacancy.date.message"
-                    ),
+                    )),
                     new GreaterThanOrEqual("today")
-            ))))
+                )
+            ))
             ->add("enddate", DateType::class, array(
                 "label" => "vacancy.label.enddate",
                 "translation_domain" => "validators",
@@ -71,10 +60,10 @@ class VacancyType extends AbstractType
                 "constraints" => array(
                     new Date(array(
                         "message" => "vacancy.date.message"
-                    ),
-                    new GreaterThanOrEqual("today"),
-                    new GreaterThanOrEqual("startdate")
-            ))))
+                    )),
+                    new GreaterThanOrEqual("today")
+                )
+            ))
             ->add("submit", SubmitType::class, array(
                 "label" => "vacancy.label.submit",
                 "translation_domain" => "validators",
