@@ -92,4 +92,15 @@ class VacancyController extends controller
             'vacature' => $vacancy)
         );
     }
+
+    public function listRecentVacanciesAction(){
+        // retreiving 5 most recent vacancies 
+        $entities = $this->getDoctrine()
+                        ->getRepository("AppBundle:Vacancy")
+                        ->findBy(array(), array('id' => 'DESC'),5);
+        return $this->render('vacancy/recente_vacatures.html.twig',
+            array('vacancies' => $entities)
+        );
+
+    }
 }
