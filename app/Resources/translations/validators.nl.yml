@@ -17,3 +17,14 @@ vacancy:
         submit: Opslaan
     placeholder:
         date: jjjj-mm-dd
+organisation:
+    label:
+        name: Naam
+        description: Omschrijving
+        email: E-mailaddres
+        street: Straatnaam
+        number: Huisnummer
+        bus: Busnummer
+        postalcode: Postcode
+        city: Stad
+        telephone: Telefoonnummer
