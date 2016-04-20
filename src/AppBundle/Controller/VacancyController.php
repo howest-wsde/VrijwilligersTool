@@ -45,8 +45,8 @@ class VacancyController extends controller
     public function createVacancyAction(Request $request)
     {
         $vacancy = new Vacancy();
-        // $vacancy->setStartdate(new \DateTime())
-        //     ->setEnddate(new \DateTime());
+        $vacancy->setStartdate(new \DateTime())
+             ->setEnddate(new \DateTime());
         $form = $this->createForm(VacancyType::class, $vacancy);
 
         //TODO: check if dates are valid with constraints
