@@ -18,21 +18,21 @@ class VacancyController extends controller
     public function createPDFAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($id);
 
         if ($vacancy) {
-            $pdf = new \FPDF_FPDF('P', 'pt', 'A4');
+            $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
 
-            $pdf->SetFont('Times', 'B', 12);
-            $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, 'C');
+            $pdf->SetFont("Times", "B", 12);
+            $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, "C");
             $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
-                $vacancy->getCreationtime()->format('Y-m-d'));
+                $vacancy->getCreationtime()->format("Y-m-d"));
             $pdf->MultiCell(0, 20, "Beschrijving: \t".
                 $vacancy->getDescription());
             $pdf->MultiCell(0, 20, "Organisatie: \t".
-                $vacancy->getOrganisation()->getContact()->getAddress(), 0, 'L');
-            $pdf->MultiCell(0, 20, "Locatie: \t", 0, 'L');
+                $vacancy->getOrganisation()->getContact()->getAddress(), 0, "L");
+            $pdf->MultiCell(0, 20, "Locatie: \t", 0, "L");
             $pdf->Output();
             return $this->render($pdf->Output());
         } else
@@ -45,11 +45,9 @@ class VacancyController extends controller
     public function createVacancyAction(Request $request)
     {
         $vacancy = new Vacancy();
-        $vacancy->setStartdate(new \DateTime())
-             ->setEnddate(new \DateTime());
+        $vacancy->setStartdate(new \DateTime("today"))
+            ->setEnddate(new \DateTime("today"));
         $form = $this->createForm(VacancyType::class, $vacancy);
-
-        //TODO: check if dates are valid with constraints
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,13 +55,13 @@ class VacancyController extends controller
             $em->persist($vacancy);
             $em->flush();
 
-            $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
-            return $this->redirect($this->generateUrl('create_vacancy'));
+            $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
+            return $this->redirect($this->generateUrl("create_vacancy"));
         }
 
-        return $this->render('vacancy/vacature_nieuw.html.twig',
-            array('form' => $form->createView()));
-        }
+        return $this->render("vacancy/vacature_nieuw.html.twig",
+            array("form" => $form->createView()));
+    }
 
     /**
      * @Route("/vacature/{id}", name="vacancy_id")
@@ -71,10 +69,10 @@ class VacancyController extends controller
     public function viewVacancyIdAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findoneById($id);
         return $this->render("vacancy/vacature.html.twig",array(
-            'vacature' => $vacancy)
+            "vacature" => $vacancy)
         );
     }
 
@@ -85,10 +83,10 @@ class VacancyController extends controller
     {
         $title = str_replace("-", " ", $title);
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByTitle($title);
-        return $this->render("vacancy/vacature.html.twig",array(
-            'vacature' => $vacancy)
+        return $this->render("vacancy/vacature.html.twig", array(
+            "vacature" => $vacancy)
         );
     }
 }
