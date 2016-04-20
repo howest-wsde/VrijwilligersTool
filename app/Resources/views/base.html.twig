@@ -55,24 +55,10 @@
         {% block footer %}
             <nav class="bottom nav">
                 <section>
-                    <header><h1>Recente vacatures</h1></header>
-                    <ul>
-                        <li><a href="{{ path('vacancy_id', { 'id': 1 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 2 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 3 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 4 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 5 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 6 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 7 }) }}">Vacature</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Vacancy:listRecentVacancies')) }}
                 </section>
                 <section>
-                    <header><h1>Recente vrijwilligers</h1></header>
-                    <ul>
-                        <li><a href="{{ path('person_id', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('person_id', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('person_id', { 'id': "koen" }) }}">Vrijwilliger</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Person:listRecentPersons')) }}
                 </section>
                 <section>
                     <header><h1>Vacature types</h1></header>

@@ -39,4 +39,17 @@ class PersonController extends controller
             "person" => $person
         ));
     }
+
+
+    public function listRecentPersonsAction(){
+        // retreiving 5 most recent persons
+        $entities = $this->getDoctrine()
+                        ->getRepository("AppBundle:Person")
+                        ->findBy(array(), array('id' => 'DESC'),5);
+
+        return $this->render('person/recente_vrijwilligers.html.twig',
+            array('persons' => $entities)
+        );
+
+    }
 }
