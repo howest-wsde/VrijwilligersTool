@@ -1,0 +1,6 @@
+<header><h1>Recente vrijwilligers</h1></header>
+<ul>
+	{% for entity in persons %} 
+	    <li><a href="{{ path('person_id', { 'id': entity.id }) }}">{{ entity.firstname}} {{ entity.lastname}}</a></li> 
+	{% endfor %} 
+</ul> 
