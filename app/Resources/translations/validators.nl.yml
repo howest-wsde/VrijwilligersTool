@@ -1,0 +1,19 @@
+vacancy:
+    not_blank: Gelieve een waarde op te geven.
+    title:
+        min_message: Gelieve minimum {{ limit }} tekens in te geven.
+        max_message: Gelieve maximum {{ limit }} tekens in te geven.
+    description:
+        min_message: Gelieve minimum {{ limit }} tekens in te geven.
+        max_message: Gelieve maximum {{ limit }} tekens in te geven.
+    date:
+        message: Gelieve een geldige datum op te geven.
+        name: Opslaan
+    label:
+        title: Titel
+        description: Omschrijving
+        startdate: Begindatum
+        enddate: Einddatum
+        submit: Opslaan
+    placeholder:
+        date: jjjj-mm-dd
