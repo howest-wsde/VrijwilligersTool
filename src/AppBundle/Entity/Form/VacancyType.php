@@ -61,7 +61,7 @@ class VacancyType extends AbstractType
                     new Date(array(
                         "message" => "vacancy.date.message"
                     ),
-                    new GreaterThan("today")
+                    new GreaterThanOrEqual("today")
             ))))
             ->add("enddate", DateType::class, array(
                 "label" => "vacancy.label.enddate",
@@ -72,7 +72,7 @@ class VacancyType extends AbstractType
                     new Date(array(
                         "message" => "vacancy.date.message"
                     ),
-                    new GreaterThan("today"),
+                    new GreaterThanOrEqual("today"),
                     new GreaterThanOrEqual("startdate")
             ))))
             ->add("submit", SubmitType::class, array(

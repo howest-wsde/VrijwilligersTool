@@ -8,27 +8,33 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+        description:
+            type: text
         email:
             type: string
             length: 255
+            nullable: true
         street:
             type: string
             scale: 255
+            nullable: true
         number:
             type: smallint
+            nullable: true
         postalCode:
             type: smallint
+            nullable: true
         bus:
             type: smallint
             nullable: true
         city:
             type: string
             scale: 100
+            nullable: true
         telephone:
             type: string
             length: 10
-        description:
-            type: text
+            nullable: true        
     oneToOne:
         creator:
             targetEntity: Person
