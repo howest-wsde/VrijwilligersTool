@@ -2,6 +2,12 @@
 
 {% block title %}Vacature{% endblock %}
 
+{% block head %}
+	<script src="https://maps.googleapis.com/maps/api/js
+	?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g">
+	</script>
+{% endblock head %}
+
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
@@ -12,7 +18,19 @@
 		<div>
 			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
-			<p>locatie: {{ vacature.organisation.street }}</p>
+			<p>locatie:
+				<span id="location">
+					{{ vacature.organisation.street }}
+					{{ vacature.organisation.number }}
+					<br>
+					{% if vacature.organisation.bus is not null %}
+						bus {{ vacature.organisation.bus }}
+					{% endif %}
+					{{ vacature.organisation.postalcode }}
+					{{ vacature.organisation.city }}
+				</span>
+			</p>
+
 		</div>
 		<div class="share-buttons">
 			<div>
@@ -21,6 +39,7 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 			<div>
 				<button id="email">Email deze vacature</button>
@@ -45,5 +64,8 @@
 {% block javascripts %}
 	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
+
+	<script src="{{ asset('js/googleMaps.js') }}"></script>
 	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+
 {% endblock %}
