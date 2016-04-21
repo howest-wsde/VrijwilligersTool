@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Zoeken{% endblock %}
+
 {% block search_term %}{{query}}{% endblock %}
 
 {% block body %}
-	Zoeken
+	<h1>Zoeken</h1>
 	<ul>
-    {% for result in results %}
+    {% for result in results %} 
         <li>
-		<a href="{{ result.link }}">{{ result.title }}</a>
-		<br />
-		{{ result.body }}
+    		{% if (result.type == "person") %}
+				{% embed "search/person.html.twig" with {'person': result.object} %}{% endembed %} 
+			{% elseif (result.type == "vacancy") %}
+				{% embed "search/vacancy.html.twig" with {'vacature': result.object} %}{% endembed %} 
+			{% elseif (result.type == "organisation") %}
+				{% embed "search/organisation.html.twig" with {'organisation': result.object} %}{% endembed %} 
+			{% else %}
+				{{ dump(result) }}
+			{% endif %}
 		</li>
-		<br />
     {% endfor %}
 </ul>
 {% endblock %}

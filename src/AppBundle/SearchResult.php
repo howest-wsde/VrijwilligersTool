@@ -1,12 +1,14 @@
 <?php
 
-namespace AppBundle;
+namespace AppBundle; 
 
 class SearchResult
 {
     private $title;
     private $body;
     private $link;
+    private $type; 
+    private $object; 
 
     const MAX_CHARS = 150;
 
@@ -27,7 +29,7 @@ class SearchResult
     }
 
     private static function createPersonResult($vol)
-    {
+    { 
         $title = $vol->getFullName();
         if ($vol->getUsername())
         {
@@ -35,8 +37,10 @@ class SearchResult
         }
         $body = substr($vol->getEmail()." some Person body examples"
             , 0, SearchResult::MAX_CHARS); // skills
-        $link = "/persoon/".$vol->getId();
-        return new SearchResult($title, $body, $link);
+        $link = "/persoon/".$vol->getId(); 
+        $type = "person"; 
+        $object = $vol; 
+        return new SearchResult($title, $body, $link, $type, $object);
     }
 
     private static function createOrganisationResult($org)
@@ -45,7 +49,9 @@ class SearchResult
         $body = substr($org->getDescription()." some organisation body example"
             , 0, SearchResult::MAX_CHARS);
         $link = "/vereniging/".$org->getId();
-        return new SearchResult($title, $body, $link);
+        $type = "organisation"; 
+        $object = $org; 
+        return new SearchResult($title, $body, $link, $type, $object);
     }
 
     private static function createVacancyResult($vac)
@@ -54,14 +60,18 @@ class SearchResult
         $body = substr($vac->getDescription()." some vacancy body example"
             , 0, SearchResult::MAX_CHARS);
         $link = "/vacature/".$vac->getId();
-        return new SearchResult($title, $body, $link);
+        $type = "vacancy"; 
+        $object = $vac; 
+        return new SearchResult($title, $body, $link, $type, $object);
     }
 
-    private function __construct($title, $body, $link)
+    private function __construct($title, $body, $link, $type, $object)
     {
         $this->title = $title;
         $this->body = $body;
         $this->link = $link;
+        $this->type = $type;
+        $this->object = $object;
     }
 
     public function getTitle()
@@ -77,5 +87,15 @@ class SearchResult
     public function getLink()
     {
         return $this->link;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getObject()
+    {
+        return $this->object;
     }
 }
