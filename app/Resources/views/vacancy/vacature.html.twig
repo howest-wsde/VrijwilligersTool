@@ -39,12 +39,27 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
-		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
+
+		<aside>
+			<div data-useraddress="
+			{% if app.user %}
+				{{ app.user.street }}
+				{{ app.user.number }}
+				{{ app.user.postalcode }}
+				{{ app.user.city }}
+			{% else %}
+			{% endif %}"
+				 id="map-canvas" style="width: 350px; height: 350px;">
+			</div>
+		</aside>
+
+
+
 		<!-- <aside>
 			{# for category in vacature.category #}
 				<p>category</p>
