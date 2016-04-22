@@ -2,6 +2,8 @@
 namespace AppBundle\Entity\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,10 +18,18 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, array('label' => 'E-mailadres,'))
-            ->add('firstname', TextType::class, array('label' => 'Voornaam'))
             ->add('lastname', TextType::class, array('label' => 'Familienaam'))
-            ->add('username', TextType::class, array('label' => 'Gebruikersnaam'))
+            ->add('firstname', TextType::class, array('label' => 'Voornaam'))
+            ->add('username', TextType::class, array('label' => 'Username'))
+            ->add('email', EmailType::class, array('label' => 'E-mailadres,'))
+            ->add('street', TextType::class, array('label' => 'Straat'))
+            ->add('number', NumberType::class, array('label' => 'Nummer'))
+            ->add('postalcode', NumberType::class, array('label' => 'Postcode'))
+            ->add('bus', NumberType::class, array('label' => 'bus (indien van toepassing)',
+                                                  'required' => false))
+            ->add('city', TextType::class, array('label' => 'Stad/gemeente'))
+            ->add('telephone', TextType::class, array('label' => 'Telefoonnummer'))
+            ->add('linkedin_url', TextType::class, array('label' => 'link naar uw LinkedIn profiel'))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Wachtzin'),
