@@ -1,7 +1,6 @@
 "use strict";
-(function () {
-    var host = "http://localhost:888";
-
+(function () { 
+    var search = Array(); 
     $(document).ready(function () {
         $('#searchq').click(function(){
             $("#divResult").fadeIn();
@@ -17,24 +16,27 @@
     });
 
     var search = function() {
-        var searchTerm = $(this).val();
-        if (searchTerm != "") {
-            $.ajax({
-                type: "GET",
-                url: host + "/api/search",
-                data: "q=" + searchTerm,
-                cache: true,
-                success: searchSucces,
-                error: logError
-            });
-        }
+        clearTimeout(search["timer"]); 
+        search["term"] = $(this).val();
+        search["timer"] = setTimeout(function(){  
+            if (search["term"] != "") {
+                $.ajax({
+                    type: "GET",
+                    url: searchURL,
+                    data: "q=" + search["term"],
+                    cache: true,
+                    success: searchSucces,
+                    error: logError
+                });
+            } else $("#divResult").fadeOut();
+        }, 500)
     };
 
     var searchSucces = function(result) {
         $("#divResult").html(result).show();
         $(".display_box").on("click", function(e){
             var url = $(e.target).find("#referer").val();
-            window.location.href = host + url;
+            window.location.href = url;
         });
     };
 

@@ -42,7 +42,7 @@ class SearchController extends Controller
             $results = $this->searchForEntityResults($query);
         }
 
-        return $this->render("zoekpagina.html.twig", array(
+        return $this->render("search/zoekpagina.html.twig", array(
             "results" => $results,
             "query" => $query
         ));
@@ -68,7 +68,7 @@ class SearchController extends Controller
             $results = $this->searchForEntityResults($query);
         }
         $response = new Response(
-            $this->renderView("search/zoekresultaat.html.twig",
+            $this->renderView("search/zoekapi_resultaat.html.twig",
                 array("results" => $results)),
                 200
             );
