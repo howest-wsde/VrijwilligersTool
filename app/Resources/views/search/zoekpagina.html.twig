@@ -19,7 +19,7 @@
 					{% elseif (result.class_name == "Organisation") %}
 						{% embed "search/organisation.html.twig" with {'organisation': result.entity} %}{% endembed %} 
 					{% else %}
-						{{ dump(result) }}
+						{#{ dump(result) }#}
 					{% endif %}
 				</li>
 		    {% endfor %}
