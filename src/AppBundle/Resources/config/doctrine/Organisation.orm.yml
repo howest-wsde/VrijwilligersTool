@@ -35,7 +35,7 @@ AppBundle\Entity\Organisation:
             nullable: true
         description:
             type: text
-    oneToOne:
+    manyToOne:
         creator:
             targetEntity: Person
             inversedBy: organisation
