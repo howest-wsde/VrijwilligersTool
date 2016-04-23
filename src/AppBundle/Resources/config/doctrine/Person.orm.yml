@@ -20,19 +20,25 @@ AppBundle\Entity\Person:
         street:
             type: string
             scale: 255
+            nullable: true
         number:
             type: smallint
+            nullable: true
         postalcode:
             type: smallint
+            nullable: true
         bus:
             type: smallint
+            nullable: true
             nullable: true
         city:
             type: string
             scale: 100
+            nullable: true
         email:
             type: string
             length: 255
+            nullable: true 
         telephone:
             type: string
             length: 10

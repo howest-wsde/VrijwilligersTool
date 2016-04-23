@@ -11,22 +11,28 @@ AppBundle\Entity\Organisation:
         email:
             type: string
             length: 255
+            nullable: true
         street:
             type: string
             scale: 255
+            nullable: true 
         number:
             type: smallint
+            nullable: true
         postalCode:
             type: smallint
+            nullable: true
         bus:
             type: smallint
             nullable: true
         city:
             type: string
             scale: 100
+            nullable: true
         telephone:
             type: string
             length: 10
+            nullable: true
         description:
             type: text
     oneToOne:
