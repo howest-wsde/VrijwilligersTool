@@ -12,8 +12,10 @@ AppBundle\Entity\Vacancy:
             type: text
         startdate:
             type: datetime
+            nullable: true
         enddate:
             type: datetime
+            nullable: true
     manyToOne:
         organisation:
             targetEntity: Organisation
