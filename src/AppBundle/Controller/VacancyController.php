@@ -2,18 +2,15 @@
 
 namespace AppBundle\Controller;
 
-
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Vacancy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
 
 class VacancyController extends controller
 {
     /**
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf")
+     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf", requirements={"id" = "\d+"})
      */
     public function createPDFAction($id)
     {
@@ -41,6 +38,8 @@ class VacancyController extends controller
 
     /**
      * @Route("/vacature/nieuw", name="create_vacancy")
+     *
+     * @Security("has_role('ROLE_USER')")
      */
     public function createVacancyAction(Request $request)
     {

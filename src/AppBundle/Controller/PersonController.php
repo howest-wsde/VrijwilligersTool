@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Vacancy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PersonController extends controller
 {
     /**
+     *
+     * @Security("has_role('ROLE_USER')")
      * @Route("/persoon/{id}" , name="person_id")
      */
     public function ViewPersonIdAction($id)

@@ -19,7 +19,6 @@ class InfopageController extends Controller
         return $this->render("info/privacy_en_legal.html.twig");
     }
 
-
     /**
      * @Route("/over_ons", name="over_ons")
      */
@@ -27,7 +26,6 @@ class InfopageController extends Controller
     {
         return $this->render("info/over_ons.html.twig");
     }
-
 
     /**
      * @Route("/contact", name="contact")
@@ -37,7 +35,6 @@ class InfopageController extends Controller
         return $this->render("info/contact.html.twig");
     }
 
-
     /**
      * @Route("/vrijwilligersinfo", name="vrijwilligersinfo")
      */
@@ -45,7 +42,6 @@ class InfopageController extends Controller
     {
         return $this->render("info/vrijwilligersinfo.html.twig");
     }
-
 
     /**
      * @Route("/wetgeving", name="wetgeving")
@@ -55,7 +51,6 @@ class InfopageController extends Controller
         return $this->render("info/wetgeving.html.twig");
     }
 
-
     /**
      * @Route("/spelregels", name="spelregels")
      */
@@ -63,7 +58,6 @@ class InfopageController extends Controller
     {
         return $this->render("info/spelregels.html.twig");
     }
-
 
     /**
      * @Route("/faq", name="faq")

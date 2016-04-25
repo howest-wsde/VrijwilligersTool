@@ -6,7 +6,6 @@ use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Form\OrganisationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Form\VacancyType;
 use Symfony\Component\HttpFoundation\Request;
 
 class OrganisationController extends controller

@@ -9,6 +9,11 @@ class SearchResult
 
     const MAX_CHARS = 150;
 
+    /**
+     * get array of SearchResult by extracting from entities
+     * @param  Array $entities array of entities from AppBundle/Entity/*
+     * @return Array           array of uniform SearchResult instances
+     */
     public static function fromEntities($entities)
     {
         $results = array();
@@ -18,6 +23,11 @@ class SearchResult
         return $results;
     }
 
+    /**
+     * Converts one entity to a SearchResult
+     * @param  mixed $entity an entity from AppBundle/Entity/*
+     * @return SearchResult         a uniform SearchResult instance
+     */
     public static function fromEntity($entity)
     {
         $class_path = get_class($entity);
@@ -30,12 +40,20 @@ class SearchResult
         $this->class_name = $class_name;
         $this->entity = $entity;
     }
- 
+
+    /**
+     * get the class name
+     * @return string
+     */
     public function getClass_name()
     {
         return $this->class_name;
     }
 
+    /**
+     * get the entity
+     * @return entity
+     */
     public function getEntity()
     {
         return $this->entity;
