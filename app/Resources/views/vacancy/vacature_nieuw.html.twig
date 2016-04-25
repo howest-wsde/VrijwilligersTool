@@ -3,23 +3,14 @@
 {% block title %}Vacature Aanmaken{% endblock %}
 
 {% block body %}
-   <form action="{{ path('create_vacancy') }}" method="post">
+    {{ form_start(form) }}
         {{ form_errors(form) }}
 
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
         {{ form_row(form.startdate) }}
         {{ form_row(form.enddate) }}
-        {{ form_row(form.organisation) }}
-        {# TODO: must be derived from logged in organisation #}
-
-        {{ form_row(form.category) }}
-        {{ form_row(form.skillproficiency) }}
-
-        {{ form_widget(form._token) }}
-
-        <input type="submit" value="Creër vacature">
-    </form>
+    {{ form_end(form) }}
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">

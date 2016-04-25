@@ -36,6 +36,7 @@
     <script type="in/Login"></script>
 
     {% block javascripts %}
+        {{ parent() }}
         <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
         <script>window.fb_id = {{ fb_id }};</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>

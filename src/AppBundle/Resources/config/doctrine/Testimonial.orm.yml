@@ -1,0 +1,23 @@
+AppBundle\Entity\Testimonial:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        value:
+            type: text
+        approved:
+            type: boolean
+            nullable: true
+    manyToOne:
+        sender:
+            targetEntity: Person
+            joinColumn:
+                name: sender_id
+                referencedColumnName: id
+        receiver:
+            targetEntity: Person
+            joinColumn:
+                name: receiver_id
+                referencedColumnName: id

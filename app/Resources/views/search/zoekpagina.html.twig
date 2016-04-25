@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zoeken{% endblock %}
+
+{% block search_term %}{{query}}{% endblock %}
+
+{% block body %}
+	<h1>Zoeken</h1>
+	{% if results|length == 0 %}
+		<p>Er werden geen resultaten gevonden</p>
+   	{% else %}
+		<ul>
+		    {% for result in results %} 
+		        <li>
+		    		{% if (result.class_name == "Person") %}
+						{% embed "search/person.html.twig" with {'person': result.entity} %}{% endembed %} 
+					{% elseif (result.class_name == "Vacancy") %}
+						{% embed "search/vacancy.html.twig" with {'vacature': result.entity} %}{% endembed %} 
+					{% elseif (result.class_name == "Organisation") %}
+						{% embed "search/organisation.html.twig" with {'organisation': result.entity} %}{% endembed %} 
+					{% else %}
+						{#{ dump(result) }#}
+					{% endif %}
+				</li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}

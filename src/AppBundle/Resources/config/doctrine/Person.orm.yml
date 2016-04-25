@@ -1,0 +1,69 @@
+AppBundle\Entity\Person:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        firstname:
+            type: string
+            length: 100
+        lastname:
+            type: string
+            length: 100
+        username:
+            type: string
+            length: 150
+        passphrase:
+            type: string
+            length: 60
+        street:
+            type: string
+            scale: 255
+            nullable: true
+        number:
+            type: smallint
+            nullable: true
+        postalcode:
+            type: smallint
+            nullable: true
+        bus:
+            type: smallint
+            nullable: true
+            nullable: true
+        city:
+            type: string
+            scale: 100
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true 
+        telephone:
+            type: string
+            length: 10
+            nullable: true
+        linkedinUrl:
+            type: string
+            length: 150
+            nullable: true
+    oneToMany:
+        organisation:
+            targetEntity: Organisation
+            mappedBy: creator
+    manyToMany:
+        skills:
+            targetEntity: Skill
+            mappedBy: null
+            cascade: ["persist"]
+            nullable: true
+            joinTable:
+                name: person_has_skill
+                joinColumns:
+                    -
+                        name: person_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id

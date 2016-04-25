@@ -5,8 +5,14 @@
         <title>{% block title %}Talent Roeselen{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-           <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
-           <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/search.css') }}" />
+        {% endblock %}
+        {% block jsGlobals %}
+        <script>
+            var searchURL = "{{ path('api_search') }}";
+        </script>
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {%  block head %} {% endblock %}
@@ -18,9 +24,13 @@
                     <h1><a href="{{ path('homepage') }}"><span>Roeselare vrijwilligt</span></a></h1>
                     <span class="baseline">Baseline</span>
                 </div>
-                <form class="search" method="get" action="{{ path('zoeken') }} ">
+                <form class="search" method="get" action="{{ path('zoeken') }}" autocomplete="off">
                     <input type="text" name="q" id="searchq" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
+                    <br />
+                    <div id="divResult">
+                    </div>
                 </form>
+
                 <nav class="about nav">
                     <ul>
                         <li><a href="{{ path('over_ons') }}">Over ons</a></li>
@@ -30,11 +40,15 @@
                 <nav class="top nav">
                     <ul>
                         <li><a href="{{ path('status_testing') }}">Mijn profiel</a></li>
-                        <li><a href="{{ path('vrijwilliger_worden') }}">Vrijwilliger worden</a></li>
-                        <li><a href="{{ path('vrijwilliger_vinden') }}">Vrijwilliger vinden</a></li>
+                        <li><a href="{{ path('register_user') }}">Vrijwilliger worden</a></li>
+                        <li><a href="{{ path('vereniging_aanmaken') }}">Vrijwilliger vinden</a></li>
                         <li><a href="{{ path('vrijwilligersinfo') }}">Vrijwilligersinfo</a></li>
                         <li><a href="">Tests</a></li>
-                        <li><a href="{{ path('login_testing') }}">Login</a></li>
+                        <li>{% if app.user %}
+                            <a href="{{ path('logout') }}">Uitloggen</a>
+                            {% else %}
+                            <a href="{{ path('login_testing') }}">Inloggen</a>
+                            {% endif %}</li>
                     </ul>
                 </nav>
             </header>
@@ -46,24 +60,10 @@
         {% block footer %}
             <nav class="bottom nav">
                 <section>
-                    <header><h1>Recente vacatures</h1></header>
-                    <ul>
-                        <li><a href="{{ path('vacancy_id', { 'id': 1 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 2 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 3 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 4 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 5 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 6 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 7 }) }}">Vacature</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Vacancy:listRecentVacancies')) }}
                 </section>
                 <section>
-                    <header><h1>Recente vrijwilligers</h1></header>
-                    <ul>
-                        <li><a href="{{ path('persoon_id', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('persoon_id', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('persoon_id', { 'id': "koen" }) }}">Vrijwilliger</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Person:listRecentPersons')) }}
                 </section>
                 <section>
                     <header><h1>Vacature types</h1></header>
@@ -125,10 +125,13 @@
             </footer>
         {% endblock %}
         {% block javascripts %}
-        <!-- Temp bootstrap -->
-        <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+                google.load("jquery", "2.2.3");
+            </script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
+            <script src="{{ asset('js/search.js') }}"></script>        
         {% endblock %}
     </body>
 </html>

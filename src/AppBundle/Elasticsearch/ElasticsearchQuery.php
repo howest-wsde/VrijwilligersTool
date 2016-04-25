@@ -53,7 +53,10 @@ class ElasticsearchQuery
         $entity->setId($json["Id"]);
         $values = $json["Values"];
         foreach ($values as $key => $value) {
-            $entity->{"set".$key}($value);
+            if (!is_null($value))
+            {
+                $entity->{"set".$key}($value);
+            }
         }
         return $entity;
     }
@@ -74,11 +77,14 @@ class ElasticsearchQuery
             $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
             $entity = new $classname();
             foreach ($source as $key => $value) {
-                if ($this->isEntity($value))
+                if (!is_null($value) && !is_array($value))
                 {
-                    $value = $this->jsonToEntity($value);
+                    if ($this->isEntity($value))
+                    {
+                        $value = $this->jsonToEntity($value);
+                    }
+                    $entity->{"set".$key}($value);
                 }
-                $entity->{"set".$key}($value);
             }
             $id = $hits[$i]["_id"];
             $entity->setId($id);

@@ -3,14 +3,14 @@
 security:
 
     encoders:
-        AppBundle\Entity\Volunteer:
+        AppBundle\Entity\Person:
             algorithm: bcrypt
             cost: 15
 
     providers:
         user_db_provider:
             entity:
-                class: AppBundle:Volunteer
+                class: AppBundle:Person
                 property: username
                 # if you're using multiple entity managers
                 # manager_name: customer

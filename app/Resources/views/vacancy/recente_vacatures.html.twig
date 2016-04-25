@@ -1,0 +1,6 @@
+<header><h1>Recente vacatures</h1></header>
+<ul>
+	{% for entity in vacancies %} 
+		<li><a href="{{ path('vacancy_id', { 'id': entity.id }) }}">{{ entity.title}} </a></li>
+	{% endfor %} 
+</ul>

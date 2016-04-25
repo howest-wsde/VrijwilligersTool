@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use AppBundle\SearchResult;
 
 class SearchController extends Controller
@@ -17,7 +17,7 @@ class SearchController extends Controller
         $query = $this->get('ElasticsearchQuery');
         $params = [
             'index' => $query->getIndex(),
-            'type' => ['volunteer', 'vacancy', 'organisation'],
+            'type' => ['person', 'vacancy', 'organisation'],
             'body' => [
                 'query' => [
                     'query_string' => [
@@ -42,7 +42,7 @@ class SearchController extends Controller
             $results = $this->searchForEntityResults($query);
         }
 
-        return $this->render("zoekpagina.html.twig", array(
+        return $this->render("search/zoekpagina.html.twig", array(
             "results" => $results,
             "query" => $query
         ));
@@ -51,8 +51,28 @@ class SearchController extends Controller
     /**
      * @Route("/zoek", name="zoek")
      */
-    public function searchRedirAction()
+    public function searchRedirectAction()
     {
         return $this->redirectToRoute("zoeken");
+    }
+
+    /**
+     * @Route("/api/search", name="api_search")
+     */
+    public function apiSearchAction()
+    {
+        $query = Request::createFromGlobals()->query->get("q");
+        $results = null;
+        if ($query)
+        {
+            $results = $this->searchForEntityResults($query);
+        }
+        $response = new Response(
+            $this->renderView("search/zoekapi_resultaat.html.twig",
+                array("results" => $results)),
+                200
+            );
+        $response->headers->set("Access-Control-Allow-Origin", "*");
+        return $response;
     }
 }

@@ -1,0 +1,18 @@
+AppBundle\Entity\Skill:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+    manyToOne:
+        parent:
+            nullable: true
+            targetEntity: Skill
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+    

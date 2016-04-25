@@ -1,0 +1,42 @@
+
+AppBundle\Entity\Vacancy:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 100
+        description:
+            type: text
+        startdate:
+            type: date
+            nullable: true
+        enddate:
+            type: date
+            nullable: true
+    manyToOne:
+        organisation:
+            targetEntity: Organisation
+            inversedBy: vacancies
+            joinColumn:
+                name: organisation_id
+                referencedColumnName: id
+    manyToMany:
+        skills:
+            targetEntity: Skill
+            nullable: true
+            mappedBy: null
+            cascade: ["persist"]
+            joinTable:
+                name: vacancy_has_skill
+                joinColumns:
+                    -
+                        name: vacancy_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id
