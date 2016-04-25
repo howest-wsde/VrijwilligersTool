@@ -9,7 +9,9 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
             <link rel="stylesheet" type="text/css" href="{{ asset('style/search.css') }}" />
         {% endblock %}
-        <script src="{{ path('javascriptvariables') }}"></script>
+        <script>
+            var searchURL = "{{ path('api_search') }}";
+        </script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {%  block head %} {% endblock %}
     </head>
@@ -123,7 +125,7 @@
         {% block javascripts %}{% endblock %}
         <!-- Temp bootstrap -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>        
+        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
         <script src="{{ asset('js/search.js') }}"></script>
     </body>
 </html>
