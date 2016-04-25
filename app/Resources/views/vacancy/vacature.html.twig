@@ -62,6 +62,7 @@
 {% endblock %}
 
 {% block javascripts %}
+	{{ parent() }}
 	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
 
