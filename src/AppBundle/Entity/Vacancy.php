@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Vacancy
  */
@@ -10,21 +12,55 @@ class Vacancy
 {
     /**
      * @var string
+     * @Assert\NotBlank(message ="organisation.not_blank")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 100,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy..max_message"
+     * )
     */
     private $title;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 2000,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
+     * )
+    */
     private $description;
 
     /**
-     * @var \DateTime
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
      */
     private $startdate;
 
     /**
-     * @var \DateTime
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
+     * @Assert\Expression(
+     *     "this.getEnddate() >= this.getStartdate()",
+     *     message="vacancy.date.not_more_than"
+     * )
      */
     private $enddate;
 
