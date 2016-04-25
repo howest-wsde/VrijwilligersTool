@@ -1,7 +1,6 @@
 "use strict";
 var googleMaps = (function(window,undefined) {
-
-    var markers = []; //global array to fit map
+    var markers = []; //array to fit map
     var mapOptions = {
     zoom: 15,
     center: {lat: 50.948352, lng: 3.131108}
@@ -11,9 +10,18 @@ var googleMaps = (function(window,undefined) {
     var map = new google.maps.Map(mapcanvas[0], mapOptions);
     var userAddress = mapcanvas.data("useraddress");
     var vacancyAddress = $("#location").text();
+    var fitmap = ()=> {
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+            bounds.extend(markers[i].getPosition());
+        }
+        map.fitBounds(bounds);
+    };
 
+    //functions accessible by objects of this module
     function googleMaps() {
-        this.addAddressToMap = function addAdressToMap(address){//geocodes an address and adds it to the map
+        var self = this;
+        this.addAddressToMap = (address)=> {//geocodes an address and adds it to the map
             let geocoder = new google.maps.Geocoder();
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -25,6 +33,8 @@ var googleMaps = (function(window,undefined) {
                         position: results[0].geometry.location
                     });
                     markers.push(marker);
+                    fitmap();
+                    self.drawRoute();
                 } else {
                     console.log('%cGeocode was not successful for the following reason: \n ' +
                         `%c${status}`,
@@ -32,8 +42,33 @@ var googleMaps = (function(window,undefined) {
                 }
             })
         };
-        this.init = function init(){
-            if(userAddress !== " ") // user is not logged in aka da    ta attr couldn't be filled
+        this.drawRoute = ()=> {
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var directionsService = new google.maps.DirectionsService();
+            var request = {
+                origin: userAddress,
+                destination: vacancyAddress,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            if (userAddress != " ") {
+                directionsService.route(request, function (result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(result);
+                    }
+                    else {
+                        console.log('%Couldn\'t get direction because: \n ' +
+                            `%c${status}`,
+                            'font-weight:bold; color:red;');
+                    }
+                });
+            }
+            else {
+                console.log("user is not logged in thus no directions available");
+            }
+        };
+        this.init = ()=> {
+            if (userAddress !== " ") // user is not logged in aka data attr couldn't be filled
                 this.addAddressToMap(userAddress);
             this.addAddressToMap(vacancyAddress);
         };
@@ -41,16 +76,12 @@ var googleMaps = (function(window,undefined) {
     return googleMaps = googleMaps;
 })(window);
 
-
-var googleMapsModule = new googleMaps();
+var googleMapsModule = new googleMaps;
 googleMapsModule.init();
 
-/*
-function fitMap() {
-    var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < markers.length; i++) {
-        bounds.extend(markers[i].getPosition());
-    }
-    map.fitBounds(bounds);
-}
-*/
+
+//TODO:
+// change api key,
+// add sprite to markers,
+// add options for mode (walking, driving, biking)
+//
