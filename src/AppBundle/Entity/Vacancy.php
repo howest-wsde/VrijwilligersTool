@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Vacancy
  */
@@ -10,33 +12,57 @@ class Vacancy
 {
     /**
      * @var string
+     * @Assert\NotBlank(message ="organisation.not_blank")
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 100,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy..max_message"
+     * )
     */
     private $title;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\Length(
+     *      min = 20,
+     *      max = 2000,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
+     * )
+    */
     private $description;
 
     /**
-     * @var \DateTime
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
      */
     private $startdate;
 
     /**
-     * @var \DateTime
+     * @var \Datetime
+     * @Assert\Type(
+     * 		type = "\DateTime",
+     *      message = "vacancy.date.valid",
+     * )
+     * @Assert\GreaterThanOrEqual(
+     * 		value = "today",
+     * 		message = "vacancy.date.not_today"
+     * )
+     * @Assert\Expression(
+     *     "this.getEnddate() >= this.getStartdate()",
+     *     message="vacancy.date.not_more_than"
+     * )
      */
     private $enddate;
-
-    /**
-     * @var \DateTime
-     */
-    private $creationtime;
-
-    /**
-     * @var \DateTime
-     */
-    private $lastUpdate;
 
     /**
      * @var integer
@@ -49,22 +75,16 @@ class Vacancy
     private $organisation;
 
     /**
-     * @var \AppBundle\Entity\Vacancycategory
-     */
-    private $category;
-
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $skillproficiency;
-
+    private $skills;
+ 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->skillproficiency = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastUpdate = new \DateTime("now");
+        $this->skills= new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -164,54 +184,6 @@ class Vacancy
     }
 
     /**
-     * Set creationtime
-     *
-     * @param \DateTime $creationtime
-     *
-     * @return Vacancy
-     */
-    public function setCreationtime($creationtime)
-    {
-        $this->creationtime = $creationtime;
-
-        return $this;
-    }
-
-    /**
-     * Get creationtime
-     *
-     * @return \DateTime
-     */
-    public function getCreationtime()
-    {
-        return $this->creationtime;
-    }
-
-    /**
-     * Set lastUpdate
-     *
-     * @param \DateTime $lastUpdate
-     *
-     * @return Vacancy
-     */
-    public function setLastUpdate($lastUpdate)
-    {
-        $this->lastUpdate = $lastUpdate;
-
-        return $this;
-    }
-
-    /**
-     * Get lastUpdate
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdate()
-    {
-        return $this->lastUpdate;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -257,61 +229,27 @@ class Vacancy
     }
 
     /**
-     * Set category
+     * Add skills
      *
-     * @param \AppBundle\Entity\Vacancycategory $category
+     * @param \AppBundle\Entity\Skill $skill
      *
      * @return Vacancy
      */
-    public function setCategory(\AppBundle\Entity\Vacancycategory $category = null)
+    public function addSkill(\AppBundle\Entity\Skill $skill)
     {
-        $this->category = $category;
+        $this->skills[] = $skill;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Remove skill
      *
-     * @return \AppBundle\Entity\Vacancycategory
+     * @param \AppBundle\Entity\Skill $skill
      */
-    public function getCategory()
+    public function removeSkill(\AppBundle\Entity\Skill $skill)
     {
-        return $this->category;
-    }
-
-    /**
-     * Add skillproficiency
-     *
-     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
-     *
-     * @return Vacancy
-     */
-    public function addSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
-    {
-        $this->skillproficiency[] = $skillproficiency;
-
-        return $this;
-    }
-
-    /**
-     * Remove skillproficiency
-     *
-     * @param \AppBundle\Entity\Skillproficiency $skillproficiency
-     */
-    public function removeSkillproficiency(\AppBundle\Entity\Skillproficiency $skillproficiency)
-    {
-        $this->skillproficiency->removeElement($skillproficiency);
-    }
-
-    /**
-     * Get skillproficiency
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSkillproficiency()
-    {
-        return $this->skillproficiency;
+        $this->skills->removeElement($skill);
     }
 
     /**
@@ -327,12 +265,22 @@ class Vacancy
             "Entity" => $reflect->getShortName(),
             "Id" => $this->getId(),
             "Values" => array(
+                "Title" => $this->getTitle(),
                 "Description" => $this->getDescription(),
                 "Startdate" => $this->getStartdate(),
                 "Enddate" => $this->getEnddate(),
-                "CreationTime" => $this->getCreationtime(),
                 "Organisation" => $this->getOrganisation()
             )
         ));
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }

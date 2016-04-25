@@ -2,10 +2,22 @@
 
 {% block title %}Vacature{% endblock %}
 
+<<<<<<< HEAD
+{% block head %}
+	<script src="https://maps.googleapis.com/maps/api/js
+	?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g">
+	</script>
+{% endblock head %}
+
+{% block body %}
+	<article>
+		<header><h1>{{ vacature.title }}</h1></header>
+=======
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header>
 		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
+>>>>>>> master
 		<div>
 			<p>{{ vacature.description }}</p>
 			<p>Ons Aanbod</p>
@@ -13,7 +25,23 @@
 		<div>
 			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
+<<<<<<< HEAD
+			<p>locatie:
+				<span id="location">
+					{{ vacature.organisation.street }}
+					{{ vacature.organisation.number }}
+					<br>
+					{% if vacature.organisation.bus is not null %}
+						bus {{ vacature.organisation.bus }}
+					{% endif %}
+					{{ vacature.organisation.postalcode }}
+					{{ vacature.organisation.city }}
+				</span>
+			</p>
+
+=======
 			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+>>>>>>> master
 		</div>
 		<div class="share-buttons">
 			<div>
@@ -22,16 +50,28 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+<<<<<<< HEAD
+		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
+=======
+>>>>>>> master
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
+<<<<<<< HEAD
+		<!-- <aside>
+			{# for category in vacature.category #}
+				<p>category</p>
+			{# endfor #}
+		</aside> -->
+=======
 		<aside>
 			{% for category in vacature.category %}
 				<p>category</p>
 			{% endfor %}
 		</aside>
+>>>>>>> master
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
@@ -44,7 +84,17 @@
 {% endblock %}
 
 {% block javascripts %}
+<<<<<<< HEAD
+	{{ parent() }}
+	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
+
+	<script src="{{ asset('js/googleMaps.js') }}"></script>
+	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+
+=======
 	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
 	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+>>>>>>> master
 {% endblock %}
