@@ -45,7 +45,25 @@
 			</div>
 		</div>
 
-		<aside>
+		<aside id="#googlemaps">
+			<div>
+				<div id="description">Routebeschrijving:</div>
+				<p>selecteer uw gewenste transportwijze</p>
+				<div onchange="googleMapsModule.drawRoute()">
+					<select id="transitMethod">
+						<option value="DRIVING">Auto</option>
+						<option value="BICYCLING">Fiets</option>
+						<option value="WALKING">Te voet</option>
+						<option value="TRANSIT">Openbaar vervoer</option>
+					</select>
+					<select id="transitMode" class="hidden">
+						<option value="BUS">Per bus</option>
+						<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+						<option value="SUBWAY">Per metro</option>
+						<option value="TRAM">Per tram</option>
+					</select>
+				</div>
+			</div>
 			<div data-useraddress="
 			{% if app.user %}
 				{{ app.user.street }}

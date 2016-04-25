@@ -1,16 +1,22 @@
 "use strict";
 var googleMaps = (function(window,undefined) {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+
+    var mapcanvas = $("#map-canvas");
     var markers = []; //array to fit map
     var mapOptions = {
     zoom: 15,
     center: {lat: 50.948352, lng: 3.131108}
     //this default to a map of the centre of Roeselare
     };
-    var mapcanvas = $("#map-canvas");
+
     var map = new google.maps.Map(mapcanvas[0], mapOptions);
+
     var userAddress = mapcanvas.data("useraddress");
     var vacancyAddress = $("#location").text();
-    var fitmap = ()=> {
+
+    var fitmap = ()=> {//resizes the map to fit the start and end in one view
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < markers.length; i++) {
             bounds.extend(markers[i].getPosition());
@@ -43,17 +49,30 @@ var googleMaps = (function(window,undefined) {
             })
         };
         this.drawRoute = ()=> {
-            var directionsDisplay = new google.maps.DirectionsRenderer();
-            var directionsService = new google.maps.DirectionsService();
+            directionsDisplay.setMap(null); // clears the map for another new route
+            var selectedMode = $("#transitMethod option:selected").val(); //get selected mode
             var request = {
                 origin: userAddress,
                 destination: vacancyAddress,
-                travelMode: google.maps.TravelMode.DRIVING
+                travelMode:  google.maps.TravelMode[selectedMode], //add it in the request
+                transitOptions:{}
             };
+
+            if(selectedMode === "TRANSIT"){// when transit is checked, display more options and include them in the request
+                let mode = $("#transitMode");
+                mode.removeClass("hidden").slideDown();
+                request.transitOptions.modes = [google.maps.TransitMode[mode.val()]];
+            }
+            else{
+                $("#transitMode").slideUp();
+            }
+
             if (userAddress != " ") {
                 directionsService.route(request, function (result, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setMap(map);
+                        directionsDisplay.setPanel($("#description")[0]);
+
                         directionsDisplay.setDirections(result);
                     }
                     else {
@@ -80,8 +99,6 @@ var googleMapsModule = new googleMaps;
 googleMapsModule.init();
 
 
-//TODO:
-// change api key,
-// add sprite to markers,
-// add options for mode (walking, driving, biking)
-//
+
+/*TODO: change api key,
+*/
