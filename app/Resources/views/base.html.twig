@@ -124,12 +124,13 @@
                 </div>
             </footer>
         {% endblock %}
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
-            google.load("jquery", "2.2.3");
-        </script>
-        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
-        <script src="{{ asset('js/search.js') }}"></script>        
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+                google.load("jquery", "2.2.3");
+            </script>
+            <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
+            <script src="{{ asset('js/search.js') }}"></script>        
+        {% endblock %}
     </body>
 </html>
