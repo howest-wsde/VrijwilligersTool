@@ -3,9 +3,11 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Organisation
+ * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
  */
 class Organisation
 {
@@ -16,23 +18,24 @@ class Organisation
 
     /**
      * @var string
-     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank")
      * @Assert\Length(
      *      min = 4,
      *      max = 150,
-     *      minMessage = "organisation.name.min_message",
-     *      maxMessage = "organisation.name.max_message"
+     *      minMessage = "organisation.min_message",
+     *      maxMessage = "organisation.max_message"
      * )
     */
     private $name;
 
     /**
      * @var string
+     * @Assert\NotBlank(message = "organisation.not_blank")
      * @Assert\Length(
      *      min = 20,
      *      max = 2000,
-     *      minMessage = "vacancy.description.min_message",
-     *      maxMessage = "vacancy.description.max_message"
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
      * )
     */
     private $description;
@@ -47,13 +50,13 @@ class Organisation
      * @Assert\Email(
      *     message = "organisation.email.valid",
      *     checkHost = true
+     * )
      */
     private $email;
 
     /**
      * @var string
-     * @Assert\NotNull("organisation.not_blank")
-     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "organisation.max_message"
@@ -63,28 +66,78 @@ class Organisation
 
     /**
      * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="organisation.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "organisation.not_positive"
+     * )
      */
     private $number;
 
     /**
      * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="organisation.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "organisation.not_positive"
+     * )
      */
     private $bus;
 
     /**
      * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="organisation.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 9999,
+     *      minMessage = "organisation.not_positive",
+     *      maxMessage = "not_more_than"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "organisation.exact"
+     * )
      */
     private $postalCode;
 
     /**
      * @var string
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "organisation.min_message",
+     *      maxMessage = "organisation.max_message"
+     * )
      */
     private $city;
 
     /**
      * @var string
+     * assert callback statement for telephone at top of class
      */
     private $telephone;
+
+    public static function validateTelephone($org, ExecutionContextInterface  $context)
+    {
+        if (is_numeric($org->getTelephone()))
+        {
+            $context->buildViolation("organisation.telephone.valid")
+                ->atPath("telephone")
+                ->addViolation();
+        }
+    }
 
     /**
      * @var \Doctrine\Common\Collections\Collection
