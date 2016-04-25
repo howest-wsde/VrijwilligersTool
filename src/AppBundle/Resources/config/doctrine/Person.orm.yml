@@ -30,6 +30,7 @@ AppBundle\Entity\Person:
         bus:
             type: smallint
             nullable: true
+            nullable: true
         city:
             type: string
             scale: 100
@@ -37,7 +38,7 @@ AppBundle\Entity\Person:
         email:
             type: string
             length: 255
-            nullable: true
+            nullable: true 
         telephone:
             type: string
             length: 10
@@ -46,7 +47,7 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
-    oneToOne:
+    oneToMany:
         organisation:
             targetEntity: Organisation
             mappedBy: creator

@@ -7,8 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\Skillproficiency;
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
@@ -28,7 +26,7 @@ class PlaceholderController extends Controller
     public function person_spelregels()
     {
         return $this->render("person/spelregels.html.twig");
-    }
+    } 
 
     /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
@@ -69,4 +67,14 @@ class PlaceholderController extends Controller
     {
         return $this->render("organisation/vrijwilligersopmaat.html.twig");
     }
+
+
+    /**
+     * @Route("/js/vars.js", name="javascriptvariables")
+     */
+    public function javascriptvariables()
+    {
+        return $this->render("javascript_variables.js.twig");
+    }
+
 }

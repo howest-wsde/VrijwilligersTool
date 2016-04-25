@@ -17,7 +17,7 @@ AppBundle\Entity\Organisation:
         street:
             type: string
             scale: 255
-            nullable: true
+            nullable: true 
         number:
             type: smallint
             nullable: true
@@ -35,7 +35,9 @@ AppBundle\Entity\Organisation:
             type: string
             length: 10
             nullable: true
-    oneToOne:
+        description:
+            type: text
+    manyToOne:
         creator:
             targetEntity: Person
             inversedBy: organisation

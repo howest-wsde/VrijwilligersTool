@@ -5,9 +5,11 @@
         <title>{% block title %}Talent Roeselen{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-           <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
-           <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('style/search.css') }}" />
         {% endblock %}
+        <script src="{{ path('javascriptvariables') }}"></script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {%  block head %} {% endblock %}
     </head>
@@ -18,9 +20,13 @@
                     <h1><a href="{{ path('homepage') }}"><span>Roeselare vrijwilligt</span></a></h1>
                     <span class="baseline">Baseline</span>
                 </div>
-                <form class="search" method="get" action="{{ path('zoeken') }} ">
+                <form class="search" method="get" action="{{ path('zoeken') }}" autocomplete="off">
                     <input type="text" name="q" id="searchq" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
+                    <br />
+                    <div id="divResult">
+                    </div>
                 </form>
+
                 <nav class="about nav">
                     <ul>
                         <li><a href="{{ path('over_ons') }}">Over ons</a></li>
@@ -50,24 +56,10 @@
         {% block footer %}
             <nav class="bottom nav">
                 <section>
-                    <header><h1>Recente vacatures</h1></header>
-                    <ul>
-                        <li><a href="{{ path('vacancy_id', { 'id': 1 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 2 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 3 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 4 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 5 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 6 }) }}">Vacature</a></li>
-                        <li><a href="{{ path('vacancy_id', { 'id': 7 }) }}">Vacature</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Vacancy:listRecentVacancies')) }}
                 </section>
                 <section>
-                    <header><h1>Recente vrijwilligers</h1></header>
-                    <ul>
-                        <li><a href="{{ path('person_id', { 'id': "beuntje" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('person_id', { 'id': "jelle" }) }}">Vrijwilliger</a></li>
-                        <li><a href="{{ path('person_id', { 'id': "koen" }) }}">Vrijwilliger</a></li>
-                    </ul>
+                    {{ render(controller('AppBundle:Person:listRecentPersons')) }}
                 </section>
                 <section>
                     <header><h1>Vacature types</h1></header>
@@ -130,8 +122,8 @@
         {% endblock %}
         {% block javascripts %}{% endblock %}
         <!-- Temp bootstrap -->
-        <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>        
+        <script src="{{ asset('js/search.js') }}"></script>
     </body>
 </html>

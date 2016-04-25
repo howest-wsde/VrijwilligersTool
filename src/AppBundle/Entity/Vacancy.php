@@ -78,7 +78,7 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
-
+ 
     /**
      * Constructor
      */
@@ -283,4 +283,5 @@ class Vacancy
     {
         return $this->skills;
     }
+ 
 }
