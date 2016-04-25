@@ -14,7 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\{
     DateType,
     TextareaType,
     TextType,
-    SubmitType};
+    SubmitType
+};
 
 class VacancyType extends AbstractType
 {

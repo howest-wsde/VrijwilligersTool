@@ -16,7 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\{
     TextType,
     SubmitType,
     EmailType,
-    NumberType};
+    NumberType
+};
 
 class OrganisationType extends AbstractType
 {
