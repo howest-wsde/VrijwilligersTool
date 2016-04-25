@@ -12,7 +12,7 @@ class Vacancy
 {
     /**
      * @var string
-     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\NotBlank(message ="organisation.not_blank")
      * @Assert\Length(
      *      min = 4,
      *      max = 100,
@@ -24,7 +24,7 @@ class Vacancy
 
     /**
      * @var string
-     * @Assert\NotBlank("organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank")
      * @Assert\Length(
      *      min = 20,
      *      max = 2000,
@@ -57,6 +57,10 @@ class Vacancy
      * @Assert\GreaterThanOrEqual(
      * 		value = "today",
      * 		message = "vacancy.date.not_today"
+     * )
+     * @Assert\Expression(
+     *     "this.getEnddate() >= this.getStartdate()",
+     *     message="vacancy.date.not_more_than"
      * )
      */
     private $enddate;
