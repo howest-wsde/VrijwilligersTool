@@ -47,7 +47,6 @@ class Vacancy
      */
     private $startdate;
 
-    //TODO: Assert later than startdate
     /**
      * @var \Datetime
      * @Assert\Type(
