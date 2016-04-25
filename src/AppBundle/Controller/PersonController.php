@@ -2,15 +2,25 @@
 
 namespace AppBundle\Controller;
 
+<<<<<<< HEAD
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+=======
+use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Vacancy;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Form\VacancyType;
+use Symfony\Component\HttpFoundation\Request;
+>>>>>>> master
 
 class PersonController extends controller
 {
     /**
+<<<<<<< HEAD
      *
      * @Security("has_role('ROLE_USER')")
      * @Route("/persoon/{id}" , name="person_id")
@@ -19,12 +29,21 @@ class PersonController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
+=======
+     * @Route("/persoon/{id}" , name="persoon_id")
+     */
+    public function ViewPersonAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Volunteer')
+>>>>>>> master
             ->findOneById($id);
 
         return $this->render('person/persoon.html.twig', array(
             "person" => $person
         ));
     }
+<<<<<<< HEAD
 
     /**
      * @Route("/persoon/u/{username}" , name="person_username")
@@ -52,4 +71,6 @@ class PersonController extends controller
         );
 
     }
+=======
+>>>>>>> master
 }

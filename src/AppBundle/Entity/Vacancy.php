@@ -283,5 +283,4 @@ class Vacancy
     {
         return $this->skills;
     }
- 
 }
