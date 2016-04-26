@@ -87,7 +87,7 @@ class Organisation
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]$/",
+     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
      *     message="organisation.bus.valid"
      * )
      */
