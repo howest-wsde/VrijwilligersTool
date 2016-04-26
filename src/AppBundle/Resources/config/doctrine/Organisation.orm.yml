@@ -26,6 +26,7 @@ AppBundle\Entity\Organisation:
             nullable: true
         bus:
             type: string
+            length: 6
             nullable: true
         city:
             type: string

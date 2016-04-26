@@ -28,7 +28,8 @@ AppBundle\Entity\Person:
             type: smallint
             nullable: true
         bus:
-            type: string
+            type: string            
+            length: 6
             nullable: true
         city:
             type: string
