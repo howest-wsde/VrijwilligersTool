@@ -53,14 +53,10 @@ class ElasticsearchQuery
         $entity->setId($json["Id"]);
         $values = $json["Values"];
         foreach ($values as $key => $value) {
-<<<<<<< HEAD
             if (!is_null($value))
             {
                 $entity->{"set".$key}($value);
             }
-=======
-            $entity->{"set".$key}($value);
->>>>>>> master
         }
         return $entity;
     }
