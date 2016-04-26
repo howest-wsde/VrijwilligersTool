@@ -36,7 +36,15 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+<<<<<<< HEAD
             'data_class' => 'AppBundle\Entity\Person',
+=======
+<<<<<<< HEAD
+            'data_class' => 'AppBundle\Entity\Person',
+=======
+            'data_class' => 'AppBundle\Entity\Volunteer',
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
         ));
     }
 }

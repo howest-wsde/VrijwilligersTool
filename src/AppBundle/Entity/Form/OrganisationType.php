@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
+<<<<<<< HEAD
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -16,6 +17,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+=======
+use Symfony\Component\Form\Extension\Core\Type\{
+    ChoiceType,
+    CollectionType,
+    DateType,
+    TextareaType,
+    TextType,
+    SubmitType,
+    EmailType,
+    NumberType
+};
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 
 class OrganisationType extends AbstractType
 {

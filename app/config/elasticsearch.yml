@@ -1,6 +1,14 @@
 fos_elastica:
     clients:
+<<<<<<< HEAD
         default: { host: "%elasticsearch_host%", port: "%elasticsearch_port%" }
+=======
+<<<<<<< HEAD
+        default: { host: "%elasticsearch_host%", port: "%elasticsearch_port%" }
+=======
+        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
     indexes:
         %elasticsearch_index%:
             finder: ~
@@ -13,6 +21,10 @@ fos_elastica:
                                 language: Dutch
                             # other analyzers
             types:
+<<<<<<< HEAD
+                person:
+=======
+<<<<<<< HEAD
                 person:
                     mappings:
                         firstName: "%nl%"
@@ -32,11 +44,38 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Person
+=======
+                volunteer:
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+                    mappings:
+                        firstName: "%nl%"
+                        lastName: "%nl%"
+                        username: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
+                        linkedinUrl: "%nl%"
+                        organisation: "%nl%"
+                        # testimonials: "%nl%"
+                        # skills: "%nl%"
+                    persistence:
+                        driver: orm
+<<<<<<< HEAD
+                        model: AppBundle\Entity\Person
+=======
+                        model: AppBundle\Entity\Volunteer
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
                         provider: ~
                         listener: %listener%
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
+<<<<<<< HEAD
                 organisation:
                     mappings:
                         name: "%nl%"
@@ -49,6 +88,43 @@ fos_elastica:
                         city: "%nl%"
                         email: "%nl%"
                         telephone: "%nl%"
+=======
+<<<<<<< HEAD
+                organisation:
+                    mappings:
+                        name: "%nl%"
+                        description: "%nl%"
+                        creator: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
+=======
+
+                contact:
+                    mappings:
+                        email: %nl%
+                        address: %nl%
+                        telephone: %nl%
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\contact
+                        provider: ~
+                        listener: %listener%
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true
+
+                organisation:
+                    mappings:
+                        name: %nl%
+                        description: %nl%
+                        creator: %nl%
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
@@ -57,6 +133,19 @@ fos_elastica:
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+                testimonial:
+                    mappings:
+                        value: "%nl%"
+                        sender: "%nl%"
+                        receiver: "%nl%"
+=======
+
+
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
                 skill:
                     mappings:
                         name: %nl%
@@ -74,6 +163,7 @@ fos_elastica:
                         value: %nl%
                         sender: %nl%
                         receiver: %nl%
+>>>>>>> master
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Testimonial
@@ -85,12 +175,26 @@ fos_elastica:
 
                 vacancy:
                     mappings:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
                         title: "%nl%"
                         description: "%nl%"
                         startdate: "%nl%"
                         enddate: "%nl%"
                         organisation: "%nl%"
                         # skills: "%nl%"
+<<<<<<< HEAD
+=======
+=======
+                        title: %nl%
+                        description: %nl%
+                        startdate: %nl%
+                        enddate: %nl%
+                        creationtime: %nl%
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy

@@ -2,15 +2,31 @@
 
 {% block title %}Vacature{% endblock %}
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 {% block head %}
 	<script src="https://maps.googleapis.com/maps/api/js
 	?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g">
 	</script>
 {% endblock head %}
 
+<<<<<<< HEAD
 {% block body %}
 	<article>
 		<header><h1>{{ vacature.title }}</h1></header> 
+=======
+{% block body %}
+	<article>
+		<header><h1>{{ vacature.title }}</h1></header>
+=======
+{% block body %}
+	<article>
+		<header><h1>{{ vacature.title }}</h1></header>
+		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 		<div>
 			<p>{{ vacature.description }}</p>
 			<p>Ons Aanbod</p>
@@ -18,6 +34,10 @@
 		<div>
 			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
 			<p>organisatie: {{ vacature.organisation.name }}</p>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 			<p>locatie:
 				<span id="location">
 					{{ vacature.organisation.street }}
@@ -30,6 +50,13 @@
 					{{ vacature.organisation.city }}
 				</span>
 			</p>
+<<<<<<< HEAD
+=======
+
+=======
+			<p>locatie: {{ vacature.organisation.contact.address }}</p>
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 		</div>
 		<div class="share-buttons">
 			<div>
@@ -38,17 +65,40 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+<<<<<<< HEAD
 		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
+=======
+<<<<<<< HEAD
+		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
+=======
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
+<<<<<<< HEAD
 		<!-- <aside>
 			{# for category in vacature.category #}
 				<p>category</p>
 			{# endfor #}
 		</aside> -->
+=======
+<<<<<<< HEAD
+		<!-- <aside>
+			{# for category in vacature.category #}
+				<p>category</p>
+			{# endfor #}
+		</aside> -->
+=======
+		<aside>
+			{% for category in vacature.category %}
+				<p>category</p>
+			{% endfor %}
+		</aside>
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
@@ -61,10 +111,23 @@
 {% endblock %}
 
 {% block javascripts %}
+<<<<<<< HEAD
+	{{ parent() }}
+=======
+<<<<<<< HEAD
 	{{ parent() }}
 	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
 
 	<script src="{{ asset('js/googleMaps.js') }}"></script>
 	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+
+=======
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
+
+	<script src="{{ asset('js/googleMaps.js') }}"></script>
+	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+>>>>>>> master
 {% endblock %}

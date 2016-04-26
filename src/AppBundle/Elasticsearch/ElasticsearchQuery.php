@@ -53,10 +53,20 @@ class ElasticsearchQuery
         $entity->setId($json["Id"]);
         $values = $json["Values"];
         foreach ($values as $key => $value) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
             if (!is_null($value))
             {
                 $entity->{"set".$key}($value);
             }
+<<<<<<< HEAD
+=======
+=======
+            $entity->{"set".$key}($value);
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
         }
         return $entity;
     }
@@ -77,6 +87,10 @@ class ElasticsearchQuery
             $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
             $entity = new $classname();
             foreach ($source as $key => $value) {
+<<<<<<< HEAD
+                if (!is_null($value) && !is_array($value))
+=======
+<<<<<<< HEAD
                 if (!is_null($value) && !is_array($value))
                 {
                     if ($this->isEntity($value))
@@ -85,6 +99,21 @@ class ElasticsearchQuery
                     }
                     $entity->{"set".$key}($value);
                 }
+=======
+                if ($this->isEntity($value))
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+                {
+                    if ($this->isEntity($value))
+                    {
+                        $value = $this->jsonToEntity($value);
+                    }
+                    $entity->{"set".$key}($value);
+                }
+<<<<<<< HEAD
+=======
+                $entity->{"set".$key}($value);
+>>>>>>> master
+>>>>>>> 425577f92ba02987d807c89208595ae3766a9613
             }
             $id = $hits[$i]["_id"];
             $entity->setId($id);
