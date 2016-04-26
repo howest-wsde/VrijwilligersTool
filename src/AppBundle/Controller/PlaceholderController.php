@@ -35,15 +35,7 @@ class PlaceholderController extends Controller
     {
         return $this->render("vereniging/vereniging.html.twig");
     }
-
-    /**
-     * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
-     */
-    public function maakvereniging()
-    {
-        return $this->render("organisation/maakvereniging.html.twig");
-    }
-
+ 
     /**
      * @Route("/verenigingspelregels", name="vrijwilliger_vinden_spelregels")
      */

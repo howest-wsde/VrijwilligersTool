@@ -25,6 +25,7 @@ class OrganisationController extends controller
     }
 
     /**
+     * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      * @Route("/vereniging/nieuw" , name="create_organisation")
      */
     public function createOrganisationAction(Request $request)
