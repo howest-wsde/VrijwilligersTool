@@ -9,7 +9,9 @@
 			<br />
 			<input type="hidden" id="referer" value="{{ path('vacancy_id', { 'id': result.entity.id }) }}" />
 		{% elseif (result.class_name == "Organisation") %}
-			Organisation
+			<b>{{ result.entity.name }}</b>  
+			<br />
+			<input type="hidden" id="referer" value="{{ path('organisation_name', { 'name': result.entity.name }) }}" />
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %} 
