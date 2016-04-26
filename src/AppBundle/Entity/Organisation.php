@@ -83,11 +83,11 @@ class Organisation
      * @Assert\Length(
      * 		min = 1,
      *      max = 6,
-     *      minMessage = "organisation.min_message_one"
+     *      minMessage = "organisation.min_message_one",
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="^[a-zA-Z0-9]$",
+     *     pattern="/^[a-zA-Z0-9]$/",
      *     message="organisation.bus.valid"
      * )
      */
@@ -132,7 +132,10 @@ class Organisation
 
     public static function validateTelephone($org, ExecutionContextInterface  $context)
     {
-        if (is_numeric($org->getTelephone()))
+        $telephone = str_replace(' ', '', $org->getTelephone());
+
+        if (!is_numeric($telephone)
+        or !strlen($telephone) == 10)
         {
             $context->buildViolation("organisation.telephone.valid")
                 ->atPath("telephone")
