@@ -1,19 +1,12 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-<<<<<<< HEAD
 use AppBundle\Entity\Person;
-=======
 use AppBundle\Entity\Volunteer;
->>>>>>> master
 use AppBundle\SearchResult;
-
 class SearchController extends Controller
 {
     private function searchForEntityResults($search)
@@ -21,11 +14,7 @@ class SearchController extends Controller
         $query = $this->get('ElasticsearchQuery');
         $params = [
             'index' => $query->getIndex(),
-<<<<<<< HEAD
             'type' => ['person', 'vacancy', 'organisation'],
-=======
-            'type' => ['volunteer', 'vacancy', 'organisation'],
->>>>>>> master
             'body' => [
                 'query' => [
                     'query_string' => [
@@ -37,7 +26,6 @@ class SearchController extends Controller
         $result = $query->search($params);
         return $query->getSearchResults();
     }
-
     /**
      * @Route("/zoeken", name="zoeken")
      */
@@ -49,26 +37,18 @@ class SearchController extends Controller
         {
             $results = $this->searchForEntityResults($query);
         }
-
-<<<<<<< HEAD
         return $this->render("search/zoekpagina.html.twig", array(
-=======
-        return $this->render("zoekpagina.html.twig", array(
->>>>>>> master
             "results" => $results,
             "query" => $query
         ));
     }
-
     /**
      * @Route("/zoek", name="zoek")
      */
-<<<<<<< HEAD
     public function searchRedirectAction()
     {
         return $this->redirectToRoute("zoeken");
     }
-
     /**
      * @Route("/api/search", name="api_search")
      */
@@ -88,10 +68,4 @@ class SearchController extends Controller
         $response->headers->set("Access-Control-Allow-Origin", "*");
         return $response;
     }
-=======
-    public function searchRedirAction()
-    {
-        return $this->redirectToRoute("zoeken");
-    }
->>>>>>> master
 }

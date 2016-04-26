@@ -1,6 +1,5 @@
 <?php
 namespace AppBundle\Entity\Form;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Validator\Constraints\IsTrue;
-
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -32,15 +30,10 @@ class UserType extends AbstractType
             )
         );
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-<<<<<<< HEAD
             'data_class' => 'AppBundle\Entity\Person',
-=======
-            'data_class' => 'AppBundle\Entity\Volunteer',
->>>>>>> master
         ));
     }
 }
