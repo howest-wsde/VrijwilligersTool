@@ -80,14 +80,15 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
-     *     message="organisation.not_numeric"
+     * @Assert\Length(
+     * 		min = 1,
+     *      max = 6,
+     *      minMessage = "organisation.min_message_one"
+     *      maxMessage = "organisation.max_message"
      * )
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 999999,
-     *      minMessage = "organisation.not_positive"
+     * @Assert\Regex(
+     *     pattern="^[a-zA-Z0-9]$",
+     *     message="organisation.bus.valid"
      * )
      */
     private $bus;
