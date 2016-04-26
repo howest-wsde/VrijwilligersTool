@@ -6,30 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-<<<<<<< HEAD
 use AppBundle\Entity\Person;
-=======
-use AppBundle\Entity\Volunteer;
->>>>>>> master
 use AppBundle\Entity\Form\UserType;
 
 class SecurityController extends Controller
 {
     /**
     * @Route("/register", name="register_user")
-<<<<<<< HEAD
     * @Route("/vrijwilliger", name="vrijwilliger_worden")
-=======
->>>>>>> master
     */
     public function registerAction(Request $request)
     {
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
-<<<<<<< HEAD
         $user = new Person();
-=======
-        $user = new Volunteer();
->>>>>>> master
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -43,19 +32,11 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-<<<<<<< HEAD
             return $this->redirectToRoute("vacaturesopmaat");
         }
 
         return $this->render(
            'person/maakprofiel.html.twig',
-=======
-            return $this->redirectToRoute("status_testing");
-        }
-
-        return $this->render(
-           'security/register.html.twig',
->>>>>>> master
            array('form' => $form->createView())
        );
     }
