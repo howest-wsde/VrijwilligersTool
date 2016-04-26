@@ -15,7 +15,7 @@ class OrganisationController extends controller
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByName($name);
-        return $this->render("Organisation/vereniging.html.twig", array(
+        return $this->render("organisation/vereniging.html.twig", array(
             "organisation" => $organisation
         ));
     }
