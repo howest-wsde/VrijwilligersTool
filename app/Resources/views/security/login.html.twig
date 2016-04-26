@@ -25,7 +25,11 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"    >
         <button type="submit">login</button>
     </form>
+<<<<<<< HEAD
+
+=======
  
+>>>>>>> master
     <p><a href="{{ path('register_user') }}">maak een account</a></p>
 
     <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
@@ -36,6 +40,10 @@
     <script type="in/Login"></script>
 
     {% block javascripts %}
+<<<<<<< HEAD
+        {{ parent() }}
+=======
+>>>>>>> master
         <script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
         <script>window.fb_id = {{ fb_id }};</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>

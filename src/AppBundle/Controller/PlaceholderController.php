@@ -6,12 +6,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+<<<<<<< HEAD
 use AppBundle\Entity\Person;
+=======
+use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Skillproficiency;
+>>>>>>> master
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
 {
     /**
+<<<<<<< HEAD
      * @Route("/vacatures", name="vacaturesopmaat")
      */
     public function vacaturesopmaat()
@@ -27,6 +34,23 @@ class PlaceholderController extends Controller
     {
         return $this->render("person/spelregels.html.twig");
     } 
+=======
+     * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
+     */
+    public function vrijwilliger($id)
+    {
+        return $this->render("vrijwilliger/vrijwilliger.html.twig");
+    }
+
+    /**
+     * @Route("/vrijwilliger", name="vrijwilliger_worden")
+     */
+    public function vrijwilliger_worden()
+    {
+        return $this->render("vrijwilliger/worden.html.twig");
+    }
+
+>>>>>>> master
 
     /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
@@ -37,6 +61,7 @@ class PlaceholderController extends Controller
     }
 
     /**
+<<<<<<< HEAD
      * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      */
     public function maakvereniging()
@@ -77,4 +102,12 @@ class PlaceholderController extends Controller
         return $this->render("javascript_variables.js.twig");
     }
 
+=======
+     * @Route("/vereniging", name="vrijwilliger_vinden")
+     */
+    public function vrijwilligerworden()
+    {
+        return $this->render("vereniging/vrijwilliger_vinden.html.twig");
+    }
+>>>>>>> master
 }

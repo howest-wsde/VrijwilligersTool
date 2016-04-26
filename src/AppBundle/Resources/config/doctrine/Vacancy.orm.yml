@@ -1,3 +1,4 @@
+
 AppBundle\Entity\Vacancy:
     type: entity
     id:
@@ -11,10 +12,10 @@ AppBundle\Entity\Vacancy:
         description:
             type: text
         startdate:
-            type: datetime
+            type: date
             nullable: true
         enddate:
-            type: datetime
+            type: date
             nullable: true
     manyToOne:
         organisation:

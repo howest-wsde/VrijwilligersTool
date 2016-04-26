@@ -8,6 +8,8 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+        description:
+            type: text
         email:
             type: string
             length: 255
@@ -44,5 +46,6 @@ AppBundle\Entity\Organisation:
                 referencedColumnName: id
     oneToMany:
         vacancies:
+            nullable: true
             targetEntity: Vacancy
             mappedBy: organisation

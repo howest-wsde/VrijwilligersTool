@@ -56,6 +56,7 @@ AppBundle\Entity\Person:
             targetEntity: Skill
             mappedBy: null
             cascade: ["persist"]
+            nullable: true
             joinTable:
                 name: person_has_skill
                 joinColumns:

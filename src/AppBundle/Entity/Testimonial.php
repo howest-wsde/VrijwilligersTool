@@ -13,6 +13,11 @@ class Testimonial
     private $value;
 
     /**
+     * @var \DateTime
+     */
+    private $lastUpdate = 'CURRENT_TIMESTAMP';
+
+    /**
      * @var integer
      */
     private $id;

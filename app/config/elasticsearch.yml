@@ -57,12 +57,23 @@ fos_elastica:
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
+                skill:
+                    mappings:
+                        name: %nl%
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Skill
+                        provider: ~
+                        listener: %listener%
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true
 
                 testimonial:
                     mappings:
-                        value: "%nl%"
-                        sender: "%nl%"
-                        receiver: "%nl%"
+                        value: %nl%
+                        sender: %nl%
+                        receiver: %nl%
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Testimonial
