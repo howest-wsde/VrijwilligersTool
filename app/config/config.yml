@@ -42,6 +42,7 @@ twig:
     globals:
         fb_id: "%fb_id%"
         linkedin_id: "%linkedin_id%"
+        googlemaps_key: "%googlemaps_key%"
 
 # Doctrine Configuration
 doctrine:
