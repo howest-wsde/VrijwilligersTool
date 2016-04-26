@@ -10,14 +10,21 @@
             <link rel="stylesheet" type="text/css" href="{{ asset('style/search.css') }}" />
         {% endblock %}
         <script>
-            //use this pattern to add globals to the RV_GLOBALS module.  That way we only ever have one global variable that can potentially have name-spacing collisions with external globals (highly unlikely)
-            var RV_GLOBALS = (function (previous) {
+            var RV_GLOBALS = {
+                "searchURL": "{{ path('api_search') }}", 
+            }
+            {# 
+            var RV_GLOBALS = {};
+            //use this pattern to add globals to the RV_GLOBALS module.  That way we only ever have one global variable that can potentially have name-spacing collisions with external globals (highly unlikely) 
+             
+            RV_GLOBALS = (function (previous) {
                 if(!previous.searchURL){
                     previous.searchURL = "{{ path('api_search') }}";
                 }
 
                 return previous;
             }(RV_GLOBALS));
+            #}
         </script>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {%  block head %} {% endblock %}
