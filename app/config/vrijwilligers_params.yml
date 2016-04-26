@@ -1,7 +1,7 @@
 parameters:
     elasticsearch_host: localhost
     elasticsearch_port: 9200
-    elasticsearch_index: homestead
+    elasticsearch_index: roeselaredev
 
     nl: {analyzer: nl_analyzer}
     listener:

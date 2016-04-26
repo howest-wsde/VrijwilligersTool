@@ -2,33 +2,19 @@
 
 namespace AppBundle\Controller;
 
-<<<<<<< HEAD
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-=======
-
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Vacancy;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AppBundle\Entity\Form\VacancyType;
->>>>>>> master
 use Symfony\Component\HttpFoundation\Request;
 
 class VacancyController extends controller
 {
     /**
-<<<<<<< HEAD
      * @Route("/vacature/pdf/{id}" , name="vacancy_pdf", requirements={"id" = "\d+"})
-=======
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf")
->>>>>>> master
      */
     public function createPDFAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-<<<<<<< HEAD
         $vacancy = $em->getRepository("AppBundle:Vacancy")->find($id);
 
         if ($vacancy) {
@@ -44,23 +30,6 @@ class VacancyController extends controller
             $pdf->MultiCell(0, 20, "Organisatie: \t".
                 $vacancy->getOrganisation()->getContact()->getAddress(), 0, "L");
             $pdf->MultiCell(0, 20, "Locatie: \t", 0, "L");
-=======
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-
-        if ($vacancy) {
-            $pdf = new \FPDF_FPDF('P', 'pt', 'A4');
-            $pdf->AddPage();
-
-            $pdf->SetFont('Times', 'B', 12);
-            $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, 'C');
-            $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
-                $vacancy->getCreationtime()->format('Y-m-d'));
-            $pdf->MultiCell(0, 20, "Beschrijving: \t".
-                $vacancy->getDescription());
-            $pdf->MultiCell(0, 20, "Organisatie: \t".
-                $vacancy->getOrganisation()->getContact()->getAddress(), 0, 'L');
-            $pdf->MultiCell(0, 20, "Locatie: \t", 0, 'L');
->>>>>>> master
             $pdf->Output();
             return $this->render($pdf->Output());
         } else
@@ -69,7 +38,6 @@ class VacancyController extends controller
 
     /**
      * @Route("/vacature/nieuw", name="create_vacancy")
-<<<<<<< HEAD
      *
      * @Security("has_role('ROLE_USER')")
      */
@@ -129,41 +97,5 @@ class VacancyController extends controller
         return $this->render('vacancy/recente_vacatures.html.twig',
             array('vacancies' => $entities)
         );
-
-=======
-     */
-    public function createVacancyAction(Request $request)
-    {
-
-        $vacancy = new Vacancy();
-        $form = $this->createForm(VacancyType::class, $vacancy);
-
-        //TODO: check if dates are valid with constraints
-
-        if ($request->getMethod() == 'POST') {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($vacancy);
-                $em->flush();
-
-                $this->addFlash('success-notice','Uw vacature werd correct ontvangen en opgeslagen, bedankt!');
-                return $this->redirect($this->generateUrl('create_vacancy'));
-            }
-        } else {
-            return $this->render('vacancy/vacature_aanmaken.html.twig',
-                array('form' => $form->createView()));
-        }
-    }
-
-    /**
-     * @Route("/vacature/{id}", name="view_vacancy")
-     */
-    public function viewVacancyAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-        return $this->render("vacancy/vacature.html.twig",array('vacature' => $vacancy));
->>>>>>> master
     }
 }

@@ -7,11 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-<<<<<<< HEAD
 use AppBundle\Entity\Person;
-=======
 use AppBundle\Entity\Volunteer;
->>>>>>> master
 use AppBundle\SearchResult;
 
 class SearchController extends Controller
@@ -21,11 +18,7 @@ class SearchController extends Controller
         $query = $this->get('ElasticsearchQuery');
         $params = [
             'index' => $query->getIndex(),
-<<<<<<< HEAD
             'type' => ['person', 'vacancy', 'organisation'],
-=======
-            'type' => ['volunteer', 'vacancy', 'organisation'],
->>>>>>> master
             'body' => [
                 'query' => [
                     'query_string' => [
@@ -50,11 +43,7 @@ class SearchController extends Controller
             $results = $this->searchForEntityResults($query);
         }
 
-<<<<<<< HEAD
         return $this->render("search/zoekpagina.html.twig", array(
-=======
-        return $this->render("zoekpagina.html.twig", array(
->>>>>>> master
             "results" => $results,
             "query" => $query
         ));
@@ -63,7 +52,6 @@ class SearchController extends Controller
     /**
      * @Route("/zoek", name="zoek")
      */
-<<<<<<< HEAD
     public function searchRedirectAction()
     {
         return $this->redirectToRoute("zoeken");
@@ -88,10 +76,4 @@ class SearchController extends Controller
         $response->headers->set("Access-Control-Allow-Origin", "*");
         return $response;
     }
-=======
-    public function searchRedirAction()
-    {
-        return $this->redirectToRoute("zoeken");
-    }
->>>>>>> master
 }
