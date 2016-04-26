@@ -66,7 +66,7 @@ class Person implements UserInterface, \Serializable
     private $Number;
 
     /**
-     * @var int
+     * @var string
      */
     private $bus;
 
@@ -580,7 +580,7 @@ class Person implements UserInterface, \Serializable
     /**
      * Set bus
      *
-     * @param integer $bus
+     * @param string $bus
      *
      * @return Person
      */
@@ -594,7 +594,7 @@ class Person implements UserInterface, \Serializable
     /**
      * Get bus
      *
-     * @return integer
+     * @return string
      */
     public function getBus()
     {
