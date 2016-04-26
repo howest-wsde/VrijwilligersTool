@@ -17,7 +17,7 @@ AppBundle\Entity\Organisation:
         street:
             type: string
             scale: 255
-            nullable: true 
+            nullable: true
         number:
             type: smallint
             nullable: true
@@ -25,7 +25,8 @@ AppBundle\Entity\Organisation:
             type: smallint
             nullable: true
         bus:
-            type: smallint
+            type: string
+            length: 6
             nullable: true
         city:
             type: string
