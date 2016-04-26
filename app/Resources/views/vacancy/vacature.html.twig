@@ -33,14 +33,47 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
-		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
-		<aside>
-			{% for category in vacature.category %}
+
+		<aside id="#googlemaps">
+			<div>
+				<div id="description">Routebeschrijving:</div>
+				<p>selecteer uw gewenste transportwijze</p>
+				<div onchange="googleMapsModule.drawRoute()">
+					<select id="transitMethod">
+						<option value="DRIVING">Auto</option>
+						<option value="BICYCLING">Fiets</option>
+						<option value="WALKING">Te voet</option>
+						<option value="TRANSIT">Openbaar vervoer</option>
+					</select>
+					<select id="transitMode" class="hidden">
+						<option value="BUS">Per bus</option>
+						<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+						<option value="SUBWAY">Per metro</option>
+						<option value="TRAM">Per tram</option>
+					</select>
+				</div>
+			</div>
+			<div data-useraddress="
+			{% if app.user %}
+				{{ app.user.street }}
+				{{ app.user.number }}
+				{{ app.user.postalcode }}
+				{{ app.user.city }}
+			{% else %}
+			{% endif %}"
+				 id="map-canvas" style="width: 350px; height: 350px;">
+			</div>
+		</aside>
+
+
+
+		<!-- <aside>
+			{# for category in vacature.category #}
 				<p>category</p>
 			{% endfor %}
 		</aside>
