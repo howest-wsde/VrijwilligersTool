@@ -1,16 +1,12 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
 use AppBundle\SearchResult;
-
 class SearchController extends Controller
 {
     private function searchForEntityResults($search)
@@ -30,7 +26,6 @@ class SearchController extends Controller
         $result = $query->search($params);
         return $query->getSearchResults();
     }
-
     /**
      * @Route("/zoeken", name="zoeken")
      */
@@ -42,13 +37,11 @@ class SearchController extends Controller
         {
             $results = $this->searchForEntityResults($query);
         }
-
         return $this->render("search/zoekpagina.html.twig", array(
             "results" => $results,
             "query" => $query
         ));
     }
-
     /**
      * @Route("/zoek", name="zoek")
      */
@@ -56,7 +49,6 @@ class SearchController extends Controller
     {
         return $this->redirectToRoute("zoeken");
     }
-
     /**
      * @Route("/api/search", name="api_search")
      */

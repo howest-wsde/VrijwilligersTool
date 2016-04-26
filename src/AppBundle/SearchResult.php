@@ -1,14 +1,10 @@
 <?php
-
 namespace AppBundle; 
-
 class SearchResult
 { 
     private $class_name; 
     private $entity; 
-
     const MAX_CHARS = 150;
-
     /**
      * get array of SearchResult by extracting from entities
      * @param  Array $entities array of entities from AppBundle/Entity/*
@@ -22,7 +18,6 @@ class SearchResult
         }
         return $results;
     }
-
     /**
      * Converts one entity to a SearchResult
      * @param  mixed $entity an entity from AppBundle/Entity/*
@@ -34,13 +29,11 @@ class SearchResult
         $class_name = explode( '\\', $class_path)[2];
         return new SearchResult($class_name, $entity);
     }
-
     private function __construct($class_name, $entity)
     {
         $this->class_name = $class_name;
         $this->entity = $entity;
     }
-
     /**
      * get the class name
      * @return string
@@ -49,7 +42,6 @@ class SearchResult
     {
         return $this->class_name;
     }
-
     /**
      * get the entity
      * @return entity

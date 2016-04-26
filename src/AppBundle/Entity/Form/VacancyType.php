@@ -1,7 +1,5 @@
 <?php
-
 namespace AppBundle\Entity\Form;
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\{
     TextType,
     SubmitType
 };
-
 class VacancyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -49,7 +46,6 @@ class VacancyType extends AbstractType
                 "translation_domain" => "validators",
             ));
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

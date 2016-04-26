@@ -2,15 +2,10 @@
 
 {% block title %}Vacature{% endblock %}
 
-{% block head %}
-	<script src="https://maps.googleapis.com/maps/api/js
-	?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g">
-	</script>
-{% endblock head %}
-
 {% block body %}
 	<article>
-		<header><h1>{{ vacature.title }}</h1></header> 
+		<header><h1>{{ vacature.title }}</h1></header>
+		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
 		<div>
 			<p>{{ vacature.description }}</p>
 			<p>Ons Aanbod</p>
@@ -44,11 +39,11 @@
 				<button id="email">Email deze vacature</button>
 			</div>
 		</div>
-		<!-- <aside>
-			{# for category in vacature.category #}
+		<aside>
+			{% for category in vacature.category %}
 				<p>category</p>
-			{# endfor #}
-		</aside> -->
+			{% endfor %}
+		</aside>
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
@@ -62,9 +57,8 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ asset('js/jquery-1.12.2.min.js') }}"></script>
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
-
 	<script src="{{ asset('js/googleMaps.js') }}"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g"></script>
 	<script src="{{ asset('js/sharebuttons.js') }}"></script>
 {% endblock %}

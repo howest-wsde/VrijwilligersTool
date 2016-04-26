@@ -1,12 +1,9 @@
 <?php
-
 namespace AppBundle\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
 class VacancyController extends controller
 {
     /**
@@ -16,11 +13,9 @@ class VacancyController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->find($id);
-
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
-
             $pdf->SetFont("Times", "B", 12);
             $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, "C");
             $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
@@ -35,7 +30,6 @@ class VacancyController extends controller
         } else
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
-
     /**
      * @Route("/vacature/nieuw", name="create_vacancy")
      *
@@ -47,21 +41,17 @@ class VacancyController extends controller
         $vacancy->setStartdate(new \DateTime("today"))
             ->setEnddate(new \DateTime("today"));
         $form = $this->createForm(VacancyType::class, $vacancy);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($vacancy);
             $em->flush();
-
             $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
             return $this->redirect($this->generateUrl("create_vacancy"));
         }
-
         return $this->render("vacancy/vacature_nieuw.html.twig",
             array("form" => $form->createView()));
     }
-
     /**
      * @Route("/vacature/{id}", name="vacancy_id")
      */
@@ -74,7 +64,6 @@ class VacancyController extends controller
             "vacature" => $vacancy)
         );
     }
-
     /**
      * @Route("/vacature/t/{title}", name="vacancy_title")
      */
@@ -88,7 +77,6 @@ class VacancyController extends controller
             "vacature" => $vacancy)
         );
     }
-
     public function listRecentVacanciesAction(){
         // retreiving 5 most recent vacancies 
         $entities = $this->getDoctrine()
