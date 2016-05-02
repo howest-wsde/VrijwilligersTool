@@ -50,8 +50,8 @@ class VacancyController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($vacancy);
             $em->flush();
-            $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
-            return $this->redirect($this->generateUrl("create_vacancy"));
+            return $this->redirect($this->generateUrl("vacancy_title",
+            ['title' => $vacancy->getNameUrl() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
             array("form" => $form->createView()));
