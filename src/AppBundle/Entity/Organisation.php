@@ -483,4 +483,14 @@ class Organisation
     {
         return $this->city;
     }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->name);
+    }
 }

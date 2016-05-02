@@ -1,20 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}Vrijwilliger vinden{% endblock %}
-	
+
 {% block body %}
 	<header>
 		<h1>Vrijwilliger vinden</h1>
 		<p>Op zoek naar vrijwilligers?</p>
 		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
 	</header>
-	<form action="{{ path('vrijwilliger_vinden_plaatsvacature') }}" method="post">
+	<form action="{{ path("create_vacancy") }}" method="post">
 		<section>
 			<h2>Spelregels voor organisatie</h2>
-			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %} 
+			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
 
 			<h2>Spelregels voor vrijwilligers</h2>
-			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %} 
+			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
 		</section>
  		<input type="submit" value="Volgende" />
 	</form>

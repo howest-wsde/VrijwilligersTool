@@ -16,7 +16,6 @@ use AppBundle\Entity\Skillproficiency;
 use AppBundle\Entity\Skill;
 use AppBundle\Entity\Volunteer;
 
-
 class DefaultController extends Controller
 {
     /**

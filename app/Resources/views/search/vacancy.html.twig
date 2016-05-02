@@ -1,12 +1,12 @@
 <article>
-	<header><h1><a href="{{ path('vacancy_id', { 'id': vacature.id }) }}">{{ vacature.title }}</a></h1></header>
+	<header><h1><a href="{{ path('vacancy_title', { 'title': vacancy|getNameUrl() }) }}">{{ vacancy.title }}</a></h1></header>
 	<div>
-		<p>{{ vacature.description }}</p>
+		<p>{{ vacancy.description }}</p>
 		<p>Ons Aanbod</p>
 	</div>
 	<div>
-		<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
-		<p>organisatie: {{ vacature.organisation.name }}</p>
-		<p>locatie: {{ vacature.organisation.street }}</p>
-	</div> 
+		<p>vervaldatum: {{ vacancy.startdate|date('Y-m-d') }}</p>
+		<p>organisatie: {{ vacancy.organisation.name }}</p>
+		<p>locatie: {{ vacancy.organisation.street }}</p>
+	</div>
 </article>

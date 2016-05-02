@@ -78,7 +78,7 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
- 
+
     /**
      * Constructor
      */
@@ -282,5 +282,15 @@ class Vacancy
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->title);
     }
 }

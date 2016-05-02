@@ -44,7 +44,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path:   /logout
-                target: /register
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -60,5 +60,6 @@ security:
 
     role_hierarchy:
         ROLE_VOLUNTEER:   ROLE_USER
+        ROLE_ORGANISATION: [ROLE_USER, ROLE_VOLUNTEER]
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
