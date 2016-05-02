@@ -27,7 +27,7 @@ var googleMaps = (function(window,undefined) {
     //functions accessible by objects of this module
     function googleMaps() {
         var self = this;
-        this.addAddressToMap = (address)=> {//geocodes an address and adds it to the map
+        this.addAddressToMap = (address,markericon)=> {//geocodes an address and adds it to the map
             let geocoder = new google.maps.Geocoder();
             geocoder.geocode({'address': address}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -36,8 +36,10 @@ var googleMaps = (function(window,undefined) {
                     var marker = new google.maps.Marker({
                         map: map,
                         animation: google.maps.Animation.DROP,
-                        position: results[0].geometry.location
+                        position: results[0].geometry.location,
+                        icon: markericon
                     });
+
                     markers.push(marker);
                     fitmap();
                     self.drawRoute();
@@ -88,8 +90,8 @@ var googleMaps = (function(window,undefined) {
         };
         this.init = ()=> {
             if (userAddress !== " ") // user is not logged in aka data attr couldn't be filled
-                this.addAddressToMap(userAddress);
-            this.addAddressToMap(vacancyAddress);
+                this.addAddressToMap(userAddress, "../images/home_marker.png");
+            this.addAddressToMap(vacancyAddress, "../images/destination_marker.png");
         };
     }
     return googleMaps = googleMaps;
