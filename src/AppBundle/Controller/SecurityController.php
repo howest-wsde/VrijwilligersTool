@@ -12,8 +12,7 @@ use AppBundle\Entity\Form\UserType;
 class SecurityController extends Controller
 {
     /**
-    * @Route("/register", name="register_user")
-    * @Route("/vrijwilliger", name="vrijwilliger_worden")
+    * @Route("/vrijwilliger_worden", name="register_user")
     */
     public function registerAction(Request $request)
     {
@@ -37,7 +36,7 @@ class SecurityController extends Controller
        );
     }
     /**
-    * @Route("/login", name="login_testing")
+    * @Route("/login", name="login")
     */
     public function loginAction(Request $request)
     {
