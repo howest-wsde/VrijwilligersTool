@@ -1,14 +1,17 @@
 <?php
+
 namespace AppBundle\Controller;
+
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Form\OrganisationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 class OrganisationController extends controller
 {
     /**
-     * @Route("/vereniging/n/{name}" , name="organisation_name")
+     * @Route("/vereniging/{name}" , name="organisation_name")
      */
     public function viewOrganisationNameAction($name)
     {
@@ -19,6 +22,7 @@ class OrganisationController extends controller
             "organisation" => $organisation
         ));
     }
+    
     /**
      * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      * @Route("/vereniging/nieuw" , name="create_organisation")
