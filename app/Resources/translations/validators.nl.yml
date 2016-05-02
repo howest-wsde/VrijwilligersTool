@@ -24,12 +24,15 @@ organisation:
     not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
     exact: De waarde moet exact {{ limit }} tekens langs zijn.
+    name:
+        already_used: Deze naam is reeds in gebruik.
     bus:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
+        already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
         description: Een omschrijving van uw bedrijf
