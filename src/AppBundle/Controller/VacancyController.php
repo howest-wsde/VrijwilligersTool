@@ -1,9 +1,14 @@
 <?php
+
 namespace AppBundle\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Vacancy;
+use AppBundle\Entity\Form\VacancyType;
+
 class VacancyController extends controller
 {
     /**
@@ -30,10 +35,10 @@ class VacancyController extends controller
         } else
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
+
     /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
-     *
-     * @Security("has_role('ROLE_USER')")
      */
     public function createVacancyAction(Request $request)
     {
@@ -52,20 +57,9 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_nieuw.html.twig",
             array("form" => $form->createView()));
     }
+
     /**
-     * @Route("/vacature/{id}", name="vacancy_id")
-     */
-    public function viewVacancyIdAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')
-            ->findOneById($id);
-        return $this->render("vacancy/vacature.html.twig",array(
-            "vacature" => $vacancy)
-        );
-    }
-    /**
-     * @Route("/vacature/t/{title}", name="vacancy_title")
+     * @Route("/vacature/{title}", name="vacancy_title")
      */
     public function viewVacancyTitleAction($title)
     {
@@ -77,13 +71,14 @@ class VacancyController extends controller
             "vacature" => $vacancy)
         );
     }
-    public function listRecentVacanciesAction(){
-        // retreiving 5 most recent vacancies 
+
+    public function listRecentVacanciesAction($nr)
+    {
         $entities = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array('id' => 'DESC'),5);
-        return $this->render('vacancy/recente_vacatures.html.twig',
-            array('vacancies' => $entities)
+                        ->findBy(array(), array("id" => "DESC"), $nr);
+        return $this->render("vacancy/recente_vacatures.html.twig",
+            array("vacancies" => $entities)
         );
     }
 }
