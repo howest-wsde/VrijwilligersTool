@@ -144,7 +144,12 @@ class Person implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $roles = array("ROLE_USER");
+        if (!is_null($this->organisation))
+        {
+            array_push($roles, "ROLE_ORGANISATION");
+        }
+        return $roles;
     }
 
     public function eraseCredentials()
@@ -645,5 +650,15 @@ class Person implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->username);
     }
 }
