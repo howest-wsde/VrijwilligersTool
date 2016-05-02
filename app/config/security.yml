@@ -44,7 +44,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path:   /logout
-                target: /register
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
