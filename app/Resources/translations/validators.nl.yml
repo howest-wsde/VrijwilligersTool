@@ -36,7 +36,7 @@ organisation:
     label:
         name: Naam
         description: Een omschrijving van uw bedrijf
-        email: E-mailaddres
+        email: E-mailadres
         street: Straatnaam
         number: Huisnummer
         bus: Busnummer
