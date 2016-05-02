@@ -47,3 +47,8 @@ organisation:
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
+person:
+    email:
+        already_used: Dit e-mailadres is reeds in gebruik.
+    username:
+        already_used: Deze gebruikersnaam is reeds in gebruik.
