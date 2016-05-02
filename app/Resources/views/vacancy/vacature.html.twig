@@ -4,30 +4,30 @@
 
 {% block body %}
 	<article>
-		<header><h1>{{ vacature.title }}</h1></header>
+		<header><h1>{{ vacancy.title }}</h1></header>
 		<div>
-			<p>{{ vacature.description }}</p>
+			<p>{{ vacancy.description }}</p>
 			<p>Ons Aanbod</p>
 		</div>
 		<div>
-			{% if vacature.startdate %}
-				<p>Begindatum: {{ vacature.startdate|date('Y-m-d') }}</p>
+			{% if vacancy.startdate %}
+				<p>Begindatum: {{ vacancy.startdate|date('Y-m-d') }}</p>
 			{% endif %}
-			{% if vacature.enddate %}
-				<p>Einddatum: {{ vacature.enddate|date('Y-m-d') }}</p>
+			{% if vacancy.enddate %}
+				<p>Einddatum: {{ vacancy.enddate|date('Y-m-d') }}</p>
 			{% endif %}
-			<p>organisatie: {{ vacature.organisation.name }}</p>
+			<p>organisatie: {{ vacancy.organisation.name }}</p>
 			<p>locatie:
 				<span id="location">
 					<br>
-					{{ vacature.organisation.street }}
-					{{ vacature.organisation.number }}
+					{{ vacancy.organisation.street }}
+					{{ vacancy.organisation.number }}
 					<br>
-					{% if vacature.organisation.bus is not null and vacature.organisation.bus is not empty %}
-						bus {{ vacature.organisation.bus }}
+					{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
+						bus {{ vacancy.organisation.bus }}
 					{% endif %}
-					{{ vacature.organisation.postalcode }}
-					{{ vacature.organisation.city }}
+					{{ vacancy.organisation.postalcode }}
+					{{ vacancy.organisation.city }}
 				</span>
 			</p>
 		</div>
@@ -78,7 +78,7 @@
 
 
 		<!-- <aside>
-			{# for category in vacature.category
+			{# for category in vacancy.category
 				<p>category</p>
 			  endfor #}
 		</aside>-->
@@ -86,7 +86,7 @@
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
 				<button>Stel je kandidaat</button>
-				<form action="{{ path('vacancy_pdf', {'id': vacature.id}) }}" target="_blank">
+				<form action="{{ path('vacancy_pdf', {'title': vacancy.getNameUrl()}) }}" target="_blank">
 					<input type="submit" value="Print deze vacature"/>
 				</form>
 			{% endblock %}</footer>
