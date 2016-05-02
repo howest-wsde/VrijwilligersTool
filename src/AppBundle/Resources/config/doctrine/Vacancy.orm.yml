@@ -13,7 +13,6 @@ AppBundle\Entity\Vacancy:
             type: text
         startdate:
             type: date
-            nullable: true
         enddate:
             type: date
             nullable: true
