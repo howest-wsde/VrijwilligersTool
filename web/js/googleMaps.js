@@ -73,8 +73,8 @@ var googleMaps = (function(window,undefined) {
                 directionsService.route(request, function (result, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setMap(map);
-                        directionsDisplay.setPanel($("#description")[0]);
-
+                        directionsDisplay.setPanel($("#description")[0]);//[0] for the pure js object
+                        directionsDisplay.setOptions( { suppressMarkers: true } ); //no default A and B markers when routing
                         directionsDisplay.setDirections(result);
                     }
                     else {
