@@ -6,6 +6,7 @@ vacancy:
         valid: Gelieve een geldige datum op te geven.
         not_today: Gelieve een datum in de toekomst op te geven.
         not_more_than: Gelieve een datum op te geven die later valt dan de Begindatum.
+        max_period: De vacature mag maximum 6 maanden geldig zijn.
     label:
         title: Titel
         description: Omschrijving
