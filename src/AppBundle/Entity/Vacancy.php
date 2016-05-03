@@ -135,7 +135,7 @@ class Vacancy
     public function setTitle($title)
     {
         $this->title = $title;
-        $this->setUrlId(UrlEncoder::encode($title));
+        $this->setUrlId(UrlEncoder::encode($this, $title));
 
         return $this;
     }
@@ -336,6 +336,6 @@ class Vacancy
 
     public function normaliseUrlId()
     {
-        $this->setUrlId(UrlEncoder::encode($this->getTitle));
+        $this->setUrlId(UrlEncoder::encode($this, $this->getTitle));
     }
 }

@@ -4,14 +4,22 @@ namespace AppBundle\UrlEncoder;
 
 class UrlEncoder
 {
-    public static function encode($string)
+    private $em;
+
+    public function setEm($em)
     {
-        $string = UrlEncoder::transliterateString($string);
-        $string = preg_replace("([^a-zA-Z0-9_-])", "" , $string);
-        return $string;
+        $this->em = $em;
     }
 
-    static function transliterateString($txt)
+    public function encode($entity, $url)
+    {
+        $url = UrlEncoder::transliterateString($url);
+        $url = preg_replace("([^a-zA-Z0-9_-])", "" , $url);
+        $url = UrlEncoder::checkAndAppendToUrl($url);
+        return $url;
+    }
+
+    private  function transliterateString($txt)
     {
         $transliterationTable = array(
         " " => "-",
@@ -64,5 +72,26 @@ class UrlEncoder
         "Ъ" => "", "ы" => "y", "Ы" => "y", "ь" => "", "Ь" => "", "э" => "e",
         "Э" => "e", "ю" => "ju", "Ю" => "ju", "я" => "ja", "Я" => "ja");
         return str_replace(array_keys($transliterationTable), array_values($transliterationTable), $txt);
+    }
+
+    private function getOccurencesOf($entity, $url)
+    {
+        $table = $entity->getClassName();
+        $column = "urlid";
+        $occurences = $this->em->createQueryBuilder("e")
+            ->select("count($table.$column)")
+            ->from("AppBundle:$table")
+            ->where("e.urlid = $url");
+        return $occurences;
+    }
+
+    private function checkAndAppendToUrl($entity, $url)
+    {
+
+        if ($occurences > 0)
+        {
+            $url .= "-".$occurences;
+        }
+        return $url;
     }
 }

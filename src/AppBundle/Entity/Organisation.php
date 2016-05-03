@@ -192,7 +192,7 @@ class Organisation
     public function setName($name)
     {
         $this->name = $name;
-        $this->setUrlId(UrlEncoder::encode($name));
+        $this->setUrlId(UrlEncoder::encode($this, $name));
         return $this;
     }
 
@@ -573,6 +573,6 @@ class Organisation
 
     public function normaliseUrlId()
     {
-        $this->setUrlId(UrlEncoder::encode($this->getName));
+        $this->setUrlId(UrlEncoder::encode($this, $this->getName));
     }
 }
