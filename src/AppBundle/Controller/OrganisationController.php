@@ -5,12 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Form\OrganisationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class OrganisationController extends controller
 {
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      * @Route("/vereniging/nieuw" , name="create_organisation")
      */
