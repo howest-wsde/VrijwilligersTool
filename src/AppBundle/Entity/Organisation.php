@@ -9,7 +9,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"name"}, message = "organisation.name.already_used")
  * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
  */
 class Organisation
@@ -146,10 +145,6 @@ class Organisation
         }
     }
 
-    /**
-     * @var string
-     */
-    private $url_id;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -492,29 +487,7 @@ class Organisation
         return $this->city;
     }
 
-    /**
-     * Set url_id
-     *
-     * @param string $url_id
-     *
-     * @return Organisation
-     */
-    public function setUrl_id($url_id)
-    {
-        $this->url_id = $url_id;
 
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return url_id
-     */
-    public function getUrl_id()
-    {
-        return $this->url_id;
-    }
 
     /**
      * Get name for url
@@ -535,5 +508,78 @@ class Organisation
     {
         $reflect = new \ReflectionClass($this);
         return $reflect->getShortName();
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Organisation
+     */
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies[] = $vacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
+
+
+    /**
+     * @var string
+     */
+    private $url_id;
+
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Organisation
+     */
+    public function setUrlId($urlId)
+    {
+        $this->url_id = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->url_id;
     }
 }

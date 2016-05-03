@@ -74,10 +74,7 @@ class Vacancy
      */
     private $id;
 
-    /**
-     * @var string
-     */
-    private $url_id;
+
 
     /**
      * @var \AppBundle\Entity\Organisation
@@ -295,30 +292,6 @@ class Vacancy
     }
 
     /**
-     * Set url_id
-     *
-     * @param string $url_id
-     *
-     * @return Organisation
-     */
-    public function setUrl_id($url_id)
-    {
-        $this->url_id = $url_id;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return url_id
-     */
-    public function getUrl_id()
-    {
-        return $this->url_id;
-    }
-
-    /**
      * Get name for url
      *
      * @return string
@@ -337,5 +310,35 @@ class Vacancy
     {
         $reflect = new \ReflectionClass($this);
         return $reflect->getShortName();
+    }
+    
+    /**
+     * @var string
+     */
+    private $url_id;
+
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->url_id = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->url_id;
     }
 }
