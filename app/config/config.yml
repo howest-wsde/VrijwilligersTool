@@ -87,3 +87,8 @@ services:
             - [setHost, ["%elasticsearch_host%"]]
             - [setPort, ["%elasticsearch_port%"]]
             - [create]
+    # Services
+    vacancy.listener:
+        class: AppBundle\EventListener\UrlListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
