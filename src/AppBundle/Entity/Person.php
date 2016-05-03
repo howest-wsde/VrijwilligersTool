@@ -656,16 +656,6 @@ class Person implements UserInterface, \Serializable
     }
 
     /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->username);
-    }
-
-    /**
      * Get the class name
      *
      * @return string
