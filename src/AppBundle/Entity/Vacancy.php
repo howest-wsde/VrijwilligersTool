@@ -87,6 +87,36 @@ class Vacancy
     private $skills;
 
     /**
+     * @var string
+     */
+    private $url_id;
+
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->url_id = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->url_id;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -292,16 +322,6 @@ class Vacancy
     }
 
     /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->title);
-    }
-
-    /**
      * Get the class name
      *
      * @return string
@@ -310,35 +330,5 @@ class Vacancy
     {
         $reflect = new \ReflectionClass($this);
         return $reflect->getShortName();
-    }
-    
-    /**
-     * @var string
-     */
-    private $url_id;
-
-
-    /**
-     * Set urlId
-     *
-     * @param string $urlId
-     *
-     * @return Vacancy
-     */
-    public function setUrlId($urlId)
-    {
-        $this->url_id = $urlId;
-
-        return $this;
-    }
-
-    /**
-     * Get urlId
-     *
-     * @return string
-     */
-    public function getUrlId()
-    {
-        return $this->url_id;
     }
 }

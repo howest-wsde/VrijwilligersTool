@@ -128,6 +128,35 @@ class Organisation
 
     /**
      * @var string
+     */
+    private $url_id;
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->url_id = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->url_id;
+    }
+
+    /**
+     * @var string
      * assert callback statement for telephone at top of class
      */
     private $telephone;
@@ -144,7 +173,6 @@ class Organisation
                 ->addViolation();
         }
     }
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -550,36 +578,5 @@ class Organisation
     public function getVacancies()
     {
         return $this->vacancies;
-    }
-
-
-    /**
-     * @var string
-     */
-    private $url_id;
-
-
-    /**
-     * Set urlId
-     *
-     * @param string $urlId
-     *
-     * @return Organisation
-     */
-    public function setUrlId($urlId)
-    {
-        $this->url_id = $urlId;
-
-        return $this;
-    }
-
-    /**
-     * Get urlId
-     *
-     * @return string
-     */
-    public function getUrlId()
-    {
-        return $this->url_id;
     }
 }
