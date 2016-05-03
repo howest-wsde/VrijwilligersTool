@@ -298,4 +298,15 @@ class Vacancy
     {
         return str_replace(" ", "-", $this->title);
     }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 }

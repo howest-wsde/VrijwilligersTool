@@ -664,4 +664,15 @@ class Person implements UserInterface, \Serializable
     {
         return str_replace(" ", "-", $this->username);
     }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 }
