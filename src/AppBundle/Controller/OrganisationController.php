@@ -39,10 +39,9 @@ class OrganisationController extends controller
      */
     public function viewOrganisationByNameAction($name)
     {
-        $name = UrlEncoder::decode($name);
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByName($name);
+            ->findOneByUrlid($name);
         return $this->render("organisation/vereniging.html.twig", array(
             "organisation" => $organisation
         ));

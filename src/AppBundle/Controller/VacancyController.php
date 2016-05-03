@@ -17,9 +17,8 @@ class VacancyController extends controller
      */
     public function createPDFAction($title)
     {
-        $title = UrlEncoder::decode($title);
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByTitle($title);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -63,10 +62,9 @@ class VacancyController extends controller
      */
     public function viewVacancyTitleAction($title)
     {
-        $title = UrlEncoder::decode($title);
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByTitle($title);
+            ->findOneByUrlid($title);
         return $this->render("vacancy/vacature.html.twig", array(
             "vacancy" => $vacancy)
         );
