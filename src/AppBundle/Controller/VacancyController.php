@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Form\VacancyType;
+use AppBundle\UrlEncoder\UrlEncoder;
 
 class VacancyController extends controller
 {
@@ -16,7 +17,7 @@ class VacancyController extends controller
      */
     public function createPDFAction($title)
     {
-        $title = str_replace("-", " ", $title);
+        $title = UrlEncoder::decode($title);
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByTitle($title);
         if ($vacancy) {
@@ -51,7 +52,7 @@ class VacancyController extends controller
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_title",
-            ['title' => $vacancy->getNameUrl() ] ));
+            ['title' => $vacancy->getUrlId() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
             array("form" => $form->createView()));
@@ -62,7 +63,7 @@ class VacancyController extends controller
      */
     public function viewVacancyTitleAction($title)
     {
-        $title = str_replace("-", " ", $title);
+        $title = UrlEncoder::decode($title);
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByTitle($title);

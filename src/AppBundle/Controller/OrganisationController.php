@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\UrlEncoder\UrlEncoder;
 
 class OrganisationController extends controller
 {
@@ -26,7 +27,7 @@ class OrganisationController extends controller
             $em->persist($organisation);
             $em->flush();
             return $this->redirect($this->generateUrl("organisation_name",
-            ['name' => $organisation->getNameUrl() ] ));
+            ['name' => $organisation->getUrlId() ] ));
         }
         return $this->render("organisation\maakvereniging.html.twig", array(
             "form" => $form->createView()
@@ -36,8 +37,9 @@ class OrganisationController extends controller
     /**
      * @Route("/vereniging/{name}" , name="organisation_name")
      */
-    public function viewOrganisationNameAction($name)
+    public function viewOrganisationByNameAction($name)
     {
+        $name = UrlEncoder::decode($name);
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByName($name);
