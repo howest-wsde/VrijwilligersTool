@@ -61,6 +61,8 @@ class UrlEncoder
         'ш' => 'sh', 'Ш' => 'sh', 'щ' => 'sch', 'Щ' => 'sch', 'ъ' => '',
         'Ъ' => '', 'ы' => 'y', 'Ы' => 'y', 'ь' => '', 'Ь' => '', 'э' => 'e',
         'Э' => 'e', 'ю' => 'ju', 'Ю' => 'ju', 'я' => 'ja', 'Я' => 'ja');
-        return str_replace(array_keys($transliterationTable), array_values($transliterationTable), $txt);
+        $replaced = str_replace(array_keys($transliterationTable), array_values($transliterationTable), $txt);
+        $replaced = preg_replace("[a-zA-Z0-9-_]", "" , $replaced);
+        return $replaced;
     }
 }
