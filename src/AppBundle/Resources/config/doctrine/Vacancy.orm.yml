@@ -16,7 +16,7 @@ AppBundle\Entity\Vacancy:
         enddate:
             type: date
             nullable: true
-        url_id:
+        urlid:
             type: string
             length: 100
     manyToOne:

@@ -38,7 +38,7 @@ AppBundle\Entity\Organisation:
             nullable: true
         description:
             type: text
-        url_id:
+        urlid:
             type: string
             length: 150
     manyToOne:
