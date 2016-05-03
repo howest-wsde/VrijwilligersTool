@@ -40,6 +40,8 @@ class Organisation
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy.max_message"
      * )
+     * @Assert\NotEqualTo("nieuw")
+     * )
     */
     private $description;
 
@@ -567,5 +569,10 @@ class Organisation
     public function getVacancies()
     {
         return $this->vacancies;
+    }
+
+    public function normaliseUrlId()
+    {
+        $this->setUrlId(UrlEncoder::encode($this->getName));
     }
 }

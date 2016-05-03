@@ -19,6 +19,7 @@ class Vacancy
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy..max_message"
      * )
+     * @Assert\NotEqualTo("nieuw")
     */
     private $title;
 
@@ -331,5 +332,10 @@ class Vacancy
     {
         $reflect = new \ReflectionClass($this);
         return $reflect->getShortName();
+    }
+
+    public function normaliseUrlId()
+    {
+        $this->setUrlId(UrlEncoder::encode($this->getTitle));
     }
 }
