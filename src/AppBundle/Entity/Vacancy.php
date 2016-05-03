@@ -59,7 +59,12 @@ class Vacancy
      * )
      * @Assert\Expression(
      *     "this.getEnddate() >= this.getStartdate()",
-     *     message="vacancy.date.not_more_than"
+     *     message = "vacancy.date.not_more_than"
+     * )
+     *
+     * @Assert\Expression(
+     *     "this.getEnddate() <= this.getStartdate().modify('+6 month')",
+     *     message = "vacancy.date.max_period"
      * )
      */
     private $enddate;

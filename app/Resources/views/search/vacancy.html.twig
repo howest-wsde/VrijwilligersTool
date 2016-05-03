@@ -1,5 +1,5 @@
 <article>
-	<header><h1><a href="{{ path('vacancy_title', { 'title': vacancy|getNameUrl() }) }}">{{ vacancy.title }}</a></h1></header>
+	<header><h1><a href="{{ path('vacancy_title', { 'title': vacancy.getNameUrl() }) }}">{{ vacancy.title }}</a></h1></header>
 	<div>
 		<p>{{ vacancy.description }}</p>
 		<p>Ons Aanbod</p>
