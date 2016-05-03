@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
-use AppBundle\SearchResult;
 
 class SearchController extends Controller
 {
@@ -27,7 +26,7 @@ class SearchController extends Controller
             ]
         ];
         $result = $query->search($params);
-        return $query->getSearchResults();
+        return $query->getResults();
     }
     /**
      * @Route("/zoeken", name="zoeken")
