@@ -130,7 +130,7 @@ class Organisation
     /**
      * @var string
      */
-    private $url_id;
+    private $urlid;
 
     /**
      * Set urlId
@@ -141,7 +141,7 @@ class Organisation
      */
     public function setUrlId($urlId)
     {
-        $this->url_id = $urlId;
+        $this->urlid = $urlId;
 
         return $this;
     }
@@ -153,7 +153,7 @@ class Organisation
      */
     public function getUrlId()
     {
-        return $this->url_id;
+        return $this->urlid;
     }
 
     /**

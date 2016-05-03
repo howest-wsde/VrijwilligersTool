@@ -89,7 +89,7 @@ class Vacancy
     /**
      * @var string
      */
-    private $url_id;
+    private $urlid;
 
 
     /**
@@ -101,7 +101,7 @@ class Vacancy
      */
     public function setUrlId($urlId)
     {
-        $this->url_id = $urlId;
+        $this->urlid = $urlId;
 
         return $this;
     }
@@ -113,7 +113,7 @@ class Vacancy
      */
     public function getUrlId()
     {
-        return $this->url_id;
+        return $this->urlid;
     }
 
     /**
