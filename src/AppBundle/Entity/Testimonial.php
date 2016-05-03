@@ -180,7 +180,7 @@ class Testimonial
      *
      * @return string
      */
-    public function getNameUrl()
+    public function getUrlId()
     {
         return str_replace(" ", "-", $this->sender);
     }
