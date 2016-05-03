@@ -1,2 +1,2 @@
-<h2><a href="{{ path('organisation_name', { 'name': organisation.name }) }}">{{ organisation.name}}</a></h2>
-city: {{ organisation.city }}<br /> 
+<h2><a href="{{ path("organisation_name", { "name": organisation.getNameUrl() }) }}">{{ organisation.name}}</a></h2>
+city: {{ organisation.city }}<br />
