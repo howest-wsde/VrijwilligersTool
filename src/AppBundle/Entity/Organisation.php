@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\UrlEncoder\UrlEncoder;
 
 /**
  * Organisation
@@ -189,7 +190,7 @@ class Organisation
     public function setName($name)
     {
         $this->name = $name;
-
+        $this->setUrlId(UrlEncoder::encode($name));
         return $this;
     }
 
@@ -513,18 +514,6 @@ class Organisation
     public function getCity()
     {
         return $this->city;
-    }
-
-
-
-    /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->name);
     }
 
     /**

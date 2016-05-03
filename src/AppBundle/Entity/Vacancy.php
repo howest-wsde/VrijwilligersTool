@@ -3,11 +3,11 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\UrlEncoder\UrlEncoder;
 
 /**
  * Vacancy
  */
-
 class Vacancy
 {
     /**
@@ -134,6 +134,7 @@ class Vacancy
     public function setTitle($title)
     {
         $this->title = $title;
+        $this->setUrlId(UrlEncoder::encode($title));
 
         return $this;
     }
