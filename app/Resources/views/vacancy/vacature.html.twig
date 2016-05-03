@@ -16,19 +16,21 @@
 			{% if vacancy.enddate %}
 				<p>Einddatum: {{ vacancy.enddate|date('Y-m-d') }}</p>
 			{% endif %}
-			<p>organisatie: {{ vacancy.organisation.name }}</p>
-			<p>locatie:
-				<span id="location">
-					<br>
-					{{ vacancy.organisation.street }}
-					{{ vacancy.organisation.number }}
-					<br>
-					{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
-						bus {{ vacancy.organisation.bus }}
-					{% endif %}
-					{{ vacancy.organisation.postalcode }}
-					{{ vacancy.organisation.city }}
-				</span>
+			{% if vacancy.organisation %}
+				<p>organisatie: {{ vacancy.organisation.name }}</p>
+				<p>locatie:
+					<span id="location">
+						<br>
+						{{ vacancy.organisation.street }}
+						{{ vacancy.organisation.number }}
+						<br>
+						{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
+							bus {{ vacancy.organisation.bus }}
+						{% endif %}
+						{{ vacancy.organisation.postalcode }}
+						{{ vacancy.organisation.city }}
+					</span>
+			{% endif %}
 			</p>
 		</div>
 		<div class="share-buttons">
