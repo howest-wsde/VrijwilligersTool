@@ -38,6 +38,9 @@ AppBundle\Entity\Organisation:
             nullable: true
         description:
             type: text
+        url_id:
+            type: string
+            length: 150
     manyToOne:
         creator:
             targetEntity: Person

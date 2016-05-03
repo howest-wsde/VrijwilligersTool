@@ -147,6 +147,11 @@ class Organisation
     }
 
     /**
+     * @var string
+     */
+    private $url_id;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $vacancies;
@@ -485,6 +490,30 @@ class Organisation
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set url_id
+     *
+     * @param string $url_id
+     *
+     * @return Organisation
+     */
+    public function setUrl_id($url_id)
+    {
+        $this->url_id = $url_id;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return url_id
+     */
+    public function getUrl_id()
+    {
+        return $this->url_id;
     }
 
     /**
