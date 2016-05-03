@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Form\VacancyType;
-use AppBundle\UrlEncoder\UrlEncoder;
 
 class VacancyController extends controller
 {
@@ -51,10 +50,10 @@ class VacancyController extends controller
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_title",
-            ['title' => $vacancy->getUrlId() ] ));
+            ["title" => $vacancy->getUrlId() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
-            array("form" => $form->createView()));
+            ["form" => $form->createView() ] );
     }
 
     /**
