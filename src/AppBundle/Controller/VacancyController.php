@@ -79,10 +79,8 @@ class VacancyController extends controller
      */
     public function subscribeVacancy($urlid)
     {
-
         $person = $this->get('security.token_storage')->getToken()->getUser(); 
- 
-        $title = str_replace("-", " ", $title);
+        
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlId($urlid); 
@@ -94,7 +92,6 @@ class VacancyController extends controller
         $em->flush();
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
-
     }
 
 
