@@ -74,32 +74,27 @@ class VacancyController extends controller
 
 
     /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      */
     public function subscribeVacancy($urlid)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            
-            return $this->redirectToRoute("login");
 
-        } else {
+        $person = $this->get('security.token_storage')->getToken()->getUser(); 
+ 
+        $title = str_replace("-", " ", $title);
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlId($urlid); 
 
-            $person = $this->get('security.token_storage')->getToken()->getUser(); 
-     
-            $title = str_replace("-", " ", $title);
-            $em = $this->getDoctrine()->getManager();
-            $vacancy = $em->getRepository("AppBundle:Vacancy")
-                ->findOneByUrlId($urlid); 
+        $candidacy = new Candidacy();
+        $candidacy->setCandidate($person)->setVacancy($vacancy); 
 
-            $candidacy = new Candidacy();
-            $candidacy->setCandidate($person)->setVacancy($vacancy); 
+        $em->persist($candidacy);
+        $em->flush();
 
-            $em->persist($candidacy);
-            $em->flush();
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
 
-            return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
-
-        }
     }
 
 
