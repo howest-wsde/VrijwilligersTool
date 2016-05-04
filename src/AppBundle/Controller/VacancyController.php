@@ -74,9 +74,9 @@ class VacancyController extends controller
 
 
     /**
-     * @Route("/vacature/{title}/inschrijven", name="vacancy_subscribe")
+     * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      */
-    public function subscribeVacancy($title)
+    public function subscribeVacancy($urlid)
     {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             
@@ -89,7 +89,7 @@ class VacancyController extends controller
             $title = str_replace("-", " ", $title);
             $em = $this->getDoctrine()->getManager();
             $vacancy = $em->getRepository("AppBundle:Vacancy")
-                ->findOneByTitle($title); 
+                ->findOneByUrlId($urlid); 
 
             $candidacy = new Candidacy();
             $candidacy->setPerson($person)->setVacancy($vacancy); 
@@ -97,7 +97,7 @@ class VacancyController extends controller
             $em->persist($candidacy);
             $em->flush();
 
-            return $this->redirectToRoute("vacancy_title", ["title" => $title]);
+            return $this->redirectToRoute("vacancy_urlid", ["urlid" => $urlid]);
 
         }
     }
