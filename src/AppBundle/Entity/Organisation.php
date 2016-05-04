@@ -70,8 +70,8 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
      *     message="organisation.not_numeric"
      * )
      * @Assert\Range(
@@ -99,8 +99,8 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
      *     message="organisation.not_numeric"
      * )
      * @Assert\Range(
