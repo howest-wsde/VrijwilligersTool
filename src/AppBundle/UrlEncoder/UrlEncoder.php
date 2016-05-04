@@ -80,10 +80,12 @@ class UrlEncoder
     {
         $table = $entity->getClassName();
         $column = "urlid";
-        $query = $this->em->createQuery("SELECT COUNT(*)
-            FROM AppBundle:$table e
-            WHERE e.$column LIKE \":url%\"")
-            ->setParameter(":url", $url);
+        $query = $this->em->createQueryBuilder()
+            ->select("count(e.$column)")
+            ->from("AppBundle:$table", "e")
+            ->where("e.$column LIKE :url")
+            ->setParameter("url", $url."%")
+            ->getQuery();
         $occurences = $query->getSingleScalarResult();
         var_dump($occurences);
         return $occurences;
