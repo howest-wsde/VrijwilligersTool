@@ -74,8 +74,6 @@ class Vacancy
      */
     private $id;
 
-
-
     /**
      * @var \AppBundle\Entity\Organisation
      */
