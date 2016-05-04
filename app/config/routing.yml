@@ -1,5 +1,9 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+    prefix:   /{_locale}
+    requirements:
+        _locale: nl|en 
 logout:
-    path: /logout
+    path: /{_locale}/logout
+ 

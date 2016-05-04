@@ -1,0 +1,54 @@
+vacancy:
+    not_blank: (EN)Gelieve een waarde op te geven.
+    min_message: (EN)Gelieve minimum {{ limit }} tekens in te geven.
+    max_message: (EN)Gelieve maximum {{ limit }} tekens in te geven.
+    date:
+        valid: (EN)Gelieve een geldige datum op te geven.
+        not_today: (EN)Gelieve een datum in de toekomst op te geven.
+        not_more_than: (EN)Gelieve een datum op te geven die later valt dan de Begindatum.
+        max_period: (EN)De vacature mag maximum 6 maanden geldig zijn.
+    label:
+        title: (EN)Titel
+        description: (EN)Omschrijving
+        startdate: (EN)Begindatum
+        enddate: (EN)Einddatum
+        submit: (EN)Opslaan
+    placeholder:
+        date: (EN)jjjj-mm-dd
+organisation:
+    min_message: (EN)Gelieve minimum {{ limit }} tekens in te geven.
+    min_message_one: (EN)Gelieve minimum {{ limit }} teken in te geven.
+    max_message: (EN)Gelieve maximum {{ limit }} tekens in te geven.
+    not_blank: (EN)Gelieve een waarde op te geven.
+    not_numeric: (EN)Gelieve een numerieke waarde op te geven.
+    not_positive: (EN)Gelieve een waarde hoger dan {{ limit }} in te geven.
+    not_more_than: (EN)Gelieve niet meer dan {{ limit }} in te geven.
+    exact: (EN)De waarde moet exact {{ limit }} tekens langs zijn.
+    name:
+        already_used: (EN)Deze naam is reeds in gebruik.
+    bus:
+        valid: (EN)Gelieve een geldige postbus in te geven.
+    telephone:
+        valid: (EN)Gelieve een geldig telefoonnummer in te geven.
+    email:
+        valid: (EN)Gelieve een geldig e-mailaddres in te geven.
+        already_used: (EN)Dit e-mailadres is reeds in gebruik.
+    label:
+        name: (EN)Naam
+        description: (EN)Een omschrijving van uw bedrijf
+        email: (EN)E-mailadres
+        street: (EN)Straatnaam
+        number: (EN)Huisnummer
+        bus: (EN)Busnummer
+        postalcode: (EN)Postcode
+        city: (EN)Stad
+        telephone: (EN)Telefoonnummer
+        submit: (EN)Opslaan
+    placeholder:
+        email: (EN)uw@email.be
+        telephone: (EN)051 123 456
+person:
+    email:
+        already_used: (EN)Dit e-mailadres is reeds in gebruik.
+    username:
+        already_used: (EN)Deze gebruikersnaam is reeds in gebruik.
