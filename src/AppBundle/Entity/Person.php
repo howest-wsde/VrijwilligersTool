@@ -5,9 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository") *
+ * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
+ * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
  */
 class Person implements UserInterface, \Serializable
 {
@@ -144,7 +147,12 @@ class Person implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        $roles = array("ROLE_USER");
+        if (!is_null($this->organisation))
+        {
+            array_push($roles, "ROLE_ORGANISATION");
+        }
+        return $roles;
     }
 
     public function eraseCredentials()
@@ -645,5 +653,26 @@ class Person implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->username);
+    }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
     }
 }

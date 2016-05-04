@@ -4,10 +4,13 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
+ * @UniqueEntity(fields = {"name"}, message = "organisation.name.already_used")
+ * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
  */
 class Organisation
 {
@@ -482,5 +485,26 @@ class Organisation
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->name);
+    }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
     }
 }

@@ -1,7 +1,9 @@
 <?php
+
 namespace AppBundle\Elasticsearch;
+
 use Elasticsearch\ClientBuilder;
-use AppBundle\SearchResult;
+
 class ElasticsearchQuery
 {
     private $es_host;
@@ -84,8 +86,8 @@ class ElasticsearchQuery
     {
         return $this->raw_result;
     }
-    public function getSearchResults()
+    public function getResults()
     {
-        return SearchResult::fromEntities($this->getEntities());
+        return $this->getEntities();
     }
 }

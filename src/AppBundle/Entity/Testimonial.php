@@ -174,4 +174,14 @@ class Testimonial
             )
         ));
     }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->sender);
+    }
 }

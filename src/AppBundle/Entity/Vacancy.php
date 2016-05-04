@@ -59,7 +59,12 @@ class Vacancy
      * )
      * @Assert\Expression(
      *     "this.getEnddate() >= this.getStartdate()",
-     *     message="vacancy.date.not_more_than"
+     *     message = "vacancy.date.not_more_than"
+     * )
+     *
+     * @Assert\Expression(
+     *     "this.getEnddate() <= this.getStartdate().modify('+6 month')",
+     *     message = "vacancy.date.max_period"
      * )
      */
     private $enddate;
@@ -78,7 +83,7 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
- 
+
     /**
      * Constructor
      */
@@ -282,5 +287,26 @@ class Vacancy
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getNameUrl()
+    {
+        return str_replace(" ", "-", $this->title);
+    }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
     }
 }

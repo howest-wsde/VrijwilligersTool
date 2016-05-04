@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}Login{% endblock %}
 {% block head %}
@@ -12,20 +12,20 @@
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div>{{ error.messageKey|trans(error.messageData, "security") }}</div>
     {% endif %}
 
-    <form action="{{ path('login_testing') }}" method="post">
+    <form action="{{ path("login") }}" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="_password" />
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"    >
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}"    >
         <button type="submit">login</button>
     </form>
-    <p><a href="{{ path('register_user') }}">maak een account</a></p>
+    <p><a href="{{ path("register_user") }}">maak een account</a></p>
 
     <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
     </fb:login-button>
@@ -38,7 +38,7 @@
         {{ parent() }}
         <script>window.fb_id = {{ fb_id }};</script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="{{ asset('js/social_media_login.js') }}"></script>
+        <script src="{{ asset("js/social_media_login.js") }}"></script>
     {% endblock %}
 
 {% endblock %}

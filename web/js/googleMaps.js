@@ -39,7 +39,6 @@ var googleMaps = (function(window,undefined) {
                         position: results[0].geometry.location,
                         icon: markericon
                     });
-
                     markers.push(marker);
                     fitmap();
                     self.drawRoute();
@@ -69,7 +68,7 @@ var googleMaps = (function(window,undefined) {
                 $("#transitMode").slideUp();
             }
 
-            if (userAddress != " ") {
+            if (userAddress != " ") {//if user is logged in we draw the route from his house
                 directionsService.route(request, function (result, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setMap(map);
@@ -89,6 +88,7 @@ var googleMaps = (function(window,undefined) {
             }
         };
         this.init = ()=> {
+            $("#getRoute").click((e)=>{e.preventDefault(); $("#description").toggleClass("hidden")});
             if (userAddress !== " ") // user is not logged in aka data attr couldn't be filled
                 this.addAddressToMap(userAddress, "../images/home_marker.png");
             this.addAddressToMap(vacancyAddress, "../images/destination_marker.png");
