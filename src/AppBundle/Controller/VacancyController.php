@@ -97,7 +97,7 @@ class VacancyController extends controller
             $em->persist($candidacy);
             $em->flush();
 
-            return $this->redirectToRoute("vacancy_urlid", ["urlid" => $urlid]);
+            return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
 
         }
     }
