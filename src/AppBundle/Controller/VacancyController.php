@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Vacancy;
+use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
 
 class VacancyController extends controller
@@ -67,6 +68,29 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }
+
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
+     */
+    public function subscribeVacancy($urlid)
+    {
+        $person = $this->get('security.token_storage')->getToken()->getUser(); 
+        
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlId($urlid); 
+
+        $candidacy = new Candidacy();
+        $candidacy->setCandidate($person)->setVacancy($vacancy); 
+
+        $em->persist($candidacy);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
 
     public function listRecentVacanciesAction($nr)
     {

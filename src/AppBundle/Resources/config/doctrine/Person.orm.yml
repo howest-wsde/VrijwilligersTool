@@ -51,6 +51,9 @@ AppBundle\Entity\Person:
         organisation:
             targetEntity: Organisation
             mappedBy: creator
+        candidacies:
+            targetEntity: Candidacy
+            mappedBy: candidate
     manyToMany:
         skills:
             targetEntity: Skill

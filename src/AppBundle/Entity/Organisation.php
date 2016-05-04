@@ -566,4 +566,45 @@ class Organisation extends EntityBase
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Organisation
+     */
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies[] = $vacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
 }
