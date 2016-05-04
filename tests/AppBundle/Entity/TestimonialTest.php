@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Testimonial;
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -85,7 +85,7 @@ class TestimonialTest extends \PHPUnit_Framework_TestCase
   public function senderProvider()
   {
     return array(
-      'normal' => array(new Volunteer(), 0),
+      'normal' => array(new Person(), 0),
       'empty' => array("", 1),
       'object' => array(new Testimonial(), 1),
       'numeric' => array(10, 1),
@@ -94,7 +94,7 @@ class TestimonialTest extends \PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test case for the Sender property (Type: \AppBundle\Entity\Volunteer)
+   * Test case for the Sender property (Type: \AppBundle\Entity\Person)
    * The test creates an Testimonial, setting its sender from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived sender equals the set sender.
@@ -120,7 +120,7 @@ class TestimonialTest extends \PHPUnit_Framework_TestCase
   public function receiverProvider()
   {
     return array(
-      'normal' => array(new Volunteer(), 0),
+      'normal' => array(new Person(), 0),
       'empty' => array("", 1),
       'object' => array(new Testimonial(), 1),
       'numeric' => array(10, 1),
@@ -129,7 +129,7 @@ class TestimonialTest extends \PHPUnit_Framework_TestCase
   }
 
   /**
-   * Test case for the Receiver property (Type: \AppBundle\Entity\Volunteer)
+   * Test case for the Receiver property (Type: \AppBundle\Entity\Person)
    * The test creates an Testimonial, setting its receiver from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived receiver equals the set receiver.

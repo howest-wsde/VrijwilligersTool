@@ -125,6 +125,7 @@ class Person implements UserInterface, \Serializable
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+        return $this;
     }
 
     public function getEmail()

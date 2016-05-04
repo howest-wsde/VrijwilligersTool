@@ -3,7 +3,7 @@
 namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Person;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
  * retrieval of said properties.
  * Tested properties: Id(int, 10), Name(str, 100), Description(str, 1000),
  * Email (str, 255), Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
- * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Volunteer)
+ * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Person)
  */
 class OrganisationTest extends \PHPUnit_Framework_TestCase
 {
@@ -654,7 +654,7 @@ tempor incididunt ut labore et dol", 1),
   public function creatorProvider()
   {
     return array(
-      'normal' => array(new Volunteer(), 0),
+      'normal' => array(new Person(), 0),
       'empty' => array("", 1),
       'object' => array(new Organisation(), 1),
       'numeric' => array(10, 1),
@@ -663,7 +663,7 @@ tempor incididunt ut labore et dol", 1),
   }
 
   /**
-   * Test case for the Creator property (Type: \AppBundle\Entity\Volunteer)
+   * Test case for the Creator property (Type: \AppBundle\Entity\Person)
    * The test creates an Organisation, setting its creator from an array of
    * fringe cases, then checking whether there are validation errors and whether the
    * retreived creator equals the set creator.

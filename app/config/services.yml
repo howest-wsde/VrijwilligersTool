@@ -4,6 +4,12 @@ parameters:
 #    parameter_name: value
 
 services:
+    doctrine.orm.validator.unique:
+        class: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: validator.constraint_validator }
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
