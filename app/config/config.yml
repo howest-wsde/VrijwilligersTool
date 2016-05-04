@@ -93,7 +93,7 @@ services:
         calls:
             - [setEm, ["@doctrine.orm.entity_manager"]]
     # Services
-    vacancy.listener:
+    url.listener:
         class: AppBundle\EventListener\UrlListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
