@@ -64,7 +64,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testId($id, $errorCount)
   {
-    $this->markTestIncomplete("some problem with the unique validator");
+    $this->markTestIncomplete("testing one property at the time");
     try {
       $person = $this->basePerson;
       $person->setId($id);
@@ -493,7 +493,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testEmail($email, $errorCount)
   {
-    $this->markTestIncomplete("some problem with the unique validator");
+    $this->markTestIncomplete("testing one property at the time");
     try {
       $person = $this->basePerson;
       $person->setEmail($email);
