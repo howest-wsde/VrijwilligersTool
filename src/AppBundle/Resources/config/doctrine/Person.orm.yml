@@ -53,7 +53,7 @@ AppBundle\Entity\Person:
             mappedBy: creator
         candidacies:
             targetEntity: Candidacy
-            mappedBy: person
+            mappedBy: candidate
     manyToMany:
         skills:
             targetEntity: Skill

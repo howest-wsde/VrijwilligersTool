@@ -92,7 +92,7 @@ class VacancyController extends controller
                 ->findOneByUrlId($urlid); 
 
             $candidacy = new Candidacy();
-            $candidacy->setPerson($person)->setVacancy($vacancy); 
+            $candidacy->setCandidate($person)->setVacancy($vacancy); 
 
             $em->persist($candidacy);
             $em->flush();

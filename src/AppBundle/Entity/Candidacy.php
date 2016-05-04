@@ -20,7 +20,7 @@ class Candidacy extends EntityBase
     /**
      * @var \AppBundle\Entity\Person
      */
-    private $person;
+    private $candidate;
 
     /**
      * @var \AppBundle\Entity\Vacancy
@@ -63,27 +63,27 @@ class Candidacy extends EntityBase
     }
 
     /**
-     * Set person
+     * Set candidate
      *
-     * @param \AppBundle\Entity\Person $person
+     * @param \AppBundle\Entity\Person $candidate
      *
      * @return Candidacy
      */
-    public function setPerson(\AppBundle\Entity\Person $person = null)
+    public function setCandidate(\AppBundle\Entity\Person $candidate = null)
     {
-        $this->person = $person;
+        $this->candidate = $candidate;
 
         return $this;
     }
 
     /**
-     * Get person
+     * Get candidate
      *
      * @return \AppBundle\Entity\Person
      */
-    public function getPerson()
+    public function getCandidate()
     {
-        return $this->person;
+        return $this->candidate;
     }
 
     /**

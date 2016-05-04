@@ -9,11 +9,11 @@ AppBundle\Entity\Candidacy:
             type: smallint
             nullable: true
     manyToOne:
-        person:
+        candidate:
             targetEntity: Person
             inversedBy: candidacies
             joinColumn:
-                name: person
+                name: candidate
                 referencedColumnName: id
         vacancy:
             targetEntity: Vacancy
