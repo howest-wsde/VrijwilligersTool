@@ -64,7 +64,7 @@ class SearchController extends Controller
         }
         $response = new Response(
             $this->renderView("search/zoekapi_resultaat.html.twig",
-                array("results" => $results)),
+                ["results" => $results]),
                 200
             );
         $response->headers->set("Access-Control-Allow-Origin", "*");

@@ -28,9 +28,8 @@ class OrganisationController extends controller
             return $this->redirect($this->generateUrl("organisation_name",
             ['name' => $organisation->getUrlId() ] ));
         }
-        return $this->render("organisation\maakvereniging.html.twig", array(
-            "form" => $form->createView()
-        ));
+        return $this->render("organisation\maakvereniging.html.twig",
+            ["form" => $form->createView() ] );
     }
 
     /**
@@ -41,8 +40,7 @@ class OrganisationController extends controller
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($name);
-        return $this->render("organisation/vereniging.html.twig", array(
-            "organisation" => $organisation
-        ));
+        return $this->render("organisation/vereniging.html.twig",
+            ["organisation" => $organisation]);
     }
 }

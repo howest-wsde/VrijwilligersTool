@@ -64,9 +64,8 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($title);
-        return $this->render("vacancy/vacature.html.twig", array(
-            "vacancy" => $vacancy)
-        );
+        return $this->render("vacancy/vacature.html.twig",
+            ["vacancy" => $vacancy]);
     }
 
     public function listRecentVacanciesAction($nr)
@@ -75,7 +74,6 @@ class VacancyController extends controller
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
         return $this->render("vacancy/recente_vacatures.html.twig",
-            array("vacancies" => $entities)
-        );
+            ["vacancies" => $entities]);
     }
 }
