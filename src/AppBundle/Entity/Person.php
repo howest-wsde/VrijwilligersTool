@@ -416,7 +416,6 @@ class Person implements UserInterface, \Serializable
         return $this->candidacies;
     }
 
-
     /**
      * Set passphrase
      *

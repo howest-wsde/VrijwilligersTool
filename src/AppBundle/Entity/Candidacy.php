@@ -27,7 +27,6 @@ class Candidacy extends EntityBase
      */
     private $vacancy;
 
-
     /**
      * Get id
      *
