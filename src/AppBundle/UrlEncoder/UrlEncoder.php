@@ -2,24 +2,26 @@
 
 namespace AppBundle\UrlEncoder;
 
+use \PDO;
+
 class UrlEncoder
 {
     private $em;
 
-    public function setEm($em)
+    public function __construct($em)
     {
         $this->em = $em;
     }
 
     public function encode($entity, $url)
     {
-        $url = UrlEncoder::transliterateString($url);
+        $url = $this->transliterateString($url);
         $url = preg_replace("([^a-zA-Z0-9_-])", "" , $url);
-        $url = UrlEncoder::checkAndAppendToUrl($url);
+        $url = $this->checkAndAppendToUrl($entity, $url);
         return $url;
     }
 
-    private  function transliterateString($txt)
+    private function transliterateString($txt)
     {
         $transliterationTable = array(
         " " => "-",
@@ -78,16 +80,18 @@ class UrlEncoder
     {
         $table = $entity->getClassName();
         $column = "urlid";
-        $occurences = $this->em->createQueryBuilder("e")
-            ->select("count($table.$column)")
-            ->from("AppBundle:$table")
-            ->where("e.urlid = $url");
+        $query = $this->em->createQuery("SELECT COUNT(*)
+            FROM AppBundle:$table e
+            WHERE e.$column LIKE \":url%\"")
+            ->setParameter(":url", $url);
+        $occurences = $query->getSingleScalarResult();
+        var_dump($occurences);
         return $occurences;
     }
 
     private function checkAndAppendToUrl($entity, $url)
     {
-
+        $occurences = $this->getOccurencesOf($entity, $url);
         if ($occurences > 0)
         {
             $url .= "-".$occurences;

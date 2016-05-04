@@ -5,7 +5,6 @@ namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use AppBundle\UrlEncoder\UrlEncoder;
 
 /**
  * Organisation
@@ -192,7 +191,6 @@ class Organisation
     public function setName($name)
     {
         $this->name = $name;
-        $this->setUrlId(UrlEncoder::encode($this, $name));
         return $this;
     }
 
@@ -571,8 +569,12 @@ class Organisation
         return $this->vacancies;
     }
 
-    public function normaliseUrlId()
+    public function normaliseUrlId($em)
     {
-        $this->setUrlId(UrlEncoder::encode($this, $this->getName));
+        if (!is_null($this->getUrlId()))
+        {
+            $encoder = new UrlEncoder($em);
+            $this->setUrlId($encoder->encode($this, $this->getName()));
+        }
     }
 }
