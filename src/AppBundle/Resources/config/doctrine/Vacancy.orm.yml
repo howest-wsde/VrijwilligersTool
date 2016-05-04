@@ -16,6 +16,9 @@ AppBundle\Entity\Vacancy:
         enddate:
             type: date
             nullable: true
+        urlid:
+            type: string
+            length: 100
     manyToOne:
         organisation:
             targetEntity: Organisation

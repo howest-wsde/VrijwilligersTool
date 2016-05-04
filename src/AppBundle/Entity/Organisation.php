@@ -9,10 +9,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"name"}, message = "organisation.name.already_used")
  * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
  */
-class Organisation
+class Organisation extends EntityBase
 {
     /**
      * @var int
@@ -39,6 +38,8 @@ class Organisation
      *      max = 2000,
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy.max_message"
+     * )
+     * @Assert\NotEqualTo("nieuw")
      * )
     */
     private $description;
@@ -69,8 +70,8 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
      *     message="organisation.not_numeric"
      * )
      * @Assert\Range(
@@ -98,8 +99,8 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
      *     message="organisation.not_numeric"
      * )
      * @Assert\Range(
@@ -126,6 +127,35 @@ class Organisation
      * )
      */
     private $city;
+
+    /**
+     * @var string
+     */
+    private $urlid;
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->urlid = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->urlid;
+    }
 
     /**
      * @var string
@@ -161,7 +191,6 @@ class Organisation
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -488,23 +517,53 @@ class Organisation
     }
 
     /**
-     * Get name for url
-     *
-     * @return string
+     * Constructor
      */
-    public function getNameUrl()
+    public function __construct()
     {
-        return str_replace(" ", "-", $this->name);
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get the class name
+     * Add vacancy
      *
-     * @return string
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Organisation
      */
-    public function getClassName()
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
     {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
+        $this->vacancies[] = $vacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
+
+    public function normaliseUrlId($em)
+    {
+        if (!is_null($this->getUrlId()))
+        {
+            $encoder = new UrlEncoder($em);
+            $this->setUrlId($encoder->encode($this, $this->getName()));
+        }
     }
 }

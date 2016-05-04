@@ -7,8 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Vacancy
  */
-
-class Vacancy
+class Vacancy extends EntityBase
 {
     /**
      * @var string
@@ -19,6 +18,7 @@ class Vacancy
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy..max_message"
      * )
+     * @Assert\NotEqualTo("nieuw")
     */
     private $title;
 
@@ -83,6 +83,36 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
+
+    /**
+     * @var string
+     */
+    private $urlid;
+
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->urlid = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->urlid;
+    }
 
     /**
      * Constructor
@@ -287,26 +317,5 @@ class Vacancy
     public function getSkills()
     {
         return $this->skills;
-    }
-
-    /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->title);
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Skill
  */
-class Skill
+class Skill extends EntityBase
 {
     /**
      * Constructor
