@@ -31,7 +31,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
   {
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
     $person = new Person();
-    $this->basePerson = $person->setPlainPassword("thisIsSupersecret,Dog!")->setEmail("test@testemail.com");
+    $this->basePerson = $person->setId(1)->setPlainPassword("thisIsSupersecret,Dog!")->setEmail("test@testemail.com");
   }
 
   /**
@@ -82,16 +82,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
  */
   public function testIdUnique(){
     $this->markTestIncomplete("some problem with the unique validator");
-    $id = 1;
     $person = clone $this->basePerson;
-    $person->setId($id);
     try {
-      $person2 = $this->basePerson;
-      $person2->setId($id);
-      $this->assertNull($person2, 'The second person was instantiated with the same id as the first: please rectify so that this becomes impossible');
+      $person2 = clone $this->basePerson;
+      $errors = $this->validator->validate($person2);
     } catch (Exception $e) {
-      $this->assertNull($person2, "This should be unreachable if person 2 is not null");
+      //this is here mainly to sanitize output
     }
+    $this->assertGreaterThan(0, $errors, 'person 2 should have at least one validation error as the id is not unique');
   }
 
   /**

@@ -28,7 +28,7 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
   {
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
     $this->baseOrganisation = new Organisation();
-    $this->baseOrganisation = $this->baseOrganisation->setName("Wereldwinkel")->setDescription("een korte omschrijving voor deze organisatie")->setUrlid("/wereldwinkel");
+    $this->baseOrganisation = $this->baseOrganisation->setId(1)->setName("Wereldwinkel")->setDescription("een korte omschrijving voor deze organisatie")->setUrlid("/wereldwinkel");
   }
 
   /**
@@ -76,16 +76,14 @@ class OrganisationTest extends \PHPUnit_Framework_TestCase
  */
   public function testIdUnique(){
     $this->markTestIncomplete("problem with the uniqueEntityConstraint");
-    $id = 1;
     $organisation = clone $this->baseOrganisation;
-    $organisation->setId($id);
     try {
-      $organisation2 = $this->baseOrganisation;
-      $organisation2->setId($id);
-      $this->assertNull($organisation2, 'The second organisation was instantiated with the same id as the first: please rectify so that this becomes impossible');
+      $organisation2 = clone $this->baseOrganisation;
+      $errors = $this->validator->validate($organisation2);
     } catch (Exception $e) {
-      $this->assertNull($organisation2, "This should be unreachable if organisation 2 is not null");
+      //this is here mainly to sanitize output
     }
+    $this->assertGreaterThan(0, $errors, 'organisation 2 should have at least one validation error as the id is not unique');
   }
 
   /**

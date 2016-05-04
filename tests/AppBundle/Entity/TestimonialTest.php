@@ -74,16 +74,14 @@ class TestimonialTest extends \PHPUnit_Framework_TestCase
  */
   public function testIdUnique(){
     $this->markTestIncomplete("some problem with the unique validator");
-    $id = 1;
     $testimonial = clone $this->baseTestimonial;
-    $testimonial->setId($id);
     try {
-      $testimonial2 = $this->baseTestimonial;
-      $testimonial2->setId($id);
-      $this->assertNull($testimonial2, 'The second testimonial was instantiated with the same id as the first: please rectify so that this becomes impossible');
+      $testimonial2 = clone $this->baseTestimonial;
+      $errors = $this->validator->validate($testimonial2);
     } catch (Exception $e) {
-      $this->assertNull($testimonial2, "This should be unreachable if testimonial 2 is not null");
+      //this is here mainly to sanitize output
     }
+    $this->assertGreaterThan(0, $errors, 'testimonial 2 should have at least one validation error as the id is not unique');
   }
 
   /**
