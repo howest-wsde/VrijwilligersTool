@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Vacancy;
+use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
 
 class VacancyController extends controller
@@ -70,6 +71,37 @@ class VacancyController extends controller
             "vacancy" => $vacancy)
         );
     }
+
+
+    /**
+     * @Route("/vacature/{title}/inschrijven", name="vacancy_subscribe")
+     */
+    public function subscribeVacancy($title)
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            
+            return $this->redirectToRoute("login");
+
+        } else {
+
+            $person = $this->get('security.token_storage')->getToken()->getUser(); 
+     
+            $title = str_replace("-", " ", $title);
+            $em = $this->getDoctrine()->getManager();
+            $vacancy = $em->getRepository("AppBundle:Vacancy")
+                ->findOneByTitle($title); 
+
+            $candidacy = new Candidacy();
+            $candidacy->setPerson($person)->setVacancy($vacancy); 
+
+            $em->persist($candidacy);
+            $em->flush();
+
+            return $this->redirectToRoute("vacancy_title", ["title" => $title]);
+
+        }
+    }
+
 
     public function listRecentVacanciesAction($nr)
     {

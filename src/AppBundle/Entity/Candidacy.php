@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Candidacy
  */
-class Candidacy
+class Candidacy extends EntityBase
 {
     /**
      * @var integer

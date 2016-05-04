@@ -86,7 +86,8 @@
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-				<button>Stel je kandidaat</button>
+			<a href="{{ path("vacancy_subscribe", {'title': vacancy.getNameUrl()}) }}">Stel je kandidaat</a>
+
 				<form action="{{ path('vacancy_pdf', {'title': vacancy.getNameUrl()}) }}" target="_blank">
 					<input type="submit" value="Print deze vacature"/>
 				</form>

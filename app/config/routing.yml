@@ -3,4 +3,3 @@ app:
     type:     annotation 
 logout:
     path: /logout
- 
