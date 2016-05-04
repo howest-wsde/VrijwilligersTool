@@ -118,4 +118,15 @@ class Skill
     {
         return $this->parent;
     }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 }

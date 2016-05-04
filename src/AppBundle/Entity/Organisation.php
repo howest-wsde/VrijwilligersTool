@@ -577,4 +577,15 @@ class Organisation
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
     }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 }

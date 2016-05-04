@@ -184,4 +184,15 @@ class Testimonial
     {
         return str_replace(" ", "-", $this->sender);
     }
+
+    /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 }
