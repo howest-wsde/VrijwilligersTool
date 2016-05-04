@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Testimonial
  */
-class Testimonial
+class Testimonial extends EntityBase
 {
     /**
      * @var string
@@ -183,16 +183,5 @@ class Testimonial
     public function getUrlId()
     {
         return str_replace(" ", "-", $this->sender);
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }

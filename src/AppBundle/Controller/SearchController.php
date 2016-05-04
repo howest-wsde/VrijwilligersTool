@@ -28,8 +28,10 @@ class SearchController extends Controller
         $result = $query->search($params);
         return $query->getResults();
     }
+
     /**
      * @Route("/zoeken", name="zoeken")
+     * @Route("/zoek")
      */
     public function searchAction()
     {
@@ -44,13 +46,7 @@ class SearchController extends Controller
             "query" => $query
         ));
     }
-    /**
-     * @Route("/zoek", name="zoek")
-     */
-    public function searchRedirectAction()
-    {
-        return $this->redirectToRoute("zoeken");
-    }
+
     /**
      * @Route("/api/search", name="api_search")
      */

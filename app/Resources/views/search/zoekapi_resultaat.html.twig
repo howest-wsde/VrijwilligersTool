@@ -1,17 +1,17 @@
 {% for result in results %}
     <div class="display_box" align="left">
-		{% if (result.class_name == "Person") %}
-			<b>{{ result.entity.firstname}} {{ result.entity.lastname}}</b>
+		{% if (result.isoftype("Person")) %}
+			<b>{{ result.firstname}} {{ result.lastname}}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('person_username', { 'username': result.entity.username }) }}" />
-		{% elseif (result.class_name == "Vacancy") %}
-			<b>{{ result.entity.title }}</b>
+			<input type="hidden" id="referer" value="{{ path('person_username', { 'username': result.username }) }}" />
+		{% elseif (result.isoftype("Vacancy")) %}
+			<b>{{ result.title }}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('vacancy_title', { 'title': result.entity.title }) }}" />
-		{% elseif (result.class_name == "Organisation") %}
-			<b>{{ result.entity.name }}</b>
+			<input type="hidden" id="referer" value="{{ path('vacancy_title', { 'title': result.title }) }}" />
+		{% elseif (result.isoftype("Organisation")) %}
+			<b>{{ result.name }}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('organisation_name', { 'name': result.entity.name }) }}" />
+			<input type="hidden" id="referer" value="{{ path('organisation_name', { 'name': result.name }) }}" />
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %}

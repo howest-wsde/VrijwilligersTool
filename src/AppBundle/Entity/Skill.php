@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Skill
  */
-class Skill
+class Skill extends EntityBase
 {
     /**
      * Constructor
@@ -117,16 +117,5 @@ class Skill
     public function getParent()
     {
         return $this->parent;
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }

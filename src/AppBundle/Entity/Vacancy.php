@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Vacancy
  */
-class Vacancy
+class Vacancy extends EntityBase
 {
     /**
      * @var string
@@ -317,16 +317,5 @@ class Vacancy
     public function getSkills()
     {
         return $this->skills;
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }

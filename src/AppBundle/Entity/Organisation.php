@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
  * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
  */
-class Organisation
+class Organisation extends EntityBase
 {
     /**
      * @var int
@@ -517,17 +517,6 @@ class Organisation
     }
 
     /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
-    }
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -576,16 +565,5 @@ class Organisation
             $encoder = new UrlEncoder($em);
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }
