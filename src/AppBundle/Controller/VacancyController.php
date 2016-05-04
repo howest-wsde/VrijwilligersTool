@@ -12,9 +12,9 @@ use AppBundle\Entity\Form\VacancyType;
 class VacancyController extends controller
 {
     /**
-     * @Route("/vacature/pdf/{title}" , name="vacancy_pdf")
+     * @Route("/vacature/pdf/{urlid}", name="vacancy_pdf_by_urlid")
      */
-    public function createPDFAction($title)
+    public function createPdfAction($title)
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
@@ -49,21 +49,21 @@ class VacancyController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($vacancy);
             $em->flush();
-            return $this->redirect($this->generateUrl("vacancy_title",
-            ["title" => $vacancy->getUrlId() ] ));
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+            ["urlid" => $vacancy->getUrlId() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
             ["form" => $form->createView() ] );
     }
 
     /**
-     * @Route("/vacature/{title}", name="vacancy_title")
+     * @Route("/vacature/{urlid}", name="vacancy_by_urlid")
      */
-    public function viewVacancyTitleAction($title)
+    public function viewVacancyTitleAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($title);
+            ->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }

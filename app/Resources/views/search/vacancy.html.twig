@@ -1,11 +1,12 @@
 <article>
-	<header><h1><a href="{{ path('vacancy_title', { 'title': vacancy.urlId }) }}">{{ vacancy.title }}</a></h1></header>
+	{% dump(vacancy ) %}
+	<header><h1><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a></h1></header>
 	<div>
 		<p>{{ vacancy.description }}</p>
 		<p>Ons Aanbod</p>
 	</div>
 	<div>
-		<p>vervaldatum: {{ vacancy.startdate|date('Y-m-d') }}</p>
+		<p>vervaldatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
 		<p>organisatie: {{ vacancy.organisation.name }}</p>
 		<p>locatie: {{ vacancy.organisation.street }}</p>
 	</div>

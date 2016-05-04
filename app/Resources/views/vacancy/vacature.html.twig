@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}Vacature{% endblock %}
 
@@ -11,10 +11,10 @@
 		</div>
 		<div>
 			{% if vacancy.startdate %}
-				<p>Begindatum: {{ vacancy.startdate|date('Y-m-d') }}</p>
+				<p>Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.enddate %}
-				<p>Einddatum: {{ vacancy.enddate|date('Y-m-d') }}</p>
+				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.organisation %}
 				<p>organisatie: {{ vacancy.organisation.name }}</p>
@@ -89,7 +89,7 @@
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
 				<button>Stel je kandidaat</button>
-				<form action="{{ path('vacancy_pdf', {'title': vacancy.urlId }) }}" target="_blank">
+				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
 					<input type="submit" value="Print deze vacature"/>
 				</form>
 			{% endblock %}</footer>
@@ -98,9 +98,9 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
 
-	<script src="{{ asset('js/googleMaps.js') }}"></script>
-	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+	<script src="{{ asset("js/googleMaps.js") }}"></script>
+	<script src="{{ asset("js/sharebuttons.js") }}"></script>
 {% endblock %}

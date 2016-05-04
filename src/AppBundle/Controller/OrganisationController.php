@@ -25,21 +25,21 @@ class OrganisationController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
             $em->flush();
-            return $this->redirect($this->generateUrl("organisation_name",
-            ['name' => $organisation->getUrlId() ] ));
+            return $this->redirect($this->generateUrl("organisation_by_urlid",
+            ['urlid' => $organisation->getUrlId() ] ));
         }
         return $this->render("organisation\maakvereniging.html.twig",
             ["form" => $form->createView() ] );
     }
 
     /**
-     * @Route("/vereniging/{name}" , name="organisation_name")
+     * @Route("/vereniging/{urlid}" , name="organisation_by_urlid")
      */
-    public function viewOrganisationByNameAction($name)
+    public function viewOrganisationByNameAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($name);
+            ->findOneByUrlid($urlid);
         return $this->render("organisation/vereniging.html.twig",
             ["organisation" => $organisation]);
     }

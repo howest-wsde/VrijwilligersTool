@@ -3,15 +3,15 @@
 		{% if (result.isoftype("Person")) %}
 			<b>{{ result.firstname}} {{ result.lastname}}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('person_username', { 'username': result.username }) }}" />
+			<input type="hidden" id="referer" value="{{ path("person_username", { "username": result.username }) }}" />
 		{% elseif (result.isoftype("Vacancy")) %}
 			<b>{{ result.title }}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('vacancy_title', { 'title': result.title }) }}" />
+			<input type="hidden" id="referer" value="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}" />
 		{% elseif (result.isoftype("Organisation")) %}
 			<b>{{ result.name }}</b>
 			<br />
-			<input type="hidden" id="referer" value="{{ path('organisation_name', { 'name': result.name }) }}" />
+			<input type="hidden" id="referer" value="{{ path("organisation_by_urlid", { "urlid": result.name }) }}" />
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %}
