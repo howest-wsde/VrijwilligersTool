@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
  * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
  */
-class Person implements UserInterface, \Serializable
+class Person extends EntityBase implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -696,26 +696,5 @@ class Person implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
-    }
-
-    /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->username);
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }
