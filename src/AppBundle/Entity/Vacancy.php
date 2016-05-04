@@ -37,12 +37,12 @@ class Vacancy
     /**
      * @var \Datetime
      * @Assert\Type(
-     * 		type = "\DateTime",
+     *      type = "\DateTime",
      *      message = "vacancy.date.valid",
      * )
      * @Assert\GreaterThanOrEqual(
-     * 		value = "today",
-     * 		message = "vacancy.date.not_today"
+     *      value = "today",
+     *      message = "vacancy.date.not_today"
      * )
      */
     private $startdate;
@@ -50,12 +50,12 @@ class Vacancy
     /**
      * @var \Datetime
      * @Assert\Type(
-     * 		type = "\DateTime",
+     *      type = "\DateTime",
      *      message = "vacancy.date.valid",
      * )
      * @Assert\GreaterThanOrEqual(
-     * 		value = "today",
-     * 		message = "vacancy.date.not_today"
+     *      value = "today",
+     *      message = "vacancy.date.not_today"
      * )
      * @Assert\Expression(
      *     "this.getEnddate() >= this.getStartdate()",
@@ -83,6 +83,13 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
+
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $candidacies;
+
 
     /**
      * Constructor
@@ -256,6 +263,46 @@ class Vacancy
     {
         $this->skills->removeElement($skill);
     }
+
+
+    /**
+     * Add candidacy
+     *
+     * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function addCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies[] = $candidacy;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidacy
+     *
+      * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function removeCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies->removeElement($candidacy);
+
+        return $this;
+    }
+
+    /**
+     * Get candidacies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCandidacies()
+    {
+        return $this->candidacies;
+    }
+
 
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.

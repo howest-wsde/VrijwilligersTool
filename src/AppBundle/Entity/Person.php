@@ -99,6 +99,11 @@ class Person implements UserInterface, \Serializable
     private $testimonials;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $candidacies;
+
+    /**
      * @var \AppBundle\Entity\Organisation
      */
     private $organisation;
@@ -372,6 +377,45 @@ class Person implements UserInterface, \Serializable
     {
         return $this->testimonials;
     }
+
+    /**
+     * Add candidacy
+     *
+     * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function addCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies[] = $candidacy;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidacy
+     *
+      * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function removeCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies->removeElement($candidacy);
+
+        return $this;
+    }
+
+    /**
+     * Get candidacies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCandidacies()
+    {
+        return $this->candidacies;
+    }
+
 
     /**
      * Set passphrase
