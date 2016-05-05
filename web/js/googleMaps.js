@@ -51,7 +51,7 @@ var googleMaps = (function(window,undefined) {
         };
         this.drawRoute = ()=> {
             directionsDisplay.setMap(null); // clears the map for another new route
-            var selectedMode = $("#transitMethod option:selected").val(); //get selected mode
+            var selectedMode = $("#transitMethod").find("option:selected").val(); //get selected mode
             var request = {
                 origin: userAddress,
                 destination: vacancyAddress,
@@ -90,8 +90,8 @@ var googleMaps = (function(window,undefined) {
         this.init = ()=> {
             $("#getRoute").click((e)=>{e.preventDefault(); $("#description").toggleClass("hidden")});
             if (userAddress !== " ") // user is not logged in aka data attr couldn't be filled
-                this.addAddressToMap(userAddress, "../images/home_marker.png");
-            this.addAddressToMap(vacancyAddress, "../images/destination_marker.png");
+                this.addAddressToMap(userAddress, "../images/homeIcon.png");
+            this.addAddressToMap(vacancyAddress, "../images/vacancyIcon.png");
         };
     }
     return googleMaps = googleMaps;
