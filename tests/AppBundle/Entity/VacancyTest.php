@@ -13,8 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * The test focuses on validation of the different properties and the correct
  * retrieval of said properties.
  * Tested properties: id(int, 10), title(str, 150), description(str, 2000),
- * StartDate(datetime), EndDate(datetime), CreationTime(datetime),
- * Organisation(T), Category(+, T), Skill(+, T)
+ * StartDate(datetime), EndDate(datetime), Organisation(T), Skill(+, T)
  */
 class VacancyTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,6 +23,7 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
    * @var Symfony\Component\Validator\Validator\RecursiveValidator
    */
   public $validator;
+  public $baseVacancy;
 
   /**
    * The current date & time
@@ -44,6 +44,8 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
   {
     $this->now = new \DateTime();
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+    $this->baseVacancy = new Vacancy();
+    $this->baseVacancy = $this->baseVacancy->setId(1)->setTitle("this is a title")->setDescription("this is a description for a vacancy")->setStartDate($this->now)->setUrlid("/vacancy/this_is_a_title");
   }
 
   /**
@@ -55,7 +57,7 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
     return array(
       'normal' => array(1, 0),
       'empty' => array("", 1),
-      'object' => array(new Vacancy(), 1),
+      'object' => array(array(), 1),
       'null' => array(null, 1),
     );
   }
@@ -72,9 +74,14 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
    */
   public function testId($id, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setId($id);
-    $errors = $this->validator->validate($vacancy);
+   $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setId($id);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($id, $vacancy->getId());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -84,16 +91,14 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
  * the same id.  This should be impossible.
  */
   public function testIdUnique(){
-    $id = 1;
-    $vacancy = new Vacancy();
-    $vacancy->setId($id);
+    $vacancy = clone $this->baseVacancy;
     try {
-      $vacancy2 = new Vacancy();
-      $vacancy2->setId($id);
-      $this->assertNull($vacancy2, 'The second vacancy was instantiated with the same id as the first: please rectify so that this becomes impossible');
+      $vacancy2 = clone $this->baseVacancy;
+      $errors = $this->validator->validate($vacancy2);
     } catch (Exception $e) {
-      $this->assertNull($vacancy2, "This should be unreachable if vacancy 2 is not null");
+      //this is here clone mainly to sanitize output
     }
+    $this->assertGreaterThan(0, $errors, 'vacancy 2 should have at least one validation error as the id is not unique');
   }
 
   /**
@@ -107,7 +112,7 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'empty' => array("", 1),
       'too long' => array("This is a test title that's too damned long.  Who in their right mind would write a title this long?  What is it that drives them to this utter lunacy?", 1),
-      'object' => array(new Vacancy(), 1),
+      'object' => array(array(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -123,9 +128,14 @@ class VacancyTest extends \PHPUnit_Framework_TestCase
    */
   public function testTitle($title, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setTitle($title);
-    $errors = $this->validator->validate($vacancy);
+   $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setTitle($title);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($title, $vacancy->getTitle());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -167,7 +177,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
-      'object' => array(new Vacancy(), 1),
+      'object' => array(array(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -184,9 +194,14 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testDescription($description, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setDescription($description);
-    $errors = $this->validator->validate($vacancy);
+   $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setDescription($description);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($description, $vacancy->getDescription());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -207,7 +222,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'in the past' => array($past, 1),
       'more then 3 months in the future' => array($future, 1),
       'empty' => array('', 1),
-      'object' => array(new Vacancy(), 1),
+      'object' => array(array(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -224,9 +239,14 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testStartDate($startDate, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setStartDate($startDate);
-    $errors = $this->validator->validate($vacancy);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setStartDate($startDate);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($startDate, $vacancy->getStartDate());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -253,7 +273,7 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
       'more then one year in the future' => array($future, 1),
       'before the startDate' => array($beforeStart, 1),
       'empty' => array('', 1),
-      'object' => array(new Vacancy(), 1),
+      'object' => array(array(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -270,61 +290,15 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testEndDate($endDate, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setEndDate($endDate)->setStartDate($this->now);
-    $errors = $this->validator->validate($vacancy);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setEndDate($endDate)->setStartDate($this->now);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($endDate, $vacancy->getEndDate());
-    $this->assertEquals($errorCount, count($errors));
-  }
-
-  /**
-   * the dataprovider for testCreationTime
-   * @return array containing all fringe cases identified @ current
-   */
-  public function creationTimeProvider()
-  {
-    $current = new \DateTime();
-    $this->now = clone $current;
-    $end = clone $current;
-    $end->modify('+2 month');
-    $this->end = clone $end;
-    $past = new \DateTime();
-    $past->modify('-5 minute');
-    $future = new \DateTime();
-    $future->modify('+1 day 1 minute');
-    $beforeStart = clone $current;
-    $beforeStart->modify('-1 minute');
-    $afterEnd = clone $end;
-    $afterEnd->modify('+1 minute');
-
-    return array(
-      'normal' => array($current, 0),
-      'in the past' => array($past, 1),
-      'more then one day in the future' => array($future, 1),
-      'before the startDate' => array($beforeStart, 1),
-      'after the endDate' => array($afterEnd, 1),
-      'empty' => array('', 1),
-      'object' => array(new Vacancy(), 1),
-      'numeric' => array(10, 1),
-      'null' => array(null, 1),
-    );
-  }
-
-  /**
-   * Test case for the CreationTime property (Type: DateTime, It can not be in the past nor more than a day in the future.  It cannot be before/past the start/endDate).
-   * The test creates a Vacancy, setting its creationTime, then checking for
-   * validation errors and whether or not the getCreationTime method retrieves
-   * the set value correctly.
-   * @dataProvider creationTimeProvider
-   * @param  DateTime $creationTime  a value from the fringe-cases array
-   * @param  integer  $errorCount    the expected amount of errors for this title
-   */
-  public function testCreationTime($creationTime, $errorCount)
-  {
-    $vacancy = new Vacancy();
-    $vacancy->setCreationTime($creationTime)->setStartDate($this->now)->setEndDate($this->end);
-    $errors = $this->validator->validate($vacancy);
-    $this->assertEquals($creationTime, $vacancy->getCreationTime());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -353,38 +327,15 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testOrganisation($organisation, $errorCount)
   {
-    $vacancy = new Vacancy();
-    $vacancy->setOrganisation($organisation);
-    $errors = $this->validator->validate($vacancy);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setOrganisation($organisation);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($organisation, $vacancy->getOrganisation());
-    $this->assertEquals($errorCount, count($errors));
-  }
-
-  /**
-   * the dataprovider for testVacancyCategory
-   * @return array containing all fringe cases identified @ current
-   */
-  public function vacancyCategoryProvider()
-  {
-    return array(); //TODO: check if this test needs to still be around, if so use skill instead of VC. $this->getArrayCollection(new VacancyCategory());
-  }
-
-  /**
-   * Test case for the Category property (Type: \Doctrine\Common\Collections\ArrayCollection of \AppBundle\Entity\VacancyCategory)
-   * The test creates a Vacancy, setting its category, then checking for
-   * validation errors and whether or not the getCategory method retrieves the
-   * set value correctly
-   * @dataProvider vacancyCategoryProvider
-   * @param  multiple $category     a value from the fringe-cases array
-   * @param  integer  $errorCount   the expected amount of errors for this title
-   */
-  public function testVacancyCategory($category, $errorCount)
-  {
-    $this->markTestIncomplete("Atm there's no use of an arraycollection to keep track of all relevant vacancycategories tied to a vacancy.  Once this is solved, remove this line.");
-    $vacancy = new Vacancy();
-    $vacancy->setCategory($category);
-    $errors = $this->validator->validate($vacancy);
-    $this->assertEquals($category, $vacancy->getCategory());
     $this->assertEquals($errorCount, count($errors));
   }
 
@@ -407,11 +358,66 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea", 1),
    */
   public function testSkill($skill, $errorCount)
   {
-    $this->markTestIncomplete("Atm there's still skillproficiency instead of skill in vacancy");
-    $vacancy = new Vacancy();
-    $vacancy->setSkill($skill);
-    $errors = $this->validator->validate($vacancy);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setSkill($skill);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($skill, $vacancy->getSkill());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+  /**
+   * the dataprovider for testUrlid
+   * @return array containing all fringe cases identified @ current
+   */
+  public function urlidProvider()
+  {
+    return array(
+      'normal' => array('vacature/eentitel', 'vacature/eentitel', 0),
+      'áàûëéîè' => array('vácàtûrë/eéntîtèl', 'vacature/eentitel', 0),
+      'ü&_+=!@#$%*()' => array('vacatüre/B&B_Schaepsgerwe(=een plant met 5% aanwezigheid in de benelux! is 500$ of 400€ waard # maar uit)', 'vacature/BnB-Schaepsgerwe', 0),
+      ' ' => array('vacature/medewerker winkel', 'vacature/medewerker-winkel', 0),
+      '?' => array('vacature/ben jij wie wij zoeken?', 'vacature/ben-jij-wie-wij-zoeken', 0),
+      '*=' => array('vacature/medewerker 2*4=9', 'vacature/medewerker-2maal4is9', 0),
+      '+' => array('vacature/medewerker 2+1', 'vacature/medewerker-2plus1', 0),
+      'ç' => array('vaçature/medewerker', 'vacature/medewerker', 0),
+      'too short' => array('v', null, 1),
+      'too long' => array('vacature/eenbijzonderlangetitelvanzomaareventjesmeerdan150karaktersdaswelheelerglangnietwaarofdachtjijietsandersdanjijjijomhooggevallenstukjeloslopendw?', null, 1),
+      'empty' => array('', null, 1),
+      'object' => array(array(), null, 1),
+      'numeric' => array(10, null, 1),
+      'null' => array(null, null, 1),
+    );
+  }
+
+  /**
+   * Test case for the Urlid property (Type: String, maxlength = 150, minlength = 2).
+   * The test creates a Vacancy, setting its Urlid, then checking for validation
+   * errors and whether or not the getUrlid method retrieves the set value correctly.
+   * Note that the fringe cases array isn't exhaustive, as blimey there are a lot.
+   * The most common cases are tested.
+   * @dataProvider urlidProvider
+   * @param  multiple $urlid       a value from the fringe-cases array
+   * @param  expected $expected    the expected value upon using the getter
+   * @param  integer  $errorCount  the expected amount of errors for this title
+   */
+  public function testUrlid($urlid, $expected, $errorCount)
+  {
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $vacancy = $this->baseVacancy;
+      $vacancy->setUrlid($urlid);
+      $errors = $this->validator->validate($vacancy);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
+    if(isset($expected)){
+      $this->assertEquals($exptected, $vacancy->getUrlid());
+    }
     $this->assertEquals($errorCount, count($errors));
   }
 

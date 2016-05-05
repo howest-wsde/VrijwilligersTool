@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
  * retrieval of said properties.
  * Tested properties: Id(int, 10), Name(str, 100), Description(str, 1000),
  * Email (str, 255), Street(str, 255), Number(int, 4), Bus(str, 4), PostalCode(int, 4),
- * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Person)
+ * City(str, 100), Telephone(str, 20), Creator(\AppBundle\Entity\Person), Urlid(varchar 150)
  */
 class OrganisationTest extends \PHPUnit_Framework_TestCase
 {
@@ -721,6 +721,57 @@ tempor incididunt ut labore et dol", 1),
       //nothing needs to be done, this is mainly to sanitize output
     }
     $this->assertEquals($creator, $organisation->getCreator());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+  /**
+   * the dataprovider for testUrlid
+   * @return array containing all fringe cases identified @ current
+   */
+  public function urlidProvider()
+  {
+    return array(
+      'normal' => array('vacature/eentitel', 'vacature/eentitel', 0),
+      'áàûëéîè' => array('vácàtûrë/eéntîtèl', 'vacature/eentitel', 0),
+      'ü&_+=!@#$%*()' => array('vacatüre/B&B_Schaepsgerwe(=een plant met 5% aanwezigheid in de benelux! is 500$ of 400€ waard # maar uit)', 'vacature/BnB-Schaepsgerwe', 0),
+      ' ' => array('vacature/medewerker winkel', 'vacature/medewerker-winkel', 0),
+      '?' => array('vacature/ben jij wie wij zoeken?', 'vacature/ben-jij-wie-wij-zoeken', 0),
+      '*=' => array('vacature/medewerker 2*4=9', 'vacature/medewerker-2maal4is9', 0),
+      '+' => array('vacature/medewerker 2+1', 'vacature/medewerker-2plus1', 0),
+      'ç' => array('vaçature/medewerker', 'vacature/medewerker', 0),
+      'too short' => array('v', null, 1),
+      'too long' => array('vacature/eenbijzonderlangetitelvanzomaareventjesmeerdan150karaktersdaswelheelerglangnietwaarofdachtjijietsandersdanjijjijomhooggevallenstukjeloslopendw?', null, 1),
+      'empty' => array('', null, 1),
+      'object' => array(array(), null, 1),
+      'numeric' => array(10, null, 1),
+      'null' => array(null, null, 1),
+    );
+  }
+
+  /**
+   * Test case for the Urlid property (Type: String, maxlength = 150, minlength = 2).
+   * The test creates an Organisation, setting its Urlid, then checking for validation
+   * errors and whether or not the getUrlid method retrieves the set value correctly.
+   * Note that the fringe cases array isn't exhaustive, as blimey there are a lot.
+   * The most common cases are tested.
+   * @dataProvider urlidProvider
+   * @param  multiple $urlid       a value from the fringe-cases array
+   * @param  expected $expected    the expected value upon using the getter
+   * @param  integer  $errorCount  the expected amount of errors for this title
+   */
+  public function testUrlid($urlid, $expected, $errorCount)
+  {
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $organisation = $this->baseOrganisation;
+      $organisation->setUrlid($urlid);
+      $errors = $this->validator->validate($organisation);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
+    if(isset($expected)){
+      $this->assertEquals($exptected, $organisation->getUrlid());
+    }
     $this->assertEquals($errorCount, count($errors));
   }
 }
