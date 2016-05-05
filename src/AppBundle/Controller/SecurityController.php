@@ -22,7 +22,7 @@ class SecurityController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $password = $this->get('security.password_encoder')
+            $password = $this->get("security.password_encoder")
                              ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $em = $this->getDoctrine()->getManager();
@@ -31,26 +31,25 @@ class SecurityController extends Controller
             return $this->redirectToRoute("vacaturesopmaat");
         }
         return $this->render(
-           'person/maakprofiel.html.twig',
-           array('form' => $form->createView())
-       );
+           "person/maakprofiel.html.twig",
+           ["form" => $form->createView()] );
     }
     /**
     * @Route("/login", name="login")
     */
     public function loginAction(Request $request)
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
+        $authenticationUtils = $this->get("security.authentication_utils");
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render(
-            'security/login.html.twig',
+            "security/login.html.twig",
             array(
                 // last username entered by the user
-                'last_username' => $lastUsername,
-                'error'         => $error,
+                "last_username" => $lastUsername,
+                "error"         => $error,
             )
         );
     }
@@ -58,6 +57,6 @@ class SecurityController extends Controller
     * @Route("/status", name="status_testing")
     */
     public function statusAction(){
-        return $this->render('security/loginstatus.html.twig');
+        return $this->render("security/loginstatus.html.twig");
     }
 }

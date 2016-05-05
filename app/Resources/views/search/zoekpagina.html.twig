@@ -12,11 +12,11 @@
 		<ul>
 		    {% for result in results %}
 		        <li>
-		    		{% if (result.getClassName() == "Person") %}
+		    		{% if (result.isoftype("Person")) %}
 						{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
-					{% elseif (result.getClassName() == "Vacancy") %}
+					{% elseif (result.isoftype("Vacancy")) %}
 						{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
-					{% elseif (result.getClassName() == "Organisation") %}
+					{% elseif (result.isoftype("Organisation")) %}
 						{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
 					{% else %}
 						{#{ dump(result) }#}

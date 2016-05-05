@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
  * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
  */
-class Person implements UserInterface, \Serializable
+class Person extends EntityBase implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -97,6 +97,11 @@ class Person implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      */
     private $testimonials;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $candidacies;
 
     /**
      * @var \AppBundle\Entity\Organisation
@@ -372,6 +377,44 @@ class Person implements UserInterface, \Serializable
     public function getTestimonials()
     {
         return $this->testimonials;
+    }
+
+    /**
+     * Add candidacy
+     *
+     * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function addCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies[] = $candidacy;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidacy
+     *
+      * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function removeCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies->removeElement($candidacy);
+
+        return $this;
+    }
+
+    /**
+     * Get candidacies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCandidacies()
+    {
+        return $this->candidacies;
     }
 
     /**
@@ -654,26 +697,5 @@ class Person implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
-    }
-
-    /**
-     * Get name for url
-     *
-     * @return string
-     */
-    public function getNameUrl()
-    {
-        return str_replace(" ", "-", $this->username);
-    }
-
-    /**
-     * Get the class name
-     *
-     * @return string
-     */
-    public function getClassName()
-    {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
     }
 }

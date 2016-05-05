@@ -16,6 +16,9 @@ AppBundle\Entity\Vacancy:
         enddate:
             type: date
             nullable: true
+        urlid:
+            type: string
+            length: 100
     manyToOne:
         organisation:
             targetEntity: Organisation
@@ -23,6 +26,10 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
+    oneToMany:  
+        candidacies:
+            targetEntity: Candidacy
+            mappedBy: vacancy
     manyToMany:
         skills:
             targetEntity: Skill
