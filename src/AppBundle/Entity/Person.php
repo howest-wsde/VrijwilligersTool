@@ -164,14 +164,14 @@ class Person extends EntityBase implements UserInterface, \Serializable
     /**
      * @var string
      * @Assert\Url(
-     *    message = "person.linkedIn.valid",
+     *    message = "person.linkedin.valid",
      *    protocols = {"http", "https"},
      *    checkDNS = true,
-     *    dnsMessage = "person.linkedIn.valid"
+     *    dnsMessage = "person.linkedin.valid"
      * )
      * @Assert\Regex(
      *     pattern = "/\blinkedin.com\b/",
-     *     message = "person.linkedIn.valid"
+     *     message = "person.linkedin.valid"
      * )
      */
     private $linkedinUrl;
