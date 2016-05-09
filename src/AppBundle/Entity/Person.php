@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository") *
  * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
  * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
+ * @UniqueEntity(fields = {"telephone"}, message = "person.telephone.already_used")
  */
 class Person extends EntityBase implements UserInterface, \Serializable
 {
