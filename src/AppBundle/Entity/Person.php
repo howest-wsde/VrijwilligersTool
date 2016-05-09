@@ -16,18 +16,48 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Person extends EntityBase implements UserInterface, \Serializable
 {
     /**
-     * @var string
+     * @var integer
      */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
     private $firstname;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
     private $lastname;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 150,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^\S*$$/",
+     *     message="person.no_whitespaces"
+     * )
+    */
     private $username;
 
     /**
@@ -36,21 +66,24 @@ class Person extends EntityBase implements UserInterface, \Serializable
     private $passphrase;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @var string
+     * @Assert\Email(
+     *     message = "person.email.valid",
+     *     checkHost = true
+     * )
      */
     private $email;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(²
+     *      min = 10,
+     *      max = 4096,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
      */
     private $plainPassword;
-
-    /**
-     * @var integer
-     */
-    private $id;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
