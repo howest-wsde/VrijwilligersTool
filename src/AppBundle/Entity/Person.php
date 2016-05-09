@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository") *
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
  * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
  * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
  * @UniqueEntity(fields = {"telephone"}, message = "person.telephone.already_used")
@@ -54,7 +54,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
      * @Assert\Regex(
-     *     pattern = "/^\S*$$/",
+     *     pattern = "/^\S*$/",
      *     message="person.no_whitespaces"
      * )
     */
@@ -76,7 +76,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(²
+     * @Assert\Length(
      *      min = 10,
      *      max = 4096,
      *      minMessage = "person.min_message",
