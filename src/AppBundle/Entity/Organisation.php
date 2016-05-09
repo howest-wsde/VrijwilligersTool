@@ -104,7 +104,7 @@ class Organisation extends EntityBase
      *     message="organisation.not_numeric"
      * )
      * @Assert\Range(
-     *      min = 0,
+     *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
      *      maxMessage = "not_more_than"
