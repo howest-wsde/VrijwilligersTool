@@ -71,3 +71,18 @@ person:
     placeholder:
         username: gebruikersnaam of e-mailadres of telefoonnummer
         password: wachtzin
+        linkedin: https://be.linkedin.com/in/<uw naam>
+    label:
+        firstname: voornaam
+        lastname: familienaam
+        username: gebruikersnaam
+        email: e-mailadres
+        telephone: telefoonnummer
+        street: straat
+        bus: bus
+        number: huisnummer
+        postalcode: postcode
+        city: gemeente
+        password: wachtzin
+        repeat_password: herhaal wachtzin
+        linkedin: linkedIn profiel
