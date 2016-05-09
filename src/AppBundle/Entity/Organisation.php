@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
  */
 class Organisation extends EntityBase
 {
@@ -565,7 +565,7 @@ class Organisation extends EntityBase
             $encoder = new UrlEncoder($em);
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
-    } 
+    }
 
- 
+
 }
