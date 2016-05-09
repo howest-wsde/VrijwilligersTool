@@ -56,6 +56,7 @@ person:
     not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
     no_whitespaces: Mag geen spaties bevatten.
+    exact: De waarde moet exact {{ limit }} tekens langs zijn.
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
@@ -63,6 +64,10 @@ person:
         already_used: Deze gebruikersnaam is reeds in gebruik.
     telephone:
         already_used: Dit telefoonnummer is reeds in gebruik.
+    bus:
+        valid: Gelieve een geldige postbus in te geven.
+    linkedin:
+        valid: '{{ value }}' is geen geldige linkedIn url.
     placeholder:
         username: gebruikersnaam of e-mailadres of telefoonnummer
         password: wachtzin
