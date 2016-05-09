@@ -2,9 +2,10 @@
 
 namespace Tests\AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Entity\Organisation;
+use Symfony\Entity\Form\OrganisationType;
 
-class OrganisationControllerTest extends \WebTestCase
+class OrganisationControllerTest \WebTestCase
 {
     public function testCreateOrganisation()
     {
@@ -25,4 +26,5 @@ class OrganisationControllerTest extends \WebTestCase
     public function testDeleteOrganisation()
     {
       $this->markTestIncomplete("deze test werd nog niet geïmplementeerd");
-    }}
+    }
+}
