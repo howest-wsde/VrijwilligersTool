@@ -74,6 +74,7 @@ class PersonType extends AbstractType
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",
                 "translation_domain" => "validators",
+                "required" => false,
                 "attr" => array("placeholder" => "person.label.linkedin")
             ))
             ->add("plainPassword", RepeatedType::class, array(
