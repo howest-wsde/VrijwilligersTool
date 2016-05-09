@@ -72,7 +72,7 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
      *      min = 0,
@@ -91,8 +91,8 @@ class Organisation extends EntityBase
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="organisation.bus.valid"
+     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
+     *     message = "organisation.bus.valid"
      * )
      */
     private $bus;
@@ -101,7 +101,7 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
      *      min = 1000,
