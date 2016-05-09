@@ -86,34 +86,72 @@ class Person extends EntityBase implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $skills;
-
-    private $isActive;
-
-    /**
      * @var string
+     * @Assert\NotBlank(message = "Person.not_blank")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "organisation.max_message"
+     * )
      */
     private $street;
 
     /**
      * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "person.not_positive"
+     * )
      */
-    private $Number;
+    private $number;
 
     /**
-     * @var string
+     * @var int
+     * @Assert\Length(
+     * 		min = 1,
+     *      max = 6,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
+     *     message="person.bus.valid"
+     * )
      */
     private $bus;
 
     /**
      * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 1000,
+     *      max = 9999,
+     *      minMessage = "person.not_positive",
+     *      maxMessage = "not_more_than"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "person.exact"
+     * )
      */
     private $postalCode;
 
     /**
      * @var string
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
      */
     private $city;
 
@@ -124,8 +162,25 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\Url(
+     *    message = "person.linkedIn.valid",
+     *    protocols = {"http", "https"},
+     *    checkDNS = true,
+     *    dnsMessage = "person.linkedIn.valid"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/\bwars\b/",
+     *     message="organisation.not_numeric"
+     * )
      */
     private $linkedinUrl;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $skills;
+
+    private $isActive;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
