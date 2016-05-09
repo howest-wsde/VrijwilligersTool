@@ -142,7 +142,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
      *      exactMessage = "person.exact"
      * )
      */
-    private $postalCode;
+    private $postalcode;
 
     /**
      * @var string
@@ -157,6 +157,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
+     * TODO: add custom validation
      */
     private $telephone;
 
@@ -169,8 +170,8 @@ class Person extends EntityBase implements UserInterface, \Serializable
      *    dnsMessage = "person.linkedIn.valid"
      * )
      * @Assert\Regex(
-     *     pattern = "/\bwars\b/",
-     *     message="organisation.not_numeric"
+     *     pattern = "/\blinkedin.com\b/",
+     *     message = "person.linkedIn.valid"
      * )
      */
     private $linkedinUrl;
@@ -531,30 +532,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Person
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -577,22 +554,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     {
         return $this->telephone;
     }
-
-    /**
-     * @var integer
-     */
-    private $number;
-
-    /**
-     * @var integer
-     */
-    private $postalcode;
-
-    /**
-     * @var string
-     */
-    private $address;
-
 
     /**
      * Set street
