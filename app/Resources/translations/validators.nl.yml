@@ -67,7 +67,7 @@ person:
     bus:
         valid: Gelieve een geldige postbus in te geven.
     linkedin:
-        valid: '{{ value }}' is geen geldige linkedIn url.
+        valid: url {{ value }} is geen geldige linkedIn url.
     placeholder:
         username: gebruikersnaam of e-mailadres of telefoonnummer
         password: wachtzin
