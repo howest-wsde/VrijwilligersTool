@@ -29,17 +29,14 @@ class SearchFilterType extends AbstractType
             ))
             ->add("person", CheckboxType::class, array(
                 "label" => "personen",
-                "attr" => array("checked" => "checked"),
                 "required" => false,
             ))
             ->add("organisation", CheckboxType::class, array(
                 "label" => "verenigingen",
-                "attr" => array("checked" => "checked"),
                 "required" => false,
             ))
             ->add("vacancy", CheckboxType::class, array(
                 "label" => "vacatures",
-                "attr" => array("checked" => "checked"),
                 "required" => false,
             ))
             ->add("submit", SubmitType::class, array(
@@ -50,6 +47,7 @@ class SearchFilterType extends AbstractType
     {
         $resolver->setDefaults(array(
             "translation_domain" => "validators",
+            "data_class" => "AppBundle\Entity\Form\SearchFilter",
             "csrf_protection" => true,
             "csrf_field_name" => "_token",
             // a unique key to help generate the secret token

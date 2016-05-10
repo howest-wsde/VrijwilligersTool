@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Form\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
@@ -53,7 +54,8 @@ class SearchController extends Controller
     {
         $request = Request::createFromGlobals();
 
-        $form = $this->createForm(SearchFilterType::class, null, ["method" => "GET"]);
+        $searchFilter = new SearchFilter();
+        $form = $this->createForm(SearchFilterType::class, $searchFilter, ["method" => "GET"]);
         $form->handleRequest($request);
 
         $searchTerm = $request->query->get("q");
@@ -67,11 +69,11 @@ class SearchController extends Controller
             $data = $form->getData();
 
             $types = array();
-            if ($data["person"]) {array_push($types, "person");}
-            if ($data["organisation"]) {array_push($types, "organisation");}
-            if ($data["vacancy"]) {array_push($types, "vacancy");}
+            if ($data->getPerson()) {array_push($types, "person");}
+            if ($data->getOrganisation()) {array_push($types, "organisation");}
+            if ($data->getVacancy()) {array_push($types, "vacancy");}
 
-            $query = $data["term"] ? ["query_string" => ["query" => $data["term"]]] : ["query" => ["match_all" => []]];
+            $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
             $body = ["query" => $query];
 
             $results = $this->specificSearch($types, $body);
