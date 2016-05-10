@@ -24,59 +24,50 @@ class OrganisationType extends AbstractType
         $builder
             ->add("name", TextType::class, array(
                 "label" => "organisation.label.name",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.name")
             ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.description")
             ))
             ->add("email", EmailType::class, array(
                 "label" => "organisation.label.email",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.placeholder.email")
             ))
             ->add("street", TextType::class, array(
                 "label" => "organisation.label.street",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.street")
             ))
             ->add("number", NumberType::class, array(
                 "label" => "organisation.label.number",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.number")
             ))
             ->add("bus", NumberType::class, array(
                 "label" => "organisation.label.bus",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.bus"),
                 "required" => false
             ))
             ->add("postalCode", NumberType::class, array(
                 "label" => "organisation.label.postalcode",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.postalcode")
             ))
             ->add("city", TextType::class, array(
                 "label" => "organisation.label.city",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.label.city")
             ))
             ->add("telephone", TextType::class, array(
                 "label" => "organisation.label.telephone",
-                "translation_domain" => "validators",
                 "attr" => array("placeholder" => "organisation.placeholder.telephone")
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "organisation.label.submit",
-                "translation_domain" => "validators",
             ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            "translation_domain" => "validators",
             "data_class" => "AppBundle\Entity\Organisation",
             "csrf_protection" => true,
             "csrf_field_name" => "_token",

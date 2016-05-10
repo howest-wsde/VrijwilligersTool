@@ -19,6 +19,7 @@ AppBundle\Entity\Vacancy:
         urlid:
             type: string
             length: 100
+            options: {default: ""}
     manyToOne:
         organisation:
             targetEntity: Organisation
@@ -26,7 +27,7 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
-    oneToMany:  
+    oneToMany:
         candidacies:
             targetEntity: Candidacy
             mappedBy: vacancy

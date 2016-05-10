@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
-use AppBundle\Entity\Form\UserType;
+use AppBundle\Entity\Form\PersonType;
 
 class SecurityController extends Controller
 {
@@ -18,7 +18,7 @@ class SecurityController extends Controller
     {
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
         $user = new Person();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(PersonType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {

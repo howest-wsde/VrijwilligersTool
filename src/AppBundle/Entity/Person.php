@@ -5,28 +5,63 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository") *
- * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
- * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
+ *
+ * @UniqueEntity(fields = "username", message = "person.username.already_used")
+ * @UniqueEntity(fields = "email", message = "person.email.already_used")
+ * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ *
+ * @Assert\Callback({"AppBundle\Entity\Person", "validateTelephone"})
  */
 class Person extends EntityBase implements UserInterface, \Serializable
 {
     /**
-     * @var string
+     * @var integer
      */
+    private $id;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
     private $firstname;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
     private $lastname;
 
     /**
      * @var string
-     */
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 150,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^\S*$/",
+     *     message="person.no_whitespaces"
+     * )
+    */
     private $username;
 
     /**
@@ -35,21 +70,128 @@ class Person extends EntityBase implements UserInterface, \Serializable
     private $passphrase;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @var string
+     * @Assert\Email(
+     *     message = "person.email.valid",
+     *     checkHost = true
+     * )
      */
     private $email;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 4096,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
      */
     private $plainPassword;
 
     /**
-     * @var integer
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "organisation.max_message"
+     * )
      */
-    private $id;
+    private $street;
+
+    /**
+     * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "person.not_positive"
+     * )
+     */
+    private $number;
+
+    /**
+     * @var int
+     * @Assert\Length(
+     * 		min = 1,
+     *      max = 6,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
+     *     message="person.bus.valid"
+     * )
+     */
+    private $bus;
+
+    /**
+     * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 1000,
+     *      max = 9999,
+     *      minMessage = "person.not_positive",
+     *      maxMessage = "not_more_than"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "person.exact"
+     * )
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
+     */
+    private $city;
+
+    /**
+     * @var string
+     * assert callback statement for telephone at top of class
+     */
+    private $telephone;
+
+    public static function validateTelephone($org, ExecutionContextInterface  $context)
+    {
+        $telephone = str_replace(' ', '', $org->getTelephone());
+
+        if (!is_numeric($telephone)
+        or !strlen($telephone) == 10)
+        {
+            $context->buildViolation("person.telephone.valid")
+                ->atPath("telephone")
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @var string
+     * @Assert\Url(
+     *    message = "person.linkedin.valid",
+     *    protocols = {"http", "https"},
+     *    checkDNS = true,
+     *    dnsMessage = "person.linkedin.valid"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/\blinkedin.com\b/",
+     *     message = "person.linkedin.valid"
+     * )
+     */
+    private $linkedinUrl;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -57,41 +199,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     private $skills;
 
     private $isActive;
-
-    /**
-     * @var string
-     */
-    private $street;
-
-    /**
-     * @var int
-     */
-    private $Number;
-
-    /**
-     * @var string
-     */
-    private $bus;
-
-    /**
-     * @var int
-     */
-    private $postalCode;
-
-    /**
-     * @var string
-     */
-    private $city;
-
-    /**
-     * @var string
-     */
-    private $telephone;
-
-    /**
-     * @var string
-     */
-    private $linkedinUrl;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -442,30 +549,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Person
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -488,22 +571,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     {
         return $this->telephone;
     }
-
-    /**
-     * @var integer
-     */
-    private $number;
-
-    /**
-     * @var integer
-     */
-    private $postalcode;
-
-    /**
-     * @var string
-     */
-    private $address;
-
 
     /**
      * Set street

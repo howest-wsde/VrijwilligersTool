@@ -9,7 +9,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
  */
 class Organisation extends EntityBase
 {
@@ -72,7 +73,7 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
      *      min = 0,
@@ -91,8 +92,8 @@ class Organisation extends EntityBase
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="organisation.bus.valid"
+     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
+     *     message = "organisation.bus.valid"
      * )
      */
     private $bus;
@@ -101,10 +102,10 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
-     *      min = 0,
+     *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
      *      maxMessage = "not_more_than"
@@ -565,7 +566,7 @@ class Organisation extends EntityBase
             $encoder = new UrlEncoder($em);
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
-    } 
+    }
 
- 
+
 }

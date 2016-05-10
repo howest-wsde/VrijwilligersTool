@@ -48,6 +48,11 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            // $user = $this->get('security.token_storage')->getToken()->getUser();
+            // $organisation = $user->getOrganisation();
+            // $vacancy->setOrganisation($organisation);
+            //
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
@@ -76,14 +81,14 @@ class VacancyController extends controller
      */
     public function subscribeVacancy($urlid)
     {
-        $person = $this->get('security.token_storage')->getToken()->getUser(); 
-        
+        $person = $this->get('security.token_storage')->getToken()->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlId($urlid); 
+            ->findOneByUrlId($urlid);
 
         $candidacy = new Candidacy();
-        $candidacy->setCandidate($person)->setVacancy($vacancy); 
+        $candidacy->setCandidate($person)->setVacancy($vacancy);
 
         $em->persist($candidacy);
         $em->flush();
