@@ -38,7 +38,7 @@ class PersonType extends AbstractType
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "person.placeholder.email")
+                "attr" => array("placeholder" => "person.label.email")
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
