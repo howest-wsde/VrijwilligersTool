@@ -1,5 +1,7 @@
 <?php
+
 namespace AppBundle\Entity\Form;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -14,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\{
     TextType,
     SubmitType
 };
+
 class VacancyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
