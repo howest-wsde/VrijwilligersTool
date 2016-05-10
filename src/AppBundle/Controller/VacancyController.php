@@ -65,7 +65,7 @@ class VacancyController extends controller
     /**
      * @Route("/vacature/{urlid}", name="vacancy_by_urlid")
      */
-    public function viewVacancyTitleAction($urlid)
+    public function VacancyViewAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
@@ -73,7 +73,6 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }
-
 
     /**
      * @Security("has_role('ROLE_USER')")
@@ -95,7 +94,6 @@ class VacancyController extends controller
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
-
 
     public function listRecentVacanciesAction($nr)
     {
