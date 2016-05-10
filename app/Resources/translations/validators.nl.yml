@@ -29,6 +29,7 @@ organisation:
     bus:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
+        already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
@@ -64,6 +65,7 @@ person:
         already_used: Deze gebruikersnaam is reeds in gebruik.
     telephone:
         already_used: Dit telefoonnummer is reeds in gebruik.
+        valid: Gelieve een geldig telefoonnummer in te geven.
     bus:
         valid: Gelieve een geldige postbus in te geven.
     linkedin:

@@ -5,13 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
+ *
  * @UniqueEntity(fields = "username", message = "person.username.already_used")
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ *
+ * @Assert\Callback({"AppBundle\Entity\Person", "validateTelephone"})
  */
 class Person extends EntityBase implements UserInterface, \Serializable
 {
@@ -87,7 +91,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "Person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "organisation.max_message"
@@ -157,9 +161,22 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
-     * TODO: add custom validation
+     * assert callback statement for telephone at top of class
      */
     private $telephone;
+
+    public static function validateTelephone($org, ExecutionContextInterface  $context)
+    {
+        $telephone = str_replace(' ', '', $org->getTelephone());
+
+        if (!is_numeric($telephone)
+        or !strlen($telephone) == 10)
+        {
+            $context->buildViolation("person.telephone.valid")
+                ->atPath("telephone")
+                ->addViolation();
+        }
+    }
 
     /**
      * @var string
