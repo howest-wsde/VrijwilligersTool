@@ -36,7 +36,7 @@ class OrganisationController extends controller
     /**
      * @Route("/vereniging/{urlid}" , name="organisation_by_urlid")
      */
-    public function viewOrganisationByNameAction($urlid)
+    public function OrganisationViewAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
