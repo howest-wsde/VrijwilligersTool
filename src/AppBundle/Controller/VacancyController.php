@@ -65,7 +65,7 @@ class VacancyController extends controller
     /**
      * @Route("/vacature/{urlid}", name="vacancy_by_urlid")
      */
-    public function VacancyViewAction($urlid)
+    public function vacancyViewAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")

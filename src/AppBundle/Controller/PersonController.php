@@ -17,7 +17,7 @@ class PersonController extends controller
      * @Security("has_role('ROLE_USER')")
      * @Route("/persoon/{username}", name="person_username")
      */
-    public function PersonViewAction($username)
+    public function personViewAction($username)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
