@@ -54,8 +54,7 @@ class SearchController extends Controller
     {
         $request = Request::createFromGlobals();
 
-        $searchFilter = new SearchFilter();
-        $form = $this->createForm(SearchFilterType::class, $searchFilter, ["method" => "GET"]);
+        $form = $this->createForm(SearchFilterType::class, new SearchFilter, ["method" => "GET"]);
         $form->handleRequest($request);
 
         $searchTerm = $request->query->get("q");
@@ -64,6 +63,7 @@ class SearchController extends Controller
         {
             $results = $this->plainSearch($searchTerm);
         }
+
         if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
@@ -74,9 +74,8 @@ class SearchController extends Controller
             if ($data->getVacancy()) {array_push($types, "vacancy");}
 
             $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
-            $body = ["query" => $query];
 
-            $results = $this->specificSearch($types, $body);
+            $results = $this->specificSearch($types, ["query" => $query]);
         }
 
         return $this->render("search/zoekpagina.html.twig", array(
