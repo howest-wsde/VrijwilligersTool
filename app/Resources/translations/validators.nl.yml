@@ -70,20 +70,21 @@ person:
         valid: url {{ value }} is geen geldige linkedIn url.
     placeholder:
         username: gebruikersnaam of e-mailadres of telefoonnummer
-        password: wachtzin
         linkedin: https://be.linkedin.com/in/<uw naam>
+        password: lange en veilige wachtzien
     label:
-        firstname: voornaam
-        lastname: familienaam
-        username: gebruikersnaam
-        email: e-mailadres
-        telephone: telefoonnummer
-        street: straat
-        bus: bus
-        number: huisnummer
-        postalcode: postcode
-        city: gemeente
-        password: wachtzin
-        repeat_password: herhaal wachtzin
+        firstname: Voornaam
+        lastname: Familienaam
+        username: Gebruikersnaam
+        email: E-mailadres
+        telephone: Telefoonnummer
+        street: Straat
+        bus: Bus
+        number: Huisnummer
+        postalcode: Postcode
+        city: Gemeente
+        password: Wachtzin
+        repeat_password: Herhaal wachtzin
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
+        submit: Registreren

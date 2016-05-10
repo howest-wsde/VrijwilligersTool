@@ -69,29 +69,35 @@ class PersonType extends AbstractType
             ->add("telephone", TextType::class, array(
                 "label" => "person.label.telephone",
                 "translation_domain" => "validators",
-                "attr" => array("placeholder" => "person.placeholder.telephone")
+                "attr" => array("placeholder" => "person.label.telephone")
             ))
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",
                 "translation_domain" => "validators",
                 "required" => false,
-                "attr" => array("placeholder" => "person.placeholder.linkedin")
+                "attr" => array("placeholder" => "person.label.linkedin")
             ))
             ->add("plainPassword", RepeatedType::class, array(
                 "translation_domain" => "validators",
                 "type" => PasswordType::class,
-                "first_options"  => array("label" => "person.label.password"),
-                "second_options" => array("label" => "person.label.repeat_password"),
+                "first_options"  => array(
+                    "label" => "person.label.password",
+                    "attr" => array("placeholder" => "person.placeholder.password")
+                ),
+                "second_options" => array(
+                    "label" => "person.label.repeat_password",
+                    "attr" => array("placeholder" => "person.placeholder.password")
+                ),
             ))
             ->add("termsAccepted", CheckboxType::class, array(
+                "translation_domain" => "validators",
                 "mapped" => false,
                 "constraints" => new IsTrue(),
-                "label" => "person.eula"
+                "label" => "person.label.eula"
             ))
             ->add("submit", SubmitType::class, array(
                 "translation_domain" => "validators",
                 "label" => "person.label.submit",
-                "translation_domain" => "validators",
             ));
     }
 
