@@ -2,10 +2,21 @@
 
 {% block title %}Zoeken{% endblock %}
 
-{% block search_term %}{{query}}{% endblock %}
+{% block search_term %}{{searchTerm}}{% endblock %}
 
 {% block body %}
 	<h1>Zoeken</h1>
+	<h3>Filters</h3>
+	{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+
+        {{ form_row(form.term) }}
+        {{ form_row(form.person) }}
+		{{ form_row(form.organisation) }}
+		{{ form_row(form.vacancy) }}
+    {{ form_end(form) }}
+
 	{% if results|length == 0 %}
 		<p>Er werden geen resultaten gevonden</p>
    	{% else %}
