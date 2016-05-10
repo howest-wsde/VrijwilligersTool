@@ -86,9 +86,10 @@ class PersonType extends AbstractType
             ->add("termsAccepted", CheckboxType::class, array(
                 "mapped" => false,
                 "constraints" => new IsTrue(),
-                "label" => "Ik ga akkoord met de overeenkomst"
+                "label" => "person.eula"
             ))
             ->add("submit", SubmitType::class, array(
+                "translation_domain" => "validators",
                 "label" => "person.label.submit",
                 "translation_domain" => "validators",
             ));
