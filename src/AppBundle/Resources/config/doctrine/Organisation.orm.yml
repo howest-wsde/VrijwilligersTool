@@ -44,6 +44,7 @@ AppBundle\Entity\Organisation:
         urlid:
             type: string
             length: 150
+            options: {default: ""}
     manyToOne:
         creator:
             targetEntity: Person
