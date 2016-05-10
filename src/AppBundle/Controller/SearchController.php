@@ -14,10 +14,10 @@ class SearchController extends Controller
 {
     private function plainSearch($term)
     {
-        $query = $this->get("ElasticsearchQuery");
+        $query = $this->get("ElasticsearchQuery", $types = ["person", "vacancy", "organisation"]);
         $params = [
             "index" => $query->getIndex(),
-            "type" => ["person", "vacancy", "organisation"],
+            "type" => $types,
             "body" => [
                 "query" => [
                     "query_string" => [
@@ -95,7 +95,6 @@ class SearchController extends Controller
         {
             $results = $this->plainSearch($query);
         }
-
 
         $response = new Response(
             $this->renderView("search/zoekapi_resultaat.html.twig",
