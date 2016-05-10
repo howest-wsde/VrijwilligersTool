@@ -676,9 +676,8 @@ class Person extends EntityBase implements UserInterface, \Serializable
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Firstname" => $this->getFirstname(),

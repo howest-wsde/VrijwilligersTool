@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\{
-    ChoiceType,
+    CheckboxType,
     CollectionType,
     DateType,
     TextareaType,
@@ -17,38 +17,37 @@ use Symfony\Component\Form\Extension\Core\Type\{
     SubmitType
 };
 
-class VacancyType extends AbstractType
+class SearchFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("title", TextType::class, array(
-                "label" => "vacancy.label.title",
-                "attr" => array("placeholder" => "vacancy.label.title")
+            ->add("term", TextType::class, array(
+                "label" => "term",
+                "required" => false,
+                "attr" => array("placeholder" => "(optioneel) zoekterm")
             ))
-            ->add("description", TextareaType::class, array(
-                "label" => "vacancy.label.description",
-                "attr" => array("placeholder" => "vacancy.label.description")
+            ->add("person", CheckboxType::class, array(
+                "label" => "personen",
+                "required" => false,
             ))
-            ->add("startdate", DateType::class, array(
-                "label" => "vacancy.label.startdate",
-                "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
+            ->add("organisation", CheckboxType::class, array(
+                "label" => "verenigingen",
+                "required" => false,
             ))
-            ->add("enddate", DateType::class, array(
-                "label" => "vacancy.label.enddate",
-                "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
+            ->add("vacancy", CheckboxType::class, array(
+                "label" => "vacatures",
+                "required" => false,
             ))
             ->add("submit", SubmitType::class, array(
-                "label" => "vacancy.label.submit",
+                "label" => "Zoeken",
             ));
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             "translation_domain" => "validators",
-            "data_class" => "AppBundle\Entity\Vacancy",
+            "data_class" => "AppBundle\Entity\Form\SearchFilter",
             "csrf_protection" => true,
             "csrf_field_name" => "_token",
             // a unique key to help generate the secret token
