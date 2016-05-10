@@ -84,7 +84,7 @@ class Vacancy extends EntityBase
      */
     private $skills;
 
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -342,9 +342,8 @@ class Vacancy extends EntityBase
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Title" => $this->getTitle(),
