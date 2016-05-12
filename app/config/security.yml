@@ -27,23 +27,23 @@ security:
             provider: user_db_provider
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /{_locale}/login
+                check_path: /{_locale}/login
                 csrf_token_generator: security.csrf.token_manager
             logout:
-                path:   /logout
-                target: /status
+                path:   /{_locale}/logout
+                target: /
 
         main:
             pattern:    ^/
             provider: user_db_provider
             anonymous: ~
             form_login:
-                login_path: /login
-                check_path: /login
+                login_path: /{_locale}/login
+                check_path: /{_locale}/login
                 csrf_token_generator: security.csrf.token_manager
             logout:
-                path:   /logout
+                path:   /{_locale}/logout
                 target: /
             # activate different ways to authenticate
 
