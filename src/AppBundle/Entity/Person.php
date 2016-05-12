@@ -23,7 +23,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -42,7 +42,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
     */
-    private $firstname;
+    protected $firstname;
 
     /**
      * @var string
@@ -54,7 +54,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
     */
-    private $lastname;
+    protected $lastname;
 
     /**
      * @var string
@@ -70,12 +70,12 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *     message="person.no_whitespaces"
      * )
     */
-    private $username;
+    protected $username;
 
     /**
      * @var string
      */
-    private $passphrase;
+    protected $passphrase;
 
     /**
      * @var string
@@ -84,7 +84,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *     checkHost = true
      * )
      */
-    private $email;
+    protected $email;
 
     /**
      * @Assert\NotBlank()
@@ -95,7 +95,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
      */
-    private $plainPassword;
+    protected $plainPassword;
 
     /**
      * @var string
@@ -105,7 +105,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "organisation.max_message"
      * )
      */
-    private $street;
+    protected $street;
 
     /**
      * @var int
@@ -119,7 +119,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      minMessage = "person.not_positive"
      * )
      */
-    private $number;
+    protected $number;
 
     /**
      * @var int
@@ -134,7 +134,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *     message="person.bus.valid"
      * )
      */
-    private $bus;
+    protected $bus;
 
     /**
      * @var int
@@ -154,7 +154,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      exactMessage = "person.exact"
      * )
      */
-    private $postalcode;
+    protected $postalcode;
 
     /**
      * @var string
@@ -165,13 +165,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
      * assert callback statement for telephone at top of class
      */
-    private $telephone;
+    protected $telephone;
 
     public static function validateTelephone($org, ExecutionContextInterface  $context)
     {
@@ -199,29 +199,29 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *     message = "person.linkedin.valid"
      * )
      */
-    private $linkedinUrl;
+    protected $linkedinUrl;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $skills;
+    protected $skills;
 
-    private $isActive;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $testimonials;
+    protected $isActive;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $candidacies;
+    protected $testimonials;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $candidacies;
 
     /**
      * @var \AppBundle\Entity\Organisation
      */
-    private $organisation;
+    protected $organisation;
 
     /**
      * Constructor

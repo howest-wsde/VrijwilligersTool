@@ -80,7 +80,7 @@ swiftmailer:
 
 # OAUTH
 hwi_oauth:
-    firewall_name: main
+    firewall_names: [main]
     resource_owners:
         google:
             type:                google
