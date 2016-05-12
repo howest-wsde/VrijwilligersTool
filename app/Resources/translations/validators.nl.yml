@@ -6,6 +6,7 @@ vacancy:
         valid: Gelieve een geldige datum op te geven.
         not_today: Gelieve een datum in de toekomst op te geven.
         not_more_than: Gelieve een datum op te geven die later valt dan de begindatum.
+        max_period: De vacature mag maximum 6 maanden geldig zijn.
     label:
         title: Titel
         description: Omschrijving
@@ -16,16 +17,22 @@ vacancy:
         date: jjjj-mm-dd
 organisation:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
+    min_message_one: Gelieve minimum {{ limit }} teken in te geven.
     max_message: Gelieve maximum {{ limit }} tekens in te geven.
     not_blank: Gelieve een waarde op te geven.
     not_numeric: Gelieve een numerieke waarde op te geven.
     not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
-    exact: De waarde moet exact {{ limit }} tekens lang zijn.
+    exact: De waarde moet exact {{ limit }} tekens langs zijn.
+    name:
+        already_used: Deze naam is reeds in gebruik.
+    bus:
+        valid: Gelieve een geldige postbus in te geven.
     telephone:
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
-        valid: Gelieve een geldig e-mailaddres in te geven.
+        valid: Gelieve een geldig e-mailadres in te geven.
+        already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
         description: Een omschrijving van uw bedrijf
@@ -40,3 +47,8 @@ organisation:
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
+person:
+    email:
+        already_used: Dit e-mailadres is reeds in gebruik.
+    username:
+        already_used: Deze gebruikersnaam is reeds in gebruik.
