@@ -78,6 +78,17 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# OAUTH
+hwi_oauth:
+    firewall_name: main
+    resource_owners:
+        google:
+            type:                google
+            client_id:            744185804186-i597ufhjha9rvqdrhquhao4bil9e58n2.apps.googleusercontent.com 
+            client_secret:        pDI2htdWTSloNKD5be-RWJBd 
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+
+
 services:
     # Injectors
     ElasticsearchQuery:

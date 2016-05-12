@@ -45,6 +45,13 @@ security:
             logout:
                 path:   /logout
                 target: /
+            oauth:
+                resource_owners:
+                    google: "/login/check-google"
+                login_path: /login
+                failure_path: /login
+                oauth_user_provider:
+                    service: ib_user.oauth_user_provider
             # activate different ways to authenticate
 
             # http_basic: ~

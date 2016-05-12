@@ -4,6 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
+    hwi_oauth.user.provider.entity:
+        class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+    ib_user.oauth_user_provider:
+        class: AppBundle\Auth\OAuthProvider
+        arguments: ["@session", "@doctrine", "@service_container"]
     # doctrine.orm.validator.unique:
     #     class: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator
     #     arguments:

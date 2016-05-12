@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -17,12 +18,19 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @Assert\Callback({"AppBundle\Entity\Person", "validateTelephone"})
  */
-class Person extends EntityBase implements UserInterface, \Serializable
+class Person extends OAuthUser implements UserInterface, \Serializable
 {
     /**
      * @var integer
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="google_id", type="string", length=255, unique=true, nullable=true)
+     */
+    protected $googleId;
 
     /**
      * @var string
@@ -250,6 +258,24 @@ class Person extends EntityBase implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
+
+
+    /**
+     * @param string $googleId
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+    }
+ 
+    /**
+     * @return string
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+    
 
     public function getSalt()
     {
@@ -763,5 +789,26 @@ class Person extends EntityBase implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
+    }
+
+   /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
+
+    /**
+     * returns if the class type is that of the given value
+     *
+     * @return bool
+     */
+    public function isOfType($type)
+    {
+        return $this->getClassName() == $type;
     }
 }
