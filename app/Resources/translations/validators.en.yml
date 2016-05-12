@@ -1,54 +1,54 @@
 vacancy:
-    not_blank: (EN)Gelieve een waarde op te geven.
-    min_message: (EN)Gelieve minimum {{ limit }} tekens in te geven.
-    max_message: (EN)Gelieve maximum {{ limit }} tekens in te geven.
+    not_blank: Please enter a value.
+    min_message: Please enter at least {{ limit }} characters.
+    max_message: Please enter a maximum of {{ limit }} characters.
     date:
-        valid: (EN)Gelieve een geldige datum op te geven.
-        not_today: (EN)Gelieve een datum in de toekomst op te geven.
-        not_more_than: (EN)Gelieve een datum op te geven die later valt dan de Begindatum.
-        max_period: (EN)De vacature mag maximum 6 maanden geldig zijn.
+        valid: Please enter a valid date.
+        not_today: Please enter a date after today.
+        not_more_than: Please enter a date that is later than the start date.
+        max_period: The vacancy can be maximum of 6 months valid.
     label:
-        title: (EN)Titel
-        description: (EN)Omschrijving
-        startdate: (EN)Begindatum
-        enddate: (EN)Einddatum
-        submit: (EN)Opslaan
+        title: Title
+        description: Description
+        startdate: Start date
+        enddate: End date
+        submit: Save
     placeholder:
-        date: (EN)jjjj-mm-dd
+        date: yyyy-mm-dd
 organisation:
-    min_message: (EN)Gelieve minimum {{ limit }} tekens in te geven.
-    min_message_one: (EN)Gelieve minimum {{ limit }} teken in te geven.
-    max_message: (EN)Gelieve maximum {{ limit }} tekens in te geven.
-    not_blank: (EN)Gelieve een waarde op te geven.
-    not_numeric: (EN)Gelieve een numerieke waarde op te geven.
-    not_positive: (EN)Gelieve een waarde hoger dan {{ limit }} in te geven.
-    not_more_than: (EN)Gelieve niet meer dan {{ limit }} in te geven.
-    exact: (EN)De waarde moet exact {{ limit }} tekens langs zijn.
+    min_message: Please enter at least {{ limit }} characters.
+    min_message_one: Please enter at least {{ limit }} characters.
+    max_message: Please enter a maximum of {{ limit }} characters.
+    not_blank: Please enter a value.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value greater than {{ limit }}.
+    not_more_than: Please enter a value not exceeding {{ limit }}.
+    exact: The value must be exactly {{ limits }} characters long.
     name:
-        already_used: (EN)Deze naam is reeds in gebruik.
+        already_used: This name is already used.
     bus:
-        valid: (EN)Gelieve een geldige postbus in te geven.
+        valid: Please enter a valid mailbox.
     telephone:
-        valid: (EN)Gelieve een geldig telefoonnummer in te geven.
+        valid: Please enter a valid phone number.
     email:
-        valid: (EN)Gelieve een geldig e-mailaddres in te geven.
-        already_used: (EN)Dit e-mailadres is reeds in gebruik.
+        valid: Please enter a valid email address.
+        already_used: This email address is already used.
     label:
-        name: (EN)Naam
-        description: (EN)Een omschrijving van uw bedrijf
-        email: (EN)E-mailadres
-        street: (EN)Straatnaam
-        number: (EN)Huisnummer
-        bus: (EN)Busnummer
-        postalcode: (EN)Postcode
-        city: (EN)Stad
-        telephone: (EN)Telefoonnummer
-        submit: (EN)Opslaan
+        name: Company name
+        description: A description of your company
+        email: Email address
+        street: Street name
+        number: House number
+        bus: Bus number
+        postalcode: Postal code
+        city: City
+        telephone: Telephone number
+        submit: Save
     placeholder:
-        email: (EN)uw@email.be
-        telephone: (EN)051 123 456
+        email: your@email.com
+        telephone: 051 123 456
 person:
     email:
-        already_used: (EN)Dit e-mailadres is reeds in gebruik.
+        already_used: This email address is already used.
     username:
-        already_used: (EN)Deze gebruikersnaam is reeds in gebruik.
+        already_used: This username is already used.
