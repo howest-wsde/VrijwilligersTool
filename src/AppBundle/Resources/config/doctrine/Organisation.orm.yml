@@ -1,0 +1,59 @@
+AppBundle\Entity\Organisation:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 150
+            unique: true
+        description:
+            type: text
+        email:
+            type: string
+            length: 255
+            nullable: true
+            unique: true
+        street:
+            type: string
+            scale: 255
+            nullable: true
+            unique: true
+        number:
+            type: smallint
+            nullable: true
+        postalCode:
+            type: smallint
+            nullable: true
+        bus:
+            type: string
+            length: 6
+            nullable: true
+        city:
+            type: string
+            scale: 100
+            nullable: true
+        telephone:
+            type: string
+            length: 10
+            nullable: true
+        description:
+            type: text
+        urlid:
+            type: string
+            length: 150
+            options: {default: ""}
+    manyToOne:
+        creator:
+            targetEntity: Person
+            inversedBy: organisation
+            joinColumn:
+                name: creator_id
+                referencedColumnName: id
+    oneToMany:
+        vacancies:
+            nullable: true
+            targetEntity: Vacancy
+            mappedBy: organisation

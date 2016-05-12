@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Vrijwilliger worden{% endblock %}
+
+{% block body %}
+	<header>
+		<h1>Vrijwilliger worden</h1>
+		<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? </p>
+		<p>Doorloop dan hieronder ons stappenplan. </p>
+	</header>
+
+	<h2>Maak een profiel aan</h2>
+	{{ form_start(form) }}
+		{% block bron %}{% endblock %}
+		<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
+	    {{ form_row (form.firstname) }}
+	    {{ form_row (form.lastname) }}
+	    {{ form_row (form.username) }}
+	    {{ form_row (form.email) }}
+	    {{ form_row (form.telephone) }}
+	    {{ form_row (form.street) }}
+		{{ form_row (form.number) }}
+		{{ form_row (form.bus) }}
+		{{ form_row (form.postalcode) }}
+	    {{ form_row (form.city) }}
+		{{ form_row (form.linkedinUrl) }}
+
+	    {{ form_row (form.plainPassword.first) }}
+	    {{ form_row (form.plainPassword.second) }}
+	    {{ form_row (form.termsAccepted) }}
+	{{ form_end(form) }}
+{% endblock %}

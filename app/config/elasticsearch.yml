@@ -1,6 +1,6 @@
 fos_elastica:
     clients:
-        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
+        default: { host: "%elasticsearch_host%", port: "%elasticsearch_port%" }
     indexes:
         %elasticsearch_index%:
             finder: ~
@@ -13,39 +13,43 @@ fos_elastica:
                                 language: Dutch
                             # other analyzers
             types:
-                volunteer:
+                person:
                     mappings:
-                        firstName: %nl%
-                        lastName: %nl%
-                        username: %nl%
+                        firstName: "%nl%"
+                        lastName: "%nl%"
+                        username: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
+                        linkedinUrl: "%nl%"
+                        organisation: "%nl%"
+                        # testimonials: "%nl%"
+                        # skills: "%nl%"
                     persistence:
                         driver: orm
-                        model: AppBundle\Entity\Volunteer
+                        model: AppBundle\Entity\Person
                         provider: ~
                         listener: %listener%
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
-
-                contact:
-                    mappings:
-                        email: %nl%
-                        address: %nl%
-                        telephone: %nl%
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\contact
-                        provider: ~
-                        listener: %listener%
-                        finder: ~
-                        elastica_to_model_transformer:
-                            ignore_missing: true
-
                 organisation:
                     mappings:
-                        name: %nl%
-                        description: %nl%
-                        creator: %nl%
+                        name: "%nl%"
+                        description: "%nl%"
+                        creator: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        email: "%nl%"
+                        telephone: "%nl%"
+                        urlId: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
@@ -54,9 +58,6 @@ fos_elastica:
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
-
-
-
                 skill:
                     mappings:
                         name: %nl%
@@ -85,11 +86,13 @@ fos_elastica:
 
                 vacancy:
                     mappings:
-                        title: %nl%
-                        description: %nl%
-                        startdate: %nl%
-                        enddate: %nl%
-                        creationtime: %nl%
+                        title: "%nl%"
+                        description: "%nl%"
+                        startdate: "%nl%"
+                        enddate: "%nl%"
+                        organisation: "%nl%"
+                        urlId: "%nl%"
+                        # skills: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Vacancy

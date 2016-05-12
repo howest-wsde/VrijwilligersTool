@@ -6,29 +6,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\Skillproficiency;
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
 {
     /**
-     * @Route("/vrijwilliger/{id}", name="vrijwilliger_detail")
+     * @Route("/vacatures", name="vacaturesopmaat")
      */
-    public function vrijwilliger($id)
+    public function vacaturesopmaat()
     {
-        return $this->render("vrijwilliger/vrijwilliger.html.twig");
+        return $this->render("person/vacaturesopmaat.html.twig");
     }
 
     /**
-     * @Route("/vrijwilliger", name="vrijwilliger_worden")
+     * @Route("/vrijwilligerspelregels", name="person_spelregels")
      */
-    public function vrijwilliger_worden()
+    public function person_spelregels()
     {
-        return $this->render("vrijwilliger/worden.html.twig");
+        return $this->render("person/spelregels.html.twig");
     }
-
 
     /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
@@ -39,10 +36,26 @@ class PlaceholderController extends Controller
     }
 
     /**
-     * @Route("/vereniging", name="vrijwilliger_vinden")
+     * @Route("/verenigingspelregels", name="vrijwilliger_vinden_spelregels")
      */
-    public function vrijwilligerworden()
+    public function verenigingspelregels()
     {
-        return $this->render("vereniging/vrijwilliger_vinden.html.twig");
+        return $this->render("organisation/spelregels.html.twig");
+    }
+
+    /**
+     * @Route("/verenigingvrijwilligers", name="vrijwilliger_vinden_bekijkvrijwilligers")
+     */
+    public function vrijwilligervinden()
+    {
+        return $this->render("organisation/vrijwilligersopmaat.html.twig");
+    }
+
+    /**
+     * @Route("/js/vars.js", name="javascriptvariables")
+     */
+    public function javascriptvariables()
+    {
+        return $this->render("javascript_variables.js.twig");
     }
 }

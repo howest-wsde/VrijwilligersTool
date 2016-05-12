@@ -3,14 +3,14 @@
 security:
 
     encoders:
-        AppBundle\Entity\Volunteer:
+        AppBundle\Entity\Person:
             algorithm: bcrypt
             cost: 15
 
     providers:
         user_db_provider:
             entity:
-                class: AppBundle:Volunteer
+                class: AppBundle:Person
                 property: username
                 # if you're using multiple entity managers
                 # manager_name: customer
@@ -44,7 +44,7 @@ security:
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path:   /logout
-                target: /register
+                target: /
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -54,5 +54,12 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
           # uncomment to enable https on /login
-    # access_control:
-    #     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    access_control:
+        # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        # - { path: /nieuw, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_VOLUNTEER:   ROLE_USER
+        ROLE_ORGANISATION: [ROLE_USER, ROLE_VOLUNTEER]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

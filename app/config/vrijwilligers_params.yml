@@ -1,7 +1,7 @@
 parameters:
     elasticsearch_host: localhost
     elasticsearch_port: 9200
-    elasticsearch_index: homestead
+    elasticsearch_index: roeselaredev
 
     nl: {analyzer: nl_analyzer}
     listener:
@@ -13,4 +13,5 @@ parameters:
 
     fb_id: '990174991070590'
     linkedin_id: '77lr8oxzq2u5j9'
+    googlemaps_key: 'AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g'
 

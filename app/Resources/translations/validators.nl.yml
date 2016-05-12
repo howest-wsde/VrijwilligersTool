@@ -32,6 +32,10 @@ organisation:
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
+        already_used: Dit telefoonnummer is reeds in gebruik.
+        valid: Gelieve een geldig telefoonnummer in te geven.
+    email:
+        valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
@@ -48,7 +52,44 @@ organisation:
         email: uw@email.be
         telephone: 051 123 456
 person:
+    min_message: Gelieve minimum {{ limit }} tekens in te geven.
+    min_message_one: Gelieve minimum {{ limit }} teken in te geven.
+    max_message: Gelieve maximum {{ limit }} tekens in te geven.
+    not_blank: Gelieve een waarde op te geven.
+    not_numeric: Gelieve een numerieke waarde op te geven.
+    not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
+    not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
+    no_whitespaces: Mag geen spaties bevatten.
+    exact: De waarde moet exact {{ limit }} tekens langs zijn.
     email:
+        valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
     username:
         already_used: Deze gebruikersnaam is reeds in gebruik.
+    telephone:
+        already_used: Dit telefoonnummer is reeds in gebruik.
+        valid: Gelieve een geldig telefoonnummer in te geven.
+    bus:
+        valid: Gelieve een geldige postbus in te geven.
+    linkedin:
+        valid: url {{ value }} is geen geldige linkedIn url.
+    placeholder:
+        username: gebruikersnaam of e-mailadres of telefoonnummer
+        linkedin: https://be.linkedin.com/in/<uw naam>
+        password: lange en veilige wachtzien
+    label:
+        firstname: Voornaam
+        lastname: Familienaam
+        username: Gebruikersnaam
+        email: E-mailadres
+        telephone: Telefoonnummer
+        street: Straat
+        bus: Bus
+        number: Huisnummer
+        postalcode: Postcode
+        city: Gemeente
+        password: Wachtzin
+        repeat_password: Herhaal wachtzin
+        linkedin: linkedIn profiel
+        eula: Ik ga akkoord met de overeenkomst
+        submit: Registreren

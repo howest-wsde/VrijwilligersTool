@@ -5,15 +5,14 @@ namespace AppBundle\Entity;
 /**
  * Skill
  */
-class Skill
+class Skill extends EntityBase
 {
     /**
      * Constructor
      *
      * @param string name
-     *
      */
-    public function __construct($name)
+    public function __construct($name = "")
     {
         $this->name = $name;
     }
@@ -28,6 +27,10 @@ class Skill
      */
     private $id;
 
+    /**
+     * @var \AppBundle\Entity\Skill
+     */
+    private $parent;
 
     /**
      * Set name
@@ -64,6 +67,17 @@ class Skill
     }
 
     /**
+     * Set id
+     *
+     * @return Skill
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
      * @return string
@@ -71,7 +85,36 @@ class Skill
      */
     function __toString()
     {
-        return "id: ".$this->getId().
-        ", name: ".$this->getName();
+        return json_encode( array(
+            "Entity" => $this->getClassName(),
+            "Id" => $this->getId(),
+            "Values" => array(
+                "Name" => $this->getName()
+            )
+        ));
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\Skill $parent
+     *
+     * @return Skill
+     */
+    public function setParent(\AppBundle\Entity\Skill $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\Skill
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

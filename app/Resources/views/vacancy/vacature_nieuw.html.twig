@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vacature Aanmaken{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.startdate) }}
+        {{ form_row(form.enddate) }}
+    {{ form_end(form) }}
+
+    {% for flash_message in app.session.flashbag.get('success-notice') %}
+        <div class="success-notice">
+            <script type="text/javascript">alert("{{ flash_message }}");</script>
+        </div>
+    {% endfor %}
+{% endblock %}

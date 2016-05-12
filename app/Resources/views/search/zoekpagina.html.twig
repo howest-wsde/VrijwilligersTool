@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Zoeken{% endblock %}
+
+{% block search_term %}{{searchTerm}}{% endblock %}
+
+{% block body %}
+	<h1>Zoeken</h1>
+	<h3>Filters</h3>
+	{{ form_start(form) }}
+        {{ form_errors(form) }}
+
+
+        {{ form_row(form.term) }}
+        {{ form_row(form.person) }}
+		{{ form_row(form.organisation) }}
+		{{ form_row(form.vacancy) }}
+    {{ form_end(form) }}
+
+	{% if results|length == 0 %}
+		<p>Er werden geen resultaten gevonden</p>
+   	{% else %}
+		<ul>
+		    {% for result in results %}
+		        <li>
+		    		{% if (result.isoftype("Person")) %}
+						{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
+					{% elseif (result.isoftype("Vacancy")) %}
+						{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
+					{% elseif (result.isoftype("Organisation")) %}
+						{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
+					{% else %}
+						{#{ dump(result) }#}
+					{% endif %}
+				</li>
+		    {% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}

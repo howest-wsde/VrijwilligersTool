@@ -1,0 +1,23 @@
+AppBundle\Entity\Candidacy:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        state:
+            type: smallint
+            nullable: true
+    manyToOne:
+        candidate:
+            targetEntity: Person
+            inversedBy: candidacies
+            joinColumn:
+                name: candidate
+                referencedColumnName: id
+        vacancy:
+            targetEntity: Vacancy
+            inversedBy: candidacies
+            joinColumn:
+                name: vacancy
+                referencedColumnName: id  

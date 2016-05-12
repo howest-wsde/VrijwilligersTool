@@ -6,68 +6,57 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Form\UserType;
+use AppBundle\Entity\Person;
+use AppBundle\Entity\Form\PersonType;
 
 class SecurityController extends Controller
 {
     /**
-    * @Route("/register", name="register_user")
+    * @Route("/vrijwilliger_worden", name="register_user")
     */
     public function registerAction(Request $request)
     {
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
-        $user = new Volunteer();
-        $form = $this->createForm(UserType::class, $user);
-
+        $user = new Person();
+        $form = $this->createForm(PersonType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $password = $this->get('security.password_encoder')
+            $password = $this->get("security.password_encoder")
                              ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
-            return $this->redirectToRoute("status_testing");
+            return $this->redirectToRoute("vacaturesopmaat");
         }
-
         return $this->render(
-           'security/register.html.twig',
-           array('form' => $form->createView())
-       );
+           "person/maakprofiel.html.twig",
+           ["form" => $form->createView()] );
     }
-
     /**
-    * @Route("/login", name="login_testing")
+    * @Route("/login", name="login")
     */
     public function loginAction(Request $request)
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
-
+        $authenticationUtils = $this->get("security.authentication_utils");
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render(
-            'security/login.html.twig',
+            "security/login.html.twig",
             array(
                 // last username entered by the user
-                'last_username' => $lastUsername,
-                'error'         => $error,
+                "last_username" => $lastUsername,
+                "error"         => $error,
             )
         );
     }
-
-
     /**
     * @Route("/status", name="status_testing")
     */
     public function statusAction(){
-        return $this->render('security/loginstatus.html.twig');
+        return $this->render("security/loginstatus.html.twig");
     }
 }
