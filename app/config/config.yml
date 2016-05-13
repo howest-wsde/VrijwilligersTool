@@ -78,6 +78,12 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+# Routing bundle
+jms_i18n_routing:
+    default_locale: nl
+    locales: [nl, en]
+    strategy: prefix_except_default
+
 services:
     # Injectors
     ElasticsearchQuery:

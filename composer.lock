@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9e0bba55af4f58b19e4f5ffe6d81aa1",
+    "hash": "1e6191a345d6f030ad718a5b9416cab4",
+    "content-hash": "90093479f4d0e74d0008ea867ff3e450",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -832,12 +833,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSElasticaBundle.git",
-                "reference": "ffac41a74fbe1291c573b73ca05f3127a0ce9e21"
+                "reference": "fef1f2c6237616843e01ab55920d24bdef516805"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/ffac41a74fbe1291c573b73ca05f3127a0ce9e21",
-                "reference": "ffac41a74fbe1291c573b73ca05f3127a0ce9e21",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/fef1f2c6237616843e01ab55920d24bdef516805",
+                "reference": "fef1f2c6237616843e01ab55920d24bdef516805",
                 "shasum": ""
             },
             "require": {
@@ -907,7 +908,7 @@
                 "propel",
                 "search"
             ],
-            "time": "2016-04-28 10:46:44"
+            "time": "2016-05-05 10:19:12"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -1112,6 +1113,62 @@
             "time": "2014-01-12 16:20:24"
         },
         {
+            "name": "jms/i18n-routing-bundle",
+            "version": "2.0.0",
+            "target-dir": "JMS/I18nRoutingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSI18nRoutingBundle.git",
+                "reference": "9e87d4da564069ffe67234c4326e138236519fc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSI18nRoutingBundle/zipball/9e87d4da564069ffe67234c4326e138236519fc2",
+                "reference": "9e87d4da564069ffe67234c4326e138236519fc2",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "jms/di-extra-bundle": "~1.1",
+                "phpunit/phpunit": "~4",
+                "sensio/framework-extra-bundle": "*",
+                "symfony/symfony": "~2.3|~3.0"
+            },
+            "suggest": {
+                "jms/translation-bundle": "If you want to use the RouteTranslation extractor"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "JMS\\I18nRoutingBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Albert Casademont",
+                    "email": "albertcasademont@gmail.com"
+                }
+            ],
+            "description": "This bundle allows you to create i18n routes. Fork of the jms/i18n-routing-bundle",
+            "homepage": "http://jmsyst.com/bundles/JMSI18nRoutingBundle",
+            "keywords": [
+                "multilanguage",
+                "routing",
+                "translation"
+            ],
+            "time": "2015-12-01 23:14:47"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.19.0",
             "source": {
@@ -1277,16 +1334,16 @@
         },
         {
             "name": "react/promise",
-            "version": "v2.4.0",
+            "version": "v2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "f942da7b505d1a294284ab343d05df42d02ad6d9"
+                "reference": "8025426794f1944de806618671d4fa476dc7626f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/f942da7b505d1a294284ab343d05df42d02ad6d9",
-                "reference": "f942da7b505d1a294284ab343d05df42d02ad6d9",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/8025426794f1944de806618671d4fa476dc7626f",
+                "reference": "8025426794f1944de806618671d4fa476dc7626f",
                 "shasum": ""
             },
             "require": {
@@ -1317,7 +1374,7 @@
                 }
             ],
             "description": "A lightweight implementation of CommonJS Promises/A for PHP",
-            "time": "2016-03-31 13:10:33"
+            "time": "2016-05-03 17:50:52"
         },
         {
             "name": "royopa/fpdf-symfony2",
@@ -1576,16 +1633,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.1",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
             "require": {
@@ -1625,7 +1682,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-06-06 14:19:39"
+            "time": "2016-05-01 08:45:47"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2030,16 +2087,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.0.4",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "4e17cb2ecb3fd637097ebeb871fc0e2cbdd5e7ff"
+                "reference": "a821ed51b87f5ceda834140e5f0c06e9547a86d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4e17cb2ecb3fd637097ebeb871fc0e2cbdd5e7ff",
-                "reference": "4e17cb2ecb3fd637097ebeb871fc0e2cbdd5e7ff",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/a821ed51b87f5ceda834140e5f0c06e9547a86d4",
+                "reference": "a821ed51b87f5ceda834140e5f0c06e9547a86d4",
                 "shasum": ""
             },
             "require": {
@@ -2122,7 +2179,11 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Bridge\\": "src/Symfony/Bridge/",
+                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
+                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
+                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
+                    "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
+                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
                     "Symfony\\Bundle\\": "src/Symfony/Bundle/",
                     "Symfony\\Component\\": "src/Symfony/Component/"
                 },
@@ -2152,7 +2213,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-03-30 10:41:14"
+            "time": "2016-05-09 22:13:31"
         },
         {
             "name": "twig/twig",
@@ -2219,16 +2280,16 @@
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "e3abefcd7f106677fd352cd7c187d6c969aa9ddc"
+                "reference": "a8773992b362b58498eed24bf85005f363c34771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/e3abefcd7f106677fd352cd7c187d6c969aa9ddc",
-                "reference": "e3abefcd7f106677fd352cd7c187d6c969aa9ddc",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a8773992b362b58498eed24bf85005f363c34771",
+                "reference": "a8773992b362b58498eed24bf85005f363c34771",
                 "shasum": ""
             },
             "require": {
@@ -2257,7 +2318,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2015-11-07 22:20:37"
+            "time": "2015-11-20 12:04:31"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -2523,20 +2584,23 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b"
+                "reference": "38e9124049cf1a164f1e4537caf19c99bf1eb260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
-                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/38e9124049cf1a164f1e4537caf19c99bf1eb260",
+                "reference": "38e9124049cf1a164f1e4537caf19c99bf1eb260",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4|~5"
             },
             "type": "library",
             "autoload": {
@@ -2560,7 +2624,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2015-06-21 08:01:12"
+            "time": "2016-05-12 18:03:57"
         },
         {
             "name": "phpunit/php-token-stream",
@@ -2905,16 +2969,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf"
+                "reference": "2292b116f43c272ff4328083096114f84ea46a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
-                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/2292b116f43c272ff4328083096114f84ea46a56",
+                "reference": "2292b116f43c272ff4328083096114f84ea46a56",
                 "shasum": ""
             },
             "require": {
@@ -2951,7 +3015,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-02-26 18:40:46"
+            "time": "2016-05-04 07:59:13"
         },
         {
             "name": "sebastian/exporter",
@@ -3308,16 +3372,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.0.4",
+            "version": "v3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "b097218e4ab7724e7ec0c420e96dfd70518c2354"
+                "reference": "3231629ff97abccd60f93ff900accfb5b39c8200"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/b097218e4ab7724e7ec0c420e96dfd70518c2354",
-                "reference": "b097218e4ab7724e7ec0c420e96dfd70518c2354",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/3231629ff97abccd60f93ff900accfb5b39c8200",
+                "reference": "3231629ff97abccd60f93ff900accfb5b39c8200",
                 "shasum": ""
             },
             "require": {
@@ -3359,7 +3423,7 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2016-03-23 13:46:08"
+            "time": "2016-04-12 18:09:53"
         }
     ],
     "aliases": [],
