@@ -9,10 +9,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"name"}, message = "organisation.name.already_used")
- * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
  */
-class Organisation
+class Organisation extends EntityBase
 {
     /**
      * @var int
@@ -39,6 +39,8 @@ class Organisation
      *      max = 2000,
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy.max_message"
+     * )
+     * @Assert\NotEqualTo("nieuw")
      * )
     */
     private $description;
@@ -69,9 +71,9 @@ class Organisation
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
-     *     message="organisation.not_numeric"
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
      *      min = 0,
@@ -90,20 +92,20 @@ class Organisation
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="organisation.bus.valid"
+     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
+     *     message = "organisation.bus.valid"
      * )
      */
     private $bus;
 
     /**
      * @var int
-     * @Assert\Type(
-     *     type="integer",
-     *     message="organisation.not_numeric"
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
-     *      min = 0,
+     *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
      *      maxMessage = "not_more_than"
@@ -126,6 +128,35 @@ class Organisation
      * )
      */
     private $city;
+
+    /**
+     * @var string
+     */
+    private $urlid;
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->urlid = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->urlid;
+    }
 
     /**
      * @var string
@@ -161,7 +192,6 @@ class Organisation
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -276,9 +306,8 @@ class Organisation
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName(),
@@ -488,23 +517,55 @@ class Organisation
     }
 
     /**
-     * Get name for url
-     *
-     * @return string
+     * Constructor
      */
-    public function getNameUrl()
+    public function __construct()
     {
-        return str_replace(" ", "-", $this->name);
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Get the class name
+     * Add vacancy
      *
-     * @return string
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Organisation
      */
-    public function getClassName()
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
     {
-        $reflect = new \ReflectionClass($this);
-        return $reflect->getShortName();
+        $this->vacancies[] = $vacancy;
+
+        return $this;
     }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
+
+    public function normaliseUrlId($em)
+    {
+        if (!is_null($this->getUrlId()))
+        {
+            $encoder = new UrlEncoder($em);
+            $this->setUrlId($encoder->encode($this, $this->getName()));
+        }
+    }
+
+
 }

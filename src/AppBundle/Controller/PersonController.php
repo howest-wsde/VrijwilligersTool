@@ -17,14 +17,13 @@ class PersonController extends controller
      * @Security("has_role('ROLE_USER')")
      * @Route("/persoon/{username}", name="person_username")
      */
-    public function ViewPersonUsernameAction($username)
+    public function personViewAction($username)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
             ->findOneByUsername($username);
-        return $this->render('person/persoon.html.twig', array(
-            "person" => $person
-        ));
+        return $this->render('person/persoon.html.twig',
+            ["person" => $person]);
     }
 
     /**
@@ -51,7 +50,6 @@ class PersonController extends controller
                         ->getRepository("AppBundle:Person")
                         ->findBy(array(), array('id' => 'DESC'), $nr);
         return $this->render('person/recente_vrijwilligers.html.twig',
-            array('persons' => $entities)
-        );
+            ['persons' => $entities]);
     }
 }

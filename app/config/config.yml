@@ -93,3 +93,13 @@ services:
             - [setHost, ["%elasticsearch_host%"]]
             - [setPort, ["%elasticsearch_port%"]]
             - [create]
+
+    UrlEncoder:
+        class: AppBundle\UrlEncoder\UrlEncoder
+        calls:
+            - [setEm, ["@doctrine.orm.entity_manager"]]
+    # Services
+    url.listener:
+        class: AppBundle\EventListener\UrlListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

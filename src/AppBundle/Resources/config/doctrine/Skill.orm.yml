@@ -8,6 +8,7 @@ AppBundle\Entity\Skill:
         name:
             type: string
             length: 100
+            unique: true
     manyToOne:
         parent:
             nullable: true
@@ -15,4 +16,3 @@ AppBundle\Entity\Skill:
             joinColumn:
                 name: parent_id
                 referencedColumnName: id
-    
