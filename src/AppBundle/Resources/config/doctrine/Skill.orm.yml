@@ -16,3 +16,7 @@ AppBundle\Entity\Skill:
             joinColumn:
                 name: parent_id
                 referencedColumnName: id
+    manyToMany:
+        vacancies:
+            targetEntity: Vacancy
+            mappedBy: skills
