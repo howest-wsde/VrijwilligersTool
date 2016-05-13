@@ -75,6 +75,14 @@ class VacancyController extends controller
     }
 
     /**
+     * @Route("/vacature_by_skill/{skill}", name="vacancy_by_skill")
+     */
+    public function vacancyBySkillAction($skill)
+    {
+        return new Response("vacancy by skill".$skill);
+    }
+
+    /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      */
@@ -97,10 +105,25 @@ class VacancyController extends controller
 
     public function listRecentVacanciesAction($nr)
     {
-        $entities = $this->getDoctrine()
+        $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
         return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $entities]);
+            ["vacancies" => $vacancies]);
+    }
+
+    public function listParentSkillsAction($nr)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository("AppBundle:Skill");
+
+        $query = $repository->createQueryBuilder("s")
+            ->where("s.parent IS NULL")
+            ->addOrderBy("s.id", "DESC")
+            ->addOrderBy("s.name", "ASC")
+            ->getQuery();
+
+        return $this->render("vacancy/recente_vacatures.html.twig",
+            ["skills" => $query->getResult()]);
     }
 }
