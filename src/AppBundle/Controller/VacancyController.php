@@ -123,7 +123,9 @@ class VacancyController extends controller
             ->addOrderBy("s.name", "ASC")
             ->getQuery();
 
-        return $this->render("vacancy/recente_vacatures.html.twig",
+        $query->setMaxResults($nr);
+
+        return $this->render("skill/recente_categoriën.html.twig",
             ["skills" => $query->getResult()]);
     }
 }
