@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
@@ -72,15 +73,7 @@ class VacancyController extends controller
             ->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
-    }
-
-    /**
-     * @Route("/vacature_by_skill/{skill}", name="vacancy_by_skill")
-     */
-    public function vacancyBySkillAction($skill)
-    {
-        return new Response("vacancy by skill".$skill);
-    }
+    }    
 
     /**
      * @Security("has_role('ROLE_USER')")

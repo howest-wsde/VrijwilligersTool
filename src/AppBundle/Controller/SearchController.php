@@ -58,13 +58,20 @@ class SearchController extends Controller
         $form->handleRequest($request);
 
         $searchTerm = $request->query->get("q");
+        $searchCategory = $request->query->get("q"):
         $results = null;
         if ($searchTerm)
         {
             $results = $this->plainSearch($searchTerm);
         }
-
-        if ($form->isSubmitted() && $form->isValid())
+        else if ($searchCategory)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $vacancy = $em->getRepository("AppBundle:Vacancy")
+                ->findOneByUrlId($urlid);
+                // where skill = cat
+        }
+        else if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
 
