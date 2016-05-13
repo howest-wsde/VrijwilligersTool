@@ -80,7 +80,7 @@ class VacancyController extends controller
      */
     public function subscribeVacancy($urlid)
     {
-        $person = $this->get('security.token_storage')->getToken()->getUser();
+        $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
