@@ -66,7 +66,7 @@ class SearchController extends Controller
         else if ($request->query->get("cat"))
         {
             $cat = urldecode($request->query->get("cat"));
-            
+
             $em = $this->getDoctrine()->getManager();
             $parentCategory = $em->getRepository("AppBundle:Skill")
                 ->findOneByName($cat);
@@ -79,10 +79,8 @@ class SearchController extends Controller
                 ->getResult();
 
             $allvacancies = [];
-            foreach ($childCategories as $category)
-            {
-                foreach ($category->getVacancies() as $vacancy)
-                {
+            foreach ($childCategories as $category) {
+                foreach ($category->getVacancies() as $vacancy) {
                     if(!in_array($vacancy, $allvacancies))
                     {
                         $allvacancies[] = $vacancy;
