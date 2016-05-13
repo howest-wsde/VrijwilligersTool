@@ -2,4 +2,4 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation 
 logout:
-    path: /{_locale}/logout
+    path: /logout
