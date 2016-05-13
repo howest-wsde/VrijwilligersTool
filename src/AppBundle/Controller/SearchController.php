@@ -66,16 +66,29 @@ class SearchController extends Controller
         else if ($request->query->get("cat"))
         {
             $em = $this->getDoctrine()->getManager();
-            $category = $em->getRepository("AppBundle:Skill")
+            $parentCategory = $em->getRepository("AppBundle:Skill")
                 ->findOneByName($request->query->get("cat"));
 
-            dump($category);
-            $vacancies = $category->getVacancies();
-            dump($vacancies);
-            foreach ($vacancies as $vacancy) {
-                dump($vacancy);
+            $childCategories = $em->getRepository("AppBundle:Skill")
+                ->createQueryBuilder("s")
+                ->where("s.parent = :parent")
+                ->setParameter("parent", $parentCategory)
+                ->getQuery()
+                ->getResult();
+
+            $allvacancies = [];
+            foreach ($childCategories as $category)
+            {
+                foreach ($category->getVacancies() as $vacancy)
+                {
+                    if(!in_array($vacancy, $allvacancies))
+                    {
+                        $allvacancies[] = $vacancy;
+                    }
+                }
             }
-            return new Response();
+
+            $results = $allvacancies;
         }
         else if ($form->isSubmitted() && $form->isValid())
         {
