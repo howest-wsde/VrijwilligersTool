@@ -65,9 +65,11 @@ class SearchController extends Controller
         }
         else if ($request->query->get("cat"))
         {
+            $cat = urldecode($request->query->get("cat"));
+            
             $em = $this->getDoctrine()->getManager();
             $parentCategory = $em->getRepository("AppBundle:Skill")
-                ->findOneByName($request->query->get("cat"));
+                ->findOneByName($cat);
 
             $childCategories = $em->getRepository("AppBundle:Skill")
                 ->createQueryBuilder("s")
