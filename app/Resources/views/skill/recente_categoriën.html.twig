@@ -1,6 +1,6 @@
 <header><h1>Vacature types</h1></header>
 <ul>
 	{% for skill in skills %}
-		<li><a href="{{ path("vacancy_by_skill", { "skill": skill.name }) }}">{{ skill.name }} </a></li>
+		<li><a href="{{ path("zoeken", { "cat": skill.name }) }}">{{ skill.name }} </a></li>
 	{% endfor %}
 </ul>
