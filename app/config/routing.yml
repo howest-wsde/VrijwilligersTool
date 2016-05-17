@@ -7,7 +7,7 @@ hwi_oauth_redirect:
     prefix:   /connect
  
 google_login:
-    path: /login/check-google
+    path: /login/google
 
 app:
     resource: "@AppBundle/Controller/"
