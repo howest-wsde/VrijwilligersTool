@@ -19,6 +19,8 @@ class OAuthProvider extends OAuthUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
+        dump($response); 
+
         //Data from response 
         $email = $response->getEmail();
         $nickname = $response->getNickname(); 
@@ -50,8 +52,8 @@ class OAuthProvider extends OAuthUserProvider
             $person->setPassword($password);
  
             $em = $this->doctrine->getManager();
-            $em->persist($person);
-            $em->flush();
+ //           $em->persist($person);
+ //           $em->flush();
         } else {
             $person = $result[0];  
         }
