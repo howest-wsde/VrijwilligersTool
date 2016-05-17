@@ -2,14 +2,6 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Login{% endblock %}
-{% block head %}
-<script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key:   {{ linkedin_id }}
-    onLoad:    SocialMediaLogin.linkedin.onlLinkedInLoad
-    authorize: false
-    lang:      en_US
-</script>
-{% endblock %}
 
 {% block body %}
     {% if error %}
@@ -28,7 +20,8 @@
 
         <button type="submit">login</button>
     </form>
-    <p><a href="{{ path("register_user") }}">maak een account</a></p>
+ 
+    <p><a href="{{ path('register_user') }}">Maak een account</a></p>
 
     <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
     </fb:login-button>

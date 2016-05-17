@@ -16,3 +16,8 @@
 	    <button type="submit">Register</button>
 	{{ form_end(form) }}
 {% endblock %}
+
+{% block javascripts %}
+	{{  parent() }}
+	<script src="{{ asset('js/validation.js') }}"></script>
+{% endblock %}
