@@ -34,7 +34,8 @@ class PersonType extends AbstractType
             ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",
-                "attr" => array("placeholder" => "person.label.email")
+                "attr" => array("placeholder" => "person.label.email"),
+                "required" => false
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
@@ -59,7 +60,8 @@ class PersonType extends AbstractType
             ))
             ->add("telephone", TextType::class, array(
                 "label" => "person.label.telephone",
-                "attr" => array("placeholder" => "person.label.telephone")
+                "attr" => array("placeholder" => "person.label.telephone"),
+                "required" => false
             ))
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",
