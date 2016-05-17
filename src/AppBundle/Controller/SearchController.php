@@ -78,7 +78,6 @@ class SearchController extends Controller
                 ->getResult();
 
             $allvacancies = [];
-            // move to SkillRepository
             foreach ($childCategories as $category) {
                 foreach ($category->getVacancies() as $vacancy) {
                     if(!in_array($vacancy, $allvacancies))
