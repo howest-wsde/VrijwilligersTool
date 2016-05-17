@@ -1,0 +1,23 @@
+AppBundle\Entity\SearchFilter:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        term:
+            type: string
+            length: 200
+        person:
+            type: boolean
+        organisation:
+            type: boolean
+        vacancy:
+            type: boolean
+    manyToOne:
+        owner:
+            targetEntity: Person
+            inversedBy: searchFilters
+            joinColumn:
+                name: owner
+                referencedColumnName: id

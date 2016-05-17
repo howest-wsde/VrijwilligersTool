@@ -56,6 +56,9 @@ AppBundle\Entity\Person:
         candidacies:
             targetEntity: Candidacy
             mappedBy: candidate
+        searchFilters:
+            targetEntity: SearchFilter
+            mappedBy: owner
     manyToMany:
         skills:
             targetEntity: Skill

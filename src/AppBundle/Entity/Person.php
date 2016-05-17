@@ -216,6 +216,11 @@ class Person extends EntityBase implements UserInterface, \Serializable
     private $organisation;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $searchFilters;
+
+    /**
      * Constructor
      */
     public function __construct()
