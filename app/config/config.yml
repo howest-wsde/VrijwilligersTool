@@ -91,7 +91,7 @@ hwi_oauth:
             type:                facebook
             client_id:        "%facebook_app_id%"
             client_secret:     "%facebook_app_secret%"
-            scope:               ""
+            scope:               "email"
 
 
 services:

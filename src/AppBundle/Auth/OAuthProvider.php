@@ -16,25 +16,16 @@ class OAuthProvider extends OAuthUserProvider
         $this->container = $service_container;
     }
  
+
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        //Data from Google response
-        $google_id = $response->getUsername(); /* An ID like: 112259658235204980084 */
+        //Data from response 
         $email = $response->getEmail();
-        $nickname = $response->getNickname();
-        $realname = $response->getRealName();
+        $nickname = $response->getNickname(); 
         $firstname = $response->getFirstName();
-        $lastname = $response->getLastName();
-        $avatar = $response->getProfilePicture();
-
-        //set data in session
-        $this->session->set('email', $email);
-        $this->session->set('nickname', $nickname);
-        $this->session->set('realname', $realname);
-        $this->session->set('avatar', $avatar);
+        $lastname = $response->getLastName(); 
  
         //Check if this Google user already exists in our app DB
- 
         $qb = $this->doctrine->getManager()->createQueryBuilder();
         $qb->select('u')
             ->from('AppBundle:Person', 'u')
