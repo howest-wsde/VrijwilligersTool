@@ -169,7 +169,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
     {
         $telephone = str_replace(' ', '', $org->getTelephone());
 
-        if (!is_numeric($telephone)
+        if (!ctype_digit($telephone)
         or !strlen($telephone) == 10)
         {
             $context->buildViolation("person.telephone.valid")
