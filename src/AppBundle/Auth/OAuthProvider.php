@@ -18,7 +18,7 @@ class OAuthProvider extends OAuthUserProvider
  
     public function loadUserByUsername($username)
     {
- 
+        /*
         $qb = $this->doctrine->getManager()->createQueryBuilder();
         $qb->select('u')
             ->from('FoggylineTickerBundle:User', 'u')
@@ -32,6 +32,7 @@ class OAuthProvider extends OAuthUserProvider
         } else {
             return new User();
         }
+        */
     }
  
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
@@ -50,22 +51,21 @@ class OAuthProvider extends OAuthUserProvider
         $this->session->set('avatar', $avatar);
  
         //Check if this Google user already exists in our app DB
+ 
         $qb = $this->doctrine->getManager()->createQueryBuilder();
         $qb->select('u')
-            ->from('FoggylineTickerBundle:User', 'u')
-            ->where('u.googleId = :gid')
-            ->setParameter('gid', $google_id)
+            ->from('AppBundle:Person', 'u')
+            ->where('u.email = :gmail')
+            ->setParameter('gmail', $email)
             ->setMaxResults(1);
         $result = $qb->getQuery()->getResult();
  
         //add to database if doesn't exists
         if (!count($result)) {
-            $user = new User();
-            $user->setUsername($google_id);
-            $user->setRealname($realname);
-            $user->setNickname($nickname);
+            $person = new Person(); 
+            $user->setFirstname($realname);
+            $user->setUsername($nickname);
             $user->setEmail($email);
-            $user->setGoogleId($google_id);
             //$user->setRoles('ROLE_USER');
  
             //Set some wild random pass since its irrelevant, this is Google login
@@ -78,7 +78,7 @@ class OAuthProvider extends OAuthUserProvider
             $em->persist($user);
             $em->flush();
         } else {
-            $user = $result[0]; /* return User */
+            $user = $result[0];  
         }
  
         //set id
