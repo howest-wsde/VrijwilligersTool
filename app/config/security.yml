@@ -48,6 +48,7 @@ security:
             oauth:
                 resource_owners:
                     google: "/login/check-google"
+                    facebook: "/login/check-facebook"
                 login_path: /login
                 failure_path: /login
                 oauth_user_provider:

@@ -7,7 +7,12 @@ hwi_oauth_redirect:
     prefix:   /connect
  
 google_login:
-    path: /login/google
+    path: /login/check-google
+
+oaut_google: 
+  path: /connect/google
+oaut_facebook: 
+  path: /connect/facebook
 
 app:
     resource: "@AppBundle/Controller/"
