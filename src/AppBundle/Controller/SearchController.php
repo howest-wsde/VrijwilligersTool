@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Form\SearchFilter;
+use AppBundle\Entity\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
