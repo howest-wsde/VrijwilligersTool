@@ -19,8 +19,8 @@ class OAuthProvider extends OAuthUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        var_dump($response); 
-        exit(); 
+     //   var_dump($response); 
+      //  exit(); 
 
         //Data from response 
         $email = $response->getEmail();
