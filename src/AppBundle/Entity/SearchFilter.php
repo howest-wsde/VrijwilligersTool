@@ -1,9 +1,11 @@
 <?php
 
-namespace AppBundle\Entity\Form;
+namespace AppBundle\Entity;
 
 class SearchFilter
 {
+    private $id;
+    private $owner;
     private $term;
     private $person = true;
     private $organisation = true;
@@ -56,5 +58,4 @@ class SearchFilter
 
         return $this;
     }
-
 }
