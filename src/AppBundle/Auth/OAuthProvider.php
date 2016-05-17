@@ -59,8 +59,8 @@ class OAuthProvider extends OAuthUserProvider
         }
  
         //set id
-        $this->session->set('id', $person->getId());
+ //       $this->session->set('id', $person->getId());
         
-        return $person;
+ //       return $person;
     }
 }
