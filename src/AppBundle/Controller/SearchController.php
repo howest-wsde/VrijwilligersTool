@@ -68,17 +68,17 @@ class SearchController extends Controller
             $cat = urldecode($request->query->get("cat"));
 
             $em = $this->getDoctrine()->getManager();
-            $parentCategory = $em->getRepository("AppBundle:Skill")
-                ->findOneByName($cat);
 
             $childCategories = $em->getRepository("AppBundle:Skill")
-                ->createQueryBuilder("s")
-                ->where("s.parent = :parent")
-                ->setParameter("parent", $parentCategory)
+                ->createQueryBuilder("s1")
+                ->join("AppBundle:Skill", "s2", "WITH", "s2.parent = s1")
+                ->where("s1.name = :parentName")
+                ->setParameter("parentName", $cat)
                 ->getQuery()
                 ->getResult();
 
             $allvacancies = [];
+            // move to SkillRepository
             foreach ($childCategories as $category) {
                 foreach ($category->getVacancies() as $vacancy) {
                     if(!in_array($vacancy, $allvacancies))
