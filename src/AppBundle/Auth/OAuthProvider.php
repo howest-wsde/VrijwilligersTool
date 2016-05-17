@@ -43,8 +43,7 @@ class OAuthProvider extends OAuthUserProvider
         $nickname = $response->getNickname();
         $realname = $response->getRealName();
         $avatar = $response->getProfilePicture();
- 
-  $this->session->set('temp', $response);
+ var_dump($response);
 
         //set data in session
         $this->session->set('email', $email);
