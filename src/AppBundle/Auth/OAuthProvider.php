@@ -63,26 +63,26 @@ class OAuthProvider extends OAuthUserProvider
         //add to database if doesn't exists
         if (!count($result)) {
             $person = new Person(); 
-            $user->setFirstname($realname);
-            $user->setUsername($nickname);
-            $user->setEmail($email);
+            $person->setFirstname($realname);
+            $person->setUsername($nickname);
+            $person->setEmail($email);
             //$user->setRoles('ROLE_USER');
  
             //Set some wild random pass since its irrelevant, this is Google login
             $factory = $this->container->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user);
-            $password = $encoder->encodePassword(md5(uniqid()), $user->getSalt());
-            $user->setPassword($password);
+            $encoder = $factory->getEncoder($person);
+            $password = $encoder->encodePassword(md5(uniqid()), $person->getSalt());
+            $person->setPassword($password);
  
             $em = $this->doctrine->getManager();
-            $em->persist($user);
+            $em->persist($person);
             $em->flush();
         } else {
             $user = $result[0];  
         }
  
         //set id
-        $this->session->set('id', $user->getId());
+        $this->session->set('id', $person->getId());
  
         return $this->loadUserByUsername($response->getUsername());
     }
