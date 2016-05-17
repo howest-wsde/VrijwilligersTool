@@ -16,25 +16,6 @@ class OAuthProvider extends OAuthUserProvider
         $this->container = $service_container;
     }
  
-    public function loadUserByUsername($username)
-    {
-        /*
-        $qb = $this->doctrine->getManager()->createQueryBuilder();
-        $qb->select('u')
-            ->from('FoggylineTickerBundle:User', 'u')
-            ->where('u.googleId = :gid')
-            ->setParameter('gid', $username)
-            ->setMaxResults(1);
-        $result = $qb->getQuery()->getResult();
- 
-        if (count($result)) {
-            return $result[0];
-        } else {
-            return new User();
-        }
-        */
-    }
- 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         //Data from Google response
@@ -81,12 +62,12 @@ class OAuthProvider extends OAuthUserProvider
             $em->persist($person);
             $em->flush();
         } else {
-            $user = $result[0];  
+            $person = $result[0];  
         }
  
         //set id
         $this->session->set('id', $person->getId());
- 
-        return $this->loadUserByUsername($response->getUsername());
+        
+        return $person;
     }
 }
