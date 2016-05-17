@@ -6,8 +6,7 @@ $(function(){
         "display":"block",
         "margin":"5px 0 5px 0"
     });
-
-    console.log($("article").text());
+    
     //email
     $("#email").on("click",function(){
         var email = "ontvanger@vacature.com";
