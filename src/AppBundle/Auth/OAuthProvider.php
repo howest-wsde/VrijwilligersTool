@@ -19,7 +19,8 @@ class OAuthProvider extends OAuthUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        dump($response); 
+        var_dump($response); 
+        exit(); 
 
         //Data from response 
         $email = $response->getEmail();
@@ -27,7 +28,7 @@ class OAuthProvider extends OAuthUserProvider
         $firstname = $response->getFirstName();
         $lastname = $response->getLastName(); 
  
-        //Check if this Google user already exists in our app DB
+        //Check if this user already exists in our app DB
         $qb = $this->doctrine->getManager()->createQueryBuilder();
         $qb->select('u')
             ->from('AppBundle:Person', 'u')
@@ -52,15 +53,15 @@ class OAuthProvider extends OAuthUserProvider
             $person->setPassword($password);
  
             $em = $this->doctrine->getManager();
- //           $em->persist($person);
- //           $em->flush();
+            $em->persist($person);
+            $em->flush();
         } else {
             $person = $result[0];  
         }
  
         //set id
- //       $this->session->set('id', $person->getId());
+        $this->session->set('id', $person->getId());
         
- //       return $person;
+        return $person;
     }
 }
