@@ -35,7 +35,7 @@ organisation:
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
-        valid: Gelieve een geldig e-mailaddres in te geven.
+        valid: Gelieve een geldig e-mailadres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam

@@ -16,6 +16,8 @@
         <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}"    >
+        <input type="hidden" name="_target_path" value="self_profile" />
+
         <button type="submit">login</button>
     </form>
  
