@@ -30,7 +30,8 @@ class PersonType extends AbstractType
             ))
             ->add("username", TextType::class, array(
                 "label" => "person.label.username",
-                "attr" => array("placeholder" => "person.label.username")
+                "attr" => array("placeholder" => "person.label.username",
+                                "pattern" => "^[^ /]+$")
             ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",

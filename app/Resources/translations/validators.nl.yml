@@ -29,6 +29,9 @@ organisation:
     bus:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
+        valid: Gelieve een geldig telefoonnummer in te geven.
+    email:
+        valid: Gelieve een geldig e-mailadres in te geven.
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
