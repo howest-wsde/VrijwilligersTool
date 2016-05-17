@@ -5,11 +5,6 @@ hwi_oauth_login:
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect
- 
-google_login:
-    path: /login/check-google
-facebook_login:
-    path: /login/check-facebook
 
 oaut_google: 
   path: /connect/google
