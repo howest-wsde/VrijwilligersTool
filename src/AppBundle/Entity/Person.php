@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validateTelephone"})
+ * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
  */
 class Person extends EntityBase implements UserInterface, \Serializable
 {
@@ -71,10 +71,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\Email(
-     *     message = "person.email.valid",
-     *     checkHost = true
-     * )
      */
     private $email;
 
@@ -165,17 +161,47 @@ class Person extends EntityBase implements UserInterface, \Serializable
      */
     private $telephone;
 
-    public static function validateTelephone($org, ExecutionContextInterface  $context)
+    public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
     {
-        $telephone = str_replace(' ', '', $org->getTelephone());
-
-        if (!ctype_digit($telephone)
-        or !strlen($telephone) == 10)
+        $fiels = 0;
+        if ($org->getTelephone())
         {
-            $context->buildViolation("person.telephone.valid")
+            $fields++;
+
+            $telephone = str_replace(' ', '', $org->getTelephone());
+
+            if (!ctype_digit($telephone)
+            or !strlen($telephone) == 10)
+            {
+                $context->buildViolation("person.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+        }
+        if ($org->getEmail())
+        {
+            $fields++;
+
+            $email = new Assert\Email();
+            $email->checkHost = true;
+            $email->message = "person.email.valid";
+
+            $errorList = $this->get('validator')->validateValue(
+                $org->getEmail(),
+                $email
+            );
+        }
+
+        if ($fields < 0)
+        {
+            $context->buildViolation("person.one_of_both")
                 ->atPath("telephone")
                 ->addViolation();
+            $context->buildViolation("person.one_of_both")
+                ->atPath("email")
+                ->addViolation();
         }
+
     }
 
     /**
