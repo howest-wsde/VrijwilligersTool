@@ -42,10 +42,7 @@ class OAuthProvider extends OAuthUserProvider
         $email = $response->getEmail();
         $nickname = $response->getNickname();
         $realname = $response->getRealName();
-        $firstname = $response->getFirstName(); 
-        $lastname = $response->getLastName();  
         $avatar = $response->getProfilePicture();
- //var_dump($response);
 
         //set data in session
         $this->session->set('email', $email);
@@ -67,8 +64,6 @@ class OAuthProvider extends OAuthUserProvider
         if (!count($result)) {
             $person = new Person(); 
             $person->setFirstname($realname);
-            $person->setFirstname($firstname);
-            $person->setLastname($lastname);
             $person->setUsername($nickname);
             $person->setEmail($email);
             //$user->setRoles('ROLE_USER');
