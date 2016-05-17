@@ -1,0 +1,11 @@
+<ul>
+{% for searchFilter in searchFilters %}
+    <li>
+        <div class="recentSearch" >{{ searchFilter.term|slice(0,100) }}
+            <input type="hidden" name="person" value="{{ searchFilter.person }}" />
+            <input type="hidden" name="organisation" value="{{ searchFilter.organisation }}" />
+            <input type="hidden" name="vacancy" value="{{ searchFilter.vacancy }}" />
+        </div>
+    </li>
+{% endfor %}
+</ul>
