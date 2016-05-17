@@ -71,6 +71,10 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     /**
      * @var string
+     * @Assert\Email(
+     *     message = "person.email.valid",
+     *     checkHost = true
+     * )
      */
     private $email;
 
@@ -163,7 +167,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
     public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
     {
-        $fiels = 0;
+        $fields = 0;
         if ($org->getTelephone())
         {
             $fields++;
@@ -182,17 +186,10 @@ class Person extends EntityBase implements UserInterface, \Serializable
         {
             $fields++;
 
-            $email = new Assert\Email();
-            $email->checkHost = true;
-            $email->message = "person.email.valid";
-
-            $errorList = $this->get('validator')->validateValue(
-                $org->getEmail(),
-                $email
-            );
+            // other validators are enabled with annotations
         }
 
-        if ($fields < 0)
+        if ($fields <= 0)
         {
             $context->buildViolation("person.one_of_both")
                 ->atPath("telephone")
@@ -201,7 +198,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
                 ->atPath("email")
                 ->addViolation();
         }
-
     }
 
     /**
