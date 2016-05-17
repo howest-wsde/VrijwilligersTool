@@ -17,6 +17,15 @@
 		{{ form_row(form.vacancy) }}
     {{ form_end(form) }}
 
+	{% if app.user %}
+	<div id="recentSearches">
+		<h3>Recente zoekopdrachten</h3>
+		{{ render(controller("AppBundle:SearchFilter:listRecentSearchFilters", { "nr": 5 } )) }}
+	</div>
+	<div id="savedSearches">
+	</div>
+	{% endif %}
+
 	{% if results|length == 0 %}
 		<p>Er werden geen resultaten gevonden</p>
    	{% else %}
@@ -36,4 +45,9 @@
 		    {% endfor %}
 		</ul>
 	{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset("js/searchFilter.js") }}"></script>
 {% endblock %}
