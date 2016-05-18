@@ -11,7 +11,7 @@ use AppBundle\Entity\Skill;
 
 class SearchFilterController extends Controller
 {
-    private function getRecentSearches()
+    private function getRecentSearches($nr)
     {
         return $this->getDoctrine()
             ->getRepository("AppBundle:SearchFilter")
@@ -24,18 +24,11 @@ class SearchFilterController extends Controller
             ->getResult();
     }
 
-    public function listRecentSearchFiltersAction($nr)
+    public function listRecentSearchFiltersAction($nr = 5)
     {
-        return $this->render("searchResult/searchFilter.html.twig",
-            ["searchFilters" => $this->getRecentSearches()]);
-    }
+        $filters = $this->getRecentSearches($nr);
 
-    /**
-     * @Route("/js/searchfilter", name="js_searchfilter")
-     */
-    public function renderJsSearchFilterAction($nr = 5)
-    {
-        return $this->render("js/searchFilter.js.twig",
-            ["searchFilters" => $this->getRecentSearches()]);
+        return $this->render("searchResult/searchFilter.html.twig",
+            ["searchFilters" => $filters]);
     }
 }
