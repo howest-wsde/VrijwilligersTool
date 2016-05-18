@@ -25,12 +25,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="google_id", type="string", length=255, unique=true, nullable=true)
-     */
-    protected $googleId;
 
     /**
      * @var string
@@ -258,24 +252,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
-
-
-    /**
-     * @param string $googleId
-     */
-    public function setGoogleId($googleId)
-    {
-        $this->googleId = $googleId;
-    }
  
-    /**
-     * @return string
-     */
-    public function getGoogleId()
-    {
-        return $this->googleId;
-    }
-    
 
     public function getSalt()
     {

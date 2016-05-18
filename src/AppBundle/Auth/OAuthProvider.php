@@ -19,14 +19,11 @@ class OAuthProvider extends OAuthUserProvider
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-     //   var_dump($response); 
-      //  exit(); 
-
         //Data from response 
         $email = $response->getEmail();
         $firstname = $response->getFirstName();
         $lastname = $response->getLastName(); 
-        
+
         $nickname = $firstname . $lastname;
  
         //Check if this user already exists in our app DB

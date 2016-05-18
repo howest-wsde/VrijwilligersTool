@@ -35,7 +35,6 @@ class SecurityController extends Controller
            ["form" => $form->createView()] );
     }
     /**
-    * @Route("/login", name="login")
     * @Route("/login", name = "login", options = { "i18n" = false })
     */
     public function loginAction(Request $request)
