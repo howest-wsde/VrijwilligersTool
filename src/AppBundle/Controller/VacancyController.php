@@ -94,13 +94,37 @@ class VacancyController extends controller
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
-
-    public function listRecentVacanciesAction($nr)
-    {
+    public function listRecentVacanciesAction(){
+        // retreiving 5 most recent vacancies 
         $entities = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array("id" => "DESC"), $nr);
-        return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $entities]);
+                        ->findBy(array(), array('id' => 'DESC'),5);
+        return $this->render('vacancy/recente_vacatures.html.twig',
+            array('vacancies' => $entities)
+        );
+    }
+
+    /**
+     * @Route("/vacature/aanpassen/{id}", name="edit_vacancy")
+     */
+    public function editVacancieAction($id, Request $request){
+        $em         = $this->getDoctrine()->getManager();
+        $vacancy    = $em->getRepository("AppBundle:Vacancy")->findOneById($id);
+        $form       = $this->createForm(VacancyType::class, $vacancy);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $vacancy->setTitle($data->getTitle());
+            $vacancy->setDescription($data->getDescription());
+            $vacancy->setStartDate($data->getStartdate());
+            $vacancy->setEndDate($data->getEnddate());
+
+            $em->flush();
+        }
+        return $this->render("vacancy/vacature_aanpassen.html.twig",
+            ["form" => $form->createView() ] );
     }
 }
