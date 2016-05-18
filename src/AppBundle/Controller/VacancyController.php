@@ -19,7 +19,7 @@ class VacancyController extends controller
     public function createPdfAction($title)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -85,7 +85,7 @@ class VacancyController extends controller
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlId($urlid);
+            ->findOneByUrlid($urlid);
 
         $candidacy = new Candidacy();
         $candidacy->setCandidate($person)->setVacancy($vacancy);
