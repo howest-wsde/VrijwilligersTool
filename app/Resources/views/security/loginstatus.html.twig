@@ -8,6 +8,30 @@
             Hi {{ app.user.username }}
             <br />
             all user data: {{ app.user }}
+            <hr />
+
+            <h4>mijn organisaties</h4>
+            <ul>
+                {#TODO only text if it has values#}
+                {% for organisation in myOrganisations %}
+                    <li>
+                        {{ organisation.name }} <br/>huidige vacatures:
+                        <ul>
+                        {% for vacancy in organisation.vacancies  %}
+                            <li>{{ vacancy.title }} <br/>huidige kandidaatstellingen:</li>
+                                <ul>
+                                    {% for candidacy in vacancy.candidacies %}
+                                        <li>
+                                            {{ candidacy.candidate.firstname }} {{ candidacy.candidate.lastname }}
+                                            status: {{ (candidacy.state) ? 'goedgekeurd' : 'pending' }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
         {% else %}
             Not logged in!
         {% endif %}

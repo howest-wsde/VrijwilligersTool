@@ -764,4 +764,28 @@ class Person extends EntityBase implements UserInterface, \Serializable
 
         return $this;
     }
+
+    /**
+     * Add organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function addOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisation[] = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     */
+    public function removeOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisation->removeElement($organisation);
+    }
 }
