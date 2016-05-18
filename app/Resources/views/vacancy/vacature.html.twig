@@ -44,6 +44,9 @@
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
+			<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+				<input type="submit" value="Print deze vacature"/>
+			</form>
 		</div>
 
 		<aside id="#googlemaps">
@@ -88,10 +91,9 @@
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-			<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
-				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
-					<input type="submit" value="Print deze vacature"/>
-				</form>
+				<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
+				<br/>
+				<a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}

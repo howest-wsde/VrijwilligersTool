@@ -106,7 +106,7 @@ class VacancyController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/aanpassen/{urlid}", name="edit_vacancy")
+     * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
      */
     public function editVacancyAction($urlid, Request $request){
         $em = $this->getDoctrine()->getManager();
