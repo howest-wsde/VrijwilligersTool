@@ -11,7 +11,7 @@ google_login:
 facebook_login:
     path: /login/check-facebook 
 
-oaut_google: 
+oauth_google: 
   path: /connect/google
 oaut_facebook: 
   path: /connect/facebook
