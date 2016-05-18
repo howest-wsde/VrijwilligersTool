@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
@@ -72,7 +73,7 @@ class VacancyController extends controller
             ->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
-    }
+    }    
 
     /**
      * @Security("has_role('ROLE_USER')")
@@ -80,7 +81,7 @@ class VacancyController extends controller
      */
     public function subscribeVacancy($urlid)
     {
-        $person = $this->get('security.token_storage')->getToken()->getUser();
+        $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
@@ -97,10 +98,27 @@ class VacancyController extends controller
 
     public function listRecentVacanciesAction($nr)
     {
-        $entities = $this->getDoctrine()
+        $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
         return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $entities]);
+            ["vacancies" => $vacancies]);
+    }
+
+    public function listParentSkillsAction($nr)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository("AppBundle:Skill");
+
+        $query = $repository->createQueryBuilder("s")
+            ->where("s.parent IS NULL")
+            ->addOrderBy("s.id", "DESC")
+            ->addOrderBy("s.name", "ASC")
+            ->getQuery();
+
+        $query->setMaxResults($nr);
+
+        return $this->render("skill/recente_categoriën.html.twig",
+            ["skills" => $query->getResult()]);
     }
 }
