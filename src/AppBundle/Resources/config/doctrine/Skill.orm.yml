@@ -8,7 +8,6 @@ AppBundle\Entity\Skill:
         name:
             type: string
             length: 100
-            unique: true
     manyToOne:
         parent:
             nullable: true
