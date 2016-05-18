@@ -105,12 +105,13 @@ class VacancyController extends controller
     }
 
     /**
-     * @Route("/vacature/aanpassen/{id}", name="edit_vacancy")
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/aanpassen/{urlid}", name="edit_vacancy")
      */
-    public function editVacancieAction($id, Request $request){
-        $em         = $this->getDoctrine()->getManager();
-        $vacancy    = $em->getRepository("AppBundle:Vacancy")->findOneById($id);
-        $form       = $this->createForm(VacancyType::class, $vacancy);
+    public function editVacancyAction($urlid, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+        $form = $this->createForm(VacancyType::class, $vacancy);
 
         $form->handleRequest($request);
 
@@ -124,6 +125,7 @@ class VacancyController extends controller
 
             $em->flush();
         }
+
         return $this->render("vacancy/vacature_aanpassen.html.twig",
             ["form" => $form->createView() ] );
     }
