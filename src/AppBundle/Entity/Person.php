@@ -16,7 +16,7 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validateTelephone"})
+ * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
@@ -167,15 +167,40 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $telephone;
 
-    public static function validateTelephone($org, ExecutionContextInterface  $context)
+    /**
+     * Callback that check if either the email or telephone fields are valid
+     */
+    public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
     {
-        $telephone = str_replace(' ', '', $org->getTelephone());
-
-        if (!is_numeric($telephone)
-        or !strlen($telephone) == 10)
+        $fields = 0;
+        if ($org->getTelephone())
         {
-            $context->buildViolation("person.telephone.valid")
+            $fields++;
+
+            $telephone = str_replace(' ', '', $org->getTelephone());
+
+            if (!ctype_digit($telephone)
+            or !strlen($telephone) == 10)
+            {
+                $context->buildViolation("person.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+        }
+        if ($org->getEmail())
+        {
+            $fields++;
+
+            // other validators are enabled with annotations
+        }
+
+        if ($fields <= 0)
+        {
+            $context->buildViolation("person.one_of_both")
                 ->atPath("telephone")
+                ->addViolation();
+            $context->buildViolation("person.one_of_both")
+                ->atPath("email")
                 ->addViolation();
         }
     }
