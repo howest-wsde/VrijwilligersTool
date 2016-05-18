@@ -18,7 +18,7 @@ class SearchFilter
 
     public function setTerm($term)
     {
-        $this->term = trim($term;
+        $this->term = trim($term);
 
         return $this;
     }
