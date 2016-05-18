@@ -2,14 +2,6 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Login{% endblock %}
-{% block head %}
-<script type="text/javascript" src="//platform.linkedin.com/in.js">
-    api_key:   {{ linkedin_id }}
-    onLoad:    SocialMediaLogin.linkedin.onlLinkedInLoad
-    authorize: false
-    lang:      en_US
-</script>
-{% endblock %}
 
 {% block body %}
     {% if error %}
@@ -28,23 +20,12 @@
 
         <button type="submit">login</button>
     </form>
+
+<a href="{{ path("oaut_google") }}"><img src="{{ asset("images/google.png") }}" alt="Inloggen via Google"></a>
+<a href="{{ path("oaut_facebook") }}"><img src="{{ asset("images/fb.png") }}" alt="Inloggen via Facebook"></a>
     <p><a href="{{ path("register_user") }}">maak een account</a></p>
-
-    <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
-    </fb:login-button>
-
-    <div class="g-signin2" data-onsuccess="SocialMediaLogin.google.onSignIn" data-theme="dark"></div>
-
-<a href="{{ path("oaut_google") }}">inloggen via Google</a> / 
-<a href="{{ path("oaut_facebook") }}">inloggen via Facebook</a>
 
     <script type="in/Login"></script>
 
-    {% block javascripts %}
-        {{ parent() }}
-        <script>window.fb_id = {{ fb_id }};</script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="{{ asset("js/social_media_login.js") }}"></script>
-    {% endblock %}
 
 {% endblock %}
