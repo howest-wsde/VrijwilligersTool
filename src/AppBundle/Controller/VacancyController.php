@@ -43,8 +43,11 @@ class VacancyController extends controller
      */
     public function startVacancyAction(Request $request)
     { 
-        $organisations = $this->getUser()->getOrganisations();
-        return $this->render("organisation/vrijwilliger_vinden.html.twig", ["organisations" => $organisations ] );
+        $organisations = $this->getUser();
+        
+        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+                ["organisations" => $organisations ]
+            );
     }
 
 
@@ -97,7 +100,7 @@ class VacancyController extends controller
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlId($urlid);
+            ->findOneByUrlid($urlid);
 
         $candidacy = new Candidacy();
         $candidacy->setCandidate($person)->setVacancy($vacancy);

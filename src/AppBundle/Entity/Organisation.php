@@ -568,6 +568,7 @@ class Organisation extends EntityBase
     public function __construct()
     {
         $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->administrators = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

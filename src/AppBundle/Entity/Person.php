@@ -255,6 +255,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function __construct()
     {
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
     }
 
