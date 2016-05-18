@@ -73,7 +73,7 @@ class VacancyController extends controller
             ->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
-    }    
+    }
 
     /**
      * @Security("has_role('ROLE_USER')")
@@ -118,7 +118,7 @@ class VacancyController extends controller
 
         $query->setMaxResults($nr);
 
-        return $this->render("skill/recente_categoriën.html.twig",
+        return $this->render("skill/recente_categorien.html.twig",
             ["skills" => $query->getResult()]);
     }
 }
