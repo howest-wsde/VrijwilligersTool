@@ -48,7 +48,7 @@ class SearchFilterType extends AbstractType
         $resolver->setDefaults(array(
             "translation_domain" => "validators",
             "data_class" => "AppBundle\Entity\SearchFilter",
-            "csrf_protection" => true,
+            "csrf_protection" => false,
             "csrf_field_name" => "_token",
             // a unique key to help generate the secret token
             "csrf_token_id"   => "id",
