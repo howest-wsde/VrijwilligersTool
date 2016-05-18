@@ -36,6 +36,7 @@ class SecurityController extends Controller
     }
     /**
     * @Route("/start", name="login")
+    * @Route("/start", name = "login", options = { "i18n" = false })
     */
     public function loginAction(Request $request)
     {

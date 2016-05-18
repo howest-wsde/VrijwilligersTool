@@ -5,7 +5,7 @@ vacancy:
     date:
         valid: Gelieve een geldige datum op te geven.
         not_today: Gelieve een datum in de toekomst op te geven.
-        not_more_than: Gelieve een datum op te geven die later valt dan de Begindatum.
+        not_more_than: Gelieve een datum op te geven die later valt dan de begindatum.
         max_period: De vacature mag maximum 6 maanden geldig zijn.
     label:
         title: Titel
@@ -32,7 +32,7 @@ organisation:
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
-        valid: Gelieve een geldig e-mailaddres in te geven.
+        valid: Gelieve een geldig e-mailadres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam

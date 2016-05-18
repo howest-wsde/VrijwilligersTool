@@ -24,7 +24,7 @@ class UrlEncoder
     private function transliterateString($txt)
     {
         $transliterationTable = array(
-        " " => "-",
+        " " => "-", "/" => "-",
 
         "á" => "a", "Á" => "A", "à" => "a", "À" => "A", "ă" => "a", "Ă" => "A",
         "â" => "a", "Â" => "A", "å" => "a", "Å" => "A", "ã" => "a", "Ã" => "A",
@@ -87,7 +87,6 @@ class UrlEncoder
             ->setParameter("url", $url."%")
             ->getQuery();
         $occurences = $query->getSingleScalarResult();
-        var_dump($occurences);
         return $occurences;
     }
 

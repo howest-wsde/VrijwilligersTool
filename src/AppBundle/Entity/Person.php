@@ -66,8 +66,8 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxMessage = "person.max_message"
      * )
      * @Assert\Regex(
-     *     pattern = "/^\S*$/",
-     *     message="person.no_whitespaces"
+     *     pattern = "/^[^ \/]+$/",
+     *     message = "geen spaties of slashes"
      * )
     */
     protected $username;

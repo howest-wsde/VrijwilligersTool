@@ -26,6 +26,24 @@ class PersonController extends controller
             ["person" => $person]);
     }
 
+    /**
+     * @Route("/persoon", name="self_profile")
+     */
+    public function selfAction()
+    {
+        // logged in
+        if ($this->get('security.authorization_checker')
+        ->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            return $this->redirectToRoute("person_username",
+            ["username" =>$this->getUser()->getUsername()]);
+        }
+        else //not logged in
+        {
+            return $this->redirectToRoute("login");
+        }
+    }
+
     public function listRecentPersonsAction($nr)
     {
         $entities = $this->getDoctrine()

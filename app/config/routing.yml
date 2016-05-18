@@ -19,5 +19,6 @@ oaut_facebook:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation 
+
 logout:
     path: /logout
