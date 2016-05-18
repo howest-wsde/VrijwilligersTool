@@ -19,7 +19,7 @@ class VacancyController extends controller
     public function createPdfAction($title)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -43,8 +43,7 @@ class VacancyController extends controller
      */
     public function startVacancyAction(Request $request)
     { 
-        $organisations = $this->getUser();
-        
+        $organisations = $this->getUser()->getOrganisations();  
         return $this->render("organisation/vrijwilliger_vinden.html.twig", 
                 ["organisations" => $organisations ]
             );

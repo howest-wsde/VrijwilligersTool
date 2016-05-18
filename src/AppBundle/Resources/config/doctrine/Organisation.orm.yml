@@ -53,6 +53,7 @@ AppBundle\Entity\Organisation:
         administrators:
           targetEntity: Person
           mappedBy: organisations 
+          cascade: ["persist"]
     oneToMany:
         vacancies:
             nullable: true

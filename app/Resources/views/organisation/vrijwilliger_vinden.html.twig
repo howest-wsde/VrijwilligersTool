@@ -7,10 +7,11 @@
 		<h1>Vrijwilliger vinden</h1>
 		<p>Op zoek naar vrijwilligers?</p>
 	</header>
-	<h2>Voor welke vereniging wil je een vrijwilliger vinden? </h2>
-	{{ dump(organisations) }} 
+	<h2>Voor welke vereniging wil je een vrijwilliger vinden? </h2> 
 	<ul>
-		<li>TODO: verenigingen waar deze persoon beheerder is</li>
+		{% for organisation in organisations %}
+			<li><a href="{{ path("create_vacancy") }}">{{ organisation.name }}</a></li>
+	    {% endfor %}
 		<li><a href="{{ path("vereniging_aanmaken") }}">nieuwe vereniging</a></li>
 		<li><a href="{{ path("create_vacancy") }}">voor mezelf als particulier</a></li>
 	</ul>

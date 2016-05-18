@@ -18,14 +18,18 @@ class OrganisationController extends controller
      */
     public function createOrganisationAction(Request $request)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $organisation = (new Organisation())->setCreator($user)->addAdministrator($user);
+        $user = $this->getUser();
+        $organisation = (new Organisation())->setCreator($user);
+
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $organisation->addAdministrator($user); 
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
-            $em->flush();
+            $em->persist($user);
+
+            $em->flush(); 
             return $this->redirect($this->generateUrl("organisation_by_urlid",
             ['urlid' => $organisation->getUrlId() ] ));
         }
