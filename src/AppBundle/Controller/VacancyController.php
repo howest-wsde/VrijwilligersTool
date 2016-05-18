@@ -120,7 +120,6 @@ class VacancyController extends controller
 
             $vacancy->setTitle($data->getTitle());
             $vacancy->setDescription($data->getDescription());
-            $vacancy->setStartDate($data->getStartdate());
             $vacancy->setEndDate($data->getEnddate());
 
             $em->flush();

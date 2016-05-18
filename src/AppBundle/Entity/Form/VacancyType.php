@@ -30,11 +30,6 @@ class VacancyType extends AbstractType
                 "label" => "vacancy.label.description",
                 "attr" => array("placeholder" => "vacancy.label.description")
             ))
-            ->add("startdate", DateType::class, array(
-                "label" => "vacancy.label.startdate",
-                "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
-            ))
             ->add("enddate", DateType::class, array(
                 "label" => "vacancy.label.enddate",
                 "attr" => array("placeholder" => "vacancy.placeholder.date"),
