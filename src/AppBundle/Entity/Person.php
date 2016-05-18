@@ -165,6 +165,9 @@ class Person extends EntityBase implements UserInterface, \Serializable
      */
     private $telephone;
 
+    /**
+     * Callback that check if either the email or telephone fields are valid
+     */
     public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
     {
         $fields = 0;
