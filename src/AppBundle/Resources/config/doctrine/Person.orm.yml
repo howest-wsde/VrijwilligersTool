@@ -14,7 +14,6 @@ AppBundle\Entity\Person:
         username:
             type: string
             length: 150
-            unique: true
         passphrase:
             type: string
             length: 60
@@ -44,7 +43,6 @@ AppBundle\Entity\Person:
             type: string
             length: 10
             nullable: true
-            unique: true
         linkedinUrl:
             type: string
             length: 150

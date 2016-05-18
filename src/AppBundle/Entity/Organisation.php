@@ -168,7 +168,7 @@ class Organisation extends EntityBase
     {
         $telephone = str_replace(' ', '', $org->getTelephone());
 
-        if (!is_numeric($telephone)
+        if (!ctype_digit($telephone)
         or !strlen($telephone) == 10)
         {
             $context->buildViolation("organisation.telephone.valid")

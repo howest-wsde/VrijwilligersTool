@@ -36,7 +36,7 @@ class PersonController extends controller
         ->isGranted('IS_AUTHENTICATED_FULLY'))
         {
             return $this->redirectToRoute("person_username",
-            ["username" =>$this->getUser()->getUsername()]);
+            ["username" => $this->getUser()->getUsername()]);
         }
         else //not logged in
         {

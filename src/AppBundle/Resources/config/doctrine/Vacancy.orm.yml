@@ -36,6 +36,7 @@ AppBundle\Entity\Vacancy:
             targetEntity: Skill
             nullable: true
             mappedBy: null
+            inversedBy: vacancies
             cascade: ["persist"]
             joinTable:
                 name: vacancy_has_skill
