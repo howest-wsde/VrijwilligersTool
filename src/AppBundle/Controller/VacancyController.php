@@ -124,9 +124,12 @@ class VacancyController extends controller
             $vacancy->setEndDate($data->getEnddate());
 
             $em->flush();
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                array("urlid" => $vacancy->getUrlId() ) ));
         }
 
         return $this->render("vacancy/vacature_aanpassen.html.twig",
-            ["form" => $form->createView() ] );
+            array("form" => $form->createView() ) );
     }
 }
