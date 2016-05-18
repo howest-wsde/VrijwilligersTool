@@ -1,86 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Vrijwilliger vinden{% endblock %}
-	
+
 {% block body %}
 	<header>
 		<h1>Vrijwilliger vinden</h1>
 		<p>Op zoek naar vrijwilligers?</p>
-		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
 	</header>
-	<form>
-		<section>
-			<h2>Maak een profiel aan</h2>
-			<fieldset>
-				<legend>Organisatiegegevens</legend>
-				<label for="naam">Naam</label>
-				<input type="text" name="naam" id="naam" placeholder="Naam van uw organisatie" />
-				<label for="type">Type vereniging</label>
-				<select id="type" name="type">
-					<option value="feitelijkeVereniging">Feitelijke vereniging</option>
-					<option value="bvba">BVBA</option>
-					<option value="nv">NV</option>
-				</select>
-				<label for="logo">Geef uw logo</label>
-				<input type="file" name="logo" id="logo" placeholder="Kies een bestand" />
-				<label for="bemiddelings">Bemiddelingsorganisatie</label>
-				<input type="checkbox" id="bemiddelings" name="bemiddelings" value="ja">Ja</input>
-				<label for="email">Email vereniging</label>
-				<input type="email" id="email" name="email" placeholder="Email van uw organisatie"/>
-				<label for="reedsAccount">Heeft de persoon die beheerder moet worden reeds een account op deze site?</label>
-				<input type="radio" name="reedsAccount" value="ja"> Ja<br>
-				<input type="radio" name="reedsAccount" value="nee"> Nee<br>
-				<label for="emailBeheerder">Email van de beheerder</label>
-				<input type="email" id="emailBeheerder" name="emailBeheerder" placeholder="Email van de beheerder"/>
-				<label for="wachtzinBeheerder">Wachtzin van de beheerder</label>
-				<input type="password" id="wachtzinBeheerder" name="wachtzinBeheerder" placeholder="Wachtzin van de beheerder" />
-			</fieldset>
-			<input type="submit" value="Maak organisatie aan" />
-		</section>
+	<h2>Voor welke vereniging wil je een vrijwilliger vinden? </h2>
 
-		<section>
-			<h2>Spelregels voor organisatie</h2>
-			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %} 
+	<ul>
+		<li>TODO: verenigingen waar deze persoon beheerder is</li>
+		<li><a href="{{ path("vereniging_aanmaken") }}">nieuwe vereniging</a></li>
+		<li><a href="{{ path("create_vacancy") }}">voor mezelf als particulier</a></li>
+	</ul>
+	 
 
-			<h2>Spelregels voor vrijwilligers</h2>
-			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %} 
-		</section>
-
-		<section>
-			<fieldset>
-				<legend>Nieuwe vacature</legend>
-				<label for="titel">Titel</label>
-				<input type="text" name="titel" id="titel" placeholder="Titel van uw vacature"/>
-				<label for="omschrijving">Beknopte omschrijving</label>
-				<textarea id="omschrijving" name="omschrijving" rows="3" cols="40" maxlength="120" placeholder="Omschrijf in maximaal 120 tekens de inhoud van deze vacature."></textarea>
-				<label for="jobinhoud">Jobinhoud</label>
-				<textarea id="jobinhoud" name="jobinhoud" rows="5" cols="40" placeholder="Geef de inhoud van de job van deze vacature"></textarea>
-				<label for="vervaldatum">Vervaldatum</label>
-				<input type="date" name="vervaldatum" id="vervaldatum"/>
-				<label for="langdurig">Betreft de vacature een langdurig engagement?</label>
-				<input type="checkbox" id="langdurig" name="langdurig" value="ja">Ja</input>
-				<label for="werkuren">Geschat aantal werkuren (indien langdurig: wekelijks)</label>
-				<input type="number" name="werkuren" id="werkuren"/>
-				<label for="locatie">Op welke locatie zal de vrijwilliger werken?</label>
-				<input type="text" name="locatie" id="locatie"/>
-				<label for="hoeveelInteracties">Bemiddelingsorganisatie</label>
-				<input type="checkbox" name="hoeveelInteracties" value="alles">Alles draait rond sociale interactie</input>
-				<input type="checkbox" name="hoeveelInteracties" value="alles">Niet speciaal veel, niet speciaal weinig</input>
-				<input type="checkbox" name="hoeveelInteracties" value="alles">Sociale interactie is beperkt</input>
-				<label for="zelfstandig">Moet de vrijwilliger zelfstandig kunnen werken?</label>
-				<input type="radio" name="zelfstandig" value="ja"> Ja<br>
-				<input type="radio" name="zelfstandig" value="nee"> Nee<br>
-				<label for="categorie">Onder welke categorieën valt deze vacature?</label>
-				<select id="categorie" name="categorie">
-				</select>
-				<label for="voordelen">Voordelen voor de vrijwilliger</label>
-				<input type="checkbox" name="voordelen" value="vergoeding">Vrijwilligersvergoeding</input>
-				<input type="number" min="0.01" step="0.01" placeholder="€" />
-				<input type="checkbox" name="voordelen" value="andere">Andere</input>
-				<input type="text" name="voordelen" id="andereVoordelen" placeholder="Andere voordelen" />
-			</fieldset>
-			<input type="submit" value="Plaats vacature" />
-			<input type="submit" value="Bewaar en publiceer later" />
-		</section>
-	</form>
 {% endblock %}

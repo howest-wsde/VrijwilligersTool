@@ -36,6 +36,19 @@ class VacancyController extends controller
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
+     * @Route("/vacature/start", name="start_vacancy")
+     */
+    public function startVacancyAction(Request $request)
+    { 
+        $organisations = $this->getUser()->getOrganisation();
+        dump($organisations);
+        return $this->render("organisation/vrijwilliger_vinden.html.twig", ["organisations" => $organisations ] );
+    }
+
+
     /**
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
