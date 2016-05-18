@@ -19,7 +19,7 @@ class OrganisationController extends controller
     public function createOrganisationAction(Request $request)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $organisation = (new Organisation())->setCreator($user);
+        $organisation = (new Organisation())->setCreator($user)->addAdministrator($user);
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -43,8 +43,7 @@ class VacancyController extends controller
      */
     public function startVacancyAction(Request $request)
     { 
-        $organisations = $this->getUser()->getOrganisation();
-        dump($organisations);
+        $organisations = $this->getUser()->getOrganisations();
         return $this->render("organisation/vrijwilliger_vinden.html.twig", ["organisations" => $organisations ] );
     }
 

@@ -824,7 +824,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function removeOrganisation(\AppBundle\Entity\Organisation $organisation)
     {
-        $this->candidacies->removeElement($organisation);
+        $this->organisations->removeElement($organisation);
 
         return $this;
     }

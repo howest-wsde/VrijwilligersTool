@@ -308,11 +308,11 @@ class Organisation extends EntityBase
     /**
      * Add administator
      *
-     * @param \AppBundle\Entity\Administator $administator
+     * @param \AppBundle\Entity\Person $administator
      *
      * @return Person
      */
-    public function addAdministator(\AppBundle\Entity\Administator $administator)
+    public function addAdministrator(\AppBundle\Entity\Person $administator)
     {
         $this->administators[] = $administator;
 
@@ -322,13 +322,13 @@ class Organisation extends EntityBase
     /**
      * Remove administator
      *
-      * @param \AppBundle\Entity\Administator $administator
+      * @param \AppBundle\Entity\Person $administator
      *
      * @return Person
      */
-    public function removeAdministator(\AppBundle\Entity\Administator $administator)
+    public function removeAdministator(\AppBundle\Entity\Person $administator)
     {
-        $this->candidacies->removeElement($administator);
+        $this->administators->removeElement($administator);
 
         return $this;
     }
