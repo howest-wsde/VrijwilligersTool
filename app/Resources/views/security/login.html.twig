@@ -20,21 +20,12 @@
 
         <button type="submit">login</button>
     </form>
- 
-    <p><a href="{{ path('register_user') }}">Maak een account</a></p>
 
-    <fb:login-button scope="public_profile,email" onlogin="SocialMediaLogin.facebook.checkLoginState">
-    </fb:login-button>
-
-    <div class="g-signin2" data-onsuccess="SocialMediaLogin.google.onSignIn" data-theme="dark"></div>
+<a href="{{ path("oauth_google") }}"><img src="{{ asset("images/google.png") }}" alt="Inloggen via Google"></a>
+<a href="{{ path("oauth_facebook") }}"><img src="{{ asset("images/fb.png") }}" alt="Inloggen via Facebook"></a>
+    <p><a href="{{ path("register_user") }}">maak een account</a></p>
 
     <script type="in/Login"></script>
 
-    {% block javascripts %}
-        {{ parent() }}
-        <script>window.fb_id = {{ fb_id }};</script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="{{ asset("js/social_media_login.js") }}"></script>
-    {% endblock %}
 
 {% endblock %}

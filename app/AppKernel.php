@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(), 
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new AppBundle\AppBundle(),
         ];
 
