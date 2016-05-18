@@ -71,8 +71,8 @@ class SearchController extends Controller
 
             $childCategories = $em->getRepository("AppBundle:Skill")
                 ->createQueryBuilder("s1")
-                ->join("AppBundle:Skill", "s2", "WITH", "s2.parent = s1")
-                ->where("s1.name = :parentName")
+                ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
+                ->where("s2.name = :parentName")
                 ->setParameter("parentName", $cat)
                 ->getQuery()
                 ->getResult();
