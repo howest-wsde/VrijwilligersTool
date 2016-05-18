@@ -24,6 +24,7 @@
 	</div>
 	<div id="savedSearches">
 	</div>
+	<a href="{{ path("js_searchfilter") }}">test</a>
 	{% endif %}
 
 	{% if results|length == 0 %}
@@ -49,5 +50,5 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="{{ asset("js/searchFilter.js") }}"></script>
+	<script src="{{ path("js_searchfilter") }}"></script>
 {% endblock %}

@@ -1,0 +1,31 @@
+"use strict";
+(function () {
+    $(document).ready(function () {
+        $('.recentSearch').click(function(e){
+            var baseId = "search_filter_";
+
+            var term = $(e.target).text();
+            $("#" + baseId + "term").val(term);
+
+            var filter = [];
+
+            {% for searchFilter in searchFilters %}
+                filter["{{ searchFilter.term}}"] = [];
+                filter["person"] = "{{ searchFilter.person }}";
+                filter["organisation"] = "{{ searchFilter.organisation }}";
+                filter["vacancy"] = "{{ searchFilter.vacancy }}";
+            {% endfor %}
+
+            console.log(filter);
+
+            // $(e.target).children().each(function(index, input){
+            //     var typeName = $(input).attr("name");
+            //     var checked = $(input).attr("value");
+            //
+            //     $("#" + baseId + typeName).prop('checked', checked);;
+            // });
+
+            //$('[name="search_filter"]').submit();
+        });
+    })
+})();

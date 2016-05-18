@@ -22,8 +22,27 @@ class SearchFilterController extends Controller
             ->setMaxResults($nr)
             ->getQuery()
             ->getResult();
-            
+
         return $this->render("searchResult/searchFilter.html.twig",
+            ["searchFilters" => $filters]);
+    }
+
+    /**
+     * @Route("/js/searchfilter", name="js_searchfilter")
+     */
+    public function renderJsSearchFilterAction($nr = 5)
+    {
+        $filters = $this->getDoctrine()
+            ->getRepository("AppBundle:SearchFilter")
+            ->createQueryBuilder("f")
+            ->where("f.owner = :owner")
+            ->orderBy("f.id", "DESC")
+            ->setparameter("owner", $this->getuser())
+            ->setMaxResults($nr)
+            ->getQuery()
+            ->getResult();
+
+        return $this->render("js/searchFilter.js.twig",
             ["searchFilters" => $filters]);
     }
 }
