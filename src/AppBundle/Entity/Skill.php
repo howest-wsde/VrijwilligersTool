@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Skill
  */
-class Skill
+class Skill extends EntityBase
 {
     /**
      * Constructor
@@ -85,9 +85,8 @@ class Skill
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName()

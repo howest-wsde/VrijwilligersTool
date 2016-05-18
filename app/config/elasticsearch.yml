@@ -49,6 +49,7 @@ fos_elastica:
                         city: "%nl%"
                         email: "%nl%"
                         telephone: "%nl%"
+                        urlId: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
@@ -90,6 +91,7 @@ fos_elastica:
                         startdate: "%nl%"
                         enddate: "%nl%"
                         organisation: "%nl%"
+                        urlId: "%nl%"
                         # skills: "%nl%"
                     persistence:
                         driver: orm

@@ -8,16 +8,19 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+            unique: true
         description:
             type: text
         email:
             type: string
             length: 255
             nullable: true
+            unique: true
         street:
             type: string
             scale: 255
-            nullable: true 
+            nullable: true
+            unique: true
         number:
             type: smallint
             nullable: true
@@ -25,7 +28,8 @@ AppBundle\Entity\Organisation:
             type: smallint
             nullable: true
         bus:
-            type: smallint
+            type: string
+            length: 6
             nullable: true
         city:
             type: string
@@ -37,6 +41,10 @@ AppBundle\Entity\Organisation:
             nullable: true
         description:
             type: text
+        urlid:
+            type: string
+            length: 150
+            options: {default: ""}
     manyToOne:
         creator:
             targetEntity: Person

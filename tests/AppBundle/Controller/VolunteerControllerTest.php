@@ -4,7 +4,7 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class VolunteerControllerTest extends WebTestCase
+class VolunteerControllerTest extends \WebTestCase
 {
     public function testCreateVolunteer()
     {

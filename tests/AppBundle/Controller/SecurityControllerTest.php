@@ -4,9 +4,9 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Form\UserType;
+use AppBundle\Entity\Form\PersonType;
 
-class SecurityControllerTest extends WebTestCase
+class SecurityControllerTest extends \WebTestCase
 {
     public function testRegisterAction()
     {

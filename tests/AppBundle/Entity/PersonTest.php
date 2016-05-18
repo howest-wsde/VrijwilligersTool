@@ -3,7 +3,9 @@
 namespace Tests\AppBundle\Entity;
 
 use AppBundle\Entity\Person;
+use AppBundle\Entity\Organisation;
 use Symfony\Component\Validator\Validation;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
 
 /**
  * Unit test for the Person Entity
@@ -13,7 +15,7 @@ use Symfony\Component\Validator\Validation;
  * UserName(str, 150), Email (str, 255), Street(str, 255), Number(int, 4),
  * Bus(str, 4), PostalCode(int, 4), City(str, 100), Telephone(str, 20)
  * Untested properties: PassPhrase(str, 60) => this is already tested by Symphony and
- * is a bcrypt hash
+ * is a bcrypt hash, PlainPassWord => wasn't present when writing this test (//TODO)
  */
 class PersonTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,10 +25,13 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    * @var Symfony\Component\Validator\Validator\RecursiveValidator
    */
   public $validator;
+  public $basePerson;
 
   protected function setUp()
   {
     $this->validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+    $person = new Person();
+    $this->basePerson = $person->setId(1)->setPlainPassword("thisIsSupersecret,Dog!")->setEmail("test@testemail.com");
   }
 
   /**
@@ -35,10 +40,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function idProvider()
   {
+    $person = new Person();
+    $person->setPlainPassword("thisIsSupersecret,Dog!");
+    $person->setEmail("test@testemail.com");
+
     return array(
       'normal' => array(1, 0),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
+      'object' => array($person, 1),
       'null' => array(null, 1),
     );
   }
@@ -55,9 +64,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testId($id, $errorCount)
   {
-    $person = new Person();
-    $person->setId($id);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setId($id);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($id, $person->getId());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -67,16 +81,15 @@ class PersonTest extends \PHPUnit_Framework_TestCase
  * the same id.  This should be impossible.
  */
   public function testIdUnique(){
-    $id = 1;
-    $person = new Person();
-    $person->setId($id);
+    $this->markTestIncomplete("some problem with the unique validator");
+    $person = clone $this->basePerson;
     try {
-      $person2 = new Person();
-      $person2->setId($id);
-      $this->assertNull($person2, 'The second person was instantiated with the same id as the first: please rectify so that this becomes impossible');
+      $person2 = clone $this->basePerson;
+      $errors = $this->validator->validate($person2);
     } catch (Exception $e) {
-      $this->assertNull($person2, "This should be unreachable if person 2 is not null");
+      //this is here mainly to sanitize output
     }
+    $this->assertGreaterThan(0, $errors, 'person 2 should have at least one validation error as the id is not unique');
   }
 
   /**
@@ -85,6 +98,10 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function firstNameProvider()
   {
+    $person = new Person();
+    $person->setPlainPassword("thisIsSupersecret,Dog!");
+    $person->setEmail("test@testemail.com");
+
     return array(
       'normal' => array("Florimon", 0),
       'hyphened' => array('Sint-Joost', 0),
@@ -124,7 +141,6 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'too long' => array("This name is far too long for a person i say governor", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -141,10 +157,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testFirstName($firstName, $errorCount)
   {
-    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
-    $person = new Person();
-    $person->setFirstName($firstName);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    $person = $this->basePerson;
+    try {
+      $person->setFirstName($firstName);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($firstName, $person->getFirstName());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -155,6 +175,10 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function lastNameProvider()
   {
+    $person = new Person();
+    $person->setPlainPassword("thisIsSupersecret,Dog!");
+    $person->setEmail("test@testemail.com");
+
     return array(
       'normal' => array("Dragonslayer", 0),
       'hyphened' => array('Sint-Joost', 0),
@@ -194,7 +218,6 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'too long' => array("This name is far too long for a person i say governor", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -211,15 +234,19 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testLastName($lastName, $errorCount)
   {
-    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
-    $person = new Person();
-    $person->setLastname($lastName);
-    $errors = $this->validator->validate($person);
+    // $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setLastname($lastName);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($lastName, $person->getLastname());
     $this->assertEquals($errorCount, count($errors));
   }
 
-  /**
+  /*  *
    * the dataProvider for testUserName
    * @return array containing all fringe cases identified @ current
    */
@@ -230,9 +257,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'too long' => array("This name is by far too long for any organisation, right!  I mean seriously, what are they thinking?!", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -247,10 +272,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testUserName($userName, $errorCount)
   {
-    $this->markTestIncomplete("Volunteer hasn't been renamed into Person yet.  Once that is done this line can be removed to enable the test.");
-    $person = new Person();
-    $person->setUserName($userName);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setUserName($userName);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($userName, $person->getUserName());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -446,7 +475,6 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'dns warn no mX record line 302' => array("test@example.com", 1),
       'dns warn no record line 303' => array("test@nic.no", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
       'null' => array(null, 1),
     );
@@ -463,10 +491,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testEmail($email, $errorCount)
   {
-    $this->markTestIncomplete("The email property has not been moved from Contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setEmail($email);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setEmail($email);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($email, $person->getEmail());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -513,9 +545,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'too long' => array("This honestly no longer is a streetname.  Streetnames aren't this long.  The longest streetname in Belgium does not even exceed 100 characters, let along 255.  So why did we pick 255 characters as max length?  Your guess is as good as mine.  Or maybe we wanted to be ready for all eventualities that might come in the future... which of course we won't be.", 1),
       'empty' => array("", 1),
-      'object' => array(new Organisation(), 1),
       'numeric' => array(10, 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -531,10 +561,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testStreet($street, $errorCount)
   {
-    $this->markTestIncomplete("The street property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setStreet($street);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = new Person();
+      $person->setStreet($street);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($street, $person->getStreet());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -551,7 +585,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too high' => array(10000, 1),
       'string' => array("", 1),
       'numeric string' => array("123", 1),
-      'object' => array(new Person(), 1),
+      'object' => array(array(), 1),
       'null' => array(null, 1),
     );
   }
@@ -567,10 +601,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testNumber($number, $errorCount)
   {
-    $this->markTestIncomplete("The number property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setNumber($number);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setNumber($number);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($number, $person->getNumber());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -586,8 +624,6 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'normal with letters' => array('B8', 0),
       'too long' => array('10000', 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -602,10 +638,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testBus($bus, $errorCount)
   {
-    $this->markTestIncomplete("The bus property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setBus($bus);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setBus($bus);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($bus, $person->getBus());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -623,8 +663,6 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'string' => array("XY12", 1),
       'string starting numerically' => array("12YX", 1),
       'numeric string' => array("1234", 1),
-      'object' => array(new Person(), 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -640,10 +678,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testPostalCode($postalCode, $errorCount)
   {
-    $this->markTestIncomplete("The postalCode property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setPostalCode($postalCode);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setPostalCode($postalCode);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($postalCode, $person->getPostalCode());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -659,9 +701,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'too short' => array("a", 1),
       'too long' => array("Taiwan boasts the longest city-name in the world, with 163 characters including spaces.  New-Zealand comes in a distant third with 85 characters including spaces.", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -676,10 +716,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testCity($city, $errorCount)
   {
-    $this->markTestIncomplete("The city property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setCity($city);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setCity($city);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($city, $person->getCity());
     $this->assertEquals($errorCount, count($errors));
   }
@@ -697,9 +741,7 @@ class PersonTest extends \PHPUnit_Framework_TestCase
       'mixed starting with numbers' => array("01ABCDEF", 1),
       'mixed' => array("ABC01DEF", 1),
       'empty' => array("", 1),
-      'object' => array(new Person(), 1),
       'numeric' => array(10, 1),
-      'null' => array(null, 1),
     );
   }
 
@@ -715,11 +757,61 @@ class PersonTest extends \PHPUnit_Framework_TestCase
    */
   public function testTelephone($telephone, $errorCount)
   {
-    $this->markTestIncomplete("The email property has not been moved from contact to Person yet, once it has been moved please remove this line to enable the testing of the property");
-    $person = new Person();
-    $person->setTelephone($telephone);
-    $errors = $this->validator->validate($person);
+    $this->markTestIncomplete("testing one property at the time");
+    try {
+      $person = $this->basePerson;
+      $person->setTelephone($telephone);
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($telephone, $person->getTelephone());
+    $this->assertEquals($errorCount, count($errors));
+  }
+
+  /**
+   * the dataProvider for testTelephone
+   * @return array containing all fringe cases identified @ current
+   */
+  public function contactOptionsProvider()  {
+    $person = new Person();
+    $person->setPlainPassword("thisIsSupersecret,Dog!");
+    $personMail = clone $person;
+    $personMail->setEmail("test@testemail.be");
+    $personTel = clone $person;
+    $personTel->setTelephone('0493635780');
+    $personOrganisation = clone $person;
+    $personOrganisation->setOrganisation(new Organisation());
+
+    return array(
+      'only email' => array($personMail, 0),
+      'only tel' => array($personTel, 0),
+      'only organisation' => array($personOrganisation, 0),
+      'email and tel' => array($personMail->setTelephone("0493635780"), 0),
+      'email and organisation' => array($personOrganisation->setEmail("test@testemail.be"), 0),
+      'tel and organisation' => array($personTel->setOrganisation(new Organisation()), 0),
+      'all three' => array($personMail->setOrganisation(new Organisation()), 0),
+      'none' => array($person, 1),
+    );
+}
+
+  /**
+   * Test case to check whether at least one contact option has been filled out
+   * by the user
+   * The test receives a premade Person from the dataprovider and checks whether
+   * there are validation errors.
+   * @dataProvider contactOptionsProvider
+   * @param \Entity\Person  $person       a person with a number of contact options set
+   * @param integer         $errorCount   the expected amount of errors
+   */
+  public function testContactOptions($person, $errorCount)
+  {
+   $this->markTestIncomplete("testing one property at the time");
+    try {
+      $errors = $this->validator->validate($person);
+    } catch (Exception $e) {
+      //nothing needs to be done, this is mainly to sanitize output
+    }
     $this->assertEquals($errorCount, count($errors));
   }
 }

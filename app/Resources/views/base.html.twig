@@ -5,31 +5,36 @@
         <title>{% block title %}Talent Roeselen{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-            <link rel="stylesheet" type="text/css" href="{{ asset('style/reset.css') }}" />
-            <link rel="stylesheet" type="text/css" href="{{ asset('style/vrijwilligt.css') }}" />
-            <link rel="stylesheet" type="text/css" href="{{ asset('style/search.css') }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset("style/reset.css") }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css") }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset("style/search.css") }}" />
         {% endblock %}
         <script>
-            //use this pattern to add globals to the RV_GLOBALS module.  That way we only ever have one global variable that can potentially have name-spacing collisions with external globals (highly unlikely)
-            var RV_GLOBALS = (function (previous) {
-                if(!previous.searchURL){
-                    previous.searchURL = "{{ path('api_search') }}";
-                }
+            var RV_GLOBALS = {
+                "searchURL": "{{ path("api_search") }}",
+            }
+            {#
+                //use this pattern to add globals to the RV_GLOBALS module.  That way we only ever have one global variable that can potentially have name-spacing collisions with external globals (highly unlikely)
+                RV_GLOBALS = (function (previous) {
+                    if(!previous.searchURL){
+                        previous.searchURL = "{{ path("api_search") }}";
+                    }
 
-                return previous;
-            }(RV_GLOBALS));
+                    return previous;
+                }(RV_GLOBALS || {}));
+            #}
         </script>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset("favicon.ico") }}" />
         {%  block head %} {% endblock %}
     </head>
     <body>
         {% block header %}
             <header>
                 <div class="logo">
-                    <h1><a href="{{ path('homepage') }}"><span>Roeselare vrijwilligt</span></a></h1>
+                    <h1><a href="{{ path("homepage") }}"><span>Roeselare vrijwilligt</span></a></h1>
                     <span class="baseline">Baseline</span>
                 </div>
-                <form class="search" method="get" action="{{ path('zoeken') }}" autocomplete="off">
+                <form class="search" method="get" action="{{ path("zoeken") }}" autocomplete="off">
                     <input type="text" name="q" id="searchq" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
                     <br />
                     <div id="divResult">
@@ -38,21 +43,21 @@
 
                 <nav class="about nav">
                     <ul>
-                        <li><a href="{{ path('over_ons') }}">Over ons</a></li>
-                        <li><a href="{{ path('contact') }}">Contact</a></li>
+                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
+                        <li><a href="{{ path("contact") }}">Contact</a></li>
                     </ul>
                 </nav>
                 <nav class="top nav">
                     <ul>
-                        <li><a href="{{ path('status_testing') }}">Mijn profiel</a></li>
-                        <li><a href="{{ path('register_user') }}">Vrijwilliger worden</a></li>
-                        <li><a href="{{ path('vereniging_aanmaken') }}">Vrijwilliger vinden</a></li>
-                        <li><a href="{{ path('vrijwilligersinfo') }}">Vrijwilligersinfo</a></li>
+                        <li><a href="{{ path("status_testing") }}">Mijn profiel</a></li>
+                        <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
+                        <li><a href="{{ path("vereniging_aanmaken") }}">Vrijwilliger vinden</a></li>
+                        <li><a href="{{ path("vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
                         <li><a href="">Tests</a></li>
                         <li>{% if app.user %}
-                            <a href="{{ path('logout') }}">Uitloggen</a>
+                            <a href="{{ path("logout") }}">Uitloggen</a>
                             {% else %}
-                            <a href="{{ path('login_testing') }}">Inloggen</a>
+                            <a href="{{ path("login") }}">Inloggen</a>
                             {% endif %}</li>
                     </ul>
                 </nav>
@@ -65,31 +70,31 @@
         {% block footer %}
             <nav class="bottom nav">
                 <section>
-                    {{ render(controller('AppBundle:Vacancy:listRecentVacancies')) }}
+                    {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
                 </section>
                 <section>
-                    {{ render(controller('AppBundle:Person:listRecentPersons')) }}
+                    {{ render(controller("AppBundle:Person:listRecentPersons", { "nr": 5 } )) }}
                 </section>
                 <section>
                     <header><h1>Vacature types</h1></header>
                     <ul>
-                        <li><a href="{{ path('zoeken', { 'cat': 'administratie' }) }}">Administratie</a></li>
-                        <li><a href="{{ path('zoeken', { 'cat': 'Categorie 2' }) }}">Categorie 2</a></li>
-                        <li><a href="{{ path('zoeken', { 'cat': 'Categorie 3' }) }}">Categorie 3</a></li>
-                        <li><a href="{{ path('zoeken', { 'cat': 'Categorie 4' }) }}">Categorie 4</a></li>
-                        <li><a href="{{ path('zoeken', { 'cat': 'Categorie 5' }) }}">Categorie 5</a></li>
-                        <li><a href="{{ path('zoeken', { 'cat': 'Categorie 6' }) }}">Categorie 6</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "administratie" }) }}">Administratie</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "Categorie 2" }) }}">Categorie 2</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "Categorie 3" }) }}">Categorie 3</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "Categorie 4" }) }}">Categorie 4</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "Categorie 5" }) }}">Categorie 5</a></li>
+                        <li><a href="{{ path("zoeken", { "cat": "Categorie 6" }) }}">Categorie 6</a></li>
                     </ul>
                 </section>
                 <section>
                     <header><h1>Vrijwilligersinfo</h1></header>
                     <ul>
-                        <li><a href="{{ path('wetgeving') }}">Wetgeving</a></li>
+                        <li><a href="{{ path("wetgeving") }}">Wetgeving</a></li>
                         <li><a href="">Profiel van een vrijwilliger</a></li>
-                        <li><a href="{{ path('vrijwilligersinfo') }}">Wat is vrijwilligerswerk</a></li>
+                        <li><a href="{{ path("vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
                         <li><a href="">Moeder waarom vrijwilligen wij? </a></li>
-                        <li><a href="{{ path('spelregels') }}">Spelregels</a></li>
-                        <li><a href="{{ path('faq') }}">Veelgestelde vragen</a></li>
+                        <li><a href="{{ path("spelregels") }}">Spelregels</a></li>
+                        <li><a href="{{ path("faq") }}">Veelgestelde vragen</a></li>
                     </ul>
                 </section>
                 <section>
@@ -103,8 +108,8 @@
                 <section>
                     <header><h1>Roeselare vrijwilligt</h1></header>
                     <ul>
-                        <li><a href="{{ path('over_ons') }}">Over ons</a></li>
-                        <li><a href="{{ path('contact') }}">Contact</a></li>
+                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
+                        <li><a href="{{ path("contact") }}">Contact</a></li>
                     </ul>
                 </section>
             </nav>
@@ -125,18 +130,21 @@
                 </address>
                 <div class="legal nav">
                     <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
-                    <span><a href="{{ path('privacy_en_legal') }}">Privacy en legale voorwaarden</a></span>
+                    <span><a href="{{ path("privacy_en_legal") }}">Privacy en legale voorwaarden</a></span>
                 </div>
             </footer>
         {% endblock %}
         {% block javascripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+            {#
             <script type="text/javascript" src="https://www.google.com/jsapi"></script>
             <script type="text/javascript">
-                google.load("jquery", "2.2.3");
+               google.load("jquery", "1.4.2");
             </script>
+            #}
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-            <script src="{{ asset('js/tmp_bootstrap.js') }}"></script>
-            <script src="{{ asset('js/search.js') }}"></script>        
+            <script src="{{ asset("js/tmp_bootstrap.js") }}"></script>
+            <script src="{{ asset("js/search.js") }}"></script>
         {% endblock %}
     </body>
 </html>

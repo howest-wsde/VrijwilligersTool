@@ -14,6 +14,7 @@ AppBundle\Entity\Person:
         username:
             type: string
             length: 150
+            unique: true
         passphrase:
             type: string
             length: 60
@@ -28,8 +29,8 @@ AppBundle\Entity\Person:
             type: smallint
             nullable: true
         bus:
-            type: smallint
-            nullable: true
+            type: string
+            length: 6
             nullable: true
         city:
             type: string
@@ -38,11 +39,12 @@ AppBundle\Entity\Person:
         email:
             type: string
             length: 255
-            nullable: true 
+            nullable: true
         telephone:
             type: string
             length: 10
             nullable: true
+            unique: true
         linkedinUrl:
             type: string
             length: 150
@@ -51,6 +53,9 @@ AppBundle\Entity\Person:
         organisation:
             targetEntity: Organisation
             mappedBy: creator
+        candidacies:
+            targetEntity: Candidacy
+            mappedBy: candidate
     manyToMany:
         skills:
             targetEntity: Skill
