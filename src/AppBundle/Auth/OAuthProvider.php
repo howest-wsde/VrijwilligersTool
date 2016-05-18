@@ -24,9 +24,10 @@ class OAuthProvider extends OAuthUserProvider
 
         //Data from response 
         $email = $response->getEmail();
-        $nickname = $response->getNickname(); 
         $firstname = $response->getFirstName();
         $lastname = $response->getLastName(); 
+        
+        $nickname = $firstname . $lastname;
  
         //Check if this user already exists in our app DB
         $qb = $this->doctrine->getManager()->createQueryBuilder();
