@@ -27,8 +27,8 @@ security:
             provider: user_db_provider
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /start
+                check_path: /start
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: /persoon
             logout:
@@ -40,8 +40,8 @@ security:
             provider: user_db_provider
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
+                login_path: /start
+                check_path: /start
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: /persoon
             logout:
@@ -51,8 +51,8 @@ security:
                 resource_owners:
                     google: "/login/check-google"
                     facebook: "/login/check-facebook"
-                login_path: /login
-                failure_path: /login
+                login_path: /start
+                failure_path: /start
                 oauth_user_provider:
                     service: ib_user.oauth_user_provider
             # activate different ways to authenticate
