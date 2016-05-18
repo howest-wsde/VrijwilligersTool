@@ -11,6 +11,18 @@ class SearchFilter
     private $organisation = true;
     private $vacancy = true;
 
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
     public function getTerm()
     {
         return $this->term;
