@@ -69,4 +69,15 @@ AppBundle\Entity\Person:
                 inverseJoinColumns:
                     -
                         name: skill_id
-                        referencedColumnName: id
+                        referencedColumnName: id 
+        organisations:
+          targetEntity: Organisation
+          inversedBy: administrators
+          joinTable:
+            name: organisations_administrators
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
+                referencedColumnName: id

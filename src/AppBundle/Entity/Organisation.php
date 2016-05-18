@@ -50,6 +50,12 @@ class Organisation extends EntityBase
      */
     private $creator;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $administrators;
+
     /**
      * @var string
      * @Assert\Email(
@@ -297,6 +303,46 @@ class Organisation extends EntityBase
     {
         return $this->creator;
     }
+
+
+    /**
+     * Add administator
+     *
+     * @param \AppBundle\Entity\Administator $administator
+     *
+     * @return Person
+     */
+    public function addAdministator(\AppBundle\Entity\Administator $administator)
+    {
+        $this->administators[] = $administator;
+
+        return $this;
+    }
+
+    /**
+     * Remove administator
+     *
+      * @param \AppBundle\Entity\Administator $administator
+     *
+     * @return Person
+     */
+    public function removeAdministator(\AppBundle\Entity\Administator $administator)
+    {
+        $this->candidacies->removeElement($administator);
+
+        return $this;
+    }
+
+    /**
+     * Get administators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdministators()
+    {
+        return $this->administators;
+    }
+
 
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
