@@ -11,9 +11,9 @@ use AppBundle\Entity\Skill;
 
 class SearchFilterController extends Controller
 {
-    public function listRecentSearchFiltersAction($nr)
+    private function getRecentSearches()
     {
-        $filters = $this->getDoctrine()
+        return $this->getDoctrine()
             ->getRepository("AppBundle:SearchFilter")
             ->createQueryBuilder("f")
             ->where("f.owner = :owner")
@@ -22,9 +22,12 @@ class SearchFilterController extends Controller
             ->setMaxResults($nr)
             ->getQuery()
             ->getResult();
+    }
 
+    public function listRecentSearchFiltersAction($nr)
+    {
         return $this->render("searchResult/searchFilter.html.twig",
-            ["searchFilters" => $filters]);
+            ["searchFilters" => $this->getRecentSearches()]);
     }
 
     /**
@@ -32,17 +35,7 @@ class SearchFilterController extends Controller
      */
     public function renderJsSearchFilterAction($nr = 5)
     {
-        $filters = $this->getDoctrine()
-            ->getRepository("AppBundle:SearchFilter")
-            ->createQueryBuilder("f")
-            ->where("f.owner = :owner")
-            ->orderBy("f.id", "DESC")
-            ->setparameter("owner", $this->getuser())
-            ->setMaxResults($nr)
-            ->getQuery()
-            ->getResult();
-
         return $this->render("js/searchFilter.js.twig",
-            ["searchFilters" => $filters]);
+            ["searchFilters" => $this->getRecentSearches()]);
     }
 }
