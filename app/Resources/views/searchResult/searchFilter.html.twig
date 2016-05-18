@@ -1,11 +1,17 @@
 <ul>
 {% for searchFilter in searchFilters %}
-    <li>
-        <div class="recentSearch" >{{ searchFilter.term|slice(0,100) }}
-            <input type="hidden" name="person" value="{{ searchFilter.person }}" />
-            <input type="hidden" name="organisation" value="{{ searchFilter.organisation }}" />
-            <input type="hidden" name="vacancy" value="{{ searchFilter.vacancy }}" />
-        </div>
+    <li><a href="{{ path("zoeken", {
+        "search_filter[term]": searchFilter.term,
+        "search_filter[person]": searchFilter.person,
+        "search_filter[organisation]": searchFilter.organisation,
+        "search_filter[vacancy]": searchFilter.vacancy
+        }) }}" >
+        {% if searchFilter.term|length > 102 %}
+            {{ searchFilter.term|slice(0,100) }}...
+        {% else %}
+            {{ searchFilter.term }}
+        {% endif %}
+        </a>
     </li>
 {% endfor %}
 </ul>
