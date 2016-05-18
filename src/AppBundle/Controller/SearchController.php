@@ -50,11 +50,12 @@ class SearchController extends Controller
      * @Route("/zoeken", name="zoeken")
      * @Route("/zoek", name="zoek")
      */
-    public function searchAction()
+    public function searchAction(Request $request)
     {
-        $request = Request::createFromGlobals();
+        //$request = Request::createFromGlobals();
+        $filter = new SearchFilter;
 
-        $form = $this->createForm(SearchFilterType::class, new SearchFilter, ["method" => "GET"]);
+        $form = $this->createForm(SearchFilterType::class, $filter, ["method" => "GET"]);
         $form->handleRequest($request);
 
         $searchTerm = $request->query->get("q");
@@ -63,17 +64,48 @@ class SearchController extends Controller
         {
             $results = $this->plainSearch($searchTerm);
         }
-
-        if ($form->isSubmitted() && $form->isValid())
+        else if ($request->query->get("cat"))
         {
-            $data = $form->getData();
+            $cat = urldecode($request->query->get("cat"));
+
+            $em = $this->getDoctrine()->getManager();
+            $childCategories = $em->getRepository("AppBundle:Skill")
+            ->createQueryBuilder("s1")
+            ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
+            ->where("s2.name = :parentName")
+            ->setParameter("parentName", $cat)
+            ->getQuery()
+            ->getResult();
+
+            $allvacancies = [];
+            foreach ($childCategories as $category) {
+                foreach ($category->getVacancies() as $vacancy) {
+                    if(!in_array($vacancy, $allvacancies))
+                    {
+                        $allvacancies[] = $vacancy;
+                    }
+                }
+            }
+            $results = $allvacancies;
+        }
+        else if ($form->isSubmitted() && $form->isValid())
+        {
+            $filter = $filter;//$form->getData();
+
+            if ($this->getUser() && !$this->exists($filter))
+            {
+                $filter->setOwner($this->getUser());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($filter);
+                $em->flush();
+            }
 
             $types = array();
-            if ($data->getPerson()) {array_push($types, "person");}
-            if ($data->getOrganisation()) {array_push($types, "organisation");}
-            if ($data->getVacancy()) {array_push($types, "vacancy");}
+            if ($filter->getPerson()) {array_push($types, "person");}
+            if ($filter->getOrganisation()) {array_push($types, "organisation");}
+            if ($filter->getVacancy()) {array_push($types, "vacancy");}
 
-            $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
+            $query = $filter->getTerm() ? ["query_string" => ["query" => $filter->getTerm()]] : ["query" => ["match_all" => []]];
 
             $results = $this->specificSearch($types, ["query" => $query]);
         }
@@ -105,5 +137,24 @@ class SearchController extends Controller
 
         $response->headers->set("Access-Control-Allow-Origin", "*");
         return $response;
+    }
+
+    private function exists(SearchFilter $filter)
+    {
+        $query = $this->getDoctrine()->getManager()->createQueryBuilder()
+            ->select("count(f.id)")
+            ->from("AppBundle:SearchFilter", "f")
+            ->where("f.owner = :owner")
+            ->andWhere("f.term = :term")
+            ->andWhere("f.person = :person")
+            ->andWhere("f.organisation = :organisation")
+            ->andWhere("f.vacancy = :vacancy")
+            ->setParameter("owner", $this->getUser())
+            ->setParameter("term", $filter->getTerm())
+            ->setParameter("person", $filter->getPerson())
+            ->setParameter("organisation", $filter->getOrganisation())
+            ->setParameter("vacancy", $filter->getVacancy())
+            ->getQuery();
+        return $query->getSingleScalarResult() > 0;
     }
 }
