@@ -13,7 +13,7 @@ facebook_login:
 
 oauth_google: 
   path: /connect/google
-oaut_facebook: 
+oauth_facebook: 
   path: /connect/facebook
 
 app:
