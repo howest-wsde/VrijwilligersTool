@@ -13,7 +13,6 @@ class OrganisationController extends controller
 {
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      * @Route("/vereniging/nieuw" , name="create_organisation")
      */
     public function createOrganisationAction(Request $request)

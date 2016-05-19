@@ -12,7 +12,7 @@
 		{% for organisation in organisations %}
 			<li><a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ organisation.name }}</a></li>
 	    {% endfor %}
-		<li><a href="{{ path("vereniging_aanmaken") }}">nieuwe vereniging</a></li>
+		<li><a href="{{ path("create_organisation") }}">nieuwe vereniging</a></li>
 		<li><a href="{{ path("create_vacancy") }}">voor mezelf als particulier</a></li>
 	</ul>
 	 
