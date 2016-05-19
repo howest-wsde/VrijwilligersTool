@@ -17,7 +17,7 @@
 				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.organisation %}
-				<p>organisatie: {{ vacancy.organisation.name }}</p>
+				<p>organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
 				<p>locatie:
 					<span id="location">
 						<br>
