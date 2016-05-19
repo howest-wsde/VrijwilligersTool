@@ -113,6 +113,40 @@ class VacancyController extends controller
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/like", name="vacancy_like")
+     */
+    public function likeVacancy($urlid)
+    {
+        $user = $this->getUser(); 
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $user->addLikedVacancy($vacancy);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/unlike", name="vacancy_unlike")
+     */
+    public function unlikeVacancy($urlid)
+    {
+        $user = $this->getUser(); 
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $user->removeLikedVacancy($vacancy);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
     public function listRecentVacanciesAction($nr)
     {
         $vacancies = $this->getDoctrine()

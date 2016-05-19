@@ -91,9 +91,17 @@
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-				<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
-				<br/>
-				<a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a>
+			<ul>
+				<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li> 
+				
+				{% if app.user in vacancy.likers %}
+					<li><a href="{{ path("vacancy_unlike", {'urlid': vacancy.urlId }) }}">Unlike</a></li>
+				{% else %}
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId }) }}">Like</a></li>
+				{% endif %}
+	
+				<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
+			</ul>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}
