@@ -13,9 +13,9 @@ use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
 {
-    private function plainSearch($term)
+    private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
-        $query = $this->get("ElasticsearchQuery", $types = ["person", "vacancy", "organisation"]);
+        $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
@@ -38,9 +38,9 @@ class SearchController extends Controller
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
-            "from" => $sliceKey,
-            "size" => $slice[$sliceKey],
-            "body" => $body
+            "from" => key($slice),
+            "size" => $slice[key($slice)],
+            "body" => $bodys
         ];
         $result = $query->search($params);
         return $query->getResults();
