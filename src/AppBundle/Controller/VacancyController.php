@@ -36,11 +36,26 @@ class VacancyController extends controller
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
+     * @Route("/vacature/start", name="start_vacancy")
+     */
+    public function startVacancyAction(Request $request)
+    { 
+        $organisations = $this->getUser()->getOrganisations();  
+        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+                ["organisations" => $organisations ]
+            );
+    }
+
+
     /**
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
+     * @Route("/{organisation_urlid}/vacature/nieuw", name="create_vacancy_for_organisation")
      */
-    public function createVacancyAction(Request $request)
+    public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
         $vacancy = new Vacancy();
         $vacancy->setStartdate(new \DateTime("today"))
@@ -49,11 +64,13 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+ 
+            if (!is_null($organisation_urlid)){ 
+                $organisation = $em->getRepository("AppBundle:Organisation")
+                                    ->findOneByUrlid($organisation_urlid);
+                $vacancy->setOrganisation($organisation); 
+            }
 
-            // $user = $this->get('security.token_storage')->getToken()->getUser();
-            // $organisation = $user->getOrganisation();
-            // $vacancy->setOrganisation($organisation);
-            //
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
@@ -96,6 +113,29 @@ class VacancyController extends controller
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{likeunlike}", 
+     *              name="vacancy_like", 
+     *              requirements={"likeunlike": "like|unlike"})
+     */
+    public function likeVacancy($urlid, $likeunlike)
+    {
+        $user = $this->getUser(); 
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid); 
+        if ($likeunlike == "like") {
+            $user->addLikedVacancy($vacancy); 
+        } else {
+            $user->removeLikedVacancy($vacancy); 
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
     public function listRecentVacanciesAction($nr)
     {
         $vacancies = $this->getDoctrine()
@@ -120,5 +160,34 @@ class VacancyController extends controller
 
         return $this->render("skill/recente_categorien.html.twig",
             ["skills" => $query->getResult()]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
+     */
+    public function editVacancyAction($urlid, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+        $form = $this->createForm(VacancyType::class, $vacancy);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $vacancy->setTitle($data->getTitle());
+            $vacancy->setDescription($data->getDescription());
+            $vacancy->setEndDate($data->getEnddate());
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                array("urlid" => $vacancy->getUrlId() ) ));
+        }
+
+        return $this->render("vacancy/vacature_aanpassen.html.twig",
+            array("form" => $form->createView(),
+                  "urlid" => $urlid) );
     }
 }
