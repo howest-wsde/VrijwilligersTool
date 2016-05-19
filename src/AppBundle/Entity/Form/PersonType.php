@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
@@ -64,10 +65,13 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.telephone"),
                 "required" => false
             ))
-            ->add("language", TextType::class, array(
+            ->add("language", ChoiceType::class, array(
                 "label" => "person.label.language",
                 "attr" => array("placeholder" => "person.label.language"),
-                "required" => true
+                "choices" => array(
+                    "Nederlands" => "nl", 
+                    "English" => "en", 
+                )
             ))
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",
