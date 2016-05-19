@@ -81,4 +81,28 @@ AppBundle\Entity\Person:
                 referencedColumnName: id
             inverseJoinColumns:
               organisation_id:
+                referencedColumnName: id 
+        liked_organisations:
+          targetEntity: Organisation
+          inversedBy: likers
+          cascade: ["persist"]
+          joinTable:
+            name: organisations_likers
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
+                referencedColumnName: id
+        liked_vacancies:
+          targetEntity: Vacancy
+          inversedBy: likers
+          cascade: ["persist"]
+          joinTable:
+            name: vacancies_likers
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
                 referencedColumnName: id
