@@ -45,7 +45,7 @@
                     <ul>
                         <li><a href="{{ path("over_ons") }}">Over ons</a></li>
                         <li><a href="{{ path("contact") }}">Contact</a></li>
-                        <li><a href="{{ path("profile_edit") }}">profiel aanpassen</a></li>
+                        {% if app.user %}<li><a href="{{ path("profile_edit") }}">profiel aanpassen</a></li>{% endif %}
                     </ul>
                 </nav>
                 <nav class="top nav">
