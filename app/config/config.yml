@@ -103,3 +103,9 @@ services:
         class: AppBundle\EventListener\UrlListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    app.twig_is_not_null_extension:
+        class: AppBundle\Twig\IsNotNullExtension
+        public: false
+        tags:
+            - { name: twig.extension }
