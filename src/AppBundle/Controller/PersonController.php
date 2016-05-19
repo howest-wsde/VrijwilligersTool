@@ -53,17 +53,11 @@ class PersonController extends controller
     public function editProfileAction(Request $request){
         $person = $this->getUser(); 
         $form = $this->createForm(PersonType::class, $person);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-
-            $data = $form->getData();
-
-            //$person->setTitle($data->getTitle()); 
-
             $em->flush();
 
             return $this->redirect($this->generateUrl("self_profile" ));
