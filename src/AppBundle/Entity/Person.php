@@ -168,6 +168,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $telephone;
 
     /**
+     * @var string 
+     */
+    protected $language;
+
+    /**
      * Callback that check if either the email or telephone fields are valid
      */
     public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
@@ -607,6 +612,32 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->telephone;
     }
+
+
+    /**
+     * Set language
+     *
+     * @param string $language
+     *
+     * @return Person
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
 
     /**
      * Set street

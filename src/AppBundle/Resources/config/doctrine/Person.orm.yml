@@ -43,6 +43,12 @@ AppBundle\Entity\Person:
             type: string
             length: 10
             nullable: true
+        language:
+            type: string
+            length: 2
+            nullable: false
+            options:
+                default: nl
         linkedinUrl:
             type: string
             length: 150
