@@ -1,10 +1,11 @@
 <ul>
 {% for searchFilter in searchFilters %}
     <li><a href="{{ path("zoeken", {
-        "search_filter[term]": searchFilter.term,
-        "search_filter[person]": searchFilter.person,
-        "search_filter[organisation]": searchFilter.organisation,
-        "search_filter[vacancy]": searchFilter.vacancy
+
+        "search_filter[term]": searchFilter.term|isNotNull,
+        "search_filter[person]": searchFilter.person|isNotNull,
+        "search_filter[organisation]": searchFilter.organisation|isNotNull,
+        "search_filter[vacancy]": searchFilter.vacancy|isNotNull
         }) }}" >
         {% if searchFilter.term|length > 102 %}
             {{ searchFilter.term|slice(0,100) }}...
@@ -15,3 +16,10 @@
     </li>
 {% endfor %}
 </ul>
+
+
+<!--
+url?param=value&anotherparam=anothervalue
+
+enkel op button click -> save search
+url -> geen token -> geen save -->
