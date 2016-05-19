@@ -6,7 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response; 
+use AppBundle\Entity\Form\PersonType;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Form\VacancyType;
@@ -42,6 +43,33 @@ class PersonController extends controller
         {
             return $this->redirectToRoute("login");
         }
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/mijnprofiel", name="profile_edit")
+     */
+    public function editProfileAction(Request $request){
+        $person = $this->getUser(); 
+        $form = $this->createForm(PersonType::class, $person);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $data = $form->getData();
+
+            //$person->setTitle($data->getTitle()); 
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("self_profile" ));
+        }
+
+        return $this->render("person/edit_profile.html.twig", array("form" => $form->createView() ));
     }
 
     public function listRecentPersonsAction($nr)

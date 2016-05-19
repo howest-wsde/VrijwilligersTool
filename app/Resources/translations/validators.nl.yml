@@ -91,6 +91,7 @@ person:
         city: Gemeente
         password: Wachtzin
         repeat_password: Herhaal wachtzin
+        language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
         submit: Registreren
