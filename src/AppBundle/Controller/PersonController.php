@@ -43,13 +43,4 @@ class PersonController extends controller
             return $this->redirectToRoute("login");
         }
     }
-
-    public function listRecentPersonsAction($nr)
-    {
-        $entities = $this->getDoctrine()
-                        ->getRepository("AppBundle:Person")
-                        ->findBy(array(), array('id' => 'DESC'), $nr);
-        return $this->render('person/recente_vrijwilligers.html.twig',
-            ['persons' => $entities]);
-    }
 }
