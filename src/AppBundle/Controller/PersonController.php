@@ -44,6 +44,7 @@ class PersonController extends controller
         }
     }
 
+    /*
     public function listRecentPersonsAction($nr)
     {
         $entities = $this->getDoctrine()
@@ -52,4 +53,5 @@ class PersonController extends controller
         return $this->render('person/recente_vrijwilligers.html.twig',
             ['persons' => $entities]);
     }
+    */
 }
