@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Vacature{% endblock %}
+
+{% block body %}
+    <script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <article>
+        <header><h1>{{ vacancy.title }}</h1></header>
+        <h2>Kandidaten voor deze vacature:</h2>
+        <ol>
+            {% for candidacy in candidacies %}
+                {% set candidate = candidacy.candidate %}
+
+                <li>{{ candidate.firstname}} {{ candidate.lastname}}
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
+                    |<form action="{{ path('approve_candidacy', {'candidacyId': candidate.id}) }}">
+                        <button type="submit" value="approve">Keur goed</button>
+                    </form>
+
+                </li>
+            {% endfor %}
+        </ol>
+            {% for flashMessage in app.session.flashbag.get('approve_message') %}
+                     <script>alert("{{ flashMessage }}");</script>
+            {% endfor %}
+
+    </article>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+
+    <script src="{{ asset("js/googleMaps.js") }}"></script>
+    <script src="{{ asset("js/sharebuttons.js") }}"></script>
+{% endblock %}

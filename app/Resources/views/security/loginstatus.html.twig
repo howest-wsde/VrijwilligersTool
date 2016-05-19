@@ -18,7 +18,10 @@
                         {{ organisation.name }} <br/>huidige vacatures:
                         <ul>
                         {% for vacancy in organisation.vacancies  %}
-                            <li>{{ vacancy.title }} <br/>huidige kandidaatstellingen:</li>
+                            {#TODO: edit button, waiting on koen merge#}
+                            <li>{{ vacancy.title }}
+                                <a href="{{ path("vacancy_candidacies",{'urlid' :vacancy.id}) }}">kandidaten goedkeuren</a>
+                                {#<a href="{{ path("vacancy_edit",vacancy.id)}}">edit</a>#} <br/>huidige kandidaatstellingen:</li>
                                 <ul>
                                     {% for candidacy in vacancy.candidacies %}
                                         <li>
