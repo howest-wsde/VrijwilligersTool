@@ -23,14 +23,14 @@ class OrganisationController extends controller
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $organisation->addAdministrator($user); 
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
-            $em->persist($user);
+
+            $user->addOrganisation($organisation);
+            $em->persist($user);            
 
             $em->flush(); 
-            return $this->redirect($this->generateUrl("organisation_by_urlid",
-            ['urlid' => $organisation->getUrlId() ] ));
+            return $this->redirect($this->generateUrl("create_vacancy_for_organisation", ['organisation_urlid' => $organisation->getUrlId() ]));
         }
         return $this->render("organisation\maakvereniging.html.twig",
             ["form" => $form->createView() ] );
