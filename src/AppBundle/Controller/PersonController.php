@@ -66,6 +66,8 @@ class PersonController extends controller
         return $this->render("person/edit_profile.html.twig", array("form" => $form->createView() ));
     }
 
+
+    /*
     public function listRecentPersonsAction($nr)
     {
         $entities = $this->getDoctrine()
@@ -74,4 +76,5 @@ class PersonController extends controller
         return $this->render('person/recente_vrijwilligers.html.twig',
             ['persons' => $entities]);
     }
+    */
 }

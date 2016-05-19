@@ -54,6 +54,10 @@ AppBundle\Entity\Organisation:
           targetEntity: Person
           mappedBy: organisations 
           cascade: ["persist"]
+        likers:
+          targetEntity: Person
+          mappedBy: liked_organisations 
+          cascade: ["persist"]
     oneToMany:
         vacancies:
             nullable: true

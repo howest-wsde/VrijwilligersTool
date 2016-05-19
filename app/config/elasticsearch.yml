@@ -26,7 +26,7 @@ fos_elastica:
                         email: "%nl%"
                         telephone: "%nl%"
                         linkedinUrl: "%nl%"
-                        organisation: "%nl%"
+                        # organisation: "%nl%"
                         # testimonials: "%nl%"
                         # skills: "%nl%"
                     persistence:
@@ -41,7 +41,6 @@ fos_elastica:
                     mappings:
                         name: "%nl%"
                         description: "%nl%"
-                        creator: "%nl%"
                         street: "%nl%"
                         number: "%nl%"
                         postalcode: "%nl%"
@@ -50,6 +49,7 @@ fos_elastica:
                         email: "%nl%"
                         telephone: "%nl%"
                         urlId: "%nl%"
+                        # creator: "%nl%"
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
@@ -58,31 +58,31 @@ fos_elastica:
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
-                skill:
-                    mappings:
-                        name: %nl%
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\Skill
-                        provider: ~
-                        listener: %listener%
-                        finder: ~
-                        elastica_to_model_transformer:
-                            ignore_missing: true
+                # skill:
+                #     mappings:
+                #         name: %nl%
+                #     persistence:
+                #         driver: orm
+                #         model: AppBundle\Entity\Skill
+                #         provider: ~
+                #         listener: %listener%
+                #         finder: ~
+                #         elastica_to_model_transformer:
+                #             ignore_missing: true
 
-                testimonial:
-                    mappings:
-                        value: %nl%
-                        sender: %nl%
-                        receiver: %nl%
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\Testimonial
-                        provider: ~
-                        listener: %listener%
-                        finder: ~
-                        elastica_to_model_transformer:
-                            ignore_missing: true
+                # testimonial:
+                #     mappings:
+                #         value: %nl%
+                #         sender: %nl%
+                #         receiver: %nl%
+                #     persistence:
+                #         driver: orm
+                #         model: AppBundle\Entity\Testimonial
+                #         provider: ~
+                #         listener: %listener%
+                #         finder: ~
+                #         elastica_to_model_transformer:
+                #             ignore_missing: true
 
                 vacancy:
                     mappings:
@@ -90,8 +90,8 @@ fos_elastica:
                         description: "%nl%"
                         startdate: "%nl%"
                         enddate: "%nl%"
-                        organisation: "%nl%"
                         urlId: "%nl%"
+                        # organisation: "%nl%"
                         # skills: "%nl%"
                     persistence:
                         driver: orm
