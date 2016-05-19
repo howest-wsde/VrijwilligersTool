@@ -71,10 +71,6 @@ class VacancyController extends controller
                 $vacancy->setOrganisation($organisation); 
             }
 
-            // $user = $this->get('security.token_storage')->getToken()->getUser();
-            // $organisation = $user->getOrganisation();
-            // $vacancy->setOrganisation($organisation);
-            //
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
