@@ -49,7 +49,7 @@
                 </nav>
                 <nav class="top nav">
                     <ul>
-                        <li><a href="{{ path("status_testing") }}">Mijn profiel</a></li>
+                        <li><a href="{{ path("self_profile") }}">Mijn profiel</a></li>
                         <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
                         <li><a href="{{ path("vereniging_aanmaken") }}">Vrijwilliger vinden</a></li>
                         <li><a href="{{ path("vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
@@ -76,15 +76,7 @@
                     {{ render(controller("AppBundle:Person:listRecentPersons", { "nr": 5 } )) }}
                 </section>
                 <section>
-                    <header><h1>Vacature types</h1></header>
-                    <ul>
-                        <li><a href="{{ path("zoeken", { "cat": "administratie" }) }}">Administratie</a></li>
-                        <li><a href="{{ path("zoeken", { "cat": "Categorie 2" }) }}">Categorie 2</a></li>
-                        <li><a href="{{ path("zoeken", { "cat": "Categorie 3" }) }}">Categorie 3</a></li>
-                        <li><a href="{{ path("zoeken", { "cat": "Categorie 4" }) }}">Categorie 4</a></li>
-                        <li><a href="{{ path("zoeken", { "cat": "Categorie 5" }) }}">Categorie 5</a></li>
-                        <li><a href="{{ path("zoeken", { "cat": "Categorie 6" }) }}">Categorie 6</a></li>
-                    </ul>
+                    {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
                 </section>
                 <section>
                     <header><h1>Vrijwilligersinfo</h1></header>

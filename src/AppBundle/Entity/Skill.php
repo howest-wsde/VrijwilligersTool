@@ -33,6 +33,21 @@ class Skill extends EntityBase
     private $parent;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
+
+    /**
      * Set name
      *
      * @param string $name

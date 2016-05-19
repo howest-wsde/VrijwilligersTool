@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
@@ -18,7 +19,7 @@ class VacancyController extends controller
     public function createPdfAction($title)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -80,11 +81,11 @@ class VacancyController extends controller
      */
     public function subscribeVacancy($urlid)
     {
-        $person = $this->get('security.token_storage')->getToken()->getUser();
+        $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlId($urlid);
+            ->findOneByUrlid($urlid);
 
         $candidacy = new Candidacy();
         $candidacy->setCandidate($person)->setVacancy($vacancy);
@@ -94,14 +95,31 @@ class VacancyController extends controller
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
-    public function listRecentVacanciesAction(){
-        // retreiving 5 most recent vacancies 
-        $entities = $this->getDoctrine()
+
+    public function listRecentVacanciesAction($nr)
+    {
+        $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array('id' => 'DESC'),5);
-        return $this->render('vacancy/recente_vacatures.html.twig',
-            array('vacancies' => $entities)
-        );
+                        ->findBy(array(), array("id" => "DESC"), $nr);
+        return $this->render("vacancy/recente_vacatures.html.twig",
+            ["vacancies" => $vacancies]);
+    }
+
+    public function listParentSkillsAction($nr)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository("AppBundle:Skill");
+
+        $query = $repository->createQueryBuilder("s")
+            ->where("s.parent IS NULL")
+            ->addOrderBy("s.id", "DESC")
+            ->addOrderBy("s.name", "ASC")
+            ->getQuery();
+
+        $query->setMaxResults($nr);
+
+        return $this->render("skill/recente_categorien.html.twig",
+            ["skills" => $query->getResult()]);
     }
 
     /**
