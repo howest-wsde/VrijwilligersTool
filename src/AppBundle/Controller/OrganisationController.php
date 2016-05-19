@@ -51,35 +51,25 @@ class OrganisationController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vereniging/{urlid}/like", name="organisation_like")
+     * @Route("/vereniging/{urlid}/{likeunlike}", 
+     *              name="organisation_like", 
+     *              requirements={"likeunlike": "like|unlike"})
      */
-    public function likeOrganisation($urlid)
+    public function likeOrganisation($urlid, $likeunlike)
     {
         $user = $this->getUser(); 
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
-        $user->addLikedOrganisation($organisation);
+        if ($likeunlike == "like") {
+            $user->addLikedOrganisation($organisation); 
+        } else {
+            $user->removeLikedOrganisation($organisation); 
+        }
         $em->persist($user);
         $em->flush();
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
     }
-
-    /**
-     * @Security("has_role('ROLE_USER')")
-     * @Route("/vereniging/{urlid}/unlike", name="organisation_unlike")
-     */
-    public function unlikeOrganisation($urlid)
-    {
-        $user = $this->getUser(); 
-        $em = $this->getDoctrine()->getManager();
-        $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($urlid);
-        $user->removeLikedOrganisation($organisation);
-        $em->persist($user);
-        $em->flush();
-
-        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
-    }
+ 
 }

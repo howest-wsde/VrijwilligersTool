@@ -115,32 +115,21 @@ class VacancyController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/like", name="vacancy_like")
+     * @Route("/vacature/{urlid}/{likeunlike}", 
+     *              name="vacancy_like", 
+     *              requirements={"likeunlike": "like|unlike"})
      */
-    public function likeVacancy($urlid)
+    public function likeVacancy($urlid, $likeunlike)
     {
         $user = $this->getUser(); 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid);
-        $user->addLikedVacancy($vacancy);
-        $em->persist($user);
-        $em->flush();
-
-        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
-    }
-
-    /**
-     * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/unlike", name="vacancy_unlike")
-     */
-    public function unlikeVacancy($urlid)
-    {
-        $user = $this->getUser(); 
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid);
-        $user->removeLikedVacancy($vacancy);
+            ->findOneByUrlid($urlid); 
+        if ($likeunlike == "like") {
+            $user->addLikedVacancy($vacancy); 
+        } else {
+            $user->removeLikedVacancy($vacancy); 
+        }
         $em->persist($user);
         $em->flush();
 
