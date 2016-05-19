@@ -841,6 +841,86 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     }
 
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_vacancies;
+
+
+    /**
+     * Add likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     *
+     * @return Person
+     */
+    public function addLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations[] = $likedOrganisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     */
+    public function removeLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations->removeElement($likedOrganisation);
+    }
+
+    /**
+     * Get likedOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedOrganisations()
+    {
+        return $this->liked_organisations;
+    }
+
+    /**
+     * Add likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     *
+     * @return Person
+     */
+    public function addLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies[] = $likedVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     */
+    public function removeLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies->removeElement($likedVacancy);
+    }
+
+    /**
+     * Get likedVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedVacancies()
+    {
+        return $this->liked_vacancies;
+    }
+
    /**
      * Get the class name
      *

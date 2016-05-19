@@ -48,3 +48,7 @@ AppBundle\Entity\Vacancy:
                     -
                         name: skill_id
                         referencedColumnName: id
+        likers:
+          targetEntity: Person
+          mappedBy: liked_vacancies
+          cascade: ["persist"]

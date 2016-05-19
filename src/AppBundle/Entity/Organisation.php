@@ -56,6 +56,12 @@ class Organisation extends EntityBase
      */
     private $administrators;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likers;
+
     /**
      * @var string
      * @Assert\Email(
@@ -344,6 +350,40 @@ class Organisation extends EntityBase
     }
 
 
+    /**
+     * Add liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     *
+     * @return Organisation
+     */
+    public function addLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers[] = $liker;
+
+        return $this;
+    }
+
+    /**
+     * Remove liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     */
+    public function removeLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers->removeElement($liker);
+    }
+
+    /**
+     * Get likers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikers()
+    {
+        return $this->likers;
+    }
+    
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *

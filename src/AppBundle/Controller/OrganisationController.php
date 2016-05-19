@@ -47,4 +47,29 @@ class OrganisationController extends controller
         return $this->render("organisation/vereniging.html.twig",
             ["organisation" => $organisation]);
     }
+
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vereniging/{urlid}/{likeunlike}", 
+     *              name="organisation_like", 
+     *              requirements={"likeunlike": "like|unlike"})
+     */
+    public function likeOrganisation($urlid, $likeunlike)
+    {
+        $user = $this->getUser(); 
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+        if ($likeunlike == "like") {
+            $user->addLikedOrganisation($organisation); 
+        } else {
+            $user->removeLikedOrganisation($organisation); 
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
+    }
+ 
 }
