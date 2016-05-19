@@ -47,10 +47,10 @@ class OrganisationController extends controller
 
     public function listRecentOrganisationsAction($nr)
     {
-        $entities = $this->getDoctrine()
+        $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
             ->findBy(array(), array('id' => 'DESC'), $nr);
         return $this->render('organisation/recente_verenigingen.html.twig',
-            ['organisations' => $entities]);
+            ['organisations' => $organisations]);
     }
 }
