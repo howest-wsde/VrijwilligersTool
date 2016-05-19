@@ -121,4 +121,33 @@ class VacancyController extends controller
         return $this->render("skill/recente_categorien.html.twig",
             ["skills" => $query->getResult()]);
     }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
+     */
+    public function editVacancyAction($urlid, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+        $form = $this->createForm(VacancyType::class, $vacancy);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $vacancy->setTitle($data->getTitle());
+            $vacancy->setDescription($data->getDescription());
+            $vacancy->setEndDate($data->getEnddate());
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                array("urlid" => $vacancy->getUrlId() ) ));
+        }
+
+        return $this->render("vacancy/vacature_aanpassen.html.twig",
+            array("form" => $form->createView(),
+                  "urlid" => $urlid) );
+    }
 }
