@@ -1,7 +1,9 @@
 <?php
+
 namespace AppBundle\Elasticsearch;
+
 use Elasticsearch\ClientBuilder;
-use AppBundle\SearchResult;
+
 class ElasticsearchQuery
 {
     private $es_host;
@@ -59,8 +61,8 @@ class ElasticsearchQuery
     {
         $entities = array();
         $hits = $this->raw_result["hits"]["hits"];
-        $count = $this->raw_result["hits"]["total"];
-        for ($i=0; $i < $count; $i++) {
+        for ($i=0; $i < count($hits); $i++)
+        {
             $source = $hits[$i]["_source"];
             $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
             $entity = new $classname();
@@ -84,8 +86,8 @@ class ElasticsearchQuery
     {
         return $this->raw_result;
     }
-    public function getSearchResults()
+    public function getResults()
     {
-        return SearchResult::fromEntities($this->getEntities());
+        return $this->getEntities();
     }
 }

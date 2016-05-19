@@ -1,1 +1,2 @@
-{#{ dump(organisation) }#}
+<h2><a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlId }) }}">{{ organisation.name}}</a></h2>
+city: {{ organisation.city }}<br />

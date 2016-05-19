@@ -28,8 +28,8 @@ AppBundle\Entity\Person:
             type: smallint
             nullable: true
         bus:
-            type: smallint
-            nullable: true
+            type: string
+            length: 6
             nullable: true
         city:
             type: string
@@ -38,7 +38,7 @@ AppBundle\Entity\Person:
         email:
             type: string
             length: 255
-            nullable: true 
+            nullable: true
         telephone:
             type: string
             length: 10
@@ -51,6 +51,9 @@ AppBundle\Entity\Person:
         organisation:
             targetEntity: Organisation
             mappedBy: creator
+        candidacies:
+            targetEntity: Candidacy
+            mappedBy: candidate
     manyToMany:
         skills:
             targetEntity: Skill
@@ -66,4 +69,16 @@ AppBundle\Entity\Person:
                 inverseJoinColumns:
                     -
                         name: skill_id
-                        referencedColumnName: id
+                        referencedColumnName: id 
+        organisations:
+          targetEntity: Organisation
+          inversedBy: administrators
+          cascade: ["persist"]
+          joinTable:
+            name: organisations_administrators
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
+                referencedColumnName: id

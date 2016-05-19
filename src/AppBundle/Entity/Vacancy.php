@@ -7,8 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Vacancy
  */
-
-class Vacancy
+class Vacancy extends EntityBase
 {
     /**
      * @var string
@@ -19,6 +18,7 @@ class Vacancy
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy..max_message"
      * )
+     * @Assert\NotEqualTo("nieuw")
     */
     private $title;
 
@@ -37,12 +37,12 @@ class Vacancy
     /**
      * @var \Datetime
      * @Assert\Type(
-     * 		type = "\DateTime",
+     *      type = "\DateTime",
      *      message = "vacancy.date.valid",
      * )
      * @Assert\GreaterThanOrEqual(
-     * 		value = "today",
-     * 		message = "vacancy.date.not_today"
+     *      value = "today",
+     *      message = "vacancy.date.not_today"
      * )
      */
     private $startdate;
@@ -50,16 +50,21 @@ class Vacancy
     /**
      * @var \Datetime
      * @Assert\Type(
-     * 		type = "\DateTime",
+     *      type = "\DateTime",
      *      message = "vacancy.date.valid",
      * )
      * @Assert\GreaterThanOrEqual(
-     * 		value = "today",
-     * 		message = "vacancy.date.not_today"
+     *      value = "today",
+     *      message = "vacancy.date.not_today"
      * )
      * @Assert\Expression(
      *     "this.getEnddate() >= this.getStartdate()",
-     *     message="vacancy.date.not_more_than"
+     *     message = "vacancy.date.not_more_than"
+     * )
+     *
+     * @Assert\Expression(
+     *     "this.getEnddate() <= this.getStartdate().modify('+6 month')",
+     *     message = "vacancy.date.max_period"
      * )
      */
     private $enddate;
@@ -78,7 +83,44 @@ class Vacancy
      * @var \Doctrine\Common\Collections\Collection
      */
     private $skills;
- 
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $candidacies;
+
+
+    /**
+     * @var string
+     */
+    private $urlid;
+
+
+    /**
+     * Set urlId
+     *
+     * @param string $urlId
+     *
+     * @return Vacancy
+     */
+    public function setUrlId($urlId)
+    {
+        $this->urlid = $urlId;
+
+        return $this;
+    }
+
+    /**
+     * Get urlId
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return $this->urlid;
+    }
+
     /**
      * Constructor
      */
@@ -252,6 +294,46 @@ class Vacancy
         $this->skills->removeElement($skill);
     }
 
+
+    /**
+     * Add candidacy
+     *
+     * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function addCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies[] = $candidacy;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidacy
+     *
+      * @param \AppBundle\Entity\Candidacy $candidacy
+     *
+     * @return Person
+     */
+    public function removeCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    {
+        $this->candidacies->removeElement($candidacy);
+
+        return $this;
+    }
+
+    /**
+     * Get candidacies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCandidacies()
+    {
+        return $this->candidacies;
+    }
+
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -260,9 +342,8 @@ class Vacancy
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Title" => $this->getTitle(),

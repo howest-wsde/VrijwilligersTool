@@ -30,21 +30,31 @@ security:
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
+                default_target_path: /persoon
             logout:
                 path:   /logout
-                target: /status
+                target: /
 
         main:
             pattern:    ^/
             provider: user_db_provider
             anonymous: ~
             form_login:
-                login_path: /login
-                check_path: /login
+                login_path: login
+                check_path: login
                 csrf_token_generator: security.csrf.token_manager
+                default_target_path: /persoon
             logout:
                 path:   /logout
-                target: /register
+                target: /
+            oauth:
+                resource_owners:
+                    google: "/login/check-google"
+                    facebook: "/login/check-facebook"
+                login_path: login
+                failure_path: login
+                oauth_user_provider:
+                    service: ib_user.oauth_user_provider
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -60,5 +70,6 @@ security:
 
     role_hierarchy:
         ROLE_VOLUNTEER:   ROLE_USER
+        ROLE_ORGANISATION: [ROLE_USER, ROLE_VOLUNTEER]
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Testimonial
  */
-class Testimonial
+class Testimonial extends EntityBase
 {
     /**
      * @var string
@@ -162,9 +162,8 @@ class Testimonial
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Value" => $this->getValue(),
@@ -173,5 +172,15 @@ class Testimonial
                 "Approved" => $this->getApproved()
             )
         ));
+    }
+
+    /**
+     * Get name for url
+     *
+     * @return string
+     */
+    public function getUrlId()
+    {
+        return str_replace(" ", "-", $this->sender);
     }
 }

@@ -17,7 +17,7 @@ AppBundle\Entity\Organisation:
         street:
             type: string
             scale: 255
-            nullable: true 
+            nullable: true
         number:
             type: smallint
             nullable: true
@@ -25,7 +25,8 @@ AppBundle\Entity\Organisation:
             type: smallint
             nullable: true
         bus:
-            type: smallint
+            type: string
+            length: 6
             nullable: true
         city:
             type: string
@@ -37,6 +38,10 @@ AppBundle\Entity\Organisation:
             nullable: true
         description:
             type: text
+        urlid:
+            type: string
+            length: 150
+            options: {default: ""}
     manyToOne:
         creator:
             targetEntity: Person
@@ -44,6 +49,11 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
+    manyToMany: 
+        administrators:
+          targetEntity: Person
+          mappedBy: organisations 
+          cascade: ["persist"]
     oneToMany:
         vacancies:
             nullable: true

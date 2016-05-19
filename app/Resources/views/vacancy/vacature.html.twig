@@ -1,29 +1,36 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block title %}Vacature{% endblock %}
 
 {% block body %}
 	<article>
-		<header><h1>{{ vacature.title }}</h1></header>
-		<h2>created on {{ vacature.creationtime|date('Y-m-d') }}</h2>
+		<header><h1>{{ vacancy.title }}</h1></header>
 		<div>
-			<p>{{ vacature.description }}</p>
+			<p>{{ vacancy.description }}</p>
 			<p>Ons Aanbod</p>
 		</div>
 		<div>
-			<p>vervaldatum: {{ vacature.startdate|date('Y-m-d') }}</p>
-			<p>organisatie: {{ vacature.organisation.name }}</p>
-			<p>locatie:
-				<span id="location">
-					{{ vacature.organisation.street }}
-					{{ vacature.organisation.number }}
-					<br>
-					{% if vacature.organisation.bus is not null %}
-						bus {{ vacature.organisation.bus }}
-					{% endif %}
-					{{ vacature.organisation.postalcode }}
-					{{ vacature.organisation.city }}
-				</span>
+			{% if vacancy.startdate %}
+				<p>Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
+			{% endif %}
+			{% if vacancy.enddate %}
+				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
+			{% endif %}
+			{% if vacancy.organisation %}
+				<p>organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
+				<p>locatie:
+					<span id="location">
+						<br>
+						{{ vacancy.organisation.street }}
+						{{ vacancy.organisation.number }}
+						<br>
+						{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
+							bus {{ vacancy.organisation.bus }}
+						{% endif %}
+						{{ vacancy.organisation.postalcode }}
+						{{ vacancy.organisation.city }}
+					</span>
+			{% endif %}
 			</p>
 		</div>
 		<div class="share-buttons">
@@ -33,32 +40,71 @@
 				Tweeten</a>
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
-		<div id="map-canvas" style="width: 250px; height: 250px;"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+            <script type="IN/Share" data-counter="right"></script>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
+			<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+				<input type="submit" value="Print deze vacature"/>
+			</form>
 		</div>
-		<aside>
-			{% for category in vacature.category %}
-				<p>category</p>
-			{% endfor %}
+
+		<aside id="#googlemaps">
+			<div>
+				<button id="getRoute">Toon routebeschrijving</button>
+				<div id="description" class="hidden"></div>
+				<p>selecteer uw gewenste transportwijze</p>
+				<div onchange="googleMapsModule.drawRoute()">
+					<select id="transitMethod">
+						<option value="DRIVING">Auto</option>
+						<option value="BICYCLING">Fiets</option>
+						<option value="WALKING">Te voet</option>
+						<option value="TRANSIT">Openbaar vervoer</option>
+					</select>
+					<select id="transitMode" class="hidden">
+						<option value="BUS">Per bus</option>
+						<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+						<option value="SUBWAY">Per metro</option>
+						<option value="TRAM">Per tram</option>
+					</select>
+				</div>
+			</div>
+			<div data-useraddress="
+			{% if app.user %}
+				{{ app.user.street }}
+				{{ app.user.number }}
+				{{ app.user.postalcode }}
+				{{ app.user.city }}
+			{% else %}
+			{% endif %}"
+				 id="map-canvas" style="width: 350px; height: 350px;">
+			</div>
 		</aside>
+
+
+
+		<!-- <aside>
+			{# for category in vacancy.category
+				<p>category</p>
+			  endfor #}
+		</aside>-->
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-				<button>Stel je kandidaat</button>
-				<form action="{{ path('vacancy_pdf', {'id': vacature.id}) }}" target="_blank">
-					<input type="submit" value="Print deze vacature"/>
-				</form>
+				<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
+				<br/>
+				<a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
-	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'nl'}</script>
-	<script src="{{ asset('js/googleMaps.js') }}"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g"></script>
-	<script src="{{ asset('js/sharebuttons.js') }}"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
+
+	<script src="{{ asset("js/googleMaps.js") }}"></script>
+	<script src="{{ asset("js/sharebuttons.js") }}"></script>
 {% endblock %}

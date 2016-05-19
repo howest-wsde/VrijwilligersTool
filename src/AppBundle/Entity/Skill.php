@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 /**
  * Skill
  */
-class Skill
+class Skill extends EntityBase
 {
     /**
      * Constructor
@@ -31,6 +31,21 @@ class Skill
      * @var \AppBundle\Entity\Skill
      */
     private $parent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
 
     /**
      * Set name
@@ -85,9 +100,8 @@ class Skill
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName()
