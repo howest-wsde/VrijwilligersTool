@@ -242,12 +242,20 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $organisation;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $organisations;
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
     }
 
@@ -791,6 +799,126 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
+    }
+
+
+    /**
+     * Add organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function addOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations[] = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove organisation
+     *
+      * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function removeOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations->removeElement($organisation);
+
+        return $this;
+    }
+
+    /**
+     * Get organisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
+
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_vacancies;
+
+
+    /**
+     * Add likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     *
+     * @return Person
+     */
+    public function addLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations[] = $likedOrganisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     */
+    public function removeLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations->removeElement($likedOrganisation);
+    }
+
+    /**
+     * Get likedOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedOrganisations()
+    {
+        return $this->liked_organisations;
+    }
+
+    /**
+     * Add likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     *
+     * @return Person
+     */
+    public function addLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies[] = $likedVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     */
+    public function removeLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies->removeElement($likedVacancy);
+    }
+
+    /**
+     * Get likedVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedVacancies()
+    {
+        return $this->liked_vacancies;
     }
 
    /**

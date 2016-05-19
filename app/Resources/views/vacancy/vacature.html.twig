@@ -17,7 +17,7 @@
 				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.organisation %}
-				<p>organisatie: {{ vacancy.organisation.name }}</p>
+				<p>organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
 				<p>locatie:
 					<span id="location">
 						<br>
@@ -45,6 +45,9 @@
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
+			<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+				<input type="submit" value="Print deze vacature"/>
+			</form>
 		</div>
 
 		<aside id="#googlemaps">
@@ -89,10 +92,17 @@
 		{# nog het id hidden toevoegen of andere
 		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-			<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
-				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
-					<input type="submit" value="Print deze vacature"/>
-				</form>
+			<ul>
+				<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li> 
+				
+				{% if app.user in vacancy.likers %}
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+				{% else %}
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+				{% endif %}
+ 
+				<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
+			</ul>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}
