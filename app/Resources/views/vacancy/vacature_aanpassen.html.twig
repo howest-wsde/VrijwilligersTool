@@ -12,6 +12,10 @@
 
     {{ form_end(form) }}
 
+    <form action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
+        <input type="submit" value="Annuleren"/>
+    </form>
+
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">
             <script type="text/javascript">alert("{{ flash_message }}");</script>

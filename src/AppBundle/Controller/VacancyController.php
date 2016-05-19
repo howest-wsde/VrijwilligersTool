@@ -147,6 +147,7 @@ class VacancyController extends controller
         }
 
         return $this->render("vacancy/vacature_aanpassen.html.twig",
-            array("form" => $form->createView() ) );
+            array("form" => $form->createView(),
+                  "urlid" => $urlid) );
     }
 }
