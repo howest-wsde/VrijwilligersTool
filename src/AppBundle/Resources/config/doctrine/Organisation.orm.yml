@@ -49,6 +49,11 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
+    manyToMany: 
+        administrators:
+          targetEntity: Person
+          mappedBy: organisations 
+          cascade: ["persist"]
     oneToMany:
         vacancies:
             nullable: true

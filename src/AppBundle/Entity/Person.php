@@ -242,12 +242,20 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $organisation;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $organisations;
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
     }
 
@@ -792,6 +800,46 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
         return $this;
     }
+
+
+    /**
+     * Add organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function addOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations[] = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove organisation
+     *
+      * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function removeOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations->removeElement($organisation);
+
+        return $this;
+    }
+
+    /**
+     * Get organisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
+
 
    /**
      * Get the class name

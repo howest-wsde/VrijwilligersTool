@@ -13,21 +13,24 @@ class OrganisationController extends controller
 {
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/verenigingaanmaken", name="vereniging_aanmaken")
      * @Route("/vereniging/nieuw" , name="create_organisation")
      */
     public function createOrganisationAction(Request $request)
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $organisation = (new Organisation())->setCreator($user);
+
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
-            $em->flush();
-            return $this->redirect($this->generateUrl("organisation_by_urlid",
-            ['urlid' => $organisation->getUrlId() ] ));
+
+            $user->addOrganisation($organisation);
+            $em->persist($user);            
+
+            $em->flush(); 
+            return $this->redirect($this->generateUrl("create_vacancy_for_organisation", ['organisation_urlid' => $organisation->getUrlId() ]));
         }
         return $this->render("organisation\maakvereniging.html.twig",
             ["form" => $form->createView() ] );

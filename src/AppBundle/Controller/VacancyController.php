@@ -36,11 +36,26 @@ class VacancyController extends controller
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
+     * @Route("/vacature/start", name="start_vacancy")
+     */
+    public function startVacancyAction(Request $request)
+    { 
+        $organisations = $this->getUser()->getOrganisations();  
+        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+                ["organisations" => $organisations ]
+            );
+    }
+
+
     /**
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
+     * @Route("/{organisation_urlid}/vacature/nieuw", name="create_vacancy_for_organisation")
      */
-    public function createVacancyAction(Request $request)
+    public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
         $vacancy = new Vacancy();
         $vacancy->setStartdate(new \DateTime("today"))
@@ -49,11 +64,13 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+ 
+            if (!is_null($organisation_urlid)){ 
+                $organisation = $em->getRepository("AppBundle:Organisation")
+                                    ->findOneByUrlid($organisation_urlid);
+                $vacancy->setOrganisation($organisation); 
+            }
 
-            // $user = $this->get('security.token_storage')->getToken()->getUser();
-            // $organisation = $user->getOrganisation();
-            // $vacancy->setOrganisation($organisation);
-            //
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
