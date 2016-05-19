@@ -19,6 +19,7 @@ AppBundle\Entity\Vacancy:
         urlid:
             type: string
             length: 100
+            options: {default: ""}
     manyToOne:
         organisation:
             targetEntity: Organisation
@@ -26,7 +27,7 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
-    oneToMany:  
+    oneToMany:
         candidacies:
             targetEntity: Candidacy
             mappedBy: vacancy
@@ -35,6 +36,7 @@ AppBundle\Entity\Vacancy:
             targetEntity: Skill
             nullable: true
             mappedBy: null
+            inversedBy: vacancies
             cascade: ["persist"]
             joinTable:
                 name: vacancy_has_skill
@@ -46,3 +48,7 @@ AppBundle\Entity\Vacancy:
                     -
                         name: skill_id
                         referencedColumnName: id
+        likers:
+          targetEntity: Person
+          mappedBy: liked_vacancies
+          cascade: ["persist"]

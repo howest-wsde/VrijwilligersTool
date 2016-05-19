@@ -1,0 +1,54 @@
+vacancy:
+    not_blank: Please enter a value.
+    min_message: Please enter at least {{ limit }} characters.
+    max_message: Please enter a maximum of {{ limit }} characters.
+    date:
+        valid: Please enter a valid date.
+        not_today: Please enter a date after today.
+        not_more_than: Please enter a date that is later than the start date.
+        max_period: The vacancy can only last for a period of 6 months.
+    label:
+        title: Title
+        description: Description
+        startdate: Start date
+        enddate: End date
+        submit: Save
+    placeholder:
+        date: yyyy-mm-dd
+organisation:
+    min_message: Please enter at least {{ limit }} characters.
+    min_message_one: Please enter at least {{ limit }} character.
+    max_message: Please enter a maximum of {{ limit }} characters.
+    not_blank: Please enter a value.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value greater than {{ limit }}.
+    not_more_than: Please enter a value not exceeding {{ limit }}.
+    exact: The value must be exactly {{ limit }} characters long.
+    name:
+        already_used: This name is already in use.
+    bus:
+        valid: Please enter a valid mailbox.
+    telephone:
+        valid: Please enter a valid phone number.
+    email:
+        valid: Please enter a valid email address.
+        already_used: This email address is already in use.
+    label:
+        name: Company name
+        description: A description of your company
+        email: Email address
+        street: Street name
+        number: Number
+        bus: Bus number
+        postalcode: Postal code
+        city: City
+        telephone: Telephone number
+        submit: Save
+    placeholder:
+        email: your@email.com
+        telephone: 051 123 456
+person:
+    email:
+        already_used: This email address is already in use.
+    username:
+        already_used: This username is already in use.

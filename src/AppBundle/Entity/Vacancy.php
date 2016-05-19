@@ -84,7 +84,7 @@ class Vacancy extends EntityBase
      */
     private $skills;
 
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -96,6 +96,11 @@ class Vacancy extends EntityBase
      */
     private $urlid;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likers;
 
     /**
      * Set urlId
@@ -335,6 +340,41 @@ class Vacancy extends EntityBase
 
 
     /**
+     * Add liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     *
+     * @return Vacancy
+     */
+    public function addLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers[] = $liker;
+
+        return $this;
+    }
+
+    /**
+     * Remove liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     */
+    public function removeLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers->removeElement($liker);
+    }
+
+    /**
+     * Get likers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikers()
+    {
+        return $this->likers;
+    }
+
+    
+    /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
      * @return string
@@ -342,9 +382,8 @@ class Vacancy extends EntityBase
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Title" => $this->getTitle(),

@@ -61,8 +61,8 @@ class ElasticsearchQuery
     {
         $entities = array();
         $hits = $this->raw_result["hits"]["hits"];
-        $count = $this->raw_result["hits"]["total"];
-        for ($i=0; $i < $count; $i++) {
+        for ($i=0; $i < count($hits); $i++)
+        {
             $source = $hits[$i]["_source"];
             $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
             $entity = new $classname();

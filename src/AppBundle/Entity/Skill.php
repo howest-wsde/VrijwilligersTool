@@ -33,6 +33,21 @@ class Skill extends EntityBase
     private $parent;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -85,9 +100,8 @@ class Skill extends EntityBase
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName()

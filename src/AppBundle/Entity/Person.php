@@ -5,108 +5,249 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository") *
- * @UniqueEntity(fields = {"username"}, message = "person.username.already_used")
- * @UniqueEntity(fields = {"email"}, message = "person.email.already_used")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
+ *
+ * @UniqueEntity(fields = "username", message = "person.username.already_used")
+ * @UniqueEntity(fields = "email", message = "person.email.already_used")
+ * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ *
+ * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
  */
-class Person extends EntityBase implements UserInterface, \Serializable
+class Person extends OAuthUser implements UserInterface, \Serializable
 {
-    /**
-     * @var string
-     */
-    private $firstname;
-
-    /**
-     * @var string
-     */
-    private $lastname;
-
-    /**
-     * @var string
-     */
-    private $username;
-
-    /**
-     * @var string
-     */
-    private $passphrase;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
-     */
-    private $plainPassword;
-
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
+
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $skills;
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
+    protected $firstname;
 
-    private $isActive;
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+    */
+    protected $lastname;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 150,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^[^ \/]+$/",
+     *     message = "geen spaties of slashes"
+     * )
+    */
+    protected $username;
 
     /**
      * @var string
      */
-    private $street;
+    protected $passphrase;
+
+    /**
+     * @var string
+     * @Assert\Email(
+     *     message = "person.email.valid",
+     *     checkHost = true
+     * )
+     */
+    protected $email;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 4096,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
+     */
+    protected $plainPassword;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "organisation.max_message"
+     * )
+     */
+    protected $street;
 
     /**
      * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "person.not_positive"
+     * )
      */
-    private $Number;
-
-    /**
-     * @var string
-     */
-    private $bus;
+    protected $number;
 
     /**
      * @var int
+     * @Assert\Length(
+     * 		min = 1,
+     *      max = 6,
+     *      minMessage = "person.min_message_one",
+     *      maxMessage = "person.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
+     *     message="person.bus.valid"
+     * )
      */
-    private $postalCode;
+    protected $bus;
+
+    /**
+     * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message="person.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 1000,
+     *      max = 9999,
+     *      minMessage = "person.not_positive",
+     *      maxMessage = "not_more_than"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "person.exact"
+     * )
+     */
+    protected $postalcode;
 
     /**
      * @var string
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message"
+     * )
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
+     * assert callback statement for telephone at top of class
      */
-    private $telephone;
+    protected $telephone;
+
+    /**
+     * Callback that check if either the email or telephone fields are valid
+     */
+    public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
+    {
+        $fields = 0;
+        if ($org->getTelephone())
+        {
+            $fields++;
+
+            $telephone = str_replace(' ', '', $org->getTelephone());
+
+            if (!ctype_digit($telephone)
+            or !strlen($telephone) == 10)
+            {
+                $context->buildViolation("person.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+        }
+        if ($org->getEmail())
+        {
+            $fields++;
+
+            // other validators are enabled with annotations
+        }
+
+        if ($fields <= 0)
+        {
+            $context->buildViolation("person.one_of_both")
+                ->atPath("telephone")
+                ->addViolation();
+            $context->buildViolation("person.one_of_both")
+                ->atPath("email")
+                ->addViolation();
+        }
+    }
 
     /**
      * @var string
+     * @Assert\Url(
+     *    message = "person.linkedin.valid",
+     *    protocols = {"http", "https"},
+     *    checkDNS = true,
+     *    dnsMessage = "person.linkedin.valid"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/\blinkedin.com\b/",
+     *     message = "person.linkedin.valid"
+     * )
      */
-    private $linkedinUrl;
+    protected $linkedinUrl;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $testimonials;
+    protected $skills;
+
+    protected $isActive;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $candidacies;
+    protected $testimonials;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $candidacies;
 
     /**
      * @var \AppBundle\Entity\Organisation
      */
-    private $organisation;
+    protected $organisation;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $organisations;
+
 
     /**
      * Constructor
@@ -114,6 +255,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
     public function __construct()
     {
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
     }
 
@@ -143,6 +285,7 @@ class Person extends EntityBase implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
+ 
 
     public function getSalt()
     {
@@ -442,30 +585,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Person
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -488,22 +607,6 @@ class Person extends EntityBase implements UserInterface, \Serializable
     {
         return $this->telephone;
     }
-
-    /**
-     * @var integer
-     */
-    private $number;
-
-    /**
-     * @var integer
-     */
-    private $postalcode;
-
-    /**
-     * @var string
-     */
-    private $address;
-
 
     /**
      * Set street
@@ -609,9 +712,8 @@ class Person extends EntityBase implements UserInterface, \Serializable
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Firstname" => $this->getFirstname(),
@@ -697,5 +799,146 @@ class Person extends EntityBase implements UserInterface, \Serializable
         $this->organisation = $organisation;
 
         return $this;
+    }
+
+
+    /**
+     * Add organisation
+     *
+     * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function addOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations[] = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove organisation
+     *
+      * @param \AppBundle\Entity\Organisation $organisation
+     *
+     * @return Person
+     */
+    public function removeOrganisation(\AppBundle\Entity\Organisation $organisation)
+    {
+        $this->organisations->removeElement($organisation);
+
+        return $this;
+    }
+
+    /**
+     * Get organisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
+
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_vacancies;
+
+
+    /**
+     * Add likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     *
+     * @return Person
+     */
+    public function addLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations[] = $likedOrganisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     */
+    public function removeLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations->removeElement($likedOrganisation);
+    }
+
+    /**
+     * Get likedOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedOrganisations()
+    {
+        return $this->liked_organisations;
+    }
+
+    /**
+     * Add likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     *
+     * @return Person
+     */
+    public function addLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies[] = $likedVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     */
+    public function removeLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies->removeElement($likedVacancy);
+    }
+
+    /**
+     * Get likedVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedVacancies()
+    {
+        return $this->liked_vacancies;
+    }
+
+   /**
+     * Get the class name
+     *
+     * @return string
+     */
+    public function getClassName()
+    {
+        $reflect = new \ReflectionClass($this);
+        return $reflect->getShortName();
+    }
+
+    /**
+     * returns if the class type is that of the given value
+     *
+     * @return bool
+     */
+    public function isOfType($type)
+    {
+        return $this->getClassName() == $type;
     }
 }

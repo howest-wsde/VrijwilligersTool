@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
@@ -18,7 +19,7 @@ class VacancyController extends controller
     public function createPdfAction($title)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlId($title);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -35,11 +36,26 @@ class VacancyController extends controller
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
+     * @Route("/vacature/start", name="start_vacancy")
+     */
+    public function startVacancyAction(Request $request)
+    { 
+        $organisations = $this->getUser()->getOrganisations();  
+        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+                ["organisations" => $organisations ]
+            );
+    }
+
+
     /**
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
+     * @Route("/{organisation_urlid}/vacature/nieuw", name="create_vacancy_for_organisation")
      */
-    public function createVacancyAction(Request $request)
+    public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
         $vacancy = new Vacancy();
         $vacancy->setStartdate(new \DateTime("today"))
@@ -48,6 +64,13 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+ 
+            if (!is_null($organisation_urlid)){ 
+                $organisation = $em->getRepository("AppBundle:Organisation")
+                                    ->findOneByUrlid($organisation_urlid);
+                $vacancy->setOrganisation($organisation); 
+            }
+
             $em->persist($vacancy);
             $em->flush();
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
@@ -60,7 +83,7 @@ class VacancyController extends controller
     /**
      * @Route("/vacature/{urlid}", name="vacancy_by_urlid")
      */
-    public function viewVacancyTitleAction($urlid)
+    public function vacancyViewAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
@@ -69,21 +92,20 @@ class VacancyController extends controller
             ["vacancy" => $vacancy]);
     }
 
-
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      */
     public function subscribeVacancy($urlid)
     {
-        $person = $this->get('security.token_storage')->getToken()->getUser(); 
-        
+        $person = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlId($urlid); 
+            ->findOneByUrlid($urlid);
 
         $candidacy = new Candidacy();
-        $candidacy->setCandidate($person)->setVacancy($vacancy); 
+        $candidacy->setCandidate($person)->setVacancy($vacancy);
 
         $em->persist($candidacy);
         $em->flush();
@@ -91,13 +113,81 @@ class VacancyController extends controller
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{likeunlike}", 
+     *              name="vacancy_like", 
+     *              requirements={"likeunlike": "like|unlike"})
+     */
+    public function likeVacancy($urlid, $likeunlike)
+    {
+        $user = $this->getUser(); 
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid); 
+        if ($likeunlike == "like") {
+            $user->addLikedVacancy($vacancy); 
+        } else {
+            $user->removeLikedVacancy($vacancy); 
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
 
     public function listRecentVacanciesAction($nr)
     {
-        $entities = $this->getDoctrine()
+        $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
         return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $entities]);
+            ["vacancies" => $vacancies]);
+    }
+
+    public function listParentSkillsAction($nr)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository("AppBundle:Skill");
+
+        $query = $repository->createQueryBuilder("s")
+            ->where("s.parent IS NULL")
+            ->addOrderBy("s.id", "DESC")
+            ->addOrderBy("s.name", "ASC")
+            ->getQuery();
+
+        $query->setMaxResults($nr);
+
+        return $this->render("skill/recente_categorien.html.twig",
+            ["skills" => $query->getResult()]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
+     */
+    public function editVacancyAction($urlid, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+        $form = $this->createForm(VacancyType::class, $vacancy);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $vacancy->setTitle($data->getTitle());
+            $vacancy->setDescription($data->getDescription());
+            $vacancy->setEndDate($data->getEnddate());
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                array("urlid" => $vacancy->getUrlId() ) ));
+        }
+
+        return $this->render("vacancy/vacature_aanpassen.html.twig",
+            array("form" => $form->createView(),
+                  "urlid" => $urlid) );
     }
 }

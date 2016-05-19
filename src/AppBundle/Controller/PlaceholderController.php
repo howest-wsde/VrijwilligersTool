@@ -58,4 +58,13 @@ class PlaceholderController extends Controller
     {
         return $this->render("javascript_variables.js.twig");
     }
+
+    /**
+     * @Route("/locale")
+     * TODO: remove in final version
+     */
+    public function localeAction(Request $request)
+    {
+        return new Response($request->getLocale());
+    }
 }

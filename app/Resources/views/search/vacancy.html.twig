@@ -1,5 +1,4 @@
 <article>
-	{% dump(vacancy ) %}
 	<header><h1><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a></h1></header>
 	<div>
 		<p>{{ vacancy.description }}</p>

@@ -8,19 +8,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
+use AppBundle\Entity\Form\SearchFilter;
+use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
 {
-    private function searchForEntityResults($search)
+    private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
-        $query = $this->get('ElasticsearchQuery');
+        $query = $this->get("ElasticsearchQuery");
         $params = [
-            'index' => $query->getIndex(),
-            'type' => ['person', 'vacancy', 'organisation'],
-            'body' => [
-                'query' => [
-                    'query_string' => [
-                        'query' => $search
+            "index" => $query->getIndex(),
+            "type" => $types,
+            "body" => [
+                "query" => [
+                    "query_string" => [
+                        "query" => $term
                     ]
                 ]
             ]
@@ -29,21 +31,82 @@ class SearchController extends Controller
         return $query->getResults();
     }
 
+    private function specificSearch($types, $body, $slice = [0 => 25])
+    {
+        $sliceKey = key($slice);
+        $query = $this->get("ElasticsearchQuery");
+        $params = [
+            "index" => $query->getIndex(),
+            "type" => $types,
+            "from" => key($slice),
+            "size" => $slice[key($slice)],
+            "body" => $bodys
+        ];
+        $result = $query->search($params);
+        return $query->getResults();
+    }
+
     /**
      * @Route("/zoeken", name="zoeken")
-     * @Route("/zoek")
+     * @Route("/zoek", name="zoek")
      */
     public function searchAction()
     {
-        $query = Request::createFromGlobals()->query->get("q");
+        $request = Request::createFromGlobals();
+
+        $form = $this->createForm(SearchFilterType::class, new SearchFilter, ["method" => "GET"]);
+        $form->handleRequest($request);
+
+        $searchTerm = $request->query->get("q");
         $results = null;
-        if ($query)
+        if ($searchTerm)
         {
-            $results = $this->searchForEntityResults($query);
+            $results = $this->plainSearch($searchTerm);
         }
+        else if ($request->query->get("cat"))
+        {
+            $cat = urldecode($request->query->get("cat"));
+
+            $em = $this->getDoctrine()->getManager();
+
+            $childCategories = $em->getRepository("AppBundle:Skill")
+                ->createQueryBuilder("s1")
+                ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
+                ->where("s2.name = :parentName")
+                ->setParameter("parentName", $cat)
+                ->getQuery()
+                ->getResult();
+
+            $allvacancies = [];
+            foreach ($childCategories as $category) {
+                foreach ($category->getVacancies() as $vacancy) {
+                    if(!in_array($vacancy, $allvacancies))
+                    {
+                        $allvacancies[] = $vacancy;
+                    }
+                }
+            }
+
+            $results = $allvacancies;
+        }
+        else if ($form->isSubmitted() && $form->isValid())
+        {
+            $data = $form->getData();
+
+            $types = array();
+            if ($data->getPerson()) {array_push($types, "person");}
+            if ($data->getOrganisation()) {array_push($types, "organisation");}
+            if ($data->getVacancy()) {array_push($types, "vacancy");}
+
+            $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
+
+            $results = $this->specificSearch($types, ["query" => $query]);
+        }
+
         return $this->render("search/zoekpagina.html.twig", array(
+            "form" => $form->createView(),
             "results" => $results,
-            "query" => $query
+            "searchTerm" => $searchTerm
         ));
     }
 
@@ -52,17 +115,19 @@ class SearchController extends Controller
      */
     public function apiSearchAction()
     {
-        $query = Request::createFromGlobals()->query->get("q");
-        $results = null;
+        $request = Request::createFromGlobals();
+        $query = $request->query->get("q");
         if ($query)
         {
-            $results = $this->searchForEntityResults($query);
+            $results = $this->plainSearch($query);
         }
+
         $response = new Response(
             $this->renderView("search/zoekapi_resultaat.html.twig",
                 ["results" => $results]),
                 200
             );
+
         $response->headers->set("Access-Control-Allow-Origin", "*");
         return $response;
     }

@@ -9,7 +9,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = {"email"}, message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
+ * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
  */
 class Organisation extends EntityBase
 {
@@ -49,6 +50,18 @@ class Organisation extends EntityBase
      */
     private $creator;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $administrators;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likers;
+
     /**
      * @var string
      * @Assert\Email(
@@ -72,7 +85,7 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
      *      min = 0,
@@ -91,8 +104,8 @@ class Organisation extends EntityBase
      *      maxMessage = "organisation.max_message"
      * )
      * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="organisation.bus.valid"
+     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
+     *     message = "organisation.bus.valid"
      * )
      */
     private $bus;
@@ -101,10 +114,10 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="organisation.not_numeric"
+     *     message = "organisation.not_numeric"
      * )
      * @Assert\Range(
-     *      min = 0,
+     *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
      *      maxMessage = "not_more_than"
@@ -167,7 +180,7 @@ class Organisation extends EntityBase
     {
         $telephone = str_replace(' ', '', $org->getTelephone());
 
-        if (!is_numeric($telephone)
+        if (!ctype_digit($telephone)
         or !strlen($telephone) == 10)
         {
             $context->buildViolation("organisation.telephone.valid")
@@ -297,6 +310,80 @@ class Organisation extends EntityBase
         return $this->creator;
     }
 
+
+    /**
+     * Add administator
+     *
+     * @param \AppBundle\Entity\Person $administator
+     *
+     * @return Person
+     */
+    public function addAdministrator(\AppBundle\Entity\Person $administator)
+    {
+        $this->administators[] = $administator;
+
+        return $this;
+    }
+
+    /**
+     * Remove administator
+     *
+      * @param \AppBundle\Entity\Person $administator
+     *
+     * @return Person
+     */
+    public function removeAdministator(\AppBundle\Entity\Person $administator)
+    {
+        $this->administators->removeElement($administator);
+
+        return $this;
+    }
+
+    /**
+     * Get administators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdministators()
+    {
+        return $this->administators;
+    }
+
+
+    /**
+     * Add liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     *
+     * @return Organisation
+     */
+    public function addLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers[] = $liker;
+
+        return $this;
+    }
+
+    /**
+     * Remove liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     */
+    public function removeLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers->removeElement($liker);
+    }
+
+    /**
+     * Get likers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikers()
+    {
+        return $this->likers;
+    }
+    
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -305,9 +392,8 @@ class Organisation extends EntityBase
      */
     function __toString()
     {
-        $reflect = new \ReflectionClass($this);
         return json_encode( array(
-            "Entity" => $reflect->getShortName(),
+            "Entity" => $this->getClassName(),
             "Id" => $this->getId(),
             "Values" => array(
                 "Name" => $this->getName(),
@@ -522,6 +608,7 @@ class Organisation extends EntityBase
     public function __construct()
     {
         $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->administrators = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -565,7 +652,7 @@ class Organisation extends EntityBase
             $encoder = new UrlEncoder($em);
             $this->setUrlId($encoder->encode($this, $this->getName()));
         }
-    } 
+    }
 
- 
+
 }

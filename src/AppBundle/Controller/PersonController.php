@@ -17,7 +17,7 @@ class PersonController extends controller
      * @Security("has_role('ROLE_USER')")
      * @Route("/persoon/{username}", name="person_username")
      */
-    public function ViewPersonUsernameAction($username)
+    public function personViewAction($username)
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
@@ -26,6 +26,25 @@ class PersonController extends controller
             ["person" => $person]);
     }
 
+    /**
+     * @Route("/persoon", name="self_profile")
+     */
+    public function selfAction()
+    {
+        // logged in
+        if ($this->get('security.authorization_checker')
+        ->isGranted('IS_AUTHENTICATED_FULLY'))
+        {
+            return $this->redirectToRoute("person_username",
+            ["username" => $this->getUser()->getUsername()]);
+        }
+        else //not logged in
+        {
+            return $this->redirectToRoute("login");
+        }
+    }
+
+    /*
     public function listRecentPersonsAction($nr)
     {
         $entities = $this->getDoctrine()
@@ -34,4 +53,5 @@ class PersonController extends controller
         return $this->render('person/recente_vrijwilligers.html.twig',
             ['persons' => $entities]);
     }
+    */
 }
