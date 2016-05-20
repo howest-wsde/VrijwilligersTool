@@ -8,6 +8,7 @@ AppBundle\Entity\SearchFilter:
         term:
             type: string
             length: 200
+            nullable: TRUE
         person:
             type: boolean
         organisation:

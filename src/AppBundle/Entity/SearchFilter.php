@@ -6,7 +6,7 @@ class SearchFilter
 {
     private $id;
     private $owner;
-    private $term;
+    private $term = null;
     private $person = true;
     private $organisation = true;
     private $vacancy = true;
