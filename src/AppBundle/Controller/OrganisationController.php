@@ -70,7 +70,6 @@ class OrganisationController extends controller
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
     }
-
     /**
      * Function called from a twig template (base) in order to show a list of recent organisations.
      * @param  int $nr the amount of organisations to be listed

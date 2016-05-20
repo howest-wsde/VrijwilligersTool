@@ -4,21 +4,22 @@
 
 {% block body %}
 	<article>
-		<header><h1>{{ vacancy.title }}</h1></header>
+        <div id="vacancy_info">
+		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 		<div>
-			<p>{{ vacancy.description }}</p>
-			<p>Ons Aanbod</p>
+            <p>Ons aanbod</p>
+			<p id="vacancy_description">{{ vacancy.description }}</p>
 		</div>
 		<div>
 			{% if vacancy.startdate %}
-				<p>Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
+				<p id="vacancy_startdate">Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.enddate %}
-				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
+				<p id="vacancy_enddate">Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.organisation %}
-				<p>organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
-				<p>locatie:
+				<p id="vacancy_organisation">Organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
+				<p id="vacancy_location">Locatie:
 					<span id="location">
 						<br>
 						{{ vacancy.organisation.street }}
@@ -82,15 +83,6 @@
 			</div>
 		</aside>
 
-
-
-		<!-- <aside>
-			{# for category in vacancy.category
-				<p>category</p>
-			  endfor #}
-		</aside>-->
-		{# nog het id hidden toevoegen of andere
-		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
 			<ul>
 				<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li> 
