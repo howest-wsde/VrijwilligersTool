@@ -9,9 +9,7 @@
 	<h3>Filters</h3>
 	{{ form_start(form) }}
         {{ form_errors(form) }}
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
+        {{ form_row(form._token) }}
         {{ form_row(form.term) }}
         {{ form_row(form.person) }}
 		{{ form_row(form.organisation) }}
