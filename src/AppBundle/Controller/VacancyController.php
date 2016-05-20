@@ -136,6 +136,31 @@ class VacancyController extends controller
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
+     */
+    //TODO: check if user is authenticated to do so aka its his vacancy
+    public function vacancyCandidacies($urlid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($urlid);
+        //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+
+        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 1));
+
+        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 0));
+
+
+        return $this->render("vacancy/vacature_goedkeuren.html.twig",
+            ["vacancy" => $vacancy,
+             "approved" => $approved,
+             "pending" => $pending]);
+    }
+
     public function listRecentVacanciesAction($nr)
     {
         $vacancies = $this->getDoctrine()
