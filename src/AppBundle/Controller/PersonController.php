@@ -44,7 +44,6 @@ class PersonController extends controller
         }
     }
 
-
     /*
     public function listRecentPersonsAction($nr)
     {
