@@ -33,14 +33,13 @@ class SearchController extends Controller
 
     private function specificSearch($types, $body, $slice = [0 => 25])
     {
-        $sliceKey = key($slice);
         $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
             "from" => key($slice),
             "size" => $slice[key($slice)],
-            "body" => $bodys
+            "body" => $body
         ];
         $result = $query->search($params);
         return $query->getResults();
