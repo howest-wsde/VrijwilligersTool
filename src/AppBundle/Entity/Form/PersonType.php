@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 
@@ -35,7 +36,8 @@ class PersonType extends AbstractType
             ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",
-                "attr" => array("placeholder" => "person.label.email")
+                "attr" => array("placeholder" => "person.label.email"),
+                "required" => false
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
@@ -60,7 +62,16 @@ class PersonType extends AbstractType
             ))
             ->add("telephone", TextType::class, array(
                 "label" => "person.label.telephone",
-                "attr" => array("placeholder" => "person.label.telephone")
+                "attr" => array("placeholder" => "person.label.telephone"),
+                "required" => false
+            ))
+            ->add("language", ChoiceType::class, array(
+                "label" => "person.label.language",
+                "attr" => array("placeholder" => "person.label.language"),
+                "choices" => array(
+                    "Nederlands" => "nl", 
+                    "English" => "en", 
+                )
             ))
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",

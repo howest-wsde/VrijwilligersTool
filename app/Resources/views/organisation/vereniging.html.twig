@@ -5,4 +5,12 @@
 {% block body %}
 	naam: {{ organisation.name }} <br />
 	omschrijving: {{ organisation.description }}
+	
+	<ul> 
+		{% if app.user in organisation.likers %}
+			<li><a href="{{ path("organisation_like", {'urlid': organisation.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+		{% else %}
+			<li><a href="{{ path("organisation_like", {'urlid': organisation.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+		{% endif %}
+	</ul>
 {% endblock %}

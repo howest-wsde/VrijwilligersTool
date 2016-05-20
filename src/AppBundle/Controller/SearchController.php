@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\SearchFilter;
+use AppBundle\Entity\Form\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
 {
-    private function plainSearch($term)
+    private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
-        $query = $this->get("ElasticsearchQuery", $types = ["person", "vacancy", "organisation"]);
+        $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
@@ -33,13 +33,12 @@ class SearchController extends Controller
 
     private function specificSearch($types, $body, $slice = [0 => 25])
     {
-        $sliceKey = key($slice);
         $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
-            "from" => $sliceKey,
-            "size" => $slice[$sliceKey],
+            "from" => key($slice),
+            "size" => $slice[key($slice)],
             "body" => $body
         ];
         $result = $query->search($params);

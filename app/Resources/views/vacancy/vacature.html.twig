@@ -4,21 +4,22 @@
 
 {% block body %}
 	<article>
-		<header><h1>{{ vacancy.title }}</h1></header>
+        <div id="vacancy_info">
+		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 		<div>
-			<p>{{ vacancy.description }}</p>
-			<p>Ons Aanbod</p>
+            <p>Ons aanbod</p>
+			<p id="vacancy_description">{{ vacancy.description }}</p>
 		</div>
 		<div>
 			{% if vacancy.startdate %}
-				<p>Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
+				<p id="vacancy_startdate">Begindatum: {{ vacancy.startdate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.enddate %}
-				<p>Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
+				<p id="vacancy_enddate">Einddatum: {{ vacancy.enddate|date("Y-m-d") }}</p>
 			{% endif %}
 			{% if vacancy.organisation %}
-				<p>organisatie: {{ vacancy.organisation.name }}</p>
-				<p>locatie:
+				<p id="vacancy_organisation">Organisatie: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
+				<p id="vacancy_location">Locatie:
 					<span id="location">
 						<br>
 						{{ vacancy.organisation.street }}
@@ -41,10 +42,13 @@
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
-			<script id="share-linkedin" type="IN/Share" data-counter="right"></script>
+            <script type="IN/Share" data-counter="right"></script>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
+			<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+				<input type="submit" value="Print deze vacature"/>
+			</form>
 		</div>
 
 		<aside id="#googlemaps">
@@ -79,20 +83,18 @@
 			</div>
 		</aside>
 
-
-
-		<!-- <aside>
-			{# for category in vacancy.category
-				<p>category</p>
-			  endfor #}
-		</aside>-->
-		{# nog het id hidden toevoegen of andere
-		manier om het weer te geven#}
 		<footer>{% block vacature_cta %}
-			<a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a>
-				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
-					<input type="submit" value="Print deze vacature"/>
-				</form>
+			<ul>
+				<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li>
+
+				{% if app.user in vacancy.likers %}
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+				{% else %}
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+				{% endif %}
+
+				<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
+			</ul>
 			{% endblock %}</footer>
 	</article>
 {% endblock %}
@@ -101,7 +103,7 @@
 	{{ parent() }}
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
-	<script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
 
 	<script src="{{ asset("js/googleMaps.js") }}"></script>
 	<script src="{{ asset("js/sharebuttons.js") }}"></script>

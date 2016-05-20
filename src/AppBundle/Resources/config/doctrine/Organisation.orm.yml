@@ -8,19 +8,16 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
-            unique: true
         description:
             type: text
         email:
             type: string
             length: 255
             nullable: true
-            unique: true
         street:
             type: string
             scale: 255
             nullable: true
-            unique: true
         number:
             type: smallint
             nullable: true
@@ -52,6 +49,15 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
+    manyToMany: 
+        administrators:
+          targetEntity: Person
+          mappedBy: organisations 
+          cascade: ["persist"]
+        likers:
+          targetEntity: Person
+          mappedBy: liked_organisations 
+          cascade: ["persist"]
     oneToMany:
         vacancies:
             nullable: true

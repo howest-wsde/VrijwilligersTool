@@ -1,15 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vacature Aanmaken{% endblock %}
+{% block title %}Vacature Aanpassen{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
-        {{ form_errors(form) }}
+    {{ form_errors(form) }}
 
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.enddate) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.enddate) }}
+
     {{ form_end(form) }}
+
+    <form action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
+        <input type="submit" value="Annuleren"/>
+    </form>
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">

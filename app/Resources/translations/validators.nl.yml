@@ -32,10 +32,6 @@ organisation:
         valid: Gelieve een geldig telefoonnummer in te geven.
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
-        already_used: Dit telefoonnummer is reeds in gebruik.
-        valid: Gelieve een geldig telefoonnummer in te geven.
-    email:
-        valid: Gelieve een geldig e-mailadres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
@@ -61,6 +57,7 @@ person:
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
     no_whitespaces: Mag geen spaties bevatten.
     exact: De waarde moet exact {{ limit }} tekens langs zijn.
+    one_of_both: Gelieve ofwel een telefoonnummer ofwel een e-mailadres in te geven.
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
@@ -90,6 +87,7 @@ person:
         city: Gemeente
         password: Wachtzin
         repeat_password: Herhaal wachtzin
+        language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
         submit: Registreren
