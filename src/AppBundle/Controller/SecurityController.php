@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\PersonType;
+use AppBundle\Entity\Form\MinimalPersonType;
 
 class SecurityController extends Controller
 {
@@ -17,7 +18,7 @@ class SecurityController extends Controller
     public function registerAction(Request $request)
     {
         $user = new Person();
-        $form = $this->createForm(PersonType::class, $user);
+        $form = $this->createForm(MinimalPersonType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
