@@ -13,9 +13,9 @@ use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
 {
-    private function plainSearch($term)
+    private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
-        $query = $this->get("ElasticsearchQuery", $types = ["person", "vacancy", "organisation"]);
+        $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
@@ -33,13 +33,12 @@ class SearchController extends Controller
 
     private function specificSearch($types, $body, $slice = [0 => 25])
     {
-        $sliceKey = key($slice);
         $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
-            "from" => $sliceKey,
-            "size" => $slice[$sliceKey],
+            "from" => key($slice),
+            "size" => $slice[key($slice)],
             "body" => $body
         ];
         $result = $query->search($params);
@@ -63,8 +62,33 @@ class SearchController extends Controller
         {
             $results = $this->plainSearch($searchTerm);
         }
+        else if ($request->query->get("cat"))
+        {
+            $cat = urldecode($request->query->get("cat"));
 
-        if ($form->isSubmitted() && $form->isValid())
+            $em = $this->getDoctrine()->getManager();
+
+            $childCategories = $em->getRepository("AppBundle:Skill")
+                ->createQueryBuilder("s1")
+                ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
+                ->where("s2.name = :parentName")
+                ->setParameter("parentName", $cat)
+                ->getQuery()
+                ->getResult();
+
+            $allvacancies = [];
+            foreach ($childCategories as $category) {
+                foreach ($category->getVacancies() as $vacancy) {
+                    if(!in_array($vacancy, $allvacancies))
+                    {
+                        $allvacancies[] = $vacancy;
+                    }
+                }
+            }
+
+            $results = $allvacancies;
+        }
+        else if ($form->isSubmitted() && $form->isValid())
         {
             $data = $form->getData();
 

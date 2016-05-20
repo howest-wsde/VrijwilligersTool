@@ -15,3 +15,8 @@ parameters:
     linkedin_id: '77lr8oxzq2u5j9'
     googlemaps_key: 'AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g'
 
+    google_app_id: 744185804186-i597ufhjha9rvqdrhquhao4bil9e58n2.apps.googleusercontent.com
+    google_app_secret: pDI2htdWTSloNKD5be-RWJBd
+
+    facebook_app_id: 990174991070590
+    facebook_app_secret: 2f8deec89058f9777ba064ca331ed7e2

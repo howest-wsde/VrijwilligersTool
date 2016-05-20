@@ -50,6 +50,18 @@ class Organisation extends EntityBase
      */
     private $creator;
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $administrators;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likers;
+
     /**
      * @var string
      * @Assert\Email(
@@ -168,7 +180,7 @@ class Organisation extends EntityBase
     {
         $telephone = str_replace(' ', '', $org->getTelephone());
 
-        if (!is_numeric($telephone)
+        if (!ctype_digit($telephone)
         or !strlen($telephone) == 10)
         {
             $context->buildViolation("organisation.telephone.valid")
@@ -298,6 +310,80 @@ class Organisation extends EntityBase
         return $this->creator;
     }
 
+
+    /**
+     * Add administator
+     *
+     * @param \AppBundle\Entity\Person $administator
+     *
+     * @return Person
+     */
+    public function addAdministrator(\AppBundle\Entity\Person $administator)
+    {
+        $this->administators[] = $administator;
+
+        return $this;
+    }
+
+    /**
+     * Remove administator
+     *
+      * @param \AppBundle\Entity\Person $administator
+     *
+     * @return Person
+     */
+    public function removeAdministator(\AppBundle\Entity\Person $administator)
+    {
+        $this->administators->removeElement($administator);
+
+        return $this;
+    }
+
+    /**
+     * Get administators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdministators()
+    {
+        return $this->administators;
+    }
+
+
+    /**
+     * Add liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     *
+     * @return Organisation
+     */
+    public function addLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers[] = $liker;
+
+        return $this;
+    }
+
+    /**
+     * Remove liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     */
+    public function removeLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers->removeElement($liker);
+    }
+
+    /**
+     * Get likers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikers()
+    {
+        return $this->likers;
+    }
+    
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -522,6 +608,7 @@ class Organisation extends EntityBase
     public function __construct()
     {
         $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->administrators = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
