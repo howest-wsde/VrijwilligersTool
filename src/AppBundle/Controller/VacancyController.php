@@ -105,12 +105,18 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->find($urlid);
         //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
-        $candidacies = $em->getRepository("AppBundle:Candidacy")->findBy(array('id'=> $urlid));
+
+        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 1));
+
+        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 0));
 
 
         return $this->render("vacancy/vacature_goedkeuren.html.twig",
-                            ["vacancy" => $vacancy,
-                             "candidacies" => $candidacies]);
+            ["vacancy" => $vacancy,
+             "approved" => $approved,
+             "pending" => $pending]);
     }
 
     public function listRecentVacanciesAction($nr)
