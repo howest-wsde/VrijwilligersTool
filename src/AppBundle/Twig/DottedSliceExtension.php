@@ -20,9 +20,8 @@ class DottedSliceExtension extends \Twig_Extension
         else {
             return $value;
         }
-        return $value == 1 ? 1 : "";
     }
-    
+
     public function getName()
     {
         return "dotted_slice_extension";
