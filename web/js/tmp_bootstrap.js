@@ -8,6 +8,7 @@ var style = {
         style.loadFormStyle();
         style.loadTitleStyle();
         style.loadShareButtonsStyle();
+        style.loadPopupStyle();
     },
 
     loadFormStyle : function(){
@@ -32,6 +33,36 @@ var style = {
         $(".share-buttons > div").css({
             "display":"block",
             "margin":"5px 0 5px 0"
+        });
+    },
+
+    loadPopupStyle : function(){
+        $(".black_overlay").css({
+            "display": "none",
+            "position": "fixed",
+            "top": "0%",
+            "left": "0%",
+            "width": "100%",
+            "height": "100vh",
+            "background-color": "black",
+            "z-index": "1001",
+            "-moz-opacity": "0.8",
+            "opacity":".80",
+            "filter": "alpha(opacity=80)"
+        });
+
+        $(".white_content").css({
+            "display": "none",
+            "position": "fixed",
+            "top": "25%",
+            "left": "40%",
+            "width": "20%",
+            "height": "50vh",
+            "padding": "1vh",
+            "border": "5vh solid #efefef",
+            "background-color": "white",
+            "z-index":"1002",
+            "overflow": "auto",
         });
     },
 
