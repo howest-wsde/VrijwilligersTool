@@ -28,6 +28,46 @@
 		{% endif %}
 	</ul>
 
+	<aside id="#googlemaps">
+		<div>
+			<button id="getRoute">Toon routebeschrijving</button>
+			<div id="description" class="hidden"></div>
+			<p>selecteer uw gewenste transportwijze</p>
+			<div onchange="googleMapsModule.drawRoute()">
+				<select id="transitMethod">
+					<option value="DRIVING">Auto</option>
+					<option value="BICYCLING">Fiets</option>
+					<option value="WALKING">Te voet</option>
+					<option value="TRANSIT">Openbaar vervoer</option>
+				</select>
+				<select id="transitMode" class="hidden">
+					<option value="BUS">Per bus</option>
+					<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+					<option value="SUBWAY">Per metro</option>
+					<option value="TRAM">Per tram</option>
+				</select>
+			</div>
+		</div>
+		<div data-useraddress="
+		{% if app.user %}
+			{{ app.user.street }}
+			{{ app.user.number }}
+			{{ app.user.postalcode }}
+			{{ app.user.city }}
+		{% else %}
+		{% endif %}"
+			 id="map-canvas" style="width: 350px; height: 350px;">
+		</div>
+	</aside>
+
 	<h2>Vacatures</h2>
 	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId } )) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+
+	<script src="{{ asset("js/googleMaps.js") }}"></script>
 {% endblock %}
