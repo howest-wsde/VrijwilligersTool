@@ -21,6 +21,17 @@ class MinimalPersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add("street", TextType::class,
+                ["required" => false])
+            ->add("number", TextType::class,
+                ["required" => false])
+            ->add("bus", TextType::class,
+                ["required" => false])
+            ->add("postalcode", TextType::class,
+                ["required" => false])
+            ->add("city", TextType::class,
+                ["required" => false])
+                
             ->add("firstname", TextType::class, array(
                 "label" => "person.label.firstname",
                 "attr" => array("placeholder" => "person.label.firstname")
@@ -51,7 +62,7 @@ class MinimalPersonType extends AbstractType
                     "Nederlands" => "nl",
                     "English" => "en",
                 )
-            ))            
+            ))
             ->add("plainPassword", RepeatedType::class, array(
                 "type" => PasswordType::class,
                 "first_options"  => array(
