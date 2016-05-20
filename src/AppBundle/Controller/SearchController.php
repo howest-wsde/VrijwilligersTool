@@ -90,14 +90,20 @@ class SearchController extends Controller
         }
         else if ($form->isSubmitted() && $form->isValid())
         {
-            $filter = $filter;//$form->getData();
+            $filter = $form->getData();
 
             if ($this->getUser() && !$this->exists($filter))
             {
-                $filter->setOwner($this->getUser());
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($filter);
-                $em->flush();
+                $referer = $_SERVER['HTTP_REFERER'];
+                $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+                $currentUrl = "http://$_SERVER[HTTP_HOST]$uri_parts[0]";
+
+                if (substr($referer, 0, strlen($currentUrl)) === $currentUrl) {
+                    $filter->setOwner($this->getUser());
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($filter);
+                    $em->flush();
+                }
             }
 
             $types = array();

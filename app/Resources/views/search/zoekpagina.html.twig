@@ -17,6 +17,27 @@
 		{{ form_row(form.vacancy) }}
     {{ form_end(form) }}
 
+	<button id="share_search">Deel Zoekopdracht</button>
+
+    <div id="light" class="white_content">
+        <h1>Zoekopdracht delen</h1>
+        <input id="search_url" type="text"/>
+        <button id="search_clipboard">Naar klembord kopiëren</button>
+
+        <div class="share-buttons">
+            <div>
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+                   data-text="Kijk wat ik heb gevonden!" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
+                    Tweeten</a>
+            </div>
+            <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+            <div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+            <script id="share-linkedin" type="IN/Share" data-counter="right"></script>
+        </div>
+        <button id="search_close">Sluiten</button>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
 	{% if app.user %}
 	<div id="recentSearches">
 		<h3>Recente zoekopdrachten</h3>
@@ -45,4 +66,10 @@
 		    {% endfor %}
 		</ul>
 	{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
 {% endblock %}

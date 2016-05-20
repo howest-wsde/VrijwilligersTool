@@ -41,6 +41,7 @@
 			</div>
 			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
 			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+			<script id="share-linkedin" type="IN/Share" data-counter="right"></script>
 			<div>
 				<button id="email">Email deze vacature</button>
 			</div>
@@ -100,6 +101,7 @@
 	{{ parent() }}
 	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+	<script src="https://platform.linkedin.com/in.js" type="text/javascript"></script>
 
 	<script src="{{ asset("js/googleMaps.js") }}"></script>
 	<script src="{{ asset("js/sharebuttons.js") }}"></script>

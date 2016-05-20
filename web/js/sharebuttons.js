@@ -41,5 +41,5 @@ $(function(){
         }(document, 'script', 'facebook-jssdk'));
     
     //linkedin
-    ('#share-linkedin').attr("data-url", document.URL);
+    $('#share-linkedin').attr("data-url", window.location.href);
 });
