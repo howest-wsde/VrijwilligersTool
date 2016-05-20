@@ -1,12 +1,5 @@
 "use strict";
 $(function(){
-
-    //Tijdelijke styling
-    $(".share-buttons > div").css({
-        "display":"block",
-        "margin":"5px 0 5px 0"
-    });
-    
     //email
     $("#email").on("click",function(){
         var email = "ontvanger@vacature.com";
