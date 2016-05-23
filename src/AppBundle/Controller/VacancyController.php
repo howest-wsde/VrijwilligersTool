@@ -159,10 +159,10 @@ class VacancyController extends controller
         //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
 
         $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-            'state' => 1));
+            'state' => Candidacy::APPROVED));
 
         $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-            'state' => 0));
+            'state' => Candidacy::PENDING));
 
 
         return $this->render("vacancy/vacature_goedkeuren.html.twig",

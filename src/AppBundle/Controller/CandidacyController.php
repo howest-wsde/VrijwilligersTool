@@ -22,10 +22,10 @@ class CandidacyController extends Controller
     public function approveCandidacy(Request $request, $candidacyId)
     {
         $em = $this->getDoctrine()->getManager();
-        $candidacy = $em->getRepository("AppBundle:Candidacy")->find($candidacyId);
+        $candidacy = $em->getRepository("AppBundle:Candidacy")->findOneById($candidacyId);
 
         if($request->request->has("approve")) {
-            $candidacy->setState(1);
+            $candidacy->setState(Candidacy::APPROVED);
             $em->persist($candidacy);
             $em->flush();
 
@@ -37,7 +37,7 @@ class CandidacyController extends Controller
                         );
         }
         else if($request->request->has("cancel")){
-            $candidacy->setState(0);
+            $candidacy->setState(Candidacy::PENDING);
             $em->persist($candidacy);
             $em->flush();
 
