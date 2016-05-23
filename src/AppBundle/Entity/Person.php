@@ -83,7 +83,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * @Assert\NotBlank()
      * @Assert\Length(
-     *      min = 10,
+     *      min = 8,
      *      max = 4096,
      *      minMessage = "person.min_message",
      *      maxMessage = "person.max_message"
@@ -242,6 +242,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $candidacies;
 
+ 
     /**
      * @var \AppBundle\Entity\Organisation
      */

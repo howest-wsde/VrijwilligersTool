@@ -340,6 +340,20 @@ class Vacancy extends EntityBase
 
 
     /**
+     * Get candidates
+     *
+     * @return Array
+     */
+    public function getCandidates()
+    {  
+        $arCandidates = []; 
+        foreach ($this->candidacies as $oCandidacy){
+            $arCandidates[] = $oCandidacy->getCandidate(); 
+        }
+        return $arCandidates;
+    }
+
+    /**
      * Add liker
      *
      * @param \AppBundle\Entity\Person $liker
