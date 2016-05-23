@@ -262,6 +262,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
+        $this->setLanguage("nl"); 
     }
 
     public function getFullName()
@@ -757,6 +758,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
                 "Bus" => $this->getBus(),
                 "City" => $this->getCity(),
                 "Telephone" => $this->getTelephone(),
+                "Language" => $this->getLanguage(),
                 "LinkedinUrl" => $this->getLinkedinUrl()
             )
         ));
