@@ -124,3 +124,9 @@ services:
         class: AppBundle\EventListener\UrlListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    app.dotted_slice:
+        class: AppBundle\Twig\DottedSliceExtension
+        public: false
+        tags:
+            - { name: twig.extension }

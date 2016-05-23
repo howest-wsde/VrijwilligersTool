@@ -42,9 +42,9 @@ class VacancyController extends controller
      * @Route("/vacature/start", name="start_vacancy")
      */
     public function startVacancyAction(Request $request)
-    { 
-        $organisations = $this->getUser()->getOrganisations();  
-        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+    {
+        $organisations = $this->getUser()->getOrganisations();
+        return $this->render("organisation/vrijwilliger_vinden.html.twig",
                 ["organisations" => $organisations ]
             );
     }
@@ -64,11 +64,11 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
- 
-            if (!is_null($organisation_urlid)){ 
+
+            if (!is_null($organisation_urlid)){
                 $organisation = $em->getRepository("AppBundle:Organisation")
                                     ->findOneByUrlid($organisation_urlid);
-                $vacancy->setOrganisation($organisation); 
+                $vacancy->setOrganisation($organisation);
             }
 
             $em->persist($vacancy);
@@ -115,25 +115,50 @@ class VacancyController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/{likeunlike}", 
-     *              name="vacancy_like", 
+     * @Route("/vacature/{urlid}/{likeunlike}",
+     *              name="vacancy_like",
      *              requirements={"likeunlike": "like|unlike"})
      */
     public function likeVacancy($urlid, $likeunlike)
     {
-        $user = $this->getUser(); 
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid); 
+            ->findOneByUrlid($urlid);
         if ($likeunlike == "like") {
-            $user->addLikedVacancy($vacancy); 
+            $user->addLikedVacancy($vacancy);
         } else {
-            $user->removeLikedVacancy($vacancy); 
+            $user->removeLikedVacancy($vacancy);
         }
         $em->persist($user);
         $em->flush();
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
+     */
+    //TODO: check if user is authenticated to do so aka its his vacancy
+    public function vacancyCandidacies($urlid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($urlid);
+        //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+
+        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 1));
+
+        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
+            'state' => 0));
+
+
+        return $this->render("vacancy/vacature_goedkeuren.html.twig",
+            ["vacancy" => $vacancy,
+             "approved" => $approved,
+             "pending" => $pending]);
     }
 
     public function listRecentVacanciesAction($nr)
@@ -189,5 +214,16 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_aanpassen.html.twig",
             array("form" => $form->createView(),
                   "urlid" => $urlid) );
+    }
+
+    public function ListOrganisationVacanciesAction($urlid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+
+        return $this->render("vacancy/vacatures_min.html.twig",
+                ["vacancies" => $organisation->getVacancies()]);
+
     }
 }

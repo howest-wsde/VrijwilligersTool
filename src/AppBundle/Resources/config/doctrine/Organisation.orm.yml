@@ -8,16 +8,19 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+            unique: true
         description:
             type: text
         email:
             type: string
             length: 255
             nullable: true
+            unique: true
         street:
             type: string
             scale: 255
             nullable: true
+            unique: true
         number:
             type: smallint
             nullable: true

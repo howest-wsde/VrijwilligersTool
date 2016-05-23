@@ -11,6 +11,9 @@ use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
 {
+    $stage = [];
+    $stage["student"] = "super!";
+    $stage["collegas"] = "super!";
     /**
      * @Route("/vacatures", name="vacaturesopmaat")
      */
