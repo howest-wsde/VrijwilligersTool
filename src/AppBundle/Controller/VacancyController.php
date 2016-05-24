@@ -135,11 +135,8 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        if ($likeunlike == "like") {
-            $user->addLikedVacancy($vacancy);
-        } else {
-            $user->removeLikedVacancy($vacancy);
-        }
+        $user->removeLikedVacancy($vacancy); // standaard unliken om geen doubles te creeren
+        if ($likeunlike == "like") $user->addLikedVacancy($vacancy);
         $em->persist($user);
         $em->flush();
 
@@ -156,7 +153,7 @@ class VacancyController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
-        //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+        //$userId = $this->getUser()->getId();
 
         $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
             'state' => Candidacy::APPROVED));

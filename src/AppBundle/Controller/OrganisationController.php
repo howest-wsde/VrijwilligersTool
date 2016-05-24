@@ -98,11 +98,8 @@ class OrganisationController extends controller
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
-        if ($likeunlike == "like") {
-            $user->addLikedOrganisation($organisation);
-        } else {
-            $user->removeLikedOrganisation($organisation);
-        }
+        $user->removeLikedOrganisation($organisation); // standaard unliken om geen doubles te creeren
+        if ($likeunlike == "like") $user->addLikedOrganisation($organisation);
         $em->persist($user);
         $em->flush();
 
