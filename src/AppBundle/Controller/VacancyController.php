@@ -95,20 +95,30 @@ class VacancyController extends controller
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
+     * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
      */
     public function subscribeVacancy($urlid)
-    {
+    { 
         $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
 
-        $candidacy = new Candidacy();
-        $candidacy->setCandidate($person)->setVacancy($vacancy);
+        $candidacies = $em->getRepository('AppBundle:Candidacy')
+            ->findBy(array('candidate' => $person->getId(), 'vacancy' => $vacancy->getId()));
 
-        $em->persist($candidacy);
-        $em->flush();
+        if ($candidacies) {
+            foreach ($candidacies as $candidacy) {
+                $em->remove($candidacy);
+                $em->flush();
+            }
+        } else { 
+            $candidacy = new Candidacy();
+            $candidacy->setCandidate($person)->setVacancy($vacancy); 
+            $em->persist($candidacy);
+            $em->flush(); 
+        }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
@@ -145,14 +155,14 @@ class VacancyController extends controller
     public function vacancyCandidacies($urlid)
     {
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($urlid);
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
         //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
 
-        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
-            'state' => 1));
+        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+            'state' => Candidacy::APPROVED));
 
-        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $urlid,
-            'state' => 0));
+        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+            'state' => Candidacy::PENDING));
 
 
         return $this->render("vacancy/vacature_goedkeuren.html.twig",

@@ -14,7 +14,7 @@
                 {% set candidate = candidacy.candidate %}
                 <li>{{ candidate.firstname}} {{ candidate.lastname}}
                     |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
-                    <form action="{{ path('approve_candidacy', {'candidacyId': candidate.id}) }} " method="post">
+                    <form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }} " method="post">
                         <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
                     </form>
                 </li>
@@ -27,7 +27,7 @@
                 {% set candidate = candidacy.candidate %}
                 <li>{{ candidate.firstname}} {{ candidate.lastname}}
                     |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
-                    |<form action="{{ path('approve_candidacy', {'candidacyId': candidate.id}) }}" method="post">
+                    |<form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }}" method="post">
                         <button type="submit"  name="approve" class="glyphicon glyphicon-ok btn btn-xs"></button>
                     </form>
                 </li>
