@@ -312,42 +312,43 @@ class Organisation extends EntityBase
 
 
     /**
-     * Add administator
+     * Add administrator
      *
-     * @param \AppBundle\Entity\Person $administator
+     * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function addAdministrator(\AppBundle\Entity\Person $administator)
+    public function addAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators[] = $administator;
+        $this->administrators[] = $administrator;
 
         return $this;
     }
 
     /**
-     * Remove administator
+     * Remove administrator
      *
-      * @param \AppBundle\Entity\Person $administator
+      * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function removeAdministator(\AppBundle\Entity\Person $administator)
+    public function removeAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators->removeElement($administator);
+        $this->administrators->removeElement($administrator);
 
         return $this;
     }
 
     /**
-     * Get administators
+     * Get administrators
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdministators()
+    public function getAdministrators()
     {
-        return $this->administators;
+        return $this->administrators;
     }
+
 
 
     /**
@@ -383,7 +384,8 @@ class Organisation extends EntityBase
     {
         return $this->likers;
     }
-    
+
+ 
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -607,7 +609,7 @@ class Organisation extends EntityBase
      */
     public function __construct()
     {
-        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection(); 
         $this->administrators = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
