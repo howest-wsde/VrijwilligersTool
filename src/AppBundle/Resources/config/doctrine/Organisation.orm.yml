@@ -52,8 +52,7 @@ AppBundle\Entity\Organisation:
     manyToMany: 
         administrators:
           targetEntity: Person
-          mappedBy: organisations 
-          cascade: ["persist"]
+          mappedBy: organisations
         likers:
           targetEntity: Person
           mappedBy: liked_organisations 

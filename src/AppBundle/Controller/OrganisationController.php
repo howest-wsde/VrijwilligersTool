@@ -3,11 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Form\OrganisationType;
+use AppBundle\Entity\Form\OrganisationType; 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request; 
 
 class OrganisationController extends controller
 {
@@ -46,6 +46,44 @@ class OrganisationController extends controller
             ->findOneByUrlid($urlid);
         return $this->render("organisation/vereniging.html.twig",
             ["organisation" => $organisation]);
+    }
+
+    /**
+     * @Route("/vereniging/{organisation_urlid}/admins/remove/{person_username}" , name="organisation_remove_admin")
+     */
+    public function organisationRemoveAdminAction($organisation_urlid, $person_username)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($organisation_urlid);
+        $person = $em->getRepository("AppBundle:Person")
+            ->findOneByUsername($person_username);
+        $person->removeOrganisation($organisation); 
+        $em->persist($person);
+        $em->flush();
+
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
+    }
+
+
+    /**
+     * @Route("/vereniging/{organisation_urlid}/admins/add" , name="organisation_add_admin")
+     */
+    public function organisationAddAdminAction($organisation_urlid)
+    {
+        $request = Request::createFromGlobals();
+        $personid = $request->request->get("userid");
+
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($organisation_urlid);
+        $person = $em->getRepository("AppBundle:Person")
+            ->findOneById($personid);
+        $person->addOrganisation($organisation); 
+        $em->persist($person);
+        $em->flush(); 
+       
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
 
     /**
