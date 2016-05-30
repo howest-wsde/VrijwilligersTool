@@ -5,7 +5,7 @@ namespace Tests\AppBundle\Controller;
 use Symfony\Entity\Organisation;
 use Symfony\Entity\Form\OrganisationType;
 
-class OrganisationControllerTest \WebTestCase
+class OrganisationControllerTest extends \WebTestCase
 {
     public function testCreateOrganisation()
     {

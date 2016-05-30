@@ -2,6 +2,7 @@
 
 namespace Tests\AppBundle\Controller;
 
+use Symfony\Entity\Vacancy;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class VacancyControllerTest extends \WebTestCase
