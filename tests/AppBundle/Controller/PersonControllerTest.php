@@ -40,9 +40,6 @@ class PersonControllerTest extends WebTestCase
     public function testPersonViewActionWithoutLogin()
     {
       $username = 'beuntje';
-      $user = $this->em->getRepository('AppBundle\Entity\Person')
-        ->findOneByUsername($username);
-
       $client = $this->client;
       $client->request('GET', '/persoon/' . $username);
 
@@ -93,15 +90,46 @@ class PersonControllerTest extends WebTestCase
       $this->assertTrue($client->getResponse()->isNotFound());
     }
 
-
-    public function testSelfAction()
+    /**
+     * Testing the selfAction Controller without logging in first
+     * Condition tested is:
+     * 1. if no user is logged in, does the controller redirect to the login form?
+     */
+    public function testSelfActionWithoutLogin()
     {
-      $this->markTestIncomplete("deze test werd nog niet geïmplementeerd");
+      $client = $this->client;
+      $client->request('GET', '/persoon');
+
+      $this->assertTrue($client->getResponse()->isRedirect());
+      $targetUrl = $client->getResponse()->getTargetUrl();
+      $this->assertRegExp('/\/login$/', $targetUrl);
+    }
+
+    /**
+     * Testing the selfA$regexp = tion Controller afte\ro . $user->getUserName() . ' l'gging in;'
+     * Condition tested is:
+     * 1. if a user is logged in, does the controller redirect to the person_username function for the user?
+     */
+    public function testSelfActionWithLogin()
+    {
+      $this->markTestIncomplete("deze is nog niet af, er is een error bij het instellen van de user waardoor op lijn 39 in PersonController geen username kan gevonden worden.");
+      $username = 'beuntje';
+      $user = $this->em->getRepository('AppBundle\Entity\Person')
+        ->findOneByUsername($username);
+      $this->logIn($user);
+
+      $client = $this->client;
+      $client->request('GET', '/persoon');
+
+      $this->assertTrue($client->getResponse()->isRedirect());
+      $targetUrl = $client->getResponse()->getTargetUrl();
+      $regexp = '/\/persoon\/' . $user->getUserName() . '$/';
+      $this->assertRegExp($regexp, $targetUrl);
     }
 
     public function testListRecentPersonsAction()
     {
-      $this->markTestIncomplete("deze test werd nog niet geïmplementeerd");
+      $this->markTestIncomplete("deze route wordt momenteel niet gebruikt, de test werd dan ook nog niet aangemaakt");
     }
 
      /**
