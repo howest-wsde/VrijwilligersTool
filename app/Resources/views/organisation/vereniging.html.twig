@@ -25,6 +25,19 @@
 			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a></li>
 		{% else %}
 			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a></li>
+		{% endif %} 
+		{% if app.user in organisation.administrators %}
+			{# <li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li> #}
+			<li>Beheerders: 
+				<ul>
+					{% for administrator in organisation.administrators %}
+						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">X</a></li>
+					{% endfor %}
+					<li>Nieuwe beheerder: 
+						{% include "person/usersearch.html.twig" with {'path': path('organisation_add_admin', { 'organisation_urlid' : organisation.urlid}) } %}
+					</li>
+				</ul>
+			</li>
 		{% endif %}
 	</ul>
 
@@ -70,4 +83,5 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
 
 	<script src="{{ asset("js/googleMaps.js") }}"></script>
+	<script src="{{ asset("js/usersearch.js") }}"></script>
 {% endblock %}

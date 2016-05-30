@@ -79,7 +79,6 @@ AppBundle\Entity\Person:
         organisations:
           targetEntity: Organisation
           inversedBy: administrators
-          cascade: ["persist"]
           joinTable:
             name: organisations_administrators
             joinColumns:
