@@ -112,14 +112,15 @@ class PersonControllerTest extends WebTestCase
      */
     public function testSelfActionWithLogin()
     {
-      $this->markTestIncomplete("deze is nog niet af, er is een error bij het instellen van de user waardoor op lijn 39 in PersonController geen username kan gevonden worden.");
+      // $this->markTestIncomplete("deze is nog niet af, er is een error bij het instellen van de user waardoor op lijn 39 in PersonController geen username kan gevonden worden.");
       $username = 'beuntje';
       $user = $this->em->getRepository('AppBundle\Entity\Person')
         ->findOneByUsername($username);
       $this->logIn($user);
+      $this->assertEquals($username, $user->getUserName());
 
       $client = $this->client;
-      $client->request('GET', '/persoon');
+      $client->request('GET', '/persoon', array(), array(), array('PHP_AUTH_USER  ' => $user));//TODO evaluate everything past get
 
       $this->assertTrue($client->getResponse()->isRedirect());
       $targetUrl = $client->getResponse()->getTargetUrl();
@@ -155,6 +156,7 @@ class PersonControllerTest extends WebTestCase
 
         $token = new UsernamePasswordToken('beuntje', $user->getPassword(), $firewall, array($role));
         $session->set('_security_'.$firewall, serialize($token));
+        $session->set('user', $user); //todo: delete after slashdot post
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());

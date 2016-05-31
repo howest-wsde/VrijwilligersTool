@@ -38,13 +38,14 @@ class VacancyController extends controller
 
 
     /**
+     *
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/start", name="start_vacancy")
      */
     public function startVacancyAction(Request $request)
-    { 
-        $organisations = $this->getUser()->getOrganisations();  
-        return $this->render("organisation/vrijwilliger_vinden.html.twig", 
+    {
+        $organisations = $this->getUser()->getOrganisations();
+        return $this->render("organisation/vrijwilliger_vinden.html.twig",
                 ["organisations" => $organisations ]
             );
     }
@@ -64,11 +65,11 @@ class VacancyController extends controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
- 
-            if (!is_null($organisation_urlid)){ 
+
+            if (!is_null($organisation_urlid)){
                 $organisation = $em->getRepository("AppBundle:Organisation")
                                     ->findOneByUrlid($organisation_urlid);
-                $vacancy->setOrganisation($organisation); 
+                $vacancy->setOrganisation($organisation);
             }
 
             $em->persist($vacancy);
@@ -115,20 +116,20 @@ class VacancyController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/{likeunlike}", 
-     *              name="vacancy_like", 
+     * @Route("/vacature/{urlid}/{likeunlike}",
+     *              name="vacancy_like",
      *              requirements={"likeunlike": "like|unlike"})
      */
     public function likeVacancy($urlid, $likeunlike)
     {
-        $user = $this->getUser(); 
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid); 
+            ->findOneByUrlid($urlid);
         if ($likeunlike == "like") {
-            $user->addLikedVacancy($vacancy); 
+            $user->addLikedVacancy($vacancy);
         } else {
-            $user->removeLikedVacancy($vacancy); 
+            $user->removeLikedVacancy($vacancy);
         }
         $em->persist($user);
         $em->flush();
