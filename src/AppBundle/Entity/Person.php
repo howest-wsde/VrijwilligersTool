@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
+use libphonenumber\PhoneNumberUtil as phoneUtil;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -168,7 +169,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $telephone;
 
     /**
-     * @var string 
+     * @var string
      */
     protected $language;
 
@@ -182,15 +183,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         {
             $fields++;
 
-            $telephone = str_replace(' ', '', $org->getTelephone());
-
-            if (!ctype_digit($telephone)
-            or !strlen($telephone) == 10)
-            {
-                $context->buildViolation("person.telephone.valid")
-                    ->atPath("telephone")
-                    ->addViolation();
-            }
+            $org->validatePhoneNumber($org, $context);
         }
         if ($org->getEmail())
         {
@@ -207,6 +200,28 @@ class Person extends OAuthUser implements UserInterface, \Serializable
             $context->buildViolation("person.one_of_both")
                 ->atPath("email")
                 ->addViolation();
+        }
+    }
+
+    /**
+     * Function to validate a phonenumber using the mid-service phone number bundle.
+     * @param  ExecutionContextInterface    $context the context
+     * @param  Organisation                 $org     an organisation
+     */
+    public function validatePhoneNumber($org, $context){
+        $tel = $org->getTelephone();
+        $phoneUtil = phoneUtil::getInstance();
+        $number = $phoneUtil->parse($tel, 'BE');
+        if(!$phoneUtil->isValidNumber($number))
+        {
+            $context->buildViolation("person.telephone.valid")
+                ->atPath("telephone")
+                ->addViolation();
+        }
+        else
+        {
+            $org->setTelephone($phoneUtil->format($number,
+                            \libphonenumber\PhoneNumberFormat::NATIONAL));
         }
     }
 
@@ -242,7 +257,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $candidacies;
 
- 
+
     /**
      * @var \AppBundle\Entity\Organisation
      */
@@ -263,7 +278,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
-        $this->setLanguage("nl"); 
+        $this->setLanguage("nl");
     }
 
     public function getFullName()
@@ -292,7 +307,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
- 
+
 
     public function getSalt()
     {
@@ -600,7 +615,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = preg_replace("/\D/", "", $telephone);
+        $this->telephone = $telephone;
 
         return $this;
     }

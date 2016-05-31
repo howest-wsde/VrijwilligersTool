@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Organisation
- * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
+ * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
  * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
  */
@@ -176,16 +176,25 @@ class Organisation extends EntityBase
      */
     private $telephone;
 
-    public static function validateTelephone($org, ExecutionContextInterface  $context)
-    {
-        $telephone = str_replace(' ', '', $org->getTelephone());
-
-        if (!ctype_digit($telephone)
-        or !strlen($telephone) == 10)
+    /**
+     * Function to validate a phonenumber using the mid-service phone number bundle.
+     * @param  ExecutionContextInterface    $context the context
+     * @param  Organisation                 $org     an organisation
+     */
+    public static function validatePhoneNumber($org, ExecutionContextInterface $context){
+        $tel = $org->getTelephone();
+        $phoneUtil = phoneUtil::getInstance();
+        $number = $phoneUtil->parse($tel, 'BE');
+        if(!$phoneUtil->isValidNumber($number))
         {
-            $context->buildViolation("organisation.telephone.valid")
+            $context->buildViolation("person.telephone.valid")
                 ->atPath("telephone")
                 ->addViolation();
+        }
+        else
+        {
+            $org->setTelephone($phoneUtil->format($number,
+                            \libphonenumber\PhoneNumberFormat::NATIONAL));
         }
     }
 
@@ -385,7 +394,7 @@ class Organisation extends EntityBase
         return $this->likers;
     }
 
- 
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -468,7 +477,7 @@ class Organisation extends EntityBase
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = preg_replace("/\D/", "", $telephone);
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -609,7 +618,7 @@ class Organisation extends EntityBase
      */
     public function __construct()
     {
-        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection(); 
+        $this->vacancies = new \Doctrine\Common\Collections\ArrayCollection();
         $this->administrators = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

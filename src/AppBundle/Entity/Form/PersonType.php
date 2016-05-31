@@ -62,15 +62,15 @@ class PersonType extends AbstractType
             ))
             ->add("telephone", TextType::class, array(
                 "label" => "person.label.telephone",
-                "attr" => array("placeholder" => "person.label.telephone"),
+                "attr" => array("placeholder" => "person.placeholder.telephone"),
                 "required" => false
             ))
             ->add("language", ChoiceType::class, array(
                 "label" => "person.label.language",
                 "attr" => array("placeholder" => "person.label.language"),
                 "choices" => array(
-                    "Nederlands" => "nl", 
-                    "English" => "en", 
+                    "Nederlands" => "nl",
+                    "English" => "en",
                 )
             ))
             ->add("linkedinUrl", TextType::class, array(
