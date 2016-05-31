@@ -38,7 +38,7 @@ class VacancyController extends controller
 
 
     /**
-     *
+     * Renders a page asking the user from which perspective he wants to create a vacancy: for himself, for an organisation ... or if he hasn't gotten an organisation yet whether he wants to create one.
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/start", name="start_vacancy")
      */
