@@ -71,6 +71,7 @@ person:
     linkedin:
         valid: url {{ value }} is geen geldige linkedIn url.
     placeholder:
+        telephone: 051 123 456
         username: gebruikersnaam of e-mailadres of telefoonnummer
         linkedin: https://be.linkedin.com/in/<uw naam>
         password: lange en veilige wachtzien
