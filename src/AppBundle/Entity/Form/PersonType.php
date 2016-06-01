@@ -89,11 +89,11 @@ class PersonType extends AbstractType
                     "attr" => array("placeholder" => "person.placeholder.password")
                 ),
             ))
-            ->add("termsAccepted", CheckboxType::class, array(
-                "mapped" => false,
-                "constraints" => new IsTrue(),
-                "label" => "person.label.eula"
-            ))
+            // ->add("termsAccepted", CheckboxType::class, array(
+            //     "mapped" => false,
+            //     "constraints" => new IsTrue(),
+            //     "label" => "person.label.eula"
+            // ))
             ->add("submit", SubmitType::class, array(
                 "label" => "person.label.submit",
             ));
