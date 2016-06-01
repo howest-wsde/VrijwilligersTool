@@ -1,0 +1,42 @@
+{% if viewMode == 'list' %}
+<header><h1>Recente verenigingen</h1></header>
+<ul>
+    {% for organisation in organisations %}
+        <li><a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.name}}</a></li>
+    {% endfor %}
+</ul>
+{% elseif viewMode == 'tile' %}
+<ul>
+    {% for organisation in organisations %}
+    <li>
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+            <header>
+                <h3>{{ organisation.name}}</h3>
+                <img src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+            </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
+            <img src="" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+            <p>{# organisation.slogan #}issue #149</p>
+            <ul>
+                <li>
+                    {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
+                    <a href="#">
+                        {{ organisation.street }} {{ organisation.number }}
+                        {% if organisation.bus %} / {{ organisation.bus }}{% endif %}
+                         - {{ organisation.postalCode }} {{ organisation.city }}
+                    </a> (issue #150)
+                </li>
+                <li>
+                    {# TODO: bekijken hoe we het aantal medewerkers en vrijwilligers kunnen weergeven #151 #}
+                    x medewerkers en y vrijwilligers (issue #151)
+                </li>
+                <li>
+                    {# TODO: maken dat een vacature beperkt aantal vrijwilligers heeft en dus afgesloten wordt eens dat aantal ingevuld is #152 #}
+                    x openstaande vacatures (issue #152)
+                </li>
+            </ul>
+            <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

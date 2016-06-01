@@ -48,12 +48,11 @@
         </button>
     </section>
     <section data-role="Promoted organisations block">
-        <h2>Organisaties in de kijker</h2>{# TODO: check of deze header & ul hier moet? #}
-        <ul>
-            {#{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId } )) }#}
-        </ul>
+        <h2>Organisaties in de kijker</h2>
+        {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
     </section>
     <section data-role="Recent vacancies block">
+        <h2>Vacatures in de kijker</h2>
         {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 6, "viewMode": "tile" } )) }}
     </section>
     <section data-role="newsletter">

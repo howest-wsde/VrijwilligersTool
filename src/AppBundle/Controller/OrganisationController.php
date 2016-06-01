@@ -3,11 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Form\OrganisationType; 
+use AppBundle\Entity\Form\OrganisationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request; 
+use Symfony\Component\HttpFoundation\Request;
 
 class OrganisationController extends controller
 {
@@ -58,7 +58,7 @@ class OrganisationController extends controller
             ->findOneByUrlid($organisation_urlid);
         $person = $em->getRepository("AppBundle:Person")
             ->findOneByUsername($person_username);
-        $person->removeOrganisation($organisation); 
+        $person->removeOrganisation($organisation);
         $em->persist($person);
         $em->flush();
 
@@ -79,10 +79,10 @@ class OrganisationController extends controller
             ->findOneByUrlid($organisation_urlid);
         $person = $em->getRepository("AppBundle:Person")
             ->findOneById($personid);
-        $person->addOrganisation($organisation); 
+        $person->addOrganisation($organisation);
         $em->persist($person);
-        $em->flush(); 
-       
+        $em->flush();
+
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
 
@@ -110,12 +110,12 @@ class OrganisationController extends controller
      * @param  int $nr the amount of organisations to be listed
      * @return html     a html-encoded list of recent organisations
      */
-    public function listRecentOrganisationsAction($nr)
+    public function listRecentOrganisationsAction($nr, $viewMode = "list")
     {
         $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
             ->findBy(array(), array('id' => 'DESC'), $nr);
-        return $this->render('organisation/recente_verenigingen.html.twig',
-            ['organisations' => $organisations]);
+        return $this->render('organisation/verenigingen_oplijsten.html.twig',
+            ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }
 }

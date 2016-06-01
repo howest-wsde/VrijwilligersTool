@@ -445,30 +445,6 @@ class Organisation extends EntityBase
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Organisation
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
