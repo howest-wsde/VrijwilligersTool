@@ -174,7 +174,7 @@ class VacancyController extends controller
         $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
-        return $this->render("vacancy/recente_vacatures.html.twig",
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
             ["vacancies" => $vacancies, "viewMode" => $viewMode]);
     }
 
