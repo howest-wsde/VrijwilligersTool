@@ -38,6 +38,7 @@ class VacancyController extends controller
 
 
     /**
+     * Controller to give the user a choice of what kind of vacancy he wants to create.
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/start", name="start_vacancy")
      */
@@ -98,7 +99,7 @@ class VacancyController extends controller
      * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
      */
     public function subscribeVacancy($urlid)
-    { 
+    {
         $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
@@ -113,11 +114,11 @@ class VacancyController extends controller
                 $em->remove($candidacy);
                 $em->flush();
             }
-        } else { 
+        } else {
             $candidacy = new Candidacy();
-            $candidacy->setCandidate($person)->setVacancy($vacancy); 
+            $candidacy->setCandidate($person)->setVacancy($vacancy);
             $em->persist($candidacy);
-            $em->flush(); 
+            $em->flush();
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
@@ -168,13 +169,13 @@ class VacancyController extends controller
              "pending" => $pending]);
     }
 
-    public function listRecentVacanciesAction($nr)
+    public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
         $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
-        return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $vacancies]);
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+            ["vacancies" => $vacancies, "viewMode" => $viewMode]);
     }
 
     public function listParentSkillsAction($nr)
