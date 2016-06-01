@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\PersonType;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class SecurityController extends Controller
 {
@@ -22,12 +23,21 @@ class SecurityController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            //encode password en replace the plain password to the encoded one
             $password = $this->get("security.password_encoder")
                              ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+
+            //persist the user to the dbase
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            //log in the user as far as Symfony is concerned
+            $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main',serialize($token));
+
             return $this->redirectToRoute("vacaturesopmaat");
         }
         return $this->render(
