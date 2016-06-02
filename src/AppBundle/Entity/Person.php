@@ -185,7 +185,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *
      * @var string
      */
-    private $avatar;
+    private $avatarName;
 
     /**
      * Callback that check if either the email or telephone fields are valid
@@ -787,13 +787,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $avatar
+     * @param string $avatarName
      *
      * @return Person
      */
-    public function setAvatar($avatar)
+    public function setAvatarName($avatarName)
     {
-        $this->avatar = $avatar;
+        $this->avatarName = $avatarName;
 
         return $this;
     }
@@ -801,9 +801,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getAvatar()
+    public function getAvatarName()
     {
-        return $this->avatar;
+        return $this->avatarName;
     }
 
     /**

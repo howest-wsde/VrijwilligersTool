@@ -150,7 +150,7 @@ class Organisation extends EntityBase
     /**
      * @var string
      */
-    private $logo;
+    private $logoName;
     /**
      * @var string
      */
@@ -396,27 +396,27 @@ class Organisation extends EntityBase
 
 
     /**
-     * Set logo
+     * Set logoName
      *
-     * @param string $logo
+     * @param string $logoName
      *
      * @return Organisation
      */
-    public function setLogo($logo)
+    public function setLogoName($logoName)
     {
-        $this->logo = $logo;
+        $this->logoName = $logoName;
 
         return $this;
     }
 
     /**
-     * Get logo
+     * Get logoName
      *
      * @return string
      */
-    public function getLogo()
+    public function getLogoName()
     {
-        return $this->logo;
+        return $this->logoName;
     }
 
 
