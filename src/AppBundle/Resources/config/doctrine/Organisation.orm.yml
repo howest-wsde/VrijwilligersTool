@@ -42,6 +42,14 @@ AppBundle\Entity\Organisation:
             type: string
             length: 150
             options: {default: ""}
+        logo:
+            type: string
+            length: 255
+            nullable: true
+        slogan:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         creator:
             targetEntity: Person
