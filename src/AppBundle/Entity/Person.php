@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -769,11 +770,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setAvatarFile(File $image = null)
     {
         $this->avatarFile = $image;
-
         if ($image) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->setBus(15); //   updatedAt = new \DateTime('now');
+            //$this->setBus(15); //   
+            $this->updatedAt = new \DateTime('now');
         }
 
         return $this;
@@ -795,7 +796,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setAvatarName($avatarName)
     {
         $this->avatarName = $avatarName;
-
         return $this;
     }
 
