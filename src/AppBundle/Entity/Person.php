@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -175,7 +176,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
      * 
      * @var File
      */
@@ -772,7 +773,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         if ($image) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
+            $this->setBus(15); //   updatedAt = new \DateTime('now');
         }
 
         return $this;
