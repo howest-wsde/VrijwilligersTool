@@ -53,6 +53,10 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
+        avatar:
+            type: string
+            length: 255
+            nullable: true
     oneToMany:
         organisation:
             targetEntity: Organisation

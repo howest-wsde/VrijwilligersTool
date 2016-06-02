@@ -173,6 +173,21 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $language;
 
     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatar")
+     * 
+     * @var File
+     */
+    private $avatarFile;
+
+    /** 
+     *
+     * @var string
+     */
+    private $avatar;
+
+    /**
      * Callback that check if either the email or telephone fields are valid
      */
     public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
@@ -735,6 +750,60 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function getCity()
     {
         return $this->city;
+    }
+
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Person
+     */
+    public function setAvatarFile(File $image = null)
+    {
+        $this->avatarFile = $image;
+
+        if ($image) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @param string $avatar
+     *
+     * @return Person
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
     /**

@@ -146,12 +146,22 @@ class Organisation extends EntityBase
      */
     private $urlid;
 
+
+    /**
+     * @var string
+     */
+    private $logo;
+    /**
+     * @var string
+     */
+    private $slogan;
+
     /**
      * Set urlId
      *
      * @param string $urlId
      *
-     * @return Vacancy
+     * @return Organisation
      */
     public function setUrlId($urlId)
     {
@@ -383,6 +393,57 @@ class Organisation extends EntityBase
     {
         return $this->likers;
     }
+
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     *
+     * @return Organisation
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+
+    /**
+     * Set slogan
+     *
+     * @param string $slogan
+     *
+     * @return Organisation
+     */
+    public function setSlogan($slogan)
+    {
+        $this->slogan = $slogan;
+
+        return $this;
+    }
+
+    /**
+     * Get slogan
+     *
+     * @return string
+     */
+    public function getSlogan()
+    {
+        return $this->slogan;
+    }
+
     
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.

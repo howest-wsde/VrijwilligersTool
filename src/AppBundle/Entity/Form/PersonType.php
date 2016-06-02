@@ -34,6 +34,9 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.username",
                                 "pattern" => "^[^ /]+$")
             ))
+            ->add("avatar", FileType::class, array(
+                "label" => "person.label.avatar" 
+            ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",
                 "attr" => array("placeholder" => "person.label.email"),
