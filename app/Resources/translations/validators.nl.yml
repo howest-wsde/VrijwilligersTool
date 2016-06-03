@@ -30,6 +30,7 @@ organisation:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
     label:
@@ -65,6 +66,7 @@ person:
     telephone:
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     bus:
         valid: Gelieve een geldige postbus in te geven.
     linkedin:

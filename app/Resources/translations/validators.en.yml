@@ -30,6 +30,7 @@ organisation:
         valid: Please enter a valid mailbox.
     telephone:
         valid: Please enter a valid phone number.
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'
     email:
         valid: Please enter a valid email address.
     label:
@@ -51,3 +52,5 @@ person:
         already_used: This email address is already in use.
     username:
         already_used: This username is already in use.
+    telephone:
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'

@@ -211,17 +211,26 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function validatePhoneNumber($org, $context){
         $tel = $org->getTelephone();
         $phoneUtil = phoneUtil::getInstance();
-        $number = $phoneUtil->parse($tel, 'BE');
-        if(!$phoneUtil->isValidNumber($number))
-        {
-            $context->buildViolation("person.telephone.valid")
+        $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
+        $matchesPattern = preg_match($pattern, $tel);
+
+        if($matchesPattern != 1){
+            $context->buildViolation("person.telephone.numericWithExtra")
                 ->atPath("telephone")
                 ->addViolation();
-        }
-        else
-        {
-            $org->setTelephone($phoneUtil->format($number,
-                            \libphonenumber\PhoneNumberFormat::NATIONAL));
+        } else{
+            $number = $phoneUtil->parse($tel, 'BE');
+            if(!$phoneUtil->isValidNumber($number))
+            {
+                $context->buildViolation("person.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+            else
+            {
+                $org->setTelephone($phoneUtil->format($number,
+                                \libphonenumber\PhoneNumberFormat::NATIONAL));
+            }
         }
     }
 

@@ -4,7 +4,8 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use libphonenumber\PhoneNumberUtil as phoneUtil;
+
 
 /**
  * Organisation
@@ -182,17 +183,26 @@ class Organisation extends EntityBase
     public static function validatePhoneNumber($org, ExecutionContextInterface $context){
         $tel = $org->getTelephone();
         $phoneUtil = phoneUtil::getInstance();
-        $number = $phoneUtil->parse($tel, 'BE');
-        if(!$phoneUtil->isValidNumber($number))
-        {
-            $context->buildViolation("person.telephone.valid")
+        $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
+        $matchesPattern = preg_match($pattern, $tel);
+
+        if($matchesPattern != 1){
+            $context->buildViolation("organisation.telephone.numericWithExtra")
                 ->atPath("telephone")
                 ->addViolation();
-        }
-        else
-        {
-            $org->setTelephone($phoneUtil->format($number,
-                            \libphonenumber\PhoneNumberFormat::NATIONAL));
+        } else{
+            $number = $phoneUtil->parse($tel, 'BE');
+            if(!$phoneUtil->isValidNumber($number))
+            {
+                $context->buildViolation("organisation.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+            else
+            {
+                $org->setTelephone($phoneUtil->format($number,
+                                \libphonenumber\PhoneNumberFormat::NATIONAL));
+            }
         }
     }
 
