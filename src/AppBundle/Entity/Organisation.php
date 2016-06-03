@@ -9,8 +9,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
- * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
- * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
  */
 class Organisation extends EntityBase
 {

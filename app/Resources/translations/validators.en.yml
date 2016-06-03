@@ -32,7 +32,6 @@ organisation:
         valid: Please enter a valid phone number.
     email:
         valid: Please enter a valid email address.
-        already_used: This email address is already in use.
     label:
         name: Company name
         description: A description of your company
