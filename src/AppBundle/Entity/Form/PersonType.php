@@ -43,13 +43,14 @@ class PersonType extends AbstractType
             ))
             ->add('organisations', EntityType::class, array(
                 'label' => "person.label.organisations",
-                'attr' => array("placeholder" => "person.placeholder.organisation"),
+                "placeholder" => "person.placeholder.organisation",
                 // query choices from this entity
                 'class' => 'AppBundle:Organisation',
                 // use the name property as the visible option string
                 'choice_label' => 'name',
                 // render as select box
                 'expanded' => false,
+                'multiple' => false,
             ))
             ->add("plainPassword", RepeatedType::class, array(
                 "type" => PasswordType::class,
