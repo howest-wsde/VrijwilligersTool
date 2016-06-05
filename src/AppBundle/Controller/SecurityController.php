@@ -41,9 +41,10 @@ class SecurityController extends Controller
             return $this->redirectToRoute("vacaturesopmaat");
         }
         return $this->render(
-           "person/maakprofiel.html.twig",
+           "person/vrijwilliger_worden.html.twig",
            ["form" => $form->createView()] );
     }
+
     /**
     * @Route("/login", name = "login", options = { "i18n" = false })
     */

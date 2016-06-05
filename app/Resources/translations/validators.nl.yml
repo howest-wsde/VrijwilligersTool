@@ -75,13 +75,15 @@ person:
         telephone: 051 123 456
         username: gebruikersnaam of e-mailadres of telefoonnummer
         linkedin: https://be.linkedin.com/in/<uw naam>
-        password: lange en veilige wachtzien
+        password: lange en veilige wachtzin
+        organisation: Selecteer een organisatie
     label:
         firstname: Voornaam
         lastname: Familienaam
         username: Gebruikersnaam
         email: E-mailadres
         telephone: Telefoonnummer
+        organisations: Organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
@@ -92,4 +94,5 @@ person:
         language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
-        submit: Registreren
+        submit: Maak account
+        next: Volgende

@@ -5,7 +5,7 @@
 {% block body %}
 	<header>
 		<h1>Vrijwilliger worden</h1>
-		<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? </p>
+		<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? <a href="/login">Al vrijwilliger? Log dan hier in!</a></p>
 		<p>Doorloop dan hieronder ons stappenplan. </p>
 	</header>
 
@@ -15,18 +15,21 @@
 		<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
 	    {{ form_row (form.firstname) }}
 	    {{ form_row (form.lastname) }}
-	    {{ form_row (form.username) }}
 	    {{ form_row (form.email) }}
 	    {{ form_row (form.telephone) }}
+	    {{ form_row (form.organisations) }}
+	    {{ form_row (form.plainPassword.first) }}
+	    {{ form_row (form.plainPassword.second) }}
+		{{ form_row (form.submit) }}
+	    {{ form_row (form.username) }}
 	    {{ form_row (form.street) }}
 		{{ form_row (form.number) }}
 		{{ form_row (form.bus) }}
 		{{ form_row (form.postalcode) }}
 	    {{ form_row (form.city) }}
 		{{ form_row (form.linkedinUrl) }}
+		{{ form_row (form.submit2) }}
 
-	    {{ form_row (form.plainPassword.first) }}
-	    {{ form_row (form.plainPassword.second) }}
 	    {# {{ form_row (form.termsAccepted) }} #}
 	{{ form_end(form) }}
 {% endblock %}

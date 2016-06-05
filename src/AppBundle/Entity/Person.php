@@ -17,7 +17,7 @@ use libphonenumber\PhoneNumberUtil as phoneUtil;
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
+ * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"}, groups = {"firstStep"})
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
@@ -29,24 +29,26 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     protected $firstname;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     protected $lastname;
@@ -76,28 +78,31 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var string
      * @Assert\Email(
      *     message = "person.email.valid",
-     *     checkHost = true
+     *     checkHost = true,
+     *     groups = {"firstStep"}
      * )
      */
     protected $email;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"firstStep"})
      * @Assert\Length(
      *      min = 8,
      *      max = 4096,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
      */
     protected $plainPassword;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     protected $street;
@@ -106,12 +111,14 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="person.not_numeric"
+     *     message="person.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 0,
      *      max = 999999,
-     *      minMessage = "person.not_positive"
+     *      minMessage = "person.not_positive",
+     *      groups = {"secondStep"}
      * )
      */
     protected $number;
@@ -122,11 +129,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * 		min = 1,
      *      max = 6,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="person.bus.valid"
+     *     message="person.bus.valid",
+     *     groups = {"secondStep"}
      * )
      */
     protected $bus;
@@ -135,18 +144,21 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="person.not_numeric"
+     *     message="person.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 1000,
      *      max = 9999,
      *      minMessage = "person.not_positive",
-     *      maxMessage = "not_more_than"
+     *      maxMessage = "not_more_than",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Length(
      *      min = 4,
      *      max = 4,
-     *      exactMessage = "person.exact"
+     *      exactMessage = "person.exact",
+     *      groups = {"secondStep"}
      * )
      */
     protected $postalcode;
@@ -157,7 +169,8 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     protected $city;

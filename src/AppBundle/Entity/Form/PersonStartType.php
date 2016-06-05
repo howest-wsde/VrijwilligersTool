@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -15,10 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
-class PersonType extends AbstractType
+class PersonStartType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -41,9 +40,7 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.placeholder.telephone"),
                 "required" => false
             ))
-            ->add('organisations', EntityType::class, array(
-                'label' => "person.label.organisations",
-                'attr' => array("placeholder" => "person.placeholder.organisation"),
+            ->add('users', EntityType::class, array(
                 // query choices from this entity
                 'class' => 'AppBundle:Organisation',
                 // use the name property as the visible option string
@@ -63,43 +60,7 @@ class PersonType extends AbstractType
                 ),
             ))
             ->add("submit", SubmitType::class, array(
-                "label" => "person.label.submit",
-                "validation_groups" => array("firstStep"),
-            ))
-            ->add("username", TextType::class, array(
-                "label" => "person.label.username",
-                "attr" => array("placeholder" => "person.label.username",
-                                "pattern" => "^[^ /]+$")
-            ))
-            ->add("street", TextType::class, array(
-                "label" => "person.label.street",
-                "attr" => array("placeholder" => "person.label.street")
-            ))
-            ->add("number", NumberType::class, array(
-                "label" => "person.label.number",
-                "attr" => array("placeholder" => "person.label.number")
-            ))
-            ->add("bus", NumberType::class, array(
-                "label" => "person.label.bus",
-                "attr" => array("placeholder" => "person.label.bus"),
-                "required" => false
-            ))
-            ->add("postalcode", NumberType::class, array(
-                "label" => "person.label.postalcode",
-                "attr" => array("placeholder" => "person.label.postalcode")
-            ))
-            ->add("city", TextType::class, array(
-                "label" => "person.label.city",
-                "attr" => array("placeholder" => "person.label.city")
-            ))
-            ->add("linkedinUrl", TextType::class, array(
-                "label" => "person.label.linkedin",
-                "required" => false,
-                "attr" => array("placeholder" => "person.placeholder.linkedin")
-            ))
-            ->add("submit2", SubmitType::class, array(
-                "label" => "person.label.next",
-                "validation_groups" => array("secondStep"),
+                "label" => "person.label.submitStart",
             ));
     }
 
