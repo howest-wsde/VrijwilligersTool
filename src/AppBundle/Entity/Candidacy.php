@@ -7,6 +7,10 @@ namespace AppBundle\Entity;
  */
 class Candidacy extends EntityBase
 {
+    const PENDING = 0;
+    const APPROVED = 1;
+    const DECLINED = 2; 
+
     /**
      * @var integer
      */
@@ -15,7 +19,7 @@ class Candidacy extends EntityBase
     /**
      * @var integer
      */
-    private $state;
+    private $state = Candidacy::PENDING; 
 
     /**
      * @var \AppBundle\Entity\Person

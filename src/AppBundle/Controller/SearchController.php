@@ -33,14 +33,13 @@ class SearchController extends Controller
 
     private function specificSearch($types, $body, $slice = [0 => 25])
     {
-        $sliceKey = key($slice);
         $query = $this->get("ElasticsearchQuery");
         $params = [
             "index" => $query->getIndex(),
             "type" => $types,
             "from" => key($slice),
             "size" => $slice[key($slice)],
-            "body" => $bodys
+            "body" => $body
         ];
         $result = $query->search($params);
         return $query->getResults();
@@ -129,6 +128,26 @@ class SearchController extends Controller
             );
 
         $response->headers->set("Access-Control-Allow-Origin", "*");
+        return $response;
+    }
+
+
+    /**
+     * @Route("/api/usersearch", name="api_usersearch")
+     */
+    public function apiSearchUserAction()
+    {
+        $request = Request::createFromGlobals();
+        $query = $request->request->get("person"); 
+        //var_dump($request);
+        if ($query) {
+            $results = $this->plainSearch($query, ["person"]); 
+        } else $results = [];  
+        $response = new Response(
+            $this->renderView("person/usersearch.user.html.twig",
+                ["results" => $results]),
+                200
+            );
         return $response;
     }
 }

@@ -1,0 +1,29 @@
+{% if viewMode == 'list' %}
+<ul>
+	{% for vacancy in vacancies %}
+		<li><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title}} </a></li>
+	{% endfor %}
+</ul>
+{% elseif viewMode == 'tile' %}
+<ul>
+    {% for vacancy in vacancies %}
+    <li>
+        <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">
+            <header>
+                <h3>{{ vacancy.title}}</h3>
+                <img src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+            </header>
+            <p>{{ vacancy.description|truncate(200, true) }}</p>
+            <ul>
+                {# TODO: alter dbase to remember and add icons here #}
+            </ul>
+            <figure>
+                <p>{# TODO: render #km here depending on whether or not user is logged in #}</p>
+                <img src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+            </figure>
+            <button>Stel je kandidaat!</button>{# TODO: enable behaviour, button? #}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}

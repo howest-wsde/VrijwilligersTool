@@ -1,5 +1,62 @@
 {% extends 'base.html.twig' %}
- 
+
 {% block body %}
-    Home
+    <h1>Roeselare Vrijwilligt</h1>{#TODO make title dynamic #}
+    <section data-role="motivational block">
+        <h2>Zinvol vrijwilligerswerk</h2>
+        <p>
+            Ervaar hoe een paar uur van je tijd een groot verschil maken.
+        </p>
+        <p>
+            Vrijwilligerswerk is samen bouwen aan een aangenaam Roeselare en een betere wereld.
+        </p>
+        <figure>
+            {#TODO: render the image here #}
+            <button>Bekijk de video</button>{# TODO: button tag? #}
+        </figure>
+    </section>
+    <section data-role="searchblock">
+        <h2>Zin om de handen uit de mouwen te steken?</h2>
+        {# TODO: implement searchblock, the above is temporary until a reusable search block has been implemented #}
+    </section>
+    <section data-role="introduction block">
+        <h2>Meer informatie</h2>
+        <h2>Hoe werkt het</h2>
+        <figure>{# TODO: dit verder uitwerken #}
+            <img src="#">
+            <caption><a href="#">Of lees de uitleg ...</a></caption>
+        </figure>
+
+        <h2>Verhalen en getuigenissen</h2>
+        <figure>{# TODO: dit verder uitwerken #}
+            <img src="#">
+            <caption><a href="#">Of lees de uitleg ...</a></caption>
+        </figure>
+
+        <h2>Informatie over vrijwilligerswerk</h2>
+        <p>
+            Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
+        </p>
+        <figure>{# TODO: dit verder uitwerken #}
+            <img src="#">
+            <caption><a href="#">Of lees de uitleg ...</a></caption>
+        </figure>
+
+        <button>{# TODO: dit verder uitwerken + nakijken: button tag? #}
+            <h2>Niet zeker hoe je kan helpen?</h2>
+            <p>Doe hier de test!</p>
+        </button>
+    </section>
+    <section data-role="Promoted organisations block">
+        <h2>Organisaties in de kijker</h2>
+        {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
+    </section>
+    <section data-role="Recent vacancies block">
+        <h2>Vacatures in de kijker</h2>
+        {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 6, "viewMode": "tile" } )) }}
+    </section>
+    <section data-role="newsletter">
+        <h2>Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!</h2>
+        {# TODO: nieuwsbrief implementeren #}
+    </section>
 {% endblock %}

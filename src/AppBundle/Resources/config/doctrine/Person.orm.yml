@@ -41,8 +41,14 @@ AppBundle\Entity\Person:
             nullable: true
         telephone:
             type: string
-            length: 10
+            length: 35
             nullable: true
+        language:
+            type: string
+            length: 2
+            nullable: false
+            options:
+                default: nl
         linkedinUrl:
             type: string
             length: 150
@@ -69,11 +75,10 @@ AppBundle\Entity\Person:
                 inverseJoinColumns:
                     -
                         name: skill_id
-                        referencedColumnName: id 
+                        referencedColumnName: id
         organisations:
           targetEntity: Organisation
           inversedBy: administrators
-          cascade: ["persist"]
           joinTable:
             name: organisations_administrators
             joinColumns:
@@ -81,7 +86,7 @@ AppBundle\Entity\Person:
                 referencedColumnName: id
             inverseJoinColumns:
               organisation_id:
-                referencedColumnName: id 
+                referencedColumnName: id
         liked_organisations:
           targetEntity: Organisation
           inversedBy: likers

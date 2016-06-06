@@ -4,13 +4,12 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use libphonenumber\PhoneNumberUtil as phoneUtil;
+
 
 /**
  * Organisation
- * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
- * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
+ * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
  */
 class Organisation extends EntityBase
 {
@@ -176,16 +175,34 @@ class Organisation extends EntityBase
      */
     private $telephone;
 
-    public static function validateTelephone($org, ExecutionContextInterface  $context)
-    {
-        $telephone = str_replace(' ', '', $org->getTelephone());
+    /**
+     * Function to validate a phonenumber using the mid-service phone number bundle.
+     * @param  ExecutionContextInterface    $context the context
+     * @param  Organisation                 $org     an organisation
+     */
+    public static function validatePhoneNumber($org, ExecutionContextInterface $context){
+        $tel = $org->getTelephone();
+        $phoneUtil = phoneUtil::getInstance();
+        $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
+        $matchesPattern = preg_match($pattern, $tel);
 
-        if (!ctype_digit($telephone)
-        or !strlen($telephone) == 10)
-        {
-            $context->buildViolation("organisation.telephone.valid")
+        if($matchesPattern != 1){
+            $context->buildViolation("organisation.telephone.numericWithExtra")
                 ->atPath("telephone")
                 ->addViolation();
+        } else{
+            $number = $phoneUtil->parse($tel, 'BE');
+            if(!$phoneUtil->isValidNumber($number))
+            {
+                $context->buildViolation("organisation.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+            else
+            {
+                $org->setTelephone($phoneUtil->format($number,
+                                \libphonenumber\PhoneNumberFormat::NATIONAL));
+            }
         }
     }
 
@@ -312,42 +329,43 @@ class Organisation extends EntityBase
 
 
     /**
-     * Add administator
+     * Add administrator
      *
-     * @param \AppBundle\Entity\Person $administator
+     * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function addAdministrator(\AppBundle\Entity\Person $administator)
+    public function addAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators[] = $administator;
+        $this->administrators[] = $administrator;
 
         return $this;
     }
 
     /**
-     * Remove administator
+     * Remove administrator
      *
-      * @param \AppBundle\Entity\Person $administator
+      * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function removeAdministator(\AppBundle\Entity\Person $administator)
+    public function removeAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators->removeElement($administator);
+        $this->administrators->removeElement($administrator);
 
         return $this;
     }
 
     /**
-     * Get administators
+     * Get administrators
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdministators()
+    public function getAdministrators()
     {
-        return $this->administators;
+        return $this->administrators;
     }
+
 
 
     /**
@@ -383,7 +401,8 @@ class Organisation extends EntityBase
     {
         return $this->likers;
     }
-    
+
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
@@ -434,30 +453,6 @@ class Organisation extends EntityBase
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Organisation
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -466,7 +461,7 @@ class Organisation extends EntityBase
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = preg_replace("/\D/", "", $telephone);
+        $this->telephone = $telephone;
 
         return $this;
     }

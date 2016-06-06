@@ -34,7 +34,7 @@ AppBundle\Entity\Organisation:
             nullable: true
         telephone:
             type: string
-            length: 10
+            length: 35
             nullable: true
         description:
             type: text
@@ -49,14 +49,13 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
-    manyToMany: 
+    manyToMany:
         administrators:
           targetEntity: Person
-          mappedBy: organisations 
-          cascade: ["persist"]
+          mappedBy: organisations
         likers:
           targetEntity: Person
-          mappedBy: liked_organisations 
+          mappedBy: liked_organisations
           cascade: ["persist"]
     oneToMany:
         vacancies:
