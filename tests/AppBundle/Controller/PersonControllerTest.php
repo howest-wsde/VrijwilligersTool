@@ -156,6 +156,7 @@ class PersonControllerTest extends WebTestCase
 
         $token = new UsernamePasswordToken('beuntje', $user->getPassword(), $firewall, array($role));
         $session->set('_security_'.$firewall, serialize($token));
+        $this->get('security.token_storage')->setToken($token);
         $session->set('user', $user); //todo: delete after slashdot post
         $session->save();
 
