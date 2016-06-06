@@ -96,3 +96,11 @@ person:
         eula: I accept the terms and agreement
         submit: Create account
         next: Next
+        skills: Skills / capacities
+        finish: Submit
+        backToRegistration: Back to registration
+        backToGeneral: Beck to general info
+
+general:
+    label:
+        previous: Back

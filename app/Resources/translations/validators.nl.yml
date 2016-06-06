@@ -96,3 +96,10 @@ person:
         eula: Ik ga akkoord met de overeenkomst
         submit: Maak account
         next: Volgende
+        skills: Vaardigheden / Capaciteiten
+        finish: Indienen
+        backToRegistration: Terug naar registratie
+        backToGeneral: Terug naar algemene gegevens
+general:
+    label:
+        previous: Vorige

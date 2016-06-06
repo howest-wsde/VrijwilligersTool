@@ -107,6 +107,29 @@ class PersonType extends AbstractType
             ->add("submit2", SubmitType::class, array(
                 "label" => "person.label.next",
                 "validation_groups" => array("secondStep"),
+            ))
+            ->add('backToRegistration', SubmitType::class, array(
+                "label" => "person.label.backToRegistration",
+                'validation_groups' => false,
+            ))
+            ->add('skills', EntityType::class, array(
+                'label' => "person.label.skills",
+                // query choices from this entity
+                'class' => 'AppBundle:Skill',
+                // use the name property as the visible option string
+                'choice_label' => 'name',
+                // render as select box
+                'expanded' => true,
+                'multiple' => true,
+                'required' => false,
+            ))
+            ->add("submit3", SubmitType::class, array(
+                "label" => "person.label.finish",
+                "validation_groups" => false,
+            ))
+            ->add('backToGeneral', SubmitType::class, array(
+                "label" => "person.label.backToGeneral",
+                'validation_groups' => false,
             ));
     }
 

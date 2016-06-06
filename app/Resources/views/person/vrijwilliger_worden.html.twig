@@ -3,34 +3,110 @@
 {% block title %}Vrijwilliger worden{% endblock %}
 
 {% block body %}
-	<header>
-		<h1>Vrijwilliger worden</h1>
-		<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? <a href="/login">Al vrijwilliger? Log dan hier in!</a></p>
-		<p>Doorloop dan hieronder ons stappenplan. </p>
-	</header>
+<header>
+	<h1>Vrijwilliger worden</h1>
+	<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? <a href="/login">Al vrijwilliger? Log dan hier in!</a></p>
+	<p>Doorloop dan hieronder ons stappenplan. </p>
+</header>
 
+<section>
 	<h2>Maak een profiel aan</h2>
 	{{ form_start(form) }}
 		{% block bron %}{% endblock %}
 		<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
-	    {{ form_row (form.firstname) }}
-	    {{ form_row (form.lastname) }}
-	    {{ form_row (form.email) }}
-	    {{ form_row (form.telephone) }}
-	    {{ form_row (form.organisation) }}
-	    {{ form_row (form.plainPassword.first) }}
-	    {{ form_row (form.plainPassword.second) }}
-		{{ form_row (form.submit) }}
-
-	    {{ form_row (form.username) }}
-	    {{ form_row (form.street) }}
-		{{ form_row (form.number) }}
-		{{ form_row (form.bus) }}
-		{{ form_row (form.postalcode) }}
-	    {{ form_row (form.city) }}
-		{{ form_row (form.linkedinUrl) }}
-		{{ form_row (form.submit2) }}
-
+		<fieldset>
+			<h3>Persoonsgegevens</h3>
+		    {{ form_row (form.firstname) }}
+		    {{ form_row (form.lastname) }}
+		    {{ form_row (form.email) }}
+		    {{ form_row (form.telephone) }}
+		    {{ form_row (form.organisation) }}
+		    {{ form_row (form.plainPassword.first) }}
+		    {{ form_row (form.plainPassword.second) }}
+			{{ form_row (form.submit) }}
+		</fieldset>
+		<fieldset>
+			<p>
+				Uw profiel werd succesvol aangemaakt!,<br />
+				Vul nu hieronder extra informatie in, of <a href="#interessant">ga onmiddelijk naar de volgende stap</a>.
+			</p>
+			<h3>Contactgegevens</h3>
+		    {{ form_row (form.username) }}
+		    {{ form_row (form.street) }}
+			{{ form_row (form.number) }}
+			{{ form_row (form.bus) }}
+			{{ form_row (form.postalcode) }}
+		    {{ form_row (form.city) }}
+			{{ form_row (form.linkedinUrl) }}
+			{{ form_row (form.submit2) }}
+			{{ form_row (form.backToRegistration) }}
+		</fieldset>
+		<fieldset>
+			<p>
+				Uw contactgegevens werden succesvol opgeslagen!,<br />
+				Vul nu hieronder extra informatie in, of <a href="#interessant">ga onmiddelijk naar de volgende stap</a>.
+			</p>
+			<h3>Vaardigheden</h3>
+			{{ form_row (form.skills) }}
+			{{ form_row (form.submit2) }}
+			{{ form_row (form.backToGeneral) }}
+		</fieldset>
 	    {# {{ form_row (form.termsAccepted) }} #}
 	{{ form_end(form) }}
+</section>
+<section id="interessant">
+	<h2>Kijk welke vacatures interessant zijn</h2>
+	<p>
+		Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie <a href="#zoekVacatures">zoek naar vacatures</a> kan je gemakkelijk te weten komen welke vacatures aansluiten bij jouw interesses.  Maar wat als je nog niet weet welke vacatures voor je interessant vindt?  Daarvoor hebben we een test ontwikkelt die je op weg helpt!
+		<a href="/test_type">
+			<h3>Doe de vrijwilligerstest!</h3>
+			En leer zo welke vacatures jou het meeste liggen.
+		</a>
+	</p>
+</section>
+<section id="zoekVacatures">
+	<h2>Zoek naar vacatures</h2>
+	<p>
+		Een interessante vacature vinden kan je op meerdere manieren...
+ 	</p>
+	<ul>
+		<li>Eens je een profielpagina aanmaakt kan je kiezen uit volgende opties:</li>
+				<ul>
+					<li>Kijk naar de vacatures op jouw maat.  Ons systeem vergelijkt jouw profiel met de openstaande vacatures en kiest er de interessantste uit.</li>
+					<li>Kijk naar de vacatures in de kijker.</li>
+					<li>Kijk naar de recentste vacatures.</li>
+				</ul>
+		<li>Daarnaast kan je ook <a href="/test_type">een test doen</a> om te kijken welk soort vacatures voor jou het interessantste zijn, of je kan de zoekfunctie gebruiken om naar vacatures te zoeken.  De zoekfunctie vind je steeds in de header terug, maar ook op je profielpagina en hieronder.
+		</li>
+	</ul>
+	{# TODO: render search block #}
+	<h2>Stel je kandidaat</h2>
+	<p>
+		Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.
+	</p>
+</section>
+<section>
+	<h2>Bekijk de spelregels</h2>
+	<h3>Spelregels voor vrijwilligers</h3>
+	<p>
+		Roeselare vrijwilligt heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
+	</p>
+	<ul>
+		<li>Je houdt je aan je afspraken.</li>
+		<li>Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt.  Uitzonderingen worden door de organisatie meegedeeld.</li>
+		<li>Je gedraagt je respectvol.</li>
+		<li>Je bent op de hoogte van <a href="/wetgeving">de wettelijke bepalingen</a>.</li>
+	</ul>
+	<h3>Spelregels voor organisaties</h3>
+	<p>
+		Roeselare vrijwilligt heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
+	</p>
+	<ul>
+		<li>Je houdt je aan je afspraken.</li>
+		<li>Je respecteert de privacy van elke vrijwilliger.</li>
+		<li>Je gedraagt je respectvol.</li>
+		<li>Je sluit [een verzekering] af voor elke vrijwilliger.</li>
+		<li>Je zorgt dat elke vrijwilliger goed begeleid wordt.  Een vrijwilliger is geen gratis werkpaard maar een waardevol medewerker!</li>
+	</ul>
+</section>
 {% endblock %}
