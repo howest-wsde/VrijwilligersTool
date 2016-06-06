@@ -12,14 +12,6 @@ use AppBundle\Entity\Skill;
 class PlaceholderController extends Controller
 {
     /**
-     * @Route("/vacatures", name="vacaturesopmaat")
-     */
-    public function vacaturesopmaat()
-    {
-        return $this->render("person/vacaturesopmaat.html.twig");
-    }
-
-    /**
      * @Route("/vereniging/{id}", name="vereniging_detail")
      */
     public function vereniging($id)

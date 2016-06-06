@@ -224,6 +224,14 @@ class VacancyController extends controller
                   "urlid" => $urlid) );
     }
 
+    /**
+     * @Route("/vacatures-op-maat", name="vacaturesopmaat")
+     */
+    public function vacaturesOpMaatAction()
+    {
+        return $this->render("person/vacaturesopmaat.html.twig");
+    }
+
     public function ListOrganisationVacanciesAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();

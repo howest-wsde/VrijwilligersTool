@@ -3,12 +3,21 @@
 {% block title %}Vrijwilliger worden{% endblock %}
 
 {% block body %}
+{% if not app.user %}
 <header>
 	<h1>Vrijwilliger worden</h1>
 	<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen? <a href="/login">Al vrijwilliger? Log dan hier in!</a></p>
 	<p>Doorloop dan hieronder ons stappenplan. </p>
 </header>
+{% elseif app.user %}
+<header>
+	<h1>Vrijwilliger worden</h1>
+</header>
+{% endif %}
 
+
+
+{% if not app.user %}
 <section>
 	<h2>Maak een profiel aan</h2>
 	{{ form_start(form) }}
@@ -54,6 +63,8 @@
 	    {# {{ form_row (form.termsAccepted) }} #}
 	{{ form_end(form) }}
 </section>
+{% endif %}
+{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
 <section id="interessant">
 	<h2>Kijk welke vacatures interessant zijn</h2>
 	<p>
@@ -64,6 +75,7 @@
 		</a>
 	</p>
 </section>
+
 <section id="zoekVacatures">
 	<h2>Zoek naar vacatures</h2>
 	<p>
@@ -80,6 +92,11 @@
 		</li>
 	</ul>
 	{# TODO: render search block #}
+
+	{% if app.user %}
+		{# TODO: render vacatures op maat blok #}
+	{% endif %}
+
 	<h2>Stel je kandidaat</h2>
 	<p>
 		Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.

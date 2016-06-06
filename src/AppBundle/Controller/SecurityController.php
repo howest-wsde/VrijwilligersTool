@@ -37,8 +37,6 @@ class SecurityController extends Controller
             $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
-
-            return $this->redirectToRoute("vacaturesopmaat");
         }
         return $this->render(
            "person/vrijwilliger_worden.html.twig",
