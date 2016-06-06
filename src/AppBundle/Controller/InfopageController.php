@@ -12,15 +12,15 @@ use AppBundle\Entity\Skill;
 class InfopageController extends Controller
 {
     /**
-     * @Route("/tos", name="privacy_en_legal")
+     * @Route("/tos", name="info_privacy_en_legal")
      */
     public function tos()
     {
-        return $this->render("info/privacy_en_legal.html.twig");
+        return $this->render("info/privacy_and_legal.html.twig");
     }
 
     /**
-     * @Route("/over_ons", name="over_ons")
+     * @Route("/over_ons", name="info_over_ons")
      */
     public function overons()
     {
@@ -28,7 +28,7 @@ class InfopageController extends Controller
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="info_contact")
      */
     public function contact()
     {
@@ -36,7 +36,7 @@ class InfopageController extends Controller
     }
 
     /**
-     * @Route("/vrijwilligersinfo", name="vrijwilligersinfo")
+     * @Route("/vrijwilligersinfo", name="info_vrijwilligersinfo")
      */
     public function vrijwilligersinfo()
     {
@@ -44,7 +44,7 @@ class InfopageController extends Controller
     }
 
     /**
-     * @Route("/wetgeving", name="wetgeving")
+     * @Route("/wetgeving", name="info_wetgeving")
      */
     public function wetgeving()
     {
@@ -52,18 +52,34 @@ class InfopageController extends Controller
     }
 
     /**
-     * @Route("/spelregels", name="spelregels")
+     * @Route("/spelregels", name="info_spelregels")
      */
-    public function spelregels()
+    public function spelregelsAction()
     {
         return $this->render("info/spelregels.html.twig");
     }
 
     /**
-     * @Route("/faq", name="faq")
+     * @Route("/faq", name="info_faq")
      */
     public function faq()
     {
         return $this->render("info/faq.html.twig");
+    }
+
+        /**
+     * @Route("/profiel-van-een-vrijwilliger", name="info_profiel")
+     */
+    public function infoProfielAction()
+    {
+        return $this->render("info/profielvrijwilliger.html.twig");
+    }
+
+    /**
+     * @Route("/waarom-vrijwilligen", name="info_waarom")
+     */
+    public function infoWaaromAction()
+    {
+        return $this->render("info/waaromvrijwilligen.html.twig");
     }
 }

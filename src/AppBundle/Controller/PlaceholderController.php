@@ -10,21 +10,13 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
 
 class PlaceholderController extends Controller
-{ 
+{
     /**
      * @Route("/vacatures", name="vacaturesopmaat")
      */
     public function vacaturesopmaat()
     {
         return $this->render("person/vacaturesopmaat.html.twig");
-    }
-
-    /**
-     * @Route("/vrijwilligerspelregels", name="person_spelregels")
-     */
-    public function person_spelregels()
-    {
-        return $this->render("person/spelregels.html.twig");
     }
 
     /**

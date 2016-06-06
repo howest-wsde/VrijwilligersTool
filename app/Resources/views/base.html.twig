@@ -85,27 +85,27 @@
                 <section>
                     <header><h1>Vrijwilligersinfo</h1></header>
                     <ul>
-                        <li><a href="{{ path("wetgeving") }}">Wetgeving</a></li>
-                        <li><a href="">Profiel van een vrijwilliger</a></li>
-                        <li><a href="{{ path("vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
-                        <li><a href="">Moeder waarom vrijwilligen wij? </a></li>
-                        <li><a href="{{ path("spelregels") }}">Spelregels</a></li>
-                        <li><a href="{{ path("faq") }}">Veelgestelde vragen</a></li>
+                        <li><a href="{{ path("info_wetgeving") }}">Wetgeving</a></li>
+                        <li><a href="{{ path("info_profiel") }}">Profiel van een vrijwilliger</a></li>
+                        <li><a href="{{ path("info_vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
+                        <li><a href="{{ path("info_waarom") }}">Moeder waarom vrijwilligen wij? </a></li>
+                        <li><a href="{{ path("info_spelregels") }}">Spelregels</a></li>
+                        <li><a href="{{ path("info_faq") }}">Veelgestelde vragen</a></li>
                     </ul>
                 </section>
                 <section>
                     <header><h1>Tests</h1></header>
                     <ul>
-                        <li><a href="">Welk type vrijwilliger ben ik? </a></li>
-                        <li><a href="">Taaltest</a></li>
-                        <li><a href="">Computervaardigheidstest</a></li>
+                        <li><a href="/test_type">Welk type vrijwilliger ben ik? </a></li>
+                        <li><a href="/test_taal">Taaltest</a></li>
+                        <li><a href="/test_comp">Computervaardigheidstest</a></li>
                     </ul>
                 </section>
                 <section>
                     <header><h1>Roeselare vrijwilligt</h1></header>
                     <ul>
-                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
-                        <li><a href="{{ path("contact") }}">Contact</a></li>
+                        <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>
+                        <li><a href="{{ path("info_contact") }}">Contact</a></li>
                     </ul>
                 </section>
             </nav>
@@ -126,7 +126,7 @@
                 </address>
                 <div class="legal nav">
                     <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
-                    <span><a href="{{ path("privacy_en_legal") }}">Privacy en legale voorwaarden</a></span>
+                    <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span>
                 </div>
             </footer>
         {% endblock %}
