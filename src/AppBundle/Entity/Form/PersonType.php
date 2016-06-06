@@ -41,8 +41,8 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.placeholder.telephone"),
                 "required" => false
             ))
-            ->add('organisations', EntityType::class, array(
-                'label' => "person.label.organisations",
+            ->add('organisation', EntityType::class, array(
+                'label' => "person.label.organisation",
                 "placeholder" => "person.placeholder.organisation",
                 // query choices from this entity
                 'class' => 'AppBundle:Organisation',
@@ -51,6 +51,7 @@ class PersonType extends AbstractType
                 // render as select box
                 'expanded' => false,
                 'multiple' => false,
+                'required' => false,
             ))
             ->add("plainPassword", RepeatedType::class, array(
                 "type" => PasswordType::class,
@@ -70,15 +71,18 @@ class PersonType extends AbstractType
             ->add("username", TextType::class, array(
                 "label" => "person.label.username",
                 "attr" => array("placeholder" => "person.label.username",
-                                "pattern" => "^[^ /]+$")
+                                "pattern" => "^[^ /]+$"),
+                'required' => false,
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
-                "attr" => array("placeholder" => "person.label.street")
+                "attr" => array("placeholder" => "person.label.street"),
+                'required' => false,
             ))
             ->add("number", NumberType::class, array(
                 "label" => "person.label.number",
-                "attr" => array("placeholder" => "person.label.number")
+                "attr" => array("placeholder" => "person.label.number"),
+                'required' => false,
             ))
             ->add("bus", NumberType::class, array(
                 "label" => "person.label.bus",
@@ -87,11 +91,13 @@ class PersonType extends AbstractType
             ))
             ->add("postalcode", NumberType::class, array(
                 "label" => "person.label.postalcode",
-                "attr" => array("placeholder" => "person.label.postalcode")
+                "attr" => array("placeholder" => "person.label.postalcode"),
+                'required' => false,
             ))
             ->add("city", TextType::class, array(
                 "label" => "person.label.city",
-                "attr" => array("placeholder" => "person.label.city")
+                "attr" => array("placeholder" => "person.label.city"),
+                'required' => false,
             ))
             ->add("linkedinUrl", TextType::class, array(
                 "label" => "person.label.linkedin",

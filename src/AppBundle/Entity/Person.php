@@ -55,16 +55,18 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      min = 2,
      *      max = 150,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[^ \/]+$/",
-     *     message = "geen spaties of slashes"
+     *     message = "geen spaties of slashes",
+     *     groups = {"secondStep"}
      * )
     */
     protected $username;

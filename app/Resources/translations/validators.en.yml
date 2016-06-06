@@ -83,7 +83,7 @@ person:
         username: User name
         email: email
         telephone: Phone number
-        organisations: Organisation
+        organisation: Organisation
         street: Street
         bus: Bus
         number: Number

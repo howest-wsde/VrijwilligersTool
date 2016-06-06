@@ -83,7 +83,7 @@ person:
         username: Gebruikersnaam
         email: E-mailadres
         telephone: Telefoonnummer
-        organisations: Organisatie
+        organisation: Organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
