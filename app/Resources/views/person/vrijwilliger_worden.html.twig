@@ -94,7 +94,7 @@
 	{# TODO: render search block #}
 
 	{% if app.user %}
-		{# TODO: render vacatures op maat blok #}
+        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}{# TODO: replace this by vacature block once finished (with all tabs) #}
 	{% endif %}
 
 	<h2>Stel je kandidaat</h2>

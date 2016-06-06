@@ -238,12 +238,17 @@ class VacancyController extends controller
 <<<<<<< HEAD
 =======
 
-    /**
-     * @Route("/vacatures-op-maat", name="vacaturesopmaat")
-     */
-    public function vacaturesOpMaatAction()
+    public function vacaturesOpMaatAction($user)
     {
-        return $this->render("person/vacaturesopmaat.html.twig");
+        $query = $this->get("ElasticsearchQuery");
+        $params = [
+            'index' => $query->getIndex(),
+            'type' => 'vacancy',
+        ];
+
+        $results = $query->search($params);
+
+        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
     public function ListOrganisationVacanciesAction($urlid)
