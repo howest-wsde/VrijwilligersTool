@@ -12,7 +12,7 @@ use AppBundle\Entity\Skill;
 class InfopageController extends Controller
 {
     /**
-     * @Route("/tos", name="info_privacy_en_legal")
+     * @Route("/tos", name="info_privacy_and_legal")
      */
     public function tos()
     {

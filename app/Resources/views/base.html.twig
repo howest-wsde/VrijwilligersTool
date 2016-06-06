@@ -44,8 +44,8 @@
 
                 <nav class="about nav">
                     <ul>
-                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
-                        <li><a href="{{ path("contact") }}">Contact</a></li>
+                        <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>
+                        <li><a href="{{ path("info_contact") }}">Contact</a></li>
                         {% if app.user %}<li><a href="{{ path("profile_edit") }}">profiel aanpassen</a></li>{% endif %}
                     </ul>
                 </nav>
@@ -54,8 +54,8 @@
                         <li><a href="{{ path("self_profile") }}">Mijn profiel</a></li>
                         <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
                         <li><a href="{{ path("start_vacancy") }}">Vrijwilliger vinden</a></li>
-                        <li><a href="{{ path("vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
-                        <li><a href="">Tests</a></li>
+                        <li><a href="{{ path("info_vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
+                        <li><a href="{{ path("tests") }}">Tests</a></li>
                         <li>{% if app.user %}
                             <a href="{{ path("logout") }}">Uitloggen</a>
                             {% else %}
@@ -96,9 +96,9 @@
                 <section>
                     <header><h1>Tests</h1></header>
                     <ul>
-                        <li><a href="/test_type">Welk type vrijwilliger ben ik? </a></li>
-                        <li><a href="/test_taal">Taaltest</a></li>
-                        <li><a href="/test_comp">Computervaardigheidstest</a></li>
+                        <li><a href="{{ path("test_type") }}">Welk type vrijwilliger ben ik? </a></li>
+                        <li><a href="{{ path("test_taal") }}">Taaltest</a></li>
+                        <li><a href="{{ path("test_comp") }}">Computervaardigheidstest</a></li>
                     </ul>
                 </section>
                 <section>
