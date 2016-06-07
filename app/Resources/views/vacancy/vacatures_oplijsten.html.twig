@@ -1,0 +1,13 @@
+{% if viewMode == 'list' %}
+<ul>
+	{% for vacancy in vacancies %}
+		<li><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title}} </a></li>
+	{% endfor %}
+</ul>
+{% elseif viewMode == 'tile' %}
+<ul>
+    {% for vacancy in vacancies %}
+        {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy}%}{% endembed %}
+    {% endfor %}
+</ul>
+{% endif %}

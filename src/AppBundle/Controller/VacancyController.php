@@ -38,6 +38,7 @@ class VacancyController extends controller
 
 
     /**
+     * Controller to give the user a choice of what kind of vacancy he wants to create.
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/start", name="start_vacancy")
      */
@@ -98,7 +99,7 @@ class VacancyController extends controller
      * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
      */
     public function subscribeVacancy($urlid)
-    { 
+    {
         $person = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
@@ -113,11 +114,11 @@ class VacancyController extends controller
                 $em->remove($candidacy);
                 $em->flush();
             }
-        } else { 
+        } else {
             $candidacy = new Candidacy();
-            $candidacy->setCandidate($person)->setVacancy($vacancy); 
+            $candidacy->setCandidate($person)->setVacancy($vacancy);
             $em->persist($candidacy);
-            $em->flush(); 
+            $em->flush();
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
@@ -135,11 +136,8 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        if ($likeunlike == "like") {
-            $user->addLikedVacancy($vacancy);
-        } else {
-            $user->removeLikedVacancy($vacancy);
-        }
+        $user->removeLikedVacancy($vacancy); // standaard unliken om geen doubles te creeren
+        if ($likeunlike == "like") $user->addLikedVacancy($vacancy);
         $em->persist($user);
         $em->flush();
 
@@ -156,7 +154,7 @@ class VacancyController extends controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
-        //$userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
+        //$userId = $this->getUser()->getId();
 
         $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
             'state' => Candidacy::APPROVED));
@@ -171,13 +169,13 @@ class VacancyController extends controller
              "pending" => $pending]);
     }
 
-    public function listRecentVacanciesAction($nr)
+    public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
         $vacancies = $this->getDoctrine()
                         ->getRepository("AppBundle:Vacancy")
                         ->findBy(array(), array("id" => "DESC"), $nr);
-        return $this->render("vacancy/recente_vacatures.html.twig",
-            ["vacancies" => $vacancies]);
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+            ["vacancies" => $vacancies, "viewMode" => $viewMode]);
     }
 
     public function listParentSkillsAction($nr)
@@ -224,6 +222,19 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_aanpassen.html.twig",
             array("form" => $form->createView(),
                   "urlid" => $urlid) );
+    }
+
+    public function vacaturesOpMaatAction($user)
+    {
+        $query = $this->get("ElasticsearchQuery");
+        $params = [
+            'index' => $query->getIndex(),
+            'type' => 'vacancy',
+        ];
+
+        $results = $query->search($params);
+
+        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
     public function ListOrganisationVacanciesAction($urlid)

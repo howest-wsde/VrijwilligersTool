@@ -149,3 +149,8 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+
+    twig.extension.text:
+         class: Twig_Extensions_Extension_Text
+         tags:
+             - { name: twig.extension }

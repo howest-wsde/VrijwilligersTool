@@ -1,0 +1,13 @@
+{% if viewMode == 'list' %}
+<ul>
+    {% for organisation in organisations %}
+        <li><a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.name}}</a></li>
+    {% endfor %}
+</ul>
+{% elseif viewMode == 'tile' %}
+<ul>
+    {% for organisation in organisations %}
+        {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation}%}{% endembed %}
+    {% endfor %}
+</ul>
+{% endif %}

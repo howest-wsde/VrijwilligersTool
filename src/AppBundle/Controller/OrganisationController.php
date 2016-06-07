@@ -49,6 +49,44 @@ class OrganisationController extends controller
     }
 
     /**
+     * @Route("/vereniging/{organisation_urlid}/admins/remove/{person_username}" , name="organisation_remove_admin")
+     */
+    public function organisationRemoveAdminAction($organisation_urlid, $person_username)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($organisation_urlid);
+        $person = $em->getRepository("AppBundle:Person")
+            ->findOneByUsername($person_username);
+        $person->removeOrganisation($organisation);
+        $em->persist($person);
+        $em->flush();
+
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
+    }
+
+
+    /**
+     * @Route("/vereniging/{organisation_urlid}/admins/add" , name="organisation_add_admin")
+     */
+    public function organisationAddAdminAction($organisation_urlid)
+    {
+        $request = Request::createFromGlobals();
+        $personid = $request->request->get("userid");
+
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($organisation_urlid);
+        $person = $em->getRepository("AppBundle:Person")
+            ->findOneById($personid);
+        $person->addOrganisation($organisation);
+        $em->persist($person);
+        $em->flush();
+
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
+    }
+
+    /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vereniging/{urlid}/{likeunlike}",
      *              name="organisation_like",
@@ -60,11 +98,8 @@ class OrganisationController extends controller
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
-        if ($likeunlike == "like") {
-            $user->addLikedOrganisation($organisation);
-        } else {
-            $user->removeLikedOrganisation($organisation);
-        }
+        $user->removeLikedOrganisation($organisation); // standaard unliken om geen doubles te creeren
+        if ($likeunlike == "like") $user->addLikedOrganisation($organisation);
         $em->persist($user);
         $em->flush();
 
@@ -75,12 +110,12 @@ class OrganisationController extends controller
      * @param  int $nr the amount of organisations to be listed
      * @return html     a html-encoded list of recent organisations
      */
-    public function listRecentOrganisationsAction($nr)
+    public function listRecentOrganisationsAction($nr, $viewMode = "list")
     {
         $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
             ->findBy(array(), array('id' => 'DESC'), $nr);
-        return $this->render('organisation/recente_verenigingen.html.twig',
-            ['organisations' => $organisations]);
+        return $this->render('organisation/verenigingen_oplijsten.html.twig',
+            ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }
 }

@@ -16,8 +16,8 @@
         <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}"    >
-        <input type="hidden" name="_target_path" value="self_profile" />
-
+{#         <input type="hidden" name="_target_path" value="self_profile" />  Alleen uit commentaar halen indien we willen dat de gebruiker altijd naar een bepaalde pagina wordt geredirect bij succesvolle login.
+ #}
         <button type="submit">login</button>
     </form>
 

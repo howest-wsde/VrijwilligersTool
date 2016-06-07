@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class PersonType extends AbstractType
 {
@@ -30,11 +32,6 @@ class PersonType extends AbstractType
                 "label" => "person.label.lastname",
                 "attr" => array("placeholder" => "person.label.lastname")
             ))
-            ->add("username", TextType::class, array(
-                "label" => "person.label.username",
-                "attr" => array("placeholder" => "person.label.username",
-                                "pattern" => "^[^ /]+$")
-            ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar" 
             ))
@@ -43,44 +40,22 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.email"),
                 "required" => false
             ))
-            ->add("street", TextType::class, array(
-                "label" => "person.label.street",
-                "attr" => array("placeholder" => "person.label.street")
-            ))
-            ->add("number", NumberType::class, array(
-                "label" => "person.label.number",
-                "attr" => array("placeholder" => "person.label.number")
-            ))
-            ->add("bus", NumberType::class, array(
-                "label" => "person.label.bus",
-                "attr" => array("placeholder" => "person.label.bus"),
-                "required" => false
-            ))
-            ->add("postalcode", NumberType::class, array(
-                "label" => "person.label.postalcode",
-                "attr" => array("placeholder" => "person.label.postalcode")
-            ))
-            ->add("city", TextType::class, array(
-                "label" => "person.label.city",
-                "attr" => array("placeholder" => "person.label.city")
-            ))
             ->add("telephone", TextType::class, array(
                 "label" => "person.label.telephone",
-                "attr" => array("placeholder" => "person.label.telephone"),
+                "attr" => array("placeholder" => "person.placeholder.telephone"),
                 "required" => false
             ))
-            ->add("language", ChoiceType::class, array(
-                "label" => "person.label.language",
-                "attr" => array("placeholder" => "person.label.language"),
-                "choices" => array(
-                    "Nederlands" => "nl", 
-                    "English" => "en", 
-                )
-            ))
-            ->add("linkedinUrl", TextType::class, array(
-                "label" => "person.label.linkedin",
-                "required" => false,
-                "attr" => array("placeholder" => "person.placeholder.linkedin")
+            ->add('organisation', EntityType::class, array(
+                'label' => "person.label.organisation",
+                "placeholder" => "person.placeholder.organisation",
+                // query choices from this entity
+                'class' => 'AppBundle:Organisation',
+                // use the name property as the visible option string
+                'choice_label' => 'name',
+                // render as select box
+                'expanded' => false,
+                'multiple' => false,
+                'required' => false,
             ))
             ->add("plainPassword", RepeatedType::class, array(
                 "type" => PasswordType::class,
@@ -93,13 +68,72 @@ class PersonType extends AbstractType
                     "attr" => array("placeholder" => "person.placeholder.password")
                 ),
             ))
-            ->add("termsAccepted", CheckboxType::class, array(
-                "mapped" => false,
-                "constraints" => new IsTrue(),
-                "label" => "person.label.eula"
-            ))
             ->add("submit", SubmitType::class, array(
                 "label" => "person.label.submit",
+                "validation_groups" => array("firstStep"),
+            ))
+            ->add("username", TextType::class, array(
+                "label" => "person.label.username",
+                "attr" => array("placeholder" => "person.label.username",
+                                "pattern" => "^[^ /]+$"),
+                'required' => false,
+            ))
+            ->add("street", TextType::class, array(
+                "label" => "person.label.street",
+                "attr" => array("placeholder" => "person.label.street"),
+                'required' => false,
+            ))
+            ->add("number", NumberType::class, array(
+                "label" => "person.label.number",
+                "attr" => array("placeholder" => "person.label.number"),
+                'required' => false,
+            ))
+            ->add("bus", NumberType::class, array(
+                "label" => "person.label.bus",
+                "attr" => array("placeholder" => "person.label.bus"),
+                "required" => false
+            ))
+            ->add("postalcode", NumberType::class, array(
+                "label" => "person.label.postalcode",
+                "attr" => array("placeholder" => "person.label.postalcode"),
+                'required' => false,
+            ))
+            ->add("city", TextType::class, array(
+                "label" => "person.label.city",
+                "attr" => array("placeholder" => "person.label.city"),
+                'required' => false,
+            ))
+            ->add("linkedinUrl", TextType::class, array(
+                "label" => "person.label.linkedin",
+                "required" => false,
+                "attr" => array("placeholder" => "person.placeholder.linkedin")
+            ))
+            ->add("submit2", SubmitType::class, array(
+                "label" => "person.label.next",
+                "validation_groups" => array("secondStep"),
+            ))
+            ->add('backToRegistration', SubmitType::class, array(
+                "label" => "person.label.backToRegistration",
+                'validation_groups' => false,
+            ))
+            ->add('skills', EntityType::class, array(
+                'label' => "person.label.skills",
+                // query choices from this entity
+                'class' => 'AppBundle:Skill',
+                // use the name property as the visible option string
+                'choice_label' => 'name',
+                // render as select box
+                'expanded' => true,
+                'multiple' => true,
+                'required' => false,
+            ))
+            ->add("submit3", SubmitType::class, array(
+                "label" => "person.label.finish",
+                "validation_groups" => false,
+            ))
+            ->add('backToGeneral', SubmitType::class, array(
+                "label" => "person.label.backToGeneral",
+                'validation_groups' => false,
             ));
     }
 

@@ -13,6 +13,17 @@ use AppBundle\Entity\Form\SearchFilterType;
 
 class SearchController extends Controller
 {
+    private function performSearch($params){
+        $query = $this->get("ElasticsearchQuery");
+        $params = [
+            'index' => $query,
+            'type' => $params['type'] ? $params['type'] : 'vacancy',
+        ];
+
+        $results = $query->search($params);
+        return $query->getResults();
+    }
+
     private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
         $query = $this->get("ElasticsearchQuery");
@@ -128,6 +139,26 @@ class SearchController extends Controller
             );
 
         $response->headers->set("Access-Control-Allow-Origin", "*");
+        return $response;
+    }
+
+
+    /**
+     * @Route("/api/usersearch", name="api_usersearch")
+     */
+    public function apiSearchUserAction()
+    {
+        $request = Request::createFromGlobals();
+        $query = $request->request->get("person");
+        //var_dump($request);
+        if ($query) {
+            $results = $this->plainSearch($query, ["person"]);
+        } else $results = [];
+        $response = new Response(
+            $this->renderView("person/usersearch.user.html.twig",
+                ["results" => $results]),
+                200
+            );
         return $response;
     }
 }

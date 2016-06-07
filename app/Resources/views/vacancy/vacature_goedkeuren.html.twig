@@ -12,8 +12,8 @@
         <ol>
             {% for candidacy in approved %}
                 {% set candidate = candidacy.candidate %}
-                <li>{{ candidate.firstname}} {{ candidate.lastname}}
-                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
+                <li>
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">{{ candidate.firstname}} {{ candidate.lastname}}</a>
                     <form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }} " method="post">
                         <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
                     </form>
