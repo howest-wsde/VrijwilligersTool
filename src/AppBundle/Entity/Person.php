@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -16,6 +18,8 @@ use libphonenumber\PhoneNumberUtil as phoneUtil;
  * @UniqueEntity(fields = "username", message = "person.username.already_used")
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ * 
+ * @Vich\Uploadable 
  *
  * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"}, groups = {"firstStep"})
  */
@@ -191,17 +195,17 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatar")
+     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
      * 
      * @var File
      */
-    private $avatarFile;
+    protected $avatarFile;
 
     /** 
      *
      * @var string
      */
-    private $avatar;
+    protected $avatarName;
 
     /**
      * Callback that check if either the email or telephone fields are valid
@@ -807,11 +811,8 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setAvatarFile(File $image = null)
     {
         $this->avatarFile = $image;
-
-        if ($image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime('now');
+        if ($image) {  
+            $this->setAvatarName($this->getAvatarName());  
         }
 
         return $this;
@@ -826,23 +827,22 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $avatar
+     * @param string $avatarName
      *
      * @return Person
      */
-    public function setAvatar($avatar)
+    public function setAvatarName($avatarName)
     {
-        $this->avatar = $avatar;
-
+        $this->avatarName = $avatarName;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getAvatar()
+    public function getAvatarName()
     {
-        return $this->avatar;
+        return $this->avatarName;
     }
 
     /**

@@ -53,7 +53,7 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
-        avatar:
+        avatarName:
             type: string
             length: 255
             nullable: true

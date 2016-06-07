@@ -42,7 +42,7 @@ AppBundle\Entity\Organisation:
             type: string
             length: 150
             options: {default: ""}
-        logo:
+        logoName:
             type: string
             length: 255
             nullable: true

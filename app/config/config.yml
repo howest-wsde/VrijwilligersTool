@@ -105,6 +105,25 @@ hwi_oauth:
                 email:          email
                 firstname:   first_name
                 lastname:  last_name
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
+    mappings:
+        person_avatar:
+            uri_prefix:         /images/users
+            upload_destination: %kernel.root_dir%/../web/images/users
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+        organisation_logo:
+            uri_prefix:         /images/organisations
+            upload_destination: %kernel.root_dir%/../web/images/organisations
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+
 services:
     # Injectors
     ElasticsearchQuery:
