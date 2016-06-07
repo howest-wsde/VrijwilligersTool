@@ -10,6 +10,14 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
 use AppBundle\Entity\Form\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchController extends Controller
 {
@@ -54,6 +62,64 @@ class SearchController extends Controller
         ];
         $result = $query->search($params);
         return $query->getResults();
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function searchFormAction(){
+        $request = Request::createFromGlobals();
+        $results = [];
+        $searchTerm = $request->query->get("q");
+        $defaultData = array('search' => $searchTerm, );
+
+        $form = $this->createFormBuilder($defaultData)
+        ->add("search", SearchType::class, array(
+            "label" => false,
+            "required" => false,
+            "attr" => array("placeholder" => "(optioneel) zoekterm")
+        ))
+        ->add("submit", SubmitType::class, array(
+            "label" => "Zoeken",
+        ))
+        ->add("person", CheckboxType::class, array(
+            "label" => "personen",
+            "required" => false,
+        ))
+        ->add("organisation", CheckboxType::class, array(
+            "label" => "verenigingen",
+            "required" => false,
+        ))
+        ->add("vacancy", CheckboxType::class, array(
+            "label" => "vacatures",
+            "required" => false,
+        ))
+        ->add('categories', EntityType::class, array(
+            'label' => false,
+            // query choices from this entity
+            'class' => 'AppBundle:Skill',
+            // use the name property as the visible option string
+            'choice_label' => 'name',
+            // render as select box
+            'expanded' => true,
+            'multiple' => true,
+            'required' => false,
+        ))
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+        }
+
+
+        return $this->render("search/zoekpagina.html.twig", array(
+            "form" => $form->createView(),
+            "results" => $results,
+            "searchTerm" => $searchTerm,
+            "filters" => true,
+        ));
     }
 
     /**

@@ -2,38 +2,83 @@
 
 {% block title %}Zoeken{% endblock %}
 
-{% block search_term %}{{searchTerm}}{% endblock %}
-
 {% block body %}
-	<h1>Zoeken</h1>
-	<h2>Filters</h3>
+	<h1>Zoeken binnen Roeselare Vrijwilligt</h1>
 	{{ form_start(form) }}
-        {{ form_errors(form) }}
+	        {{ form_errors(form) }}
+		<section>
+			<h2>Doorzoek onze site</h2>
+		        {{ form_row(form.search) }}
+				{{ form_row(form.submit) }}
+		</section>
+		<section>
+			<h2>{{ results|length }} resultaten voor {{ searchTerm }}</h2>
+			{#{{ form_row(form.sort) }}
+			{{ form_row(form.pagination) }}#}
+				{% if filters %}
+				<fieldset>
+					<legend>Filters</legend>
+						<fieldset>
+							<h3>Filter op type</h3>
+					        {{ form_row(form.person) }}
+							{{ form_row(form.organisation) }}
+							{{ form_row(form.vacancy) }}
+						</fieldset>
 
+						<fieldset>
+							<h3>Filter op categorie</h3>
+							{{ form_row(form.categories) }}
+						</fieldset>
 
-        {{ form_row(form.term) }}
-        {{ form_row(form.person) }}
-		{{ form_row(form.organisation) }}
-		{{ form_row(form.vacancy) }}
-    {{ form_end(form) }}
+						<fieldset>
+							<h3>Filter op sector</h3>
+							<p>coming soon...</p>{# TODO: issue 170#}
+							{#{ form_row(form.sector) }#}
+						</fieldset>
 
-	{% if results|length == 0 %}
-		<p>Er werden geen resultaten gevonden</p>
-   	{% else %}
-		<ul>
-		    {% for result in results %}
-		        <li>
-		    		{% if (result.isoftype("Person")) %}
-						{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
-					{% elseif (result.isoftype("Vacancy")) %}
-						{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
-					{% elseif (result.isoftype("Organisation")) %}
-						{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
-					{% else %}
-						{#{ dump(result) }#}
-					{% endif %}
-				</li>
-		    {% endfor %}
-		</ul>
-	{% endif %}
+						<fieldset>
+							<h3>Filter op intensiteit</h3>
+							{#{ form_row(form.intensity) }}
+							{{ form_row(form.hoursAWeek) }#}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op afstand</h3>
+							{#{ form_row(form.distance) }#}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op kenmerk</h3>
+							{#{ form_row(form.characteristic) }#}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op voordelen</h3>
+							{#{ form_row(form.advantages) }#}
+						</fieldset>
+				</fieldset>
+				{% endif %}
+		    {{ form_end(form) }}
+
+			{% if results|length == 0 %}
+				<p>Er werden geen resultaten gevonden</p>
+		   	{% else %}
+				<ul>
+				    {% for result in results %}
+				        <li>
+				    		{% if (result.isoftype("Person")) %}
+								{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
+							{% elseif (result.isoftype("Vacancy")) %}
+								{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
+							{% elseif (result.isoftype("Organisation")) %}
+								{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
+							{% else %}
+								{#{ dump(result) }#}
+							{% endif %}
+						</li>
+				    {% endfor %}
+				</ul>
+			{% endif %}
+		</section>
+
 {% endblock %}
