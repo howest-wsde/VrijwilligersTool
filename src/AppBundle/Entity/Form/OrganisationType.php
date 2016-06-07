@@ -27,6 +27,10 @@ class OrganisationType extends AbstractType
                 "label" => "organisation.label.name",
                 "attr" => array("placeholder" => "organisation.label.name")
             ))
+            ->add("slogan", TextType::class, array(
+                "label" => "organisation.label.slogan",
+                "attr" => array("placeholder" => "organisation.label.slogan")
+            ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",
                 "attr" => array("placeholder" => "organisation.label.description")

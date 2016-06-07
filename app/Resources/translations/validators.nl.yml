@@ -35,7 +35,8 @@ organisation:
         already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
-        description: Een omschrijving van uw bedrijf
+        slogan: De slogan van uw organisatie
+        description: Een omschrijving van uw organisatie
         email: E-mailadres
         street: Straatnaam
         number: Huisnummer
