@@ -125,12 +125,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
 
-    app.dotted_slice:
-        class: AppBundle\Twig\DottedSliceExtension
-        public: false
-        tags:
-            - { name: twig.extension }
-
+    #Twig Extensions
     twig.extension.text:
          class: Twig_Extensions_Extension_Text
          tags:
