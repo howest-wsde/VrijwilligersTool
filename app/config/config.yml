@@ -113,14 +113,14 @@ vich_uploader:
             uri_prefix:         /images/users
             upload_destination: %kernel.root_dir%/../web/images/users
             namer:              vich_uploader.namer_uniqid
-            inject_on_load:     false
+            inject_on_load:     true
             delete_on_update:   true
             delete_on_remove:   true
         organisation_logo:
             uri_prefix:         /images/organisations
             upload_destination: %kernel.root_dir%/../web/images/organisations
             namer:              vich_uploader.namer_uniqid
-            inject_on_load:     false
+            inject_on_load:     true
             delete_on_update:   true
             delete_on_remove:   true
 

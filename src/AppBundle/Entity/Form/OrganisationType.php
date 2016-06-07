@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class OrganisationType extends AbstractType
 {
@@ -58,6 +59,9 @@ class OrganisationType extends AbstractType
             ->add("telephone", TextType::class, array(
                 "label" => "organisation.label.telephone",
                 "attr" => array("placeholder" => "organisation.placeholder.telephone")
+            ))
+            ->add("logoFile", FileType::class, array(
+                "label" => "organisation.label.logo" 
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "organisation.label.submit",

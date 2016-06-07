@@ -43,6 +43,7 @@ organisation:
         postalcode: Postcode
         city: Stad
         telephone: Telefoonnummer
+        logo: Logo
         submit: Opslaan
     placeholder:
         email: uw@email.be

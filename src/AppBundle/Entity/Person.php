@@ -17,6 +17,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields = "username", message = "person.username.already_used")
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ * 
+ * @Vich\Uploadable 
  *
  * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
  */
@@ -181,13 +183,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * 
      * @var File
      */
-    private $avatarFile;
+    protected $avatarFile;
 
     /** 
      *
      * @var string
      */
-    private $avatarName;
+    protected $avatarName;
 
     /**
      * Callback that check if either the email or telephone fields are valid
@@ -770,11 +772,8 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setAvatarFile(File $image = null)
     {
         $this->avatarFile = $image;
-        if ($image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            //$this->setBus(15); //   
-            $this->updatedAt = new \DateTime('now');
+        if ($image) {  
+            $this->setAvatarName($this->getAvatarName());  
         }
 
         return $this;

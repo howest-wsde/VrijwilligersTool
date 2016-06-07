@@ -6,12 +6,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
  * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
+ *  
+ * @Vich\Uploadable 
+ * 
  */
 class Organisation extends EntityBase
 {
@@ -148,10 +152,23 @@ class Organisation extends EntityBase
     private $urlid;
 
 
+
     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
+     * 
+     * @var File
+     */
+    protected $logoFile;
+
+    /** 
+     *
      * @var string
      */
-    private $logoName;
+    protected $logoName;
+
+
     /**
      * @var string
      */
@@ -396,9 +413,37 @@ class Organisation extends EntityBase
     }
 
 
+
     /**
-     * Set logoName
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
      *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Organisation
+     */
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+        if ($image) {  
+            $this->setLogoName($this->getLogoName());  
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
      * @param string $logoName
      *
      * @return Organisation
@@ -406,19 +451,17 @@ class Organisation extends EntityBase
     public function setLogoName($logoName)
     {
         $this->logoName = $logoName;
-
         return $this;
     }
 
     /**
-     * Get logoName
-     *
      * @return string
      */
     public function getLogoName()
     {
         return $this->logoName;
     }
+
 
 
     /**
