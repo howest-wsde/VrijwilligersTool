@@ -30,9 +30,9 @@ organisation:
         valid: Please enter a valid mailbox.
     telephone:
         valid: Please enter a valid phone number.
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'
     email:
         valid: Please enter a valid email address.
-        already_used: This email address is already in use.
     label:
         name: Company name
         description: A description of your company
@@ -48,7 +48,59 @@ organisation:
         email: your@email.com
         telephone: 051 123 456
 person:
+    min_message: Please enter a minimum of {{ limit }} characters.
+    min_message_one: You must enter a minimum of {{ limit }} characters.
+    max_message: You may enter at most {{ limit }} characters.
+    not_blank: Please enter a value.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value higher than {{ limit }}.
+    not_more_than: Please don't enter more than {{ limit }} characters.
+    no_whitespaces: May not contain spaces.
+    exact: The value needs to be exactly {{ limit }} amount of characters.
+    one_of_both: Please supply either a phone number or an emailadress.
     email:
+        valid: Please enter a valid email.
         already_used: This email address is already in use.
     username:
         already_used: This username is already in use.
+    telephone:
+        already_used: This phone number is already in use.
+        valid: Please enter a valid phone number.
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'
+    bus:
+        valid: Please enter a valid bus.
+    linkedin:
+        valid: url {{ value }} is not a valid URL
+    placeholder:
+        telephone: 051 123 456
+        username: 'username, email or phone number'
+        linkedin: https://be.linkedin.com/in/<your name>
+        password: long and safe passphrase
+        organisation: Pick an organisation
+    label:
+        firstname: First name
+        lastname: Surname
+        username: User name
+        email: email
+        telephone: Phone number
+        organisation: Organisation
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
+        password: Passphrase
+        repeat_password: Repeat passphrase
+        language: language
+        linkedin: linkedIn profile
+        eula: I accept the terms and agreement
+        submit: Create account
+        next: Next
+        skills: Skills / capacities
+        finish: Submit
+        backToRegistration: Back to registration
+        backToGeneral: Back to general info
+
+general:
+    label:
+        previous: Back

@@ -30,9 +30,9 @@ organisation:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
-        already_used: Dit e-mailadres is reeds in gebruik.
     label:
         name: Naam
         description: Een omschrijving van uw bedrijf
@@ -66,6 +66,7 @@ person:
     telephone:
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     bus:
         valid: Gelieve een geldige postbus in te geven.
     linkedin:
@@ -74,13 +75,15 @@ person:
         telephone: 051 123 456
         username: gebruikersnaam of e-mailadres of telefoonnummer
         linkedin: https://be.linkedin.com/in/<uw naam>
-        password: lange en veilige wachtzien
+        password: lange en veilige wachtzin
+        organisation: Selecteer een organisatie
     label:
         firstname: Voornaam
         lastname: Familienaam
         username: Gebruikersnaam
         email: E-mailadres
         telephone: Telefoonnummer
+        organisation: Organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
@@ -91,4 +94,12 @@ person:
         language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
-        submit: Registreren
+        submit: Maak account
+        next: Volgende
+        skills: Vaardigheden / Capaciteiten
+        finish: Indienen
+        backToRegistration: Terug naar registratie
+        backToGeneral: Terug naar algemene gegevens
+general:
+    label:
+        previous: Vorige

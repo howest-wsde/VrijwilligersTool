@@ -224,6 +224,19 @@ class VacancyController extends controller
                   "urlid" => $urlid) );
     }
 
+    public function vacaturesOpMaatAction($user)
+    {
+        $query = $this->get("ElasticsearchQuery");
+        $params = [
+            'index' => $query->getIndex(),
+            'type' => 'vacancy',
+        ];
+
+        $results = $query->search($params);
+
+        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
+    }
+
     public function ListOrganisationVacanciesAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();
