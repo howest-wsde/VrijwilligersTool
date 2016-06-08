@@ -1,0 +1,7 @@
+search:
+    label:
+        hoursaweek: hours per week
+        distance: km
+general:
+    label:
+        previous: Back

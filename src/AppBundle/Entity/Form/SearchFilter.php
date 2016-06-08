@@ -4,19 +4,20 @@ namespace AppBundle\Entity\Form;
 
 class SearchFilter
 {
-    private $term;
+    private $search; //search term (named search for convenience in the form)
     private $person = true;
     private $organisation = true;
     private $vacancy = true;
 
-    public function getTerm()
+
+    public function getSearch()
     {
-        return $this->term;
+        return $this->search;
     }
 
-    public function setTerm($term)
+    public function setSearch($search)
     {
-        $this->term = $term;
+        $this->search = $search;
 
         return $this;
     }
