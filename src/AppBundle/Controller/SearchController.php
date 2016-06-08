@@ -202,22 +202,24 @@ class SearchController extends Controller
      * @return form
      */
     private function buildSearchForm($defaultData = array()){
+        $t = $this->get('translator');
+
         return $this->createFormBuilder($defaultData)
         ->add("search", SearchType::class, array(
             "label" => false,
             "required" => false,
-            "attr" => array("placeholder" => "(optioneel) zoekterm")
+            "attr" => array("placeholder" => $t->trans('search.placeholder.searchTerm'))
         ))
         ->add("submit", SubmitType::class, array(
-            "label" => "Zoeken",
+            "label" => $t->trans('search.label.search'),
         ))
         ->add('sort', ChoiceType::class, array(
-            "label" => "Sorteer op:",
+            "label" => $t->trans('search.label.sort'),
             'choices'  => array(
-                'Afstand' => 'distance',
-                'Datum' => 'date',
-                'Vervaldatum' => 'endDate',
-                'Vergoeding' => 'reward',
+                $t->trans('search.choices.distance') => 'distance',
+                $t->trans('search.choices.date') => 'date',
+                $t->trans('search.choices.endDate') => 'endDate',
+                $t->trans('search.choices.reward') => 'reward',
             ),
             // render as select box
             'expanded' => false,
@@ -225,15 +227,15 @@ class SearchController extends Controller
             'required' => false,
         ))
         ->add("person", CheckboxType::class, array(
-            "label" => "personen",
+            "label" => $t->trans('search.label.person'),
             "required" => false,
         ))
         ->add("organisation", CheckboxType::class, array(
-            "label" => "verenigingen",
+            "label" => $t->trans('search.label.organisation'),
             "required" => false,
         ))
         ->add("vacancy", CheckboxType::class, array(
-            "label" => "vacatures",
+            "label" => $t->trans('search.label.vacancy'),
             "required" => false,
         ))
         ->add('categories', EntityType::class, array(
@@ -250,8 +252,8 @@ class SearchController extends Controller
         ->add('intensity', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
-                'langdurig' => 'lang',
-                'éénmalig' => '1malig',
+                $t->trans('search.choices.long') => 'long',
+                $t->trans('search.choices.1time') => '1time',
             ),
             // render as checkbox
             'expanded' => true,
@@ -259,19 +261,19 @@ class SearchController extends Controller
             'required' => false,
         ))
         ->add('hoursAWeek', IntegerType::class, array(
-            'label' => 'person.label.hoursaweek',
+            'label' => $t->trans('search.label.hoursAWeek'),
             'required' => false,
         ))
         ->add('distance', IntegerType::class, array(
-            'label' => 'person.label.distance',
+            'label' => $t->trans('search.label.distance'),
             'required' => false,
         ))
         ->add('characteristic', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
-                'Toegankelijk voor rolstoel' => 'rolstoelvriendelijk',
-                'Veel sociaal contact' => 'veelContact',
-                'Weinig sociaal contact' => 'weinigContact',
+                $t->trans('search.choices.weelchair') => 'weelchair',
+                $t->trans('search.choices.lotsContact') => 'lotsContact',
+                $t->trans('search.choices.littleContact') => 'littleContact',
             ),
             // render as checkbox
             'expanded' => true,
@@ -281,8 +283,8 @@ class SearchController extends Controller
         ->add('advantages', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
-                'vrijwilligersvergoeding' => 'vergoeding',
-                'andere voordelen' => 'andere',
+                $t->trans('search.choices.reward') => 'reward',
+                $t->trans('search.choices.other') => 'other',
             ),
             // render as checkbox
             'expanded' => true,
