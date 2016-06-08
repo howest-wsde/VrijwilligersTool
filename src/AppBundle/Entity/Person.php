@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -16,6 +18,8 @@ use libphonenumber\PhoneNumberUtil as phoneUtil;
  * @UniqueEntity(fields = "username", message = "person.username.already_used")
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
+ * 
+ * @Vich\Uploadable 
  *
  * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"}, groups = {"firstStep"})
  */
@@ -187,6 +191,21 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var string
      */
     protected $language;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
+     * 
+     * @var File
+     */
+    protected $avatarFile;
+
+    /** 
+     *
+     * @var string
+     */
+    protected $avatarName;
 
     /**
      * Callback that check if either the email or telephone fields are valid
@@ -774,6 +793,56 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function getCity()
     {
         return $this->city;
+    }
+
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Person
+     */
+    public function setAvatarFile(File $image = null)
+    {
+        $this->avatarFile = $image;
+        if ($image) {  
+            $this->setAvatarName($this->getAvatarName());  
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @param string $avatarName
+     *
+     * @return Person
+     */
+    public function setAvatarName($avatarName)
+    {
+        $this->avatarName = $avatarName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarName()
+    {
+        return $this->avatarName;
     }
 
     /**

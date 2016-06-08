@@ -35,7 +35,8 @@ organisation:
         valid: Gelieve een geldig e-mailadres in te geven.
     label:
         name: Naam
-        description: Een omschrijving van uw bedrijf
+        slogan: De slogan van uw organisatie
+        description: Een omschrijving van uw organisatie
         email: E-mailadres
         street: Straatnaam
         number: Huisnummer
@@ -43,6 +44,7 @@ organisation:
         postalcode: Postcode
         city: Stad
         telephone: Telefoonnummer
+        logo: Logo
         submit: Opslaan
     placeholder:
         email: uw@email.be
@@ -81,6 +83,7 @@ person:
         firstname: Voornaam
         lastname: Familienaam
         username: Gebruikersnaam
+        avatar: Foto
         email: E-mailadres
         telephone: Telefoonnummer
         organisation: Organisatie

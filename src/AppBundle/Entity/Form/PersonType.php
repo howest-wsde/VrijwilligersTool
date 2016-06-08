@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -30,6 +31,10 @@ class PersonType extends AbstractType
             ->add("lastname", TextType::class, array(
                 "label" => "person.label.lastname",
                 "attr" => array("placeholder" => "person.label.lastname")
+            ))
+            ->add("avatarFile", FileType::class, array(
+                "label" => "person.label.avatar",
+                "required" => false,
             ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",

@@ -26,7 +26,8 @@
         "friendsofsymfony/elastica-bundle": "dev-master",
         "jms/i18n-routing-bundle": "^2.0",
         "hwi/oauth-bundle": "~0.5@dev",
-        "misd/phone-number-bundle": "^1.1"    },
+        "misd/phone-number-bundle": "^1.1",
+        "vich/uploader-bundle": "^1.1"    },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",

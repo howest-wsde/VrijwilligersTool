@@ -5,11 +5,16 @@ namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
+ *  
+ * @Vich\Uploadable 
+ * 
  */
 class Organisation extends EntityBase
 {
@@ -145,12 +150,35 @@ class Organisation extends EntityBase
      */
     private $urlid;
 
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
+     * 
+     * @var File
+     */
+    protected $logoFile;
+
+    /** 
+     *
+     * @var string
+     */
+    protected $logoName;
+
+
+    /**
+     * @var string
+     */
+    private $slogan;
+
     /**
      * Set urlId
      *
      * @param string $urlId
      *
-     * @return Vacancy
+     * @return Organisation
      */
     public function setUrlId($urlId)
     {
@@ -403,6 +431,82 @@ class Organisation extends EntityBase
     }
 
 
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Organisation
+     */
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+        if ($image) {  
+            $this->setLogoName($this->getLogoName());  
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param string $logoName
+     *
+     * @return Organisation
+     */
+    public function setLogoName($logoName)
+    {
+        $this->logoName = $logoName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoName()
+    {
+        return $this->logoName;
+    }
+
+
+
+    /**
+     * Set slogan
+     *
+     * @param string $slogan
+     *
+     * @return Organisation
+     */
+    public function setSlogan($slogan)
+    {
+        $this->slogan = $slogan;
+
+        return $this;
+    }
+
+    /**
+     * Get slogan
+     *
+     * @return string
+     */
+    public function getSlogan()
+    {
+        return $this->slogan;
+    }
+
+    
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
