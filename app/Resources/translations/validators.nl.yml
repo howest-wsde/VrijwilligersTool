@@ -9,12 +9,29 @@ vacancy:
         max_period: De vacature mag maximum 6 maanden geldig zijn.
     label:
         title: Titel
-        description: Omschrijving
+        summary: Beknopte omschrijving
+        description: Jobinhoud
         startdate: Begindatum
-        enddate: Einddatum
-        submit: Opslaan
+        enddate: Vervaldatum
+        submit: Plaats vacature!
+        save: Bewaar en publiceer later
+        otherReward: Andere
+        renumeration: Vrijwilligersvergoeding
+        skills: Onder welke categoriëen valt deze vacature?
+        independent: Moet de vrijwilliger zelfstandig kunnen werken?
+        socialInteraction: Hoeveel sociale interactie zal er zijn?
+        estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
+        location: Op welke locatie zal de vrijwilliger werken?
+        longterm: Betreft de vacature een langdurig engagement?
+    choices:
+        independent: Ja
+        dependent: Nee
+        all: Alles draait rond sociale interactie
+        normal: 'Niet speciaal veel, niet speciaal weinig'
+        little: Sociale interactie is beperkt
     placeholder:
         date: jjjj-mm-dd
+        summary: Beschrijf in maximaal 120 tekens de inhoud van deze vacature.
 organisation:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.

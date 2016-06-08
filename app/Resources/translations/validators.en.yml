@@ -12,9 +12,25 @@ vacancy:
         description: Description
         startdate: Start date
         enddate: End date
-        submit: Save
+        submit: Publish vacancy!
+        save: Save and publish later
+        otherReward: Other
+        renumeration: Volunteer-renumeration
+        skills: Which categories apply to this vacancy?
+        independent: Should the volunteer be able to work without supervision?
+        socialInteraction: How much social interaction can the volunteer expect?
+        estimatedWorkInHours: 'Estimated number of working hours (if longterm: weekly)'
+        location: Where will the volunteer be working?
+        longterm: Is this a longterm commitment?
+    choices:
+        independent: Yes
+        dependent: No
+        all: It's all about the interaction
+        normal: 'Not too much, not too little'
+        little: Limited social interaction
     placeholder:
         date: yyyy-mm-dd
+        summary: Describe the content of this vacancy in 120 chars or less.
 organisation:
     min_message: Please enter at least {{ limit }} characters.
     min_message_one: Please enter at least {{ limit }} character.

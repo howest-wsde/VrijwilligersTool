@@ -3,12 +3,27 @@
 {% block title %}Vacature Aanmaken{% endblock %}
 
 {% block body %}
+    <h1>Vacature aanmaken</h1>
     {{ form_start(form) }}
         {{ form_errors(form) }}
 
         {{ form_row(form.title) }}
+        {#{ form_row(form.summary) }#}
         {{ form_row(form.description) }}
         {{ form_row(form.enddate) }}
+        {#{ form_row(form.longterm) }#}
+        {#{ form_row(form.estimatedWorkInHours) }#}
+        {#{ form_row(form.location) }#}
+        {#{ form_row(form.socialInteraction) }#}
+        {#{ form_row(form.independent) }#}
+        {{ form_row(form.skills) }}
+        <fieldset>
+            <p>Voordelen voor de vrijwilliger</p>
+            {#{ form_row(form.renumeration) }#}
+            {#{ form_row(form.otherReward) }#}
+        </fieldset>
+        {{ form_row(form.submit) }}
+        {{ form_row(form.save) }}
     {{ form_end(form) }}
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}
