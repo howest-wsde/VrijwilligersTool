@@ -47,9 +47,23 @@ organisation:
         logo: Logo
         create: Maak organisatie aan
         backToRegistration: Terug naar registratie
+        type: Type vereniging
+        intermediary: Bemiddelingsorganisatie
+        website: Website
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
+        website: http://www.uwvereniging.be
+    choices:
+        ngo: Vereniging Zonder Winstoogmerk (VZW)
+        fv: Feitelijke Vereniging
+        cv: Coöperatieve Vennootschap (CV)
+        cvba: Coöperatieve Vennootschap met Beperkte Aansprakelijkheid (CVBA)
+        nv: Naamloze Vennootschap (NV)
+        bvba: Besloten Vennootschap met Beperkte Aansprakelijkheid (BVBA)
+        ebvba: Eenpersoons BVBA (eBVBA)
+        vof: Vennootschap Onder Firma (VOF)
+        intermediary: Ja
 person:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.

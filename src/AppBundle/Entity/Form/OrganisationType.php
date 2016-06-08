@@ -36,6 +36,32 @@ class OrganisationType extends AbstractType
             ->add("logoFile", FileType::class, array(
                 "label" => "organisation.label.logo"
             ))
+            // ->add("type", ChoiceType::class, array(
+            //     "label" => 'organisation.label.type',
+            //     'choices'  => array(
+            //         'organisation.choices.ngo' => 'ngo',
+            //         'organisation.choices.fv' => 'fv',
+            //         'organisation.choices.cv' => 'cv',
+            //         'organisation.choices.cvba' => 'cvba',
+            //         'organisation.choices.nv' => 'nv',
+            //         'organisation.choices.bvba' => 'bvba',
+            //         'organisation.choices.ebvba' => 'ebvba',
+            //         'organisation.choices.vof' => 'vof',
+            //     ),
+            //     // render as select box
+            //     'expanded' => false,
+            //     'multiple' => false,
+            //     'required' => false,
+            // ))
+            // ->add("intermediary", ChoiceType::class, array(
+            //     "label" => 'organisation.label.intermediary',
+            //     'choices'  => array(
+            //         'organisation.choices.intermediary' => 'intermediary',
+            //     ),
+            //     'expanded' => true,
+            //     'multiple' => true,
+            //     'required' => false,
+            // ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",
                 "attr" => array("placeholder" => "organisation.label.description"),
@@ -79,6 +105,11 @@ class OrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.placeholder.telephone"),
                 "required" => false,
             ))
+            // ->add("website", UrlType::class, array(
+            //     "label" => "organisation.label.website",
+            //     "attr" => array("placeholder" => "organisation.placeholder.website"),
+            //     "required" => false,
+            // ))
             ->add('backToRegistration', SubmitType::class, array(
                 "label" => "organisation.label.backToRegistration",
                 'validation_groups' => false,

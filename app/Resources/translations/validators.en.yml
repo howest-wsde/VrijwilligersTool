@@ -45,9 +45,23 @@ organisation:
         telephone: Telephone number
         create: Create organisation
         backToRegistration: Back to registration
+        type: Type of organisation
+        intermediary: Intermediary organisation
+        website: Website
     placeholder:
         email: your@email.com
         telephone: 051 123 456
+        website: http://www.uwvereniging.be
+    choices:
+        ngo: Non-governmental organisation (NGO)
+        fv: Organisation in facts
+        cv: Cooperative society (CV)
+        cvba: Cooperative society with limited liability (CVBA)
+        nv: Nameless society (NV)
+        bvba: Closed society with limited liability (BVBA)
+        ebvba: One-man BVBA (eBVBA)
+        vof: Society under firm (VOF)
+        intermediary: Yes
 person:
     min_message: Please enter a minimum of {{ limit }} characters.
     min_message_one: You must enter a minimum of {{ limit }} characters.
