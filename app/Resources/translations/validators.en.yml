@@ -43,7 +43,8 @@ organisation:
         postalcode: Postal code
         city: City
         telephone: Telephone number
-        submit: Save
+        create: Create organisation
+        backToRegistration: Back to registration
     placeholder:
         email: your@email.com
         telephone: 051 123 456
@@ -106,4 +107,6 @@ search:
         distance: km
 general:
     label:
-        previous: Back
+        previous: Previous
+        next: Next
+        submit: Indienen

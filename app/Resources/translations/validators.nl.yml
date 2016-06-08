@@ -45,7 +45,8 @@ organisation:
         city: Stad
         telephone: Telefoonnummer
         logo: Logo
-        submit: Opslaan
+        create: Maak organisatie aan
+        backToRegistration: Terug naar registratie
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
@@ -110,3 +111,5 @@ search:
 general:
     label:
         previous: Vorige
+        next: Volgende
+        submit: Indienen
