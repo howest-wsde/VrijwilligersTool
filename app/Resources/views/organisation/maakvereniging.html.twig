@@ -39,7 +39,14 @@
             {{ form_row(form.backToRegistration) }}
             {{ form_row(form.submit2) }}
         </fieldset>
+        <fieldset>
+            <h3>Sectorale info</h3>
+            {#{ form_row(form.fieldOfActivity) }#}
+            {#{ form_row(form.backToContact) }#}
+            {#{ form_row(form.submitEnd) }#}
+        </fieldset>
         {{ form_end(form) }}
+    {# TODO: checken waarvoor het onderstaande dient: lijkt overbodig nu dat er verschillende delen zijn? #}
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">
             <script type="text/javascript">alert("{{ flash_message }}");</script>

@@ -48,6 +48,7 @@ organisation:
         type: Type of organisation
         intermediary: Intermediary organisation
         website: Website
+        fieldOfActivity: Sectors
     placeholder:
         email: your@email.com
         telephone: 051 123 456

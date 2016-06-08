@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\EntityType;
 
 class OrganisationType extends AbstractType
 {
@@ -114,11 +115,30 @@ class OrganisationType extends AbstractType
                 "label" => "organisation.label.backToRegistration",
                 'validation_groups' => false,
             ))
-            ->add("submit2", SubmitType::class, array(
+            // ->add("submit2", SubmitType::class, array(
+            //     "label" => "general.label.submitContact",
+            //     "validation_groups" => array("secondStep"),
+            // ))
+            // ->add('fieldOfActivity', EntityType::class, array(
+            //     "label" => "organisation.label.fieldOfActivity",
+            //     "placeholder" => false,
+            //     // query choices from this entity
+            //     'class' => 'AppBundle:Sector',
+            //     // use the name property as the visible option string
+            //     'choice_label' => 'name',
+            //     // render as select box
+            //     'expanded' => false,
+            //     'multiple' => false,
+            //     'required' => false,
+            // ))
+            // ->add('backToContact', SubmitType::class, array(
+            //     "label" => "organisation.label.backToContact",
+            //     'validation_groups' => false,
+            // ))
+            ->add("submitEnd", SubmitType::class, array(
                 "label" => "general.label.submit",
                 "validation_groups" => array("secondStep"),
-            ));
-    }
+            ));    }
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -50,6 +50,7 @@ organisation:
         type: Type vereniging
         intermediary: Bemiddelingsorganisatie
         website: Website
+        fieldOfActivity: Sectoren
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
