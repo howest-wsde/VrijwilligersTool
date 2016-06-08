@@ -100,6 +100,10 @@ person:
         finish: Indienen
         backToRegistration: Terug naar registratie
         backToGeneral: Terug naar algemene gegevens
+search:
+    label:
+        hoursaweek: uren per week
+        distance: km
 general:
     label:
         previous: Vorige

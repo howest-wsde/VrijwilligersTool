@@ -35,7 +35,7 @@
                     <h1><a href="{{ path("homepage") }}"><span>Roeselare vrijwilligt</span></a></h1>
                     <span class="baseline">Baseline</span>
                 </div>
-                {% embed "search/basic_search.html.twig"%}{% endembed %}
+                {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
                 <nav class="about nav">
                     <ul>
                         <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>

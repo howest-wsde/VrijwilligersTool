@@ -10,11 +10,13 @@
 			<h2>Doorzoek onze site</h2>
 		        {{ form_row(form.search) }}
 				{{ form_row(form.submit) }}
+				{% embed "search/history_search.html.twig" %}{% endembed %}
 		</section>
 		<section>
-			<h2>{{ results|length }} resultaten voor {{ searchTerm }}</h2>
-			{#{{ form_row(form.sort) }}
-			{{ form_row(form.pagination) }}#}
+			{% set aantal = results|length %}
+			<h2>{{ aantal }} {% if aantal > 1 %} resultaten {% else %} resultaat {% endif %} voor {{ searchTerm }}</h2>
+			{{ form_row(form.sort) }}{# TODO: create issue #}
+			{#{ form_row(form.pagination) }}{# TODO: create issue #}
 				{% if filters %}
 				<fieldset>
 					<legend>Filters</legend>
@@ -38,23 +40,23 @@
 
 						<fieldset>
 							<h3>Filter op intensiteit</h3>
-							{#{ form_row(form.intensity) }}
-							{{ form_row(form.hoursAWeek) }#}
+							{{ form_row(form.intensity) }}
+							{{ form_row(form.hoursAWeek) }}
 						</fieldset>
 
 						<fieldset>
 							<h3>Filter op afstand</h3>
-							{#{ form_row(form.distance) }#}
+							{{ form_row(form.distance) }}
 						</fieldset>
 
 						<fieldset>
 							<h3>Filter op kenmerk</h3>
-							{#{ form_row(form.characteristic) }#}
+							{{ form_row(form.characteristic) }}
 						</fieldset>
 
 						<fieldset>
 							<h3>Filter op voordelen</h3>
-							{#{ form_row(form.advantages) }#}
+							{{ form_row(form.advantages) }}
 						</fieldset>
 				</fieldset>
 				{% endif %}
