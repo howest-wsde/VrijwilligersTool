@@ -68,6 +68,8 @@ class SearchController extends Controller
 
     /**
      * @Route("/search", name="search")
+     * @Route("/zoeken", name="zoeken")
+     * @Route("/zoek", name="zoek")
      */
     public function searchFormAction(){
         $request = Request::createFromGlobals();
@@ -89,10 +91,7 @@ class SearchController extends Controller
         ));
     }
 
-    /**
-     * @Route("/zoeken", name="zoeken")
-     * @Route("/zoek", name="zoek")
-     */
+    //deprecated route, stuff from Jelle (nog niet wegsmijten, moet nog stuk uit gerefactored worden)
     public function searchAction()
     {
         $request = Request::createFromGlobals();
@@ -283,7 +282,7 @@ class SearchController extends Controller
         ->add('advantages', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
-                $t->trans('search.choices.reward') => 'reward',
+                $t->trans('search.choices.renumeration') => 'reward',
                 $t->trans('search.choices.other') => 'other',
             ),
             // render as checkbox

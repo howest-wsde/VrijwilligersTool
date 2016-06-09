@@ -72,12 +72,6 @@ organisation:
     choices:
         ngo: Non-governmental organisation (NGO)
         fv: Organisation in facts
-        cv: Cooperative society (CV)
-        cvba: Cooperative society with limited liability (CVBA)
-        nv: Nameless society (NV)
-        bvba: Closed society with limited liability (BVBA)
-        ebvba: One-man BVBA (eBVBA)
-        vof: Society under firm (VOF)
         intermediary: Yes
 person:
     min_message: Please enter a minimum of {{ limit }} characters.
@@ -115,7 +109,7 @@ person:
         username: User name
         email: email
         telephone: Phone number
-        organisation: Organisation
+        organisation: Contact via organisation
         street: Street
         bus: Bus
         number: Number

@@ -42,12 +42,6 @@ class OrganisationType extends AbstractType
             //     'choices'  => array(
             //         'organisation.choices.ngo' => 'ngo',
             //         'organisation.choices.fv' => 'fv',
-            //         'organisation.choices.cv' => 'cv',
-            //         'organisation.choices.cvba' => 'cvba',
-            //         'organisation.choices.nv' => 'nv',
-            //         'organisation.choices.bvba' => 'bvba',
-            //         'organisation.choices.ebvba' => 'ebvba',
-            //         'organisation.choices.vof' => 'vof',
             //     ),
             //     // render as select box
             //     'expanded' => false,

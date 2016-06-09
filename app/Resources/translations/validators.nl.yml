@@ -75,12 +75,6 @@ organisation:
     choices:
         ngo: Vereniging Zonder Winstoogmerk (VZW)
         fv: Feitelijke Vereniging
-        cv: Coöperatieve Vennootschap (CV)
-        cvba: Coöperatieve Vennootschap met Beperkte Aansprakelijkheid (CVBA)
-        nv: Naamloze Vennootschap (NV)
-        bvba: Besloten Vennootschap met Beperkte Aansprakelijkheid (BVBA)
-        ebvba: Eenpersoons BVBA (eBVBA)
-        vof: Vennootschap Onder Firma (VOF)
         intermediary: Ja
 person:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
@@ -119,7 +113,7 @@ person:
         avatar: Foto
         email: E-mailadres
         telephone: Telefoonnummer
-        organisation: Organisatie
+        organisation: Contact via organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
