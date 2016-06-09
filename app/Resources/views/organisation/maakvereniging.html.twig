@@ -57,11 +57,8 @@
     <h2>Bekijk de spelregels</h2>
     {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
     {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
-</section>
-<section id="vacature">
-
-</section>
-<section id="vrijwilligers">
-
+    {% if org_urlid %}
+        <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': org_urlid }) }}">Plaats een vacature</a>
+    {% endif %}
 </section>
 {% endblock %}

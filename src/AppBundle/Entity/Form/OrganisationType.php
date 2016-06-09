@@ -35,7 +35,8 @@ class OrganisationType extends AbstractType
                 "required" => false,
             ))
             ->add("logoFile", FileType::class, array(
-                "label" => "organisation.label.logo"
+                "label" => "organisation.label.logo",
+                "required" => false,
             ))
             // ->add("type", ChoiceType::class, array(
             //     "label" => 'organisation.label.type',
@@ -69,6 +70,7 @@ class OrganisationType extends AbstractType
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "organisation.label.create",
+                "validation_groups" => array("firstStep"),
             ))
             ->add("street", TextType::class, array(
                 "label" => "organisation.label.street",
