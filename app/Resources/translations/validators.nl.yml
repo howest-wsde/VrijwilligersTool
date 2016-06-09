@@ -64,6 +64,7 @@ organisation:
         logo: Logo
         create: Maak organisatie aan
         backToRegistration: Terug naar registratie
+        submitContact: Contactinformatie indienen
         type: Type vereniging
         intermediary: Bemiddelingsorganisatie
         website: Website

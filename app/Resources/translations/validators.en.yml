@@ -61,6 +61,7 @@ organisation:
         telephone: Telephone number
         create: Create organisation
         backToRegistration: Back to registration
+        submitContact: Submit contactinformation
         type: Type of organisation
         intermediary: Intermediary organisation
         website: Website

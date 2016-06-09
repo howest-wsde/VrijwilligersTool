@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType; {# TODO: checken of dit niet beter gebruikt kan worden voor een aantal van de Number velden #}
+use Symfony\Component\Form\Extension\Core\Type\IntegerType; // TODO: checken of dit niet beter gebruikt kan worden voor een aantal van de Number velden
 
 class OrganisationType extends AbstractType
 {
@@ -109,10 +109,10 @@ class OrganisationType extends AbstractType
                 "label" => "organisation.label.backToRegistration",
                 'validation_groups' => false,
             ))
-            // ->add("submit2", SubmitType::class, array(
-            //     "label" => "general.label.submitContact",
-            //     "validation_groups" => array("secondStep"),
-            // ))
+            ->add("submit2", SubmitType::class, array(
+                "label" => "organisation.label.submitContact",
+                "validation_groups" => array("secondStep"),
+            ));
             // ->add('fieldOfActivity', EntityType::class, array(
             //     "label" => "organisation.label.fieldOfActivity",
             //     "placeholder" => false,
@@ -129,10 +129,11 @@ class OrganisationType extends AbstractType
             //     "label" => "organisation.label.backToContact",
             //     'validation_groups' => false,
             // ))
-            ->add("submitEnd", SubmitType::class, array(
-                "label" => "general.label.submit",
-                "validation_groups" => array("secondStep"),
-            ));    }
+            // ->add("submitEnd", SubmitType::class, array(
+            //     "label" => "general.label.submit",
+            //     "validation_groups" => array("thirdStep"),
+            // ));
+    }
 
     public function configureOptions(OptionsResolver $resolver)
     {
