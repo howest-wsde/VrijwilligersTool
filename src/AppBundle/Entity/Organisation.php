@@ -12,9 +12,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Organisation
  * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
- *  
- * @Vich\Uploadable 
- * 
+ *
+ * @Vich\Uploadable
+ *
  */
 class Organisation extends EntityBase
 {
@@ -25,27 +25,28 @@ class Organisation extends EntityBase
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 4,
      *      max = 150,
      *      minMessage = "organisation.min_message",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     private $name;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 20,
      *      max = 2000,
      *      minMessage = "vacancy.min_message",
-     *      maxMessage = "vacancy.max_message"
+     *      maxMessage = "vacancy.max_message",
+     *      groups = {"firstStep"}
      * )
-     * @Assert\NotEqualTo("nieuw")
-     * )
+     * @Assert\NotEqualTo("nieuw"), groups = {"firstStep"})
     */
     private $description;
 
@@ -70,17 +71,19 @@ class Organisation extends EntityBase
      * @var string
      * @Assert\Email(
      *     message = "organisation.email.valid",
-     *     checkHost = true
+     *     checkHost = true,
+     *     groups = {"firstStep"}
      * )
      */
     private $email;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     private $street;
@@ -89,12 +92,14 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message = "organisation.not_numeric"
+     *     message = "organisation.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 0,
      *      max = 999999,
-     *      minMessage = "organisation.not_positive"
+     *      minMessage = "organisation.not_positive",
+     *      groups = {"secondStep"}
      * )
      */
     private $number;
@@ -105,11 +110,13 @@ class Organisation extends EntityBase
      * 		min = 1,
      *      max = 6,
      *      minMessage = "organisation.min_message_one",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
-     *     message = "organisation.bus.valid"
+     *     message = "organisation.bus.valid",
+     *     groups = {"secondStep"}
      * )
      */
     private $bus;
@@ -118,18 +125,21 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message = "organisation.not_numeric"
+     *     message = "organisation.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
-     *      maxMessage = "not_more_than"
+     *      maxMessage = "not_more_than",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Length(
      *      min = 4,
      *      max = 4,
-     *      exactMessage = "organisation.exact"
+     *      exactMessage = "organisation.exact",
+     *      groups = {"secondStep"}
      * )
      */
     private $postalCode;
@@ -140,7 +150,8 @@ class Organisation extends EntityBase
      *      min = 1,
      *      max = 100,
      *      minMessage = "organisation.min_message",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     private $city;
@@ -154,14 +165,14 @@ class Organisation extends EntityBase
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
-     * 
+     *
      * @var File
      */
     protected $logoFile;
 
-    /** 
+    /**
      *
      * @var string
      */
@@ -446,8 +457,8 @@ class Organisation extends EntityBase
     public function setLogoFile(File $image = null)
     {
         $this->logoFile = $image;
-        if ($image) {  
-            $this->setLogoName($this->getLogoName());  
+        if ($image) {
+            $this->setLogoName($this->getLogoName());
         }
 
         return $this;
@@ -506,7 +517,7 @@ class Organisation extends EntityBase
         return $this->slogan;
     }
 
-    
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *

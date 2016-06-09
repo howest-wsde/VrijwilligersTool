@@ -100,7 +100,10 @@ person:
         finish: Submit
         backToRegistration: Back to registration
         backToGeneral: Back to general info
-
+search:
+    label:
+        hoursaweek: hours per week
+        distance: km
 general:
     label:
         previous: Back

@@ -91,10 +91,13 @@
 		<li>Daarnaast kan je ook <a href="/test_type">een test doen</a> om te kijken welk soort vacatures voor jou het interessantste zijn, of je kan de zoekfunctie gebruiken om naar vacatures te zoeken.  De zoekfunctie vind je steeds in de header terug, maar ook op je profielpagina en hieronder.
 		</li>
 	</ul>
-	{# TODO: render search block #}
 
+	{# Search block #}
+    {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+
+	{# Vacature/organisatieblock #}
 	{% if app.user %}
-        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}{# TODO: replace this by vacature block once finished (with all tabs) #}
+        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}{# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
 	{% endif %}
 
 	<h2>Stel je kandidaat</h2>
