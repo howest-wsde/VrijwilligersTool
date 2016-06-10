@@ -75,7 +75,8 @@ class VacancyType extends AbstractType
                 "required" => false,
             ))
             ->add('socialInteraction', ChoiceType::class, array(
-                'label' => 'organisation.label.socialInteraction',
+                'label' => 'vacancy.label.socialInteraction',
+                'placeholder' => false,
                 'choices'  => array(
                     'vacancy.choices.all' => 'all',
                     'vacancy.choices.normal' => 'normal',
@@ -87,7 +88,8 @@ class VacancyType extends AbstractType
                 'required' => false,
             ))
             ->add('independent', ChoiceType::class, array(
-                'label' => 'organisation.label.independent',
+                'label' => 'vacancy.label.independent',
+                'placeholder' => false,
                 'choices'  => array(
                     'vacancy.choices.independent' => 'independent',
                     'vacancy.choices.dependent' => 'dependent',
