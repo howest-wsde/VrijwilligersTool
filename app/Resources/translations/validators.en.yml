@@ -1,7 +1,14 @@
 vacancy:
     not_blank: Please enter a value.
     min_message: Please enter at least {{ limit }} characters.
+    min_message_one: Please enter at least {{ limit }} character.
     max_message: Please enter a maximum of {{ limit }} characters.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value greater than {{ limit }}.
+    not_more_than: Please enter a value not exceeding {{ limit }}.
+    exact: The value must be exactly {{ limit }} characters long.
+    bus:
+        valid: Please enter a valid mailbox.
     date:
         valid: Please enter a valid date.
         not_today: Please enter a date after today.
@@ -12,6 +19,11 @@ vacancy:
         description: Description
         startdate: Start date
         enddate: End date
+        street: Street name
+        number: Number
+        bus: Bus number
+        postalcode: Postal code
+        city: City
         submit: Publish vacancy!
         save: Save and publish later
         otherReward: Other
@@ -29,6 +41,11 @@ vacancy:
         normal: 'Not too much, not too little'
         little: Limited social interaction
     placeholder:
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
         date: yyyy-mm-dd
         summary: Describe the content of this vacancy in 120 chars or less.
 organisation:
@@ -54,7 +71,7 @@ organisation:
         description: A description of your company
         email: Email address
         street: Street name
-        number: Number
+        number: Number`
         bus: Bus number
         postalcode: Postal code
         city: City
@@ -67,6 +84,11 @@ organisation:
         website: Website
         fieldOfActivity: Sectors
     placeholder:
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
         email: your@email.com
         telephone: 051 123 456
         website: http://www.uwvereniging.be
