@@ -26,20 +26,24 @@ class VacancyType extends AbstractType
         $builder
             ->add("title", TextType::class, array(
                 "label" => "vacancy.label.title",
-                "attr" => array("placeholder" => "vacancy.label.title")
+                "attr" => array("placeholder" => "vacancy.label.title"),
             ))
             ->add("summary", TextareaType::class, array(
                 "label" => "vacancy.label.summary",
-                "attr" => array("placeholder" => "vacancy.label.summary")
+                "attr" => array("placeholder" => "vacancy.label.summary"),
             ))
             ->add("description", TextareaType::class, array(
                 "label" => "vacancy.label.description",
-                "attr" => array("placeholder" => "vacancy.label.description")
+                "attr" => array("placeholder" => "vacancy.label.description"),
             ))
             ->add("enddate", DateType::class, array(
                 "label" => "vacancy.label.enddate",
                 "attr" => array("placeholder" => "vacancy.placeholder.date"),
-                "widget" => "single_text"
+                "widget" => "single_text",
+            ))
+             ->add("wanted", IntegerType::class, array(
+                "label" => 'vacancy.label.wanted',
+                'required' => false,
             ))
             ->add("longterm", CheckboxType::class, array(
                 "label" => 'vacancy.label.longterm',
