@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -17,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType; // TODO: checken of dit niet beter gebruikt kan worden voor een aantal van de Number velden
 
 class OrganisationType extends AbstractType
@@ -38,26 +40,22 @@ class OrganisationType extends AbstractType
                 "label" => "organisation.label.logo",
                 "required" => false,
             ))
-            // ->add("type", ChoiceType::class, array(
-            //     "label" => 'organisation.label.type',
-            //     'choices'  => array(
-            //         'organisation.choices.ngo' => 'ngo',
-            //         'organisation.choices.fv' => 'fv',
-            //     ),
-            //     // render as select box
-            //     'expanded' => false,
-            //     'multiple' => false,
-            //     'required' => false,
-            // ))
-            // ->add("intermediary", ChoiceType::class, array(
-            //     "label" => 'organisation.label.intermediary',
-            //     'choices'  => array(
-            //         'organisation.choices.intermediary' => 'intermediary',
-            //     ),
-            //     'expanded' => true,
-            //     'multiple' => true,
-            //     'required' => false,
-            // ))
+            ->add("type", ChoiceType::class, array(
+                'label' => 'organisation.label.type',
+                'placeholder' => false,
+                'choices'  => array(
+                    'organisation.choices.ngo' => 'vzw',
+                    'organisation.choices.fv' => 'fv',
+                ),
+                // render as select box
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("intermediary", CheckboxType::class, array(
+                "label" => 'organisation.label.intermediary',
+                'required' => false,
+            ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",
                 "attr" => array("placeholder" => "organisation.label.description"),
@@ -102,11 +100,11 @@ class OrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.placeholder.telephone"),
                 "required" => false,
             ))
-            // ->add("website", UrlType::class, array(
-            //     "label" => "organisation.label.website",
-            //     "attr" => array("placeholder" => "organisation.placeholder.website"),
-            //     "required" => false,
-            // ))
+            ->add("website", UrlType::class, array(
+                "label" => "organisation.label.website",
+                "attr" => array("placeholder" => "organisation.placeholder.website"),
+                "required" => false,
+            ))
             ->add('backToRegistration', SubmitType::class, array(
                 "label" => "organisation.label.backToRegistration",
                 'validation_groups' => false,
