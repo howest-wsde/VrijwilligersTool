@@ -30,10 +30,18 @@ class OrganisationController extends controller
             $em->persist($user);
 
             $em->flush();
-            return $this->redirect($this->generateUrl("create_vacancy_for_organisation", ['organisation_urlid' => $organisation->getUrlId() ]));
+            // return $this->redirect($this->generateUrl("create_vacancy_for_organisation", ['organisation_urlid' => $organisation->getUrlId() ]));
+            return $this->render("organisation\maakvereniging.html.twig",
+            [
+                "form" => $form->createView(),
+                "org_urlid" => $organisation->getUrlId(),
+            ]);
         }
         return $this->render("organisation\maakvereniging.html.twig",
-            ["form" => $form->createView() ] );
+            [
+                "form" => $form->createView(),
+                "org_urlid" => false,
+            ]);
     }
 
     /**

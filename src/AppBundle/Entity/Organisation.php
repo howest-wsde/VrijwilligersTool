@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Organisation
- * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"})
+ * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"}, groups = {"secondStep"})
  *
  * @Vich\Uploadable
  *

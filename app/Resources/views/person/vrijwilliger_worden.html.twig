@@ -27,6 +27,7 @@
 			<h3>Persoonsgegevens</h3>
 		    {{ form_row (form.firstname) }}
 		    {{ form_row (form.lastname) }}
+			{{ form_row (form.avatarFile) }}
 		    {{ form_row (form.email) }}
 		    {{ form_row (form.telephone) }}
 		    {{ form_row (form.organisation) }}
@@ -107,26 +108,7 @@
 </section>
 <section>
 	<h2>Bekijk de spelregels</h2>
-	<h3>Spelregels voor vrijwilligers</h3>
-	<p>
-		Roeselare vrijwilligt heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
-	</p>
-	<ul>
-		<li>Je houdt je aan je afspraken.</li>
-		<li>Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt.  Uitzonderingen worden door de organisatie meegedeeld.</li>
-		<li>Je gedraagt je respectvol.</li>
-		<li>Je bent op de hoogte van <a href="/wetgeving">de wettelijke bepalingen</a>.</li>
-	</ul>
-	<h3>Spelregels voor organisaties</h3>
-	<p>
-		Roeselare vrijwilligt heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
-	</p>
-	<ul>
-		<li>Je houdt je aan je afspraken.</li>
-		<li>Je respecteert de privacy van elke vrijwilliger.</li>
-		<li>Je gedraagt je respectvol.</li>
-		<li>Je sluit [een verzekering] af voor elke vrijwilliger.</li>
-		<li>Je zorgt dat elke vrijwilliger goed begeleid wordt.  Een vrijwilliger is geen gratis werkpaard maar een waardevol medewerker!</li>
-	</ul>
+    {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
+	{% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
 </section>
 {% endblock %}

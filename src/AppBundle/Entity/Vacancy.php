@@ -84,18 +84,15 @@ class Vacancy extends EntityBase
      */
     private $skills;
 
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $candidacies;
 
-
     /**
      * @var string
      */
     private $urlid;
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -345,10 +342,10 @@ class Vacancy extends EntityBase
      * @return Array
      */
     public function getCandidates()
-    {  
-        $arCandidates = []; 
+    {
+        $arCandidates = [];
         foreach ($this->candidacies as $oCandidacy){
-            $arCandidates[] = $oCandidacy->getCandidate(); 
+            $arCandidates[] = $oCandidacy->getCandidate();
         }
         return $arCandidates;
     }
@@ -387,7 +384,7 @@ class Vacancy extends EntityBase
         return $this->likers;
     }
 
-    
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *

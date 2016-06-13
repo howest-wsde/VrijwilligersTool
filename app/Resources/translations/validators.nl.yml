@@ -9,12 +9,29 @@ vacancy:
         max_period: De vacature mag maximum 6 maanden geldig zijn.
     label:
         title: Titel
-        description: Omschrijving
+        summary: Beknopte omschrijving
+        description: Jobinhoud
         startdate: Begindatum
-        enddate: Einddatum
-        submit: Opslaan
+        enddate: Vervaldatum
+        submit: Plaats vacature!
+        save: Bewaar en publiceer later
+        otherReward: Andere
+        renumeration: Vrijwilligersvergoeding
+        skills: Onder welke categoriëen valt deze vacature?
+        independent: Moet de vrijwilliger zelfstandig kunnen werken?
+        socialInteraction: Hoeveel sociale interactie zal er zijn?
+        estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
+        location: Op welke locatie zal de vrijwilliger werken?
+        longterm: Betreft de vacature een langdurig engagement?
+    choices:
+        independent: Ja
+        dependent: Nee
+        all: Alles draait rond sociale interactie
+        normal: 'Niet speciaal veel, niet speciaal weinig'
+        little: Sociale interactie is beperkt
     placeholder:
         date: jjjj-mm-dd
+        summary: Beschrijf in maximaal 120 tekens de inhoud van deze vacature.
 organisation:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.
@@ -45,10 +62,21 @@ organisation:
         city: Stad
         telephone: Telefoonnummer
         logo: Logo
-        submit: Opslaan
+        create: Maak organisatie aan
+        backToRegistration: Terug naar registratie
+        submitContact: Contactinformatie indienen
+        type: Type vereniging
+        intermediary: Bemiddelingsorganisatie
+        website: Website
+        fieldOfActivity: Sectoren
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
+        website: http://www.uwvereniging.be
+    choices:
+        ngo: Vereniging Zonder Winstoogmerk (VZW)
+        fv: Feitelijke Vereniging
+        intermediary: Ja
 person:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.
@@ -86,7 +114,7 @@ person:
         avatar: Foto
         email: E-mailadres
         telephone: Telefoonnummer
-        organisation: Organisatie
+        organisation: Contact via organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
@@ -110,3 +138,5 @@ search:
 general:
     label:
         previous: Vorige
+        next: Volgende
+        submit: Indienen

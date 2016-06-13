@@ -1,3 +1,4 @@
+{# TODO: mag dit volledig formulier weg?  nakijken #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Vacature Aanmaken{% endblock %}
@@ -5,20 +6,26 @@
 {% block body %}
    <form action="{{ path('create_vacancy') }}" method="post">
         {{ form_errors(form) }}
-
+        {#{ form_row(form.organisation) } TODO: must be derived from logged in organisation #}
         {{ form_row(form.title) }}
+        {#{ form_row(form.summary) }#}
         {{ form_row(form.description) }}
-        {{ form_row(form.startdate) }}
+        {#{ form_row(form.startdate) } TODO: bekijken of we dit willen, en zo ja, veld toevoegen in vacancytype #}
         {{ form_row(form.enddate) }}
-        {{ form_row(form.organisation) }}
-        {# TODO: must be derived from logged in organisation #}
-
-        {{ form_row(form.category) }}
-        {{ form_row(form.skillproficiency) }}
-
+        {#{ form_row(form.longterm) }#}
+        {#{ form_row(form.estimatedWorkInHours) }#}
+        {#{ form_row(form.location) }#}
+        {#{ form_row(form.socialInteraction) }#}
+        {#{ form_row(form.independent) }#}
+        {{ form_row(form.skills) }}
+        <fieldset>
+            <p>Voordelen voor de vrijwilliger</p>
+            {#{ form_row(form.renumeration) }#}
+            {#{ form_row(form.otherReward) }#}
+        </fieldset>
+        {{ form_row(form.submit) }}
+        {{ form_row(form.save) }}
         {{ form_widget(form._token) }}
-
-        <input type="submit" value="Creër vacature">
     </form>
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}

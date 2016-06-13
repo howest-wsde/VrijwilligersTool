@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType; // TODO: checken of dit niet beter gebruikt kan worden voor een aantal van de Number velden
 
 class OrganisationType extends AbstractType
 {
@@ -25,51 +26,115 @@ class OrganisationType extends AbstractType
         $builder
             ->add("name", TextType::class, array(
                 "label" => "organisation.label.name",
-                "attr" => array("placeholder" => "organisation.label.name")
+                "attr" => array("placeholder" => "organisation.label.name"),
+                "required" => false,
             ))
             ->add("slogan", TextType::class, array(
                 "label" => "organisation.label.slogan",
-                "attr" => array("placeholder" => "organisation.label.slogan")
+                "attr" => array("placeholder" => "organisation.label.slogan"),
+                "required" => false,
             ))
+            ->add("logoFile", FileType::class, array(
+                "label" => "organisation.label.logo",
+                "required" => false,
+            ))
+            // ->add("type", ChoiceType::class, array(
+            //     "label" => 'organisation.label.type',
+            //     'choices'  => array(
+            //         'organisation.choices.ngo' => 'ngo',
+            //         'organisation.choices.fv' => 'fv',
+            //     ),
+            //     // render as select box
+            //     'expanded' => false,
+            //     'multiple' => false,
+            //     'required' => false,
+            // ))
+            // ->add("intermediary", ChoiceType::class, array(
+            //     "label" => 'organisation.label.intermediary',
+            //     'choices'  => array(
+            //         'organisation.choices.intermediary' => 'intermediary',
+            //     ),
+            //     'expanded' => true,
+            //     'multiple' => true,
+            //     'required' => false,
+            // ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",
-                "attr" => array("placeholder" => "organisation.label.description")
+                "attr" => array("placeholder" => "organisation.label.description"),
+                "required" => false,
             ))
             ->add("email", EmailType::class, array(
                 "label" => "organisation.label.email",
-                "attr" => array("placeholder" => "organisation.placeholder.email")
+                "attr" => array("placeholder" => "organisation.placeholder.email"),
+                "required" => false,
+            ))
+            ->add("submit", SubmitType::class, array(
+                "label" => "organisation.label.create",
+                "validation_groups" => array("firstStep"),
             ))
             ->add("street", TextType::class, array(
                 "label" => "organisation.label.street",
-                "attr" => array("placeholder" => "organisation.label.street")
+                "attr" => array("placeholder" => "organisation.label.street"),
+                "required" => false,
             ))
             ->add("number", NumberType::class, array(
                 "label" => "organisation.label.number",
-                "attr" => array("placeholder" => "organisation.label.number")
+                "attr" => array("placeholder" => "organisation.label.number"),
+                "required" => false,
             ))
             ->add("bus", NumberType::class, array(
                 "label" => "organisation.label.bus",
                 "attr" => array("placeholder" => "organisation.label.bus"),
-                "required" => false
+                "required" => false,
             ))
             ->add("postalCode", NumberType::class, array(
                 "label" => "organisation.label.postalcode",
-                "attr" => array("placeholder" => "organisation.label.postalcode")
+                "attr" => array("placeholder" => "organisation.label.postalcode"),
+                "required" => false,
             ))
             ->add("city", TextType::class, array(
                 "label" => "organisation.label.city",
-                "attr" => array("placeholder" => "organisation.label.city")
+                "attr" => array("placeholder" => "organisation.label.city"),
+                "required" => false,
             ))
             ->add("telephone", TextType::class, array(
                 "label" => "organisation.label.telephone",
-                "attr" => array("placeholder" => "organisation.placeholder.telephone")
+                "attr" => array("placeholder" => "organisation.placeholder.telephone"),
+                "required" => false,
             ))
-            ->add("logoFile", FileType::class, array(
-                "label" => "organisation.label.logo" 
+            // ->add("website", UrlType::class, array(
+            //     "label" => "organisation.label.website",
+            //     "attr" => array("placeholder" => "organisation.placeholder.website"),
+            //     "required" => false,
+            // ))
+            ->add('backToRegistration', SubmitType::class, array(
+                "label" => "organisation.label.backToRegistration",
+                'validation_groups' => false,
             ))
-            ->add("submit", SubmitType::class, array(
-                "label" => "organisation.label.submit",
+            ->add("submit2", SubmitType::class, array(
+                "label" => "organisation.label.submitContact",
+                "validation_groups" => array("secondStep"),
             ));
+            // ->add('fieldOfActivity', EntityType::class, array(
+            //     "label" => "organisation.label.fieldOfActivity",
+            //     "placeholder" => false,
+            //     // query choices from this entity
+            //     'class' => 'AppBundle:Sector',
+            //     // use the name property as the visible option string
+            //     'choice_label' => 'name',
+            //     // render as select box
+            //     'expanded' => false,
+            //     'multiple' => false,
+            //     'required' => false,
+            // ))
+            // ->add('backToContact', SubmitType::class, array(
+            //     "label" => "organisation.label.backToContact",
+            //     'validation_groups' => false,
+            // ))
+            // ->add("submitEnd", SubmitType::class, array(
+            //     "label" => "general.label.submit",
+            //     "validation_groups" => array("thirdStep"),
+            // ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
