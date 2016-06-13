@@ -19,3 +19,5 @@ db.sql
 *.py
 composer.lock
 /elasticsearch*
+/web/images/organisations/*
+/web/images/users/*
