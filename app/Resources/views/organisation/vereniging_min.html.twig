@@ -1,11 +1,13 @@
+{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
+
 <li>
     <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
         <header>
             <h3>{{ organisation.name}}</h3>
-            <img src="http://dummyimage.com/50x50/000/fff" alt="placeholder" title="placeholder">
+            <img src="http://dummyimage.com/50x50/000/fff" text="voeg de organisatie toe aan je favorieten" alt="voeg de organisatie toe aan je favorieten">
         </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
-        <img src="" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
-        <p>{# organisation.slogan #}issue #149</p>
+        <img src="{{ asset(organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+        <p>{{ organisation.slogan }}</p>
         <ul>
             <li>
                 {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
