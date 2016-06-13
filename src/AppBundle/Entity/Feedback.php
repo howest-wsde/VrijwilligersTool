@@ -7,6 +7,8 @@ namespace AppBundle\Entity;
  */
 class Feedback
 {
+    const REPORTED = 0;  
+
     /**
      * @var integer
      */
@@ -167,4 +169,6 @@ class Feedback
     {
         return $this->reporter;
     }
+ 
+
 }
