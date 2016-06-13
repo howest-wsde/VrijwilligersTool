@@ -242,6 +242,7 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
+    //TODO: aanpassen voor open & published
     public function ListOrganisationVacanciesAction($urlid)
     {
         $em = $this->getDoctrine()->getManager();

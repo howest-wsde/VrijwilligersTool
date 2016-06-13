@@ -1,17 +1,19 @@
 {% extends "base.html.twig" %}
-{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
 
 {% block title %}Vereniging{% endblock %}
 
 {% block body %}
 <h1>{{ organisation.name }}</h1>
-<h2>{{ organisation.slogan }}</h2>
+<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
 {% if app.user in organisation.likers %}
 	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
 {% else %}
 	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
 {% endif %}
-<img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+{% if organisation.logoName %}
+	{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+	<img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+{% endif %}
 <p>{{ organisation.description }}</p>
 
 {#{% if organisation.sectoren %}
