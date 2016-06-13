@@ -1,0 +1,7 @@
+<ul>
+	{% for result in results %}
+		<li>
+			<button type="submit" name="userid" value="{{ result.id}}" >{{ result.firstname}} {{ result.lastname}}</button>
+		</li> 
+	{% endfor %}
+</ul>
