@@ -65,6 +65,9 @@ AppBundle\Entity\Vacancy:
         wanted:
             type: smallint
             options: { default: 1 }
+        stillWanted:
+            type: smallint
+            options: { default: 1 }
         urlid:
             type: string
             length: 100

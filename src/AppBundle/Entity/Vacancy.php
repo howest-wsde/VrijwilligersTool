@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vacancy extends EntityBase
 {
-    const PUBLISHED = 1;
+    const OPEN = 1;
     const CLOSED = 2;
     const SAVED = 3;
 
@@ -203,12 +203,17 @@ class Vacancy extends EntityBase
     /**
      * @var int
      */
-    private $published = Vacancy::PUBLISHED;
+    private $published = Vacancy::OPEN;
 
     /**
      * @var int
      */
     private $wanted = 1;
+
+    /**
+     * @var int
+     */
+    private $stillWanted = 1;
 
     /**
      * @var \AppBundle\Entity\Organisation
@@ -585,8 +590,8 @@ class Vacancy extends EntityBase
      */
     public function setWanted($wanted)
     {
+        $this->stillWanted += ($wanted - $this->wanted);
         $this->wanted = $wanted;
-
         return $this;
     }
 
@@ -598,6 +603,46 @@ class Vacancy extends EntityBase
     public function getWanted()
     {
         return $this->wanted;
+    }
+
+    /**
+     * Set stillWanted
+     *
+     * @param int $stillWanted
+     *
+     * @return Vacancy
+     */
+    public function setStillWanted($stillWanted)
+    {
+        $this->stillWanted = $stillWanted;
+
+        return $this;
+    }
+
+    /**
+     * Get stillWanted
+     *
+     * @return int
+     */
+    public function getStillWanted()
+    {
+        return $this->stillWanted;
+    }
+
+    /**
+     * Convenience function to both reduce stillWanted by one
+     * & check whether it's status needs to be closed
+     *
+     * @return Vacancy
+     */
+    public function reduceByOne(){
+        $left = $this->getStillWanted();
+        if($left == 1){
+            $this->setPublished(Vacancy::CLOSED);
+        }
+        $this->setStillWanted($left - 1);
+
+        return $this;
     }
 
     /**

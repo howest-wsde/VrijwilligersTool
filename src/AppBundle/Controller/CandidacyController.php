@@ -2,9 +2,6 @@
 
 namespace AppBundle\Controller;
 
-
-
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,19 +19,25 @@ class CandidacyController extends Controller
     public function approveCandidacy(Request $request, $candidacyId)
     {
         $em = $this->getDoctrine()->getManager();
-        $candidacy = $em->getRepository("AppBundle:Candidacy")->findOneById($candidacyId);
+        $repository = $em->getRepository("AppBundle:Candidacy");
+        $candidacy = $repository->findOneById($candidacyId);
 
         if($request->request->has("approve")) {
             $candidacy->setState(Candidacy::APPROVED);
             $em->persist($candidacy);
             $em->flush();
 
-            $this->addFlash('approve_message', $candidacy->getCandidate()->getFirstname() .
-                            " " .
-                            $candidacy->getCandidate()->getLastname() .
-                            " werd goedgekeurd voor de vacature " .
-                            $candidacy->getVacancy()->getTitle() . "."
-                        );
+            //get vacancy for this candidacy and use reduceByOne method to both
+            //subtract one from stillWanted and close the vacancy if need be
+            //then persist the vacancy
+            $vacancy = $candidacy->getVacancy()->reduceByOne();
+            $em->persist($vacancy);
+            $em->flush();
+
+            $this->addFlash('approve_message', $candidacy->getCandidate()->getFirstname() . " " . $candidacy->getCandidate()->getLastname() .
+                " werd goedgekeurd voor de vacature " .
+                $candidacy->getVacancy()->getTitle() . "."
+            );
         }
         else if($request->request->has("cancel")){
             $candidacy->setState(Candidacy::PENDING);
