@@ -3,13 +3,9 @@
 {% block title %}Vacature Aanmaken{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
+    <h1>Vacature aanmaken</h1>
 
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.enddate) }}
-    {{ form_end(form) }}
+    {% embed "vacancy/vacature_form.html.twig" with { 'form': form } %}{% endembed %}
 
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">

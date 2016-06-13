@@ -3,7 +3,7 @@ search:
         hoursAWeek: uren per week
         distance: km
         search: Zoeken
-        sort: Sorteer op:
+        sort: 'Sorteer op:'
         person: Personen
         organisation: Verenigingen
         vacancy: Vacatures
@@ -17,7 +17,7 @@ search:
         weelchair: Toegankelijk voor rolstoel
         lotsContact: Veel sociaal contact
         littleContact: Weinig sociaal contact
-        reward: Vrijwilligersvergoeding
+        renumeration: Vrijwilligersvergoeding
         other: Andere voordelen
     placeholder:
         searchTerm: zoekterm (optioneel)

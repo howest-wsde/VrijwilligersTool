@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -51,6 +52,11 @@ class PersonType extends AbstractType
                 "placeholder" => "person.placeholder.organisation",
                 // query choices from this entity
                 'class' => 'AppBundle:Organisation',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('o')
+                        ->where('o.intermediary = true')
+                        ->orderBy('o.name', 'ASC');
+                },
                 // use the name property as the visible option string
                 'choice_label' => 'name',
                 // render as select box

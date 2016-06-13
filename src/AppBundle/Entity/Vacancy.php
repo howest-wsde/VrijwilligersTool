@@ -24,7 +24,18 @@ class Vacancy extends EntityBase
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 120,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
+     * )
+    */
+    private $summary;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "vacancy.not_blank")
      * @Assert\Length(
      *      min = 20,
      *      max = 2000,
@@ -75,6 +86,128 @@ class Vacancy extends EntityBase
     private $id;
 
     /**
+     * @var bool
+     */
+    private $longterm;
+
+    /**
+     * @var int
+     */
+    private $estimatedWorkInHours;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "vacancy.not_blank")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $street;
+
+    /**
+     * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message = "vacancy.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 999999,
+     *      minMessage = "vacancy.not_positive"
+     * )
+     */
+    private $number;
+
+    /**
+     * @var int
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 6,
+     *      minMessage = "vacancy.min_message_one",
+     *      maxMessage = "vacancy.max_message"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
+     *     message = "vacancy.bus.valid"
+     * )
+     */
+    private $bus;
+
+    /**
+     * @var int
+     * @Assert\Regex(
+     *     pattern = "/^[0-9]*$/",
+     *     message = "vacancy.not_numeric"
+     * )
+     * @Assert\Range(
+     *      min = 1000,
+     *      max = 9999,
+     *      minMessage = "vacancy.not_positive",
+     *      maxMessage = "vacancy.not_more_than"
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 4,
+     *      exactMessage = "vacancy.exact"
+     * )
+     */
+    private $postalCode;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 100,
+     *      minMessage = "vacancy.min_message",
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $city;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $socialInteraction;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      max = 11,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $independent;
+
+    /**
+     * @var float
+     */
+    private $renumeration;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      max = 200,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $otherReward;
+
+    /**
+     * @var bool
+     */
+    private $published;
+
+    /**
+     * @var int
+     */
+    private $wanted;
+
+    /**
      * @var \AppBundle\Entity\Organisation
      */
     private $organisation;
@@ -84,18 +217,15 @@ class Vacancy extends EntityBase
      */
     private $skills;
 
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $candidacies;
 
-
     /**
      * @var string
      */
     private $urlid;
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -156,6 +286,30 @@ class Vacancy extends EntityBase
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set summary
+     *
+     * @param string $summary
+     *
+     * @return Vacancy
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get summary
+     *
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
     }
 
     /**
@@ -252,6 +406,319 @@ class Vacancy extends EntityBase
     }
 
     /**
+     * Set longterm
+     *
+     * @param bool $longterm
+     *
+     * @return Vacancy
+     */
+    public function setLongterm($longterm)
+    {
+        $this->longterm = $longterm;
+
+        return $this;
+    }
+
+    /**
+     * Get longterm
+     *
+     * @return bool
+     */
+    public function getLongterm()
+    {
+        return $this->longterm;
+    }
+
+    /**
+     * Set estimatedWorkInHours
+     *
+     * @param int $estimatedWorkInHours
+     *
+     * @return Vacancy
+     */
+    public function setEstimatedWorkInHours($estimatedWorkInHours)
+    {
+        $this->estimatedWorkInHours = $estimatedWorkInHours;
+
+        return $this;
+    }
+
+    /**
+     * Get estimatedWorkInHours
+     *
+     * @return int
+     */
+    public function getEstimatedWorkInHours()
+    {
+        return $this->estimatedWorkInHours;
+    }
+
+    /**
+     * Set socialInteraction
+     *
+     * @param string $socialInteraction
+     *
+     * @return Vacancy
+     */
+    public function setSocialInteraction($socialInteraction)
+    {
+        $this->socialInteraction = $socialInteraction;
+
+        return $this;
+    }
+
+    /**
+     * Get socialInteraction
+     *
+     * @return string
+     */
+    public function getSocialInteraction()
+    {
+        return $this->socialInteraction;
+    }
+
+    /**
+     * Set independent
+     *
+     * @param string $independent
+     *
+     * @return Vacancy
+     */
+    public function setIndependent($independent)
+    {
+        $this->independent = $independent;
+
+        return $this;
+    }
+
+    /**
+     * Get independent
+     *
+     * @return string
+     */
+    public function getIndependent()
+    {
+        return $this->independent;
+    }
+
+    /**
+     * Set renumeration
+     *
+     * @param float $renumeration
+     *
+     * @return Vacancy
+     */
+    public function setRenumeration($renumeration)
+    {
+        $this->renumeration = $renumeration;
+
+        return $this;
+    }
+
+    /**
+     * Get renumeration
+     *
+     * @return float
+     */
+    public function getRenumeration()
+    {
+        return $this->renumeration;
+    }
+
+    /**
+     * Set otherReward
+     *
+     * @param string $otherReward
+     *
+     * @return Vacancy
+     */
+    public function setOtherReward($otherReward)
+    {
+        $this->otherReward = $otherReward;
+
+        return $this;
+    }
+
+    /**
+     * Get otherReward
+     *
+     * @return string
+     */
+    public function getOtherReward()
+    {
+        return $this->otherReward;
+    }
+
+    /**
+     * Set published
+     *
+     * @param bool $published
+     *
+     * @return Vacancy
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return bool
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Set wanted
+     *
+     * @param int $wanted
+     *
+     * @return Vacancy
+     */
+    public function setWanted($wanted)
+    {
+        $this->wanted = $wanted;
+
+        return $this;
+    }
+
+    /**
+     * Get wanted
+     *
+     * @return int
+     */
+    public function getWanted()
+    {
+        return $this->wanted;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return Organisation
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set number
+     *
+     * @param \int $number
+     *
+     * @return Organisation
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return \int
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param \int $postalCode
+     *
+     * @return Organisation
+     */
+    public function setpostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return \int
+     */
+    public function getpostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set bus
+     *
+     * @param \int $bus
+     *
+     * @return Organisation
+     */
+    public function setBus($bus)
+    {
+        $this->bus = $bus;
+
+        return $this;
+    }
+
+    /**
+     * Get bus
+     *
+     * @return \int
+     */
+    public function getBus()
+    {
+        return $this->bus;
+    }
+
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Organisation
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
      * Set organisation
      *
      * @param \AppBundle\Entity\Organisation $organisation
@@ -345,10 +812,10 @@ class Vacancy extends EntityBase
      * @return Array
      */
     public function getCandidates()
-    {  
-        $arCandidates = []; 
+    {
+        $arCandidates = [];
         foreach ($this->candidacies as $oCandidacy){
-            $arCandidates[] = $oCandidacy->getCandidate(); 
+            $arCandidates[] = $oCandidacy->getCandidate();
         }
         return $arCandidates;
     }
@@ -387,7 +854,7 @@ class Vacancy extends EntityBase
         return $this->likers;
     }
 
-    
+
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *

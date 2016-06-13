@@ -9,13 +9,62 @@ AppBundle\Entity\Vacancy:
         title:
             type: string
             length: 100
+        summary:
+            type: string
+            length: 120
+            nullable: true
         description:
             type: text
+        longterm:
+            type: boolean
+            options: {default: false}
+        estimatedWorkInHours:
+            type: smallint
+            nullable: true
+        street:
+            type: string
+            scale: 255
+            nullable: true
+        number:
+            type: smallint
+            nullable: true
+        postalCode:
+            type: smallint
+            nullable: true
+        bus:
+            type: string
+            length: 6
+            nullable: true
+        city:
+            type: string
+            scale: 100
+            nullable: true
+        socialInteraction:
+            type: string
+            length: 10
+            options: {default: "normal"}
+        independent:
+            type: string
+            length: 11
+            nullable: true
         startdate:
             type: date
         enddate:
             type: date
             nullable: true
+        renumeration:
+            type: decimal
+            nullable: true
+        otherReward:
+            type: string
+            length: 200
+            nullable: true
+        published:
+            type: boolean
+            options: {default: true}
+        wanted:
+            type: smallint
+            options: {default: 1}
         urlid:
             type: string
             length: 100
