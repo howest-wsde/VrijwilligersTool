@@ -47,9 +47,10 @@
 <p>{{ organisation.telephone }}</p>
 <p>{{ organisation.email }}</p>
 <h3>Vacatures</h3>
-{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId } )) }}
+{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId })) }}
 
 <aside>
+	<h3>Links voor beheer</h3>
 	<ul>
 		{% if app.user in organisation.likers %}
 			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a></li>
@@ -58,6 +59,9 @@
 		{% endif %}
 		{% if app.user in organisation.administrators %}
 			{# <li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li> #}
+			<li>
+				<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">Vacature aanmaken</a>
+			</li>
 			<li>Beheerders:
 				<ul>
 					{% for administrator in organisation.administrators %}

@@ -48,7 +48,7 @@ class Organisation extends EntityBase
     /**
      * @var bool
      */
-    private $intermediary;
+    private $intermediary = false;
 
     /**
      * @var string

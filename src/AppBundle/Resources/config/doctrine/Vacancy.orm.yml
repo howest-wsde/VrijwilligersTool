@@ -61,7 +61,6 @@ AppBundle\Entity\Vacancy:
             nullable: true
         published:
             type: boolean
-            options: {default: true}
         wanted:
             type: smallint
             options: {default: 1}

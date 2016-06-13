@@ -88,7 +88,7 @@ class Vacancy extends EntityBase
     /**
      * @var bool
      */
-    private $longterm;
+    private $longterm = false;
 
     /**
      * @var int
@@ -97,7 +97,6 @@ class Vacancy extends EntityBase
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "vacancy.not_blank")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "vacancy.max_message"
@@ -172,7 +171,7 @@ class Vacancy extends EntityBase
      *      maxMessage = "vacancy.max_message"
      * )
      */
-    private $socialInteraction;
+    private $socialInteraction = "normal";
 
     /**
      * @var string
@@ -200,12 +199,12 @@ class Vacancy extends EntityBase
     /**
      * @var bool
      */
-    private $published;
+    private $published = true;
 
     /**
      * @var int
      */
-    private $wanted;
+    private $wanted = 1;
 
     /**
      * @var \AppBundle\Entity\Organisation
@@ -225,7 +224,7 @@ class Vacancy extends EntityBase
     /**
      * @var string
      */
-    private $urlid;
+    private $urlid = "";
 
     /**
      * @var \Doctrine\Common\Collections\Collection

@@ -248,8 +248,10 @@ class VacancyController extends controller
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
 
-        return $this->render("vacancy/vacatures_min.html.twig",
-                ["vacancies" => $organisation->getVacancies()]);
-
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+                [
+                    "vacancies" => $organisation->getVacancies(),
+                    "viewMode" => "list",
+                ]);
     }
 }
