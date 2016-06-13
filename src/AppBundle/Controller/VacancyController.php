@@ -72,8 +72,13 @@ class VacancyController extends controller
                 $vacancy->setOrganisation($organisation);
             }
 
+            if($form->get('save')->isClicked()){
+                $vacancy->setPublished(false);
+            }
+
             $em->persist($vacancy);
             $em->flush();
+
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
         }
