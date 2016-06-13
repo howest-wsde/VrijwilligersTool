@@ -9,6 +9,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vacancy extends EntityBase
 {
+    const PUBLISHED = 1;
+    const CLOSED = 2;
+    const SAVED = 3;
+
     /**
      * @var string
      * @Assert\NotBlank(message ="organisation.not_blank")
@@ -197,9 +201,9 @@ class Vacancy extends EntityBase
     private $otherReward;
 
     /**
-     * @var bool
+     * @var int
      */
-    private $published = true;
+    private $published = Vacancy::PUBLISHED;
 
     /**
      * @var int
@@ -551,7 +555,7 @@ class Vacancy extends EntityBase
     /**
      * Set published
      *
-     * @param bool $published
+     * @param int $published
      *
      * @return Vacancy
      */
@@ -565,7 +569,7 @@ class Vacancy extends EntityBase
     /**
      * Get published
      *
-     * @return bool
+     * @return int
      */
     public function getPublished()
     {

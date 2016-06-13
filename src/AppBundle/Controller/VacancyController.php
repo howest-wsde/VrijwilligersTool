@@ -73,7 +73,7 @@ class VacancyController extends controller
             }
 
             if($form->get('save')->isClicked()){
-                $vacancy->setPublished(false);
+                $vacancy->setPublished(Vacancy::SAVED);
             }
 
             $em->persist($vacancy);
