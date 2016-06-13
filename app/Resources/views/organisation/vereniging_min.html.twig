@@ -1,12 +1,12 @@
-{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
+{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
 
 <li>
     <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
         <header>
             <h3>{{ organisation.name}}</h3>
             <img src="http://dummyimage.com/50x50/000/fff" text="voeg de organisatie toe aan je favorieten" alt="voeg de organisatie toe aan je favorieten">
-        </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
-        <img src="{{ asset(organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+        </header>
+        <img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
         <p>{{ organisation.slogan }}</p>
         <ul>
             <li>
