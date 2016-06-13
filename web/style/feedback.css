@@ -1,0 +1,1 @@
+form.feedbackform{position:fixed;bottom:50px;right:10px}form.feedbackform fieldset{display:flex;flex-flow:row wrap;border:2px solid #222;padding:20px;width:300px;height:200px;background:#fff;border-radius:10px}form.feedbackform fieldset legend{cursor:move;background:#222;color:#fff;padding:5px 10px;border-radius:10px}
