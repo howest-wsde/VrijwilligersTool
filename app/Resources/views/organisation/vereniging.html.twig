@@ -6,58 +6,69 @@
 {% block body %}
 <h1>{{ organisation.name }}</h1>
 <h2>{{ organisation.slogan }}</h2>
-<img src="http://dummyimage.com/50x50/000/fff" text="voeg de organisatie toe aan je favorieten" alt="voeg de organisatie toe aan je favorieten">
+{% if app.user in organisation.likers %}
+	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
+{% else %}
+	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
+{% endif %}
 <img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
 <p>{{ organisation.description }}</p>
-<p><label>Sectoren:</label></p>
-<p>
-	{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
-</p>
-<aside id="#googlemaps">
-	<div>
-		<button id="getRoute">Toon routebeschrijving</button>
-		<div id="description" class="hidden"></div>
-		<p>selecteer uw gewenste transportwijze</p>
-		<div onchange="googleMapsModule.drawRoute()">
-			<select id="transitMethod">
-				<option value="DRIVING">Auto</option>
-				<option value="BICYCLING">Fiets</option>
-				<option value="WALKING">Te voet</option>
-				<option value="TRANSIT">Openbaar vervoer</option>
-			</select>
-			<select id="transitMode" class="hidden">
-				<option value="BUS">Per bus</option>
-				<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
-				<option value="SUBWAY">Per metro</option>
-				<option value="TRAM">Per tram</option>
-			</select>
-		</div>
-	</div>
-	<div data-useraddress="
-	{% if app.user %}
-		{{ app.user.street }}
-		{{ app.user.number }}
-		{{ app.user.postalcode }}
-		{{ app.user.city }}
-	{% else %}
-	{% endif %}"
-		 id="map-canvas" style="width: 350px; height: 350px;">
-	</div>
-</aside>
-<p>{{ organisation.telephone }}</p>
-<p>{{ organisation.email }}</p>
-<h3>Vacatures</h3>
-{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId })) }}
 
-<aside>
-	<h3>Links voor beheer</h3>
-	<ul>
-		{% if app.user in organisation.likers %}
-			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a></li>
+{#{% if organisation.sectoren %}
+	<p><label>Sectoren:</label>TODO: render sectoren hier</p>
+{% endif %} #}
+
+{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+	<p>
+		{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
+	</p>
+	<aside id="#googlemaps">
+		<div>
+			<button id="getRoute">Toon routebeschrijving</button>
+			<div id="description" class="hidden"></div>
+			<p>selecteer uw gewenste transportwijze</p>
+			<div onchange="googleMapsModule.drawRoute()">
+				<select id="transitMethod">
+					<option value="DRIVING">Auto</option>
+					<option value="BICYCLING">Fiets</option>
+					<option value="WALKING">Te voet</option>
+					<option value="TRANSIT">Openbaar vervoer</option>
+				</select>
+				<select id="transitMode" class="hidden">
+					<option value="BUS">Per bus</option>
+					<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+					<option value="SUBWAY">Per metro</option>
+					<option value="TRAM">Per tram</option>
+				</select>
+			</div>
+		</div>
+		<div data-useraddress="
+		{% if app.user %}
+			{{ app.user.street }}
+			{{ app.user.number }}
+			{{ app.user.postalcode }}
+			{{ app.user.city }}
 		{% else %}
-			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a></li>
-		{% endif %}
-		{% if app.user in organisation.administrators %}
+		{% endif %}"
+			 id="map-canvas" style="width: 350px; height: 350px;">
+		</div>
+	</aside>
+{% else %}
+	<p>Voor deze organisatie is geen adres bekend.</p>
+{% endif %}
+<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
+<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
+
+{% if organisation.vacancies %}
+	<h3>Vacatures</h3>
+	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId })) }}
+{% endif %}
+
+
+{% if app.user in organisation.administrators %}
+	<aside>
+		<h3>Links voor beheer</h3>
+		<ul>
 			{# <li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li> #}
 			<li>
 				<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">Vacature aanmaken</a>
@@ -72,9 +83,9 @@
 					</li> #}
 				</ul>
 			</li>
-		{% endif %}
-	</ul>
-</aside>
+		</ul>
+	</aside>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}
