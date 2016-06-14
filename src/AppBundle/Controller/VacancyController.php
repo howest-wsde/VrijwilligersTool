@@ -243,24 +243,19 @@ class VacancyController extends controller
     }
 
     //TODO: aanpassen voor open & published
-    public function ListOrganisationVacanciesAction($urlid)
+    public function ListOrganisationVacanciesAction($id)
     {
         ini_set('memory_limit', '1024M'); // or you could use 1G
         $em = $this->getDoctrine()->getManager();
-        $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($urlid);
+        $vacancy = $em->getRepository("AppBundle:Vacancy");
 
-        //redo this entire bit
-        $candidacy = $em->getRepository("AppBundle:Candidacy");
-        $vacancies = $organisation->getVacancies();
+        $query = $vacancy->createQueryBuilder("v")
+            ->where("v.organisation = :id and v.published = :status")
+            ->setParameter('id', $id)
+            ->setParameter('status', Vacancy::OPEN)
+            ->getQuery();
 
-        foreach ($vacancies as $key => $vacancy) {
-            if($vacancy->getPublished() == Vacancy::OPEN){
-
-            } else {
-                array_splice($vacancies, $key, 1);
-            }
-        }
+        $vacancies = $query->getResult();
 
         return $this->render("vacancy/vacatures_oplijsten.html.twig",
                 [

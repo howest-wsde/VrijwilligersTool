@@ -63,7 +63,7 @@
 
 {% if organisation.vacancies %}
 	<h3>Vacatures</h3>
-	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId })) }}
+	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
 {% endif %}
 
 

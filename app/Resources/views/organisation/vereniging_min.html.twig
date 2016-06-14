@@ -24,7 +24,7 @@
                 {# TODO: bekijken hoe we het aantal medewerkers en vrijwilligers kunnen weergeven #151 #}
             </li>
             <li>
-                {{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId })) }}{# TODO: aanpassen zodat enkel het aantal wordt weergegeven #}
+                {{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}{# TODO: aanpassen zodat enkel het aantal wordt weergegeven #}
             </li>
         </ul>
         <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}
