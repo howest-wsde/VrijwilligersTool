@@ -1,62 +1,115 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Roeselare Vrijwilligt</h1>{#TODO make title dynamic #}
-    <section data-role="motivational block">
-        <h2>Zinvol vrijwilligerswerk</h2>
-        <p>
-            Ervaar hoe een paar uur van je tijd een groot verschil maken.
-        </p>
-        <p>
-            Vrijwilligerswerk is samen bouwen aan een aangenaam Roeselare en een betere wereld.
-        </p>
-        <figure>
-            {#TODO: render the image here #}
-            <button>Bekijk de video</button>{# TODO: button tag? #}
-        </figure>
-    </section>
-    <section data-role="searchblock">
-        <h2>Zin om de handen uit de mouwen te steken?</h2>
-        {# TODO: implement searchblock, the above is temporary until a reusable search block has been implemented #}
-    </section>
-    <section data-role="introduction block">
-        <h2>Meer informatie</h2>
-        <h2>Hoe werkt het</h2>
-        <figure>{# TODO: dit verder uitwerken #}
-            <img src="#">
-            <caption><a href="#">Of lees de uitleg ...</a></caption>
-        </figure>
+{% block outerbody %}
+ 
+    <!-- Carousel
+    ================================================== -->
+    <div id="indexHeader" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active"> 
+          <div class="container slide1">
+            
+              <h1>Zinvol vrijwilligerswerk</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia explicabo facilis, adipisci recusandae est impedit fuga eveniet iusto aut excepturi quibusdam, omnis totam similique quod repudiandae eaque soluta ipsa accusamus.</p> 
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+             
+          </div>
+        </div>
+        <div class="item"> 
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Zinvol vrijwilligerswerk</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia explicabo facilis, adipisci recusandae est impedit fuga eveniet iusto aut excepturi quibusdam, omnis totam similique quod repudiandae eaque soluta ipsa accusamus.</p> 
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item"> 
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Zinvol vrijwilligerswerk</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia explicabo facilis, adipisci recusandae est impedit fuga eveniet iusto aut excepturi quibusdam, omnis totam similique quod repudiandae eaque soluta ipsa accusamus.</p> 
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#indexHeader" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#indexHeader" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
 
-        <h2>Verhalen en getuigenissen</h2>
-        <figure>{# TODO: dit verder uitwerken #}
-            <img src="#">
-            <caption><a href="#">Of lees de uitleg ...</a></caption>
-        </figure>
+      <ol>
+        <li data-target="#indexHeader" data-slide-to="0" class="active">-----</li>
+        <li data-target="#indexHeader" data-slide-to="1">-----</li>
+        <li data-target="#indexHeader" data-slide-to="2">-----</li>
+      </ol>
+      <!-- /.carousel -->
 
-        <h2>Informatie over vrijwilligerswerk</h2>
-        <p>
-            Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
-        </p>
-        <figure>{# TODO: dit verder uitwerken #}
-            <img src="#">
-            <caption><a href="#">Of lees de uitleg ...</a></caption>
-        </figure>
+    <div class="container">
+        <h1>Roeselare Vrijwilligt</h1>{#TODO make title dynamic #}
+        <section data-role="motivational block">
+            <h2>Zinvol vrijwilligerswerk</h2>
+            <p>
+                Ervaar hoe een paar uur van je tijd een groot verschil maken.
+            </p>
+            <p>
+                Vrijwilligerswerk is samen bouwen aan een aangenaam Roeselare en een betere wereld.
+            </p>
+            <figure>
+                {#TODO: render the image here #}
+                <button>Bekijk de video</button>{# TODO: button tag? #}
+            </figure>
+        </section>
+        <section data-role="searchblock">
+            <h2>Zin om de handen uit de mouwen te steken?</h2>
+            {# TODO: implement searchblock, the above is temporary until a reusable search block has been implemented #}
+        </section>
+        <section data-role="introduction block">
+            <h2>Meer informatie</h2>
+            <h2>Hoe werkt het</h2>
+            <figure>{# TODO: dit verder uitwerken #}
+                <img src="#">
+                <caption><a href="#">Of lees de uitleg ...</a></caption>
+            </figure>
 
-        <button>{# TODO: dit verder uitwerken + nakijken: button tag? #}
-            <h2>Niet zeker wat je wil?</h2>
-            <p>Doe hier de test!</p>
-        </button>
-    </section>
-    <section data-role="Promoted organisations block">
-        <h2>Organisaties in de kijker</h2>
-        {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
-    </section>
-    <section data-role="Recent vacancies block">
-        <h2>Vacatures in de kijker</h2>
-        {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 6, "viewMode": "tile" } )) }}
-    </section>
-    <section data-role="newsletter">
-        <h2>Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!</h2>
-        {# TODO: nieuwsbrief implementeren #}
-    </section>
+            <h2>Verhalen en getuigenissen</h2>
+            <figure>{# TODO: dit verder uitwerken #}
+                <img src="#">
+                <caption><a href="#">Of lees de uitleg ...</a></caption>
+            </figure>
+
+            <h2>Informatie over vrijwilligerswerk</h2>
+            <p>
+                Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
+            </p>
+            <figure>{# TODO: dit verder uitwerken #}
+                <img src="#">
+                <caption><a href="#">Of lees de uitleg ...</a></caption>
+            </figure>
+
+            <button>{# TODO: dit verder uitwerken + nakijken: button tag? #}
+                <h2>Niet zeker wat je wil?</h2>
+                <p>Doe hier de test!</p>
+            </button>
+        </section>
+        <section data-role="Promoted organisations block">
+            <h2>Organisaties in de kijker</h2>
+            {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
+        </section>
+        <section data-role="Recent vacancies block">
+            <h2>Vacatures in de kijker</h2>
+            {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 6, "viewMode": "tile" } )) }}
+        </section>
+        <section data-role="newsletter">
+            <h2>Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!</h2>
+            {# TODO: nieuwsbrief implementeren #}
+        </section>
+    </div>
 {% endblock %}

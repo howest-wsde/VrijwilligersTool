@@ -1,120 +1,40 @@
-body { 
-	margin: 0; padding: 0; 
-	>header {
-		display: flex; flex-flow: row wrap; justify-content: center; background: #efefef; padding: 20px; 
-		div.logo {flex: 0 0 200px; }
-		form.search {
-			flex: 1 1 50%; 
-			input {width: 100%; border: 1px solid black; padding: 5px; border-radius: 5px; }
-		}
-		nav.about {
-			flex: 1 0 150px; text-align: right;  
-			ul {
-				display: flex; flex-flow: row wrap; justify-content: flex-end; 
-				li {
-					padding: 0 10px; 
-				}
-			}
-		}
-		nav.top {
-			flex: 1 1 100%; 
-			ul {
-				display: flex; flex-flow: row wrap; 
-				li {
-					padding: 10px;  
-				}
-				li+li {margin-left: 10px; padding-left: 10px; border-left: 1px dotted grey;  }
-			}
-		}
+@cHeader: #76c7c0; 
+@cCarousel: #6cb9b3; 
+@iWidth: 1170px; 
 
-		#divResult {
-		        position:absolute;
-		        width:350px;
-		        display:none;
-		        margin-top:-1px;
-		        border:solid 1px #dedede;
-		        border-top:0px;
-		        overflow:hidden;
-		        border-bottom-right-radius: 6px;
-		        border-bottom-left-radius: 6px;
-		        -moz-border-bottom-right-radius: 6px;
-		        -moz-border-bottom-left-radius: 6px;
-		        box-shadow: 0px 0px 5px #999;
-		        border-width: 3px 1px 1px;
-		        border-style: solid;
-		        border-color: #333 #DEDEDE #DEDEDE;
-		        background-color: white;
-		}
-		.display_box {
-		        padding:4px; border-top:solid 1px #dedede;
-		        font-size:12px; height:50px;
-		}
-		.display_box:hover {
-		        background:#3bb998;
-		        color:#FFFFFF;
-		        cursor:pointer;
-		}
+/* main header / menu */
+body>header { 
+	background-color: @cHeader; overflow: auto;
+	.navbar-default {
+	    background-color: transparent;
+	    border: 0px; 
+	}
+	a.logo {
+		background: url("../images/logo_roeselarevrijwilligt.png") no-repeat center center; 
+		width: 224px; height: 104px; display: inline-block; float: left; margin: 0; 
+		h1 {display: none; }
+	} 
 
-	}
-	main {
-		padding: 20px; 
-		ul { 
-			list-style: circle; 
-		} 
-		ol { 
-			list-style: decimal;
-		}
-		ul, ol { 
-			margin: 10px 0; padding-left: 30px; 
-		}
-		p {margin: 10px 0; }
-	}
-	nav.bottom {
-		padding: 10px; display: flex; flex-flow: column wrap; justify-content: space-between;  background: #efefef; max-height: 200px; 
-		section {
-			flex: 1 1 0; padding: 10px; 
-			h1 {font-weight: bold; margin-bottom: 10px;  }
-			li {margin: 5px 3px; }
+	.menu_primary {
+		display: flex; 
+
+		a {
+			color: white; text-decoration: none; padding: 10px 20px; 
 		}
 	}
-	@media (max-width : 850px){ 
-		nav.bottom {flex-flow: row wrap; max-height: 100%; justify-content: flex-start;  }
-	}
+}
  
-	section.partners {
-		padding: 20px; 
-		ul {
-			display: flex; flex-flow: row wrap;  justify-content: center; margin: 30px;  
-			li {padding: 10px; }
-		}
-	}
-	>footer {
-		padding: 20px;  background: #efefef; 
-		address {
-			display: flex; flex-flow: row wrap;  justify-content: center; 
-			span+span {
-				margin-left: 10px; padding-left: 10px; border-left: 1px dotted grey; 
-			}
-		}
-		div.legal {
-			display: flex; flex-flow: row wrap;  justify-content: center; margin-top: 20px; 
-			span+span {
-				margin-left: 10px; padding-left: 10px; border-left: 1px dotted grey; 
-			}
-		}
-	}
+/* Carousel homepage */
+#indexHeader { 
+	.carousel-control.left, .carousel-control.right { background: none; }
+	background: @cCarousel;
+	.container {height: 444px; }
+	.slide1 {
+		background: url("../images/caroesel.png") no-repeat right bottom;  
+	}  
 }
-
-.nav { 
-	a {color: black; text-decoration: none; }
-	a:hover {color: red; }
-}
-a[href=''] {
-    background-color: rgba(255, 0, 0, 0.1);  
+ 
+/* Page width */
+.container {
+	max-width: @iWidth; margin: auto; padding: 0 20px; 
 } 
-
-fieldset {
-	display: flex; margin-bottom: 10px; 
-	legend {font-weight: bold; margin-bottom: 5px; }
-	label {margin-top: 3px; }
-}
