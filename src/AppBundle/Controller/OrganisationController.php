@@ -50,6 +50,9 @@ class OrganisationController extends controller
      */
     public function editOrganisationAction($urlid, Request $request)
     {
+        //TODO: add check for admin status here
+        $user = $this->getUser();
+
         if(!$urlid){
             throw $this->createNotFoundException("De organisatie met id " . $urlid . "werd niet teruggevonden");
         }
@@ -60,6 +63,10 @@ class OrganisationController extends controller
 
         if(!$organisation){
             throw $this->createNotFoundException("De organisatie werd niet teruggevonden");
+        }
+
+        if(!$user->getOrganisations()->contains($organisation)){
+            throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie.");
         }
 
         $form = $this->createForm(OrganisationType::class, $organisation);
