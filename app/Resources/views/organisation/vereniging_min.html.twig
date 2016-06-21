@@ -1,13 +1,19 @@
 {% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
 
-<li>
-    <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+<div class="col-md-4"><article class="vereniging witblok"> 
+    {% if app.user in organisation.likers %}
+        <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+    {% else %}
+        <a class="fav notliked"  href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+    {% endif %}  
+    
         <header>
-            <h3>{{ organisation.name}}</h3>
-            <img src="http://dummyimage.com/50x50/000/fff" text="voeg de organisatie toe aan je favorieten" alt="voeg de organisatie toe aan je favorieten">
+            <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+                <h3>{{ organisation.name}}</h3>  
+            </a>
         </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
-        <img src="{{ asset(organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
-        <p>{{ organisation.slogan }}</p>
+        <img src="{{ asset("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+        <p>{{ organisation.description }}</p>
         <ul>
             <li>
                 {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
@@ -26,6 +32,6 @@
                 x openstaande vacatures (issue #152)
             </li>
         </ul>
-        <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a>{# TODO: enable behaviour, button? #153 #}
     </a>
-</li>
+</article></div>

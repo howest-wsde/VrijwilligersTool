@@ -1,6 +1,27 @@
+@cMainBG: #f3f3f3;
 @cHeader: #76c7c0; 
 @cCarousel: #6cb9b3; 
-@iWidth: 1170px; 
+@cGrijzeBlok: #ececec;  
+@cRood: #e8645a; 
+@cRoodBorder: #e2534b; 
+@cGroen: #76c7c0; 
+@cGroenBorder: #62b9b0; 
+@cBlauw: #37c1dc; 
+@cBlauwBorder: #2eb1d3; 
+@cGeel: #dec531; 
+@cGeelBorder: #d6b729; 
+@iContainerWidth: 1170px; 
+
+/* ---------------------------- FUNCTIES ---------------------------- */
+
+.grijzetitel() {
+	color: #7f8c8c; font-size: 20px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 20px; font-weight: bold; 
+}
+.shaduwblok(@achtergrond, @rand){
+	background: @achtergrond; box-shadow: 0px 4px 0px 0px @rand;  
+}
+
+/* ---------------------------- START CSS ---------------------------- */
 
 /* main header / menu */
 body>header { 
@@ -25,16 +46,112 @@ body>header {
 }
  
 /* Carousel homepage */
-#indexHeader { 
-	.carousel-control.left, .carousel-control.right { background: none; }
-	background: @cCarousel;
-	.container {height: 444px; }
-	.slide1 {
-		background: url("../images/caroesel.png") no-repeat right bottom;  
-	}  
+#carouselhome {
+	#indexHeader { 
+		.carousel-control.left, .carousel-control.right { background: none; }
+		background: @cCarousel;
+		.container {height: 444px; }
+		.slide1 {
+			background: url("../images/caroesel.png") no-repeat right bottom;  
+		} 
+	}
+	.slidetoggle {
+		text-align: center; padding: 0; margin: 0; 
+		li {
+			background: #6cb9b3;
+			cursor: pointer;
+			display: inline-block;
+			height: 5px;
+			margin: 15px 5px 0;
+			overflow: hidden;
+			padding-top: 5px;
+			width: 100px;
+		} 
+		li+li {background-color: #2eb1d3; }
+		li+li+li {background-color: #d6b729; }
+	}
 }
  
+#handenuitmouwen { /* ZOEKEN VANUIT HOMEPAGE */
+
+
+}
+
+#infoblokken { /* 4 INFOBLOKKEN OP HOMEPAGE */
+	 
+	.witblok {
+		h2 {
+			margin-bottom: 10px; 
+			a {
+				.grijzetitel(); display: block; 
+				background: url("../images/hoewerkthet.png") no-repeat center top; padding-top: 80px; 
+			}
+		 }
+	}
+	.hoewerkthet {
+		h2 a {background-image: url("../images/hoewerkthet.png"); } 
+		.cta {.shaduwblok(@cRood, @cRoodBorder); }
+	}
+	.verhalen {
+		h2 a {background-image: url("../images/verhalen.png"); }
+		.cta {.shaduwblok(@cGroen, @cGroenBorder); }
+	}
+	.informatie {
+		h2 a {background-image: url("../images/info.png"); }
+		.cta {.shaduwblok(@cBlauw, @cBlauwBorder); }
+	}
+	.doedetest {
+		h2 a {background-image: url("../images/doetest.png"); }
+		.cta {.shaduwblok(@cGeel, @cGeelBorder); }
+	}
+}
+
+#verenigingenindekijker { /* HOMEPAGE: VERENIGINGEN IN DE KIJKER */
+	background-color: #ececec; padding: 30px 0; margin: 30px 0; text-align: center; 
+	h2 {color: @cRood; font-size: 30px; font-weight: bold; margin: 15px 0; }
+	article.vereniging {
+		position: relative; 
+		header h3 {.grijzetitel(); }
+		a.fav {
+			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block; 
+			position: absolute;  right: 20px; top: -2px; 
+			span {display: none; }
+		}
+		a.fav.liked {background-position: center bottom; }
+		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
+	}
+}
+
+.witblok {
+	background: white; 
+	border-radius: 10px;  
+	box-shadow: 0px 4px 0 0 #e5e6e6;
+	padding: 15px; text-align: center;  
+	padding-bottom: 28px; margin-bottom: 30px;  
+	.cta { 
+		color: white;
+		margin-left: -80px;
+		margin-top: 9px;
+		padding: 10px;
+		position: absolute;
+		width: 160px;
+		border-radius: 5px;  
+		.shaduwblok(@cRood, @cRoodBorder);
+		text-decoration: none; 
+	}  
+}
+.grijzeblok {
+	background: @cGrijzeBlok; 
+	border-radius: 10px; 
+	padding: 20px 0; 
+	text-align: center; 
+	margin: 15px 0; 
+}
+
 /* Page width */
 .container {
-	max-width: @iWidth; margin: auto; padding: 0 20px; 
-} 
+	max-width: @iContainerWidth; margin: auto; padding: 0 20px; 
+}
+body {background: @cMainBG; }
+
+h1, h2, h3 {margin: 0; padding: 0; } 
