@@ -77,8 +77,9 @@
             </div>
         {% endblock %}
 
-        <div class="container">
-            {% block footer %}
+        
+        {% block footernav %}
+            <div id="footernav"><div class="container">
                 <nav class="bottom nav">
                     <section>
                         <header><h1>Recente vacatures</h1></header>
@@ -118,15 +119,19 @@
                         </ul>
                     </section>
                 </nav>
-                <section class="partners">
-                    <ul>
-                        <li><a href="" target="_blank"><span>X logo</span></a></li>
-                        <li><a href="" target="_blank"><span>X logo</span></a></li>
-                        <li><a href="" target="_blank"><span>X logo</span></a></li>
-                        <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    </ul>
-                </section>
-                <footer>
+            </div></div>
+
+            <section id="partners"><div class="container">
+                <ul>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                    <li><a href="" target="_blank"><span>X logo</span></a></li>
+                </ul>
+            </div></section>
+
+            <footer>
+                <div class="container">
                     <address>{# TODO: Waarom staan hier span's onder? #}
                         <span>Zuidstraat 17</span>
                         <span>8800 Roeselare</span>
@@ -137,9 +142,9 @@
                         <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
                         <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span>
                     </div>
-                </footer>
-            {% endblock %}
-        </div>
+                </div>
+            </footer>
+        {% endblock %} 
         {% embed "feedback/feedback.html.twig" %}{% endembed %}
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
