@@ -245,10 +245,8 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
-    //TODO: aanpassen voor open & published
     public function ListOrganisationVacanciesAction($id)
     {
-        ini_set('memory_limit', '1024M'); // or you could use 1G
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy");
 
@@ -264,6 +262,25 @@ class VacancyController extends controller
                 [
                     "vacancies" => $vacancies,
                     "viewMode" => "list",
+                ]);
+    }
+
+    public function ListAmountOfVacanciesAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy");
+
+        $query = $vacancy->createQueryBuilder("v")
+            ->where("v.organisation = :id and v.published = :status")
+            ->setParameter('id', $id)
+            ->setParameter('status', Vacancy::OPEN)
+            ->getQuery();
+
+        $vacancies = $query->getResult();
+
+        return $this->render("vacancy/vacatures_aantal.html.twig",
+                [
+                    "aantal" => count($vacancies),
                 ]);
     }
 }
