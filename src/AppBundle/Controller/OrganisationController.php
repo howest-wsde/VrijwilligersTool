@@ -45,6 +45,44 @@ class OrganisationController extends controller
     }
 
     /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vereniging/{urlid}/edit" , defaults={"urlid" = false}, name="organisation_edit")
+     */
+    public function editOrganisationAction($urlid, Request $request)
+    {
+        if(!$urlid){
+            throw $this->createNotFoundException("De organisatie met id " . $urlid . "werd niet teruggevonden");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+
+        if(!$organisation){
+            throw $this->createNotFoundException("De organisatie werd niet teruggevonden");
+        }
+
+        $form = $this->createForm(OrganisationType::class, $organisation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($organisation);
+            $em->flush();
+            return $this->render("organisation/vereniging.html.twig",
+            [
+                "organisation" => $organisation,
+            ]);
+        }
+        return $this->render("organisation/vereniging_aanpassen.html.twig",
+            [
+                "form" => $form->createView(),
+                "createForm" => false,
+                "organisation" => $organisation,
+            ]);
+    }
+
+
+    /**
      * @Route("/vereniging/{urlid}" , name="organisation_by_urlid")
      */
     public function organisationViewAction($urlid)

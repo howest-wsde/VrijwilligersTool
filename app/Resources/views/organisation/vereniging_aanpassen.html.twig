@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Organisatie-gegevens aanpassen{% endblock %}
+
+{% block body %}
+    <h1>Gegevens {{ organisation.name }} aanpassen</h1>
+    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'createForm': createForm } %}{% endembed %}
+{% endblock %}

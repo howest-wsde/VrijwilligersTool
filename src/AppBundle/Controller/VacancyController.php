@@ -83,7 +83,10 @@ class VacancyController extends controller
             ["urlid" => $vacancy->getUrlId() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
-            ["form" => $form->createView() ] );
+            [
+                "form" => $form->createView(),
+                "createForm" => true,
+            ]);
     }
 
     /**

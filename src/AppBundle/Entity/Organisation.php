@@ -246,6 +246,11 @@ class Organisation extends EntityBase
      */
     public static function validatePhoneNumber($org, ExecutionContextInterface $context){
         $tel = $org->getTelephone();
+
+        if(!$tel){
+            return true;
+        }
+
         $phoneUtil = phoneUtil::getInstance();
         $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
         $matchesPattern = preg_match($pattern, $tel);
