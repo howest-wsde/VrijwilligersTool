@@ -8,6 +8,12 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+        intermediary:
+            type: boolean
+            options: {default: false}
+        type:
+            type: string
+            length: 3
         description:
             type: text
         email:
@@ -49,6 +55,10 @@ AppBundle\Entity\Organisation:
         slogan:
             type: string
             length: 255
+            nullable: true
+        website:
+            type: string
+            length: 150
             nullable: true
     manyToOne:
         creator:
