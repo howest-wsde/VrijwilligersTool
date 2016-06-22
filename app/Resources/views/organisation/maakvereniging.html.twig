@@ -10,42 +10,8 @@
 </header>
 <section id="maakVereniging">
     <h2>Maak een profiel aan voor uw vereniging</h2>
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-        <fieldset>
-            <h3>Organisatiegegevens</h3>
-            {{ form_row(form.name) }}
-            {{ form_row(form.slogan) }}
-            {{ form_row(form.logoFile) }}
-            {{ form_row(form.type) }}
-            {{ form_row(form.intermediary) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.submit) }}
-        </fieldset>
-        <fieldset>
-            <p>
-                Uw organisatie werd succesvol aangemaakt!<br />
-                Vul nu hieronder extra informatie in, of <a href="#spelregels">ga onmiddelijk naar de volgende stap.</a>
-            </p>
-            <h3>Contactgegevens</h3>
-            {{ form_row(form.street) }}
-            {{ form_row(form.number) }}
-            {{ form_row(form.bus) }}
-            {{ form_row(form.postalCode) }}
-            {{ form_row(form.city) }}
-            {{ form_row(form.telephone) }}
-            {{ form_row(form.website) }}
-            {{ form_row(form.backToRegistration) }}
-            {{ form_row(form.submit2) }}
-        </fieldset>
-        <fieldset>
-            <h3>Sectorale info</h3>
-            {#{ form_row(form.fieldOfActivity) }#}
-            {#{ form_row(form.backToContact) }#}
-            {#{ form_row(form.submitEnd) }#}
-        </fieldset>
-        {{ form_end(form) }}
+    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'createForm': createForm } %}{% endembed %}
+
     {# TODO: checken waarvoor het onderstaande dient: lijkt overbodig nu dat er verschillende delen zijn? #}
     {% for flash_message in app.session.flashbag.get('success-notice') %}
         <div class="success-notice">

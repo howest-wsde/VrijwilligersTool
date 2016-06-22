@@ -10,7 +10,6 @@ AppBundle\Entity\Organisation:
             length: 150
         intermediary:
             type: boolean
-            options: {default: false}
         type:
             type: string
             length: 3

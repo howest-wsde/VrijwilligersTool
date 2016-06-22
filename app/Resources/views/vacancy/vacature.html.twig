@@ -6,7 +6,16 @@
 	<article>
         <div id="vacancy_info">
 		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
-		<div>
+		<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
+			<p>
+				{% if vacancy.stillWanted == 0 %}
+					Deze vacature is reeds ingevuld.  Momenteel worden er geen vrijwilligers meer gezocht voor dit profiel.
+				{% elseif vacancy.stillWanted == 1 %}
+					{{ vacancy.stillWanted }} kandidaat gezocht.
+				{% else %}
+					{{ vacancy.stillWanted }} kandidaten gezocht
+				{% endif %}
+			</p>
             <p>Ons aanbod</p>
 			<p id="vacancy_description">{{ vacancy.description }}</p>
 		</div>
@@ -84,7 +93,7 @@
 		</aside>
 
 		<footer>{% block vacature_cta %}
-			<ul>  
+			<ul>
 				{% if app.user in vacancy.likers %}
 					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
 				{% else %}

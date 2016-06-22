@@ -35,6 +35,7 @@ vacancy:
         estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
         location: Op welke locatie zal de vrijwilliger werken?
         longterm: Betreft de vacature een langdurig engagement?
+        wanted: Hoeveel vrijwilligers zoekt u voor deze vacature?
     choices:
         independent: Ja
         dependent: Nee

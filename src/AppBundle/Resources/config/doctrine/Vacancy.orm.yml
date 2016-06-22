@@ -42,7 +42,7 @@ AppBundle\Entity\Vacancy:
         socialInteraction:
             type: string
             length: 10
-            options: {default: "normal"}
+            options: { default: "normal" }
         independent:
             type: string
             length: 11
@@ -60,11 +60,14 @@ AppBundle\Entity\Vacancy:
             length: 200
             nullable: true
         published:
-            type: boolean
-            options: {default: true}
+            type: smallint
+            options: { default: 1 }
         wanted:
             type: smallint
-            options: {default: 1}
+            options: { default: 1 }
+        stillWanted:
+            type: smallint
+            options: { default: 1 }
         urlid:
             type: string
             length: 100

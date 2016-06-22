@@ -1,4 +1,4 @@
-    {% if viewMode == 'list' %}
+{% if viewMode == 'list' %}
 <ul>
 	{% for vacancy in vacancies %}
 		<li><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title}} </a></li>
