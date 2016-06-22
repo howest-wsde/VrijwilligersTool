@@ -5,7 +5,9 @@
 	{% endfor %}
 </ul>
 {% elseif viewMode == 'tile' %}
-    {% for vacancy in vacancies %}
-        {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy, "count": vacancies|length } %}{% endembed %}
-    {% endfor %}
+	<div class="vacatures">
+	    {% for vacancy in vacancies %}
+	        {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy, "count": vacancies|length } %}{% endembed %}
+	    {% endfor %}
+	</div>
 {% endif %}

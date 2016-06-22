@@ -4,8 +4,10 @@
         <li><a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.name}}</a></li>
     {% endfor %}
 </ul>
-{% elseif viewMode == 'tile' %}
-	{% for organisation in organisations %}
-	    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "count": organisations|length }%}{% endembed %}
-	{% endfor %}
+{% elseif viewMode == 'tile' %} 
+	<div class="organisaties">
+		{% for organisation in organisations %}
+		    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "count": organisations|length }%}{% endembed %}
+		{% endfor %} 
+	</div>
 {% endif %}

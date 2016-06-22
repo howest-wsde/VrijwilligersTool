@@ -63,7 +63,7 @@
 <p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
 <p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
 
-{% if organisation.vacancies %}
+{% if organisation.vacancies %} 
 	<h3>Vacatures</h3>
 	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
 {% endif %}
