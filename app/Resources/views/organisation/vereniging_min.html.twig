@@ -24,7 +24,7 @@
                 {# TODO: bekijken hoe we het aantal medewerkers en vrijwilligers kunnen weergeven #151 #}
             </li>
             <li>
-                {{ render(controller("AppBundle:Vacancy:ListAmountOfVacancies", { "id": organisation.Id })) }}
+                {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
             </li>
         </ul>
         <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}

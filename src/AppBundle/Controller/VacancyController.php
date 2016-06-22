@@ -264,23 +264,4 @@ class VacancyController extends controller
                     "viewMode" => "list",
                 ]);
     }
-
-    public function ListAmountOfVacanciesAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy");
-
-        $query = $vacancy->createQueryBuilder("v")
-            ->where("v.organisation = :id and v.published = :status")
-            ->setParameter('id', $id)
-            ->setParameter('status', Vacancy::OPEN)
-            ->getQuery();
-
-        $vacancies = $query->getResult();
-
-        return $this->render("vacancy/vacatures_aantal.html.twig",
-                [
-                    "aantal" => count($vacancies),
-                ]);
-    }
 }
