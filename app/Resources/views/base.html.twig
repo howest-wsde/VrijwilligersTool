@@ -81,18 +81,18 @@
         {% block footernav %}
             <div id="footernav"><div class="container">
                 <nav class="bottom nav">
-                    <section>
+                    <section class="col-md-3">
                         <header><h1>Recente vacatures</h1></header>
                         {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
                     </section>
-                    <section>
+                    <section class="col-md-3">
                         <header><h1>Recente verenigingen</h1></header>
                         {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
                     </section>
-                    <section>
+                    <section class="col-md-3">
                         {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
                     </section>
-                    <section>
+                    <section class="col-md-3">
                         <header><h1>Vrijwilligersinfo</h1></header>
                         <ul>
                             <li><a href="{{ path("info_wetgeving") }}">Wetgeving</a></li>
@@ -103,7 +103,7 @@
                             <li><a href="{{ path("info_faq") }}">Veelgestelde vragen</a></li>
                         </ul>
                     </section>
-                    <section>
+                    <section class="col-md-3">
                         <header><h1>Tests</h1></header>
                         <ul>
                             <li><a href="{{ path("test_type") }}">Welk type vrijwilliger ben ik? </a></li>
@@ -111,7 +111,7 @@
                             <li><a href="{{ path("test_comp") }}">Computervaardigheidstest</a></li>
                         </ul>
                     </section>
-                    <section>
+                    <section class="col-md-3">
                         <header><h1>Roeselare vrijwilligt</h1></header>
                         <ul>
                             <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>
@@ -120,14 +120,21 @@
                     </section>
                 </nav>
             </div></div>
+ 
 
             <section id="partners"><div class="container">
-                <ul>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                </ul>
+                <div class="col-md-2"><div class="blok">
+                    <a href="http://www.esf-vlaanderen.be/" target="_blank"><span><img src="{{ asset("images/partners/esf.png") }}" alt="logo Howest" /></span></a>
+                </div></div>
+                <div class="col-md-2"><div class="blok">
+                    <a href="http://www.roeselare.be" target="_blank"><span><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Howest" /></span></a>
+                </div></div>
+                <div class="col-md-2"><div class="blok">
+                    <a href="http://www.howest.be" target="_blank"><span><img src="{{ asset("images/partners/howest.png") }}" alt="logo Howest" /></span></a>
+                </div></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-2"></div>
             </div></section>
 
             <footer>
