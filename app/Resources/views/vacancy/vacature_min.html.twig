@@ -8,7 +8,7 @@
     
     <header>
         <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">
-            <h3>{{ vacancy.title}}</h3>
+            <h3>{{ vacancy.title}}<span>({{ vacancy.stillWanted }})</span></h3>
         </a>
     </header>
     {% if (vacancy.organisation) %}

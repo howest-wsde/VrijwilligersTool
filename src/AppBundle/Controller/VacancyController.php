@@ -73,7 +73,7 @@ class VacancyController extends controller
             }
 
             if($form->get('save')->isClicked()){
-                $vacancy->setPublished(false);
+                $vacancy->setPublished(Vacancy::SAVED);
             }
 
             $em->persist($vacancy);
@@ -83,7 +83,10 @@ class VacancyController extends controller
             ["urlid" => $vacancy->getUrlId() ] ));
         }
         return $this->render("vacancy/vacature_nieuw.html.twig",
-            ["form" => $form->createView() ] );
+            [
+                "form" => $form->createView(),
+                "createForm" => true,
+            ]);
     }
 
     /**
@@ -242,14 +245,23 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
-    public function ListOrganisationVacanciesAction($urlid)
+    public function ListOrganisationVacanciesAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($urlid);
+        $vacancy = $em->getRepository("AppBundle:Vacancy");
 
-        return $this->render("vacancy/vacatures_min.html.twig",
-                ["vacancies" => $organisation->getVacancies()]);
+        $query = $vacancy->createQueryBuilder("v")
+            ->where("v.organisation = :id and v.published = :status")
+            ->setParameter('id', $id)
+            ->setParameter('status', Vacancy::OPEN)
+            ->getQuery();
 
+        $vacancies = $query->getResult();
+
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+                [
+                    "vacancies" => $vacancies,
+                    "viewMode" => "list",
+                ]);
     }
 }

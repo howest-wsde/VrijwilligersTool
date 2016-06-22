@@ -38,6 +38,20 @@ class Organisation extends EntityBase
 
     /**
      * @var string
+     * @Assert\Length(
+     *      max = 3,
+     *      maxMessage = "organisation.max_message"
+     * )
+     */
+    private $type;
+
+    /**
+     * @var bool
+     */
+    private $intermediary = false;
+
+    /**
+     * @var string
      * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 20,
@@ -215,12 +229,28 @@ class Organisation extends EntityBase
     private $telephone;
 
     /**
+     * @var string
+     * @Assert\Url(
+     *    message = "organisation.url.valid",
+     *    protocols = {"http", "https"},
+     *    checkDNS = true,
+     *    dnsMessage = "organisation.url.valid"
+     * )
+     */
+    private $website;
+
+    /**
      * Function to validate a phonenumber using the mid-service phone number bundle.
      * @param  ExecutionContextInterface    $context the context
      * @param  Organisation                 $org     an organisation
      */
     public static function validatePhoneNumber($org, ExecutionContextInterface $context){
         $tel = $org->getTelephone();
+
+        if(!$tel){
+            return true;
+        }
+
         $phoneUtil = phoneUtil::getInstance();
         $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
         $matchesPattern = preg_match($pattern, $tel);
@@ -271,6 +301,53 @@ class Organisation extends EntityBase
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set intermediary
+     *
+     * @param bool $intermediary
+     *
+     * @return Organisation
+     */
+    public function setIntermediary($intermediary)
+    {
+        $this->intermediary = $intermediary;
+
+        return $this;
+    }
+
+    /**
+     * Get intermediary
+     *
+     * @return bool
+     */
+    public function getIntermediary()
+    {
+        return $this->intermediary;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Organisation
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -589,6 +666,29 @@ class Organisation extends EntityBase
     public function getTelephone()
     {
         return $this->telephone;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return Organisation
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 
     /**

@@ -3,44 +3,27 @@
 {% block title %}Vereniging{% endblock %}
 
 {% block body %}
-	<h1> {{ organisation.name }}</h1>
-	<br />
-	omschrijving: {{ organisation.description }}
+<h1>{{ organisation.name }}</h1>
+<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
+{% if app.user in organisation.likers %}
+	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
+{% else %}
+	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
+{% endif %}
+{% if organisation.logoName %}
+	{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+	<img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+{% endif %}
+<p>{{ organisation.description }}</p>
 
-	<p>locatie:
-		<span id="location">
-			<br>
-			{{ organisation.street }}
-			{{ organisation.number }}
-			<br>
-			{% if organisation.bus is not null and organisation.bus is not empty %}
-				bus {{ organisation.bus }}
-			{% endif %}
-			{{ organisation.postalcode }}
-			{{ organisation.city }}
-		</span>
+{#{% if organisation.sectoren %}
+	<p><label>Sectoren:</label>TODO: render sectoren hier</p>
+{% endif %} #}
 
-	<ul>
-		{% if app.user in organisation.likers %}
-			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a></li>
-		{% else %}
-			<li><a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a></li>
-		{% endif %} 
-		{% if app.user in organisation.administrators %}
-			{# <li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li> #}
-			<li>Beheerders: 
-				<ul>
-					{% for administrator in organisation.administrators %}
-						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">X</a></li>
-					{% endfor %}
-					<li>Nieuwe beheerder: 
-						{% include "person/usersearch.html.twig" with {'path': path('organisation_add_admin', { 'organisation_urlid' : organisation.urlid}) } %}
-					</li>
-				</ul>
-			</li>
-		{% endif %}
-	</ul>
-
+{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+	<p>
+		{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
+	</p>
 	<aside id="#googlemaps">
 		<div>
 			<button id="getRoute">Toon routebeschrijving</button>
@@ -72,9 +55,39 @@
 			 id="map-canvas" style="width: 350px; height: 350px;">
 		</div>
 	</aside>
+{% else %}
+	<p>Voor deze organisatie is geen adres bekend.</p>
+{% endif %}
+<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
+<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
 
-	<h2>Vacatures</h2>
-	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "urlid": organisation.urlId } )) }}
+{% if organisation.vacancies %}
+	<h3>Vacatures</h3>
+	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
+{% endif %}
+
+
+{% if app.user in organisation.administrators %}
+	<aside>
+		<h3>Links voor beheer</h3>
+		<ul>
+			<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li>
+			<li>
+				<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">Vacature aanmaken</a>
+			</li>
+			<li>Beheerders:
+				<ul>
+					{% for administrator in organisation.administrators %}
+						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">X</a></li>
+					{% endfor %}
+					{# <li>Nieuwe beheerder:
+						{% include "person/usersearch.html.twig" with {'path': path('organisation_add_admin', { 'organisation_urlid' : organisation.urlid}) } %}
+					</li> #}
+				</ul>
+			</li>
+		</ul>
+	</aside>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

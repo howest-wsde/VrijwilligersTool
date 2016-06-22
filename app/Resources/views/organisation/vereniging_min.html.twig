@@ -28,8 +28,7 @@
                 x medewerkers en y vrijwilligers (issue #151)
             </li>
             <li>
-                {# TODO: maken dat een vacature beperkt aantal vrijwilligers heeft en dus afgesloten wordt eens dat aantal ingevuld is #152 #}
-                x openstaande vacatures (issue #152)
+                {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
             </li>
         </ul>
         <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a> 

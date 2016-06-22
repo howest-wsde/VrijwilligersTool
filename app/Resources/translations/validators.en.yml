@@ -34,6 +34,7 @@ vacancy:
         estimatedWorkInHours: 'Estimated number of working hours (if longterm: weekly)'
         location: Where will the volunteer be working?
         longterm: Is this a longterm commitment?
+        wanted: How many volunteers are you looking for?
     choices:
         independent: Yes
         dependent: No

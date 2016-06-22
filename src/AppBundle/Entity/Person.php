@@ -18,8 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields = "username", message = "person.username.already_used")
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
- * 
- * @Vich\Uploadable 
+ *
+ * @Vich\Uploadable
  *
  * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"}, groups = {"firstStep"})
  */
@@ -59,7 +59,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      min = 2,
      *      max = 150,
@@ -194,14 +193,14 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *
      * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
-     * 
+     *
      * @var File
      */
     protected $avatarFile;
 
-    /** 
+    /**
      *
      * @var string
      */
@@ -811,8 +810,8 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setAvatarFile(File $image = null)
     {
         $this->avatarFile = $image;
-        if ($image) {  
-            $this->setAvatarName($this->getAvatarName());  
+        if ($image) {
+            $this->setAvatarName($this->getAvatarName());
         }
 
         return $this;
