@@ -5,9 +5,7 @@
     {% endfor %}
 </ul>
 {% elseif viewMode == 'tile' %}
-<ul>
-    {% for organisation in organisations %}
-        {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation}%}{% endembed %}
-    {% endfor %}
-</ul>
+	{% for organisation in organisations %}
+	    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation}%}{% endembed %}
+	{% endfor %}
 {% endif %}

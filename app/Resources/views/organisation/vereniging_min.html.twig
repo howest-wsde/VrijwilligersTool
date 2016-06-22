@@ -1,32 +1,36 @@
-<li>
-    <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
+
+<div class="col-md-4"><article class="vereniging blok cta"> 
+    {% if app.user in organisation.likers %}
+        <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+    {% else %}
+        <a class="fav notliked"  href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+    {% endif %}  
+    
         <header>
-            <h3>{{ organisation.name}}</h3>
-            <img src="http://dummyimage.com/50x50/000/fff" text="voeg de organisatie toe aan je favorieten" alt="voeg de organisatie toe aan je favorieten">
-        </header>
-        {% if organisation.logoName %}
-            {% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
-            <img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
-        {% endif %}
-        {% if organisation.slogan %}<p>{{ organisation.slogan }}</p>{% endif %}
+            <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+                <h3>{{ organisation.name}}</h3>  
+            </a>
+        </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
+        <img src="{{ asset("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo"> 
+        <p>{{ organisation.description|truncate(200, true) }}</p>
         <ul>
-            {% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-                <li>
-                    {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
-                    <a href="#">
-                        {{ organisation.street }} {{ organisation.number }}
-                        {% if organisation.bus %} / {{ organisation.bus }}{% endif %}
-                         - {{ organisation.postalCode }} {{ organisation.city }}
-                    </a> (issue #150)
-                </li>
-            {% endif %}
+            <li>
+                {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
+                <a href="#">
+                    {{ organisation.street }} {{ organisation.number }}
+                    {% if organisation.bus %} / {{ organisation.bus }}{% endif %}
+                     - {{ organisation.postalCode }} {{ organisation.city }}
+                </a> (issue #150)
+            </li>
             <li>
                 {# TODO: bekijken hoe we het aantal medewerkers en vrijwilligers kunnen weergeven #151 #}
+                x medewerkers en y vrijwilligers (issue #151)
             </li>
             <li>
                 {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
             </li>
         </ul>
-        <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a> 
     </a>
-</li>
+</article></div>
