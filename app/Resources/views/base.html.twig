@@ -138,16 +138,37 @@
             </div></section>
 
             <footer>
-                <div class="container">
-                    <address>{# TODO: Waarom staan hier span's onder? #}
-                        <span>Zuidstraat 17</span>
-                        <span>8800 Roeselare</span>
-                        <a href="{{ path("info_contact") }}">Contact</a></li>
-                        <span>051 26 24 00</span>
-                    </address>
-                    <div class="legal nav">
-                        <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
-                        <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span>
+                <div id="contactdata">
+                    <div class="container">
+                        <address class="col-md-3"> 
+                            <h2>Roeselare Vrijwilligt</h2>
+                            <p>Zuidstraat 17, 8800 Roeselare</p>
+                            <dl>
+                                <dt>telefoon: </dt>
+                                <dd>051 26 24 00</dd>
+                                <dt>e-mail:</dt>
+                                <dd><a href="{{ path("info_contact") }}">Contact</a></dd>
+                            </dl> 
+                        </address>
+                        <div class="col-md-9">
+                            <h3>Over ons</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis mollitia, consectetur iusto assumenda quod amet delectus at eaque unde! Provident possimus esse nobis, cumque asperiores libero maiores quia? Ducimus, nam.</p>
+                        </div>
+                    </div> 
+                </div>
+                <div id="legalfooter">
+                    <div class="container">  
+                        <div class="col-md-6">
+                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span> - 
+                            <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span> 
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li>Bezoek onze Facebook-pagina</li>
+                                <li>Bezoek ons op Google+</li>
+                                <li>Volg ons op Twitter</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </footer>

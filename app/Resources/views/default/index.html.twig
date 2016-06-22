@@ -16,24 +16,20 @@
             {% embed "default/infoblokken.html.twig" %}{% endembed %}
         </div> 
     </div>
+ 
+    <section id="verenigingenindekijker" data-role="Promoted organisations block" class="part">
+        <div class="container">
+            <h2>Organisaties in de kijker</h2> 
+            {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
+        </div>
+    </section>  
 
-    <div class="part">
-        <section id="verenigingenindekijker" data-role="Promoted organisations block">
-            <div class="container">
-                <h2>Organisaties in de kijker</h2> 
-                {{ render(controller("AppBundle:Organisation:ListRecentOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
-            </div>
-        </section> 
-    </div>
-
-    <div class="part">
-        <section id="vacaturesindekijker" data-role="Recent vacancies block" class="part">
-            <div class="container">
-                <h2>Vacatures in de kijker</h2>
-                {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 4, "viewMode": "tile"} )) }}
-            </div>
-        </section>
-    </div>
+    <section id="vacaturesindekijker" data-role="Recent vacancies block" class="part">
+        <div class="container">
+            <h2>Vacatures in de kijker</h2>
+            {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 4, "viewMode": "tile"} )) }}
+        </div>
+    </section> 
 
     <section data-role="newsletter" class="part">
         <div class="container">

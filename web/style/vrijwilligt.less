@@ -78,6 +78,7 @@ body>header {
 
 }
 
+
 #infoblokken { /* 4 INFOBLOKKEN OP HOMEPAGE */
 	  
 	h3 {
@@ -121,9 +122,6 @@ body>header {
 	}
 }
 
-#footernav {  /* NAVIGATIE ONDERAAN */
-
-}
 
 #partners {
 	.blok {
@@ -132,8 +130,31 @@ body>header {
 	}
 }
 
+#footernav {  /* NAVIGATIE ONDERAAN */
+
+}
+
+
 body>footer {
 	background: @cHeader; color: white; 
+	a, a:hover {color: white; text-decoration: none; }
+
+	#contactdata {
+		padding-top: 20px; 
+		h2 {color: #497e79; font-size: 20px; }
+		h3 {color: white; font-style: italic;  } 
+		h2, h3 {height: 50px; text-transform: none; }
+		dl {
+			display: flex; flex-flow: row wrap; justify-content: space-between; 
+			dt {flex: 0 1 35%; }
+			dd {flex: 1 0 65%; }
+		}
+	}
+
+	#legalfooter {
+		padding: 20px 0; 
+		background: @cCarousel; 
+	}
 }
   
 
