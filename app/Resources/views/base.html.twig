@@ -48,13 +48,13 @@
                             <li><a href="{{ path("tests") }}">Tests</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path("info_over_ons") }}">(?)</a></li>
-                <li><a href="{{ path("info_contact") }}">(C)</a></li>
+                <li><a href="{{ path("info_over_ons") }}">(overons)</a></li>
+                <li><a href="{{ path("info_contact") }}">(contact)</a></li>
                 {% if app.user %}
-                    <li><a href="{{ path("profile_edit") }}">(M)</a></li>
-                    <li><a href="{{ path("logout") }}">(L)</a></li>
+                    <li><a href="{{ path("profile_edit") }}">(mijn profiel)</a></li>
+                    <li><a href="{{ path("logout") }}">(logout)</a></li>
                 {% else %}
-                    <li><a href="{{ path("login") }}">(L)</a></li> 
+                    <li><a href="{{ path("login") }}">(login)</a></li> 
                 {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
