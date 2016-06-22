@@ -3,18 +3,20 @@
 {% block title %}Vereniging{% endblock %}
 
 {% block body %}
-<h1>{{ organisation.name }}</h1>
-<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
-{% if app.user in organisation.likers %}
-	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
-{% else %}
-	<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
-{% endif %}
-{% if organisation.logoName %}
-	{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
-	<img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
-{% endif %}
-<p>{{ organisation.description }}</p>
+	<article class="vereniging">
+		<h1>{{ organisation.name }}</h1>
+		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
+		{% if app.user in organisation.likers %}
+			<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
+		{% else %}
+			<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
+		{% endif %}
+		{% if organisation.logoName %}
+			{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+			<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+		{% endif %}
+		<p>{{ organisation.description }}</p>
+	</article>
 
 {#{% if organisation.sectoren %}
 	<p><label>Sectoren:</label>TODO: render sectoren hier</p>

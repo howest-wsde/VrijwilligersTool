@@ -6,6 +6,6 @@
 </ul>
 {% elseif viewMode == 'tile' %}
 	{% for organisation in organisations %}
-	    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation}%}{% endembed %}
+	    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "count": organisations|length }%}{% endembed %}
 	{% endfor %}
 {% endif %}

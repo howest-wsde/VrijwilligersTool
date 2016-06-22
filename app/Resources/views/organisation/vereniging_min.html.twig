@@ -1,6 +1,11 @@
-{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
-
-<div class="col-md-4"><article class="vereniging blok cta"> 
+{% if count == 1 or count == 2 %}
+    {% set widthClass %}col-md-6{% endset %} 
+{% elseif count == 3 %}
+    {% set widthClass %}col-md-4{% endset %} 
+{% else %} 
+    {% set widthClass %}col-md-3{% endset %}
+{% endif %}
+<div class="{{widthClass}}"><article class="vereniging blok cta"> 
     {% if app.user in organisation.likers %}
         <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
     {% else %}

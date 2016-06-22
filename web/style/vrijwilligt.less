@@ -107,20 +107,18 @@ body>header {
 	}
 }
  
-
-#verenigingenindekijker, #vacaturesindekijker { /* HOMEPAGE: VERENIGINGEN EN VACATURES IN DE KIJKER */
+ 
+article.vacature, article.vereniging {
 	text-align: center;  
-	article {
-		position: relative;  
-		a.fav {
-			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block; 
-			position: absolute;  right: 20px; top: -2px; 
-			span {display: none; }
-		}
-		a.fav.liked {background-position: center bottom; }
-		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
+	position: relative;  
+	a.fav {
+		background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block; 
+		position: absolute;  right: 20px; top: -2px; 
+		span {display: none; }
 	}
-}
+	a.fav.liked {background-position: center bottom; }
+	img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
+} 
 
 
 #partners {
