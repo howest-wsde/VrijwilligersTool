@@ -10,20 +10,18 @@
                 <h3>{{ organisation.name}}</h3>
             </a>
         </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
-        <img src="{{ asset("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+        <img src="{{ asset
+        ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
         <p>{{ organisation.description|truncate(200, true) }}</p>
         <ul>
+            {% if organisation.street %}
+                <li>
+                    <a href="https://www.google.be/maps/place/{{ organisation.street }}+{{ organisation.number }}+{{ organisation.postalCode }}+{{ organisation.city }}" target="_blank">{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %} - {{ organisation.postalCode }} {{ organisation.city }}
+                    </a>
+                </li>
+            {% endif %}
             <li>
-                {# TODO: render icon linking to location (think about how we want that to happen), inserted a tag already, nothing else yet => issue #150 #}
-                <a href="#">
-                    {{ organisation.street }} {{ organisation.number }}
-                    {% if organisation.bus %} / {{ organisation.bus }}{% endif %}
-                     - {{ organisation.postalCode }} {{ organisation.city }}
-                </a> (issue #150)
-            </li>
-            <li>
-                {# TODO: bekijken hoe we het aantal medewerkers en vrijwilligers kunnen weergeven #151 #}
-                x medewerkers en y vrijwilligers (issue #151)
+                {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
             </li>
             <li>
                 {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
