@@ -10,6 +10,7 @@
 @cBlauwBorder: #2eb1d3;
 @cGeel: #dec531;
 @cGeelBorder: #d6b729;
+@cGrijs: #303030; 
 
 @iContainerWidth: 1170px;
 @iMargin: 15px;
@@ -203,7 +204,7 @@ form {
 }
 
 
-#partners {
+#partners { 
 	h3 {
 		font-size: 18px; text-transform: none; flex: 0 0 100%;
 		margin: @iMargin @iMargin 0; border-top: 1px dotted gray; padding-top: 10px;
@@ -215,7 +216,17 @@ form {
 }
 
 #footernav {  /* NAVIGATIE ONDERAAN */
-
+	padding: @iPadding; 
+	h1 {color: @cGrijs; font-size: 20px; margin-bottom: @iMargin; }
+	ul {
+		padding: 0;  
+		li {
+			list-style-type: none; 
+			background: url("../images/bulletarrow.png") no-repeat left 5px; 
+			padding-left: 17px; 
+			a {color: @cGrijs; }
+		}
+	}
 }
 
 
