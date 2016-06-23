@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <li>
     <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
         <header>
@@ -9,6 +10,24 @@
             <img src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
         {% endif %}
         {% if organisation.slogan %}<p>{{ organisation.slogan }}</p>{% endif %}
+=======
+{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
+
+<div class="col-md-4"><article class="vereniging blok cta"> 
+    {% if app.user in organisation.likers %}
+        <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+    {% else %}
+        <a class="fav notliked"  href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+    {% endif %}  
+    
+        <header>
+            <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+                <h3>{{ organisation.name}}</h3>  
+            </a>
+        </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
+        <img src="{{ asset("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo"> 
+        <p>{{ organisation.description|truncate(200, true) }}</p>
+>>>>>>> layout
         <ul>
             {% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
                 <li>
@@ -27,6 +46,6 @@
                 {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
             </li>
         </ul>
-        <button>Contacteer</button>{# TODO: enable behaviour, button? #153 #}
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a> 
     </a>
-</li>
+</article></div>

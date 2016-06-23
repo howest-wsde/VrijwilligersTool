@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <li>
     <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">
         <header>
@@ -15,4 +16,29 @@
         <button>Stel je kandidaat!</button>{# TODO: enable behaviour, button? #}
     </a>
 </li>
+=======
+<div class="col-md-3"><article class="article blok cta"> 
+    {% if app.user in vacancy.likers %}
+        <a class="fav liked" href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+    {% else %}
+        <a class="fav notliked"  href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+    {% endif %}  
+
+    
+    <header>
+        <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">
+            <h3>{{ vacancy.title}}<span>({{ vacancy.stillWanted }})</span></h3>
+        </a>
+    </header>
+    {% if (vacancy.organisation) %}
+        <img src="{{ asset("images/organisations/" ~ vacancy.organisation.logoName) }}" text="logo {{ vacancy.organisation.name }}" alt="logo {{ vacancy.organisation.name }}" class="logo"> 
+    {% endif %}
+    <p>{{ vacancy.description|truncate(200, true) }}</p>
+    <ul>
+        {# TODO: alter dbase to remember and add icons here #}
+    </ul>
+
+    <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}" class="cta">lees meer</a> 
+</article></div>
+>>>>>>> layout
 
