@@ -13,12 +13,19 @@ class OrganisationController extends controller
 {
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vereniging/nieuw" , name="create_organisation")
+     * @Route("/vereniging/nieuw" , name="create_organisation", defaults={"urlid" = false})
+     * @Route("/vereniging/nieuw/{urlid}" , name="create_organisation_step2")
      */
-    public function createOrganisationAction(Request $request)
+    public function createOrganisationAction($urlid, Request $request)
     {
         $user = $this->getUser();
-        $organisation = (new Organisation())->setCreator($user);
+        if ($urlid){ 
+            $em = $this->getDoctrine()->getManager();
+            $organisation = $em->getRepository("AppBundle:Organisation")
+                ->findOneByUrlid($urlid);
+        } else {
+            $organisation = (new Organisation())->setCreator($user); 
+        }
 
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
@@ -26,23 +33,18 @@ class OrganisationController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
 
+            $user->removeOrganisation($organisation); // verwijderen om geen dubbel key te hebben op volgende lijn
             $user->addOrganisation($organisation);
             $em->persist($user);
 
             $em->flush();
-            // return $this->redirect($this->generateUrl("create_vacancy_for_organisation", ['organisation_urlid' => $organisation->getUrlId() ]));
-            return $this->render("organisation\maakvereniging.html.twig",
-            [
-                "form" => $form->createView(),
-                "org_urlid" => $organisation->getUrlId(),
-                "createForm" => true,
-            ]);
+            
+            return $this->redirect($this->generateUrl("create_organisation_step2", ['urlid' => $organisation->getUrlId() ])); 
         }
         return $this->render("organisation\maakvereniging.html.twig",
             [
                 "form" => $form->createView(),
-                "org_urlid" => false,
-                "createForm" => true,
+                "organisation" => ($urlid?$organisation:FALSE), // == ORGANISATION or === FALSE
             ]);
     }
 
@@ -84,8 +86,7 @@ class OrganisationController extends controller
         }
         return $this->render("organisation/vereniging_aanpassen.html.twig",
             [
-                "form" => $form->createView(),
-                "createForm" => false,
+                "form" => $form->createView(), 
                 "organisation" => $organisation,
             ]);
     }
