@@ -1,38 +1,46 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
-    <fieldset>
-        <h3>Organisatiegegevens</h3>
-        {{ form_row(form.name) }}
-        {{ form_row(form.slogan) }}
-        {{ form_row(form.logoFile) }}
-        {{ form_row(form.type) }}
-        {{ form_row(form.intermediary) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.submit) }}
-    </fieldset>
-    <fieldset>
-    {% if createForm %}
-        <p>
-            Uw organisatie werd succesvol aangemaakt!<br />
-            Vul nu hieronder extra informatie in, of <a href="#spelregels">ga onmiddelijk naar de volgende stap.</a>
-        </p>
-    {% endif %}
-        <h3>Contactgegevens</h3>
-        {{ form_row(form.street) }}
-        {{ form_row(form.number) }}
-        {{ form_row(form.bus) }}
-        {{ form_row(form.postalCode) }}
-        {{ form_row(form.city) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.website) }}
-        {{ form_row(form.backToRegistration) }}
-        {{ form_row(form.submit2) }}
-    </fieldset>
-    <fieldset>
-        <h3>Sectorale info</h3>
-        {#{ form_row(form.fieldOfActivity) }#}
-        {#{ form_row(form.backToContact) }#}
-        {#{ form_row(form.submitEnd) }#}
-    </fieldset>
+    <div class="step {% if organisation==false %}actief{% endif %}">
+        <h2 class="steptitle">Algemene gegevens</h2>
+        <fieldset>
+            <legend>Organisatiegegevens</legend> 
+            {{ form_row(form.name) }}
+            {{ form_row(form.slogan) }}
+            {{ form_row(form.logoFile) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.intermediary) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.submit) }}
+        </fieldset>
+    </div>
+    <div class="step {% if organisation %}actief{% endif %}">
+        <h2 class="steptitle">Contactgegevens</h2>
+        <fieldset> 
+            {% if organisation %}
+                <p>
+                    Uw organisatie werd succesvol aangemaakt!<br />
+                    Vul nu hieronder extra informatie in, of <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>.
+                </p>
+            {% endif %} 
+            {{ form_row(form.street) }}
+            {{ form_row(form.number) }}
+            {{ form_row(form.bus) }}
+            {{ form_row(form.postalCode) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.telephone) }}
+            {{ form_row(form.website) }}
+            <!-- {{ form_row(form.backToRegistration) }} -->
+            {{ form_row(form.submit2) }}
+        </fieldset>
+    </div>
+    <div class="step">
+        <h2 class="steptitle">Sectorale info</h2>
+        <fieldset>
+            <p>komt er later bij</p>
+            {#{ form_row(form.fieldOfActivity) }#}
+            {#{ form_row(form.backToContact) }#}
+            {#{ form_row(form.submitEnd) }#}
+        </fieldset>
+    </div>
 {{ form_end(form) }}

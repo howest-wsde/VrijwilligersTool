@@ -3,28 +3,31 @@
 {% block title %}Vrijwilliger vinden{% endblock %}
 
 {% block body %}
-<header>
-	<h1>Vrijwilliger vinden</h1>
-	<p>Op zoek naar vrijwilligers?</p>
-	<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
-</header>
-<section id="maakVereniging">
-    <h2>Maak een profiel aan voor uw vereniging</h2>
-    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'createForm': createForm } %}{% endembed %}
+    <header>
+    	<h1>Vrijwilliger vinden</h1>
+    	<p>Op zoek naar vrijwilligers?</p>
+    	<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
+    </header>
+    <section id="maakVereniging" class="steps">
+        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation } %}{% endembed %}
 
-    {# TODO: checken waarvoor het onderstaande dient: lijkt overbodig nu dat er verschillende delen zijn? #}
-    {% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="success-notice">
-            <script type="text/javascript">alert("{{ flash_message }}");</script>
-        </div>
-    {% endfor %}
-</section>
-<section id="spelregels">
-    <h2>Bekijk de spelregels</h2>
-    {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
-    {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
-    {% if org_urlid %}
-        <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': org_urlid }) }}">Plaats een vacature</a>
-    {% endif %}
-</section>
+        <div class="step">
+            <h2 class="steptitle" >Bekijk de spelregels</h2>
+            {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
+            {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
+        </div> 
+        {% if organisation %}
+            <div class="step">
+                <a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}"><h2>Plaats een vacature</h2></a>
+
+                <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>
+            </div>
+        {% endif %} 
+    </section>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} 
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+
