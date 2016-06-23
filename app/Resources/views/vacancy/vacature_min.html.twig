@@ -1,11 +1,10 @@
-<div class="col-md-3"><article class="article blok cta"> 
+<article class="vacature cta"> 
     {% if app.user in vacancy.likers %}
         <a class="fav liked" href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
     {% else %}
         <a class="fav notliked"  href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
     {% endif %}  
-
-    
+ 
     <header>
         <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">
             <h3>{{ vacancy.title}}<span>({{ vacancy.stillWanted }})</span></h3>
@@ -19,6 +18,7 @@
         {# TODO: alter dbase to remember and add icons here #}
     </ul>
 
-    <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}" class="cta">lees meer</a> 
-</article></div>
+    <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}" class="cta">lees meer</a>
+</article>
+
 

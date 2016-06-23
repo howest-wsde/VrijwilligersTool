@@ -1,6 +1,4 @@
-{% set altAndTitle %}{{ organisation.name }}  - {{ organisation.slogan  }} {% endset %}
-
-<div class="col-md-4"><article class="vereniging blok cta"> 
+<article class="vereniging cta"> 
     {% if app.user in organisation.likers %}
         <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
     {% else %}
@@ -33,4 +31,4 @@
         </ul>
         <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a> 
     </a>
-</article></div>
+</article>

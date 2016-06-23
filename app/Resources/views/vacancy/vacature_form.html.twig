@@ -1,14 +1,17 @@
 {{ form_start(form) }}
-    {{ form_errors(form) }}
-
-    {{ form_row(form.title) }}
-    {{ form_row(form.summary) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.wanted) }}
-    {{ form_row(form.enddate) }}
-    {{ form_row(form.longterm) }}
-    {{ form_row(form.estimatedWorkInHours) }}
+    {{ form_errors(form) }} 
     <fieldset>
+        <legend>algemeen</legend>
+        {{ form_row(form.title) }}
+        {{ form_row(form.summary) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.wanted) }}
+        {{ form_row(form.enddate) }}
+        {{ form_row(form.longterm) }}
+        {{ form_row(form.estimatedWorkInHours) }}
+    </fieldset>
+    <fieldset>
+        <legend>locatie</legend>
         <p>Waar zal de vrijwilliger werken?</p>
         {{ form_row(form.street) }}
         {{ form_row(form.number) }}
@@ -16,11 +19,17 @@
         {{ form_row(form.postalCode) }}
         {{ form_row(form.city) }}
     </fieldset>
-    {{ form_row(form.socialInteraction) }}
-    {{ form_row(form.independent) }}
-    {{ form_row(form.skills) }}
+    <fieldset class="bullets">
+        <legend>Info</legend>
+       {{ form_row(form.socialInteraction) }}
+        {{ form_row(form.independent) }}
+    </fieldset> 
+    <fieldset class="bullets">
+        <legend>Vaardigheden</legend>
+        {{ form_row(form.skills) }}
+    </fieldset>
     <fieldset>
-        <p>Voordelen voor de vrijwilliger</p>
+        <legend>Voordelen voor de vrijwilliger</legend>
         {{ form_row(form.renumeration) }}
         {{ form_row(form.otherReward) }}
     </fieldset>
