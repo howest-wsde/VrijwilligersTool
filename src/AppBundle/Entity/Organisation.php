@@ -38,9 +38,10 @@ class Organisation extends EntityBase
 
     /**
      * @var string
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      max = 3,
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message", groups = {"firstStep"}
      * )
      */
     private $type;

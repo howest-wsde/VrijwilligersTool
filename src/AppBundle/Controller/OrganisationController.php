@@ -35,12 +35,14 @@ class OrganisationController extends controller
             [
                 "form" => $form->createView(),
                 "org_urlid" => $organisation->getUrlId(),
+                "createForm" => true,
             ]);
         }
         return $this->render("organisation\maakvereniging.html.twig",
             [
                 "form" => $form->createView(),
                 "org_urlid" => false,
+                "createForm" => true,
             ]);
     }
 
