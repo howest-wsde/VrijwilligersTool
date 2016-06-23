@@ -3,7 +3,7 @@
 {% block title %}Vereniging{% endblock %}
 
 {% block body %}
-	<article class="vereniging">
+	<article class="tempblok">
 		<h1>{{ organisation.name }}</h1>
 		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
 		{% if app.user in organisation.likers %}
@@ -16,53 +16,53 @@
 			<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
 		{% endif %}
 		<p>{{ organisation.description }}</p>
-	</article>
 
-{#{% if organisation.sectoren %}
-	<p><label>Sectoren:</label>TODO: render sectoren hier</p>
-{% endif %} #}
+		{#{% if organisation.sectoren %}
+			<p><label>Sectoren:</label>TODO: render sectoren hier</p>
+		{% endif %} #}
 
-{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-	<p>
-		{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
-	</p>
-	<aside id="#googlemaps">
-		<div>
-			<button id="getRoute">Toon routebeschrijving</button>
-			<div id="description" class="hidden"></div>
-			<p>selecteer uw gewenste transportwijze</p>
-			<div onchange="googleMapsModule.drawRoute()">
-				<select id="transitMethod">
-					<option value="DRIVING">Auto</option>
-					<option value="BICYCLING">Fiets</option>
-					<option value="WALKING">Te voet</option>
-					<option value="TRANSIT">Openbaar vervoer</option>
-				</select>
-				<select id="transitMode" class="hidden">
-					<option value="BUS">Per bus</option>
-					<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
-					<option value="SUBWAY">Per metro</option>
-					<option value="TRAM">Per tram</option>
-				</select>
-			</div>
-		</div>
-		<div data-useraddress="
-		{% if app.user %}
-			{{ app.user.street }}
-			{{ app.user.number }}
-			{{ app.user.postalcode }}
-			{{ app.user.city }}
+		{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+			<p>
+				{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
+			</p>
+			<aside id="#googlemaps">
+				<div>
+					<button id="getRoute">Toon routebeschrijving</button>
+					<div id="description" class="hidden"></div>
+					<p>selecteer uw gewenste transportwijze</p>
+					<div onchange="googleMapsModule.drawRoute()">
+						<select id="transitMethod">
+							<option value="DRIVING">Auto</option>
+							<option value="BICYCLING">Fiets</option>
+							<option value="WALKING">Te voet</option>
+							<option value="TRANSIT">Openbaar vervoer</option>
+						</select>
+						<select id="transitMode" class="hidden">
+							<option value="BUS">Per bus</option>
+							<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
+							<option value="SUBWAY">Per metro</option>
+							<option value="TRAM">Per tram</option>
+						</select>
+					</div>
+				</div>
+				<div data-useraddress="
+				{% if app.user %}
+					{{ app.user.street }}
+					{{ app.user.number }}
+					{{ app.user.postalcode }}
+					{{ app.user.city }}
+				{% else %}
+				{% endif %}"
+					 id="map-canvas" style="width: 350px; height: 350px;">
+				</div>
+			</aside>
 		{% else %}
-		{% endif %}"
-			 id="map-canvas" style="width: 350px; height: 350px;">
-		</div>
-	</aside>
-{% else %}
-	<p>Voor deze organisatie is geen adres bekend.</p>
-{% endif %}
-<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
-<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
+			<p>Voor deze organisatie is geen adres bekend.</p>
+		{% endif %}
+		<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
+		<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
 
+	</article>
 {% if organisation.vacancies %} 
 	<h3>Vacatures</h3>
 	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
