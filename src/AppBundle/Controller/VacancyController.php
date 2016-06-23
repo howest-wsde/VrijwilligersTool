@@ -261,7 +261,7 @@ class VacancyController extends controller
         return $this->render("vacancy/vacatures_oplijsten.html.twig",
                 [
                     "vacancies" => $vacancies,
-                    "viewMode" => "list",
+                    "viewMode" => "tile",
                 ]);
     }
 }
