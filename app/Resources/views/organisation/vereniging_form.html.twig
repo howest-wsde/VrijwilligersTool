@@ -17,7 +17,7 @@
     <div class="step {% if organisation %}actief{% endif %}">
         <h2 class="steptitle">Contactgegevens</h2>
         <fieldset> 
-            {% if organisation %}
+            {% if organisation and source=="create_organisation" %}
                 <p>
                     Uw organisatie werd succesvol aangemaakt!<br />
                     Vul nu hieronder extra informatie in, of <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>.

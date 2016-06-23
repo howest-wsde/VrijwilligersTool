@@ -9,7 +9,7 @@
     	<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
     </header>
     <section id="maakVereniging" class="steps">
-        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation } %}{% endembed %}
+        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
 
         <div class="step">
             <h2 class="steptitle" >Bekijk de spelregels</h2>

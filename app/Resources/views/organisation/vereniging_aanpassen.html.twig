@@ -4,5 +4,5 @@
 
 {% block body %}
     <h1>Gegevens {{ organisation.name }} aanpassen</h1>
-    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'createForm': createForm } %}{% endembed %}
+    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "create_organisation" } %}{% endembed %}
 {% endblock %}
