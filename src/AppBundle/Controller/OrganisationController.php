@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrganisationController extends controller
 {
@@ -19,12 +20,12 @@ class OrganisationController extends controller
     public function createOrganisationAction($urlid, Request $request)
     {
         $user = $this->getUser();
-        if ($urlid){ 
+        if ($urlid){
             $em = $this->getDoctrine()->getManager();
             $organisation = $em->getRepository("AppBundle:Organisation")
                 ->findOneByUrlid($urlid);
         } else {
-            $organisation = (new Organisation())->setCreator($user); 
+            $organisation = (new Organisation())->setCreator($user);
         }
 
         $form = $this->createForm(OrganisationType::class, $organisation);
@@ -38,8 +39,8 @@ class OrganisationController extends controller
             $em->persist($user);
 
             $em->flush();
-            
-            return $this->redirect($this->generateUrl("create_organisation_step2", ['urlid' => $organisation->getUrlId() ])); 
+
+            return $this->redirect($this->generateUrl("create_organisation_step2", ['urlid' => $organisation->getUrlId() ]));
         }
         return $this->render("organisation\maakvereniging.html.twig",
             [
@@ -86,7 +87,7 @@ class OrganisationController extends controller
         }
         return $this->render("organisation/vereniging_aanpassen.html.twig",
             [
-                "form" => $form->createView(), 
+                "form" => $form->createView(),
                 "organisation" => $organisation,
             ]);
     }
@@ -174,4 +175,22 @@ class OrganisationController extends controller
         return $this->render('organisation/verenigingen_oplijsten.html.twig',
             ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }
+
+    public function ListOrganisationVolunteersAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation");
+
+        $query = $em->createQuery("select count(c) from AppBundle:Candidacy c
+                 where c.vacancy in (select distinct v.id from AppBundle:Vacancy
+                  v where v.organisation = :id)")
+                 ->setParameter('id', $id);
+
+        $count = $query->getResult()[0][1];
+        $count += sizeof($organisation->findOneById($id)->getAdministrators());
+
+        $count <= 1 ? $response = " medewerker" : $response = " medewerkers en vrijwilligers";
+
+        return new Response($count . $response . " op deze site");
+    }
+
 }

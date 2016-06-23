@@ -1,65 +1,66 @@
 @cMainBG: #f3f3f3;
-@cHeader: #76c7c0; 
-@cCarousel: #6cb9b3; 
+@cHeader: #76c7c0;
+@cCarousel: #6cb9b3;
 
-@cRood: #e8645a; 
-@cRoodBorder: #e2534b; 
-@cGroen: #76c7c0; 
-@cGroenBorder: #62b9b0; 
-@cBlauw: #37c1dc; 
-@cBlauwBorder: #2eb1d3; 
-@cGeel: #dec531; 
-@cGeelBorder: #d6b729; 
+@cRood: #e8645a;
+@cRoodBorder: #e2534b;
+@cGroen: #76c7c0;
+@cGroenBorder: #62b9b0;
+@cBlauw: #37c1dc;
+@cBlauwBorder: #2eb1d3;
+@cGeel: #dec531;
+@cGeelBorder: #d6b729;
+@cGrijs: #303030; 
 
-@iContainerWidth: 1170px; 
-@iMargin: 15px; 
-@iPadding: 15px; 
+@iContainerWidth: 1170px;
+@iMargin: 15px;
+@iPadding: 15px;
 
 /* ---------------------------- FUNCTIES ---------------------------- */
 
 .grijzetitel() {
-	color: #7f8c8c; font-size: 20px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 20px; font-weight: bold; 
+	color: #7f8c8c; font-size: 20px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 20px; font-weight: bold;
 }
 .shaduwblok(@achtergrond, @rand){
-	background: @achtergrond; box-shadow: 0px 4px 0px 0px @rand;  
+	background: @achtergrond; box-shadow: 0px 4px 0px 0px @rand;
 }
 
 /* ---------------------------- START CSS ---------------------------- */
 
 /* main header / menu */
-body>header { 
+body>header {
 	background-color: @cHeader; overflow: auto;
 	.navbar-default {
 	    background-color: transparent;
-	    border: 0px; 
+	    border: 0px;
 	}
 	a.logo {
-		background: url("../images/logo_roeselarevrijwilligt.png") no-repeat center center; 
-		width: 224px; height: 104px; display: inline-block; float: left; margin: 0; 
+		background: url("../images/logo_roeselarevrijwilligt.png") no-repeat center center;
+		width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
 		h1 {display: none; }
-	} 
+	}
 
 	.menu_primary {
-		display: flex; 
+		display: flex;
 
 		a {
-			color: white; text-decoration: none; padding: 10px 20px; 
+			color: white; text-decoration: none; padding: 10px 20px;
 		}
 	}
 }
- 
+
 /* Carousel homepage */
 #carouselhome {
-	#indexHeader { 
+	#indexHeader {
 		.carousel-control.left, .carousel-control.right { background: none; }
 		background: @cCarousel;
 		.container {height: 444px; }
 		.slide1 {
-			background: url("../images/caroesel.png") no-repeat right bottom;  
-		} 
+			background: url("../images/caroesel.png") no-repeat right bottom;
+		}
 	}
 	.slidetoggle {
-		text-align: center; padding: 0; margin: 0; 
+		text-align: center; padding: 0; margin: 0;
 		li {
 			background: #6cb9b3;
 			cursor: pointer;
@@ -69,29 +70,29 @@ body>header {
 			overflow: hidden;
 			padding-top: 5px;
 			width: 100px;
-		} 
+		}
 		li+li {background-color: #2eb1d3; }
 		li+li+li {background-color: #d6b729; }
 	}
 }
- 
+
 #handenuitmouwen { /* ZOEKEN VANUIT HOMEPAGE */
 
 
 }
 
 
-#infoblokken { /* 4 INFOBLOKKEN OP HOMEPAGE */ 
+#infoblokken { /* 4 INFOBLOKKEN OP HOMEPAGE */
 	h3 {
-		margin-bottom: 10px; 
+		margin-bottom: 10px;
 		a {
 			.grijzetitel();
-			display: block; 
-			background: url("../images/hoewerkthet.png") no-repeat center top; padding-top: 80px; 
+			display: block;
+			background: url("../images/hoewerkthet.png") no-repeat center top; padding-top: 80px;
 		}
-	 } 
+	 }
 	.hoewerkthet {
-		h3 a {background-image: url("../images/hoewerkthet.png"); } 
+		h3 a {background-image: url("../images/hoewerkthet.png"); }
 		.cta {.shaduwblok(@cRood, @cRoodBorder); }
 	}
 	.verhalen {
@@ -107,68 +108,77 @@ body>header {
 		.cta {.shaduwblok(@cGeel, @cGeelBorder); }
 	}
 }
- 
 
-div.vacatures, div.organisaties, .blokken { 
-	overflow: auto; width: 100%; 
-	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch; 
+
+div.vacatures, div.organisaties, .blokken {
+	overflow: auto; width: 100%;
+	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch;
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
 	>.blok {flex: 1 0 200px; }
-	>article.vacature, >article.vereniging, >.blok {  
-		position: relative;  
+	>article.vacature, >article.vereniging, >.blok {
+		position: relative;
 		.shaduwblok(white, #e5e6e6);
-		border-radius: 10px;  
-		padding: @iPadding; 
-		margin: @iMargin; 
+		border-radius: 10px;
+		padding: @iPadding;
+		margin: @iMargin;
 		text-align: center;
 		a.fav {
-			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block; 
-			position: absolute;  right: 20px; top: -2px; 
+			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+			position: absolute;  right: 20px; top: -2px;
 			span {display: none; }
 		}
 		a.fav.liked {background-position: center bottom; }
 		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
 		a.cta {
 			color: white;
-			padding: 10px; 
-			display: inline-block; 
+			padding: 10px;
+			display: inline-block;
 			.shaduwblok(@cGroen, @cGroenBorder);
-			border-radius: 5px;  
-			width: 160px; 
+			border-radius: 5px;
+			width: 160px;
 		}
-	} 
+	}
 	>article.vacature.cta, >article.vereniging.cta, >.blok.cta {
-		margin-bottom: (@iMargin + 20); padding-bottom: 30px; 
-		a.cta { 
+		margin-bottom: (@iMargin + 20); padding-bottom: 30px;
+		a.cta {
 			position: absolute;
-			bottom: -20px; 
+			bottom: -20px;
 			margin-left: -80px;
-		}  
-	} 
-} 
+		}
+	}
+}
 
-.tempblok {  
+.tempblok {
 	.shaduwblok(white, #e5e6e6);
-	border-radius: 10px;  
-	padding: @iPadding; 
-	margin: @iMargin; 
-	position: relative;   
+	border-radius: 10px;
+	padding: @iPadding;
+	margin: @iMargin;
+	position: relative;
 	a.fav {
-		background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block; 
-		position: absolute;  right: 20px; top: -2px; 
+		background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+		position: absolute;  right: 20px; top: -2px;
 		span {display: none; }
 	}
 	a.fav.liked {background-position: center bottom; }
 	img.logo {max-width: 100%; max-height: 200px; margin: 10px auto; }
 	a.cta {
 		color: white;
-		padding: 10px; 
-		display: inline-block; 
+		padding: 10px;
+		display: inline-block;
 		.shaduwblok(@cGroen, @cGroenBorder);
-		border-radius: 5px;  
-		width: 160px; 
-	} 
+		border-radius: 5px;
+		width: 160px;
+	}
 }
+.part:nth-child(odd) {
+	background: #f3f3f3;
+	.blok.special {background: #ececec;   }
+}
+
+h1, h2, h3 {margin: 0; padding: 0; }
+h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
+h3 {.grijzetitel(); }
+/*   */
 
 form {
 	margin: @iMargin;  
@@ -180,16 +190,16 @@ form {
 	}  
 }
 
-.steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */ 
+.steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
 	form {margin: 0; }
 	.step {border-top: 3px dotted @cBlauw; margin-top: @iMargin; padding-top: @iMargin; margin-bottom: @iMargin; }
 	.step:not(.actief) {
 		* {display: none; }
 		h2, .steptitle {
-			display: block; cursor: pointer; 
+			display: block; cursor: pointer;
 			* {display: block; }
 		}
-	} 
+	}
 }
 
 .hidden {display: none; }
@@ -201,35 +211,45 @@ form {
 		margin: @iMargin @iMargin 0; border-top: 3px dotted @cGroen; padding-top: 10px; 
 	}
 	.blok {
-		display: flex; align-items: center; justify-content: center; 
+		display: flex; align-items: center; justify-content: center;
 		img {max-width: 100%; max-height: 70px; }
 	}
 }
 
 #footernav {  /* NAVIGATIE ONDERAAN */
-
+	padding: @iPadding; 
+	h1 {color: @cGrijs; font-size: 20px; margin-bottom: @iMargin; }
+	ul {
+		padding: 0;  
+		li {
+			list-style-type: none; 
+			background: url("../images/bulletarrow.png") no-repeat left 5px; 
+			padding-left: 17px; 
+			a {color: @cGrijs; }
+		}
+	}
 }
 
 
 body>footer {
-	background: @cHeader; color: white; 
+	background: @cHeader; color: white;
 	a, a:hover {color: white; text-decoration: none; }
 
 	#contactdata {
-		padding-top: 20px; 
+		padding-top: 20px;
 		h2 {color: #497e79; font-size: 20px; }
-		h3 {color: white; font-style: italic;  } 
+		h3 {color: white; font-style: italic;  }
 		h2, h3 {height: 50px; text-transform: none; }
 		dl {
-			display: flex; flex-flow: row wrap; justify-content: space-between; 
+			display: flex; flex-flow: row wrap; justify-content: space-between;
 			dt {flex: 0 1 35%; }
 			dd {flex: 1 0 65%; }
 		}
 	}
 
 	#legalfooter {
-		padding: 20px 0; 
-		background: @cCarousel; 
+		padding: 20px 0;
+		background: @cCarousel;
 	}
 }
 
@@ -237,36 +257,36 @@ body>footer {
 /* PAGE DEFAULTS */
 /*
 .blok {
-	border-radius: 10px;  
-	padding: 15px; text-align: center; 
-	margin: 15px;  
+	border-radius: 10px;
+	padding: 15px; text-align: center;
+	margin: 15px;
 	.shaduwblok(white, #e5e6e6);
-	margin: 30px 0; 
+	margin: 30px 0;
 } */
 .part {
-	padding: 20px 0 30px 0; 
+	padding: 20px 0 30px 0;
 	.blok.special {
-		box-shadow: none;   
+		box-shadow: none;
 	}
 
 }
 .part:nth-child(even) {
-	background: #ececec;  
+	background: #ececec;
 	.blok.special {background: #f3f3f3;  }
 }
 .part:nth-child(odd) {
-	background: #f3f3f3; 
+	background: #f3f3f3;
 	.blok.special {background: #ececec;   }
 }
 
-h1, h2, h3 {margin: 0; padding: 0; } 
+h1, h2, h3 {margin: 0; padding: 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
 
 /* PAGE WIDTH  */
 .container {
-	max-width: @iContainerWidth; margin: auto; padding: 0 20px; 
+	max-width: @iContainerWidth; margin: auto; padding: 0 20px;
 }
 body {background: @cMainBG; }
 

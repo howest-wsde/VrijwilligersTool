@@ -69,71 +69,85 @@
         {% endblock %}
 
         {% block outerbody %}
-            <div class="container">
+            <div class="part"><div class="container">
                 <main>
                     {% block body %}
                     {% endblock %}
                 </main>
-            </div>
+            </div></div>
         {% endblock %}
 
         
         {% block footernav %}
-            <div id="footernav"><div class="container">
-                <nav class="bottom nav">
-                    <section class="col-md-3">
-                        <header><h1>Recente vacatures</h1></header>
-                        {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
-                    </section>
-                    <section class="col-md-3">
-                        <header><h1>Recente verenigingen</h1></header>
-                        {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
-                    </section>
-                    <section class="col-md-3">
-                        {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
-                    </section>
-                    <section class="col-md-3">
-                        <header><h1>Vrijwilligersinfo</h1></header>
-                        <ul>
-                            <li><a href="{{ path("info_wetgeving") }}">Wetgeving</a></li>
-                            <li><a href="{{ path("info_profiel") }}">Profiel van een vrijwilliger</a></li>
-                            <li><a href="{{ path("info_vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
-                            <li><a href="{{ path("info_waarom") }}">Moeder waarom vrijwilligen wij? </a></li>
-                            <li><a href="{{ path("info_spelregels") }}">Spelregels</a></li>
-                            <li><a href="{{ path("info_faq") }}">Veelgestelde vragen</a></li>
-                        </ul>
-                    </section>
-                    <section class="col-md-3">
-                        <header><h1>Tests</h1></header>
-                        <ul>
-                            <li><a href="{{ path("test_type") }}">Welk type vrijwilliger ben ik? </a></li>
-                            <li><a href="{{ path("test_taal") }}">Taaltest</a></li>
-                            <li><a href="{{ path("test_comp") }}">Computervaardigheidstest</a></li>
-                        </ul>
-                    </section>
-                    <section class="col-md-3">
-                        <header><h1>Roeselare vrijwilligt</h1></header>
-                        <ul>
-                            <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>
-                            <li><a href="{{ path("info_contact") }}">Contact</a></li>
-                        </ul>
-                    </section>
-                </nav>
-            </div></div>
- 
+            <div class="part">
+                <div id="footernav"><div class="container">
+                    <nav class="bottom nav">
+                        <section class="col-md-3">
+                            <header><h1>Recente vacatures</h1></header>
+                            {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>Recente verenigingen</h1></header>
+                            {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>Vrijwilligersinfo</h1></header>
+                            <ul>
+                                <li><a href="{{ path("info_wetgeving") }}">Wetgeving</a></li>
+                                <li><a href="{{ path("info_profiel") }}">Profiel van een vrijwilliger</a></li>
+                                <li><a href="{{ path("info_vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
+                                <li><a href="{{ path("info_waarom") }}">Moeder waarom vrijwilligen wij? </a></li>
+                                <li><a href="{{ path("info_spelregels") }}">Spelregels</a></li>
+                                <li><a href="{{ path("info_faq") }}">Veelgestelde vragen</a></li>
+                            </ul>
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>Tests</h1></header>
+                            <ul>
+                                <li><a href="{{ path("test_type") }}">Welk type vrijwilliger ben ik? </a></li>
+                                <li><a href="{{ path("test_taal") }}">Taaltest</a></li>
+                                <li><a href="{{ path("test_comp") }}">Computervaardigheidstest</a></li>
+                            </ul>
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>Roeselare vrijwilligt</h1></header>
+                            <ul>
+                                <li><a href="{{ path("info_over_ons") }}">Over ons</a></li>
+                                <li><a href="{{ path("info_contact") }}">Contact</a></li>
+                            </ul>
+                        </section>
+                    </nav>
+                </div></div>
+     
 
-            <section id="partners"><div class="container blokken">
-                <h3>Partners:</h3>
-                <div class="blok">
-                    <a href="http://www.esf-vlaanderen.be/" target="_blank"><img src="{{ asset("images/partners/esf.png") }}" alt="logo Howest" /></a>
-                </div>
-                <div class="blok">
-                    <a href="http://www.roeselare.be" target="_blank"><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Howest" /></a>
-                </div>
-                <div class="blok">
-                    <a href="http://www.howest.be" target="_blank"><img src="{{ asset("images/partners/howest.png") }}" alt="logo Howest" /></a>
-                </div>
-            </div></section>
+                <section id="partners"><div class="container blokken">
+                    <h3>Partners:</h3>
+                    <div class="blok">
+                        <a href="http://www.esf-vlaanderen.be/" target="_blank"><img src="{{ asset("images/partners/esf.png") }}" alt="logo Howest" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.roeselare.be" target="_blank"><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Howest" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.howest.be" target="_blank"><img src="{{ asset("images/partners/howest.png") }}" alt="logo Howest" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.ocmw-roeselare.be" target="_blank"><img src="{{ asset("images/partners/ocmwroeselare.png") }}" alt="logo OCMW Roeselare" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.thope.eu" target="_blank"><img src="{{ asset("images/partners/thope.jpg") }}" alt="logo 't hope vzw" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.groepintro.be" target="_blank"><img src="{{ asset("images/partners/groepintro-logo.png") }}" alt="logo Groep Intro vzw" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.vocopstap.be" target="_blank"><img src="{{ asset("images/partners/organogram-opstap-2015-png.png") }}" alt="logo Voc Opstap vzw" /></a>
+                    </div> 
+                </div></section>
+            </div>
 
             <footer>
                 <div id="contactdata">
@@ -150,7 +164,14 @@
                         </address>
                         <div class="col-md-9">
                             <h3>Over ons</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis mollitia, consectetur iusto assumenda quod amet delectus at eaque unde! Provident possimus esse nobis, cumque asperiores libero maiores quia? Ducimus, nam.</p>
+                            <p>Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.</p>
+                            <p>Roeselare vrijwilligt</p>
+                            <ul>
+                                <li>ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.</li>
+                                <li>ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.</li>
+                            </ul>
+                            <p>Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw.</p>
+                            <p>Het platform werd ontwikkeld door Howest.</p>
                         </div>
                     </div> 
                 </div>
