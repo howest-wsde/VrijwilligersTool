@@ -63,7 +63,7 @@
 		<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
 
 	</article>
-{% if organisation.vacancies %} 
+{% if organisation.vacancies %}
 	<h3>Vacatures</h3>
 	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
 {% endif %}
@@ -80,11 +80,13 @@
 			<li>Beheerders:
 				<ul>
 					{% for administrator in organisation.administrators %}
-						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">X</a></li>
+						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">ontneem admin rechten</a></li>
 					{% endfor %}
-					{# <li>Nieuwe beheerder:
-						{% include "person/usersearch.html.twig" with {'path': path('organisation_add_admin', { 'organisation_urlid' : organisation.urlid}) } %}
-					</li> #}
+					<li>Nieuwe beheerder:
+						{{ form_start(form) }}
+							{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
+						{{ form_end(form) }}
+					</li>
 				</ul>
 			</li>
 		</ul>

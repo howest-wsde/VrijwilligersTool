@@ -24,3 +24,7 @@ search:
 general:
     label:
         previous: Vorige
+organisation:
+    label:
+        addAdmin: Nieuwe beheerder
+        submitAdmin: Voeg beheerder toe

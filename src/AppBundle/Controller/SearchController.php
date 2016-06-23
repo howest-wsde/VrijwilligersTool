@@ -23,6 +23,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchController extends Controller
 {
+    //TODO refactor all search functions into an entity for ES searching
     private function performSearch($params){
         $query = $this->get("ElasticsearchQuery");
         $params = [
