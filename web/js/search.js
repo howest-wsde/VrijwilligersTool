@@ -1,7 +1,7 @@
 "use strict";
 (function () { 
     var search = Array(); 
-    $(document).ready(function () {
+    $(document).ready(function () { 
         $('#searchq').click(function(){
             $("#divResult").fadeIn();
         });

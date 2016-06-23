@@ -13,6 +13,7 @@ AppBundle\Entity\Organisation:
         type:
             type: string
             length: 3
+            nullable: true
         description:
             type: text
         email:

@@ -180,7 +180,7 @@ h3 {.grijzetitel(); }
 /*   */
 
 form {
-	margin: 15px;
+	margin: @iMargin;
 	fieldset.bullets {
 		 #vacancy_socialInteraction, #vacancy_independent, #vacancy_skills {
 		 	display: flex; flex-flow: row wrap;
@@ -188,6 +188,17 @@ form {
 			input {flex: 0 0 5%; }
 			label {flex: 0 0 45%; }
 		 }
+	}
+}
+
+.steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
+	form {margin: 0; }
+	.step:not(.actief) {
+		* {display: none; }
+		.steptitle {
+			display: block; cursor: pointer;
+			* {display: block; }
+		}
 	}
 }
 
