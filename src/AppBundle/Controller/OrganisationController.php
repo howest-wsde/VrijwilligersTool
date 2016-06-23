@@ -9,6 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class OrganisationController extends controller
 {
@@ -55,7 +58,6 @@ class OrganisationController extends controller
      */
     public function editOrganisationAction($urlid, Request $request)
     {
-        //TODO: add check for admin status here
         $user = $this->getUser();
 
         if(!$urlid){
@@ -96,13 +98,32 @@ class OrganisationController extends controller
     /**
      * @Route("/vereniging/{urlid}" , name="organisation_by_urlid")
      */
-    public function organisationViewAction($urlid)
+    public function organisationViewAction($urlid, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($urlid);
+        //TODO replace with AddAdminType form
+        $data = $this->createAddAdminData($urlid);
+        $form = $data['form'];
+        $organisation = $data['organisation'];
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //get the person and add him as administrator
+            $em = $data['em'];
+            $userId = $request->request->get('form')['addAdmin'];
+            $person = $em->getRepository("AppBundle:Person")->findOneById($userId);
+            $person->addOrganisation($organisation);
+            $organisation->addAdministrator($person);
+            $em->persist($person);
+            $em->flush();
+            $form = $this->createAddAdminData($urlid)['form'];
+        }
+
         return $this->render("organisation/vereniging.html.twig",
-            ["organisation" => $organisation]);
+            [
+                "organisation" => $organisation,
+                "form" => $form->createView(),
+            ]);
     }
 
     /**
@@ -118,7 +139,6 @@ class OrganisationController extends controller
         $person->removeOrganisation($organisation);
         $em->persist($person);
         $em->flush();
-
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
 
@@ -129,13 +149,10 @@ class OrganisationController extends controller
     public function organisationAddAdminAction($organisation_urlid)
     {
         $request = Request::createFromGlobals();
-        $personid = $request->request->get("userid");
-
+        $personInput = $request->request->get("userid");
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($organisation_urlid);
-        $person = $em->getRepository("AppBundle:Person")
-            ->findOneById($personid);
         $person->addOrganisation($organisation);
         $em->persist($person);
         $em->flush();
@@ -191,6 +208,54 @@ class OrganisationController extends controller
         $count <= 1 ? $response = " medewerker" : $response = " medewerkers en vrijwilligers";
 
         return new Response($count . $response . " op deze site");
+    }
+
+    private function createAddAdminData($urlid){
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+        $administrators = $organisation->getAdministrators()->map(function($person) {
+                            return $person->getId();
+                          })->toArray();
+
+        $defaultData = array(
+                           'org_id' => $organisation->getId(),
+                           'administrators' => implode(",", $administrators),
+                       );
+
+        $form = $this->createFormBuilder($defaultData)
+                ->add('addAdmin', EntityType::class, array(
+                    'label' => 'organisation.label.addAdmin',
+                    // query choices from this entity
+                    'class' => 'AppBundle:Person',
+                    'query_builder' => function (EntityRepository $er)
+                    use ($defaultData) {
+                        return $er->createQueryBuilder('p')
+                            ->where('p.id not in (' . $defaultData['administrators']
+                                . ')')
+                            ->andWhere('p.username != :empty')->setParameter('empty', serialize([]))
+                            ->andWhere('p.username != :null')->setParameter('null', 'N;')
+                            ->orderBy('p.username', 'ASC');
+                    },
+                    // use the name property as the visible option string
+                    'choice_label' => 'username',
+                    // render as select box
+                    'expanded' => false,
+                    'multiple' => false,
+                    'required' => false,
+                    'placeholder' => false,
+                ))
+                ->add("submitAdmin", SubmitType::class, array(
+                    "label" => "organisation.label.submitAdmin",
+                    "validation_groups" => false,
+                ))
+                ->getForm();
+
+        return array(
+            'form' => $form,
+            'organisation' => $organisation,
+            'em' => $em,
+        );
     }
 
 }

@@ -69,6 +69,8 @@ organisation:
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
     label:
+        addAdmin: Nieuwe beheerder
+        submitAdmin: Voeg beheerder toe
         name: Naam
         slogan: De slogan van uw organisatie
         description: Een omschrijving van uw organisatie

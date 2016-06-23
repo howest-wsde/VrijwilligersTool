@@ -68,6 +68,8 @@ organisation:
     email:
         valid: Please enter a valid email address.
     label:
+        addAdmin: Select extra admin
+        submitAdmin: Add admin
         name: Company name
         description: A description of your company
         email: Email address

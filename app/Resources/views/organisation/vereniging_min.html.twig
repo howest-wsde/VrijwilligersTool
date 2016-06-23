@@ -9,7 +9,7 @@
             <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
                 <h3>{{ organisation.name}}</h3>
             </a>
-        </header>{# TODO: adjust dbase to include slogan and img  + add profile pic for person #149 #}
+        </header>
         <img src="{{ asset
         ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
         <p>{{ organisation.description|truncate(200, true) }}</p>

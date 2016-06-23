@@ -24,3 +24,7 @@ search:
 general:
     label:
         previous: Back
+organisation:
+    label:
+        addAdmin: Select extra admin
+        submitAdmin: Add admin
