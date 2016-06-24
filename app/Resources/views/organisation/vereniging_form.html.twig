@@ -3,7 +3,7 @@
     <div class="step {% if organisation==false %}actief{% endif %}">
         <h2 class="steptitle">Algemene gegevens</h2>
         <fieldset>
-            <legend>Organisatiegegevens</legend> 
+            <legend>Organisatiegegevens</legend>
             {{ form_row(form.name) }}
             {{ form_row(form.slogan) }}
             {{ form_row(form.logoFile) }}
@@ -16,13 +16,13 @@
     </div>
     <div class="step {% if organisation %}actief{% endif %}">
         <h2 class="steptitle">Contactgegevens</h2>
-        <fieldset> 
+        <fieldset>
             {% if organisation and source=="create_organisation" %}
                 <p>
                     Uw organisatie werd succesvol aangemaakt!<br />
                     Vul nu hieronder extra informatie in, of <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>.
                 </p>
-            {% endif %} 
+            {% endif %}
             {{ form_row(form.street) }}
             {{ form_row(form.number) }}
             {{ form_row(form.bus) }}
@@ -37,10 +37,9 @@
     <div class="step">
         <h2 class="steptitle">Sectorale info</h2>
         <fieldset>
-            <p>komt er later bij</p>
-            {#{ form_row(form.fieldOfActivity) }#}
-            {#{ form_row(form.backToContact) }#}
-            {#{ form_row(form.submitEnd) }#}
+            {{ form_row(form.sectors) }}
+            <!-- {{ form_row(form.backToContact) }} -->
+            {{ form_row(form.submitEnd) }}
         </fieldset>
     </div>
 {{ form_end(form) }}

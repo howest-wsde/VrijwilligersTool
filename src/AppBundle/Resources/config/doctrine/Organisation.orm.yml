@@ -75,6 +75,21 @@ AppBundle\Entity\Organisation:
           targetEntity: Person
           mappedBy: liked_organisations
           cascade: ["persist"]
+        sectors:
+            targetEntity: Skill
+            mappedBy: null
+            cascade: ["persist"]
+            nullable: true
+            joinTable:
+                name: sector_for_organisation
+                joinColumns:
+                    -
+                        name: organisation_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id
     oneToMany:
         vacancies:
             nullable: true

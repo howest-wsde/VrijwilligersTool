@@ -85,6 +85,7 @@ class OrganisationController extends controller
             return $this->render("organisation/vereniging.html.twig",
             [
                 "organisation" => $organisation,
+                "form" => $this->createAddAdminData($urlid)['form']->createView(),
             ]);
         }
         return $this->render("organisation/vereniging_aanpassen.html.twig",
@@ -210,6 +211,11 @@ class OrganisationController extends controller
         return new Response($count . $response . " op deze site");
     }
 
+    /**
+     * Helper function for viewOrganisationAction.  It creates the form needed to add admins and some helper variables.
+     * @param  string $urlid the urlid of an organisation
+     * @return mixed array        the form, the organisation and the entity manger
+     */
     private function createAddAdminData($urlid){
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
