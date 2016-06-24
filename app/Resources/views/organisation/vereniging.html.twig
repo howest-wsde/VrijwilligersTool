@@ -17,9 +17,14 @@
 		{% endif %}
 		<p>{{ organisation.description }}</p>
 
-		{#{% if organisation.sectoren %}
-			<p><label>Sectoren:</label>TODO: render sectoren hier</p>
-		{% endif %} #}
+		{% if organisation.sectors %}
+			<p>
+				<label>Sectoren:</label>
+				{% for sector in organisation.sectors %}
+					{{ sector.name }}
+				{% endfor %}
+			</p>
+		{% endif %}
 
 		{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
 			<p>
@@ -82,7 +87,7 @@
 					{% for administrator in organisation.administrators %}
 						<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">ontneem admin rechten</a></li>
 					{% endfor %}
-					<li>Nieuwe beheerder:
+					<li>
 						{{ form_start(form) }}
 							{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
 						{{ form_end(form) }}

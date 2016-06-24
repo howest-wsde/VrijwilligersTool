@@ -200,6 +200,11 @@ class Organisation extends EntityBase
     private $slogan;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $sectors;
+
+    /**
      * Set urlId
      *
      * @param string $urlId
@@ -865,5 +870,41 @@ class Organisation extends EntityBase
         }
     }
 
+    /**
+     * Add sectors
+     *
+     * @param \AppBundle\Entity\Skill $sector
+     *
+     * @return Organisation
+     */
+    public function addSector(\AppBundle\Entity\Skill $sector)
+    {
+        $this->sectors[] = $sector;
 
+        return $this;
+    }
+
+    /**
+     * Remove sector
+     *
+     * @param \AppBundle\Entity\Skill $sector
+     *
+     * @return Organisation
+     */
+    public function removeSector(\AppBundle\Entity\Skill $sector)
+    {
+        $this->sectors->removeElement($sector);
+
+        return $this;
+    }
+
+    /**
+     * Get sectors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSectors()
+    {
+        return $this->sectors;
+    }
 }

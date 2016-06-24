@@ -112,27 +112,33 @@ class OrganisationType extends AbstractType
             ->add("submit2", SubmitType::class, array(
                 "label" => "organisation.label.submitContact",
                 "validation_groups" => array("secondStep"),
+            ))
+            ->add('sectors', EntityType::class, array(
+                "label" => "organisation.label.fieldOfActivity",
+                "placeholder" => false,
+                // query choices from this entity
+                'class' => 'AppBundle:Skill',
+                //only pick skills that are childs of the sector skill
+                'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('s')
+                            ->where('s.parent = 36')
+                            ->orderBy('s.name', 'ASC');
+                    },
+                // use the name property as the visible option string
+                'choice_label' => 'name',
+                // render as select box
+                'expanded' => true,
+                'multiple' => true,
+                'required' => false,
+            ))
+            ->add('backToContact', SubmitType::class, array(
+                "label" => "organisation.label.backToContact",
+                'validation_groups' => false,
+            ))
+            ->add("submitEnd", SubmitType::class, array(
+                "label" => "general.label.submit",
+                "validation_groups" => array("thirdStep"),
             ));
-            // ->add('fieldOfActivity', EntityType::class, array(
-            //     "label" => "organisation.label.fieldOfActivity",
-            //     "placeholder" => false,
-            //     // query choices from this entity
-            //     'class' => 'AppBundle:Sector',
-            //     // use the name property as the visible option string
-            //     'choice_label' => 'name',
-            //     // render as select box
-            //     'expanded' => false,
-            //     'multiple' => false,
-            //     'required' => false,
-            // ))
-            // ->add('backToContact', SubmitType::class, array(
-            //     "label" => "organisation.label.backToContact",
-            //     'validation_groups' => false,
-            // ))
-            // ->add("submitEnd", SubmitType::class, array(
-            //     "label" => "general.label.submit",
-            //     "validation_groups" => array("thirdStep"),
-            // ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

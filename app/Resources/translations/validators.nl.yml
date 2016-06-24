@@ -85,6 +85,7 @@ organisation:
         create: Maak organisatie aan
         backToRegistration: Terug naar registratie
         submitContact: Contactinformatie indienen
+        backToContact: Terug naar contactgegevens
         type: Type vereniging
         intermediary: Bemiddelingsorganisatie
         website: Website
