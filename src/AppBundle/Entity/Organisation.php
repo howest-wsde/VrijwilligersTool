@@ -55,7 +55,7 @@ class Organisation extends EntityBase
      * @var string
      * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
-     *      min = 20,
+     *      min = 5,
      *      max = 2000,
      *      minMessage = "vacancy.min_message",
      *      maxMessage = "vacancy.max_message",

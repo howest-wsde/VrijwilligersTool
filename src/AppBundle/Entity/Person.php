@@ -305,6 +305,10 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $organisation;
 
+    /**
+     * @var \AppBundle\Entity\Organisation
+     */
+    protected $contactOrganisation;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -942,6 +946,30 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this;
     }
 
+
+    /**
+     * Get contactOrganisation
+     *
+     * @return Organisation
+     */
+    public function getContactOrganisation()
+    {
+        return $this->contactOrganisation;
+    }
+
+    /**
+     * Set contactOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $contactOrganisation
+     *
+     * @return Person
+     */
+    public function setContactOrganisation(\AppBundle\Entity\Organisation $contactOrganisation)
+    {
+        $this->contactOrganisation = $contactOrganisation;
+
+        return $this;
+    }
 
     /**
      * Add organisation

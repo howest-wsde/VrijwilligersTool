@@ -193,7 +193,7 @@ class VacancyController extends controller
 
         $query = $repository->createQueryBuilder("s")
             ->where("s.parent IS NULL")
-            ->addOrderBy("s.id", "DESC")
+            ->andWhere("s.name != 'Sector'")
             ->addOrderBy("s.name", "ASC")
             ->getQuery();
 
