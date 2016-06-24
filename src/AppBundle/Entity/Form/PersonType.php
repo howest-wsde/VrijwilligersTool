@@ -47,7 +47,7 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.placeholder.telephone"),
                 "required" => false
             ))
-            ->add('organisation', EntityType::class, array(
+            ->add('contactOrganisation', EntityType::class, array(
                 'label' => "person.label.organisation",
                 "placeholder" => "person.placeholder.organisation",
                 // query choices from this entity
@@ -141,17 +141,6 @@ class PersonType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ))
-            // ->add('skills', EntityType::class, array(
-            //     'label' => "person.label.skills",
-            //     // query choices from this entity
-            //     'class' => 'AppBundle:Skill',
-            //     // use the name property as the visible option string
-            //     'choice_label' => 'name',
-            //     // render as select box
-            //     'expanded' => true,
-            //     'multiple' => true,
-            //     'required' => false,
-            // ))
             ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,
