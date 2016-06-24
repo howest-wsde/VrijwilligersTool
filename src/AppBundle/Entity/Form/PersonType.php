@@ -124,9 +124,16 @@ class PersonType extends AbstractType
                 'validation_groups' => false,
             ))
             ->add('skills', EntityType::class, array(
-                'label' => "person.label.skills",
+                "label" => "person.label.skills",
+                "placeholder" => false,
                 // query choices from this entity
                 'class' => 'AppBundle:Skill',
+                //only pick skills that are childs of the sector skill
+                'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('s')
+                            ->where('s.parent != 36 or s.id != 36')
+                            ->orderBy('s.parent, s.name', 'ASC');
+                    },
                 // use the name property as the visible option string
                 'choice_label' => 'name',
                 // render as select box
@@ -134,6 +141,17 @@ class PersonType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ))
+            // ->add('skills', EntityType::class, array(
+            //     'label' => "person.label.skills",
+            //     // query choices from this entity
+            //     'class' => 'AppBundle:Skill',
+            //     // use the name property as the visible option string
+            //     'choice_label' => 'name',
+            //     // render as select box
+            //     'expanded' => true,
+            //     'multiple' => true,
+            //     'required' => false,
+            // ))
             ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,
