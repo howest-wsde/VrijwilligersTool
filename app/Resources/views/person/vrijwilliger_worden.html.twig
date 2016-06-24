@@ -18,7 +18,7 @@
 
 
 
-	<div class="steps"> 
+	<div class="steps">
 
 		{% if not app.user %}
 			{{ form_start(form) }}
@@ -33,7 +33,7 @@
 						{{ form_row (form.avatarFile) }}
 					    {{ form_row (form.email) }}
 					    {{ form_row (form.telephone) }}
-					    {{ form_row (form.organisation) }}
+					    {{ form_row (form.contactOrganisation) }}
 					    {{ form_row (form.plainPassword.first) }}
 					    {{ form_row (form.plainPassword.second) }}
 						{{ form_row (form.submit) }}
@@ -41,7 +41,7 @@
 				</div>
 				<div class="step">
 					<h2 class="steptitle">Contactgegevens</h2>
-					<fieldset> 
+					<fieldset>
 					    {{ form_row (form.username) }}
 					    {{ form_row (form.street) }}
 						{{ form_row (form.number) }}
@@ -55,7 +55,7 @@
 				</div>
 				<div class="step">
 					<h2 class="steptitle">Vaardigheden</h2>
-					<fieldset> 
+					<fieldset>
 						{{ form_row (form.skills) }}
 						{{ form_row (form.submit2) }}
 						{{ form_row (form.backToGeneral) }}
@@ -63,7 +63,7 @@
 				</div>
 			    {# {{ form_row (form.termsAccepted) }} #}
 			{{ form_end(form) }}
-		
+
 		{% endif %}
 		{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
 		<section id="interessant" class="step">
@@ -77,7 +77,7 @@
 			</p>
 		</section>
 
-		<section class="step"> 
+		<section class="step">
 			<h2 class="steptitle">Bekijk de spelregels</h2>
 		    {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
 			{% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
@@ -121,7 +121,7 @@
 
 
 {% block javascripts %}
-    {{ parent() }} 
+    {{ parent() }}
     <script src="{{ asset("js/forms.js") }}"></script>
 {% endblock %}
 
