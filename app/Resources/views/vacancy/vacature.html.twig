@@ -95,9 +95,9 @@
 		<footer>{% block vacature_cta %}
 			<ul>
 				{% if app.user in vacancy.likers %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Ontwaar</a></li>
 				{% else %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Bewaar</a></li>
 				{% endif %}
 
 
