@@ -191,28 +191,6 @@ class VacancyController extends controller
             ["vacancies" => $vacancies, "viewMode" => $viewMode]);
     }
 
-/**
- * A list of all skill categories
- * TODO: move this to a skill-controller
- * @param  integer $nr the maximum amount of skill-categories retrieved
- */
-    public function listParentSkillsAction($nr)
-    {
-        $repository = $this->getDoctrine()
-            ->getRepository("AppBundle:Skill");
-
-        $query = $repository->createQueryBuilder("s")
-            ->where("s.parent IS NULL")
-            ->andWhere("s.name != 'Sector'")
-            ->addOrderBy("s.name", "ASC")
-            ->getQuery();
-
-        $query->setMaxResults($nr);
-
-        return $this->render("skill/recente_categorien.html.twig",
-            ["skills" => $query->getResult()]);
-    }
-
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
