@@ -110,7 +110,7 @@ person:
     not_more_than: Please don't enter more than {{ limit }} characters.
     no_whitespaces: May not contain spaces.
     exact: The value needs to be exactly {{ limit }} amount of characters.
-    one_of_both: Please supply either a phone number or an emailadress.
+    one_of_three: 'Please supply either a phone number, an emailadress or choose an intermediary organisation.  We need a way to contact you.'
     email:
         valid: Please enter a valid email.
         already_used: This email address is already in use.
