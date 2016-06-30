@@ -21,7 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @Vich\Uploadable
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"}, groups = {"firstStep"})
+ * @Assert\Callback({"AppBundle\Entity\Person", "validateContacts"}, groups = {"firstStep"})
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
@@ -209,29 +209,26 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * Callback that check if either the email or telephone fields are valid
      */
-    public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
+    public static function validateContacts($org, ExecutionContextInterface  $context)
     {
         $fields = 0;
         if ($org->getTelephone())
         {
-            $fields++;
-
             $org->validatePhoneNumber($org, $context);
         }
-        if ($org->getEmail())
+        else if ($org->getEmail() || $org->getContactOrganisation())
         {
-            $fields++;
-
-            // other validators are enabled with annotations
+            return true; // other validators are enabled with annotations
         }
-
-        if ($fields <= 0)
-        {
-            $context->buildViolation("person.one_of_both")
+        else {
+            $context->buildViolation("person.one_of_three")
                 ->atPath("telephone")
                 ->addViolation();
-            $context->buildViolation("person.one_of_both")
+            $context->buildViolation("person.one_of_three")
                 ->atPath("email")
+                ->addViolation();
+            $context->buildViolation("person.one_of_three")
+                ->atPath("contactOrganisation")
                 ->addViolation();
         }
     }
