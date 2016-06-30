@@ -18,8 +18,7 @@ class VacancyController extends controller
      */
     public function createPdfAction($title)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
+        $vacancy = getVacancyRepository()->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -94,9 +93,7 @@ class VacancyController extends controller
      */
     public function vacancyViewAction($urlid)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid);
+        $vacancy = getVacancyRepository()->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }
@@ -239,14 +236,22 @@ class VacancyController extends controller
     }
 
 /**
+ * Get all saved vacancies for a user
+ * @param  integer $user the user for which the vacancies have to be retrieved
+ */
+    public function bewaardeVacaturesAction($user)
+    {
+        //TODO create this
+    }
+
+
+/**
  * Create a list of all vacancies that are currently open, for a given organisation
  * @param integer $id an organisation id
  */
     public function ListOrganisationVacanciesAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy");
-
+        $vacancy = getVacancyRepository();
         $query = $vacancy->createQueryBuilder("v")
             ->where("v.organisation = :id and v.published = :status")
             ->setParameter('id', $id)
@@ -260,5 +265,9 @@ class VacancyController extends controller
                     "vacancies" => $vacancies,
                     "viewMode" => "tile",
                 ]);
+    }
+
+    private function getVacancyRepository(){
+        return $this->getDoctrine()->getManager()->getRepository("AppBundle:Vacancy");
     }
 }
