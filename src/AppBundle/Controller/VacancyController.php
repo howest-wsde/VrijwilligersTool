@@ -239,7 +239,7 @@ class VacancyController extends controller
  * Get all saved vacancies for a user
  * @param  integer $user the user for which the vacancies have to be retrieved
  */
-    public function bewaardeVacaturesAction($user)
+    public function listSavedVacanciesAction($user)
     {
         // $vacancy = $this->getVacancyRepository();
         // $query = $vacancy->createQueryBuilder('v')
