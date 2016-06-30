@@ -177,6 +177,11 @@ class VacancyController extends controller
              "pending" => $pending]);
     }
 
+/**
+ * A list of the most recently created vacancies.
+ * @param  integer $nr       The amount of vacancies desired
+ * @param  string  $viewMode The viewmode for the generated output
+ */
     public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
         $vacancies = $this->getDoctrine()
@@ -186,6 +191,11 @@ class VacancyController extends controller
             ["vacancies" => $vacancies, "viewMode" => $viewMode]);
     }
 
+/**
+ * A list of all skill categories
+ * TODO: move this to a skill-controller
+ * @param  integer $nr the maximum amount of skill-categories retrieved
+ */
     public function listParentSkillsAction($nr)
     {
         $repository = $this->getDoctrine()
@@ -232,6 +242,11 @@ class VacancyController extends controller
                   "urlid" => $urlid) );
     }
 
+/**
+ * Get vacancies matching a user profile
+ * TODO: work on this
+ * @param  \notsureyet $user the user for which the vacancies have to be retrieved
+ */
     public function vacaturesOpMaatAction($user)
     {
         $query = $this->get("ElasticsearchQuery");
@@ -245,6 +260,10 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
+/**
+ * Create a list of all vacancies that are currently open, for a given organisation
+ * @param integer $id an organisation id
+ */
     public function ListOrganisationVacanciesAction($id)
     {
         $em = $this->getDoctrine()->getManager();
