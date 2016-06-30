@@ -18,7 +18,7 @@ class VacancyController extends controller
      */
     public function createPdfAction($title)
     {
-        $vacancy = getVacancyRepository()->findOneByUrlid($title);
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -93,7 +93,7 @@ class VacancyController extends controller
      */
     public function vacancyViewAction($urlid)
     {
-        $vacancy = getVacancyRepository()->findOneByUrlid($urlid);
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }
@@ -241,7 +241,9 @@ class VacancyController extends controller
  */
     public function bewaardeVacaturesAction($user)
     {
-        //TODO create this
+        // $vacancy = $this->getVacancyRepository();
+        // $query = $vacancy->createQueryBuilder('v')
+        //         ->where
     }
 
 
@@ -251,7 +253,7 @@ class VacancyController extends controller
  */
     public function ListOrganisationVacanciesAction($id)
     {
-        $vacancy = getVacancyRepository();
+        $vacancy = $this->getVacancyRepository();
         $query = $vacancy->createQueryBuilder("v")
             ->where("v.organisation = :id and v.published = :status")
             ->setParameter('id', $id)
