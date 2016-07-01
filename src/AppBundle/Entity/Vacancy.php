@@ -12,6 +12,7 @@ class Vacancy extends EntityBase
     const OPEN = 1;
     const CLOSED = 2;
     const SAVED = 3;
+    const DELETED = 4;
 
     /**
      * @var string

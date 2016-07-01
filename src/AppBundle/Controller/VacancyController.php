@@ -250,13 +250,13 @@ class VacancyController extends controller
  * Create a list of all vacancies that are currently open, for a given organisation
  * @param integer $id an organisation id
  */
-    public function ListOrganisationVacanciesAction($id)
+    public function ListOrganisationVacanciesAction($id, $status = Vacancy::OPEN)
     {
         $vacancy = $this->getVacancyRepository();
         $query = $vacancy->createQueryBuilder("v")
             ->where("v.organisation = :id and v.published = :status")
             ->setParameter('id', $id)
-            ->setParameter('status', Vacancy::OPEN)
+            ->setParameter('status', $status)
             ->getQuery();
 
         $vacancies = $query->getResult();
