@@ -220,7 +220,7 @@ class VacancyController extends controller
 /**
  * Get vacancies matching a user profile
  * TODO: work on this
- * @param  \notsureyet $user the user for which the vacancies have to be retrieved
+ * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
  */
     public function vacaturesOpMaatAction($user)
     {
@@ -237,13 +237,12 @@ class VacancyController extends controller
 
 /**
  * Get all saved vacancies for a user
- * @param  integer $user the user for which the vacancies have to be retrieved
+ * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
  */
     public function listSavedVacanciesAction($user)
     {
-        // $vacancy = $this->getVacancyRepository();
-        // $query = $vacancy->createQueryBuilder('v')
-        //         ->where
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+            ["vacancies" => $user->getLikedVacancies(), "viewMode" => 'tile']);
     }
 
 

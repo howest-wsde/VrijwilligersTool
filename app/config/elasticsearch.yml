@@ -28,7 +28,6 @@ fos_elastica:
                         telephone: "%nl%"
                         language: "%nl%"
                         linkedinUrl: "%nl%"
-                        isActive: "%nl%"
                         contactOrganisation: "%nl%"
                         # organisation: "%nl%"
                         # testimonials: "%nl%"
