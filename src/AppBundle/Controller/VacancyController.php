@@ -268,6 +268,23 @@ class VacancyController extends controller
                 ]);
     }
 
+/**
+ * Delete a vacancy
+ * @Route("/vacature/{urlid}/delete", name="delete_vacancy")
+ * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted
+ */
+    public function deleteVacancyAction($urlid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $vacancy->setPublished(Vacancy::DELETED);
+        $em->persist($vacancy);
+        $em->flush();
+
+        return new Response('Succesfully deleted the vacancy', Response::HTTP_OK);
+    }
+
     private function getVacancyRepository(){
         return $this->getDoctrine()->getManager()->getRepository("AppBundle:Vacancy");
     }

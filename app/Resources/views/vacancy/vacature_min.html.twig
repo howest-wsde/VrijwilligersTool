@@ -19,4 +19,7 @@
     </ul>
 
     <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}" class="cta">lees meer</a>
+    {% if vacancy.published != 4 and (vacancy.organisation) and app.user in vacancy.organisation.administrators %}
+        <a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">delete</a>
+    {% endif %}
 </article>
