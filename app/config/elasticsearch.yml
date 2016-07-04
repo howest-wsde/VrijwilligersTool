@@ -15,17 +15,20 @@ fos_elastica:
             types:
                 person:
                     mappings:
+                        id: "%nl%"
                         firstName: "%nl%"
                         lastName: "%nl%"
                         username: "%nl%"
+                        email: "%nl%"
                         street: "%nl%"
                         number: "%nl%"
-                        postalcode: "%nl%"
                         bus: "%nl%"
+                        postalcode: "%nl%"
                         city: "%nl%"
-                        email: "%nl%"
                         telephone: "%nl%"
+                        language: "%nl%"
                         linkedinUrl: "%nl%"
+                        contactOrganisation: "%nl%"
                         # organisation: "%nl%"
                         # testimonials: "%nl%"
                         # skills: "%nl%"
@@ -39,16 +42,22 @@ fos_elastica:
                             ignore_missing: true
                 organisation:
                     mappings:
+                        id: "%nl%"
                         name: "%nl%"
+                        type: "%nl%"
+                        intermediary: "%nl%"
                         description: "%nl%"
+                        creator: "%nl%"
+                        email: "%nl%"
                         street: "%nl%"
                         number: "%nl%"
                         postalcode: "%nl%"
                         bus: "%nl%"
                         city: "%nl%"
-                        email: "%nl%"
-                        telephone: "%nl%"
                         urlId: "%nl%"
+                        slogans: "%nl%"
+                        telephone: "%nl%"
+                        website: "%nl%"
                         # creator: "%nl%"
                     persistence:
                         driver: orm
@@ -86,12 +95,28 @@ fos_elastica:
 
                 vacancy:
                     mappings:
+                        id: "%nl%"
                         title: "%nl%"
                         description: "%nl%"
                         startdate: "%nl%"
                         enddate: "%nl%"
                         urlId: "%nl%"
-                        # organisation: "%nl%"
+                        organisation: "%nl%"
+                        summary: "%nl%"
+                        longterm: "%nl%"
+                        street: "%nl%"
+                        number: "%nl%"
+                        postalcode: "%nl%"
+                        bus: "%nl%"
+                        city: "%nl%"
+                        estimatedWorkInHours: "%nl%"
+                        socialInteraction: "%nl%"
+                        independent: "%nl%"
+                        renumeration: "%nl%"
+                        otherReward: "%nl%"
+                        published: "%nl%"
+                        wanted: "%nl%"
+                        stillWanted: "%nl%"
                         # skills: "%nl%"
                     persistence:
                         driver: orm

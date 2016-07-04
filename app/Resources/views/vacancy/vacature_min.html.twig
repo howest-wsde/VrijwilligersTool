@@ -1,8 +1,8 @@
 <article class="vacature cta">
     {% if app.user in vacancy.likers %}
-        <a class="fav liked" href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+        <a class="fav liked" href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"unlike" }) }}"><span>Ontwaar</span></a>
     {% else %}
-        <a class="fav notliked"  href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+        <a class="fav notliked"  href="{{ path("vacancy_like", {"urlid": vacancy.urlId, "likeunlike":"like" }) }}"><span>Bewaar</span></a>
     {% endif %}
 
     <header>
@@ -19,4 +19,7 @@
     </ul>
 
     <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}" class="cta">lees meer</a>
+    {% if vacancy.published != 4 and (vacancy.organisation) and app.user in vacancy.organisation.administrators %}
+        <a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">Delete</a>
+    {% endif %}
 </article>

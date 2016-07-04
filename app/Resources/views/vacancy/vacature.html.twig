@@ -95,9 +95,9 @@
 		<footer>{% block vacature_cta %}
 			<ul>
 				{% if app.user in vacancy.likers %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Ontwaar</a></li>
 				{% else %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Bewaar</a></li>
 				{% endif %}
 
 
@@ -106,8 +106,13 @@
 				{% else %}
 					<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li>
 				{% endif %}
+
 				<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
 				<li><a href="{{ path("vacancy_candidacies", {'urlid': vacancy.urlId }) }}">Kandidaten selecteren</a></li>
+
+			    {% if vacancy.published != 4 and (vacancy.organisation) and app.user in vacancy.organisation.administrators %}
+			        <li><a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">Vacature verwijderen</a></li>
+			    {% endif %}
 			</ul>
 			{% endblock %}</footer>
 	</article>

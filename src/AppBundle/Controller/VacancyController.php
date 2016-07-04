@@ -18,8 +18,7 @@ class VacancyController extends controller
      */
     public function createPdfAction($title)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($title);
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
@@ -94,9 +93,7 @@ class VacancyController extends controller
      */
     public function vacancyViewAction($urlid)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByUrlid($urlid);
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($urlid);
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }
@@ -177,6 +174,11 @@ class VacancyController extends controller
              "pending" => $pending]);
     }
 
+/**
+ * A list of the most recently created vacancies.
+ * @param  integer $nr       The amount of vacancies desired
+ * @param  string  $viewMode The viewmode for the generated output
+ */
     public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
         $vacancies = $this->getDoctrine()
@@ -184,23 +186,6 @@ class VacancyController extends controller
                         ->findBy(array(), array("id" => "DESC"), $nr);
         return $this->render("vacancy/vacatures_oplijsten.html.twig",
             ["vacancies" => $vacancies, "viewMode" => $viewMode]);
-    }
-
-    public function listParentSkillsAction($nr)
-    {
-        $repository = $this->getDoctrine()
-            ->getRepository("AppBundle:Skill");
-
-        $query = $repository->createQueryBuilder("s")
-            ->where("s.parent IS NULL")
-            ->andWhere("s.name != 'Sector'")
-            ->addOrderBy("s.name", "ASC")
-            ->getQuery();
-
-        $query->setMaxResults($nr);
-
-        return $this->render("skill/recente_categorien.html.twig",
-            ["skills" => $query->getResult()]);
     }
 
     /**
@@ -232,6 +217,11 @@ class VacancyController extends controller
                   "urlid" => $urlid) );
     }
 
+/**
+ * Get vacancies matching a user profile
+ * TODO: work on this
+ * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+ */
     public function vacaturesOpMaatAction($user)
     {
         $query = $this->get("ElasticsearchQuery");
@@ -245,15 +235,28 @@ class VacancyController extends controller
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
-    public function ListOrganisationVacanciesAction($id)
+/**
+ * Get all saved vacancies for a user
+ * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+ */
+    public function listSavedVacanciesAction($user)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository("AppBundle:Vacancy");
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+            ["vacancies" => $user->getLikedVacancies(), "viewMode" => 'tile']);
+    }
 
+
+/**
+ * Create a list of all vacancies that are currently open, for a given organisation
+ * @param integer $id an organisation id
+ */
+    public function ListOrganisationVacanciesAction($id, $status = Vacancy::OPEN)
+    {
+        $vacancy = $this->getVacancyRepository();
         $query = $vacancy->createQueryBuilder("v")
             ->where("v.organisation = :id and v.published = :status")
             ->setParameter('id', $id)
-            ->setParameter('status', Vacancy::OPEN)
+            ->setParameter('status', $status)
             ->getQuery();
 
         $vacancies = $query->getResult();
@@ -263,5 +266,26 @@ class VacancyController extends controller
                     "vacancies" => $vacancies,
                     "viewMode" => "tile",
                 ]);
+    }
+
+/**
+ * Delete a vacancy
+ * @Route("/vacature/{urlid}/delete", name="delete_vacancy")
+ * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted
+ */
+    public function deleteVacancyAction($urlid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $vacancy->setPublished(Vacancy::DELETED);
+        $em->persist($vacancy);
+        $em->flush();
+
+        return new Response('Succesfully deleted the vacancy', Response::HTTP_OK);
+    }
+
+    private function getVacancyRepository(){
+        return $this->getDoctrine()->getManager()->getRepository("AppBundle:Vacancy");
     }
 }

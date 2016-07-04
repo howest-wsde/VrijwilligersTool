@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Talent Roeselen{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" /> 
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
             <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css") }}" />
             <link rel="stylesheet" type="text/css" href="{{ asset("style/feedback.css") }}" />
         {% endblock %}
@@ -35,8 +35,8 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
-            </button> 
-                       
+            </button>
+
             <a href="{{ path("homepage") }}" class="logo navbar-brand"><h1>Roeselare vrijwilligt</h1></a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
@@ -54,17 +54,17 @@
                     <li><a href="{{ path("profile_edit") }}">(mijn profiel)</a></li>
                     <li><a href="{{ path("logout") }}">(logout)</a></li>
                 {% else %}
-                    <li><a href="{{ path("login") }}">(login)</a></li> 
+                    <li><a href="{{ path("login") }}">(login)</a></li>
                 {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
 
-                    
- 
 
-                </div> 
+
+
+                </div>
             </header>
         {% endblock %}
 
@@ -77,7 +77,7 @@
             </div></div>
         {% endblock %}
 
-        
+
         {% block footernav %}
             <div class="part">
                 <div id="footernav"><div class="container">
@@ -91,7 +91,7 @@
                             {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
                         </section>
                         <section class="col-md-3">
-                            {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
+                            {{ render(controller("AppBundle:Skill:listParentSkills", { "nr": 10 } )) }}
                         </section>
                         <section class="col-md-3">
                             <header><h1>Vrijwilligersinfo</h1></header>
@@ -121,7 +121,7 @@
                         </section>
                     </nav>
                 </div></div>
-     
+
 
                 <section id="partners"><div class="container blokken">
                     <h3>Partners:</h3>
@@ -145,14 +145,14 @@
                     </div>
                     <div class="blok">
                         <a href="http://www.vocopstap.be" target="_blank"><img src="{{ asset("images/partners/organogram-opstap-2015-png.png") }}" alt="logo Voc Opstap vzw" /></a>
-                    </div> 
+                    </div>
                 </div></section>
             </div>
 
             <footer>
                 <div id="contactdata">
                     <div class="container">
-                        <address class="col-md-3"> 
+                        <address class="col-md-3">
                             <h2>Roeselare Vrijwilligt</h2>
                             <p>Zuidstraat 17, 8800 Roeselare</p>
                             <dl>
@@ -160,7 +160,7 @@
                                 <dd>051 26 24 00</dd>
                                 <dt>e-mail:</dt>
                                 <dd><a href="{{ path("info_contact") }}">Contact</a></dd>
-                            </dl> 
+                            </dl>
                         </address>
                         <div class="col-md-9">
                             <h3>Over ons</h3>
@@ -173,13 +173,13 @@
                             <p>Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw.</p>
                             <p>Het platform werd ontwikkeld door Howest.</p>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div id="legalfooter">
-                    <div class="container">  
+                    <div class="container">
                         <div class="col-md-6">
-                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span> - 
-                            <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span> 
+                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span> -
+                            <span><a href="{{ path("info_privacy_and_legal") }}">Privacy en legale voorwaarden</a></span>
                         </div>
                         <div class="col-md-6">
                             <ul>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
             </footer>
-        {% endblock %} 
+        {% endblock %}
         {% embed "feedback/feedback.html.twig" %}{% endembed %}
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
