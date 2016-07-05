@@ -22,48 +22,33 @@
     <body>
         {% block header %}
             <header>
-                <div class="container">
+                <div class="container mainnav">
+                    <a href="{{ path("homepage") }}" class="logo"><h1>Roeselare vrijwilligt</h1></a>
 
- <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+                    <nav>
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button> 
-                       
-            <a href="{{ path("homepage") }}" class="logo navbar-brand"><h1>Roeselare vrijwilligt</h1></a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+                        {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+
+                        <ul class="usermenu">
+                            <li><a href="{{ path("info_over_ons") }}">overons</a></li>
+                            <li><a href="{{ path("info_contact") }}">contact</a></li>
+                            {% if app.user %}
+                                <li><a href="{{ path("profile_edit") }}">mijn profiel</a></li>
+                                <li><a href="{{ path("logout") }}">uitloggen</a></li>
+                            {% else %}
+                                <li><a href="{{ path("login") }}">inloggen</a></li> 
+                            {% endif %}
+                        </ul>
+                         
+                        <ul class="mainmenu">
                             <li><a href="{{ path("self_profile") }}">Mijn profiel</a></li>
                             <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
                             <li><a href="{{ path("start_vacancy") }}">Vrijwilliger vinden</a></li>
                             <li><a href="{{ path("info_vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
                             <li><a href="{{ path("tests") }}">Tests</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path("info_over_ons") }}">(overons)</a></li>
-                <li><a href="{{ path("info_contact") }}">(contact)</a></li>
-                {% if app.user %}
-                    <li><a href="{{ path("profile_edit") }}">(mijn profiel)</a></li>
-                    <li><a href="{{ path("logout") }}">(logout)</a></li>
-                {% else %}
-                    <li><a href="{{ path("login") }}">(login)</a></li> 
-                {% endif %}
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-
-                    
- 
-
+                        </ul>
+                    </nav>
+  
                 </div> 
             </header>
         {% endblock %}
@@ -75,8 +60,21 @@
                     {% endblock %}
                 </main>
             </div></div>
-        {% endblock %}
-
+        {% endblock %} 
+        <section data-role="newsletter" class="part">
+            <div class="container">
+                <section class="col-md-12">
+                    <div class="blok special nieuwsbrief">
+                        <h2>Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!</h2>
+                        {# TODO: nieuwsbrief implementeren #}
+                        <form>
+                            <input type="email" name="mailadres" placeholder="e-mailadres" />
+                            <input type="submit" value="inschrijven" class="cta" />
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </section>
         
         {% block footernav %}
             <div class="part">
