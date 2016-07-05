@@ -22,7 +22,7 @@ class FeedbackController extends controller
             $user = $this->getUser();
             $feedback->setReporter( $user); 
             $feedback->setUrl($request->request->get("url")); 
-            $feedback->setReport($request->request->get("feedback")); 
+            $feedback->setReport($request->request->get("body")); 
             $feedback->setState(Feedback::REPORTED);  
             $feedback->setReportdate(new \DateTime("now"));
             $em = $this->getDoctrine()->getManager(); 

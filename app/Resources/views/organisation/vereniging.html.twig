@@ -78,7 +78,6 @@
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 	{% endif %}
 
-
 	{% if app.user in organisation.administrators %}
 		<aside>
 			<h3>Links voor beheer</h3>

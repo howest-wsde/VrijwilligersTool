@@ -164,24 +164,27 @@ class VacancyController extends controller
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
      */
-    //TODO: check if user is authenticated to do so aka its his vacancy
     public function vacancyCandidacies($urlid)
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();;
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
-        //$userId = $this->getUser()->getId();
 
-        $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-            'state' => Candidacy::APPROVED));
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+                'state' => Candidacy::APPROVED));
 
-        $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-            'state' => Candidacy::PENDING));
+            $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+                'state' => Candidacy::PENDING));
 
 
-        return $this->render("vacancy/vacature_goedkeuren.html.twig",
-            ["vacancy" => $vacancy,
-             "approved" => $approved,
-             "pending" => $pending]);
+            return $this->render("vacancy/vacature_goedkeuren.html.twig",
+                ["vacancy" => $vacancy,
+                 "approved" => $approved,
+                 "pending" => $pending]);
+        }
+
+        throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
     }
 
 /**
@@ -203,28 +206,34 @@ class VacancyController extends controller
      * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
      */
     public function editVacancyAction($urlid, Request $request){
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
-        $form = $this->createForm(VacancyType::class, $vacancy);
 
-        $form->handleRequest($request);
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $form = $this->createForm(VacancyType::class, $vacancy);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $form->handleRequest($request);
 
-            $vacancy->setTitle($data->getTitle());
-            $vacancy->setDescription($data->getDescription());
-            $vacancy->setEndDate($data->getEnddate());
+            if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
 
-            $em->flush();
+                $vacancy->setTitle($data->getTitle());
+                $vacancy->setDescription($data->getDescription());
+                $vacancy->setEndDate($data->getEnddate());
 
-            return $this->redirect($this->generateUrl("vacancy_by_urlid",
-                array("urlid" => $vacancy->getUrlId() ) ));
+                $em->flush();
+
+                return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                    array("urlid" => $vacancy->getUrlId() ) ));
+            }
+
+            return $this->render("vacancy/vacature_aanpassen.html.twig",
+                array("form" => $form->createView(),
+                      "urlid" => $urlid) );
         }
 
-        return $this->render("vacancy/vacature_aanpassen.html.twig",
-            array("form" => $form->createView(),
-                  "urlid" => $urlid) );
+        throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
     }
 
 /**
@@ -279,20 +288,24 @@ class VacancyController extends controller
     }
 
 /**
- * Delete a vacancy
- * @Route("/vacature/{urlid}/delete", name="delete_vacancy")
- * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted
+ * Delete or restore a vacancy
+ * @Route("/vacature/{urlid}/delete", name="delete_vacancy", defaults={ "deleted" = 4 })
+ * @Route("/vacature/{urlid}/restore", name="restore_vacancy", defaults={ "deleted" = 1 })
+ * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted or restored
  */
-    public function deleteVacancyAction($urlid)
+    public function changeVacancyPublishedStatusAction($urlid, $deleted)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        $vacancy->setPublished(Vacancy::DELETED);
-        $em->persist($vacancy);
-        $em->flush();
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $vacancy->setPublished($deleted);
+            $em->persist($vacancy);
+            $em->flush();
+        }
 
-        return new Response('Succesfully deleted the vacancy', Response::HTTP_OK);
+        return $this->redirectToRoute('vacancy_by_urlid', array('urlid' => $urlid));
     }
 
     private function getVacancyRepository(){

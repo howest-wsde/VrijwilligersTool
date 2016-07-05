@@ -1,10 +1,12 @@
-<form method="post" action="{{ path("feedback") }}" class="feedbackform" id="feedbackform">
-	<fieldset>
-		<legend id="dragdropfeedback">Titel</legend>
-		<p>Heeft u opmerkingen, vragen of feedback over deze pagina? Vul ze hier in. </p>
-		<textarea name="feedback" id="feedback"></textarea>
+ <div id="feedback">
+  <div id="feedback-form" style='display:none;' class="col-xs-4 col-md-4 panel panel-default">
+    <form method="POST" action="{{ path("feedback") }}" class="form panel-body" role="form">
 		<input type="hidden" name="url" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">
-		<input type="submit" value="verzenden" name="verzenden" id="feedbacksend">
-	</fieldset> 
-</form>
- 
+      <div class="form-group">
+        <textarea class="form-control" name="body" required placeholder="Geef hier je feedback..." rows="5"></textarea>
+      </div>
+      <button class="btn btn-primary pull-right" type="submit">verzenden</button>
+    </form>
+  </div>
+  <div id="feedback-tab">Feedback</div>
+</div>
