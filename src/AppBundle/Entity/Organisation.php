@@ -52,6 +52,11 @@ class Organisation extends EntityBase
     private $intermediary = false;
 
     /**
+     * @var bool
+     */
+    private $deleted = false;
+
+    /**
      * @var string
      * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
@@ -331,6 +336,30 @@ class Organisation extends EntityBase
     public function getIntermediary()
     {
         return $this->intermediary;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param bool $deleted
+     *
+     * @return Organisation
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 
     /**

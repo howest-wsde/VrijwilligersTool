@@ -95,7 +95,6 @@ class OrganisationController extends controller
             ]);
     }
 
-
     /**
      * @Route("/vereniging/{urlid}" , name="organisation_by_urlid")
      */
@@ -125,6 +124,27 @@ class OrganisationController extends controller
                 "organisation" => $organisation,
                 "form" => $form->createView(),
             ]);
+    }
+
+/**
+ * Restore an organisation
+ * @Route("/vereniging/{urlid}/restore", name="restore_organisation", defaults={ "deleted" = false })
+ * @Route("/vereniging/{urlid}/delete", name="delete_organisation", defaults={ "deleted" = true })
+ * @param  AppBundle\Entity\Organisation $organisation the organisation to be restored
+ */
+    public function changeOrganisationDeletedStatusAction($urlid, $deleted)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+        if($organisation->getAdministrators()->contains($user)){
+            $organisation->setDeleted($deleted);
+            $em->persist($organisation);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('organisation_by_urlid', array('urlid' => $urlid));
     }
 
     /**
