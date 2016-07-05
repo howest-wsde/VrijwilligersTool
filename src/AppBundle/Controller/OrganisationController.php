@@ -152,14 +152,18 @@ class OrganisationController extends controller
      */
     public function organisationRemoveAdminAction($organisation_urlid, $person_username)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($organisation_urlid);
         $person = $em->getRepository("AppBundle:Person")
             ->findOneByUsername($person_username);
-        $person->removeOrganisation($organisation);
-        $em->persist($person);
-        $em->flush();
+        if($organisation->getAdministrators()->contains($user)){
+            $person->removeOrganisation($organisation);
+            $em->persist($person);
+            $em->flush();
+        }
+
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
 
@@ -169,14 +173,17 @@ class OrganisationController extends controller
      */
     public function organisationAddAdminAction($organisation_urlid)
     {
+        $user = $this->getUser();
         $request = Request::createFromGlobals();
         $personInput = $request->request->get("userid");
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($organisation_urlid);
-        $person->addOrganisation($organisation);
-        $em->persist($person);
-        $em->flush();
+        if($organisation->getAdministrators()->contains($user)){
+            $person->addOrganisation($organisation);
+            $em->persist($person);
+            $em->flush();
+        }
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }

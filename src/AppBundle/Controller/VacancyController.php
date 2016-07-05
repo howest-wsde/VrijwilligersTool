@@ -57,6 +57,16 @@ class VacancyController extends controller
      */
     public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
+        if($organisation_urlid){
+            $user = $this->getUser();
+            $organisation = $this->getDoctrine()->getManager()
+                            ->getRepository("AppBundle:Organisation")
+                            ->findOneByUrlid($urlid);
+            if(!$user->getOrganisations()->contains($organisation)){
+                throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.");
+            }
+        }
+
         $vacancy = new Vacancy();
         $vacancy->setStartdate(new \DateTime("today"))
             ->setEnddate(new \DateTime("today"));
