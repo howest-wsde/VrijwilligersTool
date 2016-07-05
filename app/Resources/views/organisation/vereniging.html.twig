@@ -70,7 +70,7 @@
 	</article>
 {% if organisation.vacancies %}
 	<h3>Vacatures</h3>
-	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id })) }}
+	{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 {% endif %}
 
 
