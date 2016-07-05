@@ -5,7 +5,7 @@
 {% block body %}
 {% if organisation.deleted %}
 	<h1>{{ organisation.name }}</h1>
-	<p>Deze vereniging werd verwijderd.  Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">klik dan op deze link</a>.</p>
+	<p>Deze vereniging werd verwijderd.  {% if app.user in organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">klik dan op deze link</a>.{% endif %}</p>
 {% else %}
 	<article class="tempblok">
 		<h1>{{ organisation.name }}</h1>

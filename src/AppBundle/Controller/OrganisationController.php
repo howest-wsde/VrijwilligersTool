@@ -127,10 +127,10 @@ class OrganisationController extends controller
     }
 
 /**
- * Restore an organisation
- * @Route("/vereniging/{urlid}/restore", name="restore_organisation", defaults={ "deleted" = false })
+ * Delete or restore an organisation
  * @Route("/vereniging/{urlid}/delete", name="delete_organisation", defaults={ "deleted" = true })
- * @param  AppBundle\Entity\Organisation $organisation the organisation to be restored
+ * @Route("/vereniging/{urlid}/restore", name="restore_organisation", defaults={ "deleted" = false })
+ * @param  AppBundle\Entity\Organisation $organisation the organisation to be deleted or restored
  */
     public function changeOrganisationDeletedStatusAction($urlid, $deleted)
     {
