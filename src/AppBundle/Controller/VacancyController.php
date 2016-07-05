@@ -269,20 +269,24 @@ class VacancyController extends controller
     }
 
 /**
- * Delete a vacancy
- * @Route("/vacature/{urlid}/delete", name="delete_vacancy")
- * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted
+ * Delete or restore a vacancy
+ * @Route("/vacature/{urlid}/delete", name="delete_vacancy", defaults={ "deleted" = 4 })
+ * @Route("/vacature/{urlid}/restore", name="restore_vacancy", defaults={ "deleted" = 1 })
+ * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted or restored
  */
-    public function deleteVacancyAction($urlid)
+    public function changeVacancyPublishedStatusAction($urlid, $deleted)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        $vacancy->setPublished(Vacancy::DELETED);
-        $em->persist($vacancy);
-        $em->flush();
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $vacancy->setPublished($deleted);
+            $em->persist($vacancy);
+            $em->flush();
+        }
 
-        return new Response('Succesfully deleted the vacancy', Response::HTTP_OK);
+        return $this->redirectToRoute('vacancy_by_urlid', array('urlid' => $urlid));
     }
 
     private function getVacancyRepository(){

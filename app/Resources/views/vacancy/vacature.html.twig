@@ -3,6 +3,10 @@
 {% block title %}Vacature{% endblock %}
 
 {% block body %}
+{% if vacancy.published == 4 %}
+	<h1>{{ vacancy.title }}</h1>
+	<p>Deze vacature werd verwijderd.  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">klik dan op deze link</a>.{% endif %}</p>
+{% else %}
 	<article>
         <div id="vacancy_info">
 		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
@@ -116,6 +120,7 @@
 			</ul>
 			{% endblock %}</footer>
 	</article>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}
