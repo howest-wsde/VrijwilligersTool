@@ -15,7 +15,6 @@
                 $(this).closest("form.search").addClass("actief");
             })
             .keyup(function() {
-                console.log($(this).val());
                 clearTimeout(search["timer"]);
                 search["term"] = $(this).val();
                 search["form"] = $(this).closest("form.search");
@@ -39,7 +38,7 @@
 
 
     var logError = function (xhr, message, error) {
-        console.log(xhr, message, error);
+        //console.log(xhr, message, error);
         $(search["form"]).find(".searchResult").html("<ul><li><span>Er gebeurde een fout tijdens het zoeken. Probeer later opnieuw</span></li></ul>");
     };
 })();
