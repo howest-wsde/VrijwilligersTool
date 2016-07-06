@@ -17,8 +17,8 @@
 .grijzetitel() {
 	color: #7f8c8c; font-size: 20px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 20px; font-weight: bold;
 }
-.shaduwblok(@achtergrond){
-	background: @achtergrond; box-shadow: 0px 4px 0px 0px darken(@achtergrond, 8%);
+.shaduwblok(@achtergrond, @size: 4px){
+	background: @achtergrond; box-shadow: 0px @size 0px 0px darken(@achtergrond, 8%);
 }
 .rounded(@iHoek){
 	border-radius: @iHoek; 
@@ -38,30 +38,50 @@ body>header {
 		}
 		nav {
 			flex: 1;
-			display: flex; flex-flow: row wrap;
+			display: flex; flex-flow: row wrap; 
 			justify-content: flex-end; align-content: space-between; 
 			form.search {
-				margin: 0; flex: 1; align-content: space-between; display: flex; 
-				>* {margin: 5px; }
+				margin: 0; align-content: space-between; display: flex; .rounded(5px); 
+				align-items: baseline; font-size: 90%; 
 				#searchq {
-					border: 0; .rounded(5px); padding: 5px 10px; flex: 1; 
-					color: white; text-align: right; background: @cHeader; 
+					border: 0; padding: 5px 10px; flex: 1; 
+					color: white; text-align: right; background: transparent;  
 				}
 				.dosearch {
-					flex: 0 0 15px; border: 0; overflow: hidden; color: transparent; 
-					background: @cHeader url("../images/bulletarrow.png") no-repeat center center; 
+					flex: 0 0 35px; border: 0; overflow: hidden; color: transparent;  padding: 5px; 
+					background: transparent url("../images/search.png") no-repeat center center; 
 				}
-				&:hover #searchq, &.actief #searchq {background: lighten(@cHeader, 5%); }
+				&:hover, &.actief {
+					background: lighten(@cHeader, 5%);  
+					#searchq {text-align: left; }
+				}
 			}
 			ul {margin: 0; padding: 0; }
 			ul.usermenu { 
-				a {
-					color: white; text-transform: uppercase; padding: 3px 8px; .rounded(5px);
-					text-decoration: none; display: block; font-size: 10px;  
-					&:hover {background: lighten(@cHeader, 10%); }
+				margin-right: @iMargin; 
+				li { 
+					border-right: 1px solid white; padding: 0 7px; 
+					&:last-child {border-right: 0; padding-right: 0; }
+					a {
+						color: white; text-transform: uppercase; padding: 5px 7px; .rounded(5px);
+						text-decoration: none; display: block; font-size: 90%; margin: 0; 
+						&:hover {background: lighten(@cHeader, 10%); }
+					}
 				}
 			}
-			ul.mainmenu {flex: 0 0 100%; } 
+			ul.mainmenu {
+				flex: 0 0 100%; display: flex; justify-content: flex-end; margin: @iMargin; 
+				li { 
+					padding-left: 10px; 
+					a {
+						text-decoration: none; color: white; text-transform: uppercase;
+						.rounded(5px); padding: 5px 10px; 
+						&.actief {.shaduwblok(darken(@cHeader, 30%), 2px);  }
+						&:hover {.shaduwblok(@cRood, 2px); }
+					} 
+				}
+
+			} 
 			ul li {display: inline-block; } 
 		} 
 	}
