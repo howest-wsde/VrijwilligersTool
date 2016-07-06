@@ -1,6 +1,6 @@
 <form class="search" method="get" action="{{ path("zoeken") }}" autocomplete="off">
     <input type="text" class="searchq" name="q" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
-    <input type="submit" value="zoeken" class="dosearch" />
+    <input type="submit" value="zoeken" class="dosearch cta" />
     {% if withHistory %}
         {% embed "search/history_search.html.twig" %}{% endembed %}
     {% endif %}

@@ -121,7 +121,7 @@ body>header {
 			flex-flow: column wrap;
 			a.logo {flex: 0 0 104px; }
 			a.burger {
-				position: absolute; top: @iMargin; right: @iMargin; display: block;
+				position: absolute; top: @iMargin; right: @iMargin; display: block; .rounded(4px);
 				width: 40px; background: lighten(@cHeader, 20%); padding: 5px;
 				span {height: 4px; margin: 4px; display: block; background: @cHeader; }
 			}
@@ -135,7 +135,9 @@ body>header {
 					margin: 0;
 					li {
 						padding: 2px @iPadding;
-						a {display: block; }
+						a {
+							display: block;
+						}
 					}
 				}
 				ul.usermenu {
@@ -206,8 +208,18 @@ body>header {
 }
 
 #handenuitmouwen { /* ZOEKEN VANUIT HOMEPAGE */
-
-
+	.searchResult {
+		width: 80%; margin: auto; .rounded(5px); overflow: hidden;
+		ul {
+			text-align: left; margin: 0; padding: 0;
+			li {
+				padding: 5px 10px; display: block;
+				a {color: black; text-decoration: none; }
+				&:nth-child(odd) {background: rgba(255, 255, 255, 0.8); }
+				&:nth-child(even) {background: rgba(255, 255, 255, 0.6); }
+			}
+		}
+	}
 }
 
 
@@ -252,11 +264,12 @@ div.vacatures, div.organisaties, .blokken {
 		margin: @iMargin;
 		text-align: center;
 		a.fav {
-			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+			background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 			position: absolute;  right: 20px; top: -2px;
 			span {display: none; }
+			&.liked {background-position: center bottom; }
+			&.notliked {background-position: center top; }
 		}
-		a.fav.liked {background-position: center bottom; }
 		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
 		a.cta {
 			color: white;
@@ -265,7 +278,11 @@ div.vacatures, div.organisaties, .blokken {
 			.shaduwblok(@cGroen);
 			.rounded(5px);
 			width: 160px;
+			text-decoration: none;
 		}
+	}
+	>article.vacature, >article.vereniging {
+		padding-top: 30px;
 	}
 	>article.vacature.cta, >article.vereniging.cta, >.blok.cta {
 		margin-bottom: (@iMargin + 20); padding-bottom: 30px;
@@ -277,19 +294,7 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 
-.nieuwsbrief {
-	padding: @iPadding;
-	.rounded(10px); text-align: center;
-	h2 {color: @cGrijs; font-size: 20px;  }
-	input {
-		border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
-	}
-	input.cta {
-		.shaduwblok(@cRood);
-		color: white; text-transform: uppercase; padding: 10px 20px;
-		min-width: 200px;
-	}
-}
+
 
 .tempblok {
 	.shaduwblok(white);
@@ -298,11 +303,12 @@ div.vacatures, div.organisaties, .blokken {
 	margin: @iMargin;
 	position: relative;
 	a.fav {
-		background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 		position: absolute;  right: 20px; top: -2px;
 		span {display: none; }
+		&.liked {background-position: center bottom; }
+		&.notliked {background-position: center top; }
 	}
-	a.fav.liked {background-position: center bottom; }
 	img.logo {max-width: 100%; max-height: 200px; margin: 10px auto; }
 	a.cta {
 		color: white;
@@ -422,6 +428,18 @@ body>footer {
 	padding: 20px 0 30px 0;
 	.blok.special {
 		box-shadow: none;
+		padding: @iPadding;
+		.rounded(10px); text-align: center;
+		h2 {color: @cGrijs; font-size: 20px;  }
+		input {
+			border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
+		}
+		input.cta {
+			.shaduwblok(@cRood);
+			color: white; text-transform: uppercase; padding: 10px 20px 8px;
+			min-width: 200px;
+		}
+
 	}
 
 }

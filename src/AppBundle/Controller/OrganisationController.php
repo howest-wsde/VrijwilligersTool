@@ -194,7 +194,7 @@ class OrganisationController extends controller
      *              name="organisation_like",
      *              requirements={"likeunlike": "like|unlike"})
      */
-    public function likeOrganisation($urlid, $likeunlike)
+    public function likeOrganisation($urlid, $likeunlike, Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -205,7 +205,11 @@ class OrganisationController extends controller
         $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
+        if (isset($_GET['ajax'])) {
+            return new Response(($likeunlike == "like") ? "liked" : "notliked");
+        } else {
+            return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
+        }
     }
     /**
      * Function called from a twig template (base) in order to show a list of recent organisations.
