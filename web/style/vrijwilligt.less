@@ -6,7 +6,7 @@
 @cGroen: #76c7c0;
 @cBlauw: #37c1dc;
 @cGeel: #dec531;
-@cGrijs: #303030; 
+@cGrijs: #303030;
 
 @iContainerWidth: 1170px;
 @iMargin: 15px;
@@ -21,72 +21,92 @@
 	background: @achtergrond; box-shadow: 0px @size 0px 0px darken(@achtergrond, 8%);
 }
 .rounded(@iHoek){
-	border-radius: @iHoek; 
+	border-radius: @iHoek;
 }
 
 /* ---------------------------- START CSS ---------------------------- */
 
 /* main header / menu */
 body>header {
-	background-color: @cHeader; overflow: auto;
+	background-color: @cHeader;
 	.mainnav {
-		display: flex; 
-		padding-top: @iPadding; 
-		flex-flow: row wrap; justify-content: space-between;  
+		display: flex;
+		padding-top: @iPadding;
+		flex-flow: row wrap; justify-content: space-between;
 		a.logo {
 			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
 			width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
-			flex: 0 0 250px; align-self: flex-end; 
+			flex: 0 0 250px; align-self: flex-end;
 			h1 {display: none; }
 		}
 		nav {
 			flex: 1;
-			display: flex; flex-flow: row wrap; 
-			justify-content: flex-end; align-content: space-between; 
+			display: flex; flex-flow: row wrap;
+			justify-content: flex-end; align-content: space-between;
 			form.search {
-				margin: 0; align-content: space-between; display: flex; .rounded(5px); 
-				align-items: baseline; font-size: 90%; 
-				#searchq {
-					border: 0; padding: 5px 10px; flex: 1; 
-					color: white; text-align: right; background: transparent;  
+				margin: 0; align-content: space-between; display: flex; .rounded(5px);
+				align-items: baseline; font-size: 90%; position: relative;
+				.searchq {
+					border: 0; padding: 5px 10px; flex: 1;
+					color: white; text-align: right; background: transparent;
 				}
 				.dosearch {
-					flex: 0 0 35px; border: 0; overflow: hidden; color: transparent;  padding: 5px; 
-					background: transparent url("../images/search.png") no-repeat center center; 
+					flex: 0 0 35px; border: 0; overflow: hidden; color: transparent;  padding: 5px;
+					background: transparent url("../images/search.png") no-repeat center center;
 				}
+				.searchResult {display: none; }
 				&:hover, &.actief {
-					background: lighten(@cHeader, 10%);  
-					#searchq {text-align: left; }
+					background: lighten(@cHeader, 10%);
+					.searchq {text-align: left; }
+				}
+				&.actief {
+					.searchResult {
+						position: absolute; background: lighten(@cHeader, 10%);
+						.rounded(5px); display: block; z-index: 999;
+						left: 0; top: 30px; width: 100%;
+						li {
+							display: block;
+							span {
+								display: block; padding: 8px 10px;
+								color: white; font-style: italic;
+							}
+							a {
+								display: block; padding: 8px 10px; text-decoration: none;
+								color: white;
+								&:hover {background: lighten(@cHeader, 5%);}
+							}
+						}
+					}
 				}
 			}
 			ul {margin: 0; padding: 0; }
-			ul.usermenu { 
-				margin-right: @iMargin; 
-				li { 
-					border-right: 1px solid white; padding: 0 7px; 
+			ul.usermenu {
+				margin-right: @iMargin;
+				li {
+					border-right: 1px solid white; padding: 0 7px;
 					&:last-child {border-right: 0; padding-right: 0; }
 					a {
 						color: white; text-transform: uppercase; padding: 5px 7px; .rounded(5px);
-						text-decoration: none; display: block; font-size: 90%; margin: 0; 
+						text-decoration: none; display: block; font-size: 90%; margin: 0;
 						&:hover, &.actief {background: lighten(@cHeader, 10%); }
 					}
 				}
 			}
 			ul.mainmenu {
-				flex: 0 0 100%; display: flex; flex-flow: row wrap; justify-content: flex-end; margin: @iMargin; 
-				li { 
-					padding-left: 10px; 
+				flex: 0 0 100%; display: flex; flex-flow: row wrap; justify-content: flex-end; margin: @iMargin;
+				li {
+					padding-left: 10px;
 					a {
 						text-decoration: none; color: white; text-transform: uppercase;
-						.rounded(5px); padding: 5px 10px; 
+						.rounded(5px); padding: 5px 10px;
 						&.actief {.shaduwblok(darken(@cHeader, 30%), 2px);  }
 						&:hover {.shaduwblok(@cRood, 2px); }
-					} 
+					}
 				}
 
-			} 
-			ul li {display: inline-block; } 
-		} 
+			}
+			ul li {display: inline-block; }
+		}
 	}
 
 	.menu_primary {
@@ -198,16 +218,16 @@ div.vacatures, div.organisaties, .blokken {
 }
 
 .nieuwsbrief {
-	padding: @iPadding; 
-	.rounded(10px); text-align: center; 
+	padding: @iPadding;
+	.rounded(10px); text-align: center;
 	h2 {color: @cGrijs; font-size: 20px;  }
 	input {
-		border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;  
+		border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
 	}
 	input.cta {
-		.shaduwblok(@cRood); 
-		color: white; text-transform: uppercase; padding: 10px 20px; 
-		min-width: 200px; 
+		.shaduwblok(@cRood);
+		color: white; text-transform: uppercase; padding: 10px 20px;
+		min-width: 200px;
 	}
 }
 
@@ -244,13 +264,13 @@ h3 {.grijzetitel(); }
 /*   */
 
 form {
-	margin: @iMargin;  
+	margin: @iMargin;
 	#person_skills, #vacancy_socialInteraction, #vacancy_independent, #vacancy_skills {
-		display: flex; flex-flow: row wrap; 
-		align-items: flex-start; align-content: flex-start; justify-content: flex-start; 
+		display: flex; flex-flow: row wrap;
+		align-items: flex-start; align-content: flex-start; justify-content: flex-start;
 		input {flex: 0 0 5%; }
 		label {flex: 0 0 45%; }
-	}  
+	}
 }
 
 .steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
@@ -270,8 +290,8 @@ form {
 
 #partners {
 	h3 {
-		font-size: 18px; text-transform: none; flex: 0 0 100%; 
-		margin: @iMargin @iMargin 0; border-top: 3px dotted @cGroen; padding-top: 10px; 
+		font-size: 18px; text-transform: none; flex: 0 0 100%;
+		margin: @iMargin @iMargin 0; border-top: 3px dotted @cGroen; padding-top: 10px;
 	}
 	.blok {
 		display: flex; align-items: center; justify-content: center;
@@ -280,14 +300,14 @@ form {
 }
 
 #footernav {  /* NAVIGATIE ONDERAAN */
-	padding: @iPadding; 
+	padding: @iPadding;
 	h1 {color: @cGrijs; font-size: 20px; margin-bottom: @iMargin; }
 	ul {
-		padding: 0;  
+		padding: 0;
 		li {
-			list-style-type: none; 
-			background: url("../images/bulletarrow.png") no-repeat left 5px; 
-			padding-left: 17px; 
+			list-style-type: none;
+			background: url("../images/bulletarrow.png") no-repeat left 5px;
+			padding-left: 17px;
 			a {color: @cGrijs; }
 		}
 	}
@@ -313,6 +333,18 @@ body>footer {
 	#legalfooter {
 		padding: 20px 0;
 		background: @cCarousel;
+		ul.social {
+			float: right;
+			li {
+				display: inline-block;
+				a {
+					width: 22px; height: 22px; overflow: hidden; color: transparent; display: block;
+				}
+				a.facebook {
+					background: url(../images/social-fb.png) no-repeat center center;
+				}
+			}
+		}
 	}
 }
 

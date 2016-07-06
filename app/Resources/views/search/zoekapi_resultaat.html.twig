@@ -1,19 +1,16 @@
+<ul>
+{% if results|length == 0 %}<li>Geen resultaten</li>{% endif %}
 {% for result in results %}
-    <div class="display_box" align="left">
+	<li>
 		{% if (result.isoftype("Person")) %}
-			<b>{{ result.firstname}} {{ result.lastname}}</b>
-			<br />
-			<input type="hidden" id="referer" value="{{ path("person_username", { "username": result.username }) }}" />
+			<a href="{{ path("person_username", { "username": result.username }) }}">{{ result.firstname}} {{ result.lastname}}</a>
 		{% elseif (result.isoftype("Vacancy")) %}
-			<b>{{ result.title }}</b>
-			<br />
-			<input type="hidden" id="referer" value="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}" />
+			<a href="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}">{{ result.title}}</a>
 		{% elseif (result.isoftype("Organisation")) %}
-			<b>{{ result.name }}</b>
-			<br />
-			<input type="hidden" id="referer" value="{{ path("organisation_by_urlid", { "urlid": result.name }) }}" />
+			<a href="{{ path("organisation_by_urlid", { "urlid": result.name }) }}">{{ result.name }}</a>
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %}
-    </div>
+    </li>
 {% endfor %}
+</ul>
