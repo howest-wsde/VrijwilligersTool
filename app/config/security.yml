@@ -30,7 +30,7 @@ security:
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: /persoon
+                default_target_path: /
             logout:
                 path:   /logout
                 target: /
@@ -43,7 +43,7 @@ security:
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
-                default_target_path: /persoon
+                default_target_path: /
             logout:
                 path:   /logout
                 target: /
