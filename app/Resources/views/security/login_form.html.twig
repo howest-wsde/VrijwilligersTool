@@ -1,0 +1,27 @@
+{% trans_default_domain "validators" %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, "security") }}</div>
+{% endif %}
+
+<form action="{{ path("login") }}" method="post">
+    <!-- <label for="username">Username:</label> -->
+    <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{"person.placeholder.username"|trans}}"/>
+
+    <!-- <label for="password">Password:</label> -->
+    <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}"    >
+    {% if path %}
+        <input type="hidden" name="_target_path" value="{{ path }}" />
+    {% endif %}
+<button type="submit">login</button>
+</form>
+
+<aside>
+    <a href="{{ path("oauth_google") }}"><img src="{{ asset("images/google.png") }}" alt="Inloggen via Google"></a>
+    <a href="{{ path("oauth_facebook") }}"><img src="{{ asset("images/fb.png") }}" alt="Inloggen via Facebook"></a>
+    <p><a href="{{ path("register_user") }}">Maak een account</a></p>
+</aside>
+
+<script type="in/Login"></script>

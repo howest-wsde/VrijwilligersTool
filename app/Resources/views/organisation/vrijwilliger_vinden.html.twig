@@ -5,14 +5,18 @@
 {% block body %}
 	<header>
 		<h1>Vrijwilliger vinden</h1>
-		<p>Op zoek naar vrijwilligers?</p>
+		<p>Ben je op zoek naar één of meerdere vrijwilligers?  Op deze pagina kan je <strong>als geregistreerde gebruiker</strong> een vacature aanmaken.  Je hebt daarbij de keuze tussen een vacature voor een organisatie of voor een persoon.</p>
 	</header>
-	<h2>Voor welke vereniging wil je een vrijwilliger vinden? </h2>
-	<ul>
-		{% for organisation in organisations %}
-			<li><a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ organisation.name }}</a></li>
-	    {% endfor %}
-		<li><a href="{{ path("create_organisation") }}">nieuwe vereniging</a></li>
-		<li><a href="{{ path("create_vacancy") }}">voor mezelf als particulier</a></li>
-	</ul>
+	{% if app.user %}
+		<h2>Voor welke vereniging wil je een vrijwilliger vinden? </h2>
+		<ul>
+			{% for organisation in organisations %}
+				<li><a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ organisation.name }}</a></li>
+		    {% endfor %}
+			<li><a href="{{ path("create_organisation") }}">nieuwe vereniging</a></li>
+			<li><a href="{{ path("create_vacancy") }}">voor mezelf als particulier</a></li>
+		</ul>
+	{% else %}
+		{% embed "security/login_form.html.twig" with { 'path': path, 'error': error, 'last_username': last_username } %}{% endembed %}
+	{% endif %}
 {% endblock %}

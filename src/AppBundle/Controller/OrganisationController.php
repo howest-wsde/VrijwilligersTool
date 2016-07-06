@@ -221,6 +221,32 @@ class OrganisationController extends controller
             ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }
 
+/**
+ * Get a random selection of organisations.
+ * @param integer $nr       The amount of organisations in the selection
+ * @param string  $viewMode The way the organisations should be rendered
+ */
+    public function ListRandomOrganisationsAction($nr, $viewMode = "list")
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $count = $this->get('doctrineUtils')->getCount($em, 'AppBundle:Organisation');
+        $uniqueIntegers = $this->get('random')
+                          ->generateRandomUniqueIntegerArray(1, $count, $nr);
+        $query = $em->createQuery("select o from AppBundle:Organisation o where o.id in (:array)")
+                    ->setParameter('array', $uniqueIntegers);
+
+        return $this->render('organisation/verenigingen_oplijsten.html.twig',
+            [
+                'organisations' => $query->getResult(),
+                'viewMode' => $viewMode
+            ]);
+    }
+
+/**
+ * Get a listing of the amount of volunteers an organisation has - that are known on this site.
+ * @param integer $id the organisation id
+ */
     public function ListOrganisationVolunteersAction($id){
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation");

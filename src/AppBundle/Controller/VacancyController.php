@@ -38,15 +38,30 @@ class VacancyController extends controller
 
     /**
      * Controller to give the user a choice of what kind of vacancy he wants to create.
-     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/start", name="start_vacancy")
      */
     public function startVacancyAction(Request $request)
     {
-        $organisations = $this->getUser()->getOrganisations();
+        $user = $this->getUser();
+        $authenticationUtils = $this->get("security.authentication_utils");
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        if($user){
+            $organisations = $user->getOrganisations();
+        }
+        else
+        {
+            $organisations = null;
+        }
         return $this->render("organisation/vrijwilliger_vinden.html.twig",
-                ["organisations" => $organisations ]
-            );
+                [
+                    "organisations" => $organisations,
+                    "last_username" => $lastUsername,
+                    "error"         => $error,
+                    "path" => "start_vacancy",
+                ]);
     }
 
 
