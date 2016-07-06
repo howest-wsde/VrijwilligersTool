@@ -32,9 +32,12 @@ body>header {
 	.mainnav {
 		display: flex; 
 		padding-top: @iPadding; 
-		flex-flow: row wrap; justify-content: space-between;   
-		a.logo { 
+		flex-flow: row wrap; justify-content: space-between;  
+		a.logo {
+			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
+			width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
 			flex: 0 0 250px; align-self: flex-end; 
+			h1 {display: none; }
 		}
 		nav {
 			flex: 1;
@@ -52,7 +55,7 @@ body>header {
 					background: transparent url("../images/search.png") no-repeat center center; 
 				}
 				&:hover, &.actief {
-					background: lighten(@cHeader, 5%);  
+					background: lighten(@cHeader, 10%);  
 					#searchq {text-align: left; }
 				}
 			}
@@ -65,7 +68,7 @@ body>header {
 					a {
 						color: white; text-transform: uppercase; padding: 5px 7px; .rounded(5px);
 						text-decoration: none; display: block; font-size: 90%; margin: 0; 
-						&:hover {background: lighten(@cHeader, 10%); }
+						&:hover, &.actief {background: lighten(@cHeader, 10%); }
 					}
 				}
 			}
@@ -84,11 +87,6 @@ body>header {
 			} 
 			ul li {display: inline-block; } 
 		} 
-	}
-	a.logo {
-		background: url("../images/logo_roeselarevrijwilligt.png") no-repeat center center;
-		width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
-		h1 {display: none; }
 	}
 
 	.menu_primary {

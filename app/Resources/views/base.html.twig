@@ -30,22 +30,22 @@
                         {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
 
                         <ul class="usermenu">
-                            <li><a href="{{ path("info_over_ons") }}">over ons</a></li>
-                            <li><a href="{{ path("info_contact") }}">contact</a></li>
+                            <li><a href="{{ path("info_over_ons") }}" class="{% if app.request.attributes.get('_route') == 'info_over_ons' %}actief{% endif %}">over ons</a></li>
+                            <li><a href="{{ path("info_contact") }}" class="{% if app.request.attributes.get('_route') == 'info_contact' %}actief{% endif %}">contact</a></li>
                             {% if app.user %}
-                                <li><a href="{{ path("profile_edit") }}">mijn profiel</a></li>
+                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">mijn profiel</a></li>
                                 <li><a href="{{ path("logout") }}">uitloggen</a></li>
                             {% else %}
-                                <li><a href="{{ path("login") }}">inloggen</a></li> 
+                                <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">inloggen</a></li> 
                             {% endif %}
                         </ul>
                          
                         <ul class="mainmenu">
-                            <li><a href="{{ path("self_profile") }}">Mijn profiel</a></li>
-                            <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
-                            <li><a href="{{ path("start_vacancy") }}" class="actief">Vrijwilliger vinden</a></li>
-                            <li><a href="{{ path("info_vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
-                            <li><a href="{{ path("tests") }}">Tests</a></li>
+                            <li><a href="{{ path("self_profile") }}" class="{% if app.request.attributes.get('_route') == 'self_profile' %}actief{% endif %}">Mijn profiel</a></li>
+                            <li><a href="{{ path("register_user") }}" class="{% if app.request.attributes.get('_route') == 'register_user' %}actief{% endif %}">Vrijwilliger worden</a></li>
+                            <li><a href="{{ path("start_vacancy") }}" class="{% if app.request.attributes.get('_route') == 'start_vacancy' %}actief{% endif %}">Vrijwilliger vinden</a></li>
+                            <li><a href="{{ path("info_vrijwilligersinfo") }}" class="{% if app.request.attributes.get('_route') == 'info_vrijwilligersinfo' %}actief{% endif %}">Vrijwilligersinfo</a></li>
+                            <li><a href="{{ path("tests") }}" class="{% if app.request.attributes.get('_route') == 'tests' %}actief{% endif %}">Tests</a></li>
                         </ul>
                     </nav>
   
