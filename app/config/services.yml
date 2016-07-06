@@ -9,6 +9,10 @@ services:
     ib_user.oauth_user_provider:
         class: AppBundle\Auth\OAuthProvider
         arguments: ["@session", "@doctrine", "@service_container"]
+    random:
+        class: AppBundle\Utils\Random
+    doctrineUtils:
+        class: AppBundle\Utils\DoctrineUtils
     # doctrine.orm.validator.unique:
     #     class: Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator
     #     arguments:

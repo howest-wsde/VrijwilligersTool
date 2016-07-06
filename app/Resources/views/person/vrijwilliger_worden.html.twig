@@ -108,6 +108,7 @@
 			<section id="vacaturesOpMaat" class="step">
 				<h2 class="steptitle">Vacatures op maat</h2>
 		        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }} {# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
+		        <h2>Bewaarde vacatures</h2>
 				{{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
 			</section>
 		{% endif %}
