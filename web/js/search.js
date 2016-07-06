@@ -5,7 +5,7 @@
 
         $(document).on("click", function(e) {
             if(!$(e.target).closest("form.search").hasClass("search")) {
-                $("form.search.actief").removeClass("actief").find(".searchResult").html("");
+                $("form.search.actief").removeClass("actief");//.find(".searchResult").html("");
             }
         });
 

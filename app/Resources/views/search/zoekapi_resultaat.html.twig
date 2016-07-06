@@ -1,13 +1,13 @@
 <ul>
-{% if results|length == 0 %}<li>Geen resultaten</li>{% endif %}
+{% if results|length == 0 %}<li><span>Geen resultaten</span></li>{% endif %}
 {% for result in results %}
 	<li>
 		{% if (result.isoftype("Person")) %}
-			<a href="{{ path("person_username", { "username": result.username }) }}">{{ result.firstname}} {{ result.lastname}}</a>
+			<a class="person" href="{{ path("person_username", { "username": result.username }) }}">{{ result.firstname}} {{ result.lastname}}</a>
 		{% elseif (result.isoftype("Vacancy")) %}
-			<a href="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}">{{ result.title}}</a>
+			<a class="vacancy" href="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}">{{ result.title}}</a>
 		{% elseif (result.isoftype("Organisation")) %}
-			<a href="{{ path("organisation_by_urlid", { "urlid": result.name }) }}">{{ result.name }}</a>
+			<a class="organisation" href="{{ path("organisation_by_urlid", { "urlid": result.name }) }}">{{ result.name }}</a>
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %}
