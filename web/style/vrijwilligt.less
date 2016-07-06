@@ -3,13 +3,9 @@
 @cCarousel: #6cb9b3;
 
 @cRood: #e8645a;
-@cRoodBorder: #e2534b;
 @cGroen: #76c7c0;
-@cGroenBorder: #62b9b0;
 @cBlauw: #37c1dc;
-@cBlauwBorder: #2eb1d3;
 @cGeel: #dec531;
-@cGeelBorder: #d6b729;
 @cGrijs: #303030; 
 
 @iContainerWidth: 1170px;
@@ -21,8 +17,11 @@
 .grijzetitel() {
 	color: #7f8c8c; font-size: 20px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-size: 20px; font-weight: bold;
 }
-.shaduwblok(@achtergrond, @rand){
-	background: @achtergrond; box-shadow: 0px 4px 0px 0px @rand;
+.shaduwblok(@achtergrond, @size: 4px){
+	background: @achtergrond; box-shadow: 0px @size 0px 0px darken(@achtergrond, 8%);
+}
+.rounded(@iHoek){
+	border-radius: @iHoek; 
 }
 
 /* ---------------------------- START CSS ---------------------------- */
@@ -30,14 +29,64 @@
 /* main header / menu */
 body>header {
 	background-color: @cHeader; overflow: auto;
-	.navbar-default {
-	    background-color: transparent;
-	    border: 0px;
-	}
-	a.logo {
-		background: url("../images/logo_roeselarevrijwilligt.png") no-repeat center center;
-		width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
-		h1 {display: none; }
+	.mainnav {
+		display: flex; 
+		padding-top: @iPadding; 
+		flex-flow: row wrap; justify-content: space-between;  
+		a.logo {
+			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
+			width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
+			flex: 0 0 250px; align-self: flex-end; 
+			h1 {display: none; }
+		}
+		nav {
+			flex: 1;
+			display: flex; flex-flow: row wrap; 
+			justify-content: flex-end; align-content: space-between; 
+			form.search {
+				margin: 0; align-content: space-between; display: flex; .rounded(5px); 
+				align-items: baseline; font-size: 90%; 
+				#searchq {
+					border: 0; padding: 5px 10px; flex: 1; 
+					color: white; text-align: right; background: transparent;  
+				}
+				.dosearch {
+					flex: 0 0 35px; border: 0; overflow: hidden; color: transparent;  padding: 5px; 
+					background: transparent url("../images/search.png") no-repeat center center; 
+				}
+				&:hover, &.actief {
+					background: lighten(@cHeader, 10%);  
+					#searchq {text-align: left; }
+				}
+			}
+			ul {margin: 0; padding: 0; }
+			ul.usermenu { 
+				margin-right: @iMargin; 
+				li { 
+					border-right: 1px solid white; padding: 0 7px; 
+					&:last-child {border-right: 0; padding-right: 0; }
+					a {
+						color: white; text-transform: uppercase; padding: 5px 7px; .rounded(5px);
+						text-decoration: none; display: block; font-size: 90%; margin: 0; 
+						&:hover, &.actief {background: lighten(@cHeader, 10%); }
+					}
+				}
+			}
+			ul.mainmenu {
+				flex: 0 0 100%; display: flex; flex-flow: row wrap; justify-content: flex-end; margin: @iMargin; 
+				li { 
+					padding-left: 10px; 
+					a {
+						text-decoration: none; color: white; text-transform: uppercase;
+						.rounded(5px); padding: 5px 10px; 
+						&.actief {.shaduwblok(darken(@cHeader, 30%), 2px);  }
+						&:hover {.shaduwblok(@cRood, 2px); }
+					} 
+				}
+
+			} 
+			ul li {display: inline-block; } 
+		} 
 	}
 
 	.menu_primary {
@@ -93,19 +142,19 @@ body>header {
 	 }
 	.hoewerkthet {
 		h3 a {background-image: url("../images/hoewerkthet.png"); }
-		.cta {.shaduwblok(@cRood, @cRoodBorder); }
+		.cta {.shaduwblok(@cRood); }
 	}
 	.verhalen {
 		h3 a {background-image: url("../images/verhalen.png"); }
-		.cta {.shaduwblok(@cGroen, @cGroenBorder); }
+		.cta {.shaduwblok(@cGroen); }
 	}
 	.informatie {
 		h3 a {background-image: url("../images/info.png"); }
-		.cta {.shaduwblok(@cBlauw, @cBlauwBorder); }
+		.cta {.shaduwblok(@cBlauw); }
 	}
 	.doedetest {
 		h3 a {background-image: url("../images/doetest.png"); }
-		.cta {.shaduwblok(@cGeel, @cGeelBorder); }
+		.cta {.shaduwblok(@cGeel); }
 	}
 }
 
@@ -117,8 +166,8 @@ div.vacatures, div.organisaties, .blokken {
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		position: relative;
-		.shaduwblok(white, #e5e6e6);
-		border-radius: 10px;
+		.shaduwblok(white);
+		.rounded(10px);
 		padding: @iPadding;
 		margin: @iMargin;
 		text-align: center;
@@ -133,8 +182,8 @@ div.vacatures, div.organisaties, .blokken {
 			color: white;
 			padding: 10px;
 			display: inline-block;
-			.shaduwblok(@cGroen, @cGroenBorder);
-			border-radius: 5px;
+			.shaduwblok(@cGroen);
+			.rounded(5px);
 			width: 160px;
 		}
 	}
@@ -148,9 +197,23 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 
+.nieuwsbrief {
+	padding: @iPadding; 
+	.rounded(10px); text-align: center; 
+	h2 {color: @cGrijs; font-size: 20px;  }
+	input {
+		border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;  
+	}
+	input.cta {
+		.shaduwblok(@cRood); 
+		color: white; text-transform: uppercase; padding: 10px 20px; 
+		min-width: 200px; 
+	}
+}
+
 .tempblok {
-	.shaduwblok(white, #e5e6e6);
-	border-radius: 10px;
+	.shaduwblok(white);
+	.rounded(10px);
 	padding: @iPadding;
 	margin: @iMargin;
 	position: relative;
@@ -165,8 +228,8 @@ div.vacatures, div.organisaties, .blokken {
 		color: white;
 		padding: 10px;
 		display: inline-block;
-		.shaduwblok(@cGroen, @cGroenBorder);
-		border-radius: 5px;
+		.shaduwblok(@cGroen);
+		.rounded(5px);
 		width: 160px;
 	}
 }
@@ -260,7 +323,7 @@ body>footer {
 	border-radius: 10px;
 	padding: 15px; text-align: center;
 	margin: 15px;
-	.shaduwblok(white, #e5e6e6);
+	.shaduwblok(white);
 	margin: 30px 0;
 } */
 .part {
