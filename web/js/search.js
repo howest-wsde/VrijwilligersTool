@@ -9,6 +9,13 @@
             }
         });
 
+        $("form.search").submit(function(){
+            if ($(this).find(".searchq").val() == ""){
+                $(this).find(".searchq").focus();
+                $(this).closest("form.search").addClass("actief");
+                return false;
+            }
+        });
 
         $('.searchq')
             .click(function(){
@@ -35,7 +42,6 @@
                 }, 500)
             });
     });
-
 
     var logError = function (xhr, message, error) {
         //console.log(xhr, message, error);
