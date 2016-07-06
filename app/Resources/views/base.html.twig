@@ -25,7 +25,9 @@
                 <div class="container mainnav">
                     <a href="{{ path("homepage") }}" class="logo"><h1>Roeselare vrijwilligt</h1></a>
 
-                    <nav>
+                    <a class="burger" href="#menu" data-toggle="collapse" data-target=".hoofdnavigatie"><span></span><span></span><span></span></a>
+
+                    <nav class="hoofdnavigatie">
 
                         {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
 
@@ -48,7 +50,6 @@
                             <li><a href="{{ path("tests") }}" class="{% if app.request.attributes.get('_route') == 'tests' %}actief{% endif %}">Tests</a></li>
                         </ul>
                     </nav>
-
                 </div>
             </header>
         {% endblock %}

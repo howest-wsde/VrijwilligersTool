@@ -35,10 +35,11 @@ body>header {
 		flex-flow: row wrap; justify-content: space-between;
 		a.logo {
 			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
-			width: 224px; height: 104px; display: inline-block; float: left; margin: 0;
-			flex: 0 0 250px; align-self: flex-end;
+			height: 104px;
+			flex: 0 0 250px;
 			h1 {display: none; }
 		}
+		a.showhide {display: none; }
 		nav {
 			flex: 1;
 			display: flex; flex-flow: row wrap;
@@ -83,6 +84,7 @@ body>header {
 				}
 			}
 			ul {margin: 0; padding: 0; }
+
 			ul.usermenu {
 				margin-right: @iMargin;
 				li {
@@ -109,6 +111,61 @@ body>header {
 
 			}
 			ul li {display: inline-block; }
+
+		}
+	}
+
+	@media screen and (max-width: @iContainerWidth){
+		position: relative; z-index: 10;
+		.mainnav {
+			flex-flow: column wrap;
+			a.logo {flex: 0 0 104px; }
+			a.burger {
+				position: absolute; top: @iMargin; right: @iMargin; display: block;
+				width: 40px; background: lighten(@cHeader, 20%); padding: 5px;
+				span {height: 4px; margin: 4px; display: block; background: @cHeader; }
+			}
+			nav {
+				display: none;
+				&.collapse.in {display: flex; }
+				background: darken(@cHeader, 10%);
+				ul.mainmenu {
+					order: 2;
+					flex-direction: column;
+					margin: 0;
+					li {
+						padding: 2px @iPadding;
+						a {display: block; }
+					}
+				}
+				ul.usermenu {
+					border-top: 2px dotted darken(@cHeader, 40%);
+					display: flex; flex-flow: row wrap;
+					width: 100%; margin: 10px 0; padding: 10px;
+					order: 3;
+					li {
+						padding: 2px;
+						flex: 1; white-space: nowrap;
+						border: 0; padding: 2px 7px;
+					}
+				}
+				form.search {
+					order: 1;
+					width: 100%; margin: @iMargin;
+					flex-flow: row wrap;
+					background: lighten(@cHeader, 10%);
+					.searchq {text-align: left; }
+					&, &.actief {
+						.searchResult {
+							position: relative;
+							background: lighten(@cHeader, 5%);
+							z-index: 0;
+							flex: 0 0 100%; top: 0;
+						}
+					}
+				}
+
+			}
 		}
 	}
 
@@ -384,7 +441,13 @@ h3 {.grijzetitel(); }
 
 /* PAGE WIDTH  */
 .container {
-	max-width: @iContainerWidth; margin: auto; padding: 0 20px;
+	max-width: @iContainerWidth; margin: auto; padding: 0 10px;
 }
 body {background: @cMainBG; }
+
+@media screen and (max-width: @iContainerWidth){
+	.container {
+		width: 100%; padding: 0;
+	}
+}
 
