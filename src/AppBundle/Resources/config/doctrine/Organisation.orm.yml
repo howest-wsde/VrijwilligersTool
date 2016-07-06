@@ -10,6 +10,8 @@ AppBundle\Entity\Organisation:
             length: 150
         intermediary:
             type: boolean
+        deleted:
+            type: boolean
         type:
             type: string
             length: 3
