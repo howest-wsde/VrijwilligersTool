@@ -60,6 +60,7 @@ class SecurityController extends Controller
                 // last username entered by the user
                 "last_username" => $lastUsername,
                 "error"         => $error,
+                "path"          => false,
             )
         );
     }
