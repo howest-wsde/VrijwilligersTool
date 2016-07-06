@@ -1,46 +1,44 @@
 "use strict";
-(function () { 
-    var search = Array(); 
-    $(document).ready(function () { 
-        $('#searchq').click(function(){
-            $("#divResult").fadeIn();
-        });
+(function () {
+    var search = Array();
+    $(document).ready(function () {
 
         $(document).on("click", function(e) {
-            if (! $(e.target).hasClass("search")) {
-                $("#divResult").fadeOut();
+            if(!$(e.target).closest("form.search").hasClass("search")) {
+                $("form.search.actief").removeClass("actief");//.find(".searchResult").html("");
             }
         });
 
-        $("#searchq").keyup(search);
+
+        $('.searchq')
+            .click(function(){
+                $(this).closest("form.search").addClass("actief");
+            })
+            .keyup(function() {
+                clearTimeout(search["timer"]);
+                search["term"] = $(this).val();
+                search["form"] = $(this).closest("form.search");
+                search["timer"] = setTimeout(function(){
+                    if (search["term"] != "") {
+                        $(search["form"]).find(".searchResult").html("<ul><li><span>bezig met zoeken...</span></li></ul>");
+                        $.ajax({
+                            type: "GET",
+                            url: RV_GLOBALS.searchURL,
+                            data: "q=" + search["term"],
+                            cache: true,
+                            success: function(result) {
+                                $(search["form"]).find(".searchResult").html(result)
+                            },
+                            error: logError
+                        });
+                    } else $(search["form"]).find(".searchResult").html("");
+                }, 500)
+            });
     });
 
-    var search = function() {
-        clearTimeout(search["timer"]); 
-        search["term"] = $(this).val();
-        search["timer"] = setTimeout(function(){  
-            if (search["term"] != "") {
-                $.ajax({
-                    type: "GET",
-                    url: RV_GLOBALS.searchURL,
-                    data: "q=" + search["term"],
-                    cache: true,
-                    success: searchSucces,
-                    error: logError
-                });
-            } else $("#divResult").fadeOut();
-        }, 500)
-    };
-
-    var searchSucces = function(result) {
-        $("#divResult").html(result).show();
-        $(".display_box").on("click", function(e){
-            var url = $(e.target).find("#referer").val();
-            window.location.href = url;
-        });
-    };
 
     var logError = function (xhr, message, error) {
-        console.log(xhr, message, error);
+        //console.log(xhr, message, error);
+        $(search["form"]).find(".searchResult").html("<ul><li><span>Er gebeurde een fout tijdens het zoeken. Probeer later opnieuw</span></li></ul>");
     };
 })();
