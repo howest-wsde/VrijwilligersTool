@@ -9,6 +9,12 @@
             }
         });
 
+        $("form.search").submit(function(){
+            if ($(this).find(".searchq").val() == ""){
+                $(this).find(".searchq").focus();
+                return false;
+            }
+        });
 
         $('.searchq')
             .click(function(){
