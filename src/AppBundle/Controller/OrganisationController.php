@@ -190,25 +190,41 @@ class OrganisationController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vereniging/{urlid}/{likeunlike}",
-     *              name="organisation_like",
-     *              requirements={"likeunlike": "like|unlike"})
+     * @Route("/vereniging/{urlid}/{saveaction}",
+     *              name="organisation_save",
+     *              requirements={"saveaction": "save|remove"})
      */
-    public function likeOrganisation($urlid, $likeunlike, Request $request)
+    public function saveOrganisationAction($urlid, $saveaction, Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
         $user->removeLikedOrganisation($organisation); // standaard unliken om geen doubles te creeren
-        if ($likeunlike == "like") $user->addLikedOrganisation($organisation);
+        if ($saveaction == "save") $user->addLikedOrganisation($organisation);
         $em->persist($user);
         $em->flush();
 
-        if (isset($_GET['ajax'])) {
-            return new Response(($likeunlike == "like") ? "liked" : "notliked");
-        } else {
+        if (!isset($_GET['ajax'])) {
             return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
+        } else {
+            if ($saveaction == "save") {
+                $arResult = array(
+                    "url" => $this->generateUrl('organisation_save', array('urlid' => $urlid, "saveaction" => "remove")),
+                    "class" => "liked",
+                    "text" => "Verwijder uit bewaarde organisaties",
+                );
+            } else {
+                $arResult = array(
+                    "url" => $this->generateUrl('organisation_save', array('urlid' => $urlid, "saveaction" => "save")),
+                    "class" => "notliked",
+                    "text" => "Bewaar",
+                );
+            }
+            $response = new Response();
+            $response->setContent(json_encode($arResult));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
         }
     }
     /**

@@ -1,8 +1,8 @@
 <article class="vereniging cta">
     {% if app.user in organisation.likers %}
-        <a class="fav liked" href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}"><span>Unlike</span></a>
+        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>Verwijder uit bewaarde organisaties</span></a>
     {% else %}
-        <a class="fav notliked"  href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}"><span>Like</span></a>
+        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>Bewaar</span></a>
     {% endif %}
 
         <header>

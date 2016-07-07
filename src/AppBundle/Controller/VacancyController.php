@@ -128,7 +128,7 @@ class VacancyController extends controller
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
      */
-    public function subscribeVacancy($urlid)
+    public function subscribeVacancyAction($urlid)
     {
         $person = $this->getUser();
 
@@ -156,22 +156,43 @@ class VacancyController extends controller
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/{likeunlike}",
-     *              name="vacancy_like",
-     *              requirements={"likeunlike": "like|unlike"})
+     * @Route("/vacature/{urlid}/{saveaction}",
+     *              name="vacancy_save",
+     *              requirements={"saveaction": "save|remove"})
      */
-    public function likeVacancy($urlid, $likeunlike)
+    public function saveVacancyAction($urlid, $saveaction)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
         $user->removeLikedVacancy($vacancy); // standaard unliken om geen doubles te creeren
-        if ($likeunlike == "like") $user->addLikedVacancy($vacancy);
+        if ($saveaction == "save") $user->addLikedVacancy($vacancy);
         $em->persist($user);
         $em->flush();
 
-        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+
+        if (!isset($_GET['ajax'])) {
+            return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+        } else {
+            if ($saveaction == "save") {
+                $arResult = array(
+                    "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "remove")),
+                    "class" => "liked",
+                    "text" => "Verwijder uit bewaarde vacatures",
+                );
+            } else {
+                $arResult = array(
+                    "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "save")),
+                    "class" => "notliked",
+                    "text" => "Bewaar",
+                );
+            }
+            $response = new Response();
+            $response->setContent(json_encode($arResult));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
     }
 
 

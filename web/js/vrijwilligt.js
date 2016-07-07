@@ -1,15 +1,16 @@
 $(function() {
     $(".fav").click(function() {
     	$(this).removeClass("liked").removeClass("notliked");
-    	oItem = this;
     	strURL = $(this).attr("href");
     	$.ajax({
             type: "GET",
             url: strURL,
             data: "ajax",
+  			dataType: "json",
             success: function(result) {
-                $(oItem).addClass(result)
+            	$(this.knop).addClass(result.class).attr("href", result.url).attr("title", result.text);
             },
+            knop: this,
         });
         return false;
     });
