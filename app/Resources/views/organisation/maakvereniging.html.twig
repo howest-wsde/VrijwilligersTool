@@ -15,19 +15,19 @@
             <h2 class="steptitle" >Bekijk de spelregels</h2>
             {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
             {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
-        </div> 
+        </div>
         {% if organisation %}
             <div class="step">
                 <a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}"><h2>Plaats een vacature</h2></a>
 
                 <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>
             </div>
-        {% endif %} 
+        {% endif %}
     </section>
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }} 
+    {{ parent() }}
     <script src="{{ asset("js/forms.js") }}"></script>
 {% endblock %}
 

@@ -43,6 +43,8 @@ twig:
         fb_id: "%fb_id%"
         linkedin_id: "%linkedin_id%"
         googlemaps_key: "%googlemaps_key%"
+    form_themes:
+        - 'form/fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
