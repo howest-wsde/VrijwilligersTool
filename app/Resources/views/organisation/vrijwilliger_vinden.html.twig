@@ -10,9 +10,8 @@
 		<br />Je hebt daarbij de keuze tussen een vacature voor een organisatie of voor een persoon.</p>
     </header>
 
-	{% if app.user %}
-		<section class="steps">
-
+	<section class="steps">
+		{% if app.user %}
 		    <h2 class="steptitle rood"><a href="#kiesvereniging" name="kiesvereniging">Voor welke vereniging wil je een vrijwilliger vinden? </a></h2>
 		    <div class="step actief grijs">
 
@@ -25,8 +24,8 @@
 		    <h2 class="steptitle blauw"><a href="{{ path("create_organisation") }}">Ik wil eerst een nieuwe vereniging aanmaken</a></h2>
 
 		    <h2 class="steptitle geel"><a href="{{ path("create_vacancy") }}">Ik wil als particulier een vrijwilliger zoeken</a></h2>
-		</section>
-	{% else %}
-		{% embed "security/login_form.html.twig" with { 'path': path, 'error': error, 'last_username': last_username } %}{% endembed %}
-	{% endif %}
+		{% else %}
+			{% embed "security/login_form.html.twig" with { 'path': path, 'error': error, 'last_username': last_username } %}{% endembed %}
+		{% endif %}
+	</section>
 {% endblock %}
