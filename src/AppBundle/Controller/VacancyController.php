@@ -76,7 +76,7 @@ class VacancyController extends controller
             $user = $this->getUser();
             $organisation = $this->getDoctrine()->getManager()
                             ->getRepository("AppBundle:Organisation")
-                            ->findOneByUrlid($urlid);
+                            ->findOneByUrlid($organisation_urlid);
             if(!$user->getOrganisations()->contains($organisation)){
                 throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.");
             }
