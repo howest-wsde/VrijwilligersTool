@@ -343,9 +343,22 @@ form {
 
 .steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
 	form {margin: 0; }
+	h2.steptitle {
+		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center;
+		&.geel {.shaduwblok(@cGeel, 2px); }
+		&.rood {.shaduwblok(@cRood, 2px); }
+		&.groen {.shaduwblok(@cGroen, 2px); }
+		&.blauw {.shaduwblok(@cBlauw, 2px); }
+		a {
+			color: white;
+			&:hover {text-decoration: none; }
+		}
+	}
 	.step {
+		display: none;
+		&.actief {display: block; }
+		margin: @iMargin; padding: @iPadding; .rounded(5px);
 		legend {color: @cTXTgrijs; border: 0; font-weight:  bold; margin-bottom: 10px; }
-		margin: @iMargin; padding: @iPadding;
 		input, textarea {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white;  }
 		label {font-weight: normal; }
 		.lbl label {
@@ -353,26 +366,31 @@ form {
 			font-size: 85%; display: block;
 			font-weight: bold;
 		}
-		input.radio, input.chckbox {width: 20px; display: inline-block; }
+		.vals div {
+			input {width: 5%; }
+			label {width: 95%; }
+		}
+		input.radio, input.chckbox {width: 20px; display: inline-block; clear: left; }
 		input[type=file], label.filedropper {
 			background: #c3c3c3 url(../images/fileupload.png) no-repeat center center; padding: @iPadding; .rounded(5px); margin-bottom: 15px;
-			color: #777777; width: 100%; height: 150px; cursor: pointer;
+			color: #777777; width: 100%; height: 175px; cursor: pointer;
 			&.hasvalue {
 				background-color: white;
 				background-size: contain;
 			}
 		}
-		.vl {}
-		.error {color: red; border: 5px solid red; }
-
-
-	}
-	.step:not(.actief) {
-		* {display: none; }
-		h2, .steptitle {
-			display: block; cursor: pointer;
-			* {display: block; }
-		}
+		.error {
+			background: url("../images/error.png") no-repeat 12px top; padding: 7px 37px 10px; color: #e34236; font-weight: bold;
+			ul {
+				margin: 0; padding: 0;
+				li {display: block; }
+			}
+		 }
+		button {padding: 5px 15px; border: 0; color: white; .shaduwblok(@cRood, 2px); .rounded(5px); }
+		&.geel button {.shaduwblok(@cGeel, 2px);}
+		&.blauw button {.shaduwblok(@cBlauw, 2px);}
+		&.groen button {.shaduwblok(@cGroen, 2px);}
+		div.google {background: #c3c3c3; .rounded(5px); height: 185px; color: white; padding: 15px; }
 	}
 }
 
@@ -498,6 +516,7 @@ body>footer {
 }
 
 h1, h2, h3 {margin: 0; padding: 0; }
+h1 {color: #876b97; font-size: 32px; font-weight: bold; margin: 15px 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */

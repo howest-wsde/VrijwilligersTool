@@ -1,7 +1,8 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
-    <div class="step {% if organisation==false %}actief{% endif %}  grijs">
-        <h2 class="steptitle">Algemene gegevens</h2>
+
+    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">Algemene gegevens</a></h2>
+    <div class="step {% if organisation==false %}actief{% endif %} grijs rood">
         <fieldset>
             <legend>Organisatiegegevens</legend>
             <div class="col-md-8">
@@ -11,6 +12,8 @@
             </div>
             <div class="col-md-4">
                 {{ form_row(form.logoFile) }}
+                {% if organisation %}<input type="hidden" id="organisation_logoFile_current" value="{{ asset
+        ("images/organisations/" ~ organisation.logoName) }}" />{% endif %}
             </div>
 
             <div class="col-md-12">
@@ -22,8 +25,9 @@
 
         </fieldset>
     </div>
-    <div class="step {% if organisation %}actief{% endif %}">
-        <h2 class="steptitle">Contactgegevens</h2>
+
+    <h2 class="steptitle blauw"><a href="#contact" name="contact">Contactgegevens</a></h2>
+    <div class="step {% if organisation %}actief{% endif %} grijs blauw">
         <fieldset>
             {% if organisation and source=="create_organisation" %}
                 <p>
@@ -31,19 +35,41 @@
                     Vul nu hieronder extra informatie in, of <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>.
                 </p>
             {% endif %}
-            {{ form_row(form.street) }}
-            {{ form_row(form.number) }}
-            {{ form_row(form.bus) }}
-            {{ form_row(form.postalCode) }}
-            {{ form_row(form.city) }}
-            {{ form_row(form.telephone) }}
-            {{ form_row(form.website) }}
-            <!-- {{ form_row(form.backToRegistration) }} -->
-            {{ form_row(form.submit2) }}
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="col-md-6">
+                        {{ form_row(form.street) }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ form_row(form.number) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.bus) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.postalCode) }}
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_row(form.city) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row(form.telephone) }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="col-md-12 google">map preview</div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                {{ form_row(form.website) }}
+                <!-- {{ form_row(form.backToRegistration) }} -->
+                {{ form_row(form.submit2) }}
+            </div>
         </fieldset>
     </div>
-    <div class="step">
-        <h2 class="steptitle">Sectorale info</h2>
+
+    <h2 class="steptitle geel"><a href="#sectoraal" name="sectoraal">Sectorale info</a></h2>
+    <div class="step grijs geel">
         <fieldset>
             {{ form_row(form.sectors) }}
             <!-- {{ form_row(form.backToContact) }} -->

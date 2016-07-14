@@ -3,7 +3,7 @@
 {% block form_row %}
     <div class="frm_{{ id }}">
         <div class="lbl">{{ form_label(form) }}</div>
-        <div class="bl">{{ form_widget(form) }}</div>
+        <div class="vals">{{ form_widget(form) }}</div>
         {% if form_errors(form) is not empty %}
 	        <div class="error">{{ form_errors(form) }}</div>
 	    {% endif %}
@@ -33,7 +33,7 @@
 
 
 {%- block checkbox_widget -%}
-	{% set attr = attr|merge({'class': "chckbox"}) %}
+    {% set attr = attr|merge({'class': "chckbox"}) %}
     <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
     <label for="{{ id }}">{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
 {%- endblock checkbox_widget -%}

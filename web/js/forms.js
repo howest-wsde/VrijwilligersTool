@@ -1,19 +1,23 @@
 "use strict";
 (function () {
     $(document).ready(function () {
-		$(".steps .step").click(function(){
+		$(".steps .steptitle").click(function(){
 			$(".steps .step").removeClass("actief");
-			$(this).addClass("actief");
+			$(this).next(".step").addClass("actief");
 		})
 		if ($(".steps .step.actief").length == 0) $(".steps .step:first").addClass("actief");
 
 		$("input[type=file]").each(function(){
 			var strID = $(this).attr("id");
+			var strCurrent = $("#" + strID + "_current").val();
+
 			$(this).hide().after(
-				$("<label />").addClass("filedropper").attr("for", strID).html("kies een bestand")
+				$("<label />").addClass("filedropper").attr("for", strID).each(function(){
+					if(strCurrent) $(this).css("background-image", "url(" + strCurrent + ")").addClass("hasvalue");
+				})
 			).change(function(){
 				var oLabel = $(this).find(" + label");
-				oLabel.html($(this).val()).removeClass("hasvalue");
+				oLabel.removeClass("hasvalue");
 				if (this.files && this.files[0]) {
 				    var reader = new FileReader();
 

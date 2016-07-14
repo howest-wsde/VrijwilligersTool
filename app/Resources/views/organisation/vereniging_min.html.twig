@@ -1,3 +1,9 @@
+{% if not cta %}
+    {% set cta = {
+        "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
+        "txt": "lees meer"
+    } %}
+{% endif %}
 <article class="vereniging cta">
     {% if app.user in organisation.likers %}
         <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>Verwijder uit bewaarde organisaties</span></a>
@@ -27,6 +33,6 @@
                 {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
             </li>
         </ul>
-        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}" class="cta">lees meer</a>
+        <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
     </a>
 </article>
