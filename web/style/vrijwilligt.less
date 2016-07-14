@@ -394,12 +394,12 @@ h3 {.grijzetitel(); }
 
 
 .oauthlogin {
-	display: flex;
+	display: flex; flex-flow: row wrap;
 	a {
 		background: #ff6952 none no-repeat left center; display: block;
 	    height: 47px; margin: 10px; .rounded(5px); text-align: center;
 	    padding-left: 47px; color: white; font-weight: bold;
-	    display: flex; align-items: center;
+	    display: flex; align-items: center; flex: 1 1 200px; justify-content: center;
 	    &:hover {text-decoration: none; }
 		&.googlelogin {background-image: url(../images/google.png);  }
 		&.fblogin {background-image: url(../images/fb.png); background-color: #5b76b3; }
