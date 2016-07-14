@@ -335,7 +335,7 @@ h3 {.grijzetitel(); }
 .steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
 	form {margin: 0; }
 	h2.steptitle {
-		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center;
+		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
 		&.geel {.shaduwblok(@cGeel, 2px); }
 		&.rood {.shaduwblok(@cRood, 2px); }
 		&.groen {.shaduwblok(@cGroen, 2px); }
@@ -392,6 +392,19 @@ h3 {.grijzetitel(); }
 	}
 }
 
+
+.oauthlogin {
+	display: flex;
+	a {
+		background: #ff6952 none no-repeat left center; display: block;
+	    height: 47px; margin: 10px; .rounded(5px); text-align: center;
+	    padding-left: 47px; color: white; font-weight: bold;
+	    display: flex; align-items: center;
+	    &:hover {text-decoration: none; }
+		&.googlelogin {background-image: url(../images/google.png);  }
+		&.fblogin {background-image: url(../images/fb.png); background-color: #5b76b3; }
+	}
+}
 
 .hidden {display: none; }
 
@@ -518,6 +531,8 @@ h1 {color: #876b97; font-size: 32px; font-weight: bold; margin: 15px 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
+
+a.cta {.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;  }
 
 /* PAGE WIDTH  */
 .container {
