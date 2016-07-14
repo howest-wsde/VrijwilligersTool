@@ -9,19 +9,16 @@
     	<p>Maak nu een profiel voor je vereniging zodat je vacatures kan plaatsen! </p>
     </header>
     <section id="maakVereniging" class="steps">
-        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
-
-        <div class="step">
-            <h2 class="steptitle" >Bekijk de spelregels</h2>
+        <h2 class="steptitle groen"><a href="#spelregels" name="spelregels">Bekijk de spelregels</a></h2>
+        <div class="step grijs actief">
             {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
             {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
         </div>
-        {% if organisation %}
-            <div class="step">
-                <a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}"><h2>Plaats een vacature</h2></a>
 
-                <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>
-            </div>
+        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
+
+        {% if organisation %}
+            <h2><a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a></h2>
         {% endif %}
     </section>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% if not cta %}
+{% if not cta is defined %}
     {% set cta = {
         "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
         "txt": "lees meer"
