@@ -4,14 +4,22 @@
         <h2 class="steptitle">Algemene gegevens</h2>
         <fieldset>
             <legend>Organisatiegegevens</legend>
-            {{ form_row(form.name) }}
-            {{ form_row(form.slogan) }}
-            {{ form_row(form.logoFile) }}
-            {{ form_row(form.type) }}
-            {{ form_row(form.intermediary) }}
-            {{ form_row(form.description) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.submit) }}
+            <div class="col-md-8">
+                {{ form_row(form.name) }}
+                {{ form_row(form.slogan) }}
+                {{ form_row(form.type) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.logoFile) }}
+            </div>
+
+            <div class="col-md-12">
+                {{ form_row(form.intermediary) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.submit) }}
+            </div>
+
         </fieldset>
     </div>
     <div class="step {% if organisation %}actief{% endif %}">
