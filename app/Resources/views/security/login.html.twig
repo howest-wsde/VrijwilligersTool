@@ -4,5 +4,10 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-    {% embed "security/login_form.html.twig" with { 'path': path, 'error': error, 'last_username': last_username } %}{% endembed %}
+    <header class="center">
+    	<h1>Inloggen</h1>
+    </header>
+	<section class="steps">
+		{% embed "security/login_form.html.twig" with { 'path': path, 'error': error, 'last_username': last_username } %}{% endembed %}
+	</section>
 {% endblock %}

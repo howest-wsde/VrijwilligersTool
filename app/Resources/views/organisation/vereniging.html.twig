@@ -11,9 +11,9 @@
 		<h1>{{ organisation.name }}</h1>
 		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
 		{% if app.user in organisation.likers %}
-			<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"unlike" }) }}">Unlike</a>
+			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}">Unlike</a>
 		{% else %}
-			<a href="{{ path("organisation_like", {"urlid": organisation.urlId, "likeunlike":"like" }) }}">Like</a>
+			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}">Like</a>
 		{% endif %}
 		{% if organisation.logoName %}
 			{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}

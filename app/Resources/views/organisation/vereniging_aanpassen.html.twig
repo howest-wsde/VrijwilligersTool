@@ -3,6 +3,17 @@
 {% block title %}Organisatie-gegevens aanpassen{% endblock %}
 
 {% block body %}
-    <h1>Gegevens {{ organisation.name }} aanpassen</h1>
-    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "create_organisation" } %}{% endembed %}
+	<header class="center">
+    	<h1>Gegevens {{ organisation.name }} aanpassen</h1>
+    </header>
+
+    <section id="maakVereniging" class="steps">
+	    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "create_organisation" } %}{% endembed %}
+	</section>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

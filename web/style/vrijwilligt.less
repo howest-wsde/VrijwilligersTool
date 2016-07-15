@@ -6,7 +6,10 @@
 @cGroen: #76c7c0;
 @cBlauw: #37c1dc;
 @cGeel: #dec531;
-@cGrijs: #303030;
+@cPaars: #9f80ac;
+@cTXTgrijs: #7f8c8c;
+@cBGgrijsA: #f3f3f3;
+@cBGgrijsB: #ececec;
 
 @iContainerWidth: 1170px;
 @iMargin: 15px;
@@ -121,7 +124,7 @@ body>header {
 			flex-flow: column wrap;
 			a.logo {flex: 0 0 104px; }
 			a.burger {
-				position: absolute; top: @iMargin; right: @iMargin; display: block;
+				position: absolute; top: @iMargin; right: @iMargin; display: block; .rounded(4px);
 				width: 40px; background: lighten(@cHeader, 20%); padding: 5px;
 				span {height: 4px; margin: 4px; display: block; background: @cHeader; }
 			}
@@ -135,7 +138,9 @@ body>header {
 					margin: 0;
 					li {
 						padding: 2px @iPadding;
-						a {display: block; }
+						a {
+							display: block;
+						}
 					}
 				}
 				ul.usermenu {
@@ -206,8 +211,18 @@ body>header {
 }
 
 #handenuitmouwen { /* ZOEKEN VANUIT HOMEPAGE */
-
-
+	.searchResult {
+		width: 80%; margin: auto; .rounded(5px); overflow: hidden;
+		ul {
+			text-align: left; margin: 0; padding: 0;
+			li {
+				padding: 5px 10px; display: block;
+				a {color: black; text-decoration: none; }
+				&:nth-child(odd) {background: rgba(255, 255, 255, 0.8); }
+				&:nth-child(even) {background: rgba(255, 255, 255, 0.6); }
+			}
+		}
+	}
 }
 
 
@@ -252,11 +267,12 @@ div.vacatures, div.organisaties, .blokken {
 		margin: @iMargin;
 		text-align: center;
 		a.fav {
-			background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+			background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 			position: absolute;  right: 20px; top: -2px;
 			span {display: none; }
+			&.liked {background-position: center bottom; }
+			&.notliked {background-position: center top; }
 		}
-		a.fav.liked {background-position: center bottom; }
 		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
 		a.cta {
 			color: white;
@@ -265,7 +281,11 @@ div.vacatures, div.organisaties, .blokken {
 			.shaduwblok(@cGroen);
 			.rounded(5px);
 			width: 160px;
+			text-decoration: none;
 		}
+	}
+	>article.vacature, >article.vereniging {
+		padding-top: 30px;
 	}
 	>article.vacature.cta, >article.vereniging.cta, >.blok.cta {
 		margin-bottom: (@iMargin + 20); padding-bottom: 30px;
@@ -277,19 +297,7 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 
-.nieuwsbrief {
-	padding: @iPadding;
-	.rounded(10px); text-align: center;
-	h2 {color: @cGrijs; font-size: 20px;  }
-	input {
-		border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
-	}
-	input.cta {
-		.shaduwblok(@cRood);
-		color: white; text-transform: uppercase; padding: 10px 20px;
-		min-width: 200px;
-	}
-}
+
 
 .tempblok {
 	.shaduwblok(white);
@@ -298,11 +306,12 @@ div.vacatures, div.organisaties, .blokken {
 	margin: @iMargin;
 	position: relative;
 	a.fav {
-		background: url("../images/fav.png") no-repeat center top; width: 26px; height: 33px; display: block;
+		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 		position: absolute;  right: 20px; top: -2px;
 		span {display: none; }
+		&.liked {background-position: center bottom; }
+		&.notliked {background-position: center top; }
 	}
-	a.fav.liked {background-position: center bottom; }
 	img.logo {max-width: 100%; max-height: 200px; margin: 10px auto; }
 	a.cta {
 		color: white;
@@ -314,8 +323,8 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 .part:nth-child(odd) {
-	background: #f3f3f3;
-	.blok.special {background: #ececec;   }
+	background: @cBGgrijsA;
+	.blok.special {background: @cBGgrijsB;   }
 }
 
 h1, h2, h3 {margin: 0; padding: 0; }
@@ -323,25 +332,77 @@ h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
 
-form {
-	margin: @iMargin;
-	#person_skills, #vacancy_socialInteraction, #vacancy_independent, #vacancy_skills {
-		display: flex; flex-flow: row wrap;
-		align-items: flex-start; align-content: flex-start; justify-content: flex-start;
-		input {flex: 0 0 5%; }
-		label {flex: 0 0 45%; }
+.steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
+	form {margin: 0; }
+	h2.steptitle {
+		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
+		&.geel {.shaduwblok(@cGeel, 2px); }
+		&.rood {.shaduwblok(@cRood, 2px); }
+		&.groen {.shaduwblok(@cGroen, 2px); }
+		&.blauw {.shaduwblok(@cBlauw, 2px); }
+		&.paars {.shaduwblok(@cPaars, 2px); }
+		a {
+			color: white;
+			&:hover {text-decoration: none; }
+		}
+	}
+	.step {
+		display: none; margin: @iMargin; padding: @iPadding; .rounded(5px);
+		&.actief {display: block; }
+		h3 {margin-bottom: 15px; }
+		legend {color: @cTXTgrijs; border: 0; font-weight:  bold; margin-bottom: 10px; }
+		input, textarea, select {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white;  }
+		label {font-weight: normal; }
+		.lbl label {
+			color: @cTXTgrijs; text-transform: uppercase;
+			font-size: 85%; display: block;
+			font-weight: bold;
+		}
+		input.radio, input.chckbox {width: 30px; display: inline-block; clear: left; }
+		input[type=file], label.filedropper {
+			background: #c3c3c3 url(../images/fileupload.png) no-repeat center center; padding: @iPadding; .rounded(5px); margin-bottom: 15px;
+			color: #777777; width: 100%; height: 175px; cursor: pointer;
+			&.hasvalue {
+				background-color: white;
+				background-size: contain;
+			}
+		}
+		.error {
+			background: url("../images/error.png") no-repeat 12px top; padding: 7px 37px 10px; color: #e34236; font-weight: bold;
+			ul {
+				margin: 0; padding: 0;
+				li {display: block; }
+			}
+		 }
+		button {padding: 5px 15px; border: 0; color: white; .shaduwblok(@cRood, 2px); .rounded(5px); }
+		&.geel button {.shaduwblok(@cGeel, 2px);}
+		&.blauw button {.shaduwblok(@cBlauw, 2px);}
+		&.groen button {.shaduwblok(@cGroen, 2px);}
+		&.paars button {.shaduwblok(@cPaars, 2px);}
+		div.google {background: #c3c3c3; .rounded(5px); height: 185px; color: white; padding: 15px; }
+		div.onerow>div {
+			display: flex; align-items: center;
+			div.lbl {padding-bottom: 5px; padding-right: 15px; }
+			div.vals {display: flex; align-items: baseline; }
+		}
+		#vacancy_skills, #person_skills {
+			display: flex; flex-flow: row wrap; justify-content: flex-start;
+			div.option {flex: 1 0 220px; }
+		}
 	}
 }
 
-.steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
-	form {margin: 0; }
-	.step {border-top: 3px dotted @cBlauw; margin-top: @iMargin; padding-top: @iMargin; margin-bottom: @iMargin; }
-	.step:not(.actief) {
-		* {display: none; }
-		h2, .steptitle {
-			display: block; cursor: pointer;
-			* {display: block; }
-		}
+
+.oauthlogin {
+	display: flex; flex-flow: row wrap;
+	a {
+		background: #ff6952 none no-repeat left center; display: block;
+	    height: 47px; margin: 10px; .rounded(5px); text-align: center;
+	    padding-left: 47px; color: white; font-weight: bold;
+	    display: flex; align-items: center; flex: 1 1 200px; justify-content: center;
+	    &:hover {text-decoration: none; }
+		&.googlelogin {background-image: url(../images/google.png);  }
+		&.fblogin {background-image: url(../images/fb.png); background-color: #5b76b3; }
 	}
 }
 
@@ -351,7 +412,7 @@ form {
 #partners {
 	h3 {
 		font-size: 18px; text-transform: none; flex: 0 0 100%;
-		margin: @iMargin @iMargin 0; border-top: 3px dotted @cGroen; padding-top: 10px;
+		padding: @iMargin @iMargin 0; border-top: 3px dotted @cGroen;
 	}
 	.blok {
 		display: flex; align-items: center; justify-content: center;
@@ -361,14 +422,14 @@ form {
 
 #footernav {  /* NAVIGATIE ONDERAAN */
 	padding: @iPadding;
-	h1 {color: @cGrijs; font-size: 20px; margin-bottom: @iMargin; }
+	h1 {color: @cTXTgrijs; font-size: 20px; margin-bottom: @iMargin; }
 	ul {
 		padding: 0;
 		li {
 			list-style-type: none;
 			background: url("../images/bulletarrow.png") no-repeat left 5px;
 			padding-left: 17px;
-			a {color: @cGrijs; }
+			a {color: @cTXTgrijs; }
 		}
 	}
 }
@@ -422,28 +483,63 @@ body>footer {
 	padding: 20px 0 30px 0;
 	.blok.special {
 		box-shadow: none;
+		padding: @iPadding;
+		.rounded(10px); text-align: center;
+		h2 {color: @cTXTgrijs; font-size: 20px;  }
+		input {
+			border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
+		}
+		input.cta {
+			.shaduwblok(@cRood);
+			color: white; text-transform: uppercase; padding: 10px 20px 8px;
+			min-width: 200px;
+		}
+
 	}
 
 }
 .part:nth-child(even) {
-	background: #ececec;
-	.blok.special {background: #f3f3f3;  }
+	background: @cBGgrijsB;
+	.blok.special {background: @cBGgrijsA;  }
+	.grijs {
+		background: @cBGgrijsA;
+	}
 }
 .part:nth-child(odd) {
-	background: #f3f3f3;
-	.blok.special {background: #ececec;   }
+	background: @cBGgrijsA;
+	.blok.special {background: @cBGgrijsB; }
+	.grijs {
+		background: @cBGgrijsB;
+	}
+}
+
+.grijs:nth-child(even) {
+	background: @cBGgrijsB;
+	.grijs {
+		background: @cBGgrijsA;
+	}
+}
+.grijs:nth-child(odd) {
+	background: @cBGgrijsA;
+	.grijs {
+		background: @cBGgrijsB;
+	}
 }
 
 h1, h2, h3 {margin: 0; padding: 0; }
+h1 {color: #876b97; font-size: 32px; font-weight: bold; margin: 15px 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
 
+a.cta {.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;  }
+
 /* PAGE WIDTH  */
 .container {
-	max-width: @iContainerWidth; margin: auto; padding: 0 10px;
+	max-width: @iContainerWidth; margin: auto; padding: 0 10px; overflow: visible;
 }
 body {background: @cMainBG; }
+.center {text-align: center; }
 
 @media screen and (max-width: @iContainerWidth){
 	.container {

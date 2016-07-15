@@ -99,11 +99,10 @@
 		<footer>{% block vacature_cta %}
 			<ul>
 				{% if app.user in vacancy.likers %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Verwijder uit bewaarde vacatures</a></li>
+					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'remove' }) }}">Verwijder uit bewaarde vacatures</a></li>
 				{% else %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Bewaar</a></li>
+					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'save' }) }}">Bewaar</a></li>
 				{% endif %}
-
 
 				{% if app.user in vacancy.candidates %}
 					<li><a href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">Verwijder kandidatuur</a></li>
