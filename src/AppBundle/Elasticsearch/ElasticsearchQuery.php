@@ -3,6 +3,7 @@
 namespace AppBundle\Elasticsearch;
 
 use Elasticsearch\ClientBuilder;
+use AppBundle\Elasticsearch\ESMapper;
 
 class ElasticsearchQuery
 {
@@ -11,12 +12,14 @@ class ElasticsearchQuery
     private $index;
     private $client;
     private $raw_result;
+    private $esMapper;
 
     public function create()
     {
         $es_instances = ["http://".$this->es_host.":".$this->es_port];
         $this->client = ClientBuilder::create()
             ->setHosts($es_instances)->build();
+        $this->esMapper = new ESMapper();
     }
 
     public function setIndex($index)
@@ -39,11 +42,6 @@ class ElasticsearchQuery
         $this->es_port = $port;
     }
 
-    private function isEntity($value)
-    {
-        return substr($value, 2, 6) == "Entity";
-    }
-
     public function getRaw()
     {
         return $this->raw_result;
@@ -54,25 +52,9 @@ class ElasticsearchQuery
         return $this->getEntities();
     }
 
-    /**
-     * Dynamically converts a json string to an entity in the same bundle.  It cannot handle nested entities @ this time.
-     * @param  json     $json   a json-string
-     * @return dynamic          the entity mapped from the json
-     */
-    private function jsonToEntity($json)
+    public function getEntities()
     {
-        $json = json_decode($json, true);
-        $classname = "AppBundle\Entity\\".$json["Entity"];
-        $entity = new $classname();
-        $entity->setId($json["Id"]);
-        $values = $json["Values"]; //TODO check why this is extracted into a seperate var
-        foreach ($values as $key => $value) {
-            if (!is_null($value))
-            {
-                $entity->{"set".$key}($value);
-            }
-        }
-        return $entity;
+        return $this->esMapper->getEntities($this->raw_result["hits"]["hits"]);
     }
 
     /**
