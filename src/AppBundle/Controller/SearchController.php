@@ -23,7 +23,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchController extends Controller
 {
-    //TODO refactor all search functions into an entity for ES searching
+    /**
+     * [performSearch description]
+     * @param  [type] $params [description]
+     * @return [type]         [description]
+     */
     private function performSearch($params){
         $query = $this->get("ElasticsearchQuery");
         $params = [
@@ -31,10 +35,14 @@ class SearchController extends Controller
             'type' => $params['type'] ? $params['type'] : 'vacancy',
         ];
 
-        $results = $query->search($params);
-        return $query->getResults();
+        return $query->search($params);
     }
 
+    /**
+     *
+     * @param [type]    $term   description
+     * @param [type]    $ypes   description
+     */
     private function plainSearch($term, $types = ["person", "vacancy", "organisation"])
     {
         $query = $this->get("ElasticsearchQuery");
@@ -49,10 +57,17 @@ class SearchController extends Controller
                 ]
             ]
         ];
-        $result = $query->search($params);
-        return $query->getResults();
+
+        return $query->search($params);
     }
 
+    /**
+     * [specificSearch description]
+     * @param  [type] $types [description]
+     * @param  [type] $body  [description]
+     * @param  array  $slice [description]
+     * @return [type]        [description]
+     */
     private function specificSearch($types, $body, $slice = [0 => 25])
     {
         $query = $this->get("ElasticsearchQuery");
@@ -63,8 +78,8 @@ class SearchController extends Controller
             "size" => $slice[key($slice)],
             "body" => $body
         ];
-        $result = $query->search($params);
-        return $query->getResults();
+
+        return $query->search($params);
     }
 
     /**

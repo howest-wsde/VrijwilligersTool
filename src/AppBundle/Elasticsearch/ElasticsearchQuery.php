@@ -67,18 +67,18 @@ class ElasticsearchQuery
      * @param  array    $params     An array of search parameters
      * @return json                 The raw search result
      */
-    public function search($params)
+    public function searchForRaw($params)
     {
         $this->raw_result = $this->client->search($params);
         return $this->raw_result;
     }
 
     /**
-     * Convenience method bundling the search and getEntities method together.  Meaning you can pass the search params and get the returned entities as a result.
+     * Convenience method bundling the searchForRaw and getEntities method together.  Meaning you can pass the search params and get the returned entities as a result.
      * @param  array    $params     An array of search parameters
      * @return array                An array containing the mapped entities.
      */
-    public function searchForEntities($params)
+    public function search($params)
     {
         $this->raw_result = $this->client->search($params);
         return $this->esMapper->getEntities($this->raw_result["hits"]["hits"]);
