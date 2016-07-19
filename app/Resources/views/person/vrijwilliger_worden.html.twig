@@ -19,6 +19,16 @@
 	{% endif %}
 
     <section class="steps">
+	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+	        <div class="alert alert-success">
+	            <strong>Success!</strong> {{ flashMessage }}
+	        </div>
+	    {% endfor %}
+	    {% for flashMessage in app.session.flashbag.get('error') %}
+	        <div class="alert alert-danger">
+	            {{ flashMessage }}
+	        </div>
+	    {% endfor %}
 
 		{% if not app.user %}
 			{{ form_start(form) }}
@@ -108,7 +118,6 @@
 				</div>
 			    {# {{ form_row (form.termsAccepted) }} #}
 			{{ form_end(form) }}
-
 		{% endif %}
 
 

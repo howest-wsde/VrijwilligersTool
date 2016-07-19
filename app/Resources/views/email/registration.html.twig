@@ -1,0 +1,12 @@
+<h3>Welkom bij Roeselare Vrijwilligt!</h3>
+
+<p>Dag {{ user.firstname }} {{ user.lastname }},</p>
+
+<p>
+    u bent succesvol geregistreerd bij Roeselare Vrijwilligt en werd automatisch ingelogd.<br />
+    Bij een toekomstig bezoek kan u inloggen <a href="{{ url('login') }}">via deze link.</a>
+</p>
+<p>Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Roeselare!</p>
+
+<p>Bedankt!</p>
+<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">

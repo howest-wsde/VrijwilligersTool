@@ -43,8 +43,27 @@ class OrganisationController extends controller
 
             $em->flush();
 
+            if(!$urlid){
+                //set a success message
+                $this->addFlash('approve_message', 'Een nieuwe organisatie met naam ' . $organisation->getName() . ' werd aangemaakt.'
+                );
+            }
+            else
+            {
+               //set a success message
+                $this->addFlash('approve_message', 'De extra informatie werd succesvol opgeslagen.'
+                );
+            }
+
             return $this->redirect($this->generateUrl("create_organisation_step2", ['urlid' => $organisation->getUrlId() ]));
         }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
+        }
+
         return $this->render("organisation\maakvereniging.html.twig",
             [
                 "form" => $form->createView(),
@@ -82,12 +101,24 @@ class OrganisationController extends controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($organisation);
             $em->flush();
+
+           //set a success message
+            $this->addFlash('approve_message', 'De wijzigingen werden succesvol opgeslagen.');
+
+
             return $this->render("organisation/vereniging.html.twig",
             [
                 "organisation" => $organisation,
                 "form" => $this->createAddAdminData($urlid)['form']->createView(),
             ]);
         }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
+        }
+
         return $this->render("organisation/vereniging_aanpassen.html.twig",
             [
                 "form" => $form->createView(),
@@ -117,6 +148,9 @@ class OrganisationController extends controller
             $em->persist($person);
             $em->flush();
             $form = $this->createAddAdminData($urlid)['form'];
+
+           //set a success message
+            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol toegevoegd als beheerder voor deze organisatie.');
         }
 
         return $this->render("organisation/vereniging.html.twig",
@@ -162,27 +196,9 @@ class OrganisationController extends controller
             $person->removeOrganisation($organisation);
             $em->persist($person);
             $em->flush();
-        }
 
-        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
-    }
-
-
-    /**
-     * @Route("/vereniging/{organisation_urlid}/admins/add" , name="organisation_add_admin")
-     */
-    public function organisationAddAdminAction($organisation_urlid)
-    {
-        $user = $this->getUser();
-        $request = Request::createFromGlobals();
-        $personInput = $request->request->get("userid");
-        $em = $this->getDoctrine()->getManager();
-        $organisation = $em->getRepository("AppBundle:Organisation")
-            ->findOneByUrlid($organisation_urlid);
-        if($organisation->getAdministrators()->contains($user)){
-            $person->addOrganisation($organisation);
-            $em->persist($person);
-            $em->flush();
+           //set a success message
+            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol verwijderd als beheerder voor deze organisatie.');
         }
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
@@ -201,11 +217,29 @@ class OrganisationController extends controller
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
         $user->removeLikedOrganisation($organisation); // standaard unliken om geen doubles te creeren
-        if ($saveaction == "save") $user->addLikedOrganisation($organisation);
+
+        $ajax = isset($_GET['ajax']);
+
+        if ($saveaction == "save")
+        {
+            if(!$ajax)
+            {
+               //set a success message
+                $this->addFlash('approve_message', 'Deze organisatie werd toegevoegd aan uw bewaarde organisaties.');
+            }
+            $user->addLikedOrganisation($organisation);
+        }
+        else {
+            if(!$ajax)
+            {
+               //set a success message
+                $this->addFlash('approve_message', 'Deze organisatie werd verwijderd uit uw bewaarde organisaties.');
+            }
+        }
         $em->persist($user);
         $em->flush();
 
-        if (!isset($_GET['ajax'])) {
+        if (!$ajax) {
             return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
         } else {
             if ($saveaction == "save") {

@@ -55,6 +55,7 @@ class VacancyController extends controller
         {
             $organisations = null;
         }
+
         return $this->render("organisation/vrijwilliger_vinden.html.twig",
                 [
                     "organisations" => $organisations,
@@ -103,9 +104,20 @@ class VacancyController extends controller
             $em->persist($vacancy);
             $em->flush();
 
+            //set a success message
+            $this->addFlash('approve_message', 'Een nieuwe vacature met naam ' . $vacancy->getTitle() . ' werd aangemaakt.'
+            );
+
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
         }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
+        }
+
         return $this->render("vacancy/vacature_nieuw.html.twig",
             [
                 "form" => $form->createView(),
@@ -144,11 +156,17 @@ class VacancyController extends controller
                 $em->remove($candidacy);
                 $em->flush();
             }
+
+            //set a success message
+            $this->addFlash('approve_message', 'Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.');
         } else {
             $candidacy = new Candidacy();
             $candidacy->setCandidate($person)->setVacancy($vacancy);
             $em->persist($candidacy);
             $em->flush();
+
+            //set a success message
+            $this->addFlash('approve_message', 'Uw kandidatuur voor deze vacature werd succesvol verwijderd.');
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
@@ -166,13 +184,29 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        $user->removeLikedVacancy($vacancy); // standaard unliken om geen doubles te creeren
-        if ($saveaction == "save") $user->addLikedVacancy($vacancy);
+
+        $ajax = isset($_GET['ajax']);
+
+        // standaard unliken om geen doubles te creeren
+        $user->removeLikedVacancy($vacancy);
+        if ($saveaction == "save")
+        {
+            $user->addLikedVacancy($vacancy);
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd toegevoegd aan uw bewaarde vacatures.');
+            }
+        } else {
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd verwijderd uit uw bewaarde vacatures.');
+            }
+        }
         $em->persist($user);
         $em->flush();
 
 
-        if (!isset($_GET['ajax'])) {
+        if (!$ajax) {
             return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
         } else {
             if ($saveaction == "save") {
@@ -188,9 +222,11 @@ class VacancyController extends controller
                     "text" => "Bewaar",
                 );
             }
+
             $response = new Response();
             $response->setContent(json_encode($arResult));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -260,8 +296,17 @@ class VacancyController extends controller
 
                 $em->flush();
 
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd succesvol aangepast.');
+
                 return $this->redirect($this->generateUrl("vacancy_by_urlid",
                     array("urlid" => $vacancy->getUrlId() ) ));
+            }
+            else if ($form->isSubmitted() && !$form->isValid())
+            {
+                //set an error message
+                $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+                );
             }
 
             return $this->render("vacancy/vacature_aanpassen.html.twig",

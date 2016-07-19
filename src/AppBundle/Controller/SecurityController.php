@@ -37,7 +37,45 @@ class SecurityController extends Controller
             $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
+
+            $email = $user->getEmail();
+
+            if($email){
+                //send a confirmation mail
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Welkom bij Roeselare Vrijwilligt')
+                ->setFrom('info@roeselareVrijwilligt.be')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/email/registration.html.twig
+                        'email/registration.html.twig',
+                        array('user' => $user)
+                    ),
+                    'text/html'
+                )
+                //  * If you also want to include a plaintext version of the message
+                ->addPart(
+                    $this->renderView(
+                        'email/registration.txt.twig',
+                        array('user' => $user)
+                    ),
+                    'text/plain'
+                );
+                $this->get('mailer')->send($message);
+            }
+            else if ($form->isSubmitted() && !$form->isValid())
+            {
+                //set an error message
+                $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+                );
+            }
+
+            //set a success message
+            $this->addFlash('approve_message', 'Een nieuwe gebruiker met naam ' . $user->getFirstname() . ' ' . $user->getLastname() . ' werd succesvol aangemaakt' . ($email ? '.  Een bevestigingsbericht werd gestuurd naar ' . $email . '.' : '.')
+            );
         }
+
         return $this->render(
            "person/vrijwilliger_worden.html.twig",
            ["form" => $form->createView()] );

@@ -8,6 +8,16 @@
 	<p>Deze vacature werd verwijderd.  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">klik dan op deze link</a>.{% endif %}</p>
 {% else %}
 	<article>
+	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+	        <div class="alert alert-success">
+	            <strong>Success!</strong> {{ flashMessage }}
+	        </div>
+	    {% endfor %}
+	    {% for flashMessage in app.session.flashbag.get('error') %}
+	        <div class="alert alert-danger">
+	            {{ flashMessage }}
+	        </div>
+	    {% endfor %}
         <div id="vacancy_info">
 		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 		<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
