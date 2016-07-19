@@ -39,7 +39,6 @@ class SecurityController extends Controller
             $this->get('session')->set('_security_main',serialize($token));
 
             $email = $user->getEmail();
-
             if($email){
                 //send a confirmation mail
                 $message = \Swift_Message::newInstance()
@@ -64,15 +63,15 @@ class SecurityController extends Controller
                 );
                 $this->get('mailer')->send($message);
             }
-            else if ($form->isSubmitted() && !$form->isValid())
-            {
-                //set an error message
-                $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-                );
-            }
 
             //set a success message
             $this->addFlash('approve_message', 'Een nieuwe gebruiker met naam ' . $user->getFirstname() . ' ' . $user->getLastname() . ' werd succesvol aangemaakt' . ($email ? '.  Een bevestigingsbericht werd gestuurd naar ' . $email . '.' : '.')
+            );
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
             );
         }
 

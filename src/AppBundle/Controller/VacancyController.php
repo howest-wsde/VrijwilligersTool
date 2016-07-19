@@ -108,8 +108,40 @@ class VacancyController extends controller
             $this->addFlash('approve_message', 'Een nieuwe vacature met naam ' . $vacancy->getTitle() . ' werd aangemaakt.'
             );
 
+            $email = $user->getEmail();
+            if($email){
+                $data = array(
+                            'user' => $user,
+                            'vacancy' => $vacancy,
+                        );
+
+                //send a confirmation mail
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Nieuwe vacature aangemaakt')
+                ->setFrom('info@roeselareVrijwilligt.be')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/email/registration.html.twig
+                        'email/vacature_aangemaakt.html.twig',
+                        $data
+                    ),
+                    'text/html'
+                )
+                //  * If you also want to include a plaintext version of the message
+                ->addPart(
+                    $this->renderView(
+                        'email/vacature_aangemaakt.txt.twig',
+                        $data
+                    ),
+                    'text/plain'
+                );
+                $this->get('mailer')->send($message);
+            }
+
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
+
         }
         else if ($form->isSubmitted() && !$form->isValid())
         {
