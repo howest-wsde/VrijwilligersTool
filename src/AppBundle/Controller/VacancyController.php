@@ -10,8 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\Form\VacancyType;
+use AppBundle\Controller\UtilityController;
 
-class VacancyController extends controller
+class VacancyController extends UtilityController
 {
     /**
      * @Route("/vacature/pdf/{urlid}", name="vacancy_pdf_by_urlid")
@@ -110,35 +111,20 @@ class VacancyController extends controller
 
             $email = $user->getEmail();
             if($email){
-                //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
-                //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
-                $data = array(
-                            'user' => $user,
-                            'vacancy' => $vacancy,
+                    //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
+                    //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
+
+                $info = array(
+                            'subject' => 'Nieuwe vacature aangemaakt',
+                            'template' => 'vacature_aangemaakt.html.twig',
+                            'txt/plain' => 'vacature_aangemaakt.txt.twig',
+                            'data' => array(
+                                'user' => $user,
+                                'vacancy' => $vacancy,
+                            ),
                         );
 
-                //send a confirmation mail
-                $message = \Swift_Message::newInstance()
-                ->setSubject('Nieuwe vacature aangemaakt')
-                ->setFrom('info@roeselareVrijwilligt.be')
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView(
-                        // app/Resources/views/email/registration.html.twig
-                        'email/vacature_aangemaakt.html.twig',
-                        $data
-                    ),
-                    'text/html'
-                )
-                //  * If you also want to include a plaintext version of the message
-                ->addPart(
-                    $this->renderView(
-                        'email/vacature_aangemaakt.txt.twig',
-                        $data
-                    ),
-                    'text/plain'
-                );
-                $this->get('mailer')->send($message);
+                $this->sendMail($user, $info);
             }
 
             return $this->redirect($this->generateUrl("vacancy_by_urlid",

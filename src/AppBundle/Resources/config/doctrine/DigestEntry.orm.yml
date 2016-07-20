@@ -1,0 +1,44 @@
+AppBundle\Entity\DigestEntry:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        status:
+            type: string
+            length: 10
+            default: 'tbp'
+        event:
+            type: smallint
+        periodicity:
+            type: smallint
+    manyToOne:
+        user:
+            targetEntity: Person
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        candidate:
+            targetEntity: Person
+            nullable: true
+            joinColumn:
+                name: candidate_id
+                referencedColumnName: id
+        admin:
+            targetEntity: Person
+            nullable: true
+            joinColumn:
+                name: admin_id
+                referencedColumnName: id
+        organisation:
+            targetEntity: Organisation
+            joinColumn:
+                name: org_id
+                referencedColumnName: id
+        vacancy:
+            targetEntity: Vacancy
+            nullable: true
+            joinColumn:
+                name: vacancy_id
+                referencedColumnName: id

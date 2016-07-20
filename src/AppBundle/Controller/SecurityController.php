@@ -10,7 +10,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\PersonType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class SecurityController extends Controller
+class SecurityController extends UtilityController
 {
     /**
     * @Route("/vrijwilliger_worden", name="register_user")
@@ -41,27 +41,17 @@ class SecurityController extends Controller
             //send confirmation mail to user if he used an email as contact
             $email = $user->getEmail();
             if($email){
-                $message = \Swift_Message::newInstance()
-                ->setSubject('Welkom bij Roeselare Vrijwilligt')
-                ->setFrom('info@roeselareVrijwilligt.be')
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView(
-                        // app/Resources/views/email/registration.html.twig
-                        'email/registration.html.twig',
-                        array('user' => $user)
-                    ),
-                    'text/html'
-                )
-                //  * If you also want to include a plaintext version of the message
-                ->addPart(
-                    $this->renderView(
-                        'email/registration.txt.twig',
-                        array('user' => $user)
-                    ),
-                    'text/plain'
-                );
-                $this->get('mailer')->send($message);
+                $info = array(
+                            'subject' => 'Welkom bij Roeselare Vrijwilligt',
+                            'template' => 'registration.html.twig',
+                            'txt/plain' => 'registration.txt.twig',
+                            'to' => $email,
+                            'data' => array(
+                                'user' => $user,
+                            ),
+                        );
+
+                $this->sendMail($user, $info);
             }
 
             //send mail to organisation if the user used an organisation as contact
@@ -69,32 +59,18 @@ class SecurityController extends Controller
             if($contactOrganisation){
                 //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
                 //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
-                $data = array(
-                            'user' => $user,
-                            'org' => $contactOrganisation,
+                $info = array(
+                            'subject' => 'Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie',
+                            'template' => 'newCharge.html.twig',
+                            'txt/plain' => 'newCharge.txt.twig',
+                            'to' => $contactOrganisation->getEmail(),
+                            'data' => array(
+                                'user' => $user,
+                                'org' => $contactOrganisation,
+                            ),
                         );
-                $message = \Swift_Message::newInstance()
-                ->setSubject('Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie')
-                ->setFrom('info@roeselareVrijwilligt.be')
-                ->setTo($contactOrganisation->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        // app/Resources/views/email/registration.html.twig
-                        'email/newCharge.html.twig',
-                        $data
-                    ),
-                    'text/html'
-                )
-                //  * If you also want to include a plaintext version of the message
-                ->addPart(
-                    $this->renderView(
-                        'email/newCharge.txt.twig',
-                        $data
-                    ),
-                    'text/plain'
-                );
-                $this->get('mailer')->send($message);
 
+                $this->sendMail($user, $info);
             }
 
             //set a success message
@@ -149,33 +125,8 @@ class SecurityController extends Controller
     * @Route("/status", name="status_testing")
     */
     public function statusAction(){
-        /*if(isset($_POST["code"])){
-            session_start();
-            $_SESSION["code"] = $_POST["code"];
-            $_SESSION["csrf_nonce"] = $_POST["csrf_nonce"];
-
-            $ch = curl_init();
-            // Set url elements
-            $fb_app_id = '465871913602533';
-            $ak_secret = 'eab92d7c75f08c6e95a48341c80b3ffc';
-            $token = 'AA|'.$fb_app_id.'|'.$ak_secret;
-            // Get access token
-            $url = 'https://graph.accountkit.com/v1.0/access_token?grant_type=authorization_code&code='.$_POST["code"].'&access_token='.$token;
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_URL,$url);
-            $result=curl_exec($ch);
-            curl_close($ch);
-
-            $info = json_decode($result);*/
-
         $em = $this->getDoctrine()->getManager();
         $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
-
-
-
         $myOrganisations = $em->getRepository("AppBundle:Organisation")->findBy(array('creator' => $userId));
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));
