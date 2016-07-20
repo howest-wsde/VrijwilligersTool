@@ -38,9 +38,9 @@ class SecurityController extends Controller
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
 
+            //send confirmation mail to user if he used an email as contact
             $email = $user->getEmail();
             if($email){
-                //send a confirmation mail
                 $message = \Swift_Message::newInstance()
                 ->setSubject('Welkom bij Roeselare Vrijwilligt')
                 ->setFrom('info@roeselareVrijwilligt.be')
@@ -62,6 +62,37 @@ class SecurityController extends Controller
                     'text/plain'
                 );
                 $this->get('mailer')->send($message);
+            }
+
+            //send mail to organisation if the user used an organisation as contact
+            $contactOrganisation = $user->getContactOrganisation();
+            if($contactOrganisation){
+                $data = array(
+                            'user' => $user,
+                            'org' => $contactOrganisation,
+                        );
+                $message = \Swift_Message::newInstance()
+                ->setSubject('Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie')
+                ->setFrom('info@roeselareVrijwilligt.be')
+                ->setTo($contactOrganisation->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        // app/Resources/views/email/registration.html.twig
+                        'email/newCharge.html.twig',
+                        $data
+                    ),
+                    'text/html'
+                )
+                //  * If you also want to include a plaintext version of the message
+                ->addPart(
+                    $this->renderView(
+                        'email/newCharge.txt.twig',
+                        $data
+                    ),
+                    'text/plain'
+                );
+                $this->get('mailer')->send($message);
+
             }
 
             //set a success message
