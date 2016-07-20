@@ -141,6 +141,21 @@ class PersonType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ))
+            ->add("digest", ChoiceType::class, array(
+                'label' => 'person.label.mailPreference',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.immediately' => '1',
+                    'person.choices.daily' => '2',
+                    'person.choices.weekly' => '3',
+                    'person.choices.monthly' => '4',
+                    'person.choices.nomail' => '5',
+                ),
+                // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,

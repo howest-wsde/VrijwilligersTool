@@ -67,6 +67,8 @@ class SecurityController extends Controller
             //send mail to organisation if the user used an organisation as contact
             $contactOrganisation = $user->getContactOrganisation();
             if($contactOrganisation){
+                //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
+                //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
                 $data = array(
                             'user' => $user,
                             'org' => $contactOrganisation,

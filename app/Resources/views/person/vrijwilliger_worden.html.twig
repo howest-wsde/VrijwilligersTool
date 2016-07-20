@@ -108,10 +108,15 @@
 				</div>
 
 
-				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">Vaardigheden</a></h2>
+				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">Vaardigheden & Voorkeuren</a></h2>
 				<div class="step grijs paars">
 					<fieldset>
 						{{ form_row (form.skills) }}
+					</fieldset>
+					<fieldset>
+						{{ form_row (form.digest) }}
+					</fieldset>
+					<fieldset>
 						{{ form_row (form.submit2) }}
 						{{ form_row (form.backToGeneral) }}
 					</fieldset>

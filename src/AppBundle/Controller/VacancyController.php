@@ -110,6 +110,8 @@ class VacancyController extends controller
 
             $email = $user->getEmail();
             if($email){
+                //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
+                //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
                 $data = array(
                             'user' => $user,
                             'vacancy' => $vacancy,
