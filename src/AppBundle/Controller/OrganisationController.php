@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Form\OrganisationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
-class OrganisationController extends controller
+class OrganisationController extends UtilityController
 {
     /**
      * @Security("has_role('ROLE_USER')")
@@ -149,6 +150,21 @@ class OrganisationController extends controller
             $em->flush();
             $form = $this->createAddAdminData($urlid)['form'];
 
+            //set digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' werd toegevoegd als admin voor ' . $organisation->getName();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'newAdmin.html.twig',
+                        'txt/plain' => 'newAdmin.txt.twig',
+                        'data' => array(
+                            'newAdmin' => $person,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWADMIN,
+                    );
+            $this->digestOrMail($info);
+
            //set a success message
             $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol toegevoegd als beheerder voor deze organisatie.');
         }
@@ -196,6 +212,22 @@ class OrganisationController extends controller
             $person->removeOrganisation($organisation);
             $em->persist($person);
             $em->flush();
+
+            //set digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' werd verwijderd als beheerder voor ' . $organisation->getName();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'removeAdmin.html.twig',
+                        'txt/plain' => 'removeAdmin.txt.twig',
+                        'data' => array(
+                            'newAdmin' => $person,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWADMIN,
+                        'remove' => true,
+                    );
+            $this->digestOrMail($info);
 
            //set a success message
             $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol verwijderd als beheerder voor deze organisatie.');

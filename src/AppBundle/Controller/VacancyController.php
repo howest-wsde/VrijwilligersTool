@@ -164,7 +164,11 @@ class VacancyController extends UtilityController
             ->findOneByUrlid($urlid);
 
         $candidacies = $em->getRepository('AppBundle:Candidacy')
-            ->findBy(array('candidate' => $person->getId(), 'vacancy' => $vacancy->getId()));
+            ->findBy(array(
+                'candidate' => $person->getId(),
+                'vacancy' => $vacancy->getId(),
+                'state' => Candidacy::PENDING,
+            ));
 
         if ($candidacies) {
             foreach ($candidacies as $candidacy) {

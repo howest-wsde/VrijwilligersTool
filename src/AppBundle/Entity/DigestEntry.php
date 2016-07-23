@@ -11,10 +11,12 @@ class DigestEntry extends EntityBase
     const NEWCHARGE = 1; //see SecurityController.registerAction
     const NEWVACANCY = 2; //see VacancyController.createVacancyAction
     const NEWCANDIDATE = 3; //see VacancyController.subscribeVacancyAcation
-    const NEWADMIN = 4;
-    const VACANCYFILLED = 5;
-    // ! => when adding new types of events, pleas also modify 1 method in
-    // UtilityController: addDigests (loop test needs to be adjusted)
+    const NEWADMIN = 4; //see OrganisationController.organisationRemoveAction & organisationViewAction
+    const APPROVECANDIDATE = 5; //see CandidacyController.approveCandidacy
+    const REMOVECANDIDATE = 6; //see CandidacyController.approveCandidacy
+    // ! => when adding new types of events, pleas also modify 2 methods in
+    // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
+    // removeDigestEntry: new switch case
 
     //constants for variable $status
     const SENT = 'sent';

@@ -8,20 +8,6 @@
         <header><h1>{{ vacancy.title }}</h1></header>
         <h2>Kandidaten voor deze vacature:</h2>
 
-        <h3>Goedgekeurde kandidaten:</h3>
-        <ol>
-            {% for candidacy in approved %}
-                {% set candidate = candidacy.candidate %}
-                <li>
-                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">{{ candidate.firstname}} {{ candidate.lastname}}</a>
-                    <form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }} " method="post">
-                        <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ol>
-
-        <h3>Open kandidaatstellingen:</h3>
         {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
                 <strong>Success!</strong> {{ flashMessage }}
@@ -37,6 +23,22 @@
                 {{ flashMessage }}
             </div>
         {% endfor %}
+
+        <h3>Goedgekeurde kandidaten:</h3>
+        <ol>
+            {% for candidacy in approved %}
+                {% set candidate = candidacy.candidate %}
+                <li>
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">{{ candidate.firstname}} {{ candidate.lastname}}</a>
+                    <form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }} " method="post">
+                        <button type="submit"  name="remove" class="glyphicon glyphicon-remove btn btn-xs"></button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ol>
+
+        <h3>Open kandidaatstellingen:</h3>
+
         <ol>
             {% for candidacy in pending %}
                 {% set candidate = candidacy.candidate %}
@@ -44,6 +46,8 @@
                     |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
                     |<form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }}" method="post">
                         <button type="submit"  name="approve" class="glyphicon glyphicon-ok btn btn-xs"></button>
+                        <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
+
                     </form>
                 </li>
             {% endfor %}

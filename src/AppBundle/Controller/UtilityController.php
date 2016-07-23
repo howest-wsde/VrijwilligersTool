@@ -93,7 +93,7 @@ class UtilityController extends Controller
      */
     protected function addOrRemoveDigests($info, $org){
         $remove = array_key_exists('remove', $info);
-        for ($i = 2; $i < 6; $i++) {
+        for ($i = 2; $i < 7; $i++) {
             $admins = $org->getAdministratorsByDigest($i);
             if($admins){
                 foreach ($admins as $admin) {
@@ -114,7 +114,7 @@ class UtilityController extends Controller
         $user = $info['admin'];
         $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-        $newAdmin = array_key_exists('newAdmin', $info) ? $info['newAdmin'] : null;
+        $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
         $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
 
         $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge, $candidate, $newAdmin, $vacancy);
@@ -135,7 +135,7 @@ class UtilityController extends Controller
         $user = $info['admin'];
         $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-        $newAdmin = array_key_exists('newAdmin', $info) ? $info['newAdmin'] : null;
+        $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
         $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
         $em = $this->getDoctrine()->getManager();
         $digestRepo = $em->getRepository('AppBundle:DigestEntry');
@@ -174,6 +174,19 @@ class UtilityController extends Controller
                               'organisation' => $org,
                               'user' => $user,
                           ));
+                break;
+
+            case 5: //APPROVECANDIDATE
+                $digests = $digestRepo->findBy(array(
+                              'event' => $event,
+                              'vacancy' => $vacancy,
+                              'user' => $user,
+                              'candidate' => $candidate,
+                          ));
+                break;
+
+            case 6: //REMOVECANDIDATE
+                //hier moet niets gebeuren
                 break;
         }
 
