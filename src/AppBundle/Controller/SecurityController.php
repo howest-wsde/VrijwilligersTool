@@ -57,8 +57,7 @@ class SecurityController extends UtilityController
             //send mail to organisation if the user used an organisation as contact
             $contactOrganisation = $user->getContactOrganisation();
             if($contactOrganisation){
-                //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
-                //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
+                //set digest / send email to all administrators
                 $info = array(
                             'subject' => 'Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie',
                             'template' => 'newCharge.html.twig',
@@ -68,9 +67,10 @@ class SecurityController extends UtilityController
                                 'user' => $user,
                                 'org' => $contactOrganisation,
                             ),
+                            'org' => $contactOrganisation,
+                            'event' => DigestEntry::NEWCHARGE,
                         );
-
-                $this->sendMail($user, $info);
+                $this->digestOrMail($info, $organisation);
             }
 
             //set a success message

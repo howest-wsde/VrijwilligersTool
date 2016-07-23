@@ -19,6 +19,11 @@ AppBundle\Entity\DigestEntry:
             joinColumn:
                 name: user_id
                 referencedColumnName: id
+        charge:
+            targetEntity: Person
+            joinColumn:
+                name: charge_id
+                referencedColumnName: id
         candidate:
             targetEntity: Person
             nullable: true

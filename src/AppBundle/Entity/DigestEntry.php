@@ -7,12 +7,14 @@ namespace AppBundle\Entity;
  */
 class DigestEntry extends EntityBase
 {
-    const NEWCHARGE = 1;
-    const NEWVACANCY = 2;
-    const NEWCANDIDATES = 3;
+    //constants for variable event
+    const NEWCHARGE = 1; //see SecurityController.registerAction
+    const NEWVACANCY = 2; //see VacancyController.createVacancyAction
+    const NEWCANDIDATE = 3;
     const NEWADMIN = 4;
     const VACANCYFILLED = 5;
 
+    //constants for variable $status
     const SENT = 'sent';
     const TBP = 'tbp'; //To be processed
 
@@ -32,6 +34,8 @@ class DigestEntry extends EntityBase
     private $event;
 
     /**
+     * Constants for this variable can be found in Person,
+     * they are the same for the $digest variable of the Person entity
      * @var integer
      */
     private $periodicity;
@@ -41,6 +45,12 @@ class DigestEntry extends EntityBase
      * @var \AppBundle\Entity\Person
      */
     private $user;
+
+    /**
+     * The new charge for the organisation
+     * @var \AppBundle\Entity\Person
+     */
+    private $charge;
 
     /**
      * The user who's a candidate for new job
@@ -63,6 +73,26 @@ class DigestEntry extends EntityBase
      * @var \AppBundle\Entity\Vacancy
      */
     private $vacancy;
+
+    ////////////////
+    //Constructor //
+    ////////////////
+
+    public function __construct($event, $organisation, $periodicity = Person::DAILY, $user, $charge = null, $candidate = null, $admin = null, $vacancy = null)
+    {
+        $this->setEvent($event)
+             ->setOrganisation($organisation)
+             ->setPeriodicity($periodicity)
+             ->setUser($user)
+             ->setCharge($charge)
+             ->setCandidate($candidate)
+             ->setAdmin($admin)
+             ->setVacancy($vacancy);
+    }
+
+    //////////////////////
+    //Getters & Setters //
+    //////////////////////
 
     /**
      * Get id
@@ -169,6 +199,31 @@ class DigestEntry extends EntityBase
     {
         return $this->user;
     }
+
+    /**
+     * Set charge
+     *
+     * @param \AppBundle\Entity\Person $charge
+     *
+     * @return DigestEntry
+     */
+    public function setCharge(\AppBundle\Entity\Person $charge = null)
+    {
+        $this->charge = $charge;
+
+        return $this;
+    }
+
+    /**
+     * Get charge
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getCharge()
+    {
+        return $this->charge;
+    }
+
 
     /**
      * Set candidate

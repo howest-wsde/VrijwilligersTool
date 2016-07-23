@@ -74,11 +74,12 @@ class VacancyController extends UtilityController
      */
     public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
+        $em = $this->getDoctrine()->getManager();
+
         if($organisation_urlid){
             $user = $this->getUser();
-            $organisation = $this->getDoctrine()->getManager()
-                            ->getRepository("AppBundle:Organisation")
-                            ->findOneByUrlid($organisation_urlid);
+            $organisation = $em->getRepository("AppBundle:Organisation")
+                                ->findOneByUrlid($organisation_urlid);
             if(!$user->getOrganisations()->contains($organisation)){
                 throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.");
             }
@@ -90,11 +91,7 @@ class VacancyController extends UtilityController
         $form = $this->createForm(VacancyType::class, $vacancy);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
             if (!is_null($organisation_urlid)){
-                $organisation = $em->getRepository("AppBundle:Organisation")
-                                    ->findOneByUrlid($organisation_urlid);
                 $vacancy->setOrganisation($organisation);
             }
 
@@ -109,23 +106,20 @@ class VacancyController extends UtilityController
             $this->addFlash('approve_message', 'Een nieuwe vacature met naam ' . $vacancy->getTitle() . ' werd aangemaakt.'
             );
 
-            $email = $user->getEmail();
-            if($email){
-                    //TODO: get all admins with a digest status of 1 & send mail + to organisation -> add method to Organisation
-                    //TODO: add all other admins to cron job for mails table along with info on user -> add method to new supercontroller?
-
-                $info = array(
-                            'subject' => 'Nieuwe vacature aangemaakt',
-                            'template' => 'vacature_aangemaakt.html.twig',
-                            'txt/plain' => 'vacature_aangemaakt.txt.twig',
-                            'data' => array(
-                                'user' => $user,
-                                'vacancy' => $vacancy,
-                            ),
-                        );
-
-                $this->sendMail($user, $info);
-            }
+            //set digest / send email to all administrators
+            $info = array(
+                        'subject' => 'Nieuwe vacature aangemaakt',
+                        'template' => 'vacature_aangemaakt.html.twig',
+                        'txt/plain' => 'vacature_aangemaakt.txt.twig',
+                        'to' => $user->getEmail(),
+                        'data' => array(
+                            'user' => $user,
+                            'vacancy' => $vacancy,
+                        ),
+                        'org' => $organisation,
+                        'event' => DigestEntry::NEWVACANCY,
+                    );
+            $this->digestOrMail($info, $organisation);
 
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
