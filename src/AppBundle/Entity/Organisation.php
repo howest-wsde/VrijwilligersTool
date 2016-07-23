@@ -528,6 +528,7 @@ class Organisation extends EntityBase
                return ($admin->getDigest() === $digest);
         });
 
+        //TODO: find out why this criteria fails, and fix it so the method does use the criteria over the filter.
         // $admins = $this->getAdministrators();
         // $criteria = Criteria::create()
         //             ->where(Criteria::expr()->eq("digest", $digest));
