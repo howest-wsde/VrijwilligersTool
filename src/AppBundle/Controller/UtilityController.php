@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\DigestEntry;
 
 class UtilityController extends Controller
 {
@@ -75,14 +76,13 @@ class UtilityController extends Controller
     protected function sendEmails($info, $org)
     {
         $admins = $org->getAdministratorsByDigest(1);
-        if($admins)
+        if(!is_null($admins))
         {
             foreach ($admins as $admin) {
                 $info['to'] = $admin->getEmail();
                 $this->sendMail($admin, $info);
             }
         }
-
     }
 
     /**
@@ -111,6 +111,7 @@ class UtilityController extends Controller
         $event = $info['event'];
         $org = $info['org'];
         $user = $info['admin'];
+        $vacancy = $info['data']['vacancy'];
 
         switch ($event) {
             case 1: //NEWCHARGE
@@ -126,7 +127,7 @@ class UtilityController extends Controller
                 $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, $info['newAdmin']);
                 break;
             case 5: //VACANCYFILLED
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, null, $info['vacancy']);
+                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, null, $vacancy);
                 break;
         }
 

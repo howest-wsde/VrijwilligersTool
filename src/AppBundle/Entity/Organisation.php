@@ -523,15 +523,15 @@ class Organisation extends EntityBase
      */
     public function getAdministratorsByDigest($digest)
     {
-        // return $this->getAdministrators()->filter(
-        //     function($admin) use ($digest) {
-        //        return ($admin->getDigest() === $digest);
-        // });
+        return $this->getAdministrators()->filter(
+            function($admin) use ($digest) {
+               return ($admin->getDigest() === $digest);
+        });
 
-        $admins = $this->getAdministrators();
-        $criteria = Criteria::create()
-                    ->where(Criteria::expr()->eq("digest", $digest));
-        return $admins->matching($criteria);
+        // $admins = $this->getAdministrators();
+        // $criteria = Criteria::create()
+        //             ->where(Criteria::expr()->eq("digest", $digest));
+        // return $admins->matching($criteria);
     }
 
     /**

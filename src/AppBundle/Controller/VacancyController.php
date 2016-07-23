@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
+use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\VacancyType;
 use AppBundle\Controller\UtilityController;
 

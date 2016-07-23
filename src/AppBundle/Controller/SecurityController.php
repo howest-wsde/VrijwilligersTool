@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
+use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\PersonType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
