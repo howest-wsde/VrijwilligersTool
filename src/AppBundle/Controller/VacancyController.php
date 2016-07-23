@@ -116,8 +116,8 @@ class VacancyController extends UtilityController
                         'data' => array(
                             'user' => $user,
                             'vacancy' => $vacancy,
+                            'org' => $organisation,
                         ),
-                        'org' => $organisation,
                         'event' => DigestEntry::NEWVACANCY,
                     );
             $this->digestOrMail($info, $organisation);
@@ -173,7 +173,25 @@ class VacancyController extends UtilityController
             }
 
             //set a success message
-            $this->addFlash('approve_message', 'Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.');
+            $this->addFlash('approve_message', 'Uw kandidatuur voor deze vacature werd succesvol verwijderd.');
+
+            //remove digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' trok haar/zijn kandidaat voor de vacature met titel "' . $vacancy->getTitle() . '" in.';
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'ranCandidate.html.twig',
+                        'txt/plain' => 'ranCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                        'remove' => true,
+                    );
+            $this->digestOrMail($info);
         } else {
             $candidacy = new Candidacy();
             $candidacy->setCandidate($person)->setVacancy($vacancy);
@@ -181,7 +199,24 @@ class VacancyController extends UtilityController
             $em->flush();
 
             //set a success message
-            $this->addFlash('approve_message', 'Uw kandidatuur voor deze vacature werd succesvol verwijderd.');
+            $this->addFlash('approve_message', 'Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.');
+
+            //set digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' stelde zich kandidaat voor de vacature met titel: ' . $vacancy->getTitle();
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'newCandidate.html.twig',
+                        'txt/plain' => 'newCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                    );
+            $this->digestOrMail($info);
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);

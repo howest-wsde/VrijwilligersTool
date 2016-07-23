@@ -1,0 +1,12 @@
+<h3>Nieuwe kandidaat!</h3>
+
+<p>Beste beheerder voor {{ org.name }},</p>
+
+<p>
+    zonet gaf {{ candidate.firstname }} {{ candidate.lastname }} zich op Roeselare Vrijwilligt als kandidaat voor de vacature {{ vacancy.title }}.  <a href="{{ url('vacancy_candidacies', {'urlid': vacancy.urlId }) }}">U kan deze vacature hier goed/afkeuren.</a>
+</p>
+
+<p>Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Roeselare!</p>
+
+<p>Bedankt!</p>
+<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">

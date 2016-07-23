@@ -10,9 +10,11 @@ class DigestEntry extends EntityBase
     //constants for variable event
     const NEWCHARGE = 1; //see SecurityController.registerAction
     const NEWVACANCY = 2; //see VacancyController.createVacancyAction
-    const NEWCANDIDATE = 3;
+    const NEWCANDIDATE = 3; //see VacancyController.subscribeVacancyAcation
     const NEWADMIN = 4;
     const VACANCYFILLED = 5;
+    // ! => when adding new types of events, pleas also modify 1 method in
+    // UtilityController: addDigests (loop test needs to be adjusted)
 
     //constants for variable $status
     const SENT = 'sent';

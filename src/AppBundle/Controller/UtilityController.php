@@ -59,12 +59,12 @@ class UtilityController extends Controller
      */
     protected function digestOrMail($info)
     {
-        $org = $info['org'];
+        $org = $info['data']['org'];
         //first take care of the admins that need mailing
         $this->sendEmails($info, $org);
 
-        //then take care of those that need a digest entry added
-        $this->addDigests($info, $org);
+        //then take care of those that need a digest entry added/removed
+        $this->addOrRemoveDigests($info, $org);
     }
 
     /**
@@ -86,18 +86,19 @@ class UtilityController extends Controller
     }
 
     /**
-     * Add all digests for the admins of an organisation who have chosen that
+     * Adds / removes all digests for the admins of an organisation who have chosen that
      * delivery mode
      * @param Array                     $info   All necessary information to add the correct digest entry
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function addDigests($info, $org){
+    protected function addOrRemoveDigests($info, $org){
+        $remove = array_key_exists('remove', $info);
         for ($i = 2; $i < 6; $i++) {
             $admins = $org->getAdministratorsByDigest($i);
             if($admins){
                 foreach ($admins as $admin) {
                     $info['admin'] = $admin;
-                    $this->addDigestEntry($info);
+                    $remove ? $this->removeDigestEntry($info, $org) : $this->addDigestEntry($info, $org);
                 }
             }
         }
@@ -105,34 +106,80 @@ class UtilityController extends Controller
 
     /**
      * Add the correct DigestEntry for the event.
-     * @param array    $info    An array containing all the necessary data.
+     * @param Array                     $info   An array containing all the necessary data.
+     * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function addDigestEntry($info){
+    protected function addDigestEntry($info, $org){
         $event = $info['event'];
-        $org = $info['org'];
         $user = $info['admin'];
-        $vacancy = $info['data']['vacancy'];
+        $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
+        $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+        $newAdmin = array_key_exists('newAdmin', $info) ? $info['newAdmin'] : null;
+        $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
 
-        switch ($event) {
-            case 1: //NEWCHARGE
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge);
-                break;
-            case 2: //NEWVACANCY
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, null, $vacancy);
-                break;
-            case 3: //NEWCANDIDATE
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, $info['candidate']);
-                break;
-            case 4: //NEWADMIN
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, $info['newAdmin']);
-                break;
-            case 5: //VACANCYFILLED
-                $digest = new DigestEntry($event, $org, $user->getDigest(), $user, null, null, null, $vacancy);
-                break;
-        }
+        $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge, $candidate, $newAdmin, $vacancy);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($digest);
         $em->flush();
+    }
+
+    /**
+     * Remove the correct DigestEntry for the event.
+     * @param Array                     $info   An array containing all the necessary data.
+     * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
+     */
+    protected function removeDigestEntry($info, $org)
+    {
+        $event = $info['event'];
+        $user = $info['admin'];
+        $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
+        $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+        $newAdmin = array_key_exists('newAdmin', $info) ? $info['newAdmin'] : null;
+        $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
+        $em = $this->getDoctrine()->getManager();
+        $digestRepo = $em->getRepository('AppBundle:DigestEntry');
+
+        switch ($event) {
+            case 1: //NEWCHARGE
+                $digests = $digestRepo->findBy(array(
+                              'event' => $event,
+                              'charge' => $charge,
+                              'organisation' => $org,
+                              'user' => $user,
+                          ));
+                break;
+
+            case 2: //NEWVACANCY
+                $digests = $digestRepo->findBy(array(
+                              'event' => $event,
+                              'vacancy' => $vacancy,
+                              'user' => $user,
+                          ));
+                break;
+
+            case 3: //NEWCANDIDATE
+                $digests = $digestRepo->findBy(array(
+                              'event' => $event,
+                              'candidate' => $candidate,
+                              'vacancy' => $vacancy,
+                              'user' => $user,
+                          ));
+                break;
+
+            case 4: //NEWADMIN
+                $digests = $digestRepo->findBy(array(
+                              'event' => $event,
+                              'admin' => $newAdmin,
+                              'organisation' => $org,
+                              'user' => $user,
+                          ));
+                break;
+        }
+
+        foreach ($digests as $digest) {
+          $em->remove($digest);
+          $em->flush();
+        }
     }
 }
