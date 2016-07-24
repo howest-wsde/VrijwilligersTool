@@ -25,11 +25,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
+    const NOMAIL = 0;
     const IMMEDIATELY = 1;
     const DAILY = 2;
     const WEEKLY = 3;
     const MONTHLY = 4;
-    const NOMAIL = 5;
+    //if more constants are added then pls do adjust the digestcommand check for periodicity.
 
     /**
      * @var integer

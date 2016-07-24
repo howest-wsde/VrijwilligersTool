@@ -1,0 +1,63 @@
+Digest mail vanwege Roeselare Vrijwilligt
+
+Beste beheerder,
+
+u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze {% if admin.digest == 2 %} dag {% elseif admin.digest == 3 %} week {% elseif admin.digest == 4 %} maand {% endif %}.
+
+{% if newCharge is not empty %}
+Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen
+
+Voornaam        Achternaam      Gebruikersnaam      Link naar publiek profiel
+{% for entry in newCharge %}
+{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        <a href="{{ url('person_username', {'username': entry.charge.username }) }}">Bekijk hier het publiek profiel</a>
+{% endfor %}
+{% endif %}
+
+{% if newVacancy is not empty %}
+Nieuw aangemaakte vacatures
+
+Titel        Begindatum        Einddatum        Link naar vacature
+{% for entry in newVacancy %}
+{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Bekijk hier de vacature</a>
+{% endfor %}
+{% endif %}
+
+{% if newCandidate is not empty %}
+Nieuwe kandidaten
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature        Beheerslink
+{% for entry in newCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>        <a href="{{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
+{% endfor %}
+{% endif %}
+
+{% if newAdmin is not empty %}
+Nieuwe beheerders
+
+Naam        Gebruikersnaam        Naam organisatie
+{% for entry in newAdmin %}
+{{ entry.admin.firstname }} {{ entry.admin.lastname }}        <a href="{{ url('person_username', {'username': entry.admin.username }) }}">{{ entry.admin.username }}</a>        {{ entry.organisation.name }}
+{% endfor %}
+{% endif %}
+
+{% if approveCandidate is not empty %}
+Goedgekeurde kandidaten
+
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{% for entry in approveCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+{% endfor %}
+{% endif %}
+
+{% if removeCandidate is not empty %}
+Verwijderde vrijwilligers
+
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{% for entry in removeCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+{% endfor %}
+{% endif %}
+
+
+Met vriendelijke groeten,
+Roeselare Vrijwilligt
+
