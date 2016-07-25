@@ -25,6 +25,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
+    const NOMAIL = 0;
+    const IMMEDIATELY = 1;
+    const DAILY = 2;
+    const WEEKLY = 3;
+    const MONTHLY = 4;
+    //if more constants are added then pls do adjust the digestcommand check for periodicity.
+
     /**
      * @var integer
      */
@@ -312,6 +319,20 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     private $organisations;
 
+    /**
+     * @var int
+     */
+    private $digest = Person::IMMEDIATELY;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_vacancies;
 
     /**
      * Constructor
@@ -1006,18 +1027,29 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->organisations;
     }
 
+    /**
+     * Set digest
+     *
+     * @param int $digest
+     *
+     * @return Person
+     */
+    public function setDigest($digest)
+    {
+        $this->digest = $digest;
 
+        return $this;
+    }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * Get digest
+     *
+     * @return int
      */
-    private $liked_organisations;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $liked_vacancies;
-
+    public function getDigest()
+    {
+        return $this->digest;
+    }
 
     /**
      * Add likedOrganisation

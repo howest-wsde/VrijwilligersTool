@@ -9,9 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
+use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\VacancyType;
+use AppBundle\Controller\UtilityController;
 
-class VacancyController extends controller
+class VacancyController extends UtilityController
 {
     /**
      * @Route("/vacature/pdf/{urlid}", name="vacancy_pdf_by_urlid")
@@ -55,6 +57,7 @@ class VacancyController extends controller
         {
             $organisations = null;
         }
+
         return $this->render("organisation/vrijwilliger_vinden.html.twig",
                 [
                     "organisations" => $organisations,
@@ -72,11 +75,12 @@ class VacancyController extends controller
      */
     public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
+        $em = $this->getDoctrine()->getManager();
+
         if($organisation_urlid){
             $user = $this->getUser();
-            $organisation = $this->getDoctrine()->getManager()
-                            ->getRepository("AppBundle:Organisation")
-                            ->findOneByUrlid($organisation_urlid);
+            $organisation = $em->getRepository("AppBundle:Organisation")
+                                ->findOneByUrlid($organisation_urlid);
             if(!$user->getOrganisations()->contains($organisation)){
                 throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.");
             }
@@ -88,11 +92,7 @@ class VacancyController extends controller
         $form = $this->createForm(VacancyType::class, $vacancy);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
             if (!is_null($organisation_urlid)){
-                $organisation = $em->getRepository("AppBundle:Organisation")
-                                    ->findOneByUrlid($organisation_urlid);
                 $vacancy->setOrganisation($organisation);
             }
 
@@ -103,9 +103,36 @@ class VacancyController extends controller
             $em->persist($vacancy);
             $em->flush();
 
+            //set a success message
+            $this->addFlash('approve_message', 'Een nieuwe vacature met naam ' . $vacancy->getTitle() . ' werd aangemaakt.'
+            );
+
+            //set digest / send email to all administrators
+            $info = array(
+                        'subject' => 'Nieuwe vacature aangemaakt',
+                        'template' => 'vacature_aangemaakt.html.twig',
+                        'txt/plain' => 'vacature_aangemaakt.txt.twig',
+                        'to' => $user->getEmail(),
+                        'data' => array(
+                            'user' => $user,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWVACANCY,
+                    );
+            $this->digestOrMail($info, $organisation);
+
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
+
         }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
+        }
+
         return $this->render("vacancy/vacature_nieuw.html.twig",
             [
                 "form" => $form->createView(),
@@ -137,18 +164,63 @@ class VacancyController extends controller
             ->findOneByUrlid($urlid);
 
         $candidacies = $em->getRepository('AppBundle:Candidacy')
-            ->findBy(array('candidate' => $person->getId(), 'vacancy' => $vacancy->getId()));
+            ->findBy(array(
+                'candidate' => $person->getId(),
+                'vacancy' => $vacancy->getId(),
+                'state' => Candidacy::PENDING,
+            ));
 
         if ($candidacies) {
             foreach ($candidacies as $candidacy) {
                 $em->remove($candidacy);
                 $em->flush();
             }
+
+            //set a success message
+            $this->addFlash('approve_message', 'Uw kandidatuur voor deze vacature werd succesvol verwijderd.');
+
+            //remove digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' trok haar/zijn kandidaat voor de vacature met titel "' . $vacancy->getTitle() . '" in.';
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'ranCandidate.html.twig',
+                        'txt/plain' => 'ranCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                        'remove' => true,
+                    );
+            $this->digestOrMail($info);
         } else {
             $candidacy = new Candidacy();
             $candidacy->setCandidate($person)->setVacancy($vacancy);
             $em->persist($candidacy);
             $em->flush();
+
+            //set a success message
+            $this->addFlash('approve_message', 'Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.');
+
+            //set digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' stelde zich kandidaat voor de vacature met titel: ' . $vacancy->getTitle();
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'newCandidate.html.twig',
+                        'txt/plain' => 'newCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                    );
+            $this->digestOrMail($info);
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
@@ -166,13 +238,29 @@ class VacancyController extends controller
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        $user->removeLikedVacancy($vacancy); // standaard unliken om geen doubles te creeren
-        if ($saveaction == "save") $user->addLikedVacancy($vacancy);
+
+        $ajax = isset($_GET['ajax']);
+
+        // standaard unliken om geen doubles te creeren
+        $user->removeLikedVacancy($vacancy);
+        if ($saveaction == "save")
+        {
+            $user->addLikedVacancy($vacancy);
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd toegevoegd aan uw bewaarde vacatures.');
+            }
+        } else {
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd verwijderd uit uw bewaarde vacatures.');
+            }
+        }
         $em->persist($user);
         $em->flush();
 
 
-        if (!isset($_GET['ajax'])) {
+        if (!$ajax) {
             return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
         } else {
             if ($saveaction == "save") {
@@ -188,9 +276,11 @@ class VacancyController extends controller
                     "text" => "Bewaar",
                 );
             }
+
             $response = new Response();
             $response->setContent(json_encode($arResult));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -260,8 +350,17 @@ class VacancyController extends controller
 
                 $em->flush();
 
+                //set a success message
+                $this->addFlash('approve_message', 'Deze vacature werd succesvol aangepast.');
+
                 return $this->redirect($this->generateUrl("vacancy_by_urlid",
                     array("urlid" => $vacancy->getUrlId() ) ));
+            }
+            else if ($form->isSubmitted() && !$form->isValid())
+            {
+                //set an error message
+                $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+                );
             }
 
             return $this->render("vacancy/vacature_aanpassen.html.twig",

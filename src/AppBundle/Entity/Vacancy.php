@@ -647,6 +647,22 @@ class Vacancy extends EntityBase
     }
 
     /**
+     * Convenience function to both increase stillWanted by one
+     * & check whether it's status needs to opened again
+     *
+     * @return Vacancy
+     */
+    public function increaseByOne(){
+        $left = $this->getStillWanted();
+        if($left == 0){
+            $this->setPublished(Vacancy::OPEN);
+        }
+        $this->setStillWanted($left + 1);
+
+        return $this;
+    }
+
+    /**
      * Set street
      *
      * @param string $street
@@ -856,17 +872,23 @@ class Vacancy extends EntityBase
 
 
     /**
-     * Get candidates
+     * Get pending candidates
      *
      * @return Array
      */
     public function getCandidates()
     {
-        $arCandidates = [];
-        foreach ($this->candidacies as $oCandidacy){
-            $arCandidates[] = $oCandidacy->getCandidate();
+        $candidates = [];
+        $openCandidacies = $this->getCandidacies()->filter(
+            function($candidacy){
+               return ($candidacy->getState() === Candidacy::PENDING);
+        });
+
+        foreach ($openCandidacies as $candidacy){
+            $candidates[] = $candidacy->getCandidate();
         }
-        return $arCandidates;
+
+        return $candidates;
     }
 
     /**

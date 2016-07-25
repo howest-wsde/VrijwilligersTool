@@ -1,0 +1,63 @@
+Digest mail vanwege Roeselare Vrijwilligt
+
+Beste beheerder,
+
+u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze {% if admin.digest == 2 %} dag {% elseif admin.digest == 3 %} week {% elseif admin.digest == 4 %} maand {% endif %}.
+
+{% if newCharge is not empty %}
+Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen
+
+Voornaam        Achternaam      Gebruikersnaam      Link naar publiek profiel
+{% for entry in newCharge %}
+{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        Bekijk hier het publiek profiel: {{ url('person_username', {'username': entry.charge.username }) }}
+{% endfor %}
+{% endif %}
+
+{% if newVacancy is not empty %}
+Nieuw aangemaakte vacatures
+
+Titel        Begindatum        Einddatum        Link naar vacature
+{% for entry in newVacancy %}
+{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        Bekijk hier de vacature: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{% endfor %}
+{% endif %}
+
+{% if newCandidate is not empty %}
+Nieuwe kandidaten
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature        Beheerslink
+{% for entry in newCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        Keur de kandidaat goed/af: {{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}
+{% endfor %}
+{% endif %}
+
+{% if newAdmin is not empty %}
+Nieuwe beheerders
+
+Naam        Gebruikersnaam        Naam organisatie
+{% for entry in newAdmin %}
+{{ entry.admin.firstname }} {{ entry.admin.lastname }}        {{ entry.admin.username }}: {{ url('person_username', {'username': entry.admin.username }) }}        {{ entry.organisation.name }}
+{% endfor %}
+{% endif %}
+
+{% if approveCandidate is not empty %}
+Goedgekeurde kandidaten
+
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{% for entry in approveCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{% endfor %}
+{% endif %}
+
+{% if removeCandidate is not empty %}
+Verwijderde vrijwilligers
+
+Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{% for entry in removeCandidate %}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{% endfor %}
+{% endif %}
+
+
+Met vriendelijke groeten,
+Roeselare Vrijwilligt
+

@@ -72,6 +72,7 @@ AppBundle\Entity\Organisation:
     manyToMany:
         administrators:
           targetEntity: Person
+          orderBy: { 'digest': 'ASC' }
           mappedBy: organisations
         likers:
           targetEntity: Person

@@ -58,6 +58,9 @@ AppBundle\Entity\Person:
             type: string
             length: 255
             nullable: true
+        digest:
+            type: smallint
+            options: { default: 1 }
     oneToMany:
         organisation:
             targetEntity: Organisation

@@ -1,5 +1,5 @@
 <div class="vacatures">
-{% for vacancy in vacancies %}
-    {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length}%}{% endembed %}
-{% endfor %}
+    {% for vacancy in vacancies %}
+        {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length}%}{% endembed %}
+    {% endfor %}
 </div>

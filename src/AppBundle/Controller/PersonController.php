@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response; 
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Form\PersonType;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Vacancy;
@@ -51,7 +51,7 @@ class PersonController extends controller
      * @Route("/mijnprofiel", name="profile_edit")
      */
     public function editProfileAction(Request $request){
-        $person = $this->getUser(); 
+        $person = $this->getUser();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
 
@@ -60,7 +60,14 @@ class PersonController extends controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl("self_profile" ));
+            //set a success message
+            $this->addFlash('approve_message', 'Uw profiel werd succesvol aangepast');
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
         }
 
         return $this->render("person/edit_profile.html.twig", array("form" => $form->createView() ));

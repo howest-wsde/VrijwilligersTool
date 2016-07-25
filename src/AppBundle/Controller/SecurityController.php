@@ -7,10 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
+use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\PersonType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class SecurityController extends Controller
+class SecurityController extends UtilityController
 {
     /**
     * @Route("/vrijwilliger_worden", name="register_user")
@@ -37,7 +38,53 @@ class SecurityController extends Controller
             $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));
             $this->get('security.token_storage')->setToken($token);
             $this->get('session')->set('_security_main',serialize($token));
+
+            //send confirmation mail to user if he used an email as contact
+            $email = $user->getEmail();
+            if($email){
+                $info = array(
+                            'subject' => 'Welkom bij Roeselare Vrijwilligt',
+                            'template' => 'registration.html.twig',
+                            'txt/plain' => 'registration.txt.twig',
+                            'to' => $email,
+                            'data' => array(
+                                'user' => $user,
+                            ),
+                        );
+
+                $this->sendMail($user, $info);
+            }
+
+            //send mail to organisation if the user used an organisation as contact
+            $contactOrganisation = $user->getContactOrganisation();
+            if($contactOrganisation){
+                //set digest / send email to all administrators
+                $info = array(
+                            'subject' => 'Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie',
+                            'template' => 'newCharge.html.twig',
+                            'txt/plain' => 'newCharge.txt.twig',
+                            'to' => $contactOrganisation->getEmail(),
+                            'data' => array(
+                                'user' => $user,
+                                'org' => $contactOrganisation,
+                            ),
+                            'event' => DigestEntry::NEWCHARGE,
+                            'newCharge' => $user,
+                        );
+                $this->digestOrMail($info);
+            }
+
+            //set a success message
+            $this->addFlash('approve_message', 'Een nieuwe gebruiker met naam ' . $user->getFirstname() . ' ' . $user->getLastname() . ' werd succesvol aangemaakt' . ($email ? '.  Een bevestigingsbericht werd gestuurd naar ' . $email . '.' : '.')
+            );
         }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+            );
+        }
+
         return $this->render(
            "person/vrijwilliger_worden.html.twig",
            ["form" => $form->createView()] );
@@ -79,33 +126,8 @@ class SecurityController extends Controller
     * @Route("/status", name="status_testing")
     */
     public function statusAction(){
-        /*if(isset($_POST["code"])){
-            session_start();
-            $_SESSION["code"] = $_POST["code"];
-            $_SESSION["csrf_nonce"] = $_POST["csrf_nonce"];
-
-            $ch = curl_init();
-            // Set url elements
-            $fb_app_id = '465871913602533';
-            $ak_secret = 'eab92d7c75f08c6e95a48341c80b3ffc';
-            $token = 'AA|'.$fb_app_id.'|'.$ak_secret;
-            // Get access token
-            $url = 'https://graph.accountkit.com/v1.0/access_token?grant_type=authorization_code&code='.$_POST["code"].'&access_token='.$token;
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_URL,$url);
-            $result=curl_exec($ch);
-            curl_close($ch);
-
-            $info = json_decode($result);*/
-
         $em = $this->getDoctrine()->getManager();
         $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
-
-
-
         $myOrganisations = $em->getRepository("AppBundle:Organisation")->findBy(array('creator' => $userId));
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));

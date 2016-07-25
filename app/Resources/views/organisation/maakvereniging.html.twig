@@ -15,6 +15,17 @@
             {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
         </div>
 
+        {% for flashMessage in app.session.flashbag.get('approve_message') %}
+            <div class="alert alert-success">
+                <strong>Success!</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
         {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
 
         {% if organisation %}
