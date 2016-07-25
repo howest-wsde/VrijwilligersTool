@@ -9,7 +9,7 @@ Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen
 
 Voornaam        Achternaam      Gebruikersnaam      Link naar publiek profiel
 {% for entry in newCharge %}
-{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        <a href="{{ url('person_username', {'username': entry.charge.username }) }}">Bekijk hier het publiek profiel</a>
+{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        Bekijk hier het publiek profiel: {{ url('person_username', {'username': entry.charge.username }) }}
 {% endfor %}
 {% endif %}
 
@@ -18,7 +18,7 @@ Nieuw aangemaakte vacatures
 
 Titel        Begindatum        Einddatum        Link naar vacature
 {% for entry in newVacancy %}
-{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Bekijk hier de vacature</a>
+{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        Bekijk hier de vacature: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
@@ -26,7 +26,7 @@ Titel        Begindatum        Einddatum        Link naar vacature
 Nieuwe kandidaten
 Naam        Gebruikersnaam        Naam organisatie        Titel vacature        Beheerslink
 {% for entry in newCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>        <a href="{{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        Keur de kandidaat goed/af: {{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
@@ -35,7 +35,7 @@ Nieuwe beheerders
 
 Naam        Gebruikersnaam        Naam organisatie
 {% for entry in newAdmin %}
-{{ entry.admin.firstname }} {{ entry.admin.lastname }}        <a href="{{ url('person_username', {'username': entry.admin.username }) }}">{{ entry.admin.username }}</a>        {{ entry.organisation.name }}
+{{ entry.admin.firstname }} {{ entry.admin.lastname }}        {{ entry.admin.username }}: {{ url('person_username', {'username': entry.admin.username }) }}        {{ entry.organisation.name }}
 {% endfor %}
 {% endif %}
 
@@ -44,7 +44,7 @@ Goedgekeurde kandidaten
 
 Naam        Gebruikersnaam        Naam organisatie        Titel vacature
 {% for entry in approveCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
@@ -53,7 +53,7 @@ Verwijderde vrijwilligers
 
 Naam        Gebruikersnaam        Naam organisatie        Titel vacature
 {% for entry in removeCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        <a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a>        {{ entry.organisation.name }}        <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 

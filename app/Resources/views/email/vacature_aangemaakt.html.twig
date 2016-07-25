@@ -1,1 +1,13 @@
-Dit is een testmail
+<h1>Nieuwe vacature aangemaakt!</h1>
+
+<p>Beste {{ user.firstname }} {{ user.lastname }},</p>
+
+<p>
+    als beheerder wensen wij er u van op de hoogte te brengen dat er een nieuwe vacature werd aangemaakt voor {{ org.name }}.  Het betreft de vacature met titel <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">"{{ vacancy.title }}".</a>
+</p>
+
+<p>
+    Met vriendelijke groeten,<br />
+    Roeselare Vrijwilligt
+</p>
+<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">
