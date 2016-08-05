@@ -131,6 +131,18 @@ fos_elastica:
                         slogan: { type: string, analyzer: nl_analyzer }
                         telephone: { type: string, index: not_analyzed }
                         website: { type: string, index: not_analyzed }
+                        sectors:
+                            type: object
+                            properties:
+                                id: { type: integer }
+                                name: { type: string, index: not_analyzed }
+                                entity: { type: string, property_path: esGetSectorName, index: no }
+                                parent:
+                                    type: object
+                                    properties:
+                                        id: { type: integer }
+                                        name: { type: string, index: not_analyzed }
+                                        entity: { type: string, property_path: esGetEntityName, index: no }
                         creator:
                             type: object
                             properties:

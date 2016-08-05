@@ -141,4 +141,13 @@ class Skill extends EntityBase
     {
         return 'skill';
     }
+
+    /**
+     * helper function to enable the entity property of the nested sector object in the organisation document to display the correct "class" name.  The class name is then afterwards correctly replaced to skill.
+     * @return String the classname of this entity
+     */
+    public function esGetSectorName()
+    {
+        return 'sector';
+    }
 }

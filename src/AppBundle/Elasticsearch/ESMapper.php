@@ -81,12 +81,17 @@ class ESMapper{
                         foreach ($value as $key2 => $object) {
                             $name = $object['entity'];
                             unset($object['entity']);
-                            $subEntity = $this->getEntity($name, $object);
+                            $method = '';
                             switch ($name) { //made into a switch so it can be expanded easily if that need arises in the future
                                 case 'skill':
-                                    $entity->addSkill($subEntity);
+                                    $method = 'addSkill';
+                                    break;
+                                case 'sector':
+                                    $name = 'skill';
+                                    $method = 'addSector';
                                     break;
                             }
+                            $entity->{ $method }($this->getEntity($name, $object));
                         }
                     }
                 } else {

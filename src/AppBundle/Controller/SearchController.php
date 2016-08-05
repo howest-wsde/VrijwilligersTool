@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
 use AppBundle\Entity\Form\SearchFilter;
@@ -90,10 +91,14 @@ class SearchController extends Controller
     public function searchFormAction(){
         $ESquery = $this->get("ElasticsearchQuery");
         $request = Request::createFromGlobals();
-        $searchTerm = $request->query->get("q");
+        $searchTerm = $request->query->get("q"); //if search by query-string get searchterm
         $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
         $form = $this->buildSearchForm($defaultData);
         $form->handleRequest($request);
+
+        //if not search by query string get search term from form
+        $searchTerm ? true : $searchTerm = $form->get('search')->getData();
+
         $distance = $form->get('distance')->getData();
         $types = $this->getTypes($form);
         $query = $this->assembleQuery($form);
@@ -254,6 +259,24 @@ class SearchController extends Controller
             "label" => $t->trans('search.label.vacancy'),
             "required" => false,
         ))
+        ->add("sectors", EntityType::class, array(
+            "label" => false,
+            "placeholder" => false,
+            // query choices from this entity
+            'class' => 'AppBundle:Skill',
+            //only pick skills that are childs of the sector skill
+            'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('s')
+                        ->where('s.parent = 36')
+                        ->orderBy('s.name', 'ASC');
+                },
+            // use the name property as the visible option string
+            'choice_label' => 'name',
+            // render as select box
+            'expanded' => true,
+            'multiple' => true,
+            'required' => false,
+        ))
         ->add('categories', EntityType::class, array(
             'label' => false,
             // query choices from this entity
@@ -264,7 +287,7 @@ class SearchController extends Controller
             'expanded' => true,
             'multiple' => true,
             'required' => false,
-        ))
+            ))
         ->add('intensity', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
@@ -418,6 +441,7 @@ class SearchController extends Controller
      */
     private function assembleQuery($form){
         $categories = $form->get('categories')->getData(); //array
+        $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
         $hoursAWeek = $form->get('hoursAWeek')->getData(); //int
         $characteristic = $form->get('characteristic')->getData(); //array
@@ -429,7 +453,11 @@ class SearchController extends Controller
         $range = [];
 
         if(!empty($categories) && !$categories->isEmpty()){
-          $should[] = $this->processCategories($categories->toArray());
+          $should[] = $this->processSkillArray($categories->toArray(), 'skills.name');
+        }
+
+        if(!empty($sectors) && !$sectors->isEmpty()){
+          $should[] = $this->processSkillArray($sectors->toArray(), 'sectors.name');
         }
 
         if(!empty($intensity && sizeof($intensity) === 1)){
@@ -532,15 +560,20 @@ class SearchController extends Controller
     }
 
     /**
-     * Helper function for assembleQuery, processing the categories array
-     * @param  Array    $categories    all skills the user wants to filter on
-     * @return Array                   array representing a term/s filter
+     * Helper function for assembleQuery, processing the skill arrays
+     * @param  Array    $array      all skills the user wants to filter on
+     * @param  string   $termName   the name of the term in ES to filter on
+     * @return Array                array representing a term/s filter
      */
-    private function processCategories($categories){
-        $skills = '';
-        foreach ($categories as $key => $skill) {
-            $skills .= $skill->getName() . ' ';
+    private function processSkillArray($array, $termName){
+        if(sizeof($array) > 1){
+            $skills = [];
+            foreach ($array as $key => $skill) {
+                $skills[] = $skill->getName();
+            }
+        } else {
+            $skils = $array[0]->getName();
         }
-        return [(sizeof($categories) > 1 ? 'terms' : 'term') => [ 'skills.name' => $skills ]];
+        return [(sizeof($array) > 1 ? 'terms' : 'term') => [ $termName => $skills ]];
     }
 }
