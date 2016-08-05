@@ -28,6 +28,19 @@ class PersonController extends controller
     }
 
     /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/persoon/{id}", name="person_id")
+     */
+    public function personViewByIdAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')
+            ->findOneById($id);
+        return $this->render('person/persoon.html.twig',
+            ["person" => $person]);
+    }
+
+    /**
      * @Route("/persoon", name="self_profile")
      */
     public function selfAction()

@@ -88,24 +88,16 @@ class SearchController extends Controller
      * @Route("/zoek", name="zoek")
      */
     public function searchFormAction(){
-        $distance = '';
         $ESquery = $this->get("ElasticsearchQuery");
         $request = Request::createFromGlobals();
         $searchTerm = $request->query->get("q");
         $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
         $form = $this->buildSearchForm($defaultData);
         $form->handleRequest($request);
-        $results = $this->getResultsOfSearch($searchTerm, null, $request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $types = $this->getTypes($form);
-            $query = $this->assembleQuery($form);
-            $distance = $form->get('distance')->getData();
-
-            $results = $ESquery->searchByType($types, $query, $searchTerm);
-
-            // $results = $this->getResultsOfSearch($searchTerm, $form, $request);
-        }
+        $distance = $form->get('distance')->getData();
+        $types = $this->getTypes($form);
+        $query = $this->assembleQuery($form);
+        $results = $ESquery->searchByType($types, $query, $searchTerm);
 
         return $this->render("search/zoekpagina.html.twig", array(
             "distance" => $distance,
@@ -436,7 +428,7 @@ class SearchController extends Controller
         $must_not = [];
         $range = [];
 
-        if(!$categories->isEmpty()){
+        if(!empty($categories) && !$categories->isEmpty()){
           $should[] = $this->processCategories($categories->toArray());
         }
 
