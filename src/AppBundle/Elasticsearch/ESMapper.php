@@ -2,6 +2,11 @@
 
 namespace AppBundle\Elasticsearch;
 
+use AppBundle\Entity\Vacancy;
+use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Person;
+use AppBundle\Entity\Skill;
+
 /**
  * Class containing all logic to map an es search result in json format to the corresponding entities.
  */
@@ -48,23 +53,48 @@ class ESMapper{
         $entities = array();
         for ($i=0; $i < count($hits); $i++)
         {
-            $source = $hits[$i]["_source"];
-            $classname = "AppBundle\Entity\\".ucfirst($hits[$i]["_type"]);
-            $entity = new $classname();
-            foreach ($source as $key => $value) {
-                if (!is_null($value) && !is_array($value))
-                {
-                    if ($this->isEntity($value))
-                    {
-                        $value = $this->jsonToEntity($value);
-                    }
-                    $entity->{"set".$key}($value);
-                }
-            }
-            $id = $hits[$i]["_id"];
+            $self = $hits[$i];
+            $source = $self["_source"];
+            $entity = $this->getEntity($self["_type"], $source);
+            $id = $self["_id"];
             $entity->setId($id);
             array_push($entities, $entity);
         }
         return $entities;
+    }
+
+    public function getEntity($name, $source){
+        $classname = "AppBundle\Entity\\".ucfirst($name);
+        $entity = new $classname();
+        foreach ($source as $key => $value) {
+            if(!empty($value)){
+                if(is_array($value)){ // two options here: it's an object, or it's an array of objects
+                    if(array_key_exists('entity', $value)){ //if it's an object map recursively and remove the entity property which is used to identify the type of entity
+                        $name = $value['entity'];
+                        unset($value['entity']);
+                        $value = $this->getEntity($name, $value);
+                        if(!empty($value)){
+                            $entity->{ "set" . ucfirst($key) }($value);
+                        }
+
+                    } else { //if it's an array every item in it will be an object which can be mapped recursively
+                        foreach ($value as $key2 => $object) {
+                            $name = $object['entity'];
+                            unset($object['entity']);
+                            $subEntity = $this->getEntity($name, $object);
+                            switch ($name) { //made into a switch so it can be expanded easily if that need arises in the future
+                                case 'skill':
+                                    $entity->addSkill($subEntity);
+                                    break;
+                            }
+                        }
+                    }
+                } else {
+                    $entity->{ "set" . ucfirst($key) }($value);
+                }
+            }
+        }
+
+        return $entity;
     }
 }

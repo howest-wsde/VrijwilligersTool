@@ -47,15 +47,15 @@ class SearchController extends Controller
     {
         $query = $this->get("ElasticsearchQuery");
         $params = [
-            "index" => $query->getIndex(),
-            "type" => $types,
-            "body" => [
-                "query" => [
-                    "query_string" => [
-                        "query" => $term
-                    ]
-                ]
-            ]
+            'index' => $query->getIndex(),
+            'type' => $types,
+            'body' => [
+                'query' => [
+                    'query_string' => [
+                        'query' => $term,
+                    ],
+                ],
+            ],
         ];
 
         return $query->search($params);
@@ -88,18 +88,27 @@ class SearchController extends Controller
      * @Route("/zoek", name="zoek")
      */
     public function searchFormAction(){
+        $distance = '';
+        $ESquery = $this->get("ElasticsearchQuery");
         $request = Request::createFromGlobals();
         $searchTerm = $request->query->get("q");
-        $defaultData = array('search' => $searchTerm, );
+        $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
         $form = $this->buildSearchForm($defaultData);
         $form->handleRequest($request);
         $results = $this->getResultsOfSearch($searchTerm, null, $request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $results = $this->getResultsOfSearch($searchTerm, $form, $request);
+            $types = $this->getTypes($form);
+            $query = $this->assembleQuery($form);
+            $distance = $form->get('distance')->getData();
+
+            $results = $ESquery->searchByType($types, $query, $searchTerm);
+
+            // $results = $this->getResultsOfSearch($searchTerm, $form, $request);
         }
 
         return $this->render("search/zoekpagina.html.twig", array(
+            "distance" => $distance,
             "form" => $form->createView(),
             "results" => $results,
             "searchTerm" => $searchTerm,
@@ -384,5 +393,162 @@ class SearchController extends Controller
         // $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
 
         // return $this->specificSearch($types, ["query" => $query]);
+    }
+
+    /**
+     * Assemble the array of document types to search
+     * @param  Form     $form   the search form as posted by the user
+     * @return Array            an array of ES document types
+     */
+    private function getTypes($form){
+        $types = [];
+
+        //get types to search for
+        $person = $form->get('person')->getData(); //bool
+        $org = $form->get('organisation')->getData(); //bool
+        $vacancy = $form->get('vacancy')->getData(); //bool
+
+        if(($person && $org && $vacancy) || (!$person && !$org && !$vacancy)){ //search for all as user either selected all or none
+            $types = ["person", "vacancy", "organisation"];
+        } else {
+            $person ? $types[] = 'person' : false;
+            $org ? $types[] = 'organisation' : false;
+            $vacancy ? $types[] = 'vacancy' : false;
+        }
+
+        return $types;
+    }
+
+    /**
+     * Use a submitted buildSearchForm to assemble a valid ES query
+     * @param  Form     $form   the search form as posted by the user
+     * @return Array            a valid ES query in php format
+     */
+    private function assembleQuery($form){
+        $categories = $form->get('categories')->getData(); //array
+        $intensity = $form->get('intensity')->getData(); //array
+        $hoursAWeek = $form->get('hoursAWeek')->getData(); //int
+        $characteristic = $form->get('characteristic')->getData(); //array
+        $advantages = $form->get('advantages')->getData(); //array
+        $sort = $form->get('sort')->getData(); //string
+        $should = [];
+        $must = [];
+        $must_not = [];
+        $range = [];
+
+        if(!$categories->isEmpty()){
+          $should[] = $this->processCategories($categories->toArray());
+        }
+
+        if(!empty($intensity && sizeof($intensity) === 1)){
+          $should[] = $this->processIntensity($intensity[0]);
+        }
+
+        if($hoursAWeek){
+          $range[] = [ 'range' => [ 'estimatedWorkInHours' => [ 'lte' => $hoursAWeek ]]];
+        }
+
+        if(!empty($characteristic)){
+            $must = $this->processCharacteristic($characteristic, $must);
+        }
+
+        if(!empty($advantages)){
+            $processed = $this->processAdvantages($advantages, $must_not, $range);
+            $must_not = $processed['must_not'];
+            $range = $processed['range'];
+        }
+
+        if($sort){
+            $sort = $this->processSort($sort);
+        }
+
+        return [
+            'must' => (!empty($must) ? $must : false),
+            'must_not' => (!empty($must_not) ? $must_not : false),
+            'should' => (!empty($should) ? $should : false),
+            'range' => (!empty($range) ? $range : false),
+            'sort' => (!empty($sort) ? $sort : false),
+        ];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the sort preference of the user
+     * @param  String   $sort     the sort preference of the user
+     * @return Array              array representing a sort clause
+     */
+    private function processSort($sort){
+        return [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the advantages array
+     * @param  String   $advantages   the advantages the user wants to filter on
+     * @param  String   $must_not     the array representing the must_not filter
+     * @param  String   $range        the array representing the range filter
+     * @return Array                  array representing a term/s filter
+     */
+    private function processAdvantages($advantages, $must_not, $range){
+        foreach ($advantages as $key => $advantage) {
+            switch ($advantage) {
+                case 'reward':
+                    $must_not[] = [ 'term' => [ 'renumeration' => null ]];
+                    $range[] = [ 'range' => [ 'renumeration' => [ 'gt' => 0 ]]];
+                    break;
+
+                case 'other':
+                    $must_not[] = [ 'term' => [ 'otherReward' => null ]];
+                    break;
+            }
+        }
+
+        return [ 'must_not' => $must_not, 'range' => $range ];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the characteristic array
+     * @param  String   $characteristic   the characteristic the user wants to filter on
+     * @param  String   $must             the array representing the must filter
+     * @return Array                      array representing a term/s filter
+     */
+    private function processCharacteristic($characteristic, $must){
+        foreach ($characteristic as $key => $value) {
+            switch ($value) {
+                case 'weelchair':
+                    $must[] = [ 'term' => [ 'accessible' => true ]];
+                    break;
+
+                case 'lotsContact':
+                    $must[] = [ 'term' => [ 'socialInteraction' => 'all' ]];
+                    break;
+
+                case 'littleContact':
+                    $must[] = [ 'term' => [ 'socialInteraction' => 'little' ]];
+                    break;
+            }
+        }
+
+        return $must;
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the intensity array
+     * @param  String   $intensity     the intensity the user wants to filter on
+     * @return Array                   array representing a term/s filter
+     */
+    private function processIntensity($intensity){
+        return ['term' => [ 'longterm' => ($intensity === '1time' ? false : true) ]];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the categories array
+     * @param  Array    $categories    all skills the user wants to filter on
+     * @return Array                   array representing a term/s filter
+     */
+    private function processCategories($categories){
+        $skills = '';
+        foreach ($categories as $key => $skill) {
+            $skills .= $skill->getName() . ' ';
+        }
+        return [(sizeof($categories) > 1 ? 'terms' : 'term') => [ 'skills.name' => $skills ]];
     }
 }

@@ -24,6 +24,7 @@ vacancy:
         bus: Bus number
         postalcode: Postal code
         city: City
+        accessible: Is this vacancy accessible for the less-mobile (including for weelchair)?
         submit: Publish vacancy!
         save: Save and publish later
         otherReward: Other
@@ -36,6 +37,7 @@ vacancy:
         longterm: Is this a longterm commitment?
         wanted: How many volunteers are you looking for?
     choices:
+        accessible: Yes
         independent: Yes
         dependent: No
         all: It's all about the interaction
