@@ -96,7 +96,7 @@ class SearchController extends Controller
     public function searchAction()
     {
         //$request = Request::createFromGlobals();
-        $filter = new SearchFilter;
+        $filter = new SearchFilter();
 
         $form = $this->createForm(SearchFilterType::class, $filter, ["method" => "GET"]);
         $form->handleRequest($request);
