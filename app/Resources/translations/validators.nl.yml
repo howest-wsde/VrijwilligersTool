@@ -168,8 +168,27 @@ person:
         nomail: Ik wil geen meldingen ontvangen
 search:
     label:
-        hoursaweek: uren per week
+        hoursAWeek: uren per week
         distance: km
+        search: Zoeken
+        sort: 'Sorteer op:'
+        person: Personen
+        organisation: Verenigingen
+        vacancy: Vacatures
+    choices:
+        distance: Afstand
+        date: Datum
+        endDate: Vervaldatum
+        reward: Vergoeding
+        long: langdurig
+        1time: éénmalig
+        weelchair: Toegankelijk voor rolstoel
+        lotsContact: Veel sociaal contact
+        littleContact: Weinig sociaal contact
+        renumeration: Vrijwilligersvergoeding
+        other: Andere voordelen
+    placeholder:
+        searchTerm: zoekterm (optioneel)
 general:
     label:
         previous: Vorige

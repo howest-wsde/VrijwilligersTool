@@ -3,13 +3,14 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Form\SearchFilter;
+use AppBundle\Entity\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -84,21 +85,43 @@ class SearchController extends Controller
     }
 
     /**
+     * Zoekformulier verwerken bij een post request => niks geen Q-string
      * @Route("/search", name="search")
      * @Route("/zoeken", name="zoeken")
      * @Route("/zoek", name="zoek")
+     * @Method("POST")
      */
-    public function searchFormAction(){
+    public function searchFormPostAction(Request $request){
         $ESquery = $this->get("ElasticsearchQuery");
-        $request = Request::createFromGlobals();
-        $searchTerm = $request->query->get("q"); //if search by query-string get searchterm
-        $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
-        $form = $this->buildSearchForm($defaultData);
+        $form = $this->createForm(SearchFilterType::class);
         $form->handleRequest($request);
+        $searchTerm = $form->get('search')->getData();
+        $types = $this->getTypes($form);
+        $query = $this->assembleQuery($form);
 
-        //if not search by query string get search term from form
-        $searchTerm ? true : $searchTerm = $form->get('search')->getData();
+        return $this->render("search/zoekpagina.html.twig", array(
+            "distance" => $form->get('distance')->getData(),
+            "form" => $form->createView(),
+            "results" => $ESquery->searchByType($types, $query, $searchTerm),
+            "searchTerm" => $searchTerm,
+            "filters" => true,
+        ));
+    }
 
+    /**
+     * Zoekformulier verwerken bij een get/head request => met Q-string
+     * @Route("/search", name="getSearch")
+     * @Route("/zoeken", name="getZoeken")
+     * @Route("/zoek", name="getZoek")
+     * @Method({"GET", "HEAD"})
+     */
+    public function searchFormAction(Request $request){
+        $ESquery = $this->get("ElasticsearchQuery");
+        // $request = Request::createFromGlobals();
+        $searchTerm = $request->query->get("q");
+        $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
+        $form = $this->createForm(SearchFilterType::class);//$this->buildSearchForm($defaultData);
+        $form->handleRequest($request);
         $distance = $form->get('distance')->getData();
         $types = $this->getTypes($form);
         $query = $this->assembleQuery($form);
@@ -420,7 +443,7 @@ class SearchController extends Controller
 
         //get types to search for
         $person = $form->get('person')->getData(); //bool
-        $org = $form->get('organisation')->getData(); //bool
+        $org = $form->get('org')->getData(); //bool
         $vacancy = $form->get('vacancy')->getData(); //bool
 
         if(($person && $org && $vacancy) || (!$person && !$org && !$vacancy)){ //search for all as user either selected all or none
@@ -502,7 +525,7 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the advantages array
-     * @param  String   $advantages   the advantages the user wants to filter on
+     * @param  Array    $advantages   the advantages the user wants to filter on
      * @param  String   $must_not     the array representing the must_not filter
      * @param  String   $range        the array representing the range filter
      * @return Array                  array representing a term/s filter
@@ -526,7 +549,7 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the characteristic array
-     * @param  String   $characteristic   the characteristic the user wants to filter on
+     * @param  Array   $characteristic    the characteristics the user wants to filter on
      * @param  String   $must             the array representing the must filter
      * @return Array                      array representing a term/s filter
      */
