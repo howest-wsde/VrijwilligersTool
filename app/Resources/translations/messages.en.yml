@@ -1,0 +1,30 @@
+search:
+    label:
+        hoursaweek: hours per week
+        distance: km
+        search: Search
+        sort: 'Sort by:'
+        person: People
+        organisation: Organisations
+        vacancy: Vancancies
+    choices:
+        distance: Distance
+        date: Date
+        endDate: End-date
+        reward: Renumeration
+        long: Longterm
+        1time: One-off
+        weelchair: Weelchair-accessible
+        lotsContact: Lots of social contact
+        littleContact: Not a lot of social contact
+        renumeration: Volunteer renumeration
+        other: other advantages
+    placeholder:
+        searchTerm: search term (optional)
+general:
+    label:
+        previous: Back
+organisation:
+    label:
+        addAdmin: Select extra admin
+        submitAdmin: Add admin

@@ -1,7 +1,14 @@
 vacancy:
     not_blank: Please enter a value.
     min_message: Please enter at least {{ limit }} characters.
+    min_message_one: Please enter at least {{ limit }} character.
     max_message: Please enter a maximum of {{ limit }} characters.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value greater than {{ limit }}.
+    not_more_than: Please enter a value not exceeding {{ limit }}.
+    exact: The value must be exactly {{ limit }} characters long.
+    bus:
+        valid: Please enter a valid mailbox.
     date:
         valid: Please enter a valid date.
         not_today: Please enter a date after today.
@@ -12,9 +19,36 @@ vacancy:
         description: Description
         startdate: Start date
         enddate: End date
-        submit: Save
+        street: Street name
+        number: Number
+        bus: Bus number
+        postalcode: Postal code
+        city: City
+        submit: Publish vacancy!
+        save: Save and publish later
+        otherReward: Other
+        renumeration: Volunteer-renumeration
+        skills: Which categories apply to this vacancy?
+        independent: Should the volunteer be able to work without supervision?
+        socialInteraction: How much social interaction can the volunteer expect?
+        estimatedWorkInHours: 'Estimated number of working hours (if longterm: weekly)'
+        location: Where will the volunteer be working?
+        longterm: Is this a longterm commitment?
+        wanted: How many volunteers are you looking for?
+    choices:
+        independent: Yes
+        dependent: No
+        all: It's all about the interaction
+        normal: 'Not too much, not too little'
+        little: Limited social interaction
     placeholder:
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
         date: yyyy-mm-dd
+        summary: Describe the content of this vacancy in 120 chars or less.
 organisation:
     min_message: Please enter at least {{ limit }} characters.
     min_message_one: Please enter at least {{ limit }} character.
@@ -30,25 +64,101 @@ organisation:
         valid: Please enter a valid mailbox.
     telephone:
         valid: Please enter a valid phone number.
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'
     email:
         valid: Please enter a valid email address.
-        already_used: This email address is already in use.
     label:
+        addAdmin: Select extra admin
+        submitAdmin: Add admin
         name: Company name
         description: A description of your company
         email: Email address
         street: Street name
-        number: Number
+        number: Number`
         bus: Bus number
         postalcode: Postal code
         city: City
         telephone: Telephone number
-        submit: Save
+        create: Create organisation
+        backToRegistration: Back to registration
+        submitContact: Submit contactinformation
+        backToContact: Back to contact
+        type: Type of organisation
+        intermediary: Intermediary organisation
+        website: Website
+        fieldOfActivity: Sectors
     placeholder:
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
         email: your@email.com
         telephone: 051 123 456
+        website: http://www.uwvereniging.be
+    choices:
+        ngo: Non-governmental organisation (NGO)
+        fv: Organisation in facts
+        intermediary: Yes
 person:
+    min_message: Please enter a minimum of {{ limit }} characters.
+    min_message_one: You must enter a minimum of {{ limit }} characters.
+    max_message: You may enter at most {{ limit }} characters.
+    not_blank: Please enter a value.
+    not_numeric: Please enter a numeric value.
+    not_positive: Please enter a value higher than {{ limit }}.
+    not_more_than: Please don't enter more than {{ limit }} characters.
+    no_whitespaces: May not contain spaces.
+    exact: The value needs to be exactly {{ limit }} amount of characters.
+    one_of_three: 'Please supply either a phone number, an emailadress or choose an intermediary organisation.  We need a way to contact you.'
     email:
+        valid: Please enter a valid email.
         already_used: This email address is already in use.
     username:
         already_used: This username is already in use.
+    telephone:
+        already_used: This phone number is already in use.
+        valid: Please enter a valid phone number.
+        numericWithExtra: 'Telephone numbers can only contain numeric characters and the following special characters: +./()-\'
+    bus:
+        valid: Please enter a valid bus.
+    linkedin:
+        valid: url {{ value }} is not a valid URL
+    placeholder:
+        telephone: 051 123 456
+        username: 'username, email or phone number'
+        linkedin: https://be.linkedin.com/in/<your name>
+        password: long and safe passphrase
+        organisation: Pick an organisation
+    label:
+        firstname: First name
+        lastname: Surname
+        username: User name
+        email: email
+        telephone: Phone number
+        organisation: Contact via organisation
+        street: Street
+        bus: Bus
+        number: Number
+        postalcode: Zip code
+        city: City
+        password: Passphrase
+        repeat_password: Repeat passphrase
+        language: language
+        linkedin: linkedIn profile
+        eula: I accept the terms and agreement
+        submit: Create account
+        next: Next
+        skills: Skills / capacities
+        finish: Submit
+        backToRegistration: Back to registration
+        backToGeneral: Back to general info
+search:
+    label:
+        hoursaweek: hours per week
+        distance: km
+general:
+    label:
+        previous: Previous
+        next: Next
+        submit: Indienen

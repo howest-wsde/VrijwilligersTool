@@ -2,68 +2,108 @@
 
 {% block title %}Zoeken{% endblock %}
 
-{% block search_term %}{{searchTerm}}{% endblock %}
-
 {% block body %}
-	<h1>Zoeken</h1>
-	<h3>Filters</h3>
+	<h1>Zoeken binnen Roeselare Vrijwilligt</h1>
 	{{ form_start(form) }}
         {{ form_errors(form) }}
-        {{ form_row(form.term) }}
-        {{ form_row(form.person) }}
-		{{ form_row(form.organisation) }}
-		{{ form_row(form.vacancy) }}
-    {{ form_end(form) }}
+		<section>
+			<h2>Doorzoek onze site</h2>
+		        {{ form_row(form.search) }}
+				{{ form_row(form.submit) }}
+				{% if app.user %}
+                    {% embed "search/history_search.html.twig" %}{% endembed %}
+                {% endif %}
+		</section>
+		<section>
+			{% set aantal = results|length %}
+			<h2>{{ aantal }} {% if aantal > 1 %} resultaten {% else %} resultaat {% endif %} voor {{ searchTerm }}</h2>
+			{{ form_row(form.sort) }}{# TODO: create issue #}
+			{#{ form_row(form.pagination) }}{# TODO: create issue #}
+				{% if filters %}
+				<fieldset>
+					<legend>Filters</legend>
+						<fieldset>
+							<h3>Filter op type</h3>
+					        {{ form_row(form.person) }}
+							{{ form_row(form.organisation) }}
+							{{ form_row(form.vacancy) }}
+						</fieldset>
 
-	<button id="share_search">Deel Zoekopdracht</button>
+						<fieldset>
+							<h3>Filter op categorie</h3>
+							{{ form_row(form.categories) }}
+						</fieldset>
 
-    <div id="light" class="white_content">
-        <h1>Zoekopdracht delen</h1>
-        <input id="search_url" type="text"/>
-        <button id="search_clipboard">Naar klembord kopiëren</button>
+						<fieldset>
+							<h3>Filter op sector</h3>
+							<p>coming soon...</p>{# TODO: issue 170#}
+							{#{ form_row(form.sector) }#}
+						</fieldset>
 
-        <div class="share-buttons">
-            <div>
-                <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
-                   data-text="Kijk wat ik heb gevonden!" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
-                    Tweeten</a>
+						<fieldset>
+							<h3>Filter op intensiteit</h3>
+							{{ form_row(form.intensity) }}
+							{{ form_row(form.hoursAWeek) }}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op afstand</h3>
+							{{ form_row(form.distance) }}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op kenmerk</h3>
+							{{ form_row(form.characteristic) }}
+						</fieldset>
+
+						<fieldset>
+							<h3>Filter op voordelen</h3>
+							{{ form_row(form.advantages) }}
+						</fieldset>
+				</fieldset>
+				{% endif %}
+		    {{ form_end(form) }}
+            <button id="share_search">Deel Zoekopdracht</button>
+
+            <div id="light" class="white_content">
+                <h1>Zoekopdracht delen</h1>
+                <input id="search_url" type="text"/>
+                <button id="search_clipboard">Naar klembord kopiëren</button>
+
+                <div class="share-buttons">
+                    <div>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+                           data-text="Kijk wat ik heb gevonden!" data-lang="nl" data-hashtags="RoeselareVrijwilligt">
+                            Tweeten</a>
+                    </div>
+                    <div class="g-plus" data-action="share" data-annotation="bubble"></div>
+                    <div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+                    <script id="share-linkedin" type="IN/Share" data-counter="right"></script>
+                </div>
+                <button id="search_close">Sluiten</button>
             </div>
-            <div class="g-plus" data-action="share" data-annotation="bubble"></div>
-            <div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
-            <script id="share-linkedin" type="IN/Share" data-counter="right"></script>
-        </div>
-        <button id="search_close">Sluiten</button>
-    </div>
-    <div id="fade" class="black_overlay"></div>
+            <div id="fade" class="black_overlay"></div>
 
-	{% if app.user %}
-	<div id="recentSearches">
-		<h3>Recente zoekopdrachten</h3>
-		{{ render(controller("AppBundle:SearchFilter:listRecentSearchFilters", { "nr": 5 } )) }}
-	</div>
-	<div id="savedSearches">
-	</div>
-	{% endif %}
-
-	{% if results|length == 0 %}
-		<p>Er werden geen resultaten gevonden</p>
-   	{% else %}
-		<ul>
-		    {% for result in results %}
-		        <li>
-		    		{% if (result.isoftype("Person")) %}
-						{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
-					{% elseif (result.isoftype("Vacancy")) %}
-						{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
-					{% elseif (result.isoftype("Organisation")) %}
-						{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
-					{% else %}
-						{#{ dump(result) }#}
-					{% endif %}
-				</li>
-		    {% endfor %}
-		</ul>
-	{% endif %}
+			{% if results|length == 0 %}
+				<p>Er werden geen resultaten gevonden</p>
+		   	{% else %}
+				<ul>
+				    {% for result in results %}
+				        <li>
+				    		{% if (result.isoftype("Person")) %}
+								{% embed "search/person.html.twig" with {"person": result} %}{% endembed %}
+							{% elseif (result.isoftype("Vacancy")) %}
+								{% embed "search/vacancy.html.twig" with {"vacancy": result} %}{% endembed %}
+							{% elseif (result.isoftype("Organisation")) %}
+								{% embed "search/organisation.html.twig" with {"organisation": result} %}{% endembed %}
+							{% else %}
+								{#{ dump(result) }#}
+							{% endif %}
+						</li>
+				    {% endfor %}
+				</ul>
+			{% endif %}
+		</section>
 {% endblock %}
 
 {% block javascripts %}

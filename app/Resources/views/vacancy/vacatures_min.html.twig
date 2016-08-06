@@ -1,0 +1,5 @@
+<ul>
+	{% for vacancy in vacancies %}
+		{% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy}%}{% endembed %}
+	{% endfor %}
+</ul>

@@ -1,5 +1,34 @@
 {% extends 'base.html.twig' %}
- 
-{% block body %}
-    Home
+
+{% block outerbody %}
+
+    {% embed "default/carousel.html.twig" %}{% endembed %}
+
+    <div class="part">
+        <div class="container">
+            <section class="col-md-12">
+                <div id="handenuitmouwen" class="blok special">
+                    <h2>Zin om de handen uit de mouwen te steken? </h2>
+                    {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+                </div>
+            </section>
+
+            {% embed "default/infoblokken.html.twig" %}{% endembed %}
+        </div>
+    </div>
+
+    <section id="verenigingenindekijker" data-role="Promoted organisations block" class="part">
+        <div class="container">
+            <h2>Organisaties in de kijker</h2>
+            {{ render(controller("AppBundle:Organisation:ListRandomOrganisations", { "nr": 3, "viewMode": "tile" } )) }}
+        </div>
+    </section>
+
+    <section id="vacaturesindekijker" data-role="Recent vacancies block" class="part">
+        <div class="container">
+            <h2>Vacatures in de kijker</h2>
+            {{ render(controller("AppBundle:Vacancy:ListRecentVacancies", { "nr": 4, "viewMode": "tile"} )) }}
+        </div>
+    </section>
+
 {% endblock %}

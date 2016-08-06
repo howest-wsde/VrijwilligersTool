@@ -1,0 +1,38 @@
+{% if not cta is defined %}
+    {% set cta = {
+        "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
+        "txt": "lees meer"
+    } %}
+{% endif %}
+<article class="vereniging cta">
+    {% if app.user in organisation.likers %}
+        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>Verwijder uit bewaarde organisaties</span></a>
+    {% else %}
+        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>Bewaar</span></a>
+    {% endif %}
+
+        <header>
+            <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+                <h3>{{ organisation.name}}</h3>
+            </a>
+        </header>
+        <img src="{{ asset
+        ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+        <p>{{ organisation.description|truncate(200, true) }}</p>
+        <ul>
+            {% if organisation.street %}
+                <li>
+                    <a href="https://www.google.be/maps/place/{{ organisation.street }}+{{ organisation.number }}+{{ organisation.postalCode }}+{{ organisation.city }}" target="_blank">{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %} - {{ organisation.postalCode }} {{ organisation.city }}
+                    </a>
+                </li>
+            {% endif %}
+            <li>
+                {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
+            </li>
+            <li>
+                {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
+            </li>
+        </ul>
+        <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
+    </a>
+</article>

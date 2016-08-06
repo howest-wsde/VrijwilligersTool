@@ -14,6 +14,7 @@ AppBundle\Entity\Person:
         username:
             type: string
             length: 150
+            nullable: true
         passphrase:
             type: string
             length: 60
@@ -41,7 +42,7 @@ AppBundle\Entity\Person:
             nullable: true
         telephone:
             type: string
-            length: 10
+            length: 35
             nullable: true
         language:
             type: string
@@ -53,6 +54,10 @@ AppBundle\Entity\Person:
             type: string
             length: 150
             nullable: true
+        avatarName:
+            type: string
+            length: 255
+            nullable: true
     oneToMany:
         organisation:
             targetEntity: Organisation
@@ -63,6 +68,12 @@ AppBundle\Entity\Person:
         searchFilters:
             targetEntity: SearchFilter
             mappedBy: owner
+    manyToOne:
+        contactOrganisation:
+            targetEntity: Organisation
+            joinColumn:
+                name: contactOrganisation_id
+                referencedColumnName: id
     manyToMany:
         skills:
             targetEntity: Skill
@@ -78,11 +89,10 @@ AppBundle\Entity\Person:
                 inverseJoinColumns:
                     -
                         name: skill_id
-                        referencedColumnName: id 
+                        referencedColumnName: id
         organisations:
           targetEntity: Organisation
           inversedBy: administrators
-          cascade: ["persist"]
           joinTable:
             name: organisations_administrators
             joinColumns:
@@ -90,7 +100,7 @@ AppBundle\Entity\Person:
                 referencedColumnName: id
             inverseJoinColumns:
               organisation_id:
-                referencedColumnName: id 
+                referencedColumnName: id
         liked_organisations:
           targetEntity: Organisation
           inversedBy: likers

@@ -1,0 +1,50 @@
+{% trans_default_domain "validators" %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, "security") }}</div>
+{% endif %}
+
+<form action="{{ path("login") }}" method="post">
+    <div class="col-md-6">
+        <h2 class="steptitle blauw">Log in met je gebruikersgegevens en wachtzin</h2>
+        <div class="step actief grijs blauw">
+            <fieldset>
+                <div class="lbl"><label for="username">Gebruikersnaam, e-mailadres of telefoonnummer:</label></div>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{"person.placeholder.username"|trans}}"/>
+
+                <div class="lbl"><label for="password">Wachtzin:</label></div>
+                <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
+
+                {% if path %}
+                    <input type="hidden" name="_target_path" value="{{ path }}" />
+                {% endif %}
+
+                <button type="submit">login</button>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h2 class="steptitle blauw">Log in via een externe site</h2>
+        <div class="step actief grijs blauw">
+            <fieldset class="oauthlogin">
+                <a href="{{ path("oauth_google") }}" class="googlelogin">Inloggen via je Google-account</a>
+                <a href="{{ path("oauth_facebook") }}" class="fblogin">Inloggen via Facebook</a>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <h2 class="steptitle rood">Nog geen login? </h2>
+        <div class="step actief grijs">
+            <fieldset>
+                <p><a href="{{ path("register_user") }}" class="cta">Maak een account</a></p>
+            </fieldset>
+
+        </div>
+    </div>
+</form>
+
+<script type="in/Login"></script>

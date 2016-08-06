@@ -3,10 +3,23 @@
 {% block title %}Vacature{% endblock %}
 
 {% block body %}
+{% if vacancy.published == 4 %}
+	<h1>{{ vacancy.title }}</h1>
+	<p>Deze vacature werd verwijderd.  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">klik dan op deze link</a>.{% endif %}</p>
+{% else %}
 	<article>
         <div id="vacancy_info">
 		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
-		<div>
+		<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
+			<p>
+				{% if vacancy.stillWanted == 0 %}
+					Deze vacature is reeds ingevuld.  Momenteel worden er geen vrijwilligers meer gezocht voor dit profiel.
+				{% elseif vacancy.stillWanted == 1 %}
+					{{ vacancy.stillWanted }} kandidaat gezocht.
+				{% else %}
+					{{ vacancy.stillWanted }} kandidaten gezocht
+				{% endif %}
+			</p>
             <p>Ons aanbod</p>
 			<p id="vacancy_description">{{ vacancy.description }}</p>
 		</div>
@@ -85,18 +98,29 @@
 
 		<footer>{% block vacature_cta %}
 			<ul>
-				<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li>
-
 				{% if app.user in vacancy.likers %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'unlike' }) }}">Unlike</a></li>
+					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'remove' }) }}">Verwijder uit bewaarde vacatures</a></li>
 				{% else %}
-					<li><a href="{{ path("vacancy_like", {'urlid': vacancy.urlId, 'likeunlike':'like' }) }}">Like</a></li>
+					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'save' }) }}">Bewaar</a></li>
 				{% endif %}
 
-				<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
+				{% if app.user in vacancy.candidates %}
+					<li><a href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">Verwijder kandidatuur</a></li>
+				{% else %}
+					<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">Stel je kandidaat</a></li>
+				{% endif %}
+
+				{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+					<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">Vacature aanpassen</a></li>
+					<li><a href="{{ path("vacancy_candidacies", {'urlid': vacancy.urlId }) }}">Kandidaten selecteren</a></li>
+						{% if vacancy.published != 4 %}
+							<li><a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">Vacature verwijderen</a></li>
+						{% endif %}
+				{% endif %}
 			</ul>
 			{% endblock %}</footer>
 	</article>
+{% endif %}
 {% endblock %}
 
 {% block javascripts %}

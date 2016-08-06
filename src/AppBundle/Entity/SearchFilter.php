@@ -7,6 +7,7 @@ class SearchFilter
     private $id;
     private $owner;
     private $term = null;
+    private $search; //search term (named search for convenience in the form)
     private $person = true;
     private $organisation = true;
     private $vacancy = true;
@@ -31,6 +32,18 @@ class SearchFilter
     public function setTerm($term)
     {
         $this->term = trim($term);
+
+        return $this;
+    }
+
+    public function getSearch()
+    {
+        return $this->search;
+    }
+
+    public function setSearch($search)
+    {
+        $this->search = trim($search);
 
         return $this;
     }

@@ -1,6 +1,0 @@
-<header><h1>Recente verenigingen</h1></header>
-<ul>
-    {% for organisation in organisations %}
-        <li><a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.name}}</a></li>
-    {% endfor %}
-</ul>

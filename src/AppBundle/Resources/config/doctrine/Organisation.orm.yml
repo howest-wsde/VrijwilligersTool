@@ -8,6 +8,14 @@ AppBundle\Entity\Organisation:
         name:
             type: string
             length: 150
+        intermediary:
+            type: boolean
+        deleted:
+            type: boolean
+        type:
+            type: string
+            length: 3
+            nullable: true
         description:
             type: text
         email:
@@ -34,7 +42,7 @@ AppBundle\Entity\Organisation:
             nullable: true
         telephone:
             type: string
-            length: 10
+            length: 35
             nullable: true
         description:
             type: text
@@ -42,6 +50,18 @@ AppBundle\Entity\Organisation:
             type: string
             length: 150
             options: {default: ""}
+        logoName:
+            type: string
+            length: 255
+            nullable: true
+        slogan:
+            type: string
+            length: 255
+            nullable: true
+        website:
+            type: string
+            length: 150
+            nullable: true
     manyToOne:
         creator:
             targetEntity: Person
@@ -49,15 +69,29 @@ AppBundle\Entity\Organisation:
             joinColumn:
                 name: creator_id
                 referencedColumnName: id
-    manyToMany: 
+    manyToMany:
         administrators:
           targetEntity: Person
-          mappedBy: organisations 
-          cascade: ["persist"]
+          mappedBy: organisations
         likers:
           targetEntity: Person
-          mappedBy: liked_organisations 
+          mappedBy: liked_organisations
           cascade: ["persist"]
+        sectors:
+            targetEntity: Skill
+            mappedBy: null
+            cascade: ["persist"]
+            nullable: true
+            joinTable:
+                name: sector_for_organisation
+                joinColumns:
+                    -
+                        name: organisation_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id
     oneToMany:
         vacancies:
             nullable: true

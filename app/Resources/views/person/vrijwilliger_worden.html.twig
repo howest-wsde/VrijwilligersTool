@@ -1,0 +1,177 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Vrijwilliger worden{% endblock %}
+
+{% block body %}
+
+	{% if not app.user %}
+	    <header class="center">
+	    	<h1>Vrijwilliger worden</h1>
+			<p>Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen?
+			<br />Doorloop hieronder het stappenplan.
+			<br />Je kan de meeste stappen overslaan, kwestie van de boekhouding tot een minimum te beperken.</p>
+			<p><a href="{{ path("login") }}">Al vrijwilliger? Log dan hier in!</a></p>
+	    </header>
+	{% elseif app.user %}
+		<header class="center">
+			<h1>Vrijwilliger worden</h1>
+		</header>
+	{% endif %}
+
+    <section class="steps">
+
+		{% if not app.user %}
+			{{ form_start(form) }}
+				<h2 class="steptitle rood"><a href="#profiel" name="profiel">Maak een profiel aan</a></h2>
+				<div class="step grijs rood">
+					{% block bron %}{% endblock %}
+					<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
+					<fieldset>
+						<div class="col-md-8">
+							<h3>Persoonsgegevens</h3>
+						    {{ form_row (form.firstname) }}
+						    {{ form_row (form.lastname) }}
+						</div>
+						<div class="col-md-4">
+							{{ form_row (form.avatarFile) }}
+						</div>
+						<div class="col-md-12">
+							<h3>Kies minimum één inlogmethode</h3>
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.email) }}
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.telephone) }}
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.contactOrganisation) }}
+						</div>
+						<div class="col-md-6">
+						    {{ form_row (form.plainPassword.first) }}
+						</div>
+						<div class="col-md-6">
+						    {{ form_row (form.plainPassword.second) }}
+						</div>
+						<div class="col-md-12">
+							{{ form_row (form.submit) }}
+						</div>
+					</fieldset>
+				</div>
+
+
+				<h2 class="steptitle groen"><a href="#contactgegevens" name="contactgegevens">Contactgegevens</a></h2>
+				<div class="step grijs groen">
+					<fieldset>
+						<div class="col-md-12">{{ form_row (form.username) }}</div>
+					    <div class="row">
+			                <div class="col-md-7">
+			                	<div class="col-md-12">
+			                		<h3>Adresgegevens</h3>
+			                	</div>
+			                    <div class="col-md-6">
+			                        {{ form_row(form.street) }}
+			                    </div>
+			                    <div class="col-md-3">
+			                      {{ form_row(form.number) }}
+			                    </div>
+			                    <div class="col-md-3">
+			                        {{ form_row(form.bus) }}
+			                    </div>
+			                    <div class="col-md-4">
+			                        {{ form_row(form.postalcode) }}
+			                    </div>
+			                    <div class="col-md-8">
+			                        {{ form_row(form.city) }}
+			                    </div>
+			                </div>
+			                <div class="col-md-5">
+			                    <div class="col-md-12 google">map preview</div>
+			                </div>
+			            </div>
+			            <div class="col-md-12">
+							{{ form_row (form.linkedinUrl) }}
+							{{ form_row (form.submit2) }}
+							{{ form_row (form.backToRegistration) }}
+						</div>
+					</fieldset>
+				</div>
+
+
+				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">Vaardigheden</a></h2>
+				<div class="step grijs paars">
+					<fieldset>
+						{{ form_row (form.skills) }}
+						{{ form_row (form.submit2) }}
+						{{ form_row (form.backToGeneral) }}
+					</fieldset>
+				</div>
+			    {# {{ form_row (form.termsAccepted) }} #}
+			{{ form_end(form) }}
+
+		{% endif %}
+
+
+		{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
+		<h2 class="steptitle geel"><a href="#interessantevacatures" name="interessantevacatures">Kijk welke vacatures interessant zijn</a></h2>
+		<div id="interessant" class="step grijs geel">
+			<p>
+				Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie <a href="#zoekVacatures">zoek naar vacatures</a> kan je gemakkelijk te weten komen welke vacatures aansluiten bij jouw interesses.  Maar wat als je nog niet weet welke vacatures voor je interessant vindt?  Daarvoor hebben we een test ontwikkelt die je op weg helpt!
+				<a href="{{ path("test_type") }}">
+					<h3>Doe de vrijwilligerstest!</h3>
+					En leer zo welke vacatures jou het meeste liggen.
+				</a>
+			</p>
+		</div>
+
+		<h2 class="steptitle blauw"><a href="#spelregels" name="spelregels">Bekijk de spelregels</a></h2>
+		<div class="step grijs blauw">
+		    {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
+			{% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
+		</div>
+
+		<h2 class="steptitle rood"><a href="#zoek" name="zoek">Zoek naar vacatures</a></h2>
+		<div id="zoekVacatures" class="step grijs rood">
+			<p>
+				Een interessante vacature vinden kan je op meerdere manieren...
+		 	</p>
+			<ul>
+				<li>Eens je een profielpagina aanmaakt kan je kiezen uit volgende opties:</li>
+						<ul>
+							<li>Kijk naar de vacatures op jouw maat.  Ons systeem vergelijkt jouw profiel met de openstaande vacatures en kiest er de interessantste uit.</li>
+							<li>Kijk naar de vacatures in de kijker.</li>
+							<li>Kijk naar de recentste vacatures.</li>
+						</ul>
+				<li>Daarnaast kan je ook <a href="{{ path("test_type") }}">een test doen</a> om te kijken welk soort vacatures voor jou het interessantste zijn, of je kan de zoekfunctie gebruiken om naar vacatures te zoeken.  De zoekfunctie vind je steeds in de header terug, maar ook op je profielpagina en hieronder.
+				</li>
+			</ul>
+
+			{# Search block #}
+		    {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+		</div>
+
+		{# Vacature/organisatieblock #}
+		{% if app.user %}
+			<h2 class="steptitle groen"><a href="#opmaat" name="opmaat">Vacatures op maat</a></h2>
+			<div id="vacaturesOpMaat" class="step grijs groen">
+		        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }} {# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
+		        <h2>Bewaarde vacatures</h2>
+				{{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
+			</div>
+		{% endif %}
+
+		<h2 class="steptitle paars"><a href="#kandidaatstellen" name="kandidaatstellen">Stel je kandidaat</a></h2>
+		<div id="zoekVacatures" class="step grijs paars">
+			<p>
+				Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.
+			</p>
+		</div>
+	</section>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

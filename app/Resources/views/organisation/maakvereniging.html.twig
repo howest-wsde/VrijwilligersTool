@@ -3,28 +3,28 @@
 {% block title %}Vrijwilliger vinden{% endblock %}
 
 {% block body %}
-	<header>
-		<h1>Vrijwilliger vinden</h1>
-		<p>Op zoek naar vrijwilligers?</p>
-		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
-	</header>
-	<h2>Maak een profiel aan voor uw vereniging</h2>
-	{{ form_start(form) }}
-        {{ form_errors(form) }}
-
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.street) }}
-		{{ form_row(form.number) }}
-		{{ form_row(form.bus) }}
-		{{ form_row(form.postalCode) }}
-		{{ form_row(form.city) }}
-		{{ form_row(form.telephone) }}
-    {{ form_end(form) }}
-	{% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="success-notice">
-            <script type="text/javascript">alert("{{ flash_message }}");</script>
+    <header class="center">
+    	<h1>Vrijwilliger vinden</h1>
+    	<p>Op zoek naar vrijwilligers?</p>
+    	<p>Maak nu een profiel voor je vereniging zodat je vacatures kan plaatsen! </p>
+    </header>
+    <section id="maakVereniging" class="steps">
+        <h2 class="steptitle groen"><a href="#spelregels" name="spelregels">Bekijk de spelregels</a></h2>
+        <div class="step grijs actief">
+            {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
+            {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
         </div>
-    {% endfor %}
+
+        {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
+
+        {% if organisation %}
+            <h2><a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a></h2>
+        {% endif %}
+    </section>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

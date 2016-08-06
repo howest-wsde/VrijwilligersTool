@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Vacature{% endblock %}
+
+{% block body %}
+    <script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+    <article>
+        <header><h1>{{ vacancy.title }}</h1></header>
+        <h2>Kandidaten voor deze vacature:</h2>
+
+        <h3>Goedgekeurde kandidaten:</h3>
+        <ol>
+            {% for candidacy in approved %}
+                {% set candidate = candidacy.candidate %}
+                <li>
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">{{ candidate.firstname}} {{ candidate.lastname}}</a>
+                    <form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }} " method="post">
+                        <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ol>
+
+        <h3>Open kandidaatstellingen:</h3>
+        <ol>
+            {% for candidacy in pending %}
+                {% set candidate = candidacy.candidate %}
+                <li>{{ candidate.firstname}} {{ candidate.lastname}}
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
+                    |<form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }}" method="post">
+                        <button type="submit"  name="approve" class="glyphicon glyphicon-ok btn btn-xs"></button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ol>
+
+        {% for flashMessage in app.session.flashbag.get('approve_message') %}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> {{ flashMessage }}
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('cancel_message') %}
+                <div class="alert alert-danger">
+                    <strong>Afgekeurd!</strong> {{ flashMessage }}
+                </div>
+            {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+
+    <script src="{{ asset("js/googleMaps.js") }}"></script>
+    <script src="{{ asset("js/sharebuttons.js") }}"></script>
+{% endblock %}
