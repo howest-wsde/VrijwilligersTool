@@ -276,3 +276,50 @@ fos_elastica:
                         finder: ~
                         elastica_to_model_transformer:
                             ignore_missing: true
+                searchFilter:
+                    mappings:
+                        id: { type: integer }
+                        name: { type: string, index: not_analyzed }
+                        search: { type: string, index: not_analyzed }
+                        person: { type: boolean }
+                        org: { type: boolean }
+                        vacancy: { type: boolean }
+                        sort: { type: string, index: not_analyzed }
+                        intensity: { type: string, index: not_analyzed }
+                        hoursAWeek: { type: integer }
+                        distance: { type: integer }
+                        characteristic: { type: string, index: not_analyzed }
+                        advantages: { type: string, index: not_analyzed }
+                        sectors:
+                            type: object
+                            properties:
+                                id: { type: integer }
+                                name: { type: string, index: not_analyzed }
+                                entity: { type: string, property_path: esGetSectorName, index: no }
+                                parent:
+                                    type: object
+                                    properties:
+                                        id: { type: integer }
+                                        name: { type: string, index: not_analyzed }
+                                        entity: { type: string, property_path: esGetEntityName, index: no }
+                        categories:
+                            type: object
+                            properties:
+                                id: { type: integer }
+                                name: { type: string, index: not_analyzed }
+                                entity: { type: string, property_path: esGetEntityName, index: no }
+                                parent:
+                                    type: object
+                                    properties:
+                                        id: { type: integer }
+                                        name: { type: string, index: not_analyzed }
+                                        entity: { type: string, property_path: esGetEntityName, index: no }
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\SearchFilter
+                        provider: ~
+                        listener: %listener%
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true
+

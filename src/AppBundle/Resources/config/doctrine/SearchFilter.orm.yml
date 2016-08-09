@@ -1,0 +1,68 @@
+AppBundle\Entity\SearchFilter:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+        search:
+            type: string
+            length: 100
+        person:
+            type: boolean
+        org:
+            type: boolean
+        vacancy:
+            type: boolean
+        sort:
+            type: string
+            length: 100
+        intensity:
+            type: string
+            length: 100
+        hoursAWeek:
+            type: smallint
+            nullable: true
+        distance:
+            type: smallint
+            nullable: true
+        characteristic:
+            type: simple_array
+            nullable: true
+        advantages:
+            type: simple_array
+            nullable: true
+    manyToMany:
+        sectors:
+            targetEntity: Skill
+            mappedBy: null
+            cascade: ["persist"]
+            nullable: true
+            joinTable:
+                name: sector_for_filter
+                joinColumns:
+                    -
+                        name: filter_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id
+        categories:
+            targetEntity: Skill
+            mappedBy: null
+            cascade: ["persist"]
+            nullable: true
+            joinTable:
+                name: categories_for_filter
+                joinColumns:
+                    -
+                        name: filter_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: skill_id
+                        referencedColumnName: id
