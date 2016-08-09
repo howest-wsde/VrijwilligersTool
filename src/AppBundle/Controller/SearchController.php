@@ -590,7 +590,7 @@ class SearchController extends Controller
      * @param  string   $termName   the name of the term in ES to filter on
      * @return Array                array representing a term/s filter
      */
-    private function processSkillArray(&$array, $termName){
+    private function processSkillArray($array, $termName){
         if(sizeof($array) > 1){
             $skills = [];
             foreach ($array as $key => $skill) {

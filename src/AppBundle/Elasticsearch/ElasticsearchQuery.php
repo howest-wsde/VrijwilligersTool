@@ -177,12 +177,11 @@ class ElasticsearchQuery
             if($q['must'] || $q['must_not'] || $q['should']){
                 $filter['bool'] = [];
                 $q['must'] ? $filter['bool']['must'] = $q['must'] : false;
+                // check for presence of a range clause
+                $q['range'] ? $filter['bool']['must'][] = [ 'range' => $q['range']] : false;
                 $q['must_not'] ? $filter['bool']['must_not'] = $q['must_not'] : false;
                 $q['should'] ? $filter['bool']['should'] = $q['should'] : false;
             }
-
-            // check for presence of a range clause
-            $q['range'] ? $filter['range'] = $q['range'] : false;
 
             //add to the $query filter clause
             $query['filtered']['filter'] = $filter;
