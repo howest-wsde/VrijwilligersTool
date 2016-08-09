@@ -2,21 +2,17 @@
 
 namespace AppBundle\Entity\Form;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 
@@ -36,9 +32,9 @@ class SearchFilterType extends AbstractType
         ->add('sort', ChoiceType::class, array(
             "label" => 'search.label.sort',
             'choices'  => array(
-                'search.choices.distance' => 'distance',
-                'search.choices.date' => 'date',
-                'search.choices.endDate' => 'endDate',
+                // 'search.choices.distance' => 'distance',
+                'search.choices.date' => 'startdate',
+                'search.choices.endDate' => 'enddate',
                 'search.choices.reward' => 'reward',
             ),
             // render as select box
@@ -98,14 +94,14 @@ class SearchFilterType extends AbstractType
             'multiple' => true,
             'required' => false,
         ))
-        ->add('hoursAWeek', IntegerType::class, array(
+        ->add('estimatedWorkInHours', IntegerType::class, array(
             'label' => 'search.label.hoursAWeek',
             'required' => false,
         ))
-        ->add('distance', IntegerType::class, array(
-            'label' => 'search.label.distance',
-            'required' => false,
-        ))
+        // ->add('distance', IntegerType::class, array(
+        //     'label' => 'search.label.distance',
+        //     'required' => false,
+        // ))
         ->add('characteristic', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(
@@ -128,6 +124,54 @@ class SearchFilterType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'required' => false,
+        ));
+
+        $builder->get('intensity')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($intensityAsString) {// transform the string to an array
+                    $intensity = [
+                        'long' => false,
+                        '1time' => false,
+                    ];
+
+                    $intensity[$intensityAsString] = true;
+
+                    return $intensity;
+                },
+                function ($intensityAsArray) { // transform the array back to a string
+                    $output = '';
+                    if(array_key_exists('long', $intensityAsArray) && $intensityAsArray['long']) { $output = 'long'; }
+                    else if(array_key_exists('1time', $intensityAsArray) && $intensityAsArray['1time']) { $output = '1time'; }
+
+                    return $output;
+                }
+        ));
+        $builder->get('person')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($notBoolean) { //what you get from the entity
+                    return $notBoolean === 1 ? true : false;
+                },
+                function ($boolean) { // what you get from the form
+                    return $boolean ? 1 : 0;
+                }
+        ));
+                $builder->get('org')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($notBoolean) { //what you get from the entity
+                    return $notBoolean === 1 ? true : false;
+                },
+                function ($boolean) { // what you get from the form
+                    return $boolean ? 1 : 0;
+                }
+        ));
+                $builder->get('vacancy')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($notBoolean) { //what you get from the entity
+                    return $notBoolean === 1 ? true : false;
+                },
+                function ($boolean) { // what you get from the form
+                    return $boolean ? 1 : 0;
+                }
         ));
     }
 

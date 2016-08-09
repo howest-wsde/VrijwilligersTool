@@ -151,15 +151,8 @@ class ElasticsearchQuery
     private function assembleQuery($q, $term){
         if(!$q['must'] && !$q['must_not'] && !$q['should'] && !$q['range']){ // if user didn't use any filters then there's a simple bool query
             if(!empty($term)){
-                return [ 'bool' => [
-                                    'must' => [
-                                        'query_string' => [
-                                            'default_field' => '_all',
-                                            'query' => $term,
-                                         ],
-                                    ],
-                           ],
-                         ];
+                return [ 'match' => [ '_all' => $term ] ];
+
             } else {
                 return ['match_all' => []];
             }

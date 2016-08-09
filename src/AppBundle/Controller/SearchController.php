@@ -85,6 +85,20 @@ class SearchController extends Controller
     }
 
     /**
+     * Helper function to perform a ES query by type.
+     * @param  Form     $form       a search filter form
+     * @param  String   $searchTerm a term to search for
+     * @return Array             an array of hydrated results
+     */
+    private function searchByType($form, $searchTerm){
+        $ESquery = $this->get("ElasticsearchQuery");
+        $types = $this->getTypes($form);
+        $query = $this->assembleQuery($form);
+
+        return $ESquery->searchByType($types, $query, $searchTerm);
+    }
+
+    /**
      * Zoekformulier verwerken bij een post request => niks geen Q-string
      * @Route("/search", name="search")
      * @Route("/zoeken", name="zoeken")
@@ -92,17 +106,16 @@ class SearchController extends Controller
      * @Method("POST")
      */
     public function searchFormPostAction(Request $request){
-        $ESquery = $this->get("ElasticsearchQuery");
-        $form = $this->createForm(SearchFilterType::class);
+        //sort: afstand werkt nog niet => check geo_distance_range filter
+        $sf = new SearchFilter();
+        $form = $this->createForm(SearchFilterType::class, $sf);
         $form->handleRequest($request);
         $searchTerm = $form->get('search')->getData();
-        $types = $this->getTypes($form);
-        $query = $this->assembleQuery($form);
 
         return $this->render("search/zoekpagina.html.twig", array(
-            "distance" => $form->get('distance')->getData(),
+            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
-            "results" => $ESquery->searchByType($types, $query, $searchTerm),
+            "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
             "filters" => true,
         ));
@@ -116,21 +129,15 @@ class SearchController extends Controller
      * @Method({"GET", "HEAD"})
      */
     public function searchFormAction(Request $request){
-        $ESquery = $this->get("ElasticsearchQuery");
-        // $request = Request::createFromGlobals();
         $searchTerm = $request->query->get("q");
-        $defaultData = $searchTerm ? array('search' => $searchTerm, ) : array();
-        $form = $this->createForm(SearchFilterType::class);//$this->buildSearchForm($defaultData);
+        $sf = $this->createSearchFilter($request->query->all());
+        $form = $this->createForm(SearchFilterType::class, $sf);
         $form->handleRequest($request);
-        $distance = $form->get('distance')->getData();
-        $types = $this->getTypes($form);
-        $query = $this->assembleQuery($form);
-        $results = $ESquery->searchByType($types, $query, $searchTerm);
 
         return $this->render("search/zoekpagina.html.twig", array(
-            "distance" => $distance,
+            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
-            "results" => $results,
+            "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
             "filters" => true,
         ));
@@ -274,7 +281,7 @@ class SearchController extends Controller
             "label" => $t->trans('search.label.person'),
             "required" => false,
         ))
-        ->add("organisation", CheckboxType::class, array(
+        ->add("org", CheckboxType::class, array(
             "label" => $t->trans('search.label.organisation'),
             "required" => false,
         ))
@@ -466,7 +473,7 @@ class SearchController extends Controller
         $categories = $form->get('categories')->getData(); //array
         $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
-        $hoursAWeek = $form->get('hoursAWeek')->getData(); //int
+        $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int
         $characteristic = $form->get('characteristic')->getData(); //array
         $advantages = $form->get('advantages')->getData(); //array
         $sort = $form->get('sort')->getData(); //string
@@ -474,6 +481,7 @@ class SearchController extends Controller
         $must = [];
         $must_not = [];
         $range = [];
+        $exists = [];
 
         if(!empty($categories) && !$categories->isEmpty()){
           $should[] = $this->processSkillArray($categories->toArray(), 'skills.name');
@@ -488,17 +496,15 @@ class SearchController extends Controller
         }
 
         if($hoursAWeek){
-          $range[] = [ 'range' => [ 'estimatedWorkInHours' => [ 'lte' => $hoursAWeek ]]];
+          $range['estimatedWorkInHours'] = [ 'lte' => $hoursAWeek ];
         }
 
         if(!empty($characteristic)){
-            $must = $this->processCharacteristic($characteristic, $must);
+            $this->processCharacteristic($characteristic, $must);
         }
 
         if(!empty($advantages)){
-            $processed = $this->processAdvantages($advantages, $must_not, $range);
-            $must_not = $processed['must_not'];
-            $range = $processed['range'];
+            $this->processAdvantages($advantages, $exists, $range);
         }
 
         if($sort){
@@ -511,6 +517,7 @@ class SearchController extends Controller
             'should' => (!empty($should) ? $should : false),
             'range' => (!empty($range) ? $range : false),
             'sort' => (!empty($sort) ? $sort : false),
+            'exists' => (!empty($exists) ? $exists : false),
         ];
     }
 
@@ -525,35 +532,32 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the advantages array
-     * @param  Array    $advantages   the advantages the user wants to filter on
-     * @param  String   $must_not     the array representing the must_not filter
+     * @param  String   $advantages   the advantages the user wants to filter on
+     * @param  String   $exists       the array representing the exists filter
      * @param  String   $range        the array representing the range filter
-     * @return Array                  array representing a term/s filter
      */
-    private function processAdvantages($advantages, $must_not, $range){
+    private function processAdvantages(&$advantages, &$exists, &$range){
         foreach ($advantages as $key => $advantage) {
             switch ($advantage) {
                 case 'reward':
-                    $must_not[] = [ 'term' => [ 'renumeration' => null ]];
-                    $range[] = [ 'range' => [ 'renumeration' => [ 'gt' => 0 ]]];
+                    $range['renumeration'] = [ 'gt' => 0 ];
+                    $exists[] = [ 'field' => 'renumeration' ];
                     break;
 
                 case 'other':
-                    $must_not[] = [ 'term' => [ 'otherReward' => null ]];
+                    $exists[] = [ 'field' => 'tags' ];
                     break;
             }
         }
-
-        return [ 'must_not' => $must_not, 'range' => $range ];
     }
 
     /**
      * Helper function for assembleQuery, processing the characteristic array
-     * @param  Array   $characteristic    the characteristics the user wants to filter on
+     * @param  String   $characteristic   the characteristic the user wants to filter on
      * @param  String   $must             the array representing the must filter
      * @return Array                      array representing a term/s filter
      */
-    private function processCharacteristic($characteristic, $must){
+    private function processCharacteristic($characteristic, &$must){
         foreach ($characteristic as $key => $value) {
             switch ($value) {
                 case 'weelchair':
@@ -569,8 +573,6 @@ class SearchController extends Controller
                     break;
             }
         }
-
-        return $must;
     }
 
     /**
@@ -578,7 +580,7 @@ class SearchController extends Controller
      * @param  String   $intensity     the intensity the user wants to filter on
      * @return Array                   array representing a term/s filter
      */
-    private function processIntensity($intensity){
+    private function processIntensity(&$intensity){
         return ['term' => [ 'longterm' => ($intensity === '1time' ? false : true) ]];
     }
 
@@ -588,7 +590,7 @@ class SearchController extends Controller
      * @param  string   $termName   the name of the term in ES to filter on
      * @return Array                array representing a term/s filter
      */
-    private function processSkillArray($array, $termName){
+    private function processSkillArray(&$array, $termName){
         if(sizeof($array) > 1){
             $skills = [];
             foreach ($array as $key => $skill) {
@@ -598,5 +600,47 @@ class SearchController extends Controller
             $skils = $array[0]->getName();
         }
         return [(sizeof($array) > 1 ? 'terms' : 'term') => [ $termName => $skills ]];
+    }
+
+    /**
+     * Create an instance of SearchFilter to be used in the search page form.
+     * @param  Array        $array      either a post or get array of values
+     * @return AppBundle\Entity\SearchFilter        a Search Filter
+     */
+    private function createSearchFilter($array){
+        $sf = new SearchFilter();
+        foreach ($array as $key => $value) {
+            if(!empty($value)){
+                switch ($key) { //made into a switch so it can be expanded easily if that need arises in the future
+                    case 'q':
+                        $sf->{ 'setSearch'}($value);
+                        break;
+                    case 'categories':
+                        if(is_array($value)){
+                            foreach ($value as $key => $id) {
+                                # code...
+                            }
+                        }
+                        $sf->{ 'addCategory' }($value);
+                        break;
+                    case 'sectors':
+                        $sf->{ 'addSector' }($value);
+                        break;
+                    case '_token':
+                    case 'submit': //watch out: fallthrough
+                        false;
+                        break;
+                    case 'hoursAWeek':
+                    case 'distance': //watch out: fallthrough
+                        $sf->{ 'set' . ucfirst($key) }((int) $value);
+                        break;
+                    default:
+                        $sf->{ 'set' . ucfirst($key) }($value);
+                        break;
+                }
+            }
+        }
+
+        return $sf;
     }
 }

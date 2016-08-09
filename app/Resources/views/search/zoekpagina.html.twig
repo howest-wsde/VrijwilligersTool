@@ -22,9 +22,9 @@
 					<legend>Filters</legend>
 						<fieldset>
 							<h3>Filter op type</h3>
-					        {{ form_widget(form.person) }}
-							{{ form_widget(form.org) }}
-							{{ form_widget(form.vacancy) }}
+					        {{ form_row(form.person) }}
+							{{ form_row(form.org) }}
+							{{ form_row(form.vacancy) }}
 						</fieldset>
 
 						<fieldset>
@@ -40,14 +40,14 @@
 						<fieldset>
 							<h3>Filter op intensiteit</h3>
 							{{ form_row(form.intensity) }}
-							{{ form_row(form.hoursAWeek) }}
+							{{ form_row(form.estimatedWorkInHours) }}
 						</fieldset>
 
-						<fieldset>
+{# 						<fieldset>
 							<h3>Filter op afstand</h3>
 							{{ form_row(form.distance) }}
 						</fieldset>
-
+ #}
 						<fieldset>
 							<h3>Filter op kenmerk</h3>
 							{{ form_row(form.characteristic) }}

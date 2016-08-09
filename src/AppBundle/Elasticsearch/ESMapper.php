@@ -60,6 +60,7 @@ class ESMapper{
             $entity->setId($id);
             array_push($entities, $entity);
         }
+
         return $entities;
     }
 
@@ -90,7 +91,10 @@ class ESMapper{
                                     $name = 'skill';
                                     $method = 'addSector';
                                     break;
+                                case 'organisation':
+                                    $method = 'addOrganisation';
                             }
+
                             $entity->{ $method }($this->getEntity($name, $object));
                         }
                     }

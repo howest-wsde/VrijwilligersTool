@@ -67,7 +67,7 @@ class SearchFilter
      * The amount of hours / week the commitment tends to take.
      * @var integer
      */
-    private $hoursAWeek = 0;
+    private $estimatedWorkInHours = 0;
 
     /**
      * How far away the vacancy/organisation/person can be from the home-address
@@ -161,7 +161,7 @@ class SearchFilter
     /**
      * Get person
      *
-     * @return AppBundle\Entity\Person
+     * @return boolean
      */
     public function getPerson()
     {
@@ -171,7 +171,7 @@ class SearchFilter
     /**
      * Set person
      *
-     * @param AppBundle\Entity\Person $person
+     * @param boolean $person
      *
      * @return SearchFilter
      */
@@ -185,7 +185,7 @@ class SearchFilter
     /**
      * Get org
      *
-     * @return AppBundle\Entity\Organisation
+     * @return boolean
      */
     public function getOrg()
     {
@@ -195,7 +195,7 @@ class SearchFilter
     /**
      * Set org
      *
-     * @param AppBundle\Entity\Organisation $org
+     * @param boolean $org
      *
      * @return SearchFilter
      */
@@ -209,7 +209,7 @@ class SearchFilter
     /**
      * Get vacancy
      *
-     * @return AppBundle\Entity\Vacancy
+     * @return boolean
      */
     public function getVacancy()
     {
@@ -219,7 +219,7 @@ class SearchFilter
     /**
      * Set vacancy
      *
-     * @param AppBundle\Entity\Vacancy $vacancy
+     * @param boolean $vacancy
      *
      * @return SearchFilter
      */
@@ -299,9 +299,9 @@ class SearchFilter
      *
      * @return SearchFilter
      */
-    public function addCategories(\AppBundle\Entity\Skill $categorie)
+    public function addCategory(\AppBundle\Entity\Skill $category)
     {
-        $this->categories[] = $categorie;
+        $this->categories[] = $category;
 
         return $this;
     }
@@ -313,9 +313,9 @@ class SearchFilter
      *
      * @return SearchFilter
      */
-    public function removeCategories(\AppBundle\Entity\Skill $categorie)
+    public function removeCategory(\AppBundle\Entity\Skill $category)
     {
-        $this->categories->removeElement($categorie);
+        $this->categories->removeElement($category);
 
         return $this;
     }
@@ -355,27 +355,27 @@ class SearchFilter
     }
 
     /**
-     * Set hoursAWeek
+     * Set estimatedWorkInHours
      *
-     * @param integer $hoursAWeek
+     * @param integer $estimatedWorkInHours
      *
      * @return SearchFilter
      */
-    public function setHoursAWeek($hoursAWeek)
+    public function setEstimatedWorkInHours($estimatedWorkInHours)
     {
-        $this->hoursAWeek = $hoursAWeek;
+        $this->estimatedWorkInHours = $estimatedWorkInHours;
 
         return $this;
     }
 
     /**
-     * Get hoursAWeek
+     * Get estimatedWorkInHours
      *
      * @return integer
      */
-    public function getHoursAWeek()
+    public function getEstimatedWorkInHours()
     {
-        return $this->hoursAWeek;
+        return $this->estimatedWorkInHours;
     }
 
     /**

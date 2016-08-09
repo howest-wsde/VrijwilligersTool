@@ -23,7 +23,7 @@ AppBundle\Entity\SearchFilter:
         intensity:
             type: string
             length: 100
-        hoursAWeek:
+        estimatedWorkInHours:
             type: smallint
             nullable: true
         distance:
