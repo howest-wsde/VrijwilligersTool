@@ -24,6 +24,9 @@ security:
         newUserStart: Een nieuwe gebruiker met naam
         newUser2: werd succesvol aangemaakt
         newUserMail: '.  Een bevestigingsbericht werd gestuurd naar '
+person:
+    flash:
+        editProfile: Uw profiel werd succesvol aangepast
 vacancy:
     template:
         vacancyFit: Vacatures op maat

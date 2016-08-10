@@ -64,6 +64,7 @@ class PersonController extends controller
      * @Route("/mijnprofiel", name="profile_edit")
      */
     public function editProfileAction(Request $request){
+        $t = $this->get('translator');
         $person = $this->getUser();
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
@@ -74,13 +75,12 @@ class PersonController extends controller
             $em->flush();
 
             //set a success message
-            $this->addFlash('approve_message', 'Uw profiel werd succesvol aangepast');
+            $this->addFlash('approve_message', $t->trans('person.flash.editProfile'));
         }
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
-            $this->addFlash('error', 'U gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-            );
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("person/edit_profile.html.twig", array("form" => $form->createView() ));
