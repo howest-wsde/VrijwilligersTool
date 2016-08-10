@@ -318,6 +318,17 @@ class OrganisationController extends UtilityController
     }
 
     /**
+     * Get all own organisations for a user
+     * @param  AppBundle\Entity\Person $user the user for which the organisations have to be retrieved
+     */
+    public function listOwnOrganisationsAction($user)
+    {
+        return $this->render("oranisation/verenigingen_oplijsten.html.twig",
+            ["organisations" => $user->getOrganisations(), "viewMode" => 'tile']);
+    }
+
+
+    /**
      * Get a random selection of organisations.
      * @param integer $nr       The amount of organisations in the selection
      * @param string  $viewMode The way the organisations should be rendered
