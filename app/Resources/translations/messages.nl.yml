@@ -7,6 +7,9 @@ candidacy:
         approve: " werd goedgekeurd voor de vacature "
         disapprove: " werd afgekeurd voor de vacature "
         remove: " werd verwijderd als vrijwilliger voor de vacature "
+utility:
+    send:
+        subject: Mail vanwege Roeselare Vrijwilligt
 general:
     label:
         previous: Vorige

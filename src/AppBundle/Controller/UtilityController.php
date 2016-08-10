@@ -18,8 +18,9 @@ class UtilityController extends Controller
      */
     protected function sendMail($user, $info)
     {
+        $t = $this->get('translator');
         $email = array_key_exists('to', $info) ? $info['to'] : $user->getEmail();
-        $subject = array_key_exists('subject', $info) ? $info['subject'] : 'Mail vanwege Roeselare Vrijwilligt';
+        $subject = array_key_exists('subject', $info) ? $info['subject'] : $t->trans('utility.send.subject');
         $from = array_key_exists('from', $info) ? $info['from'] : 'info@roeselareVrijwilligt.be';
         $datatxt = array_key_exists('datatxt', $info) ? $info['datatxt'] : $info['data'];
         $template = 'email/' . $info['template'];
