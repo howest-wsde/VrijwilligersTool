@@ -1,3 +1,9 @@
+general:
+    label:
+        previous: Vorige
+        save: Bewaar
+    flash:
+        formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
 candidacy:
     mail:
         approve: werd goedgekeurd als vrijwilliger
@@ -10,9 +16,30 @@ candidacy:
 utility:
     send:
         subject: Mail vanwege Roeselare Vrijwilligt
-general:
-    label:
-        previous: Vorige
+vacancy:
+    template:
+        vacancyFit: Vacatures op maat
+    exception:
+        noAdmin: 'Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.'
+    createPdf:
+        exception: De gevraagde vacature bestaat niet!
+    create:
+        noAdmin: U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.
+    ajax:
+        removeFromSaved: Verwijder uit bewaarde vacatures
+    flash:
+        createStart: Een nieuwe vacature met naam
+        createEnd: werd aangemaakt.
+        okRemoveSubscribe: Uw kandidatuur voor deze vacature werd succesvol verwijderd.
+        submitCandidacy: Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.
+        addToSaved: Deze vacature werd toegevoegd aan uw bewaarde vacatures.
+        removeFromSaved: Deze vacature werd verwijderd uit uw bewaarde vacatures.
+        okModification: Deze vacature werd succesvol aangepast.
+    mail:
+        create: Nieuwe vacature aangemaakt
+        removeCandidacySubjectStart: trok haar/zijn kandidaat voor de vacature met titel
+        removeCandidacySubjectEnd: 'in.'
+        submitCandidacy: 'stelde zich kandidaat voor de vacature met titel:'
 organisation:
     label:
         addAdmin: Nieuwe beheerder

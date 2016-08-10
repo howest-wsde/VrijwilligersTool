@@ -20,6 +20,7 @@ class VacancyController extends UtilityController
      */
     public function createPdfAction($title)
     {
+        $t = $this->get('translator');
         $vacancy = $this->getVacancyRepository()->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
@@ -34,7 +35,7 @@ class VacancyController extends UtilityController
             $pdf->Output();
             return $this->render($pdf->Output());
         } else
-            throw new \Exception("De gevraagde vacature bestaat niet!");
+            throw new \Exception($t->trans('vacancy.createPdf.exception'));
     }
 
     /**
@@ -73,6 +74,7 @@ class VacancyController extends UtilityController
      */
     public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
+        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
 
         if($organisation_urlid){
@@ -80,7 +82,7 @@ class VacancyController extends UtilityController
             $organisation = $em->getRepository("AppBundle:Organisation")
                                 ->findOneByUrlid($organisation_urlid);
             if(!$user->getOrganisations()->contains($organisation)){
-                throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.");
+                throw $this->createAccessDeniedException($t->trans('vacancy.create.noAdmin'));
             }
         }
 
@@ -102,12 +104,12 @@ class VacancyController extends UtilityController
             $em->flush();
 
             //set a success message
-            $this->addFlash('approve_message', 'Een nieuwe vacature met naam ' . $vacancy->getTitle() . ' werd aangemaakt.'
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.createStart') . ' ' . $vacancy->getTitle() . ' ' . $t->trans('vacancy.flash.createEnd')
             );
 
             //set digest / send email to all administrators
             $info = array(
-                        'subject' => 'Nieuwe vacature aangemaakt',
+                        'subject' => $t->trans('vacancy.mail.create'),
                         'template' => 'vacature_aangemaakt.html.twig',
                         'txt/plain' => 'vacature_aangemaakt.txt.twig',
                         'to' => $user->getEmail(),
@@ -127,8 +129,7 @@ class VacancyController extends UtilityController
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
-            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-            );
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("vacancy/vacature_nieuw.html.twig",
@@ -175,11 +176,11 @@ class VacancyController extends UtilityController
             }
 
             //set a success message
-            $this->addFlash('approve_message', 'Uw kandidatuur voor deze vacature werd succesvol verwijderd.');
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.okRemoveSubscribe'));
 
             //remove digest / send email to all administrators
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' trok haar/zijn kandidaat voor de vacature met titel "' . $vacancy->getTitle() . '" in.';
+                       ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
             $organisation = $vacancy->getOrganisation();
             $info = array(
                         'subject' => $subject,
@@ -201,11 +202,11 @@ class VacancyController extends UtilityController
             $em->flush();
 
             //set a success message
-            $this->addFlash('approve_message', 'Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.');
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.submitCandidacy'));
 
             //set digest / send email to all administrators
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' stelde zich kandidaat voor de vacature met titel: ' . $vacancy->getTitle();
+                       ' ' . $t->trans('vacancy.mail.submitCandidacy') . ' ' . $vacancy->getTitle();
             $organisation = $vacancy->getOrganisation();
             $info = array(
                         'subject' => $subject,
@@ -246,15 +247,15 @@ class VacancyController extends UtilityController
             $user->addLikedVacancy($vacancy);
             if(!$ajax){
                 //set a success message
-                $this->addFlash('approve_message', 'Deze vacature werd toegevoegd aan uw bewaarde vacatures.');
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.addToSaved'));
             }
         } else {
             if(!$ajax){
                 //set a success message
-                $this->addFlash('approve_message', 'Deze vacature werd verwijderd uit uw bewaarde vacatures.');
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.removeFromSaved'));
             }
         }
-        $em->persist($user);
+        $em->persist($user);'vacancy.flash.removeFromSaved'
         $em->flush();
 
 
@@ -265,13 +266,13 @@ class VacancyController extends UtilityController
                 $arResult = array(
                     "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "remove")),
                     "class" => "liked",
-                    "text" => "Verwijder uit bewaarde vacatures",
+                    "text" => $t->trans('vacancy.ajax.removeFromSaved'),
                 );
             } else {
                 $arResult = array(
                     "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "save")),
                     "class" => "notliked",
-                    "text" => "Bewaar",
+                    "text" => $t->trans('general.label.save'),
                 );
             }
 
@@ -307,7 +308,7 @@ class VacancyController extends UtilityController
                  "pending" => $pending]);
         }
 
-        throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
+        throw $this->createAccessDeniedException($t->trans('vacancy.exception.noAdmin'));
     }
 
     /**
@@ -348,7 +349,7 @@ class VacancyController extends UtilityController
                 $em->flush();
 
                 //set a success message
-                $this->addFlash('approve_message', 'Deze vacature werd succesvol aangepast.');
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.okModification'));
 
                 return $this->redirect($this->generateUrl("vacancy_by_urlid",
                     array("urlid" => $vacancy->getUrlId() ) ));
@@ -356,8 +357,7 @@ class VacancyController extends UtilityController
             else if ($form->isSubmitted() && !$form->isValid())
             {
                 //set an error message
-                $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-                );
+                $this->addFlash('error', $t->trans('general.flash.formError'));
             }
 
             return $this->render("vacancy/vacature_aanpassen.html.twig",
@@ -365,7 +365,7 @@ class VacancyController extends UtilityController
                       "urlid" => $urlid) );
         }
 
-        throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
+        throw $this->createAccessDeniedException($t->trans('vacancy.exception.noAdmin'));
     }
 
     /**
@@ -383,7 +383,7 @@ class VacancyController extends UtilityController
 
         $results = $query->search($params);
 
-        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $results, 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
+        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $results, 'title' => $t->trans('vacancy.template.vacancyFit')]);//TODO retrieve and add matching vacancies here
     }
 
     /**
