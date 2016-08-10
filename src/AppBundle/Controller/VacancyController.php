@@ -37,7 +37,6 @@ class VacancyController extends UtilityController
             throw new \Exception("De gevraagde vacature bestaat niet!");
     }
 
-
     /**
      * Controller to give the user a choice of what kind of vacancy he wants to create.
      * @Route("/vacature/start", name="start_vacancy")
@@ -66,7 +65,6 @@ class VacancyController extends UtilityController
                     "path" => "start_vacancy",
                 ]);
     }
-
 
     /**
      * @Security("has_role('ROLE_USER')") //TODO: apply correct role
@@ -285,7 +283,6 @@ class VacancyController extends UtilityController
         }
     }
 
-
     /**
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
@@ -313,11 +310,11 @@ class VacancyController extends UtilityController
         throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
     }
 
-/**
- * A list of the most recently created vacancies.
- * @param  integer $nr       The amount of vacancies desired
- * @param  string  $viewMode The viewmode for the generated output
- */
+    /**
+     * A list of the most recently created vacancies.
+     * @param  integer $nr       The amount of vacancies desired
+     * @param  string  $viewMode The viewmode for the generated output
+     */
     public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
         $vacancies = $this->getDoctrine()
@@ -371,11 +368,11 @@ class VacancyController extends UtilityController
         throw $this->createAccessDeniedException('Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.');
     }
 
-/**
- * Get vacancies matching a user profile
- * TODO: work on this
- * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
- */
+    /**
+     * Get vacancies matching a user profile
+     * TODO: work on this
+     * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+     */
     public function vacaturesOpMaatAction($user)
     {
         $query = $this->get("ElasticsearchQuery");
@@ -389,21 +386,20 @@ class VacancyController extends UtilityController
         return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $results, 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
-/**
- * Get all saved vacancies for a user
- * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
- */
+    /**
+     * Get all saved vacancies for a user
+     * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+     */
     public function listSavedVacanciesAction($user)
     {
         return $this->render("vacancy/vacatures_oplijsten.html.twig",
             ["vacancies" => $user->getLikedVacancies(), "viewMode" => 'tile']);
     }
 
-
-/**
- * Create a list of all vacancies that are currently open, for a given organisation
- * @param integer $id an organisation id
- */
+    /**
+     * Create a list of all vacancies that are currently open, for a given organisation
+     * @param integer $id an organisation id
+     */
     public function ListOrganisationVacanciesAction($id, $status = Vacancy::OPEN)
     {
         $vacancy = $this->getVacancyRepository();
@@ -422,12 +418,12 @@ class VacancyController extends UtilityController
                 ]);
     }
 
-/**
- * Delete or restore a vacancy
- * @Route("/vacature/{urlid}/delete", name="delete_vacancy", defaults={ "deleted" = 4 })
- * @Route("/vacature/{urlid}/restore", name="restore_vacancy", defaults={ "deleted" = 1 })
- * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted or restored
- */
+    /**
+     * Delete or restore a vacancy
+     * @Route("/vacature/{urlid}/delete", name="delete_vacancy", defaults={ "deleted" = 4 })
+     * @Route("/vacature/{urlid}/restore", name="restore_vacancy", defaults={ "deleted" = 1 })
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted or restored
+     */
     public function changeVacancyPublishedStatusAction($urlid, $deleted)
     {
         $user = $this->getUser();
