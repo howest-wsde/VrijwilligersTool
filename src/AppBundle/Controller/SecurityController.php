@@ -18,6 +18,7 @@ class SecurityController extends UtilityController
     */
     public function registerAction(Request $request)
     {
+        $t = $this->get('translator');
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
         $user = new Person();
         $form = $this->createForm(PersonType::class, $user);
@@ -43,7 +44,7 @@ class SecurityController extends UtilityController
             $email = $user->getEmail();
             if($email){
                 $info = array(
-                            'subject' => 'Welkom bij Roeselare Vrijwilligt',
+                            'subject' => $t->trans('security.mail.welcome'),
                             'template' => 'registration.html.twig',
                             'txt/plain' => 'registration.txt.twig',
                             'to' => $email,
@@ -60,7 +61,7 @@ class SecurityController extends UtilityController
             if($contactOrganisation){
                 //set digest / send email to all administrators
                 $info = array(
-                            'subject' => 'Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie',
+                            'subject' => $t->trans('security.mail.newCharge'),
                             'template' => 'newCharge.html.twig',
                             'txt/plain' => 'newCharge.txt.twig',
                             'to' => $contactOrganisation->getEmail(),
@@ -75,14 +76,13 @@ class SecurityController extends UtilityController
             }
 
             //set a success message
-            $this->addFlash('approve_message', 'Een nieuwe gebruiker met naam ' . $user->getFirstname() . ' ' . $user->getLastname() . ' werd succesvol aangemaakt' . ($email ? '.  Een bevestigingsbericht werd gestuurd naar ' . $email . '.' : '.')
+            $this->addFlash('approve_message', $t->trans('security.flash.newUserStart') . ' ' . $user->getFirstname() . ' ' . $user->getLastname() . ' ' . $t->trans('security.flash.newUser2') . ($email ? $t->trans('security.flash.newUserMail') . $email . '.' : '.')
             );
         }
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
-            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-            );
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render(

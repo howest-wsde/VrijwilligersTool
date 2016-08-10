@@ -16,6 +16,14 @@ candidacy:
 utility:
     send:
         subject: Mail vanwege Roeselare Vrijwilligt
+security:
+    mail:
+        welcome: Welkom bij Roeselare Vrijwilligt
+        newCharge: Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie
+    flash:
+        newUserStart: Een nieuwe gebruiker met naam
+        newUser2: werd succesvol aangemaakt
+        newUserMail: '.  Een bevestigingsbericht werd gestuurd naar '
 vacancy:
     template:
         vacancyFit: Vacatures op maat
