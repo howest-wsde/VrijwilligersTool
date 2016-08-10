@@ -23,6 +23,7 @@ class OrganisationController extends UtilityController
      */
     public function createOrganisationAction($urlid, Request $request)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
         if ($urlid){
             $em = $this->getDoctrine()->getManager();
@@ -46,14 +47,13 @@ class OrganisationController extends UtilityController
 
             if(!$urlid){
                 //set a success message
-                $this->addFlash('approve_message', 'Een nieuwe organisatie met naam ' . $organisation->getName() . ' werd aangemaakt.'
+                $this->addFlash('approve_message', $t->trans('org.flash.createStart') . ' ' . $organisation->getName() . $t->trans('org.flash.createEnd')
                 );
             }
             else
             {
                //set a success message
-                $this->addFlash('approve_message', 'De extra informatie werd succesvol opgeslagen.'
-                );
+                $this->addFlash('approve_message', $t->trans('org.flash.saved'));
             }
 
             return $this->redirect($this->generateUrl("create_organisation_step2", ['urlid' => $organisation->getUrlId() ]));
@@ -61,8 +61,7 @@ class OrganisationController extends UtilityController
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
-            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-            );
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("organisation\maakvereniging.html.twig",
@@ -78,10 +77,11 @@ class OrganisationController extends UtilityController
      */
     public function editOrganisationAction($urlid, Request $request)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
 
         if(!$urlid){
-            throw $this->createNotFoundException("De organisatie met id " . $urlid . "werd niet teruggevonden");
+            throw $this->createNotFoundException($t->trans('org.exception.notFoundStart') . " " . $urlid . $t->trans('org.exception.notFoundEnd'));
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -89,11 +89,11 @@ class OrganisationController extends UtilityController
             ->findOneByUrlid($urlid);
 
         if(!$organisation){
-            throw $this->createNotFoundException("De organisatie werd niet teruggevonden");
+            throw $this->createNotFoundException($t->trans('org.exception.notFound'));
         }
 
         if(!$user->getOrganisations()->contains($organisation)){
-            throw $this->createAccessDeniedException("U bent geen beheerder van deze organisatie.");
+            throw $this->createAccessDeniedException($t->trans('org.exception.noAdmin'));
         }
 
         $form = $this->createForm(OrganisationType::class, $organisation);
@@ -104,7 +104,7 @@ class OrganisationController extends UtilityController
             $em->flush();
 
            //set a success message
-            $this->addFlash('approve_message', 'De wijzigingen werden succesvol opgeslagen.');
+            $this->addFlash('approve_message', $t->trans('org.flash.editOk'));
 
 
             return $this->render("organisation/vereniging.html.twig",
@@ -116,8 +116,7 @@ class OrganisationController extends UtilityController
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
-            $this->addFlash('error', 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
-            );
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("organisation/vereniging_aanpassen.html.twig",
@@ -132,6 +131,7 @@ class OrganisationController extends UtilityController
      */
     public function organisationViewAction($urlid, Request $request)
     {
+        $t = $this->get('translator');
         //TODO replace with AddAdminType form
         $data = $this->createAddAdminData($urlid);
         $form = $data['form'];
@@ -152,7 +152,7 @@ class OrganisationController extends UtilityController
 
             //set digest / send email to all administrators
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' werd toegevoegd als admin voor ' . $organisation->getName();
+                       ' ' . $t->trans('org.mail.view') . ' ' . $organisation->getName();
             $info = array(
                         'subject' => $subject,
                         'template' => 'newAdmin.html.twig',
@@ -166,7 +166,7 @@ class OrganisationController extends UtilityController
             $this->digestOrMail($info);
 
            //set a success message
-            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol toegevoegd als beheerder voor deze organisatie.');
+            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.newAdmin'));
         }
 
         return $this->render("organisation/vereniging.html.twig",
@@ -202,6 +202,7 @@ class OrganisationController extends UtilityController
      */
     public function organisationRemoveAdminAction($organisation_urlid, $person_username)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
@@ -215,7 +216,7 @@ class OrganisationController extends UtilityController
 
             //set digest / send email to all administrators
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' werd verwijderd als beheerder voor ' . $organisation->getName();
+                       ' ' . $t->trans('org.mail.removeAdmin') . ' ' . $organisation->getName();
             $info = array(
                         'subject' => $subject,
                         'template' => 'removeAdmin.html.twig',
@@ -230,7 +231,7 @@ class OrganisationController extends UtilityController
             $this->digestOrMail($info);
 
            //set a success message
-            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' werd succesvol verwijderd als beheerder voor deze organisatie.');
+            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.removeAdmin'));
         }
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
@@ -244,6 +245,7 @@ class OrganisationController extends UtilityController
      */
     public function saveOrganisationAction($urlid, $saveaction, Request $request)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
@@ -257,7 +259,7 @@ class OrganisationController extends UtilityController
             if(!$ajax)
             {
                //set a success message
-                $this->addFlash('approve_message', 'Deze organisatie werd toegevoegd aan uw bewaarde organisaties.');
+                $this->addFlash('approve_message', $t->trans('org.flash.addToSaved'));
             }
             $user->addLikedOrganisation($organisation);
         }
@@ -265,7 +267,7 @@ class OrganisationController extends UtilityController
             if(!$ajax)
             {
                //set a success message
-                $this->addFlash('approve_message', 'Deze organisatie werd verwijderd uit uw bewaarde organisaties.');
+                $this->addFlash('approve_message', $t->trans('org.flash.removeFromSaved'));
             }
         }
         $em->persist($user);
@@ -278,13 +280,13 @@ class OrganisationController extends UtilityController
                 $arResult = array(
                     "url" => $this->generateUrl('organisation_save', array('urlid' => $urlid, "saveaction" => "remove")),
                     "class" => "liked",
-                    "text" => "Verwijder uit bewaarde organisaties",
+                    "text" => $t->trans('org.ajax.removeFromSaved'),
                 );
             } else {
                 $arResult = array(
                     "url" => $this->generateUrl('organisation_save', array('urlid' => $urlid, "saveaction" => "save")),
                     "class" => "notliked",
-                    "text" => "Bewaar",
+                    "text" => $t->trans('general.label.save'),
                 );
             }
             $response = new Response();
@@ -355,6 +357,7 @@ class OrganisationController extends UtilityController
      * @param integer $id the organisation id
      */
     public function ListOrganisationVolunteersAction($id){
+        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation");
 
@@ -366,9 +369,9 @@ class OrganisationController extends UtilityController
         $count = $query->getResult()[0][1];
         $count += sizeof($organisation->findOneById($id)->getAdministrators());
 
-        $count <= 1 ? $response = " medewerker" : $response = " medewerkers en vrijwilligers";
+        $count <= 1 ? $response = " " . $t->trans('org.list.volunteer') : $response = $t->trans('org.list.volunteers');
 
-        return new Response($count . $response . " op deze site");
+        return new Response($count . $response . " " . $t->trans('org.list.here'));
     }
 
     /**
@@ -391,7 +394,7 @@ class OrganisationController extends UtilityController
 
         $form = $this->createFormBuilder($defaultData)
                 ->add('addAdmin', EntityType::class, array(
-                    'label' => 'organisation.label.addAdmin',
+                    'label' => 'org.label.addAdmin',
                     // query choices from this entity
                     'class' => 'AppBundle:Person',
                     'query_builder' => function (EntityRepository $er)
@@ -412,7 +415,7 @@ class OrganisationController extends UtilityController
                     'placeholder' => false,
                 ))
                 ->add("submitAdmin", SubmitType::class, array(
-                    "label" => "organisation.label.submitAdmin",
+                    "label" => "org.label.submitAdmin",
                     "validation_groups" => false,
                 ))
                 ->getForm();
@@ -423,5 +426,4 @@ class OrganisationController extends UtilityController
             'em' => $em,
         );
     }
-
 }

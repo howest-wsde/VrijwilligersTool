@@ -255,7 +255,7 @@ class VacancyController extends UtilityController
                 $this->addFlash('approve_message', $t->trans('vacancy.flash.removeFromSaved'));
             }
         }
-        $em->persist($user);'vacancy.flash.removeFromSaved'
+        $em->persist($user);
         $em->flush();
 
 

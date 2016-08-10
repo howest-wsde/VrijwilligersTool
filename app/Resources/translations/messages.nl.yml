@@ -51,7 +51,30 @@ vacancy:
         removeCandidacySubjectStart: trok haar/zijn kandidaat voor de vacature met titel
         removeCandidacySubjectEnd: 'in.'
         submitCandidacy: 'stelde zich kandidaat voor de vacature met titel:'
-organisation:
+org:
     label:
         addAdmin: Nieuwe beheerder
         submitAdmin: Voeg beheerder toe
+    flash:
+        createStart: Een nieuwe organisatie met naam
+        createEnd: ' werd aangemaakt.'
+        saved: De extra informatie werd succesvol opgeslagen.
+        editOk: De wijzigingen werden succesvol opgeslagen.
+        newAdmin: werd succesvol toegevoegd als beheerder voor deze organisatie.
+        removeAdmin: werd succesvol verwijderd als beheerder voor deze organisatie.
+        addToSaved: Deze organisatie werd toegevoegd aan uw bewaarde organisaties.
+        removeFromSaved: Deze organisatie werd verwijderd uit uw bewaarde organisaties.
+    exception:
+        notFoundStart: De organisatie met id
+        notFoundEnd: werd niet teruggevonden
+        notFound: De organisatie werd niet teruggevonden
+        noAdmin: U bent geen beheerder van deze organisatie.
+    mail:
+        view: werd toegevoegd als admin voor
+        removeAdmin: werd verwijderd als beheerder voor
+    ajax:
+        removeFromSaved: Verwijder uit bewaarde organisaties
+    list:
+        volunteer: medewerker
+        volunteers: medewerkers en vrijwilligers
+        here: op deze site
