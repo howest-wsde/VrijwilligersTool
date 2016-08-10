@@ -3,7 +3,7 @@ general:
         previous: Vorige
         save: Bewaar
     flash:
-        formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en bij het veld waar de foutmelding staat de nodige stappen te ondernemen.'
+        formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en de instructies bij het veld / de velden waar de foutmelding staat de nodige stappen te ondernemen.'
 candidacy:
     mail:
         approve: werd goedgekeurd als vrijwilliger
