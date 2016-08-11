@@ -32,4 +32,4 @@ monolog:
         #    level:  info
 
 swiftmailer:
-   delivery_address: koen.cornelis@vanonderen.be
+   delivery_address: info@roeselarevrijwilligt.be

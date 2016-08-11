@@ -69,8 +69,7 @@ class ElasticsearchQuery
      */
     public function searchForRaw($params)
     {
-        $this->raw_result = $this->client->search($params);
-        return $this->raw_result;
+        return $this->client->search($params);
     }
 
     /**
