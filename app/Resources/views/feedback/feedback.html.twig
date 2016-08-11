@@ -1,3 +1,4 @@
+{% trans_default_domain "views" %}
  <div id="feedback">
   <div id="feedback-form" style='display:none;' class="col-xs-4 col-md-4 panel panel-default">
     <form method="POST" action="{{ path("feedback") }}" class="form panel-body" role="form">
@@ -5,8 +6,8 @@
       <div class="form-group">
         <textarea class="form-control" name="body" required placeholder="Geef hier je feedback..." rows="5"></textarea>
       </div>
-      <button class="btn btn-primary pull-right" type="submit">verzenden</button>
+      <button class="btn btn-primary pull-right" type="submit">{{ "feedback.send"|trans }}</button>
     </form>
   </div>
-  <div id="feedback-tab">Feedback</div>
+  <div id="feedback-tab">{{ "feedback.feedback"|trans }}</div>
 </div>

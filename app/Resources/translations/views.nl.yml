@@ -76,3 +76,6 @@ def: #default
         test:
             title: Doe de test
             teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+feedback:
+    send: verzenden
+    feedback: Feedback
