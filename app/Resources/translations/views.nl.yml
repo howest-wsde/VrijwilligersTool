@@ -266,3 +266,12 @@ security:
         pending: in afwachting
         approved: goedgekeurd
         loggedout: Not logged in!
+skills:
+    vacancytypes: Vacature types
+tests:
+    volunteer:
+        title: Welk type vrijwilliger ben jij?
+        body: Zeg het maar eens
+    tests:
+        body: Enkele tests
+        title: Tests
