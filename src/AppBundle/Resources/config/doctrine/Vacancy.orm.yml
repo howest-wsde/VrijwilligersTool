@@ -1,4 +1,3 @@
-
 AppBundle\Entity\Vacancy:
     type: entity
     id:
@@ -39,6 +38,9 @@ AppBundle\Entity\Vacancy:
             type: string
             scale: 100
             nullable: true
+        accessible:
+            type: boolean
+            options: {default: false}
         socialInteraction:
             type: string
             length: 10

@@ -37,7 +37,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $id;
 
-
     /**
      * @var string
      * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
@@ -302,7 +301,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $candidacies;
-
 
     /**
      * @var \AppBundle\Entity\Organisation
@@ -1138,5 +1136,14 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function isOfType($type)
     {
         return $this->getClassName() == $type;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'person';
     }
 }

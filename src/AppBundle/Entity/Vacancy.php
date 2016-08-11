@@ -96,9 +96,15 @@ class Vacancy extends EntityBase
     private $longterm = false;
 
     /**
+     * Whether or not a vacancy is weelchair-accessible
+     * @var bool
+     */
+    private $accessible = false;
+
+    /**
      * @var int
      */
-    private $estimatedWorkInHours;
+    private $estimatedWorkInHours = 0;
 
     /**
      * @var string
@@ -190,7 +196,7 @@ class Vacancy extends EntityBase
     /**
      * @var float
      */
-    private $renumeration;
+    private $renumeration = 0;
 
     /**
      * @var string
@@ -436,6 +442,30 @@ class Vacancy extends EntityBase
     public function getLongterm()
     {
         return $this->longterm;
+    }
+
+    /**
+     * Set accessible
+     *
+     * @param bool $accessible
+     *
+     * @return Vacancy
+     */
+    public function setAccessible($accessible)
+    {
+        $this->accessible = $accessible;
+
+        return $this;
+    }
+
+    /**
+     * Get accessible
+     *
+     * @return bool
+     */
+    public function getAccessible()
+    {
+        return $this->accessible;
     }
 
     /**
@@ -831,7 +861,6 @@ class Vacancy extends EntityBase
         $this->skills->removeElement($skill);
     }
 
-
     /**
      * Add candidacy
      *
@@ -955,5 +984,15 @@ class Vacancy extends EntityBase
     public function getSkills()
     {
         return $this->skills;
+    }
+
+        /**
+     * Set skills
+     * @param \Doctrine\Common\Collections\Collection  $skills  collection of skills
+     */
+    public function setSkills(\Doctrine\Common\Collections\Collection $skills)
+    {
+        $this->skills = $skills;
+        return $this;
     }
 }

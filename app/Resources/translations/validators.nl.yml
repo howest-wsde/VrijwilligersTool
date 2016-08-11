@@ -25,6 +25,7 @@ vacancy:
         bus: Busnummer
         postalcode: Postcode
         city: Stad
+        accessible: Is er toegang mogelijk voor mindermobielen (inclusief rolstoel)?
         submit: Plaats vacature!
         save: Bewaar en publiceer later
         otherReward: Andere
@@ -37,6 +38,7 @@ vacancy:
         longterm: Betreft de vacature een langdurig engagement?
         wanted: Hoeveel vrijwilligers zoekt u voor deze vacature?
     choices:
+        accessible: Ja
         independent: Ja
         dependent: Nee
         all: Alles draait rond sociale interactie
@@ -166,8 +168,27 @@ person:
         nomail: Ik wil geen meldingen ontvangen
 search:
     label:
-        hoursaweek: uren per week
+        hoursAWeek: uren per week
         distance: km
+        search: Zoeken
+        sort: 'Sorteer op:'
+        person: Personen
+        organisation: Verenigingen
+        vacancy: Vacatures
+    choices:
+        distance: Afstand
+        date: Datum
+        endDate: Vervaldatum
+        reward: Vergoeding
+        long: langdurig
+        1time: éénmalig
+        weelchair: Toegankelijk voor rolstoel
+        lotsContact: Veel sociaal contact
+        littleContact: Weinig sociaal contact
+        renumeration: Vrijwilligersvergoeding
+        other: Andere voordelen
+    placeholder:
+        searchTerm: zoekterm (optioneel)
 general:
     label:
         previous: Vorige

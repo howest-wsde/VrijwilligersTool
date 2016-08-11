@@ -132,4 +132,22 @@ class Skill extends EntityBase
     {
         return $this->parent;
     }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'skill';
+    }
+
+    /**
+     * helper function to enable the entity property of the nested sector object in the organisation document to display the correct "class" name.  The class name is then afterwards correctly replaced to skill.
+     * @return String the classname of this entity
+     */
+    public function esGetSectorName()
+    {
+        return 'sector';
+    }
 }

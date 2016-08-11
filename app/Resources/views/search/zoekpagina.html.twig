@@ -23,7 +23,7 @@
 						<fieldset>
 							<h3>Filter op type</h3>
 					        {{ form_row(form.person) }}
-							{{ form_row(form.organisation) }}
+							{{ form_row(form.org) }}
 							{{ form_row(form.vacancy) }}
 						</fieldset>
 
@@ -34,21 +34,20 @@
 
 						<fieldset>
 							<h3>Filter op sector</h3>
-							<p>coming soon...</p>{# TODO: issue 170#}
-							{#{ form_row(form.sector) }#}
+							{{ form_row(form.sectors) }}
 						</fieldset>
 
 						<fieldset>
 							<h3>Filter op intensiteit</h3>
 							{{ form_row(form.intensity) }}
-							{{ form_row(form.hoursAWeek) }}
+							{{ form_row(form.estimatedWorkInHours) }}
 						</fieldset>
 
-						<fieldset>
+{# 						<fieldset>
 							<h3>Filter op afstand</h3>
 							{{ form_row(form.distance) }}
 						</fieldset>
-
+ #}
 						<fieldset>
 							<h3>Filter op kenmerk</h3>
 							{{ form_row(form.characteristic) }}

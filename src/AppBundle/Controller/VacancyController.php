@@ -386,7 +386,7 @@ class VacancyController extends UtilityController
 
         $results = $query->search($params);
 
-        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $query->getResults(), 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
+        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $results, 'title' => 'Vacatures op maat']);//TODO retrieve and add matching vacancies here
     }
 
 /**
