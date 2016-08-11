@@ -1,10 +1,11 @@
+{% trans_default_domain "views" %}
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">Algemene gegevens</a></h2>
+    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "org.form.general"|trans }}</a></h2>
     <div class="step {% if organisation==false %}actief{% endif %} grijs rood">
         <fieldset>
-            <legend>Organisatiegegevens</legend>
+            <legend>{{ "org.form.org"|trans }}</legend>
             <div class="col-md-8">
                 {{ form_row(form.name) }}
                 {{ form_row(form.slogan) }}
@@ -26,13 +27,13 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle blauw"><a href="#contact" name="contact">Contactgegevens</a></h2>
+    <h2 class="steptitle blauw"><a href="#contact" name="contact">{{ "org.form.contact"|trans }}</a></h2>
     <div class="step {% if organisation %}actief{% endif %} grijs blauw">
         <fieldset>
             {% if organisation and source=="create_organisation" %}
                 <p>
-                    Uw organisatie werd succesvol aangemaakt!<br />
-                    Vul nu hieronder extra informatie in, of <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a>.
+                    {{ "org.form.created"|trans }}<br />
+                    {{ "org.form.extra"|trans }} <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">{{ "org.form.general"|trans }}</a>.
                 </p>
             {% endif %}
             <div class="row">
@@ -68,10 +69,10 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle geel"><a href="#sectoraal" name="sectoraal">Sectorale info</a></h2>
+    <h2 class="steptitle geel"><a href="#sectoraal" name="sectoraal">{{ "org.form.sectoral"|trans }}</a></h2>
     <div class="step grijs geel">
         <fieldset>
-            <p><strong>In welke sectoren is deze vereniging actief?</strong></p>
+            <p><strong>{{ "org.form.active"|trans }}</strong></p>
             {{ form_row(form.sectors) }}
             <!-- {{ form_row(form.backToContact) }} -->
             {{ form_row(form.submitEnd) }}

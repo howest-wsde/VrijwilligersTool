@@ -1,3 +1,30 @@
+general:
+    flash:
+        success: Success!
+    button:
+        next: Volgende
+        click: klik dan op deze link
+        unlike: Verwijder
+        like: Bewaar
+        more: lees meer
+    map:
+        show: Toon routebeschrijving
+        select: selecteer uw gewenste transportwijze
+        car: Auto
+        bike: Fiets
+        foot: Te voet
+        public: Openbaar vervoer
+        bus: Per bus
+        track: 'Per spoor (combinatie van trein, tram, metro,...)'
+        metro: Per metro
+        trolley: Per tram
+    admin:
+        title: Links voor beheer
+        modify: Aanpassen
+        createvacancy: Vacature aanmaken
+        deleteorg: Organisatie verwijderen
+        admins: Beheerders
+        away: ontneem admin rechten
 base:
     general:
         name: Roeselare vrijwilligt
@@ -111,3 +138,46 @@ info:
             insurance: Je sluit een verzekering af voor elke vrijwilliger.
             guidance: 'Je zorgt dat elke vrijwilliger goed begeleid wordt.  Een vrijwilliger is geen gratis werkpaard maar een waardevol medewerker!'
 org:
+    general:
+        name: Vrijwilliger vinden
+        looking: Op zoek naar vrijwilligers?
+        profile: Maak nu een profiel voor je vereniging zodat je vacatures kan plaatsen!
+    make:
+        rules: Bekijk de spelregels
+        place: Plaats een vacature
+    tailored:
+        look: Bekijk vrijwilligers
+        list: -- LIJST --
+    org:
+        title: Vereniging
+        deleted: Deze vereniging werd verwijderd.
+        unjust: 'Indien dit onterecht was en u de verwijdering ongedaan wil maken,'
+        noadres: Voor deze organisatie is geen adres bekend.
+        vacancies: Vacatures
+    modify:
+        title: Organisatie-gegevens aanpassen
+        data: Gegevens
+        modify: aanpassen
+    form:
+        general: Algemene gegevens
+        org: Organisatiegegevens
+        contact: Contactgegevens
+        created: Uw organisatie werd succesvol aangemaakt!
+        extra: 'Vul nu hieronder extra informatie in, of'
+        place: Plaats een vacature
+        sectoral: Sectorale info
+        active: In welke sectoren is deze vereniging actief?
+    min:
+        remove: Verwijder uit bewaarde organisaties
+        noopen: geen openstaande vacatures
+        1open: 1 openstaande vacature
+        open: openstaande vacatures
+    find:
+        looking: Ben je op zoek naar één of meerdere vrijwilligers?
+        here: Op deze pagina kan je
+        registered: als geregistreerde gebruiker
+        create: een vacature aanmaken
+        choice: Je hebt daarbij de keuze tussen een vacature voor een organisatie of voor een persoon.
+        which: Voor welke vereniging wil je een vrijwilliger vinden?
+        new: Ik wil eerst een nieuwe vereniging aanmaken
+        self: Ik wil als particulier een vrijwilliger zoeken

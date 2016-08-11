@@ -1,14 +1,15 @@
+{% trans_default_domain "views" %}
 {% if not cta is defined %}
     {% set cta = {
         "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
-        "txt": "lees meer"
+        "txt": '{{ "general.button.more"|trans }}'
     } %}
 {% endif %}
 <article class="vereniging cta">
     {% if app.user in organisation.likers %}
-        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>Verwijder uit bewaarde organisaties</span></a>
+        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
     {% else %}
-        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>Bewaar</span></a>
+        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
     {% endif %}
 
         <header>
@@ -30,7 +31,7 @@
                 {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
             </li>
             <li>
-                {% if organisation.vacancies|length == 0 %} geen openstaande vacatures {% elseif organisation.vacancies|length == 1 %} 1 openstaande vacature {% else %} {{ organisation.vacancies|length }} openstaande vacatures {% endif %}
+                {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} {{ "org.min.1open"|trans }} {% else %} {{ organisation.vacancies|length }} {{ "org.min.open"|trans }} {% endif %}
             </li>
         </ul>
         <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>

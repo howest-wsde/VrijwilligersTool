@@ -1,16 +1,17 @@
+{% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}Vereniging{% endblock %}
+{% block title %}{{ "org.org.title"|trans }}{% endblock %}
 
 {% block body %}
 {% if organisation.deleted %}
 	<h1>{{ organisation.name }}</h1>
-	<p>Deze vereniging werd verwijderd.  {% if app.user in organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">klik dan op deze link</a>.{% endif %}</p>
+	<p>{{ "org.org.deleted"|trans }}  {% if app.user in organisation.administrators %}{{ "org.org.unjust"|trans }} <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
 	<article class="tempblok">
 	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
-                <strong>Success!</strong> {{ flashMessage }}
+                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
             </div>
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('error') %}
@@ -22,9 +23,9 @@
 		<h1>{{ organisation.name }}</h1>
 		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
 		{% if app.user in organisation.likers %}
-			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}">Unlike</a>
+			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}">{{ "general.button.unlike"|trans }}</a>
 		{% else %}
-			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}">Like</a>
+			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}">{{ "general.button.like"|trans }}</a>
 		{% endif %}
 		{% if organisation.logoName %}
 			{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
@@ -47,21 +48,21 @@
 			</p>
 			<aside id="#googlemaps">
 				<div>
-					<button id="getRoute">Toon routebeschrijving</button>
+					<button id="getRoute">{{ "general.map.show"|trans }}</button>
 					<div id="description" class="hidden"></div>
-					<p>selecteer uw gewenste transportwijze</p>
+					<p>{{ "general.map.select"|trans }}</p>
 					<div onchange="googleMapsModule.drawRoute()">
 						<select id="transitMethod">
-							<option value="DRIVING">Auto</option>
-							<option value="BICYCLING">Fiets</option>
-							<option value="WALKING">Te voet</option>
-							<option value="TRANSIT">Openbaar vervoer</option>
+							<option value="DRIVING">{{ "general.map.car"|trans }}</option>
+							<option value="BICYCLING">{{ "general.map.bike"|trans }}</option>
+							<option value="WALKING">{{ "general.map.foot"|trans }}</option>
+							<option value="TRANSIT">{{ "general.map.public"|trans }}</option>
 						</select>
 						<select id="transitMode" class="hidden">
-							<option value="BUS">Per bus</option>
-							<option value="RAIL">Per spoor (combinatie van trein, tram, metro,...)</option>
-							<option value="SUBWAY">Per metro</option>
-							<option value="TRAM">Per tram</option>
+							<option value="BUS">{{ "general.map.bus"|trans }}</option>
+							<option value="RAIL">{{ "general.map.track"|trans }}</option>
+							<option value="SUBWAY">{{ "general.map.metro"|trans }}</option>
+							<option value="TRAM">{{ "general.map.trolley"|trans }}</option>
 						</select>
 					</div>
 				</div>
@@ -77,7 +78,7 @@
 				</div>
 			</aside>
 		{% else %}
-			<p>Voor deze organisatie is geen adres bekend.</p>
+			<p>{{ "org.org.noadres"|trans }}</p>
 		{% endif %}
 		<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
 		<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
@@ -85,27 +86,27 @@
 	</article>
 
 	{% if organisation.vacancies %}
-		<h3>Vacatures</h3>
+		<h3>{{ "org.org.vacancies"|trans }}</h3>
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 	{% endif %}
 
 	{% if app.user in organisation.administrators %}
 		<aside>
-			<h3>Links voor beheer</h3>
+			<h3>{{ "general.admin.title"|trans }}</h3>
 			<ul>
-				<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">Aanpassen</a></li>
+				<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
 				<li>
-					<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">Vacature aanmaken</a>
+					<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
 				</li>
 				{% if not organisation.deleted %}
 					<li>
-						<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">Organisatie verwijderen</a>
+						<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
 					</li>
 				{% endif %}
-				<li>Beheerders:
+				<li>{{ "general.admin.admins"|trans }}:
 					<ul>
 						{% for administrator in organisation.administrators %}
-							<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">ontneem admin rechten</a></li>
+							<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
 						{% endfor %}
 						<li>
 							{{ form_start(form) }}
