@@ -5,6 +5,7 @@ general:
     org: organisatie
     flash:
         success: Success!
+        fail: Afgekeurd!
     button:
         next: Volgende
         click: klik dan op deze link
@@ -275,3 +276,49 @@ tests:
     tests:
         body: Enkele tests
         title: Tests
+vacancy:
+    vacancy:
+        removed: Deze vacature werd verwijderd.
+        undo: 'Indien dit onterecht was en u de verwijdering ongedaan wil maken,'
+        filled: Deze vacature is reeds ingevuld.  Momenteel worden er geen vrijwilligers meer gezocht voor dit profiel.
+        want1: kandidaat gezocht.
+        wantseveral: kandidaten gezocht
+        offer: Ons aanbod
+        startdate: Begindatum
+        enddate: Einddatum
+        location: Locatie
+        bus: bus
+        tweet: Tweeten
+        mail: Email deze vacature
+        print: Print deze vacature
+        remove: Verwijder uit bewaarde vacatures
+        save: Bewaar
+        candremove: Verwijder kandidatuur
+        candpose: Stel je kandidaat
+        admin:
+            modify: Vacature aanpassen
+            select: Kandidaten selecteren
+            delete: Vacature verwijderen
+    modify:
+        title: Vacature Aanpassen
+        anul: Annuleren
+    form:
+        general: Algemene gegevens
+        where: Waar zal de vrijwilliger werken?
+        googlemap: map preview
+        moreinfo: Meer info
+        skills: Vaardigheden
+        advantages: Voordelen voor de vrijwilliger
+    approve:
+        title: Kandidaten voor deze vacature
+        candidates: Goedgekeurde kandidaten
+        open: Open kandidaatstellingen
+        look: Bekijk Profiel
+    min:
+        remove: Verwijder uit bewaarde vacatures
+        save: Bewaar
+        delete: Delete
+    new:
+        title: Vacature aanmaken
+        looking: Op zoek naar vrijwilligers?
+        fill: Vul hier de gegevens van je vacature in.

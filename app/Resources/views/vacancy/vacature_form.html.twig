@@ -1,7 +1,8 @@
+{% trans_default_domain "views" %}
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">Algemene gegevens</a></h2>
+    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "vacancy.form.general"|trans }}</a></h2>
     <div class="step actief grijs rood">
         <fieldset>
             {{ form_row(form.title) }}
@@ -14,7 +15,7 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle groen"><a href="#locatie" name="locatie">Waar zal de vrijwilliger werken?</a></h2>
+    <h2 class="steptitle groen"><a href="#locatie" name="locatie">{{ "vacancy.form.where"|trans }}</a></h2>
     <div class="step grijs groen">
         <fieldset>
             <div class="row">
@@ -39,13 +40,13 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="col-md-12 google">map preview</div>
+                    <div class="col-md-12 google">{{ "vacancy.form.googlemap"|trans }}</div>
                 </div>
             </div>
         </fieldset>
     </div>
 
-    <h2 class="steptitle geel"><a href="#info" name="info">Meer info</a></h2>
+    <h2 class="steptitle geel"><a href="#info" name="info">{{ "vacancy.form.moreinfo"|trans }}</a></h2>
     <div class="step grijs geel">
         <fieldset>
            {{ form_row(form.socialInteraction) }}
@@ -53,14 +54,14 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle blauw"><a href="#vaardigheden" name="vaardigheden">Vaardigheden</a></h2>
+    <h2 class="steptitle blauw"><a href="#vaardigheden" name="vaardigheden">{{ "vacancy.form.skills"|trans }}</a></h2>
     <div class="step grijs blauw">
         <fieldset>
             {{ form_row(form.skills) }}
         </fieldset>
     </div>
 
-    <h2 class="steptitle rood"><a href="#voordelen" name="voordelen">Voordelen voor de vrijwilliger</a></h2>
+    <h2 class="steptitle rood"><a href="#voordelen" name="voordelen">{{ "vacancy.form.advantages"|trans }}</a></h2>
     <div class="step grijs rood">
         <fieldset>
             <div class="onerow">{{ form_row(form.renumeration) }}</div>

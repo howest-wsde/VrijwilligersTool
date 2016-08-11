@@ -1,12 +1,13 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vacature Aanmaken{% endblock %}
+{% block title %}{{ "vacancy.new.title"|trans }}{% endblock %}
 
 {% block body %}
     <header class="center">
-        <h1>Vacature aanmaken</h1>
-        <p>Op zoek naar vrijwilligers?</p>
-        <p>Vul hier de gegevens van je vacature in. </p>
+        <h1>{{ "vacancy.new.title"|trans }}</h1>
+        <p>{{ "vacancy.new.looking"|trans }}</p>
+        <p>{{ "vacancy.new.fill"|trans }}</p>
     </header>
 
 	<section class="steps">
