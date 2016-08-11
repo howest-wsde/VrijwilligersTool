@@ -6,6 +6,7 @@ use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
+
 /**
  * Class containing all logic to map an es search result in json format to the corresponding entities.
  */

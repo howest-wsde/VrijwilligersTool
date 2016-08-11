@@ -176,12 +176,12 @@ class OrganisationController extends UtilityController
             ]);
     }
 
-/**
- * Delete or restore an organisation
- * @Route("/vereniging/{urlid}/delete", name="delete_organisation", defaults={ "deleted" = true })
- * @Route("/vereniging/{urlid}/restore", name="restore_organisation", defaults={ "deleted" = false })
- * @param  AppBundle\Entity\Organisation $organisation the organisation to be deleted or restored
- */
+    /**
+     * Delete or restore an organisation
+     * @Route("/vereniging/{urlid}/delete", name="delete_organisation", defaults={ "deleted" = true })
+     * @Route("/vereniging/{urlid}/restore", name="restore_organisation", defaults={ "deleted" = false })
+     * @param  AppBundle\Entity\Organisation $organisation the organisation to be deleted or restored
+     */
     public function changeOrganisationDeletedStatusAction($urlid, $deleted)
     {
         $user = $this->getUser();
@@ -307,11 +307,32 @@ class OrganisationController extends UtilityController
             ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }
 
-/**
- * Get a random selection of organisations.
- * @param integer $nr       The amount of organisations in the selection
- * @param string  $viewMode The way the organisations should be rendered
- */
+    /**
+     * Get all saved organisations for a user
+     * @param  AppBundle\Entity\Person $user the user for which the organisations have to be retrieved
+     */
+    public function listSavedOrganisationsAction($user)
+    {
+        return $this->render("oranisation/verenigingen_oplijsten.html.twig",
+            ["organisations" => $user->getLikedOrganisations(), "viewMode" => 'tile']);
+    }
+
+    /**
+     * Get all own organisations for a user
+     * @param  AppBundle\Entity\Person $user the user for which the organisations have to be retrieved
+     */
+    public function listOwnOrganisationsAction($user)
+    {
+        return $this->render("oranisation/verenigingen_oplijsten.html.twig",
+            ["organisations" => $user->getOrganisations(), "viewMode" => 'tile']);
+    }
+
+
+    /**
+     * Get a random selection of organisations.
+     * @param integer $nr       The amount of organisations in the selection
+     * @param string  $viewMode The way the organisations should be rendered
+     */
     public function ListRandomOrganisationsAction($nr, $viewMode = "list")
     {
         $em = $this->getDoctrine()->getManager();
@@ -329,10 +350,10 @@ class OrganisationController extends UtilityController
             ]);
     }
 
-/**
- * Get a listing of the amount of volunteers an organisation has - that are known on this site.
- * @param integer $id the organisation id
- */
+    /**
+     * Get a listing of the amount of volunteers an organisation has - that are known on this site.
+     * @param integer $id the organisation id
+     */
     public function ListOrganisationVolunteersAction($id){
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation");
