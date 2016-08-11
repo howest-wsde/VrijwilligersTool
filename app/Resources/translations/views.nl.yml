@@ -1,0 +1,78 @@
+base:
+    general:
+        name: Roeselare vrijwilligt
+        about:
+            stimulate: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
+            develop: 'ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.'
+            capital: 'ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.'
+            initiative: "Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
+            platform: Het platform werd ontwikkeld door Howest.
+    head:
+        title: Roeselare Vrijwilligt
+    body:
+        header:
+            title: Roeselare Vrijwilligt
+            menu:
+                about: over ons
+                contact: contact
+                profile: mijn profiel
+                logout: uitloggen
+                login: inloggen
+                become: vrijwilliger worden
+                find: vrijwilliger vinden
+                info: vrijwilligersinfo
+                tests: tests
+        newsletter:
+            cta: Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!
+        footer:
+            recvac: recente vacatures
+            recorg: recente verenigingen
+            info: vrijwilligersinfo
+            legislation: wetgeving
+            profile: profiel van een vrijwilliger
+            what: wat is vrijwilligerswerk
+            why: moeder waarom vrijwilligen wij?
+            rules: spelregels
+            faq: veelgestelde vragen
+            tests: tests
+            type: welk type vrijwilliger ben ik?
+            about: over ons
+            contact: contact
+            partners: partners
+            howest: Howest
+            city: Stad Roeselare
+            privacy: Privacy en legale voorwaarden
+def: #default
+    carousel:
+        title: Zinvol vrijwilligerswerk
+        difference: Ervaar hoe een paar uur van je tijd een groot verschil maken.
+        participate: Doe mee!
+        info: Informatie over vrijwilligerswerk
+        infoteaser: Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
+        more: Of lees de uitleg ...
+        notsure: Niet zeker wat je wil?
+        test: Doe hier de test!
+    index:
+        logintitle: Log in met je gebruikersgegevens en wachtzin.
+        id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
+        phrase: Wachtzin
+        login: login
+        external: Log in via een externe site
+        google: Inloggen via je Google-account
+        fb: Inloggen via Facebook
+        none: Nog geen login?
+        create: Maak een account
+    info:
+        more: lees meer
+        how:
+            title: Hoe werkt het?
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sa amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        stories:
+            title: Verhalen
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        info:
+            title: Informatie
+            teaser: 'Lorem ipsum dolor sit amet,  sit amet,  sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        test:
+            title: Doe de test
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'

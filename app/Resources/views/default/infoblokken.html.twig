@@ -1,22 +1,23 @@
+{% trans_default_domain "views" %}
 <section id="infoblokken" class="blokken" data-role="General information block">
 	<article class="blok cta hoewerkthet">
-		<h3><a href="{{ path("info_spelregels") }}">Hoe werkt het?</a></h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sa amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.</p>
-		<a class="cta" href="{{ path("info_spelregels") }}">lees meer</a>
+		<h3><a href="{{ path("info_spelregels") }}">{{ "def.info.how.title"|trans }}</a></h3>
+		<p>{{ "def.info.how.teaser"|trans }}</p>
+		<a class="cta" href="{{ path("info_spelregels") }}">{{ "def.info.more"|trans }}</a>
 	</article>
 	<article class="blok cta verhalen">
-		<h3><a href="#">Verhalen</a></h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.</p>
-		<a class="cta" href="#">lees meer</a>
+		<h3><a href="#">{{ "def.info.stories.title"|trans }}</a></h3>
+		<p{{ "def.info.stories.teaser"|trans }}></p>
+		<a class="cta" href="#">{{ "def.info.more"|trans }}</a>
 	</article>
 	<article class="blok cta informatie">
-		<h3><a href="{{ path("info_vrijwilligersinfo") }}">Informatie</a></h3>
-		<p>Lorem ipsum dolor sit amet,  sit amet,  sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.</p>
-		<a class="cta" href="{{ path("info_vrijwilligersinfo") }}">lees meer</a>
+		<h3><a href="{{ path("info_vrijwilligersinfo") }}">{{ "def.info.info.title"|trans }}</a></h3>
+		<p>{{ "def.info.info.teaser"|trans }}</p>
+		<a class="cta" href="{{ path("info_vrijwilligersinfo") }}">{{ "def.info.more"|trans }}</a>
 	</article>
 	<article class="blok cta doedetest">
-		<h3><a href="{{ path("test_type") }}">Doe de test</a></h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.</p>
-		<a class="cta" href="{{ path("test_type") }}">lees meer</a>
+		<h3><a href="{{ path("test_type") }}">{{ "def.info.test.title"|trans }}</a></h3>
+		<p>{{ "def.info.test.teaser"|trans }}</p>
+		<a class="cta" href="{{ path("test_type") }}">{{ "def.info.more"|trans }}</a>
 	</article>
 </section>
