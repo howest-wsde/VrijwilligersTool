@@ -10,14 +10,14 @@
     </header>
 
 	<section class="steps">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
     	{% embed "vacancy/vacature_form.html.twig" with { 'form': form } %}{% endembed %}
 	</section>
-
-    {% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="success-notice">
-            <script type="text/javascript">alert("{{ flash_message }}");</script>
-        </div>
-    {% endfor %}
 {% endblock %}
 
 

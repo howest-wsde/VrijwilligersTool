@@ -157,6 +157,13 @@ person:
         finish: Indienen
         backToRegistration: Terug naar registratie
         backToGeneral: Terug naar algemene gegevens
+        mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
+    choices:
+        immediately: Onmiddelijk
+        daily: Dagelijks
+        weekly: Wekelijks
+        monthly: Maandelijks
+        nomail: Ik wil geen meldingen ontvangen
 search:
     label:
         hoursaweek: uren per week

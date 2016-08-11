@@ -19,6 +19,16 @@
 	{% endif %}
 
     <section class="steps">
+	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+	        <div class="alert alert-success">
+	            <strong>Success!</strong> {{ flashMessage }}
+	        </div>
+	    {% endfor %}
+	    {% for flashMessage in app.session.flashbag.get('error') %}
+	        <div class="alert alert-danger">
+	            {{ flashMessage }}
+	        </div>
+	    {% endfor %}
 
 		{% if not app.user %}
 			{{ form_start(form) }}
@@ -98,17 +108,21 @@
 				</div>
 
 
-				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">Vaardigheden</a></h2>
+				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">Vaardigheden & Voorkeuren</a></h2>
 				<div class="step grijs paars">
 					<fieldset>
 						{{ form_row (form.skills) }}
+					</fieldset>
+					<fieldset>
+						{{ form_row (form.digest) }}
+					</fieldset>
+					<fieldset>
 						{{ form_row (form.submit2) }}
 						{{ form_row (form.backToGeneral) }}
 					</fieldset>
 				</div>
 			    {# {{ form_row (form.termsAccepted) }} #}
 			{{ form_end(form) }}
-
 		{% endif %}
 
 

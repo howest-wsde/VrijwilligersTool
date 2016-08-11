@@ -31,5 +31,5 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+   delivery_address: info@roeselarevrijwilligt.be

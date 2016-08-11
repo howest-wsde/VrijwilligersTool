@@ -153,6 +153,13 @@ person:
         finish: Submit
         backToRegistration: Back to registration
         backToGeneral: Back to general info
+        mailPreference: Please choose here how often you'd like to receive notifications via mail
+    choices:
+        immediately: Immediately
+        daily: Daily
+        weekly: Weekly
+        monthly: Monthly
+        nomail: I don't want to receive any notifications
 search:
     label:
         hoursaweek: hours per week

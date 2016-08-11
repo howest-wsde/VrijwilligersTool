@@ -8,6 +8,17 @@
 	<p>Deze vereniging werd verwijderd.  {% if app.user in organisation.administrators %}Indien dit onterecht was en u de verwijdering ongedaan wil maken, <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">klik dan op deze link</a>.{% endif %}</p>
 {% else %}
 	<article class="tempblok">
+	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+            <div class="alert alert-success">
+                <strong>Success!</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
 		<h1>{{ organisation.name }}</h1>
 		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
 		{% if app.user in organisation.likers %}

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Organisation
@@ -80,7 +80,6 @@ class Organisation extends EntityBase
      * @var \Doctrine\Common\Collections\Collection
      */
     private $administrators;
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -517,7 +516,24 @@ class Organisation extends EntityBase
         return $this->administrators;
     }
 
+    /**
+     * Get administrators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdministratorsByDigest($digest)
+    {
+        return $this->getAdministrators()->filter(
+            function($admin) use ($digest) {
+               return ($admin->getDigest() === $digest);
+        });
 
+        //TODO: find out why this criteria fails, and fix it so the method does use the criteria over the filter.
+        // $admins = $this->getAdministrators();
+        // $criteria = Criteria::create()
+        //             ->where(Criteria::expr()->eq("digest", $digest));
+        // return $admins->matching($criteria);
+    }
 
     /**
      * Add liker
