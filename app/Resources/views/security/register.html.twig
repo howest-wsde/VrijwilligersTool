@@ -1,8 +1,9 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
 {# currently not in use #}
 
-{% block title %}register{% endblock %}
+{% block title %}{{ "general.register"|trans|capitalize }}{% endblock %}
 
 {% block body %}
 	{{ form_start(form) }}
@@ -13,7 +14,7 @@
 	    {{ form_row (form.plainPassword.first) }}
 	    {{ form_row (form.plainPassword.second) }}
 	    {{ form_row (form.termsAccepted) }}
-	    <button type="submit">Register</button>
+	    <button type="submit">{{ "general.register"|trans|capitalize }}</button>
 	{{ form_end(form) }}
 {% endblock %}
 

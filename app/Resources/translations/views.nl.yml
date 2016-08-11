@@ -1,4 +1,6 @@
 general:
+    register: registreer
+    login: login
     search: zoeken
     org: organisatie
     flash:
@@ -250,3 +252,17 @@ search:
         char: Filter op kenmerk
         advantages: Filter op voordelen
         noresults: Er werden geen resultaten gevonden
+security:
+    login: Inloggen
+    status:
+        title: Login status
+        hi: Dag
+        userdata: gebruikersgegevens
+        myorg: mijn organisaties
+        currentvacancies: huidige vacatures
+        approved: kandidaten goedkeuren
+        candidates: huidige kandidaatstellingen
+        status: status
+        pending: in afwachting
+        approved: goedgekeurd
+        loggedout: Not logged in!

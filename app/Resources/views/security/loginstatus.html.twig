@@ -1,32 +1,33 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Login status{% endblock %}
-    
+{% block title %}{{ "security.status.title"|trans }}{% endblock %}
+
 {% block body %}
         <br />
         {% if app.user is not null %}
-            Hi {{ app.user.username }}
+            {{ "security.status.hi"|trans }} {{ app.user.username }}
             <br />
-            all user data: {{ app.user }}
+            {{ "security.status.userdata"|trans }}: {{ app.user }}
             <hr />
 
-            <h4>mijn organisaties</h4>
+            <h4>{{ "security.status.myorg"|trans }}</h4>
             <ul>
                 {#TODO only text if it has values#}
                 {% for organisation in myOrganisations %}
                     <li>
-                        {{ organisation.name }} <br/>huidige vacatures:
+                        {{ organisation.name }} <br/>{{ "security.status.currentvacancies"|trans }}:
                         <ul>
                         {% for vacancy in organisation.vacancies  %}
                             {#TODO: edit button, waiting on koen merge#}
                             <li>{{ vacancy.title }}
-                                <a href="{{ path("vacancy_candidacies",{'urlid' :vacancy.id}) }}">kandidaten goedkeuren</a>
-                                {#<a href="{{ path("vacancy_edit",vacancy.id)}}">edit</a>#} <br/>huidige kandidaatstellingen:</li>
+                                <a href="{{ path("vacancy_candidacies",{'urlid' :vacancy.id}) }}">{{ "security.status.approve"|trans }}</a>
+                                {#<a href="{{ path("vacancy_edit",vacancy.id)}}">edit</a>#} <br/>{{ "security.status.candidates"|trans }}:</li>
                                 <ul>
                                     {% for candidacy in vacancy.candidacies %}
                                         <li>
                                             {{ candidacy.candidate.firstname }} {{ candidacy.candidate.lastname }}
-                                            status: {{ (candidacy.state) ? 'goedgekeurd' : 'pending' }}
+                                            {{ "security.status.status"|trans }}: {{ (candidacy.state) ? {{ "security.status.approved"|trans }} : {{ "security.status.pending"|trans }} }}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -36,6 +37,6 @@
                 {% endfor %}
             </ul>
         {% else %}
-            Not logged in!
+            {{ "security.status.loggedout"|trans }}
         {% endif %}
 {% endblock %}
