@@ -79,3 +79,35 @@ def: #default
 feedback:
     send: verzenden
     feedback: Feedback
+info:
+    faq:
+        faq: Veelgestelde vragen
+    contact: Contacteer ons
+    about: Over ons
+    privacy: Privacy en legale voorwaarden
+    profile:
+        title: Profiel van een vrijwilliger
+        body: Een tof iemand
+    info: Vrijwilligersinfo
+    why:
+        title: Waarom vrijwilligen?
+        body: Waarom niet?
+    legal: Wetgeving
+    rules:
+        title: Spelregels
+        volunteer:
+            title: Spelregels voor vrijwilligers
+            intro: Roeselare vrijwilligt heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
+            honour: Je houdt je aan je afspraken.
+            secret: Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt.  Uitzonderingen worden door de organisatie meegedeeld.
+            respect: Je gedraagt je respectvol.
+            legal: Je bent op de hoogte van de wettelijke bepalingen.
+        org:
+            title: Spelregels voor verenigingen
+            intro: Roeselare vrijwilligt heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
+            honour: Je houdt je aan je afspraken.
+            respect: Je gedraagt je respectvol.
+            privacy: Je respecteert de privacy van elke vrijwilliger.
+            insurance: Je sluit een verzekering af voor elke vrijwilliger.
+            guidance: 'Je zorgt dat elke vrijwilliger goed begeleid wordt.  Een vrijwilliger is geen gratis werkpaard maar een waardevol medewerker!'
+org:
