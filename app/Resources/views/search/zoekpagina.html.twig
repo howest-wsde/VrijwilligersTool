@@ -1,60 +1,61 @@
+{% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}Zoeken{% endblock %}
+{% block title %}{{ "general.search"|trans|capitalize }}{% endblock %}
 
 {% block body %}
-	<h1>Zoeken binnen Roeselare Vrijwilligt</h1>
+	<h1>{{ "search.page.title"|trans }}</h1>
 	{{ form_start(form) }}
 	        {{ form_errors(form) }}
 		<section>
-			<h2>Doorzoek onze site</h2>
+			<h2>{{ "search.page.site"|trans }}</h2>
 		        {{ form_row(form.search) }}
 				{{ form_row(form.submit) }}
 				{% embed "search/history_search.html.twig" %}{% endembed %}
 		</section>
 		<section>
 			{% set aantal = results|length %}
-			<h2>{{ aantal }} {% if aantal > 1 %} resultaten {% else %} resultaat {% endif %} voor {{ searchTerm }}</h2>
+			<h2>{{ aantal }} {% if aantal > 1 %} {{ "search.results"|trans }} {% else %} {{ "search.result"|trans }} {% endif %} {{ "search.page.for"|trans }}voor {{ searchTerm }}</h2>
 			{{ form_row(form.sort) }}{# TODO: create issue #}
 			{#{ form_row(form.pagination) }}{# TODO: create issue #}
 				{% if filters %}
 				<fieldset>
-					<legend>Filters</legend>
+					<legend>{{ "search.page.filters"|trans }}</legend>
 						<fieldset>
-							<h3>Filter op type</h3>
+							<h3>{{ "search.page.type"|trans }}</h3>
 					        {{ form_row(form.person) }}
 							{{ form_row(form.org) }}
 							{{ form_row(form.vacancy) }}
 						</fieldset>
 
 						<fieldset>
-							<h3>Filter op categorie</h3>
+							<h3>{{ "search.page.cat"|trans }}</h3>
 							{{ form_row(form.categories) }}
 						</fieldset>
 
 						<fieldset>
-							<h3>Filter op sector</h3>
+							<h3>{{ "search.page.sector"|trans }}</h3>
 							{{ form_row(form.sectors) }}
 						</fieldset>
 
 						<fieldset>
-							<h3>Filter op intensiteit</h3>
+							<h3>{{ "search.page.intensity"|trans }}</h3>
 							{{ form_row(form.intensity) }}
 							{{ form_row(form.estimatedWorkInHours) }}
 						</fieldset>
 
 {# 						<fieldset>
-							<h3>Filter op afstand</h3>
+							<h3>{{ "search.page.distance"|trans }}</h3>
 							{{ form_row(form.distance) }}
 						</fieldset>
  #}
 						<fieldset>
-							<h3>Filter op kenmerk</h3>
+							<h3>{{ "search.page.char"|trans }}</h3>
 							{{ form_row(form.characteristic) }}
 						</fieldset>
 
 						<fieldset>
-							<h3>Filter op voordelen</h3>
+							<h3>{{ "search.page.advantages"|trans }}</h3>
 							{{ form_row(form.advantages) }}
 						</fieldset>
 				</fieldset>
@@ -62,7 +63,7 @@
 		    {{ form_end(form) }}
 
 			{% if results|length == 0 %}
-				<p>Er werden geen resultaten gevonden</p>
+				<p>{{ "search.page.noresults"|trans }}</p>
 		   	{% else %}
 				<ul>
 				    {% for result in results %}

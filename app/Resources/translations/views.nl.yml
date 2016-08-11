@@ -1,4 +1,6 @@
 general:
+    search: zoeken
+    org: organisatie
     flash:
         success: Success!
     button:
@@ -226,3 +228,25 @@ person:
         saved: Bewaarde vacatures
         candidate: Stel je kandidaat
         candidateexplanation: Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.
+search:
+    recent: Recente zoekopdrachten
+    saved: Mijn bewaarde zoekopdrachten
+    noresults: Geen resultaten
+    result: resultaat
+    results: resultaten
+    vacancy:
+        offer: Ons Aanbod
+        enddate: vervaldatum
+        location: locatie
+    page:
+        title: Zoeken binnen Roeselare Vrijwilligt
+        site: Doorzoek onze site
+        filters: Filters
+        type: Filter op type
+        cat: Filter op categorie
+        sector: Filter op sector
+        intensity: Filter op intensiteit
+        distance: Filter op afstand
+        char: Filter op kenmerk
+        advantages: Filter op voordelen
+        noresults: Er werden geen resultaten gevonden
