@@ -1,11 +1,12 @@
+{% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}Profiel aanpassen{% endblock %}
+{% block title %}{{ "person.profile.name"|trans }}{% endblock %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('approve_message') %}
         <div class="alert alert-success">
-            <strong>Success!</strong> {{ flashMessage }}
+            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
         </div>
     {% endfor %}
     {% for flashMessage in app.session.flashbag.get('error') %}

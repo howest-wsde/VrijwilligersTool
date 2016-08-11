@@ -181,3 +181,48 @@ org:
         which: Voor welke vereniging wil je een vrijwilliger vinden?
         new: Ik wil eerst een nieuwe vereniging aanmaken
         self: Ik wil als particulier een vrijwilliger zoeken
+person:
+    general:
+        volunteer: vrijwilliger
+        firstname: voornaam
+        lastname: familienaam
+        username: gebruikersnaam
+        fullname: naam
+    rules:
+        name: Vrijwilliger vinden
+    search:
+        username: Geef een gebruikersnaam in
+    profile:
+        name: Profiel aanpassen
+    become:
+        name: Vrijwilliger worden
+        notsure: Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen?
+        stepbystep: Doorloop hieronder het stappenplan.
+        skip: 'Je kan de meeste stappen overslaan, kwestie van de boekhouding tot een minimum te beperken.'
+        login: Al vrijwilliger? Log dan hier in!
+        create: Maak een profiel aan
+        personal: Persoonsgegevens
+        min: Kies minimum één inlogmethode
+        contact: Contactgegevens
+        address: Adresgegevens
+        map: map preview
+        preferences: 'Vaardigheden & Voorkeuren'
+        interesting: Kijk welke vacatures interessant zijn
+        goodvol: Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie
+        search: zoek naar vacatures
+        but: 'kan je gemakkelijk te weten komen welke vacatures aansluiten bij jouw interesses.  Maar wat als je nog niet weet welke vacatures voor je interessant vindt?  Daarvoor hebben we een test ontwikkelt die je op weg helpt!'
+        dotest: Doe de vrijwilligerstest!
+        learn: En leer zo welke vacatures jou het meeste liggen.
+        rules: Bekijk de spelregels
+        ways: Een interessante vacature vinden kan je op meerdere manieren...
+        choices: Eens je een profielpagina aanmaakt kan je kiezen uit volgende opties
+        tailored: Kijk naar de vacatures op jouw maat.  Ons systeem vergelijkt jouw profiel met de openstaande vacatures en kiest er de interessantste uit.
+        featured: Kijk naar de vacatures in de kijker.
+        recent: Kijk naar de recentste vacatures.
+        or: Daarnaast kan je ook
+        test: een test doen
+        see: 'om te kijken welk soort vacatures voor jou het interessantste zijn, of je kan de zoekfunctie gebruiken om naar vacatures te zoeken.  De zoekfunctie vind je steeds in de header terug, maar ook op je profielpagina en hieronder.'
+        tailoredtitle: Vacatures op maat
+        saved: Bewaarde vacatures
+        candidate: Stel je kandidaat
+        candidateexplanation: Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.

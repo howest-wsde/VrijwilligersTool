@@ -1,11 +1,12 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vrijwilliger{% endblock %}
+{% block title %}{{ "person.general.volunteer"|trans|capitalize }}{% endblock %}
 
 {% block body %}
-	voornaam: {{ person.firstname }}<br />
-	familienaam: {{ person.lastname }}<br />
-	gebruikersnaam: {{ person.username }}<br />
-	volledige naam: {{ person.getFullName() }}
+	{{ "person.general.firstname"|trans|capitalize }}: {{ person.firstname }}<br />
+	{{ "person.general.sirname"|trans|capitalize }}: {{ person.lastname }}<br />
+	{{ "person.general.username"|trans|capitalize }}: {{ person.username }}<br />
+	{{ "person.general.fullname"|trans|capitalize }}: {{ person.getFullName() }}
 
 {% endblock %}
