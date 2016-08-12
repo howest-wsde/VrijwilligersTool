@@ -2,7 +2,7 @@
 {% if not cta is defined %}
     {% set cta = {
         "href": path("vacancy_by_urlid", { "urlid": vacancy.urlId }),
-        "txt": {{ "general.button.more"|trans }}
+        "txt": 'lees meer'
     } %}
 {% endif %}
 <article class="vacature cta">
