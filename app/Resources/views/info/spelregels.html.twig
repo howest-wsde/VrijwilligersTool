@@ -1,14 +1,15 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Spelregels{% endblock %}
-	
+{% block title %}{{ "info.rules.title"|trans }}{% endblock %}
+
 {% block body %}
 	<article>
-		<h1>Spelregels voor vrijwilligers</h1>
+		<h1>{{ "info.rules.volunteer.title"|trans }}</h1>
 		{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
 	</article>
 	<article>
-		<h1>Spelregels voor verenigingen</h1>
+		<h1>{{ "info.rules.org.title"|trans }}</h1>
 		{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
 	</article>
 {% endblock %}

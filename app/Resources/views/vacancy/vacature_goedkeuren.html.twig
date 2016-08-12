@@ -1,21 +1,22 @@
+{% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}Vacature{% endblock %}
+{% block title %}{{ "general.vacancy"|trans|capitalize }}{% endblock %}
 
 {% block body %}
     <script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
     <article>
         <header><h1>{{ vacancy.title }}</h1></header>
-        <h2>Kandidaten voor deze vacature:</h2>
+        <h2>{{ "vacancy.approve.title"|trans }}:</h2>
 
         {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
-                <strong>Success!</strong> {{ flashMessage }}
+                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
             </div>
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('cancel_message') %}
             <div class="alert alert-danger">
-                <strong>Afgekeurd!</strong> {{ flashMessage }}
+                <strong>{{ "general.flash.fail"|trans }}</strong> {{ flashMessage }}
             </div>
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('error') %}
@@ -24,7 +25,7 @@
             </div>
         {% endfor %}
 
-        <h3>Goedgekeurde kandidaten:</h3>
+        <h3>{{ "vacancy.approve.candidates"|trans }}:</h3>
         <ol>
             {% for candidacy in approved %}
                 {% set candidate = candidacy.candidate %}
@@ -37,17 +38,16 @@
             {% endfor %}
         </ol>
 
-        <h3>Open kandidaatstellingen:</h3>
+        <h3>{{ "vacancy.approve.open"|trans }}:</h3>
 
         <ol>
             {% for candidacy in pending %}
                 {% set candidate = candidacy.candidate %}
                 <li>{{ candidate.firstname}} {{ candidate.lastname}}
-                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">Bekijk Profiel</a>
+                    |<a href="{{ path('person_username',{'username' : candidate.username}) }}">{{ "vacancy.approve.look"|trans }}</a>
                     |<form action="{{ path('approve_candidacy', {'candidacyId': candidacy.id}) }}" method="post">
                         <button type="submit"  name="approve" class="glyphicon glyphicon-ok btn btn-xs"></button>
                         <button type="submit"  name="cancel" class="glyphicon glyphicon-remove btn btn-xs"></button>
-
                     </form>
                 </li>
             {% endfor %}

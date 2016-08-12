@@ -1,14 +1,15 @@
+{% trans_default_domain "views" %}
 {% if not cta is defined %}
     {% set cta = {
         "href": path("vacancy_by_urlid", { "urlid": vacancy.urlId }),
-        "txt": "lees meer"
+        "txt": {{ "general.button.more"|trans }}
     } %}
 {% endif %}
 <article class="vacature cta">
     {% if app.user in vacancy.likers %}
-        <a class="fav liked" title="Verwijder uit bewaarde vacatures" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"remove" }) }}"><span>Verwijder uit bewaarde vacatures</span></a>
+        <a class="fav liked" title="Verwijder uit bewaarde vacatures" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"remove" }) }}"><span>{{ "vacancy.min.remove"|trans }}</span></a>
     {% else %}
-        <a class="fav notliked" title="Bewaar" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"save" }) }}"><span>Bewaar</span></a>
+        <a class="fav notliked" title="Bewaar" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"save" }) }}"><span>{{ "vacancy.min.save"|trans }}</span></a>
     {% endif %}
 
     <header>
@@ -26,6 +27,6 @@
 
     <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
     {% if vacancy.published != 4 and (vacancy.organisation) and app.user in vacancy.organisation.administrators %}
-        <a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">Delete</a>
+        <a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.min.delete"|trans }}</a>
     {% endif %}
 </article>

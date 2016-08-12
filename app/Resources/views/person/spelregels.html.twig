@@ -1,19 +1,20 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vrijwilliger vinden{% endblock %}
-	
+{% block title %}{{ "person.rules.name"|trans }}{% endblock %}
+
 {% block body %}
 	<header>
-		<h1>Vrijwilliger worden</h1> 
+		<h1>{{ "person.rules.name"|trans }}</h1>
 	</header>
 	<form>
-		<section> 
-			<h2>Spelregels voor vrijwilligers</h2>
-			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %} 
-		</section> 
-		<section> 
-			<h2>Spelregels voor verenigingen</h2>
-			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %} 
-		</section>  
+		<section>
+			<h2>{{ "info.rules.volunteer.title"|trans }}</h2>
+			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
+		</section>
+		<section>
+			<h2>{{ "info.rules.org.title"|trans }}</h2>
+			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
+		</section>
 	</form>
 {% endblock %}

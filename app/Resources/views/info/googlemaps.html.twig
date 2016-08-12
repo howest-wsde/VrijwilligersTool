@@ -1,0 +1,31 @@
+<aside id="#googlemaps">
+    <div>
+        <button id="getRoute">{{ "general.map.show"|trans }}</button>
+        <div id="description" class="hidden"></div>
+        <p>{{ "general.map.select"|trans }}</p>
+        <div onchange="googleMapsModule.drawRoute()">
+            <select id="transitMethod">
+                <option value="DRIVING">{{ "general.map.car"|trans }}</option>
+                <option value="BICYCLING">{{ "general.map.bike"|trans }}</option>
+                <option value="WALKING">{{ "general.map.foot"|trans }}</option>
+                <option value="TRANSIT">{{ "general.map.public"|trans }}</option>
+            </select>
+            <select id="transitMode" class="hidden">
+                <option value="BUS">{{ "general.map.bus"|trans }}</option>
+                <option value="RAIL">{{ "general.map.track"|trans }}</option>
+                <option value="SUBWAY">{{ "general.map.metro"|trans }}</option>
+                <option value="TRAM">{{ "general.map.trolley"|trans }}</option>
+            </select>
+        </div>
+    </div>
+    <div data-useraddress="
+    {% if app.user %}
+        {{ app.user.street }}
+        {{ app.user.number }}
+        {{ app.user.postalcode }}
+        {{ app.user.city }}
+    {% else %}
+    {% endif %}"
+         id="map-canvas" style="width: 350px; height: 350px;">
+    </div>
+</aside>

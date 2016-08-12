@@ -1,7 +1,8 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Profiel van een vrijwilliger{% endblock %}
+{% block title %}{{ "info.profile.title"|trans }}{% endblock %}
 
 {% block body %}
-Een tof iemand
+{{ "info.profile.body"|trans }}
 {% endblock %}

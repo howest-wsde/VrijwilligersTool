@@ -1,21 +1,22 @@
+{% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}Vrijwilliger vinden{% endblock %}
+{% block title %}{{ "org.general.name"|trans }}{% endblock %}
 
 {% block body %}
 	<header>
-		<h1>Vrijwilliger vinden</h1>
-		<p>Op zoek naar vrijwilligers?</p>
-		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
+		<h1>{{ "org.general.name"|trans }}</h1>
+		<p>{{ "org.general.looking"|trans }}</p>
+		<p>{{ "org.general.profile"|trans }}</p>
 	</header>
 	<form action="{{ path("create_vacancy") }}" method="post">
 		<section>
-			<h2>Spelregels voor organisatie</h2>
+			<h2>{{ "info.rules.org.title"|trans }}</h2>
 			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
 
-			<h2>Spelregels voor vrijwilligers</h2>
+			<h2>{{ "info.rules.volunteer.title"|trans }}</h2>
 			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
 		</section>
- 		<input type="submit" value="Volgende" />
+ 		<input type="submit" value="{{ "general.button.next"|trans }}" />
 	</form>
 {% endblock %}

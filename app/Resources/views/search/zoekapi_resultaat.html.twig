@@ -1,5 +1,6 @@
+{% trans_default_domain "views" %}
 <ul>
-{% if results|length == 0 %}<li><span>Geen resultaten</span></li>{% endif %}
+{% if results|length == 0 %}<li><span>{{ "search.noresults"|trans }}</span></li>{% endif %}
 {% for result in results %}
 	<li>
 		{% if (result.isoftype("Person")) %}

@@ -1,6 +1,7 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vacature Aanpassen{% endblock %}
+{% block title %}{{ "vacancy.modify.title"|trans }}{% endblock %}
 
 {% block body %}
     {% for flash_message in app.session.flashbag.get('success-notice') %}
@@ -24,6 +25,6 @@
     {{ form_end(form) }}
 
     <form action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
-        <input type="submit" value="Annuleren"/>
+        <input type="submit" value="{{ "vacancy.modify.anul"|trans }}"/>
     </form>
 {% endblock %}

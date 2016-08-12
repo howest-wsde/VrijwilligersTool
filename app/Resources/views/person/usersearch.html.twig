@@ -1,4 +1,5 @@
+{% trans_default_domain "views" %}
 <form action="{{ path }}" method="post" class="usersearch">
-	<input type="text" name="person" class="usersearch" placeholder="Geef een gebruikersnaam in" />
+	<input type="text" name="person" class="usersearch" placeholder="{{ "person.search.username"|trans }}" />
 	<div class="usersearch"></div>
 </form>

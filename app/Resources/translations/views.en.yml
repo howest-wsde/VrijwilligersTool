@@ -1,0 +1,324 @@
+general:
+    register: register
+    login: login
+    search: search
+    org: organisation
+    flash:
+        success: Success!
+        fail: Disapproved!
+    button:
+        next: Next
+        click: click this link
+        unlike: Remove
+        like: Save
+        more: read more
+    map:
+        show: show route
+        select: select your desired mode of transport
+        car: Car
+        bike: Bike
+        foot: On foot
+        public: Public transport
+        bus: By bus
+        track: 'By track (combo of train, trolley, subway, ...)'
+        metro: By subway
+        trolley: By trolley
+    admin:
+        title: Administrative links
+        modify: Modify
+        createvacancy: Create vacancy
+        deleteorg: Remove organisation
+        admins: Admins
+        away: revoke admin rights
+base:
+    general:
+        name: Roeselare Volunteers
+        about:
+            stimulate: 'Roeselare Volunteers is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
+            develop: 'supports you to show, develop and share your talents and interests.'
+            capital: 'supports your organisation in the quest for human capital.'
+            initiative: "Roeselare Volunteers is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
+            platform: The platform was developped by Howest University.
+    head:
+        title: Roeselare Volunteers
+    body:
+        header:
+            title: Roeselare Volunteers
+            menu:
+                about: about us
+                contact: contact
+                profile: my profile
+                logout: logout
+                login: login
+                become: becoming a volunteer
+                find: finding volunteers
+                info: info on volunteering
+                tests: tests
+        newsletter:
+            cta: Do you want to be up to date on the latest?  Register for our newsletter!
+        footer:
+            recvac: recent vacancies
+            recorg: recent organisations
+            info: info on volunteering
+            legislation: legislation
+            profile: profile of a volunteer
+            what: what is volunteering
+            why: 'mother, why do we volunteer?'
+            rules: rules
+            faq: frequently asked questions
+            tests: tests
+            type: what type of volunteer are you?
+            about: about us
+            contact: contact
+            partners: partners
+            howest: Howest University
+            city: Roeselare City
+            privacy: Privacy and legal terms
+def: #default
+    carousel:
+        title: Meaningfull volunteer work
+        difference: Experience how just a few hours of your time make all the difference.
+        participate: Join in!
+        info: Information on volunteer work
+        infoteaser: "What is a volunteer?  What skills do you need?  How about expenses?  Here's where you'll find an answer to all of your questions..."
+        more: Or read the explanation ...
+        notsure: Not sure what you want?
+        test: Do the test!
+    index:
+        logintitle: 'Log in with your userdata, mail or passphrase.'
+        id: 'Username, e-mail or phone number'
+        phrase: Passphrase
+        login: login
+        external: Log in through an external site
+        google: Log in with your google account
+        fb: Log in via facebook
+        none: No account yet?
+        create: Create an account
+    info:
+        more: read more
+        how:
+            title: How does it work?
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sa amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        stories:
+            title: Stories
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        info:
+            title: Information
+            teaser: 'Lorem ipsum dolor sit amet,  sit amet,  sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        test:
+            title: Take the test
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+feedback:
+    send: send
+    feedback: Feedback
+info:
+    faq:
+        faq: Frequently asked questions
+    contact: Contact us
+    about: About us
+    privacy: Privacy and legal terms
+    profile:
+        title: Profile of a volunteer
+        body: Someone cool
+    info: info on volunteering
+    why:
+        title: Why volunteer?
+        body: Why not?
+    legal: Legislation
+    rules:
+        title: Terms of engagement
+        volunteer:
+            title: Terms of engagement for volunteers
+            intro: Roeselare Volunteers drafted four terms of engagement.  Every volunteer has to stick by these rules.
+            honour: You stick to your agreements.
+            secret: You are sworn to secrecy about things you encounter during volunteering.  Organisations will notify you about exceptions.
+            respect: You behave yourself in a respectfull manner.
+            legal: You are aware of the legal stipulations.
+        org:
+            title: Terms of engagement for organisations
+            intro: Roeselare Volunteers drafted five terms of engagement. Every organisation is expected to stick by these rules.
+            honour: You stick to your agreements.
+            respect: You behave yourself in a respectfull manner.
+            privacy: You respect every volunteers privacy.
+            insurance: You make sure every volunteer is covered by insurance.
+            guidance: 'You take care of supporting each and every volunteer.  Volunteers are not free workers, but valued collegues!'
+org:
+    general:
+        name: Finding volunteers
+        looking: Looking for volunteers?
+        profile: Create a profile for your organisation and start posting vacancies!
+    make:
+        rules: Look at the terms of engagement
+        place: Submit a vacancy
+    tailored:
+        look: Comb throug volunteers
+        list: -- LIST --
+    org:
+        title: Organisation
+        deleted: This organisation has been deleted.
+        unjust: 'If you feel the removal was unwarranted and wish to undo the deletion,'
+        noadres: No address known for this organisation.
+        vacancies: Vacancies
+    modify:
+        title: Modify organisation data
+        data: Data
+        modify: modify
+    form:
+        general: General data
+        org: Organisational data
+        contact: Contact info
+        created: Your organisation was succesfully created!
+        extra: 'Fill in extra data below, or'
+        place: Submit a vacancy
+        sectoral: Sectoral information
+        active: In which sectors is this organisation active?
+    min:
+        remove: Remove from saved organisations
+        noopen: no open vacancies
+        1open: one open vacancy
+        open: open vacancies
+    find:
+        looking: Are you looking for volunteers?
+        here: On this page you can
+        registered: as a registered user
+        create: create a vacancy
+        choice: You can choose between a vacancy for an organisation or for an indivual (aka. you).
+        which: Which organisation do you want to find a volunteer for?
+        new: I want to create an organisation first
+        self: I want to find a volunteer as an individual
+person:
+    general:
+        volunteer: volunteer
+        firstname: first name
+        lastname: sirname
+        username: username
+        fullname: name
+    rules:
+        name: Find volunteers
+    search:
+        username: Enter a username
+    profile:
+        name: Modify profile
+    become:
+        name: Become a volunteer
+        notsure: Driven to be a volunteer but not sure where to start?
+        stepbystep: Take it step by step
+        skip: 'You can skip most steps if you want to minimize the bookkeeping.'
+        login: Already registered? Log in here!
+        create: Create a profile
+        personal: Personal information
+        min: Choose at least one way to log in
+        contact: Contact information
+        address: Address
+        map: map preview
+        preferences: 'Skills & Preferences'
+        interesting: Check out vacancies
+        goodvol: A good experience starts with finding something you are passionate about.  In the section
+        search: search for vacancies
+        but: "you can find out very easily which vacancies match your interests.  Not sure what you're passionate about yet?  We've made a test that can set you on the right path!"
+        dotest: Take the test!
+        learn: And find out which vacancies are right for you.
+        rules: Take a look at the terms of engagement
+        ways: You can find an interesting vacancy in several ways...
+        choices: Once you've created a profile you can pick from the following options
+        tailored: Check out the vacancies best suited for you.  Our system compares your profile with the open vacancies and automatically finds the best ones for you.
+        featured: Look at the vacancies in the picture.
+        recent: Look at the most recent vacancies.
+        or: Aside from that you can also
+        test: take a test
+        see: 'to see which vacancies are most interesting for you, you can use our search to look for vacancies.  You can find the search at the top of the page, but also on your profile page and right below this text.'
+        tailoredtitle: Matched vacancies
+        saved: Saved vacancies
+        candidate: Submit your candidacy
+        candidateexplanation: Submitting your candidacy couldn't be easier.  Just click the button "apply" below a vacancy and that's it.  The organisation will receive a notification about your willingness to help out for that vacancy and will contact you shortly.
+search:
+    recent: Recent searches
+    saved: Saved searches
+    noresults: No results
+    result: result
+    results: results
+    vacancy:
+        offer: Our Offer
+        enddate: expiration date
+        location: location
+    page:
+        title: Search within Roeselare Volunteers
+        site: Search our site
+        filters: Filters
+        type: Filter by type
+        cat: Filter by category
+        sector: Filter by sector
+        intensity: Filter by intensity
+        distance: Filter by distance
+        char: Filter by characteristic
+        advantages: Filter by advantage
+        noresults: No results were found
+security:
+    login: Log in
+    status:
+        title: Login status
+        hi: Hi
+        userdata: user data
+        myorg: my organisations
+        currentvacancies: current vacancies
+        approved: approve candidates
+        candidates: current candidacies
+        status: status
+        pending: pending
+        approved: approved
+        loggedout: Not logged in!
+skills:
+    vacancytypes: Vacancy types
+tests:
+    volunteer:
+        title: What kind of volunteer are you?
+        body: Go ahead and tell us
+    tests:
+        body: A couple of tests
+        title: Tests
+vacancy:
+    vacancy:
+        removed: This vacancy was removed.
+        undo: 'If you feel this was not warranted and want to reverse the removal,'
+        filled: This vacancy has already been filled.  Currently no additional volunteers are wanted for this profile.
+        want1: volunteer wanted.
+        wantseveral: volunteers wanted
+        offer: Our offer
+        startdate: Start date
+        enddate: Experation date
+        location: Location
+        bus: bus
+        tweet: Tweet
+        mail: Mail this vacancy
+        print: Print this vacancy
+        remove: Remove from saved vacancies
+        save: Save
+        candremove: Remove application
+        candpose: Submit application
+        admin:
+            modify: Modify vacancy
+            select: Select candidates
+            delete: Remove vacancy
+    modify:
+        title: Adjust vacancy
+        anul: Cancel
+    form:
+        general: General information
+        where: Where will the volunteer work?
+        googlemap: map preview
+        moreinfo: More information
+        skills: Skills
+        advantages: Advantages for the volunteer
+    approve:
+        title: Candidates for this vacancy
+        candidates: Approved candidates
+        open: Open candidacies
+        look: Check profile
+    min:
+        remove: Remove from saved vacancies
+        save: Save
+        delete: Delete
+    new:
+        title: Create vacancy
+        looking: Looking for volunteers?
+        fill: Fill out the vacancy data.

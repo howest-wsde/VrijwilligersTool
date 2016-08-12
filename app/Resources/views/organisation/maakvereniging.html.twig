@@ -1,23 +1,24 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vrijwilliger vinden{% endblock %}
+{% block title %}{{ "org.general.name"|trans }}{% endblock %}
 
 {% block body %}
     <header class="center">
-    	<h1>Vrijwilliger vinden</h1>
-    	<p>Op zoek naar vrijwilligers?</p>
-    	<p>Maak nu een profiel voor je vereniging zodat je vacatures kan plaatsen! </p>
+    	<h1>{{ "org.general.name"|trans }}</h1>
+    	<p>{{ "org.general.looking"|trans }}</p>
+    	<p>{{ "org.general.profile"|trans }}</p>
     </header>
     <section id="maakVereniging" class="steps">
-        <h2 class="steptitle groen"><a href="#spelregels" name="spelregels">Bekijk de spelregels</a></h2>
+        <h2 class="steptitle groen"><a href="#spelregels" name="spelregels">{{ "org.make.rules"|trans }}</a></h2>
         <div class="step grijs actief">
-            {% embed "organisation/spelregels_organisatie.html.twig" %}{% endembed %}
-            {% embed "person/spelregels_vrijwilligers.html.twig" %}{% endembed %}
+            {% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
+            {% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
         </div>
 
         {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
-                <strong>Success!</strong> {{ flashMessage }}
+                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
             </div>
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('error') %}
@@ -29,7 +30,7 @@
         {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "organisation_edit" } %}{% endembed %}
 
         {% if organisation %}
-            <h2><a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">Plaats een vacature</a></h2>
+            <h2><a class="steptitle" href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">{{ "org.make.place"|trans }}</a></h2>
         {% endif %}
     </section>
 {% endblock %}

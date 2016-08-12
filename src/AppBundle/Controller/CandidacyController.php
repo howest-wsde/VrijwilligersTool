@@ -18,6 +18,7 @@ class CandidacyController extends UtilityController
      */
     public function approveCandidacy(Request $request, $candidacyId)
     {
+        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository("AppBundle:Candidacy");
         $candidacy = $repository->findOneById($candidacyId);
@@ -38,7 +39,7 @@ class CandidacyController extends UtilityController
             $person = $candidacy->getCandidate();
             $organisation = $vacancy->getOrganisation();
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' werd goedgekeurd als vrijwilliger';
+                       ' ' . $t->trans('candidacy.mail.approve');
             $info = array(
                         'subject' => $subject,
                         'template' => 'approvedCandidate.html.twig',
@@ -53,7 +54,7 @@ class CandidacyController extends UtilityController
             $this->digestOrMail($info);
 
             $this->addFlash('approve_message', $candidacy->getCandidate()->getFirstname() . " " . $candidacy->getCandidate()->getLastname() .
-                " werd goedgekeurd voor de vacature " .
+                $t->trans('candidacy.flash.approve') .
                 $candidacy->getVacancy()->getTitle() . "."
             );
         }
@@ -67,7 +68,7 @@ class CandidacyController extends UtilityController
             $vacancy = $candidacy->getVacancy();
             $organisation = $vacancy->getOrganisation();
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' werd afgekeurd als vrijwilliger';
+                       ' ' . $t->trans('candidacy.mail.disapprove');
             $info = array(
                         'subject' => $subject,
                         'template' => 'disapprovedCandidate.html.twig',
@@ -85,7 +86,7 @@ class CandidacyController extends UtilityController
             $this->addFlash('cancel_message', $candidacy->getCandidate()->getFirstname() .
                             " " .
                             $candidacy->getCandidate()->getLastname() .
-                            " werd afgekeurd voor de vacature " .
+                            $t->trans('candidacy.flash.disapprove') .
                             $candidacy->getVacancy()->getTitle() . "."
                         );
         }
@@ -100,7 +101,7 @@ class CandidacyController extends UtilityController
             $person = $candidacy->getCandidate();
             $organisation = $vacancy->getOrganisation();
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' werd verwijderd als vrijwilliger';
+                       ' ' . $t->trans('candidacy.mail.remove');
             $info = array(
                         'subject' => $subject,
                         'template' => 'removedVolunteer.html.twig',
@@ -117,7 +118,7 @@ class CandidacyController extends UtilityController
             $this->addFlash('cancel_message', $candidacy->getCandidate()->getFirstname() .
                             " " .
                             $candidacy->getCandidate()->getLastname() .
-                            " werd verwijderd als vrijwilliger voor de vacature " .
+                            $t->trans('candidacy.flash.remove') .
                             $candidacy->getVacancy()->getTitle() . "."
                         );
         }
