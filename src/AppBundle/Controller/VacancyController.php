@@ -156,8 +156,8 @@ class VacancyController extends UtilityController
      */
     public function subscribeVacancyAction($urlid)
     {
+        $t = $this->get('translator');
         $person = $this->getUser();
-
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
@@ -233,6 +233,7 @@ class VacancyController extends UtilityController
      */
     public function saveVacancyAction($urlid, $saveaction)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
@@ -290,6 +291,7 @@ class VacancyController extends UtilityController
      */
     public function vacancyCandidacies($urlid)
     {
+        $t = $this->get('translator');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();;
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
@@ -330,6 +332,7 @@ class VacancyController extends UtilityController
      * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
      */
     public function editVacancyAction($urlid, Request $request){
+        $t = $this->get('translator');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
@@ -375,6 +378,7 @@ class VacancyController extends UtilityController
      */
     public function vacaturesOpMaatAction($user)
     {
+        $t = $this->get('translator');
         $query = $this->get("ElasticsearchQuery");
         $params = [
             'index' => $query->getIndex(),
