@@ -87,7 +87,7 @@ class SecurityController extends UtilityController
 
         return $this->render(
            "person/vrijwilliger_worden.html.twig",
-           ["form" => $form->createView()] );
+           [ "form" => $form->createView() ]);
     }
 
     /**

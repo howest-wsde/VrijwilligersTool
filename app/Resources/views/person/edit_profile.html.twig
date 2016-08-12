@@ -15,7 +15,96 @@
         </div>
     {% endfor %}
 
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+    <section class="steps">
+        {{ form_start(form) }}
+            <h2 class="steptitle rood"><a href="#profiel" name="profiel">{{ "person.become.create"|trans }}</a></h2>
+            <div class="step grijs rood">
+                {% block bron %}{% endblock %}
+                <!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
+                <fieldset>
+                    <div class="col-md-8">
+                        <h3>{{ "person.become.personal"|trans }}</h3>
+                        {{ form_row (form.firstname) }}
+                        {{ form_row (form.lastname) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.avatarFile) }}
+                    </div>
+                    <div class="col-md-12">
+                        <h3>{{ "person.become.min"|trans }}</h3>
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.email) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.telephone) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.contactOrganisation) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row (form.plainPassword) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row (form.submit) }}
+                    </div>
+                </fieldset>
+            </div>
+
+            <h2 class="steptitle groen"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
+            <div class="step grijs groen">
+                <fieldset>
+                    <div class="col-md-12">{{ form_row (form.username) }}</div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="col-md-12">
+                                <h3>{{ "person.become.address"|trans }}</h3>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.street) }}
+                            </div>
+                            <div class="col-md-3">
+                              {{ form_row(form.number) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bus) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.postalcode) }}
+                            </div>{{ "person.become.name"|trans }}
+                            <div class="col-md-8">
+                                {{ form_row(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-12 google">{{ "person.become.map"|trans }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row (form.linkedinUrl) }}
+                        {{ form_row (form.submit2) }}
+                    </div>
+                </fieldset>
+            </div>
+
+            <h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
+            <div class="step grijs paars">
+                <fieldset>
+                    {{ form_row (form.skills) }}
+                </fieldset>
+                <fieldset>
+                    {{ form_row (form.digest) }}
+                </fieldset>
+                <fieldset>
+                    {{ form_row (form.submit3) }}
+                </fieldset>
+            </div>
+            {{ form_row(form._token) }}
+        {{ form_end(form) }}
+    </section>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}

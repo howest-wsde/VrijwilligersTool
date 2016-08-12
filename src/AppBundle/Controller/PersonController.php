@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Form\PersonType;
+use AppBundle\Entity\Form\EditPersonType;
 use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Form\VacancyType;
@@ -66,7 +67,7 @@ class PersonController extends controller
     public function editProfileAction(Request $request){
         $t = $this->get('translator');
         $person = $this->getUser();
-        $form = $this->createForm(PersonType::class, $person);
+        $form = $this->createForm(EditPersonType::class, $person);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
