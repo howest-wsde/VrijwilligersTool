@@ -11,7 +11,7 @@ general:
         click: klik dan op deze link
         unlike: Verwijder
         like: Bewaar
-        more: lees meer
+        more: 'lees meer'
     map:
         show: Toon routebeschrijving
         select: selecteer uw gewenste transportwijze
