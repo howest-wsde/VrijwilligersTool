@@ -266,7 +266,7 @@ security:
         status: status
         pending: in afwachting
         approved: goedgekeurd
-        loggedout: Not logged in!
+        loggedout: Niet ingelogd!
 skills:
     vacancytypes: Vacature types
 tests:
