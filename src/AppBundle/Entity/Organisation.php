@@ -75,7 +75,6 @@ class Organisation extends EntityBase
      */
     private $creator;
 
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -180,8 +179,6 @@ class Organisation extends EntityBase
      */
     private $urlid;
 
-
-
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
@@ -196,7 +193,6 @@ class Organisation extends EntityBase
      * @var string
      */
     protected $logoName;
-
 
     /**
      * @var string
@@ -477,7 +473,6 @@ class Organisation extends EntityBase
         return $this->creator;
     }
 
-
     /**
      * Add administrator
      *
@@ -569,8 +564,6 @@ class Organisation extends EntityBase
         return $this->likers;
     }
 
-
-
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the  update. If this
@@ -619,8 +612,6 @@ class Organisation extends EntityBase
         return $this->logoName;
     }
 
-
-
     /**
      * Set slogan
      *
@@ -644,7 +635,6 @@ class Organisation extends EntityBase
     {
         return $this->slogan;
     }
-
 
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
@@ -837,7 +827,6 @@ class Organisation extends EntityBase
     {
         return $this->bus;
     }
-
 
     /**
      * Set city

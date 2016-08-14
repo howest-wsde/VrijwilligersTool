@@ -1,8 +1,9 @@
 {% trans_default_domain "views" %}
 {% if not cta is defined %}
+    {% set txt = "general.button.more"|trans %}
     {% set cta = {
         "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
-        "txt": '{{ "general.button.more"|trans }}'
+        "txt": txt
     } %}
 {% endif %}
 <article class="vereniging cta">

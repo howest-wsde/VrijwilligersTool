@@ -3,6 +3,7 @@ general:
     login: login
     search: zoeken
     org: organisatie
+    vol: vrijwilliger
     flash:
         success: Success!
         fail: Afgekeurd!
@@ -11,7 +12,7 @@ general:
         click: klik dan op deze link
         unlike: Verwijder
         like: Bewaar
-        more: 'lees meer'
+        more: lees meer
     map:
         show: Toon routebeschrijving
         select: selecteer uw gewenste transportwijze
@@ -193,6 +194,28 @@ person:
         lastname: familienaam
         username: gebruikersnaam
         fullname: naam
+        vols: vrijwilligt
+    dash:
+        dash: dashboard
+        vol:
+            navblocks: 'Vacatures & organisaties'
+            navsearch: Zoek vacatures
+            navprofile: Overzicht profiel
+            navdata: Mijn gegevens
+            searchtitle: Op zoek naar vrijwilligerswerk?
+        org:
+            navsearch: Zoek vrijwilligers
+            navmyorgs: Mijn organisaties
+            navvacancies: Vacatures
+            navvolunteers: Medewerkerspoule
+            searchtitle: Op zoek naar vrijwilligers?
+            myorg: Mijn organisaties
+            openvac: Openstaande vacatures
+            closedvac: Afgesloten vacatures
+            savedvac: Onafgewerkte vacatures
+            vols: Medewerkerspoule
+            cta: Schrijf een getuigenis!
+            ctasmall: en beloon zo jouw vrijwilligers...
     rules:
         name: Vrijwilliger vinden
     search:

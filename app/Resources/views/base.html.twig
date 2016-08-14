@@ -30,7 +30,7 @@
 
                     <nav class="hoofdnavigatie">
 
-                        {% embed "search/basic_search.html.twig" with { 'withHistory': false } %}{% endembed %}
+                        {% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}
 
                         <ul class="usermenu">
                             <li><a href="{{ path("info_over_ons") }}" class="{% if app.request.attributes.get('_route') == 'info_over_ons' %}actief{% endif %}">{{ "base.body.header.menu.about"|trans }}</a></li>
