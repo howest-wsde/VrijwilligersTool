@@ -144,8 +144,8 @@ person:
         number: Number
         postalcode: Zip code
         city: City
-        password: Passphrase
-        repeat_password: Repeat passphrase
+        password: Passphrase or password
+        repeat_password: Repeat passphrase or password
         language: language
         linkedin: linkedIn profile
         eula: I accept the terms and agreement

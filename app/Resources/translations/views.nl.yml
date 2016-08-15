@@ -86,9 +86,9 @@ def: #default
         notsure: Niet zeker wat je wil?
         test: Doe hier de test!
     index:
-        logintitle: Log in met je gebruikersgegevens en wachtzin.
+        logintitle: Log in met je gebruikersgegevens en wachtzin/wachtwoord.
         id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
-        phrase: Wachtzin
+        phrase: Wachtzin of wachtwoord
         login: login
         external: Log in via een externe site
         google: Inloggen via je Google-account

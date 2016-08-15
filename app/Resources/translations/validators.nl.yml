@@ -148,8 +148,8 @@ person:
         number: Huisnummer
         postalcode: Postcode
         city: Gemeente
-        password: Wachtzin
-        repeat_password: Herhaal wachtzin
+        password: Wachtzin of wachtwoord
+        repeat_password: Herhaal wachtzin of wachtwoord
         language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
