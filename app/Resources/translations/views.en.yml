@@ -53,7 +53,7 @@ base:
                 become: becoming a volunteer
                 find: finding volunteers
                 info: info on volunteering
-                tests: tests
+                tests: What is it I want?
         newsletter:
             cta: Do you want to be up to date on the latest?  Register for our newsletter!
         footer:
@@ -66,7 +66,7 @@ base:
             why: 'mother, why do we volunteer?'
             rules: rules
             faq: frequently asked questions
-            tests: tests
+            tests: What is it I want?
             type: what type of volunteer are you?
             about: about us
             contact: contact
@@ -211,7 +211,7 @@ person:
         contact: Contact information
         address: Address
         map: map preview
-        preferences: 'Skills & Preferences'
+        preferences: 'Interests & Preferences'
         interesting: Check out vacancies
         goodvol: A good experience starts with finding something you are passionate about.  In the section
         search: search for vacancies
@@ -250,7 +250,7 @@ search:
         sector: Filter by sector
         intensity: Filter by intensity
         distance: Filter by distance
-        char: Filter by characteristic
+        char: Filter by field of interest
         advantages: Filter by advantage
         noresults: No results were found
 security:
@@ -307,7 +307,7 @@ vacancy:
         where: Where will the volunteer work?
         googlemap: map preview
         moreinfo: More information
-        skills: Skills
+        skills: Interests
         advantages: Advantages for the volunteer
     approve:
         title: Candidates for this vacancy

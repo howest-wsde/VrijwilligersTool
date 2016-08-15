@@ -29,7 +29,7 @@ vacancy:
         save: Save and publish later
         otherReward: Other
         renumeration: Volunteer-renumeration
-        skills: Which categories apply to this vacancy?
+        skills: Which interests is this vacancy related to?
         independent: Should the volunteer be able to work without supervision?
         socialInteraction: How much social interaction can the volunteer expect?
         estimatedWorkInHours: 'Estimated number of working hours (if longterm: weekly)'
@@ -151,7 +151,7 @@ person:
         eula: I accept the terms and agreement
         submit: Create account
         next: Next
-        skills: Skills / capacities
+        skills: Interests / capacities
         finish: Submit
         backToRegistration: Back to registration
         backToGeneral: Back to general info

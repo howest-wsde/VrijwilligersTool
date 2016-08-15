@@ -30,7 +30,7 @@ vacancy:
         save: Bewaar en publiceer later
         otherReward: Andere
         renumeration: Vrijwilligersvergoeding
-        skills: Onder welke categoriëen valt deze vacature?
+        skills: Welke interesses / vaardigheden moet een vrijwilliger hebben voor deze vacature?
         independent: Moet de vrijwilliger zelfstandig kunnen werken?
         socialInteraction: Hoeveel sociale interactie zal er zijn?
         estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
@@ -155,7 +155,7 @@ person:
         eula: Ik ga akkoord met de overeenkomst
         submit: Maak account
         next: Volgende
-        skills: Vaardigheden / Capaciteiten
+        skills: Interesses / Capaciteiten
         finish: Indienen
         backToRegistration: Terug naar registratie
         backToGeneral: Terug naar algemene gegevens
