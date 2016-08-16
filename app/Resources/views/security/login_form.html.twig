@@ -6,13 +6,13 @@
 
 <form action="{{ path("login") }}" method="post">
     <div class="col-md-6">
-        <h2 class="steptitle blauw">{{ "def.index.logintitle"|trans, "views" }}</h2>
+        <h2 class="steptitle blauw">{{ "def.index.logintitle"|trans({}, "views") }}</h2>
         <div class="step actief grijs blauw">
             <fieldset>
-                <div class="lbl"><label for="username">{{ "def.index.id"|trans, "views" }}:</label></div>
+                <div class="lbl"><label for="username">{{ "def.index.id"|trans({}, "views") }}:</label></div>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{"person.placeholder.username"|trans}}"/>
 
-                <div class="lbl"><label for="password">{{ "def.index.phrase"|trans, "views" }}:</label></div>
+                <div class="lbl"><label for="password">{{ "def.index.phrase"|trans({}, "views") }}:</label></div>
                 <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}">
@@ -21,26 +21,26 @@
                     <input type="hidden" name="_target_path" value="{{ path }}" />
                 {% endif %}
 
-                <button type="submit">{{ "def.index.login"|trans, "views" }}</button>
+                <button type="submit">{{ "def.index.login"|trans({}, "views") }}</button>
             </fieldset>
         </div>
     </div>
 
     <div class="col-md-6">
-        <h2 class="steptitle blauw">{{ "def.index.external"|trans, "views" }}</h2>
+        <h2 class="steptitle blauw">{{ "def.index.external"|trans({}, "views") }}</h2>
         <div class="step actief grijs blauw">
             <fieldset class="oauthlogin">
-                <a href="{{ path("oauth_google") }}" class="googlelogin">{{ "def.index.google"|trans, "views" }}</a>
-                <a href="{{ path("oauth_facebook") }}" class="fblogin">{{ "def.index.fb"|trans, "views" }}</a>
+                <a href="{{ path("oauth_google") }}" class="googlelogin">{{ "def.index.google"|trans({}, "views") }}</a>
+                <a href="{{ path("oauth_facebook") }}" class="fblogin">{{ "def.index.fb"|trans({}, "views") }}</a>
             </fieldset>
         </div>
     </div>
 
     <div class="col-md-12">
-        <h2 class="steptitle rood">{{ "def.index.none"|trans, "views" }}</h2>
+        <h2 class="steptitle rood">{{ "def.index.none"|trans({}, "views") }}</h2>
         <div class="step actief grijs">
             <fieldset>
-                <p><a href="{{ path("register_user") }}" class="cta">{{ "def.index.create"|trans, "views" }}</a></p>
+                <p><a href="{{ path("register_user") }}" class="cta">{{ "def.index.create"|trans({}, "views") }}</a></p>
             </fieldset>
         </div>
     </div>

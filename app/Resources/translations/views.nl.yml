@@ -54,7 +54,7 @@ base:
                 become: vrijwilliger worden
                 find: vrijwilliger vinden
                 info: vrijwilligersinfo
-                tests: tests
+                tests: Wat wil ik?
         newsletter:
             cta: Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!
         footer:
@@ -67,7 +67,7 @@ base:
             why: moeder waarom vrijwilligen wij?
             rules: spelregels
             faq: veelgestelde vragen
-            tests: tests
+            tests: Wat wil ik?
             type: welk type vrijwilliger ben ik?
             about: over ons
             contact: contact
@@ -86,9 +86,9 @@ def: #default
         notsure: Niet zeker wat je wil?
         test: Doe hier de test!
     index:
-        logintitle: Log in met je gebruikersgegevens en wachtzin.
+        logintitle: Log in met je gebruikersgegevens en wachtzin/wachtwoord.
         id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
-        phrase: Wachtzin
+        phrase: Wachtzin of wachtwoord
         login: login
         external: Log in via een externe site
         google: Inloggen via je Google-account
@@ -234,7 +234,7 @@ person:
         contact: Contactgegevens
         address: Adresgegevens
         map: map preview
-        preferences: 'Vaardigheden & Voorkeuren'
+        preferences: 'Interesses & Voorkeuren'
         interesting: Kijk welke vacatures interessant zijn
         goodvol: Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie
         search: zoek naar vacatures
@@ -269,7 +269,7 @@ search:
         site: Doorzoek onze site
         filters: Filters
         type: Filter op type
-        cat: Filter op categorie
+        cat: Filter op interesse
         sector: Filter op sector
         intensity: Filter op intensiteit
         distance: Filter op afstand
@@ -330,7 +330,7 @@ vacancy:
         where: Waar zal de vrijwilliger werken?
         googlemap: map preview
         moreinfo: Meer info
-        skills: Vaardigheden
+        skills: Interesses
         advantages: Voordelen voor de vrijwilliger
     approve:
         title: Kandidaten voor deze vacature

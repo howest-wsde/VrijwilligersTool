@@ -30,7 +30,7 @@ vacancy:
         save: Bewaar en publiceer later
         otherReward: Andere
         renumeration: Vrijwilligersvergoeding
-        skills: Onder welke categoriëen valt deze vacature?
+        skills: Welke interesses / vaardigheden moet een vrijwilliger hebben voor deze vacature?
         independent: Moet de vrijwilliger zelfstandig kunnen werken?
         socialInteraction: Hoeveel sociale interactie zal er zijn?
         estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
@@ -148,14 +148,14 @@ person:
         number: Huisnummer
         postalcode: Postcode
         city: Gemeente
-        password: Wachtzin
-        repeat_password: Herhaal wachtzin
+        password: Wachtzin of wachtwoord
+        repeat_password: Herhaal wachtzin of wachtwoord
         language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
         submit: Maak account
         next: Volgende
-        skills: Vaardigheden / Capaciteiten
+        skills: Interesses / Capaciteiten
         finish: Indienen
         backToRegistration: Terug naar registratie
         backToGeneral: Terug naar algemene gegevens
