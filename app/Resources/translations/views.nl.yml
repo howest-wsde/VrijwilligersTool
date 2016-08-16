@@ -49,6 +49,7 @@ base:
                 about: over ons
                 contact: contact
                 profile: mijn profiel
+                editprofile: instellingen
                 logout: uitloggen
                 login: inloggen
                 become: vrijwilliger worden

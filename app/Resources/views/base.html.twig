@@ -36,7 +36,7 @@
                             <li><a href="{{ path("info_over_ons") }}" class="{% if app.request.attributes.get('_route') == 'info_over_ons' %}actief{% endif %}">{{ "base.body.header.menu.about"|trans }}</a></li>
                             <li><a href="{{ path("info_contact") }}" class="{% if app.request.attributes.get('_route') == 'info_contact' %}actief{% endif %}">{{ "base.body.header.menu.contact"|trans }}</a></li>
                             {% if app.user %}
-                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.profile"|trans }}</a></li>
+                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.editprofile"|trans }}</a></li>
                                 <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }}</a></li>
                             {% else %}
                                 <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>

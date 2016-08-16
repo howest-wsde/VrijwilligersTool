@@ -48,6 +48,7 @@ base:
                 about: about us
                 contact: contact
                 profile: my profile
+                editprofile: settings
                 logout: logout
                 login: login
                 become: becoming a volunteer
