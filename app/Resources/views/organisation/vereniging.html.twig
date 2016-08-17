@@ -8,7 +8,16 @@
 	<h1>{{ organisation.name }}</h1>
 	<p>{{ "org.org.deleted"|trans }}  {% if app.user in organisation.administrators %}{{ "org.org.unjust"|trans }} <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
-	<article class="tempblok">
+
+
+	<article class="vereniging">
+
+	    {% if app.user in organisation.likers %}
+	        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+	    {% else %}
+	        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+	    {% endif %}
+
 	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
                 <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
@@ -20,17 +29,12 @@
             </div>
         {% endfor %}
 
-		<h1>{{ organisation.name }}</h1>
-		<h2>{% if organisation.slogan %}{{ organisation.slogan }}{% endif %}</h2>
-		{% if app.user in organisation.likers %}
-			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}">{{ "general.button.unlike"|trans }}</a>
-		{% else %}
-			<a href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}">{{ "general.button.like"|trans }}</a>
-		{% endif %}
 		{% if organisation.logoName %}
 			{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
 			<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
 		{% endif %}
+		<h1>{{ organisation.name }}</h1>
+		{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
 		<p>{{ organisation.description }}</p>
 
 		{% if organisation.sectors %}
@@ -47,8 +51,7 @@
 				{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
 			</p>
 
-			{% embed "info/googlemaps.html.twig" %}{% endembed %}
-
+			{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
 		{% else %}
 			<p>{{ "org.org.noadres"|trans }}</p>
 		{% endif %}

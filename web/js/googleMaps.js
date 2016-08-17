@@ -14,7 +14,7 @@ var googleMaps = (function(window,undefined) {
     var map = new google.maps.Map(mapcanvas[0], mapOptions);
 
     var userAddress = mapcanvas.data("useraddress");
-    var vacancyAddress = $("#location").text();
+    var vacancyAddress = $("#targetaddress").text();
 
     var fitmap = ()=> {//resizes the map to fit the start and end in one view
         var bounds = new google.maps.LatLngBounds();
@@ -37,7 +37,7 @@ var googleMaps = (function(window,undefined) {
                         map: map,
                         animation: google.maps.Animation.DROP,
                         position: results[0].geometry.location,
-                        icon: markericon
+                        //icon: markericon
                     });
                     markers.push(marker);
                     fitmap();

@@ -43,20 +43,23 @@
 			{% endif %}
 			{% if vacancy.organisation %}
 				<p id="vacancy_organisation"{{ "general.org"|trans|capitalize }}>: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
-				<p id="vacancy_location">{{ "vacancy.vacancy.location"|trans }}:
-					<span id="location">
-						<br>
-						{{ vacancy.organisation.street }}
-						{{ vacancy.organisation.number }}
-						<br>
-						{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
-							{{ "vacancy.vacancy.bus"|trans }} {{ vacancy.organisation.bus }}
-						{% endif %}
-						{{ vacancy.organisation.postalcode }}
-						{{ vacancy.organisation.city }}
-					</span>
+				{% if vacancy.organisation.street and vacancy.organisation.number and (vacancy.organisation.postalcode or vacancy.organisation.city) %}
+					<p id="vacancy_location">{{ "vacancy.vacancy.location"|trans }}:
+						<span id="location">
+							<br>
+							{{ vacancy.organisation.street }}
+							{{ vacancy.organisation.number }}
+							<br>
+							{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
+								{{ "vacancy.vacancy.bus"|trans }} {{ vacancy.organisation.bus }}
+							{% endif %}
+							{{ vacancy.organisation.postalcode }}
+							{{ vacancy.organisation.city }}
+						</span>
+					</p>
+					{% embed "info/googlemaps.html.twig" with {"street": vacancy.organisation.street, "number": vacancy.organisation.number, "postalcode": vacancy.organisation.postalcode, "city": vacancy.organisation.city} %}{% endembed %}
+				{% endif %}
 			{% endif %}
-			</p>
 		</div>
 		<div class="share-buttons">
 			<div>
@@ -74,7 +77,6 @@
 			</form>
 		</div>
 
-		{% embed "info/googlemaps.html.twig" %}{% endembed %}
 
 		<footer>{% block vacature_cta %}
 			<ul>

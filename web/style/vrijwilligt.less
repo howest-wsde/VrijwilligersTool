@@ -253,6 +253,32 @@ body>header {
 	}
 }
 
+article.vacature, article.vereniging, .blok {
+	.shaduwblok(white);
+	.rounded(10px);
+	position: relative;
+	padding: @iPadding;
+	margin: @iMargin;
+	overflow: auto;
+	img.logo {max-width: 100%; max-height: 310px; margin: 10px auto; float: right; }
+	a.fav {
+		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
+		position: absolute;  right: 20px; top: -2px;
+		span {display: none; }
+		&.liked {background-position: center bottom; }
+		&.notliked {background-position: center top; }
+	}
+	.googlemap {
+		position: relative;
+		#map-canvas {width: 100%; height: 350px; z-index: 10; }
+		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px;
+ background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+		 }
+
+	}
+}
 
 div.vacatures, div.organisaties, .blokken {
 	overflow: auto; width: 100%;
@@ -260,20 +286,8 @@ div.vacatures, div.organisaties, .blokken {
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
-		position: relative;
-		.shaduwblok(white);
-		.rounded(10px);
-		padding: @iPadding;
-		margin: @iMargin;
 		text-align: center;
-		a.fav {
-			background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
-			position: absolute;  right: 20px; top: -2px;
-			span {display: none; }
-			&.liked {background-position: center bottom; }
-			&.notliked {background-position: center top; }
-		}
-		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
+		img.logo {max-height: 110px; float: none;  }
 		a.cta {
 			color: white;
 			padding: 10px;

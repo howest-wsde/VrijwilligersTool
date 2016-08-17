@@ -2,6 +2,7 @@
     <div>
         <button id="getRoute">{{ "general.map.show"|trans }}</button>
         <div id="description" class="hidden"></div>
+
         <p>{{ "general.map.select"|trans }}</p>
         <div onchange="googleMapsModule.drawRoute()">
             <select id="transitMethod">
@@ -18,14 +19,10 @@
             </select>
         </div>
     </div>
-    <div data-useraddress="
-    {% if app.user %}
-        {{ app.user.street }}
-        {{ app.user.number }}
-        {{ app.user.postalcode }}
-        {{ app.user.city }}
-    {% else %}
-    {% endif %}"
-         id="map-canvas" style="width: 350px; height: 350px;">
+    <div class="googlemap">
+        <div id="targetaddress">{{ street }} {{ number }}<br />{{ postalcode }} {{ city }}</div>
+        <div data-useraddress="{% if app.user %}{{ app.user.street }} {{ app.user.number }}, {{ app.user.postalcode }} {{ app.user.city }}{% endif %}" id="map-canvas">
+    </div>
+
     </div>
 </aside>
