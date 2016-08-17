@@ -18,7 +18,11 @@
         </a>
     </header>
     {% if (vacancy.organisation) %}
-        <img src="{{ asset("images/organisations/" ~ vacancy.organisation.logoName) }}" text="logo {{ vacancy.organisation.name }}" alt="logo {{ vacancy.organisation.name }}" class="logo">
+        {% if (vacancy.organisation.logoName) %}
+            <img src="{{ asset("images/organisations/" ~ vacancy.organisation.logoName) }}" text="logo {{ vacancy.organisation.name }}" alt="logo {{ vacancy.organisation.name }}" class="logo">
+        {% else %}
+            <h2>{{ vacancy.organisation.name }}</h2>
+        {% endif %}
     {% endif %}
     <p>{{ vacancy.description|truncate(200, true) }}</p>
     <ul>
