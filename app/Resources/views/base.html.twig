@@ -36,7 +36,7 @@
                             <li><a href="{{ path("info_over_ons") }}" class="{% if app.request.attributes.get('_route') == 'info_over_ons' %}actief{% endif %}">{{ "base.body.header.menu.about"|trans }}</a></li>
                             <li><a href="{{ path("info_contact") }}" class="{% if app.request.attributes.get('_route') == 'info_contact' %}actief{% endif %}">{{ "base.body.header.menu.contact"|trans }}</a></li>
                             {% if app.user %}
-                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.profile"|trans }}</a></li>
+                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.editprofile"|trans }}</a></li>
                                 <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }}</a></li>
                             {% else %}
                                 <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>
@@ -101,7 +101,6 @@
                                 <li><a href="{{ path("info_vrijwilligersinfo") }}">{{ "base.body.footer.what"|trans|capitalize }}<base></base></a></li>
                                 <li><a href="{{ path("info_waarom") }}">{{ "base.body.footer.why"|trans|capitalize }}</a></li>
                                 <li><a href="{{ path("info_spelregels") }}">{{ "base.body.footer.rules"|trans|capitalize }}</a></li>
-                                <li><a href="{{ path("info_faq") }}">{{ "base.body.footer.faq"|trans|capitalize }}</a></li>
                             </ul>
                         </section>
                         <section class="col-md-3">
@@ -153,7 +152,7 @@
                     <div class="container">
                         <address class="col-md-3">
                             <h2>{{ "base.general.name"|trans }}</h2>
-                            <p>Zuidstraat 17, 8800 Roeselare</p>
+                            <p><strong>Vrijetijdspunt</strong><br />Zuidstraat 17, 8800 Roeselare</p>
                             <dl>
                                 <dt>tel: </dt>
                                 <dd>051 26 24 00</dd>
