@@ -253,6 +253,44 @@ body>header {
 	}
 }
 
+article.vacature, article.vereniging, .blok {
+	.shaduwblok(white);
+	.rounded(10px);
+	position: relative;
+	padding: @iPadding;
+	margin: @iMargin;
+	overflow: auto;
+	img.logo {max-width: 100%; max-height: 310px; margin: 10px auto; float: right; }
+	a.fav {
+		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
+		position: absolute;  right: 20px; top: -2px;
+		span {display: none; }
+		&.liked {background-position: center bottom; }
+		&.notliked {background-position: center top; }
+	}
+	.googlemap {
+		position: relative;
+		#map-canvas {width: 100%; height: 350px; z-index: 10; }
+		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
+			background-color: #fff; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+		 }
+		 ul.transit {
+		 	position: absolute; right: 10px; bottom: 78px; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3); z-index: 50; background: white; padding: 0;
+		 	li {
+		 		display: block; margin: 0; padding: 0;
+		 		a {
+		 			background: #999999 url("../images/map_walk.png") no-repeat center center; width: 28px; height: 28px; display: block;
+		 			&:hover {background-color: #333333; }
+		 			&.actief {background-color: black; }
+		 			&.walking {background-image: url("../images/map_walking.png"); }
+		 			&.bike {background-image: url("../images/map_bike.png"); }
+		 			&.driving {background-image: url("../images/map_car.png"); }
+		 			&.transit {background-image: url("../images/map_bus.png"); }
+		 		}
+		 	}
+		 }
+	}
+}
 
 div.vacatures, div.organisaties, .blokken {
 	overflow: auto; width: 100%;
@@ -260,20 +298,8 @@ div.vacatures, div.organisaties, .blokken {
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
-		position: relative;
-		.shaduwblok(white);
-		.rounded(10px);
-		padding: @iPadding;
-		margin: @iMargin;
-		text-align: center;
-		a.fav {
-			background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
-			position: absolute;  right: 20px; top: -2px;
-			span {display: none; }
-			&.liked {background-position: center bottom; }
-			&.notliked {background-position: center top; }
-		}
-		img.logo {max-width: 100%; max-height: 110px; margin: 10px auto; }
+		text-align: center; overflow: visible;
+		img.logo {max-height: 110px; float: none;  }
 		a.cta {
 			color: white;
 			padding: 10px;
@@ -414,8 +440,10 @@ h3 {.grijzetitel(); }
 		font-size: 18px; text-transform: none; flex: 0 0 100%;
 		padding: @iMargin @iMargin 0; border-top: 3px dotted @cGroen;
 	}
+	.blokken {justify-content: center; }
 	.blok {
 		display: flex; align-items: center; justify-content: center;
+		flex: 0 1 250px;
 		img {max-width: 100%; max-height: 70px; }
 	}
 }

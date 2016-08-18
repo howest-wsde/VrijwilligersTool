@@ -113,13 +113,13 @@ class SecurityController extends UtilityController
     }
 
 
-    /**
-     * @Route("/loginAccountKit", name="loginAccountKit")
-     */
-    public function loginAccountKit(Request $request)
-    {
-        return $this->render("info/faq.html.twig");
-    }
+//    /**
+//     * @Route("/loginAccountKit", name="loginAccountKit")
+//     */
+//    public function loginAccountKit(Request $request)
+//    {
+//        return $this->render("info/faq.html.twig");
+//    }
 
 
     /**

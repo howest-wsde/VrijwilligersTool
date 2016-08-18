@@ -18,8 +18,10 @@
                 <h3>{{ organisation.name}}</h3>
             </a>
         </header>
-        <img src="{{ asset
+        {% if (organisation.logoName) %}
+            <img src="{{ asset
         ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+        {% endif %}
         <p>{{ organisation.description|truncate(200, true) }}</p>
         <ul>
             {% if organisation.street %}

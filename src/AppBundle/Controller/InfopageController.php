@@ -59,14 +59,6 @@ class InfopageController extends Controller
         return $this->render("info/spelregels.html.twig");
     }
 
-    /**
-     * @Route("/faq", name="info_faq")
-     */
-    public function faq()
-    {
-        return $this->render("info/faq.html.twig");
-    }
-
         /**
      * @Route("/profiel-van-een-vrijwilliger", name="info_profiel")
      */
