@@ -15,7 +15,7 @@
 		</section>
 		<section>
 			{% set aantal = results|length %}
-			<h2>{{ aantal }} {% if aantal > 1 %} {{ "search.results"|trans }} {% else %} {{ "search.result"|trans }} {% endif %} {{ "search.page.for"|trans }} {{ searchTerm }}</h2>
+			<h2>{{ aantal }} {% if aantal > 1 %} {{ "search.results"|trans }} {% else %} {{ "search.result"|trans }} {% endif %} {% if searchTerm %} {{ "search.page.for"|trans }} {{ searchTerm }} {% endif %}</h2>
 			{{ form_row(form.sort) }}{# TODO: create issue #}
 			{#{ form_row(form.pagination) }}{# TODO: create issue #}
 				{% if filters %}
