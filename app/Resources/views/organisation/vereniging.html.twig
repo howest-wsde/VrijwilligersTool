@@ -9,56 +9,66 @@
 	<p>{{ "org.org.deleted"|trans }}  {% if app.user in organisation.administrators %}{{ "org.org.unjust"|trans }} <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
 
+	 <div class="verenigingpage">
+		<article class="vereniging">
 
-	<article class="vereniging">
+		    {% if app.user in organisation.likers %}
+		        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+		    {% else %}
+		        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+		    {% endif %}
 
-	    {% if app.user in organisation.likers %}
-	        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
-	    {% else %}
-	        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
-	    {% endif %}
+		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+	            <div class="alert alert-success">
+	                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+	            </div>
+	        {% endfor %}
+	        {% for flashMessage in app.session.flashbag.get('error') %}
+	            <div class="alert alert-danger">
+	                {{ flashMessage }}
+	            </div>
+	        {% endfor %}
 
-	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
-            <div class="alert alert-success">
-                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
-            </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-danger">
-                {{ flashMessage }}
-            </div>
-        {% endfor %}
+			{% if organisation.logoName %}
+				{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+				<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+			{% endif %}
+			<h1>{{ organisation.name }}</h1>
+			{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
+			<p>{{ organisation.description }}</p>
 
-		{% if organisation.logoName %}
-			{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
-			<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
-		{% endif %}
-		<h1>{{ organisation.name }}</h1>
-		{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
-		<p>{{ organisation.description }}</p>
+			{% if organisation.sectors %}
+				<p>
+					<label>Sectoren:</label>
+					{% for sector in organisation.sectors %}
+						{{ sector.name }}
+					{% endfor %}
+				</p>
+			{% endif %}
 
-		{% if organisation.sectors %}
-			<p>
-				<label>Sectoren:</label>
-				{% for sector in organisation.sectors %}
-					{{ sector.name }}
-				{% endfor %}
-			</p>
-		{% endif %}
 
-		{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-			<p>
-				{{ organisation.street }}, {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}- {{ organisation.postalcode }}, {{ organisation.city }}
-			</p>
+		</article>
 
-			{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
-		{% else %}
-			<p>{{ "org.org.noadres"|trans }}</p>
-		{% endif %}
-		<p>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</p>
-		<p>{% if organisation.email %}{{ organisation.email }}{% endif %}</p>
+		<div class="blok details">
+			<ul class="icons">
+				{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+					<li class="loc">
+						{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}
+						<br />{{ organisation.postalcode }} {{ organisation.city }}
+					</li>
+				{% else %}
+					<p>{{ "org.org.noadres"|trans }}</p>
+				{% endif %}
 
-	</article>
+				<li>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</li>
+				<li>{% if organisation.email %}{{ organisation.email }}{% endif %}</li>
+			</ul>
+			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
+			{% endif %}
+		</div>
+
+	</div>
 
 	{% if organisation.vacancies %}
 		<h3>{{ "org.org.vacancies"|trans }}</h3>

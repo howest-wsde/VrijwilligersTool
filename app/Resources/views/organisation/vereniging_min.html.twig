@@ -13,30 +13,31 @@
         <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
     {% endif %}
 
-        <header>
-            <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
-                <h3>{{ organisation.name}}</h3>
-            </a>
-        </header>
-        {% if (organisation.logoName) %}
-            <img src="{{ asset
-        ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+    <header>
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+            <h3>{{ organisation.name}}</h3>
+        </a>
+    </header>
+    {% if (organisation.logoName) %}
+        <img src="{{ asset
+    ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+    {% endif %}
+    <p>{{ organisation.description|truncate(200, true) }}</p>
+    <ul class="icons">
+        {% if organisation.street %}
+            <li class="loc">
+                <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %}<br />{{ organisation.postalCode }} {{ organisation.city }}
+                </a>
+            </li>
         {% endif %}
-        <p>{{ organisation.description|truncate(200, true) }}</p>
-        <ul>
-            {% if organisation.street %}
-                <li>
-                    <a href="https://www.google.be/maps/place/{{ organisation.street }}+{{ organisation.number }}+{{ organisation.postalCode }}+{{ organisation.city }}" target="_blank">{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %} - {{ organisation.postalCode }} {{ organisation.city }}
-                    </a>
-                </li>
-            {% endif %}
-            <li>
-                {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
-            </li>
-            <li>
-                {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} {{ "org.min.1open"|trans }} {% else %} {{ organisation.vacancies|length }} {{ "org.min.open"|trans }} {% endif %}
-            </li>
-        </ul>
+        <li class="people">
+            {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
+        </li>
+        <li class="number">
+            {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} {{ "org.min.1open"|trans }} {% else %} {{ organisation.vacancies|length }} {{ "org.min.open"|trans }} {% endif %}
+        </li>
+    </ul>
+    <div class="cta">
         <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
-    </a>
+    </div>
 </article>
