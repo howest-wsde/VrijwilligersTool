@@ -29,8 +29,7 @@
         {# TODO: alter dbase to remember and add icons here #}
     </ul>
 
-    <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
-    {% if vacancy.published != 4 and (vacancy.organisation) and app.user in vacancy.organisation.administrators %}
-        <a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.min.delete"|trans }}</a>
-    {% endif %}
+    <div class="cta">
+        <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
+    </div>
 </article>
