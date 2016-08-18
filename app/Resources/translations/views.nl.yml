@@ -274,6 +274,7 @@ search:
         char: Filter op kenmerk
         advantages: Filter op voordelen
         noresults: Er werden geen resultaten gevonden
+        for: voor
 security:
     login: Inloggen
     status:
