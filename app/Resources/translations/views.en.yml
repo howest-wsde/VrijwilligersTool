@@ -253,6 +253,7 @@ search:
         char: Filter by field of interest
         advantages: Filter by advantage
         noresults: No results were found
+        for: for
 security:
     login: Log in
     status:
