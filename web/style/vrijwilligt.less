@@ -271,12 +271,24 @@ article.vacature, article.vereniging, .blok {
 	.googlemap {
 		position: relative;
 		#map-canvas {width: 100%; height: 350px; z-index: 10; }
-		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px;
- background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
+			background-color: #fff; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
 		 }
-
+		 ul.transit {
+		 	position: absolute; right: 10px; bottom: 78px; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3); z-index: 50; background: white; padding: 0;
+		 	li {
+		 		display: block; margin: 0; padding: 0;
+		 		a {
+		 			background: #999999 url("../images/map_walk.png") no-repeat center center; width: 28px; height: 28px; display: block;
+		 			&:hover {background-color: #333333; }
+		 			&.actief {background-color: black; }
+		 			&.walking {background-image: url("../images/map_walking.png"); }
+		 			&.bike {background-image: url("../images/map_bike.png"); }
+		 			&.driving {background-image: url("../images/map_car.png"); }
+		 			&.transit {background-image: url("../images/map_bus.png"); }
+		 		}
+		 	}
+		 }
 	}
 }
 
@@ -286,7 +298,7 @@ div.vacatures, div.organisaties, .blokken {
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
-		text-align: center;
+		text-align: center; overflow: visible;
 		img.logo {max-height: 110px; float: none;  }
 		a.cta {
 			color: white;

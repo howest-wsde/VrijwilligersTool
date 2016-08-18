@@ -6,13 +6,13 @@ var googleMaps = (function(window,undefined) {
     var mapcanvas = $("#map-canvas");
     var markers = []; //array to fit map
     var mapOptions = {
-    zoom: 15,
-    center: {lat: 50.948352, lng: 3.131108}
-    //this default to a map of the centre of Roeselare
+        zoom: 15,
+        center: {lat: 50.948352, lng: 3.131108},  //this default to a map of the centre of Roeselare
+        streetViewControl: false,
+        mapTypeControl: false,
     };
 
     var map = new google.maps.Map(mapcanvas[0], mapOptions);
-
     var userAddress = mapcanvas.data("useraddress");
     var vacancyAddress = $("#targetaddress").text();
 
@@ -37,11 +37,11 @@ var googleMaps = (function(window,undefined) {
                         map: map,
                         animation: google.maps.Animation.DROP,
                         position: results[0].geometry.location,
-                        //icon: markericon
+                        icon: markericon
                     });
                     markers.push(marker);
-                    fitmap();
-                    self.drawRoute();
+                   // fitmap();
+                  //  self.drawRoute();
                 } else {
                     console.log('%cGeocode was not successful for the following reason: \n ' +
                         `%c${status}`,
@@ -51,22 +51,13 @@ var googleMaps = (function(window,undefined) {
         };
         this.drawRoute = ()=> {
             directionsDisplay.setMap(null); // clears the map for another new route
-            var selectedMode = $("#transitMethod").find("option:selected").val(); //get selected mode
+            var selectedMode = $("#transitMethod").val(); //get selected mode
             var request = {
                 origin: userAddress,
                 destination: vacancyAddress,
                 travelMode:  google.maps.TravelMode[selectedMode], //add it in the request
                 transitOptions:{}
             };
-
-            if(selectedMode === "TRANSIT"){// when transit is checked, display more options and include them in the request
-                let mode = $("#transitMode");
-                mode.removeClass("hidden").slideDown();
-                request.transitOptions.modes = [google.maps.TransitMode[mode.val()]];
-            }
-            else{
-                $("#transitMode").slideUp();
-            }
 
             if (userAddress != " ") {//if user is logged in we draw the route from his house
                 directionsService.route(request, function (result, status) {
@@ -75,6 +66,7 @@ var googleMaps = (function(window,undefined) {
                         directionsDisplay.setPanel($("#description")[0]);//[0] for the pure js object
                         directionsDisplay.setOptions( { suppressMarkers: true } ); //no default A and B markers when routing
                         directionsDisplay.setDirections(result);
+                        fitmap();
                     }
                     else {
                         console.log('%Couldn\'t get direction because: \n ' +
@@ -90,8 +82,8 @@ var googleMaps = (function(window,undefined) {
         this.init = ()=> {
             $("#getRoute").click((e)=>{e.preventDefault(); $("#description").toggleClass("hidden")});
             if (userAddress !== " ") // user is not logged in aka data attr couldn't be filled
-                this.addAddressToMap(userAddress, "../images/homeIcon.png");
-            this.addAddressToMap(vacancyAddress, "../images/vacancyIcon.png");
+                this.addAddressToMap(userAddress, $("#homeMarker").val());
+            this.addAddressToMap(vacancyAddress, $("#workMarker").val());
         };
     }
     return googleMaps = googleMaps;
@@ -100,7 +92,16 @@ var googleMaps = (function(window,undefined) {
 var googleMapsModule = new googleMaps;
 googleMapsModule.init();
 
-
+$(document).ready(function(){
+    $("ul.transit a[rel]").click(function(){
+        var strTransit = $(this).attr("rel");
+        $("ul.transit a[rel]").removeClass("actief");
+        $(this).addClass("actief");
+        $("#transitMethod").val(strTransit);
+        googleMapsModule.drawRoute();
+        return false;
+    })
+})
 
 /*TODO: change api key,
 */
