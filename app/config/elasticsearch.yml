@@ -25,6 +25,7 @@ fos_elastica:
                         bus: { type: string, index: not_analyzed }
                         postalcode: { type: integer }
                         city: { type: string, index: not_analyzed }
+                        location: { type: geo_point, property_path: esGetLocation }
                         telephone: { type: string, index: not_analyzed }
                         language: { type: string, index: not_analyzed }
                         linkedinUrl: { type: string, index: not_analyzed }
@@ -127,6 +128,7 @@ fos_elastica:
                         postalcode: { type: integer }
                         bus: { type: string, index: not_analyzed }
                         city: { type: string, index: not_analyzed }
+                        location: { type: geo_point, property_path: esGetLocation }
                         urlId: { type: string, index: not_analyzed }
                         slogan: { type: string, analyzer: nl_analyzer }
                         telephone: { type: string, index: not_analyzed }
@@ -247,6 +249,7 @@ fos_elastica:
                         postalcode: { type: integer }
                         bus: { type: string, index: not_analyzed }
                         city: { type: string, index: not_analyzed }
+                        location: { type: geo_point, property_path: esGetLocation }
                         access: { type: boolean }
                         estimatedWorkInHours: { type: integer }
                         socialInteraction: { type: string, index: not_analyzed }

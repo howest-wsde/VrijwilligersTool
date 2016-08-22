@@ -1061,4 +1061,20 @@ class Vacancy extends EntityBase
                . $this->getCity() . ' '
                . $this->getPostalCode();
     }
+
+    /**
+     * Return latitude and longitude in the correct format for ES
+     * @return string string formatted as lat, long
+     */
+    public function esGetLocation()
+    {
+        $lat = $this->getLatitude();
+        $long = $this->getLongitude();
+
+        if($lat && $long){
+            return $this->getLatitude() . ', ' . $this->getLongitude();
+        }
+
+        return null;
+    }
 }
