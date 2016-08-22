@@ -113,7 +113,6 @@ class SearchController extends Controller
         $searchTerm = $form->get('search')->getData();
 
         return $this->render("search/zoekpagina.html.twig", array(
-            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
             "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
@@ -135,7 +134,6 @@ class SearchController extends Controller
         $form->handleRequest($request);
 
         return $this->render("search/zoekpagina.html.twig", array(
-            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
             "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
@@ -473,9 +471,10 @@ class SearchController extends Controller
         $categories = $form->get('categories')->getData(); //array
         $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
-        $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int
+        $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int;
         $characteristic = $form->get('characteristic')->getData(); //array
         $advantages = $form->get('advantages')->getData(); //array
+        $distance = $form->get('distance')->getData(); //int
         $sort = $form->get('sort')->getData(); //string
         $should = [];
         $must = [];
@@ -499,12 +498,17 @@ class SearchController extends Controller
           $range['estimatedWorkInHours'] = [ 'lte' => $hoursAWeek ];
         }
 
+
         if(!empty($characteristic)){
             $this->processCharacteristic($characteristic, $must);
         }
 
         if(!empty($advantages)){
             $this->processAdvantages($advantages, $exists, $range);
+        }
+
+        if($distance){
+            $dist = $this->processDistance($distance);
         }
 
         if($sort){
@@ -518,6 +522,8 @@ class SearchController extends Controller
             'range' => (!empty($range) ? $range : false),
             'sort' => (!empty($sort) ? $sort : false),
             'exists' => (!empty($exists) ? $exists : false),
+            'distance' => ($dist ? $dist['distance'] : false),
+            'location' => ($dist ? $dist['location'] : false),
         ];
     }
 
@@ -528,6 +534,26 @@ class SearchController extends Controller
      */
     private function processSort($sort){
         return [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the distance filter set by the user
+     * @return array    array holding a value for distance and for location
+     */
+    private function processDistance($distance){
+        $user = $this->getUser();
+
+        if($user->esGetLocation()){
+            return [
+                'distance' => ($distance . 'km'),
+                'location' => [
+                    'lat' => $user->getLatitude(),
+                    'long' => $user->getLongitude()
+                ]
+            ];
+        }
+
+        return null;
     }
 
     /**

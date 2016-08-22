@@ -189,7 +189,7 @@ person:
     general:
         volunteer: vrijwilliger
         firstname: voornaam
-        lastname: familienaam
+        sirname: familienaam
         username: gebruikersnaam
         fullname: naam
         vols: vrijwilligt
