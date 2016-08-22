@@ -38,7 +38,13 @@ AppBundle\Entity\Vacancy:
             type: string
             scale: 100
             nullable: true
-        accessible:
+        latitude:
+            type: string
+            nullable: true
+        longitude:
+            type: string
+            nullable: true
+        access:
             type: boolean
             options: {default: false}
         socialInteraction:

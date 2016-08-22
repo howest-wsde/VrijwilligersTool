@@ -188,6 +188,16 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
+     */
+    protected $latitude;
+
+    /**
+     * @var string
+     */
+    protected $longitude;
+
+    /**
+     * @var string
      * assert callback statement for telephone at top of class
      */
     protected $telephone;
@@ -814,7 +824,53 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->city;
     }
 
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Person
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
 
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set long
+     *
+     * @param string $long
+     *
+     * @return Person
+     */
+    public function setLongitude($long)
+    {
+        $this->longitude = $long;
+
+        return $this;
+    }
+
+    /**
+     * Get long
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -1145,5 +1201,33 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function esGetEntityName()
     {
         return 'person';
+    }
+
+    /**
+     * Getter for a full address in string form, like so:
+     * 'Koning Alberstraat 12, 9900 Eeklo'
+     */
+    public function getAddress()
+    {
+        return $this->getStreet() . ' '
+               . $this->getNumber() . ', '
+               . $this->getCity() . ' '
+               . $this->getPostalCode();
+    }
+
+    /**
+     * Return latitude and longitude in the correct format for ES
+     * @return string string formatted as lat, long
+     */
+    public function esGetLocation()
+    {
+        $lat = $this->getLatitude();
+        $long = $this->getLongitude();
+
+        if($lat && $long){
+            return $this->getLatitude() . ', ' . $this->getLongitude();
+        }
+
+        return null;
     }
 }

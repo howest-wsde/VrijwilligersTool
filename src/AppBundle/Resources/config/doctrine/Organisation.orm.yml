@@ -40,6 +40,12 @@ AppBundle\Entity\Organisation:
             type: string
             scale: 100
             nullable: true
+        latitude:
+            type: string
+            nullable: true
+        longitude:
+            type: string
+            nullable: true
         telephone:
             type: string
             length: 35
