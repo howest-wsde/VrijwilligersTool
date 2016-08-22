@@ -56,10 +56,6 @@ class Vacancy extends EntityBase
      *      type = "\DateTime",
      *      message = "vacancy.date.valid",
      * )
-     * @Assert\GreaterThanOrEqual(
-     *      value = "today",
-     *      message = "vacancy.date.not_today"
-     * )
      */
     private $startdate;
 
@@ -99,7 +95,7 @@ class Vacancy extends EntityBase
      * Whether or not a vacancy is weelchair-accessible
      * @var bool
      */
-    private $accessible = false;
+    private $access = false;
 
     /**
      * @var int
@@ -174,6 +170,16 @@ class Vacancy extends EntityBase
      * )
      */
     private $city;
+
+    /**
+     * @var string
+     */
+    protected $latitude;
+
+    /**
+     * @var string
+     */
+    protected $longitude;
 
     /**
      * @var string
@@ -451,9 +457,9 @@ class Vacancy extends EntityBase
      *
      * @return Vacancy
      */
-    public function setAccessible($accessible)
+    public function setAccess($accessible)
     {
-        $this->accessible = $accessible;
+        $this->access = $accessible;
 
         return $this;
     }
@@ -463,9 +469,9 @@ class Vacancy extends EntityBase
      *
      * @return bool
      */
-    public function getAccessible()
+    public function getAccess()
     {
-        return $this->accessible;
+        return $this->access;
     }
 
     /**
@@ -814,6 +820,54 @@ class Vacancy extends EntityBase
     }
 
     /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Person
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set long
+     *
+     * @param string $long
+     *
+     * @return Person
+     */
+    public function setLongitude($long)
+    {
+        $this->longitude = $long;
+
+        return $this;
+    }
+
+    /**
+     * Get long
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
      * Set organisation
      *
      * @param \AppBundle\Entity\Organisation $organisation
@@ -994,5 +1048,17 @@ class Vacancy extends EntityBase
     {
         $this->skills = $skills;
         return $this;
+    }
+
+    /**
+     * Getter for a full address in string form, like so:
+     * 'Koning Alberstraat 12, 9900 Eeklo'
+     */
+    public function getAddress()
+    {
+        return $this->getStreet() . ' '
+               . $this->getNumber() . ', '
+               . $this->getCity() . ' '
+               . $this->getPostalCode();
     }
 }

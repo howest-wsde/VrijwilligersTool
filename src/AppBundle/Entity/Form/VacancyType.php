@@ -78,11 +78,12 @@ class VacancyType extends AbstractType
                 "attr" => array("placeholder" => "vacancy.label.city"),
                 "required" => false,
             ))
-            ->add('accessible', ChoiceType::class, array(
+            ->add('access', ChoiceType::class, array(
                 'label' => 'vacancy.label.accessible',
                 'placeholder' => false,
                 'choices'  => array(
-                    'vacancy.choices.accessible' => 'yes',
+                    'vacancy.choices.accessible' => true,
+                    'vacancy.choices.notaccessible' => false,
                 ),
                 // render as radiobuttons
                 'expanded' => true,

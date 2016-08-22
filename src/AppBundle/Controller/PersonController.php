@@ -13,7 +13,7 @@ use AppBundle\Entity\Organisation;
 use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Form\VacancyType;
 
-class PersonController extends controller
+class PersonController extends UtilityController
 {
     /**
      * @Security("has_role('ROLE_USER')")
@@ -71,8 +71,10 @@ class PersonController extends controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $person = $form->getData();
+            $this->setCoordinates($person);
             $em = $this->getDoctrine()->getManager();
+            $em->persist($person);
             $em->flush();
 
             //set a success message

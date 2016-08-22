@@ -247,7 +247,7 @@ fos_elastica:
                         postalcode: { type: integer }
                         bus: { type: string, index: not_analyzed }
                         city: { type: string, index: not_analyzed }
-                        accessible: { type: boolean }
+                        access: { type: boolean }
                         estimatedWorkInHours: { type: integer }
                         socialInteraction: { type: string, index: not_analyzed }
                         independent: { type: string, index: not_analyzed }

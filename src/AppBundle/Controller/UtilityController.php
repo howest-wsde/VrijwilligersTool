@@ -196,4 +196,19 @@ class UtilityController extends Controller
           $em->flush();
         }
     }
+
+    /**
+     * Set the latitude and longitude of an entity containing those properties as well as the properties for an address
+     * @param mixed $entity
+     */
+    protected function setCoordinates(&$entity){
+      // Get JSON results from this request & convert to an array
+      $geo = json_decode(file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address='.urlencode($entity->getAddress()).'&sensor=false'), true);
+
+      if ($geo['status'] == 'OK') {
+        // Set Lat & Long
+        $entity->setLatitude((string) $geo['results'][0]['geometry']['location']['lat']);
+        $entity->setLongitude((string) $geo['results'][0]['geometry']['location']['lng']);
+      }
+    }
 }

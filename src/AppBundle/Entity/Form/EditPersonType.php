@@ -66,7 +66,8 @@ class EditPersonType extends AbstractType
             ))
             ->add("plainPassword", PasswordType::class, array(
                 "label" => "person.label.password",
-                "attr" => array("placeholder" => "person.placeholder.password")
+                "attr" => array("placeholder" => "person.placeholder.password"),
+                'required' => false
             ))
             ->add("username", TextType::class, array(
                 "label" => "person.label.username",
@@ -142,10 +143,6 @@ class EditPersonType extends AbstractType
                 "validation_groups" => false,
             ))
             ->add("submit2", SubmitType::class, array(
-                "label" => "person.label.finish",
-                "validation_groups" => false,
-            ))
-            ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,
             ));

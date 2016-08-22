@@ -177,6 +177,16 @@ class Organisation extends EntityBase
     /**
      * @var string
      */
+    protected $latitude;
+
+    /**
+     * @var string
+     */
+    protected $longitude;
+
+    /**
+     * @var string
+     */
     private $urlid;
 
     /**
@@ -853,6 +863,54 @@ class Organisation extends EntityBase
     }
 
     /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Person
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set long
+     *
+     * @param string $long
+     *
+     * @return Person
+     */
+    public function setLongitude($long)
+    {
+        $this->longitude = $long;
+
+        return $this;
+    }
+
+    /**
+     * Get long
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -949,5 +1007,17 @@ class Organisation extends EntityBase
     public function esGetEntityName()
     {
         return 'organisation';
+    }
+
+    /**
+     * Getter for a full address in string form, like so:
+     * 'Koning Alberstraat 12, 9900 Eeklo'
+     */
+    public function getAddress()
+    {
+        return $this->getStreet() . ' '
+               . $this->getNumber() . ', '
+               . $this->getCity() . ' '
+               . $this->getPostalCode();
     }
 }

@@ -561,7 +561,7 @@ class SearchController extends Controller
         foreach ($characteristic as $key => $value) {
             switch ($value) {
                 case 'weelchair':
-                    $must[] = [ 'term' => [ 'accessible' => true ]];
+                    $must[] = [ 'term' => [ 'access' => true ]];
                     break;
 
                 case 'lotsContact':
