@@ -106,7 +106,7 @@ class SearchController extends Controller
      * @Method("POST")
      */
     public function searchFormPostAction(Request $request){
-        //sort: afstand werkt nog niet => check geo_distance_range filter
+        //sort: afstand werkt nog niet
         $sf = new SearchFilter();
         $form = $this->createForm(SearchFilterType::class, $sf);
         $form->handleRequest($request);
@@ -118,7 +118,25 @@ class SearchController extends Controller
             "searchTerm" => $searchTerm,
             "filters" => true,
         ));
+        // return $this->redirectToRoute('postsearch', array(
+        //                         'form' => $form,
+        //                         'searchTerm' => $searchTerm
+        //                     )
+        //         );
     }
+
+    // /**
+    //  * Helper function for searchFormPostAction to clear out the query string should one exist from a previous get request.
+    //  * @Route("/postSearch", name="postsearch")
+    //  */
+    // public function postSearchAction($form, $searchTerm){
+    //     return $this->render("search/zoekpagina.html.twig", array(
+    //         "form" => $form->createView(),
+    //         "results" => $this->searchByType($form, $searchTerm),
+    //         "searchTerm" => $searchTerm,
+    //         "filters" => true,
+    //     ));
+    // }
 
     /**
      * Zoekformulier verwerken bij een get/head request => met Q-string
@@ -509,6 +527,7 @@ class SearchController extends Controller
 
         if($distance){
             $dist = $this->processDistance($distance);
+            $loc = $this->getUserLocation();
         }
 
         if($sort){
@@ -522,8 +541,8 @@ class SearchController extends Controller
             'range' => (!empty($range) ? $range : false),
             'sort' => (!empty($sort) ? $sort : false),
             'exists' => (!empty($exists) ? $exists : false),
-            'distance' => ($dist ? $dist['distance'] : false),
-            'location' => ($dist ? $dist['location'] : false),
+            'distance' => (isset($dist) ? $dist : false),
+            'location' => (isset($loc) ? $loc : false),
         ];
     }
 
@@ -533,27 +552,55 @@ class SearchController extends Controller
      * @return Array              array representing a sort clause
      */
     private function processSort($sort){
-        return [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+        $score = [ '_score' => [ 'order' => 'desc' ]];
+        if($sort !== 'distance'){
+            $sort = [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+        } else {
+            $sort = [
+                'geo_distance' => [
+                    'location' => $this->getUserLocation(),
+                    'order' => 'asc',
+                    'unit' => 'km',
+                    'distance_type' => 'plane'
+                ]
+            ];
+        }
+
+        return [
+            $sort,
+            $score
+        ];
     }
 
     /**
      * Helper function for assembleQuery, processing the distance filter set by the user
-     * @return array    array holding a value for distance and for location
+     * @return string/boolean    distance string if possible, else false
      */
     private function processDistance($distance){
         $user = $this->getUser();
 
         if($user->esGetLocation()){
-            return [
-                'distance' => ($distance . 'km'),
-                'location' => [
-                    'lat' => $user->getLatitude(),
-                    'long' => $user->getLongitude()
-                ]
-            ];
+            return ($distance . 'km');
         }
 
-        return null;
+        return false;
+    }
+
+    /**
+     * Helper function for assembleQuery, returning a formatted location for the user if possible
+     * @return array/boolean  array holding a value for location or false if not possible
+     */
+    private function getUserLocation(){
+        $user = $this->getUser();
+
+        if($user->esGetLocation()){
+            return [
+                      'lat' => $user->getLatitude(),
+                      'long' => $user->getLongitude()
+                   ];
+        }
+
+        return false;
     }
 
     /**
