@@ -13,41 +13,69 @@
 		<article class="vereniging">
 			{% if app.user %}
 			    {% if app.user in organisation.likers %}
-			        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+			        <a class="fav liked" title="{{ "org.min.remove"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
 			    {% else %}
-			        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+			        <a class="fav notliked" title="{{ "general.button.like"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
 			    {% endif %}
 		    {% endif %}
+			<div class="content">
+			    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+		            <div class="alert alert-success">
+		                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+		            </div>
+		        {% endfor %}
+		        {% for flashMessage in app.session.flashbag.get('error') %}
+		            <div class="alert alert-danger">
+		                {{ flashMessage }}
+		            </div>
+		        {% endfor %}
 
-		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
-	            <div class="alert alert-success">
-	                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
-	            </div>
-	        {% endfor %}
-	        {% for flashMessage in app.session.flashbag.get('error') %}
-	            <div class="alert alert-danger">
-	                {{ flashMessage }}
-	            </div>
-	        {% endfor %}
+				{% if organisation.logoName %}
+					{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+					<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+				{% endif %}
+				<h1>{{ organisation.name }}</h1>
+				{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
+				<p>{{ organisation.description }}</p>
 
-			{% if organisation.logoName %}
-				{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
-				<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+				{% if organisation.sectors %}
+					<p>
+						<h3>Sectoren:</h3>
+						{% for sector in organisation.sectors %}
+							{{ sector.name }}
+						{% endfor %}
+					</p>
+				{% endif %}
+			</div>
+
+			{% if app.user in organisation.administrators %}
+				<footer>
+					<h3>{{ "general.admin.title"|trans }}</h3>
+					<ul>
+						<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
+						<li>
+							<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
+						</li>
+						{% if not organisation.deleted %}
+							<li>
+								<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
+							</li>
+						{% endif %}
+						<li>{{ "general.admin.admins"|trans }}:
+							<ul>
+								{% for administrator in organisation.administrators %}
+									<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
+								{% endfor %}
+								<li>
+									{{ form_start(form) }}
+										{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
+									{{ form_end(form) }}
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</footer>
 			{% endif %}
-			<h1>{{ organisation.name }}</h1>
-			{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
-			<p>{{ organisation.description }}</p>
-
-			{% if organisation.sectors %}
-				<p>
-					<label>Sectoren:</label>
-					{% for sector in organisation.sectors %}
-						{{ sector.name }}
-					{% endfor %}
-				</p>
-			{% endif %}
-
-
 		</article>
 
 		<div class="blok details">
@@ -76,34 +104,6 @@
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 	{% endif %}
 
-	{% if app.user in organisation.administrators %}
-		<aside>
-			<h3>{{ "general.admin.title"|trans }}</h3>
-			<ul>
-				<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
-				<li>
-					<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
-				</li>
-				{% if not organisation.deleted %}
-					<li>
-						<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
-					</li>
-				{% endif %}
-				<li>{{ "general.admin.admins"|trans }}:
-					<ul>
-						{% for administrator in organisation.administrators %}
-							<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
-						{% endfor %}
-						<li>
-							{{ form_start(form) }}
-								{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
-							{{ form_end(form) }}
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</aside>
-	{% endif %}
 {% endif %}
 {% endblock %}
 

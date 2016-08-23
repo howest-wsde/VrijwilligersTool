@@ -8,100 +8,109 @@
 	<h1>{{ vacancy.title }}</h1>
 	<p>{{ "vacancy.vacancy.removed"|trans }}  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}{{ "vacancy.vacancy.undo"|trans }} <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
-	<article>
-	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
-	        <div class="alert alert-success">
-	            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
-	        </div>
-	    {% endfor %}
-	    {% for flashMessage in app.session.flashbag.get('error') %}
-	        <div class="alert alert-danger">
-	            {{ flashMessage }}
-	        </div>
-	    {% endfor %}
-        <div id="vacancy_info">
-		<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
-		<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
-			<p>
-				{% if vacancy.stillWanted == 0 %}
-					{{ "vacancy.vacancy.filled"|trans }}
-				{% elseif vacancy.stillWanted == 1 %}
-					{{ vacancy.stillWanted }} {{ "vacancy.vacancy.want1"|trans }}
-				{% else %}
-					{{ vacancy.stillWanted }} {{ "vacancy.vacancy.wantseveral"|trans }}
-				{% endif %}
-			</p>
-            <p>{{ "vacancy.vacancy.offer"|trans }}</p>
-			<p id="vacancy_description">{{ vacancy.description }}</p>
-		</div>
-		<div>
-			{% if vacancy.startdate %}
-				<p id="vacancy_startdate">{{ "vacancy.vacancy.startdate"|trans }}: {{ vacancy.startdate|date("Y-m-d") }}</p>
-			{% endif %}
-			{% if vacancy.enddate %}
-				<p id="vacancy_enddate">{{ "vacancy.vacancy.enddate"|trans }}: {{ vacancy.enddate|date("Y-m-d") }}</p>
-			{% endif %}
-			{% if vacancy.organisation %}
-				<p id="vacancy_organisation"{{ "general.org"|trans|capitalize }}>: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
-				{% if vacancy.organisation.street and vacancy.organisation.number and (vacancy.organisation.postalcode or vacancy.organisation.city) %}
-					<p id="vacancy_location">{{ "vacancy.vacancy.location"|trans }}:
-						<span id="location">
-							<br>
-							{{ vacancy.organisation.street }}
-							{{ vacancy.organisation.number }}
-							<br>
-							{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
-								{{ "vacancy.vacancy.bus"|trans }} {{ vacancy.organisation.bus }}
-							{% endif %}
-							{{ vacancy.organisation.postalcode }}
-							{{ vacancy.organisation.city }}
-						</span>
-					</p>
-					{% embed "info/googlemaps.html.twig" with {"street": vacancy.organisation.street, "number": vacancy.organisation.number, "postalcode": vacancy.organisation.postalcode, "city": vacancy.organisation.city} %}{% endembed %}
-				{% endif %}
-			{% endif %}
-		</div>
-		<div class="share-buttons">
-			<div>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
-				   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">{{ "vacancy.vacancy.tweet"|trans }}</a>
-			</div>
-			<div class="g-plus" data-action="share" data-annotation="bubble"></div>
-			<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
-            <script type="IN/Share" data-counter="right"></script>
-			<div>
-				<button id="email">{{ "vacancy.vacancy.mail"|trans }}</button>
-			</div>
-			<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
-				<input type="submit" value="{{ "vacancy.vacancy.print"|trans }}"/>
-			</form>
-		</div>
+	<div class="vacaturepage">
 
+		<article class="vacature">
+			{% if app.user %}
+			    {% if app.user in vacancy.likers %}
+			        <a class="fav liked" title="{{ "vacancy.vacancy.remove"|trans }}" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"remove" }) }}"><span>{{ "vacancy.vacancy.remove"|trans }}</span></a>
+			    {% else %}
+			        <a class="fav notliked" title="{{ "vacancy.vacancy.save"|trans }}" href="{{ path("vacancy_save", {"urlid": vacancy.urlId, "saveaction":"save" }) }}"><span>{{ "vacancy.vacancy.save"|trans }}</span></a>
+			    {% endif %}
+		    {% endif %}
 
-		<footer>{% block vacature_cta %}
-			<ul>
-				{% if app.user in vacancy.likers %}
-					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'remove' }) }}">{{ "vacancy.vacancy.remove"|trans }}</a></li>
-				{% else %}
-					<li><a href="{{ path("vacancy_save", {'urlid': vacancy.urlId, 'saveaction':'save' }) }}">{{ "vacancy.vacancy.save"|trans }}</a></li>
-				{% endif %}
-
-				{% if app.user in vacancy.candidates %}
-					<li><a href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a></li>
-				{% else %}
-					<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a></li>
-				{% endif %}
-
-				{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
-					<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a></li>
-					<li><a href="{{ path("vacancy_candidacies", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.select"|trans }}</a></li>
-						{% if vacancy.published != 4 %}
-							<li><a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a></li>
+			<div class="content">
+			    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+			        <div class="alert alert-success">
+			            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+			        </div>
+			    {% endfor %}
+			    {% for flashMessage in app.session.flashbag.get('error') %}
+			        <div class="alert alert-danger">
+			            {{ flashMessage }}
+			        </div>
+			    {% endfor %}
+		        <div id="vacancy_info">
+				<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
+				<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
+					<p>
+						{% if vacancy.stillWanted == 0 %}
+							{{ "vacancy.vacancy.filled"|trans }}
+						{% elseif vacancy.stillWanted == 1 %}
+							{{ vacancy.stillWanted }} {{ "vacancy.vacancy.want1"|trans }}
+						{% else %}
+							{{ vacancy.stillWanted }} {{ "vacancy.vacancy.wantseveral"|trans }}
 						{% endif %}
-				{% endif %}
-			</ul>
+					</p>
+		            <p>{{ "vacancy.vacancy.offer"|trans }}</p>
+					<p id="vacancy_description">{{ vacancy.description }}</p>
+				</div>
+				<div>
+					{% if vacancy.startdate %}
+						<p id="vacancy_startdate">{{ "vacancy.vacancy.startdate"|trans }}: {{ vacancy.startdate|date("Y-m-d") }}</p>
+					{% endif %}
+					{% if vacancy.enddate %}
+						<p id="vacancy_enddate">{{ "vacancy.vacancy.enddate"|trans }}: {{ vacancy.enddate|date("Y-m-d") }}</p>
+					{% endif %}
+					{% if vacancy.organisation %}
+						<p id="vacancy_organisation">{{ "general.org"|trans|capitalize }}: <a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlId }) }}">{{ vacancy.organisation.name }}</a></p>
+						{% if vacancy.organisation.street and vacancy.organisation.number and (vacancy.organisation.postalcode or vacancy.organisation.city) %}
+							<p id="vacancy_location">{{ "vacancy.vacancy.location"|trans }}:
+								<span id="location">
+									<br>
+									{{ vacancy.organisation.street }}
+									{{ vacancy.organisation.number }}
+									<br>
+									{% if vacancy.organisation.bus is not null and vacancy.organisation.bus is not empty %}
+										{{ "vacancy.vacancy.bus"|trans }} {{ vacancy.organisation.bus }}
+									{% endif %}
+									{{ vacancy.organisation.postalcode }}
+									{{ vacancy.organisation.city }}
+								</span>
+							</p>
+							{% embed "info/googlemaps.html.twig" with {"street": vacancy.organisation.street, "number": vacancy.organisation.number, "postalcode": vacancy.organisation.postalcode, "city": vacancy.organisation.city} %}{% endembed %}
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+
+			<footer>{% block vacature_cta %}
+				<ul>
+
+					{% if app.user in vacancy.candidates %}
+						<li><a href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a></li>
+					{% else %}
+						<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a></li>
+					{% endif %}
+
+					{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+						<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a></li>
+						<li><a href="{{ path("vacancy_candidacies", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.select"|trans }}</a></li>
+							{% if vacancy.published != 4 %}
+								<li><a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a></li>
+							{% endif %}
+					{% endif %}
+				</ul>
 			{% endblock %}</footer>
-	</article>
+			<div class="share-buttons">
+				<div class="twitter">
+					<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+					   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">{{ "vacancy.vacancy.tweet"|trans }}</a>
+				</div>
+				<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+				<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+	            <script type="IN/Share" data-counter="right"></script>
+	            {#
+				<div class="mail">
+					<button id="email">{{ "vacancy.vacancy.mail"|trans }}</button>
+				</div>
+				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+					<input type="submit" value="{{ "vacancy.vacancy.print"|trans }}"/>
+				</form>
+				#}
+			</div>
+		</article>
+	</div>
 {% endif %}
 {% endblock %}
 
