@@ -342,23 +342,6 @@ class OrganisationController extends UtilityController
     {
         $es = $this->get("ElasticsearchQuery");
 
-        //filtering out those that are deleted (so those where deleted is false are a go)
-        //then put them in random order and convert them to entities
-        // $query = [
-        //     "function_score" => [
-        //         "filter" => [
-        //             "bool" => [
-        //                 "must" => [
-        //                     [ "term" => [ "deleted" => false ]]
-        //                 ]
-        //             ]
-        //         ],
-        //         "functions" => [
-        //             [ "random_score" => true ]
-        //         ]
-        //     ]
-        // ];
-
         $query = '{
                     "query": {
                         "function_score": {
@@ -380,13 +363,6 @@ class OrganisationController extends UtilityController
                     },
                     "size":' . $nr . '
                 }';
-
-        // $em = $this->getDoctrine()->getManager();
-        // $count = $this->get('doctrineUtils')->getCount($em, 'AppBundle:Organisation');
-        // $uniqueIntegers = $this->get('random')
-        //                   ->generateRandomUniqueIntegerArray(1, $count, $nr);
-        // $query = $em->createQuery("select o from AppBundle:Organisation o where o.id in (:array)")
-        //             ->setParameter('array', $uniqueIntegers);
 
         return $this->render('organisation/verenigingen_oplijsten.html.twig',
             [
