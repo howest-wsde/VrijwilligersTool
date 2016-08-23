@@ -2,6 +2,8 @@
 
 namespace AppBundle\Elasticsearch;
 
+use Elastica\Request;
+use Elastica\Client;
 use Elasticsearch\ClientBuilder;
 use AppBundle\Elasticsearch\ESMapper;
 
@@ -84,6 +86,23 @@ class ElasticsearchQuery
     }
 
     /**
+     * Making a request by giving in raw json as the query
+     * @param  jsonstring  $query       Raw json query
+     * @return array                    An array containing the mapped entities.
+     */
+    public function requestByType($query, $type = 'organisation,vacancy,person', $requestType = Request::GET)
+    {
+        $client = new Client(array(
+            'host' => $this->es_host,
+            'port' => $this->es_port
+        ));
+        $index = $client->getIndex($this->getIndex());
+        $path = $this->getIndex() . '/' . $type . '/_search';
+        $response = $client->request($path, $requestType, $query)->getData();
+        return $this->esMapper->getEntities($response['hits']['hits']);
+    }
+
+    /**
      * Convenience function to allow for searching on the person document type.
      * @param  array  $query  a PHP DQL-formatted query
      * @param  string  $term  a search term
@@ -118,6 +137,27 @@ class ElasticsearchQuery
     {
         return $this->searchByType('organisation', $query, $term, $raw);
     }
+
+    /**
+     * Convenience function to allow for searching on the organisation document type.
+     * @param  array  $query  a PHP DQL-formatted query
+     * @param  boolean $raw   whether or not the raw result is desired
+     * @return array         json array of ES entities or arrayCollection of doctrine entities (depending on whether or not $raw is true).
+     */
+    public function searchForOrganisationWithQuery($query, $term, $raw = false)
+    {
+        $params = [
+                    'index' => $this->getIndex(),
+                    'type' => 'organisation',
+                    'body' => [
+                        'query' => $query,
+                    ],
+                  ];
+
+        return ($raw ? $this->searchForRaw($params) : $this->search($params));
+    }
+
+
 
     /**
      * Convenience function to allow for searching by document type.

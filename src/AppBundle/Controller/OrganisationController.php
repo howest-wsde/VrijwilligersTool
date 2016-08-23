@@ -333,7 +333,6 @@ class OrganisationController extends UtilityController
             ["organisations" => $user->getOrganisations(), "viewMode" => 'tile']);
     }
 
-
     /**
      * Get a random selection of organisations.
      * @param integer $nr       The amount of organisations in the selection
@@ -341,17 +340,57 @@ class OrganisationController extends UtilityController
      */
     public function ListRandomOrganisationsAction($nr, $viewMode = "list")
     {
-        $em = $this->getDoctrine()->getManager();
+        $es = $this->get("ElasticsearchQuery");
 
-        $count = $this->get('doctrineUtils')->getCount($em, 'AppBundle:Organisation');
-        $uniqueIntegers = $this->get('random')
-                          ->generateRandomUniqueIntegerArray(1, $count, $nr);
-        $query = $em->createQuery("select o from AppBundle:Organisation o where o.id in (:array)")
-                    ->setParameter('array', $uniqueIntegers);
+        //filtering out those that are deleted (so those where deleted is false are a go)
+        //then put them in random order and convert them to entities
+        // $query = [
+        //     "function_score" => [
+        //         "filter" => [
+        //             "bool" => [
+        //                 "must" => [
+        //                     [ "term" => [ "deleted" => false ]]
+        //                 ]
+        //             ]
+        //         ],
+        //         "functions" => [
+        //             [ "random_score" => true ]
+        //         ]
+        //     ]
+        // ];
+
+        $query = '{
+                    "query": {
+                        "function_score": {
+                           "filter": {
+                               "bool": {
+                                   "must": [
+                                      {
+                                          "term": {"deleted": "false"}
+                                      }
+                                   ]
+                               }
+                            },
+                            "functions": [
+                                {
+                                "random_score": {}
+                                }
+                            ]
+                        }
+                    },
+                    "size":' . $nr . '
+                }';
+
+        // $em = $this->getDoctrine()->getManager();
+        // $count = $this->get('doctrineUtils')->getCount($em, 'AppBundle:Organisation');
+        // $uniqueIntegers = $this->get('random')
+        //                   ->generateRandomUniqueIntegerArray(1, $count, $nr);
+        // $query = $em->createQuery("select o from AppBundle:Organisation o where o.id in (:array)")
+        //             ->setParameter('array', $uniqueIntegers);
 
         return $this->render('organisation/verenigingen_oplijsten.html.twig',
             [
-                'organisations' => $query->getResult(),
+                'organisations' => $es->requestByType($query, 'organisation'),
                 'viewMode' => $viewMode
             ]);
     }
