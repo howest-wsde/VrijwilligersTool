@@ -322,11 +322,34 @@ class VacancyController extends UtilityController
      */
     public function listRecentVacanciesAction($nr, $viewMode = 'list')
     {
-        $vacancies = $this->getDoctrine()
-                        ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array("id" => "DESC"), $nr);
-        return $this->render("vacancy/vacatures_oplijsten.html.twig",
-            ["vacancies" => $vacancies, "viewMode" => $viewMode]);
+        $es = $this->get("ElasticsearchQuery");
+
+        $query = '{
+                    "query": {
+                        "function_score": {
+                           "filter": {
+                               "bool": {
+                                   "must": [
+                                      {
+                                          "term": {"published": 1 }
+                                      }
+                                   ]
+                               }
+                            },
+                            "functions": [
+                                {
+                                "random_score": {}
+                                }
+                            ]
+                        }
+                    },
+                    "size": ' . $nr . '
+                }';
+
+        return $this->render("vacancy/vacatures_oplijsten.html.twig", [
+                "vacancies" => $es->requestByType($query, 'vacancy'),
+                 "viewMode" => $viewMode
+         ]);
     }
 
     /**
