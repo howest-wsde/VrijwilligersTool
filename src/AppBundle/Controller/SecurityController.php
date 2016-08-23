@@ -30,6 +30,9 @@ class SecurityController extends UtilityController
                              ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
+            //set latitude and longitude
+            $this->setCoordinates($user);
+
             //persist the user to the dbase
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

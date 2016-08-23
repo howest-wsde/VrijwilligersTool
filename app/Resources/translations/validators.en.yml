@@ -38,6 +38,7 @@ vacancy:
         wanted: How many volunteers are you looking for?
     choices:
         accessible: Yes
+        notaccessible: No
         independent: Yes
         dependent: No
         all: It's all about the interaction

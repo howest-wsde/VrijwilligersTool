@@ -65,8 +65,11 @@ class ESMapper{
     }
 
     public function getEntity($name, $source){
-        $classname = "AppBundle\Entity\\".ucfirst($name);
+        $classname = "AppBundle\Entity\\" . ucfirst($name);
         $entity = new $classname();
+        if(array_key_exists('location', $source)){
+            unset($source['location']);
+        }
         foreach ($source as $key => $value) {
             if(!empty($value)){
                 if(is_array($value)){ // two options here: it's an object, or it's an array of objects
@@ -83,6 +86,7 @@ class ESMapper{
                             $name = $object['entity'];
                             unset($object['entity']);
                             $method = '';
+
                             switch ($name) { //made into a switch so it can be expanded easily if that need arises in the future
                                 case 'skill':
                                     $method = 'addSkill';
@@ -93,6 +97,7 @@ class ESMapper{
                                     break;
                                 case 'organisation':
                                     $method = 'addOrganisation';
+                                    break;
                             }
 
                             $entity->{ $method }($this->getEntity($name, $object));

@@ -39,6 +39,7 @@ vacancy:
         wanted: Hoeveel vrijwilligers zoekt u voor deze vacature?
     choices:
         accessible: Ja
+        notaccessible: Nee
         independent: Ja
         dependent: Nee
         all: Alles draait rond sociale interactie

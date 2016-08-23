@@ -92,6 +92,7 @@ class VacancyController extends UtilityController
         $form = $this->createForm(VacancyType::class, $vacancy);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $vacancy = $form->getData();
             if (!is_null($organisation_urlid)){
                 $vacancy->setOrganisation($organisation);
             }
@@ -100,6 +101,7 @@ class VacancyController extends UtilityController
                 $vacancy->setPublished(Vacancy::SAVED);
             }
 
+            $this->setCoordinates($vacancy);
             $em->persist($vacancy);
             $em->flush();
 
@@ -339,16 +341,12 @@ class VacancyController extends UtilityController
 
         if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
             $form = $this->createForm(VacancyType::class, $vacancy);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $data = $form->getData();
-
-                $vacancy->setTitle($data->getTitle());
-                $vacancy->setDescription($data->getDescription());
-                $vacancy->setEndDate($data->getEnddate());
-
+                $vacancy = $form->getData();
+                $this->setCoordinates($vacancy);
+                $em->persist($vacancy);
                 $em->flush();
 
                 //set a success message

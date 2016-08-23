@@ -106,20 +106,37 @@ class SearchController extends Controller
      * @Method("POST")
      */
     public function searchFormPostAction(Request $request){
-        //sort: afstand werkt nog niet => check geo_distance_range filter
+        //sort: afstand werkt nog niet
         $sf = new SearchFilter();
         $form = $this->createForm(SearchFilterType::class, $sf);
         $form->handleRequest($request);
         $searchTerm = $form->get('search')->getData();
 
         return $this->render("search/zoekpagina.html.twig", array(
-            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
             "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
             "filters" => true,
         ));
+        // return $this->redirectToRoute('postsearch', array(
+        //                         'form' => $form,
+        //                         'searchTerm' => $searchTerm
+        //                     )
+        //         );
     }
+
+    // /**
+    //  * Helper function for searchFormPostAction to clear out the query string should one exist from a previous get request.
+    //  * @Route("/postSearch", name="postsearch")
+    //  */
+    // public function postSearchAction($form, $searchTerm){
+    //     return $this->render("search/zoekpagina.html.twig", array(
+    //         "form" => $form->createView(),
+    //         "results" => $this->searchByType($form, $searchTerm),
+    //         "searchTerm" => $searchTerm,
+    //         "filters" => true,
+    //     ));
+    // }
 
     /**
      * Zoekformulier verwerken bij een get/head request => met Q-string
@@ -135,7 +152,6 @@ class SearchController extends Controller
         $form->handleRequest($request);
 
         return $this->render("search/zoekpagina.html.twig", array(
-            // "distance" => $form->get('distance')->getData(),
             "form" => $form->createView(),
             "results" => $this->searchByType($form, $searchTerm),
             "searchTerm" => $searchTerm,
@@ -473,9 +489,10 @@ class SearchController extends Controller
         $categories = $form->get('categories')->getData(); //array
         $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
-        $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int
+        $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int;
         $characteristic = $form->get('characteristic')->getData(); //array
         $advantages = $form->get('advantages')->getData(); //array
+        $distance = $form->get('distance')->getData(); //int
         $sort = $form->get('sort')->getData(); //string
         $should = [];
         $must = [];
@@ -499,12 +516,18 @@ class SearchController extends Controller
           $range['estimatedWorkInHours'] = [ 'lte' => $hoursAWeek ];
         }
 
+
         if(!empty($characteristic)){
             $this->processCharacteristic($characteristic, $must);
         }
 
         if(!empty($advantages)){
             $this->processAdvantages($advantages, $exists, $range);
+        }
+
+        if($distance){
+            $dist = $this->processDistance($distance);
+            $loc = $this->getUserLocation();
         }
 
         if($sort){
@@ -518,6 +541,8 @@ class SearchController extends Controller
             'range' => (!empty($range) ? $range : false),
             'sort' => (!empty($sort) ? $sort : false),
             'exists' => (!empty($exists) ? $exists : false),
+            'distance' => (isset($dist) ? $dist : false),
+            'location' => (isset($loc) ? $loc : false),
         ];
     }
 
@@ -527,7 +552,55 @@ class SearchController extends Controller
      * @return Array              array representing a sort clause
      */
     private function processSort($sort){
-        return [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+        $score = [ '_score' => [ 'order' => 'desc' ]];
+        if($sort !== 'distance'){
+            $sort = [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
+        } else {
+            $sort = [
+                'geo_distance' => [
+                    'location' => $this->getUserLocation(),
+                    'order' => 'asc',
+                    'unit' => 'km',
+                    'distance_type' => 'plane'
+                ]
+            ];
+        }
+
+        return [
+            $sort,
+            $score
+        ];
+    }
+
+    /**
+     * Helper function for assembleQuery, processing the distance filter set by the user
+     * @return string/boolean    distance string if possible, else false
+     */
+    private function processDistance($distance){
+        $user = $this->getUser();
+
+        if($user->esGetLocation()){
+            return ($distance . 'km');
+        }
+
+        return false;
+    }
+
+    /**
+     * Helper function for assembleQuery, returning a formatted location for the user if possible
+     * @return array/boolean  array holding a value for location or false if not possible
+     */
+    private function getUserLocation(){
+        $user = $this->getUser();
+
+        if($user->esGetLocation()){
+            return [
+                      'lat' => $user->getLatitude(),
+                      'long' => $user->getLongitude()
+                   ];
+        }
+
+        return false;
     }
 
     /**
@@ -561,7 +634,7 @@ class SearchController extends Controller
         foreach ($characteristic as $key => $value) {
             switch ($value) {
                 case 'weelchair':
-                    $must[] = [ 'term' => [ 'accessible' => true ]];
+                    $must[] = [ 'term' => [ 'access' => true ]];
                     break;
 
                 case 'lotsContact':

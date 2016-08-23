@@ -36,6 +36,8 @@ class OrganisationController extends UtilityController
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $organisation = $form->getData();
+            $this->setCoordinates($organisation);
             $em = $this->getDoctrine()->getManager();
             $em->persist($organisation);
 
@@ -100,6 +102,8 @@ class OrganisationController extends UtilityController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $organisation = $form->getData();
+            $this->setCoordinates($organisation);
             $em->persist($organisation);
             $em->flush();
 

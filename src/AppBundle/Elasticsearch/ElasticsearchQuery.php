@@ -182,6 +182,14 @@ class ElasticsearchQuery
                 $q['should'] ? $filter['bool']['should'] = $q['should'] : false;
             }
 
+            //if distance then filter by distance after applying any and all other filters
+            if($q['distance']){
+                $filter['geo_distance'] = [
+                    'distance' => $q['distance'],
+                    'location' => $q['location']
+                ];
+            }
+
             //add to the $query filter clause
             $query['filtered']['filter'] = $filter;
         }

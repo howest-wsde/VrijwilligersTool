@@ -98,10 +98,10 @@ class SearchFilterType extends AbstractType
             'label' => 'search.label.hoursAWeek',
             'required' => false,
         ))
-        // ->add('distance', IntegerType::class, array(
-        //     'label' => 'search.label.distance',
-        //     'required' => false,
-        // ))
+        ->add('distance', IntegerType::class, array(
+            'label' => 'search.label.distance',
+            'required' => false,
+        ))
         ->add('characteristic', ChoiceType::class, array(
             'label' => false,
             'choices'  => array(

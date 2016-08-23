@@ -188,7 +188,7 @@ person:
     general:
         volunteer: volunteer
         firstname: first name
-        lastname: sirname
+        sirname: sirname
         username: username
         fullname: name
     rules:
