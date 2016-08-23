@@ -269,7 +269,7 @@ article.vacature, article.vereniging, .blok {
 	padding: @iPadding;
 	margin: @iMargin;
 	overflow: auto;
-	img.logo {max-width: 100%; max-height: 310px; margin: 10px auto; float: right; }
+	img.logo {max-width: 100%; max-height: 310px; margin: 10px; float: right; }
 	a.fav {
 		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 		position: absolute;  right: 20px; top: -2px;
@@ -308,7 +308,7 @@ div.vacatures, div.organisaties, .blokken {
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
-		img.logo {max-height: 110px; float: none;  }
+		img.logo {max-height: 110px; float: none; margin: 10px auto; }
 		a.cta {
 			color: white;
 			padding: 10px;
@@ -319,17 +319,6 @@ div.vacatures, div.organisaties, .blokken {
 			text-decoration: none;
 		}
 		p {margin-top: 15px; }
-		ul.icons {
-			display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
-			li {
-				text-align: left;
-				background: white no-repeat left 2px; padding-left: 23px; display: inline-block; padding-bottom: 3px;
-				&.people {background-image: url("../images/people.png"); }
-				&.loc {background-image: url("../images/loc.png"); }
-				&.number {background-image: url("../images/doc.png"); }
-				a {color: inherit; }
-			}
-		}
 	}
 	>article.vacature, >article.vereniging {
 		padding-top: 30px;
@@ -349,6 +338,19 @@ div.vacatures, div.organisaties, .blokken {
 }
 
 
+ul.icons {
+	display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
+	li {
+		text-align: left;
+		background: white no-repeat left 2px; padding-left: 23px; display: inline-block; padding-bottom: 3px;
+		&.people {background-image: url("../images/people.png"); }
+		&.loc {background-image: url("../images/loc.png"); }
+		&.number {background-image: url("../images/doc.png"); }
+		&.mail {background-image: url("../images/mail.png"); background-position: left 4px; }
+		&.phone {background-image: url("../images/foon.png"); }
+		a {color: inherit; }
+	}
+}
 
 .tempblok {
 	.shaduwblok(white);

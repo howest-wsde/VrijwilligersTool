@@ -11,11 +11,12 @@
 
 	 <div class="verenigingpage">
 		<article class="vereniging">
-
-		    {% if app.user in organisation.likers %}
-		        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
-		    {% else %}
-		        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+			{% if app.user %}
+			    {% if app.user in organisation.likers %}
+			        <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+			    {% else %}
+			        <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+			    {% endif %}
 		    {% endif %}
 
 		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
@@ -60,8 +61,8 @@
 					<p>{{ "org.org.noadres"|trans }}</p>
 				{% endif %}
 
-				<li>{% if organisation.telephone %}{{ organisation.telephone }}{% endif %}</li>
-				<li>{% if organisation.email %}{{ organisation.email }}{% endif %}</li>
+				{% if organisation.telephone %}<li class="phone">{{ organisation.telephone }}</li>{% endif %}
+				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
 			</ul>
 			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
 				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
