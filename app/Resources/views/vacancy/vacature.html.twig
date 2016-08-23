@@ -30,7 +30,6 @@
 			            {{ flashMessage }}
 			        </div>
 			    {% endfor %}
-		        <div id="vacancy_info">
 				<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 				<div>{# TODO: dit refacteren (what's with the div's? + volgt de wireframe niet => issue #}
 					<p>
@@ -72,15 +71,34 @@
 						{% endif %}
 					{% endif %}
 				</div>
+
+				<div class="share-buttons">
+					<div class="twitter">
+						<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+						   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">{{ "vacancy.vacancy.tweet"|trans }}</a>
+					</div>
+					<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+					<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+		            <script type="IN/Share" data-counter="right"></script>
+		            {#
+					<div class="mail">
+						<button id="email">{{ "vacancy.vacancy.mail"|trans }}</button>
+					</div>
+					<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+						<input type="submit" value="{{ "vacancy.vacancy.print"|trans }}"/>
+					</form>
+					#}
+				</div>
 			</div>
+
 
 			<footer>{% block vacature_cta %}
 				<ul>
 
 					{% if app.user in vacancy.candidates %}
-						<li><a href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a></li>
+						<li><a class="cta" href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a></li>
 					{% else %}
-						<li><a href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a></li>
+						<li><a class="cta"  href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a></li>
 					{% endif %}
 
 					{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
@@ -92,24 +110,12 @@
 					{% endif %}
 				</ul>
 			{% endblock %}</footer>
-			<div class="share-buttons">
-				<div class="twitter">
-					<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
-					   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">{{ "vacancy.vacancy.tweet"|trans }}</a>
-				</div>
-				<div class="g-plus" data-action="share" data-annotation="bubble"></div>
-				<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
-	            <script type="IN/Share" data-counter="right"></script>
-	            {#
-				<div class="mail">
-					<button id="email">{{ "vacancy.vacancy.mail"|trans }}</button>
-				</div>
-				<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
-					<input type="submit" value="{{ "vacancy.vacancy.print"|trans }}"/>
-				</form>
-				#}
-			</div>
+
 		</article>
+
+		{% if vacancy.organisation %}
+			<aside>{% embed "organisation/vereniging_min.html.twig" with {"organisation": vacancy.organisation }%}{% endembed %}</aside>
+		{% endif %}
 	</div>
 {% endif %}
 {% endblock %}

@@ -255,8 +255,10 @@ body>header {
 
 .verenigingpage, .vacaturepage {
 	display: flex; flex-flow: row wrap;
-	.details {
-		flex: 1;
+	h1 {margin-bottom: 0; }
+	span.baseline {font-size: 20px; margin-bottom: 15px; margin-top: 0; }
+	aside {
+		flex: 1 1 @iContainerWidth/4;
 		display: flex; flex-direction: column;
 		#googlemaps {
 			margin: 0-@iPadding; margin-top: 0; flex: 1;
@@ -264,9 +266,13 @@ body>header {
 				#map-canvas {height: 100%; }
 			}
 		}
+		div.cta {
+			flex: 1; display: inline-flex; flex-direction: column; justify-content: flex-end;
+			text-align: center;
+		}
 	}
 	article {
-		flex: 2;  display: flex; flex-direction: column;
+		flex: 1 1 @iContainerWidth/4*2;  display: flex; flex-direction: column;
 		footer {
 			flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
 		}
@@ -280,6 +286,8 @@ article.vacature, article.vereniging, .blok {
 	padding: @iPadding;
 	margin: @iMargin;
 	overflow: auto;
+	h2 {text-align: left; }
+	span.baseline {color: yellow; font-style: italic; color: black; margin-top: 3px; display: block; }
 	img.logo {max-width: 100%; max-height: 310px; margin: 10px; float: right; }
 	a.fav {
 		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
@@ -319,6 +327,7 @@ div.vacatures, div.organisaties, .blokken {
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
+		display: flex; flex-direction: column;
 		img.logo {max-height: 110px; float: none; margin: 10px auto; }
 		a.cta {
 			color: white;
@@ -330,6 +339,10 @@ div.vacatures, div.organisaties, .blokken {
 			text-decoration: none;
 		}
 		p {margin-top: 15px; }
+		ul.icons {
+			flex: 1; align-self: center;
+			display: inline-flex; flex-direction: column; justify-content: flex-end;
+		}
 	}
 	>article.vacature, >article.vereniging {
 		padding-top: 30px;
@@ -347,7 +360,6 @@ div.vacatures, div.organisaties, .blokken {
 		}
 	}
 }
-
 
 ul.icons {
 	display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
@@ -392,7 +404,7 @@ ul.icons {
 }
 
 h1, h2, h3 {margin: 0; padding: 0; }
-h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
+h2 {color: @cRood; font-size: 30px; font-weight: bold; text-align: center;  }
 h3 {.grijzetitel(); }
 /*   */
 

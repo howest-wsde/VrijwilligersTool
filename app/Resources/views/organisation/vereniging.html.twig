@@ -35,17 +35,19 @@
 					<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
 				{% endif %}
 				<h1>{{ organisation.name }}</h1>
-				{% if organisation.slogan %}<h2>{{ organisation.slogan }}</h2>{% endif %}
+				{% if organisation.slogan %}<span class="baseline">{{ organisation.slogan }}</span>{% endif %}
 				<p>{{ organisation.description }}</p>
 
-				{% if organisation.sectors %}
-					<p>
-						<h3>Sectoren:</h3>
-						{% for sector in organisation.sectors %}
-							{{ sector.name }}
-						{% endfor %}
-					</p>
-				{% endif %}
+				{#
+					{% if organisation.sectors %}
+						<p>
+							<h3>Sectoren:</h3>
+							{% for sector in organisation.sectors %}
+								{{ sector.name }}
+							{% endfor %}
+						</p>
+					{% endif %}
+				#}
 			</div>
 
 			{% if app.user in organisation.administrators %}
@@ -78,16 +80,16 @@
 			{% endif %}
 		</article>
 
-		<div class="blok details">
+		<aside class="blok">
 			<ul class="icons">
-				{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-					<li class="loc">
+				<li class="loc">
+					{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
 						{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}
 						<br />{{ organisation.postalcode }} {{ organisation.city }}
-					</li>
-				{% else %}
-					<p>{{ "org.org.noadres"|trans }}</p>
-				{% endif %}
+					{% else %}
+						{{ "org.org.noadres"|trans }}
+					{% endif %}
+				</li>
 
 				{% if organisation.telephone %}<li class="phone">{{ organisation.telephone }}</li>{% endif %}
 				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
@@ -95,12 +97,12 @@
 			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
 				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
 			{% endif %}
-		</div>
+		</aside>
 
 	</div>
 
 	{% if organisation.vacancies %}
-		<h3>{{ "org.org.vacancies"|trans }}</h3>
+		<h2>{{ "org.org.vacancies"|trans }}</h2>
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 	{% endif %}
 

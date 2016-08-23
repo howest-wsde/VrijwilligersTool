@@ -23,13 +23,14 @@
     {% if (organisation.logoName) %}
         <img src="{{ asset
     ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+    {% else %}
+        <span class="baseline">{{ organisation.name }}</span>
     {% endif %}
     <p>{{ organisation.description|truncate(200, true) }}</p>
     <ul class="icons">
         {% if organisation.street %}
             <li class="loc">
-                <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %}<br />{{ organisation.postalCode }} {{ organisation.city }}
-                </a>
+                {{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %}<br />{{ organisation.postalCode }} {{ organisation.city }}
             </li>
         {% endif %}
         <li class="people">
