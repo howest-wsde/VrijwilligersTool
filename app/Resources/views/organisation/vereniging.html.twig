@@ -50,34 +50,6 @@
 				#}
 			</div>
 
-			{% if app.user in organisation.administrators %}
-				<footer>
-					<h3>{{ "general.admin.title"|trans }}</h3>
-					<ul>
-						<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
-						<li>
-							<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
-						</li>
-						{% if not organisation.deleted %}
-							<li>
-								<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
-							</li>
-						{% endif %}
-						<li>{{ "general.admin.admins"|trans }}:
-							<ul>
-								{% for administrator in organisation.administrators %}
-									<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
-								{% endfor %}
-								<li>
-									{{ form_start(form) }}
-										{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
-									{{ form_end(form) }}
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</footer>
-			{% endif %}
 		</article>
 
 		<aside class="blok">
@@ -98,6 +70,36 @@
 				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
 			{% endif %}
 		</aside>
+
+
+		{% if app.user in organisation.administrators %}
+			<section class="administrators blok">
+				<h3>{{ "general.admin.title"|trans }}</h3>
+				<ul>
+					<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
+					<li>
+						<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
+					</li>
+					{% if not organisation.deleted %}
+						<li>
+							<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
+						</li>
+					{% endif %}
+					<li>{{ "general.admin.admins"|trans }}:
+						<ul>
+							{% for administrator in organisation.administrators %}
+								<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
+							{% endfor %}
+							<li>
+								{{ form_start(form) }}
+									{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
+								{{ form_end(form) }}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		{% endif %}
 
 	</div>
 

@@ -306,6 +306,8 @@ vacancy:
         want1: kandidaat gezocht.
         wantseveral: kandidaten gezocht
         offer: Ons aanbod
+        summary: Jobinhoud
+        description: Omschrijving
         startdate: Begindatum
         enddate: Einddatum
         location: Locatie

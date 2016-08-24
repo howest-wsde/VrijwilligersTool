@@ -21,8 +21,8 @@
         </a>
     </header>
     {% if (organisation.logoName) %}
-        <img src="{{ asset
-    ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo">
+        <figure><img src="{{ asset
+    ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo"></figure>
     {% else %}
         <span class="baseline">{{ organisation.name }}</span>
     {% endif %}
@@ -39,6 +39,11 @@
         <li class="number">
             {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} {{ "org.min.1open"|trans }} {% else %} {{ organisation.vacancies|length }} {{ "org.min.open"|trans }} {% endif %}
         </li>
+        {% if include is defined %}
+            {% if "website" in include|keys and organisation.website %}
+                <li class="web"><a href="{{ organisation.website }}" target="_blank">{{ organisation.website }}</a></li>
+            {% endif %}
+        {% endif %}
     </ul>
     <div class="cta">
         <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>

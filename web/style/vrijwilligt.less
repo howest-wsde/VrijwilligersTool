@@ -260,12 +260,6 @@ body>header {
 	aside {
 		flex: 1 1 @iContainerWidth/4;
 		display: flex; flex-direction: column;
-		#googlemaps {
-			margin: 0-@iPadding; margin-top: 0; flex: 1;
-			div.googlemap {height: 100%; min-height: 350px;
-				#map-canvas {height: 100%; }
-			}
-		}
 		div.cta {
 			flex: 1; display: inline-flex; flex-direction: column; justify-content: flex-end;
 			text-align: center;
@@ -275,6 +269,22 @@ body>header {
 		flex: 1 1 @iContainerWidth/4*2;  display: flex; flex-direction: column;
 		footer {
 			flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+			ul.social {float: right; }
+		}
+		dl {
+			dt {text-transform: uppercase; white-space: nowrap; color: @cTXTgrijs; }
+			dd {padding-bottom: 8px; }
+		}
+	}
+	>article.vereniging img.logo {max-width: 50%; }
+	section {
+		flex: 1 1 @iContainerWidth;
+	}
+
+	#googlemaps {
+		margin: 0-@iPadding; margin-top: 0; flex: 1;
+		div.googlemap {height: 100%; min-height: 350px;
+			#map-canvas {height: 100%; }
 		}
 	}
 }
@@ -299,7 +309,7 @@ article.vacature, article.vereniging, .blok {
 	.googlemap {
 		position: relative; clear: both;
 		#map-canvas {width: 100%; height: 350px; z-index: 10; }
-		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
+		#targetaddress {display: none; position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
 			background-color: #fff; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
 		 }
 		 ul.transit {
@@ -371,7 +381,20 @@ ul.icons {
 		&.number {background-image: url("../images/doc.png"); }
 		&.mail {background-image: url("../images/mail.png"); background-position: left 4px; }
 		&.phone {background-image: url("../images/foon.png"); }
+		&.date {background-image: url("../images/date.png"); }
+		&.web {background-image: url("../images/website.png"); }
 		a {color: inherit; }
+	}
+}
+
+ul.social {
+	margin: 0; padding: 0;
+	li {
+		display: inline-block;
+		a {display: block; width: 22px; height: 22px; overflow: hidden; color: transparent; background: transparent url("../images/share.png") no-repeat center center;  }
+		&.facebook a {background-image: url("../images/share_fb.png"); }
+		&.twitter a {background-image: url("../images/share_twitter.png"); }
+		&.googleplus a {background-image: url("../images/share_google.png"); }
 	}
 }
 
