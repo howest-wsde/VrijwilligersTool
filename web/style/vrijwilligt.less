@@ -260,7 +260,7 @@ body>header {
 	h1 {margin-bottom: 0; }
 	span.baseline {font-size: 20px; margin-bottom: 15px; margin-top: 0; }
 	aside {
-		flex: 1 1 @iContainerWidth/4;
+		flex: 1 1 30%; min-width: 300px;
 		display: flex; flex-direction: column;
 		div.cta {
 			flex: 1; display: inline-flex; flex-direction: column; justify-content: flex-end;
@@ -268,13 +268,14 @@ body>header {
 		}
 	}
 	article {
-		flex: 1 1 @iContainerWidth/4*2;  display: flex; flex-direction: column;
+		flex: 1 1 60%;  display: flex; flex-direction: column;
+		header {margin-bottom: 10px; }
 		footer {
 			flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
 			ul.social {float: right; }
 		}
 		dl {
-			dt {text-transform: uppercase; white-space: nowrap; color: @cTXTgrijs; }
+			dt {text-transform: uppercase; white-space: nowrap; color: @cTXTgrijs; clear: left; }
 			dd {padding-bottom: 8px; }
 		}
 		ul.skills {
@@ -304,7 +305,7 @@ article.vacature, article.vereniging, .blok {
 	overflow: auto;
 	h2 {text-align: left; }
 	figure {text-align: center; }
-	span.baseline {color: yellow; font-style: italic; color: black; margin-top: 3px; display: block; }
+	span.baseline {font-style: italic; margin-top: 3px; display: block; }
 	img.logo {max-width: 95%; max-height: 310px; margin: 10px auto; }
 	a.fav {
 		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;

@@ -32,10 +32,10 @@
 			    {% endfor %}
 				<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 				<dl>
-					<dt class="col-md-3"></dt>
-					<dd class="col-md-9"></dd>
-					<dt class="col-md-3">{{ "vacancy.vacancy.summary"|trans }}</dt>
-					<dd class="col-md-9">{{ vacancy.summary }}</dd>
+					{% if vacancy.summary %}
+						<dt class="col-md-3">{{ "vacancy.vacancy.summary"|trans }}</dt>
+						<dd class="col-md-9">{{ vacancy.summary }}</dd>
+					{% endif %}
 
 					<dt class="col-md-3">{{ "vacancy.vacancy.description"|trans }}</dt>
 					<dd class="col-md-9">{{ vacancy.description }}</dd>
@@ -66,14 +66,16 @@
 						{% endif %}
 					</dd>
 
-					<dt class="col-md-3">{{ "vacancy.vacancy.categories"|trans }}</dt>
-					<dd class="col-md-9">
-						<ul class="skills">
-							{% for skill in vacancy.skills %}
-								<li>{{ skill.name }}</li>
-							{% endfor %}
-						</ul>
-					</dd>
+					{% if vacancy.skills|length > 0 %}
+						<dt class="col-md-3">{{ "vacancy.vacancy.categories"|trans }}</dt>
+						<dd class="col-md-9">
+							<ul class="skills">
+								{% for skill in vacancy.skills %}
+									<li>{{ skill.name }}</li>
+								{% endfor %}
+							</ul>
+						</dd>
+					{% endif %}
 				</dl>
 
 			</div>
