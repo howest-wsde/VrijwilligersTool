@@ -159,6 +159,8 @@ person:
         mailPreference: Please choose here how often you'd like to receive notifications via mail
         accessible: Are you less-mobile?
         renumeration: Are you willing to do volunteer-work that is not renumerated financially?
+        longterm: Are you willing to engage into a recurring commitment?
+        estimatedWorkInHours: How many hours are you willing to volunteer per week?
     choices:
         immediately: Immediately
         daily: Daily

@@ -31,6 +31,8 @@ fos_elastica:
                         linkedinUrl: { type: string, index: not_analyzed }
                         access: { type: boolean }
                         renumerate: { type: boolean }
+                        longterm: { type: boolean }
+                        estimatedWorkInHours: { type: integer }
                         contactOrganisation:
                             type: object
                             properties:

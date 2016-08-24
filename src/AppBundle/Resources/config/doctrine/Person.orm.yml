@@ -73,6 +73,13 @@ AppBundle\Entity\Person:
         renumerate:
             type: boolean
             options: { default: true }
+        longterm:
+            type: boolean
+            options: { default: true }
+        estimatedWorkInHours:
+            type: smallint
+            nullable: true
+            options: { default: 0 }
     oneToMany:
         organisation:
             targetEntity: Organisation

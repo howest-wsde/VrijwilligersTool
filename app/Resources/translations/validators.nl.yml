@@ -163,6 +163,8 @@ person:
         mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
         accessible: Bent u mindermobiel?
         renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?
+        longterm: Bent u bereid om een langdurig engagement aan te gaan?
+        estimatedWorkInHours: Hoeveel uur per week bent u bereid om te vrijwilligen?
     choices:
         immediately: Onmiddelijk
         daily: Dagelijks

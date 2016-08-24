@@ -360,7 +360,12 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * Whether or not a person is willing to enter a longterm engagement
      * @var bool
      */
-    private $longterm = false;
+    private $longterm = true;
+
+    /**
+     * @var int
+     */
+    private $estimatedWorkInHours = 0;
 
     /**
      * Constructor
@@ -1263,6 +1268,30 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function getLongterm()
     {
         return $this->longterm;
+    }
+
+    /**
+     * Set estimatedWorkInHours
+     *
+     * @param int $estimatedWorkInHours
+     *
+     * @return Person
+     */
+    public function setEstimatedWorkInHours($estimatedWorkInHours)
+    {
+        $this->estimatedWorkInHours = $estimatedWorkInHours;
+
+        return $this;
+    }
+
+    /**
+     * Get estimatedWorkInHours
+     *
+     * @return int
+     */
+    public function getEstimatedWorkInHours()
+    {
+        return $this->estimatedWorkInHours;
     }
 
    /**
