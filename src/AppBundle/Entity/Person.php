@@ -351,6 +351,18 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     private $access = false;
 
     /**
+     * Whether or not a person is willing to do non-renumerated volunteerwork
+     * @var bool
+     */
+    private $renumerate = true;
+
+    /**
+     * Whether or not a person is willing to enter a longterm engagement
+     * @var bool
+     */
+    private $longterm = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1203,6 +1215,54 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function getAccess()
     {
         return $this->access;
+    }
+
+    /**
+     * Set renumerate
+     *
+     * @param bool $renumerate
+     *
+     * @return Person
+     */
+    public function setRenumerate($renumerate)
+    {
+        $this->renumerate = $renumerate;
+
+        return $this;
+    }
+
+    /**
+     * Get renumerate
+     *
+     * @return bool
+     */
+    public function getRenumerate()
+    {
+        return $this->renumerate;
+    }
+
+    /**
+     * Set longterm
+     *
+     * @param bool $longterm
+     *
+     * @return Person
+     */
+    public function setLongterm($longterm)
+    {
+        $this->longterm = $longterm;
+
+        return $this;
+    }
+
+    /**
+     * Get longterm
+     *
+     * @return bool
+     */
+    public function getLongterm()
+    {
+        return $this->longterm;
     }
 
    /**

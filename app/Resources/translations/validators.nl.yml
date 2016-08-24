@@ -162,14 +162,15 @@ person:
         backToGeneral: Terug naar algemene gegevens
         mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
         accessible: Bent u mindermobiel?
+        renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?
     choices:
         immediately: Onmiddelijk
         daily: Dagelijks
         weekly: Wekelijks
         monthly: Maandelijks
         nomail: Ik wil geen meldingen ontvangen
-        accessible: Ja
-        notaccessible: Nee
+        yes: Ja
+        no: Nee
 search:
     label:
         hoursAWeek: uren per week

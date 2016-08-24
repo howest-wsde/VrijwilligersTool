@@ -30,6 +30,7 @@ fos_elastica:
                         language: { type: string, index: not_analyzed }
                         linkedinUrl: { type: string, index: not_analyzed }
                         access: { type: boolean }
+                        renumerate: { type: boolean }
                         contactOrganisation:
                             type: object
                             properties:

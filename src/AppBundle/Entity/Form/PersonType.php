@@ -168,6 +168,18 @@ class PersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
+            ->add("renumerate", ChoiceType::class, array(
+                "label" => "person.label.renumeration",
+                "placeholder" => false,
+                'choices'  => array(
+                    'person.choices.yes' => true,
+                    'person.choices.no' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,
