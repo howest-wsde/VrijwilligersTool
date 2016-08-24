@@ -1,7 +1,7 @@
 {% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}{{ "org.org.title"|trans }}{% endblock %}
+{% block title %}{{ organisation.name }}{% endblock %}
 
 {% block body %}
 {% if organisation.deleted %}

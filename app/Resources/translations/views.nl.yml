@@ -310,6 +310,7 @@ vacancy:
         description: Omschrijving
         startdate: Begindatum
         enddate: Einddatum
+        categories: Categorieën
         location: Locatie
         bus: bus
         tweet: Tweeten

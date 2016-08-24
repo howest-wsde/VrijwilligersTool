@@ -29,6 +29,8 @@
 
 /* ---------------------------- START CSS ---------------------------- */
 
+body {color: @cTXTgrijs; }
+
 /* main header / menu */
 body>header {
 	background-color: @cHeader;
@@ -275,6 +277,10 @@ body>header {
 			dt {text-transform: uppercase; white-space: nowrap; color: @cTXTgrijs; }
 			dd {padding-bottom: 8px; }
 		}
+		ul.skills {
+			margin: 0; padding: 0;
+			li {background: transparent url("../images/skill.png") no-repeat left center; padding-left: 20px; padding-right: 10px; display: inline-block; }
+		}
 	}
 	>article.vereniging img.logo {max-width: 50%; float: right; }
 	section {
@@ -297,8 +303,9 @@ article.vacature, article.vereniging, .blok {
 	margin: @iMargin;
 	overflow: auto;
 	h2 {text-align: left; }
+	figure {text-align: center; }
 	span.baseline {color: yellow; font-style: italic; color: black; margin-top: 3px; display: block; }
-	img.logo {max-width: 100%; max-height: 310px; margin: 10px; }
+	img.logo {max-width: 95%; max-height: 310px; margin: 10px auto; }
 	a.fav {
 		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 		position: absolute;  right: 20px; top: -2px;
@@ -633,7 +640,13 @@ h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
 
-a.cta {.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;  }
+a.cta {
+	.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
+	&.groen {.shaduwblok(@cGroen); }
+	&.blauw {.shaduwblok(@cBlauw); }
+	&.geel {.shaduwblok(@cGeel); }
+	&.paars {.shaduwblok(@cPaars); }
+}
 
 /* PAGE WIDTH  */
 .container {
