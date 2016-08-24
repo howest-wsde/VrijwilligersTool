@@ -22,12 +22,12 @@ class Candidacy extends EntityBase
     private $state = Candidacy::PENDING; 
 
     /**
-     * @var \AppBundle\Entity\Person
+     * @var Person
      */
     private $candidate;
 
     /**
-     * @var \AppBundle\Entity\Vacancy
+     * @var Vacancy
      */
     private $vacancy;
 
@@ -68,11 +68,11 @@ class Candidacy extends EntityBase
     /**
      * Set candidate
      *
-     * @param \AppBundle\Entity\Person $candidate
+     * @param Person $candidate
      *
      * @return Candidacy
      */
-    public function setCandidate(\AppBundle\Entity\Person $candidate = null)
+    public function setCandidate(Person $candidate = null)
     {
         $this->candidate = $candidate;
 
@@ -82,7 +82,7 @@ class Candidacy extends EntityBase
     /**
      * Get candidate
      *
-     * @return \AppBundle\Entity\Person
+     * @return Person
      */
     public function getCandidate()
     {
@@ -92,11 +92,11 @@ class Candidacy extends EntityBase
     /**
      * Set vacancy
      *
-     * @param \AppBundle\Entity\Vacancy $vacancy
+     * @param Vacancy $vacancy
      *
      * @return Candidacy
      */
-    public function setVacancy(\AppBundle\Entity\Vacancy $vacancy = null)
+    public function setVacancy(Vacancy $vacancy = null)
     {
         $this->vacancy = $vacancy;
 
@@ -106,7 +106,7 @@ class Candidacy extends EntityBase
     /**
      * Get vacancy
      *
-     * @return \AppBundle\Entity\Vacancy
+     * @return Vacancy
      */
     public function getVacancy()
     {

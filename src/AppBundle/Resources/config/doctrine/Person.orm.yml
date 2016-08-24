@@ -67,6 +67,9 @@ AppBundle\Entity\Person:
         digest:
             type: smallint
             options: { default: 1 }
+        access:
+            type: boolean
+            options: {default: false}
     oneToMany:
         organisation:
             targetEntity: Organisation

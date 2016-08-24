@@ -138,6 +138,18 @@ class EditPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
+            ->add('access', ChoiceType::class, array(
+                'label' => 'person.label.accessible',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.accessible' => true,
+                    'person.choices.notaccessible' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add("submit", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,

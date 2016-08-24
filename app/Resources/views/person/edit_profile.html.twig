@@ -84,7 +84,12 @@
                     {{ form_row (form.skills) }}
                 </fieldset>
                 <fieldset>
-                    {{ form_row (form.digest) }}
+                    <div class='col-md-5'>
+                        {{ form_row (form.digest) }}
+                    </div>
+                    <div class='col-md-3'>
+                        {{ form_row(form.access) }}
+                    </div>
                 </fieldset>
                 <fieldset>
                     {{ form_row (form.submit2) }}

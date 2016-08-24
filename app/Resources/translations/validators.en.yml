@@ -157,12 +157,15 @@ person:
         backToRegistration: Back to registration
         backToGeneral: Back to general info
         mailPreference: Please choose here how often you'd like to receive notifications via mail
+        accessible: Are you less-mobile?
     choices:
         immediately: Immediately
         daily: Daily
         weekly: Weekly
         monthly: Monthly
         nomail: I don't want to receive any notifications
+        accessible: Yes
+        nonaccessible: No
 search:
     label:
         hoursaweek: hours per week

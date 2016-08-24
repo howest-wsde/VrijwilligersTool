@@ -29,6 +29,7 @@ fos_elastica:
                         telephone: { type: string, index: not_analyzed }
                         language: { type: string, index: not_analyzed }
                         linkedinUrl: { type: string, index: not_analyzed }
+                        access: { type: boolean }
                         contactOrganisation:
                             type: object
                             properties:

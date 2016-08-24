@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
 use Symfony\Component\HttpFoundation\File\File;
@@ -224,6 +223,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * Callback that check if either the email or telephone fields are valid
+     * @param Organisation $org
+     * @param ExecutionContextInterface $context
+     * @return bool
      */
     public static function validateContacts($org, ExecutionContextInterface  $context)
     {
@@ -341,6 +343,12 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      */
     private $liked_vacancies;
+
+    /**
+     * Whether or not a person desires weelchair-accessibility
+     * @var bool
+     */
+    private $access = false;
 
     /**
      * Constructor
@@ -1171,6 +1179,30 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function getLikedVacancies()
     {
         return $this->liked_vacancies;
+    }
+
+    /**
+     * Set accessible
+     *
+     * @param bool $accessible
+     *
+     * @return Person
+     */
+    public function setAccess($accessible)
+    {
+        $this->access = $accessible;
+
+        return $this;
+    }
+
+    /**
+     * Get accessible
+     *
+     * @return bool
+     */
+    public function getAccess()
+    {
+        return $this->access;
     }
 
    /**

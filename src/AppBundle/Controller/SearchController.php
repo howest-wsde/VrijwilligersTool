@@ -7,41 +7,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Person;
-use AppBundle\Entity\Volunteer;
 use AppBundle\Entity\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchController extends Controller
 {
     /**
-     * [performSearch description]
-     * @param  [type] $params [description]
-     * @return [type]         [description]
-     */
-    private function performSearch($params){
-        $query = $this->get("ElasticsearchQuery");
-        $params = [
-            'index' => $query,
-            'type' => $params['type'] ? $params['type'] : 'vacancy',
-        ];
-
-        return $query->search($params);
-    }
-
-    /**
-     *
      * @param [type]    $term   description
      * @param [type]    $ypes   description
      */
@@ -64,31 +35,10 @@ class SearchController extends Controller
     }
 
     /**
-     * [specificSearch description]
-     * @param  [type] $types [description]
-     * @param  [type] $body  [description]
-     * @param  array  $slice [description]
-     * @return [type]        [description]
-     */
-    private function specificSearch($types, $body, $slice = [0 => 25])
-    {
-        $query = $this->get("ElasticsearchQuery");
-        $params = [
-            "index" => $query->getIndex(),
-            "type" => $types,
-            "from" => key($slice),
-            "size" => $slice[key($slice)],
-            "body" => $body
-        ];
-
-        return $query->search($params);
-    }
-
-    /**
      * Helper function to perform a ES query by type.
-     * @param  Form     $form       a search filter form
+     * @param  \Symfony\Component\Form\Form     $form       a search filter form
      * @param  String   $searchTerm a term to search for
-     * @return Array             an array of hydrated results
+     * @return array             an array of hydrated results
      */
     private function searchByType($form, $searchTerm){
         $ESquery = $this->get("ElasticsearchQuery");
@@ -104,6 +54,8 @@ class SearchController extends Controller
      * @Route("/zoeken", name="zoeken")
      * @Route("/zoek", name="zoek")
      * @Method("POST")
+     * @param Request $request
+     * @return Response
      */
     public function searchFormPostAction(Request $request){
         //sort: afstand werkt nog niet
@@ -144,6 +96,8 @@ class SearchController extends Controller
      * @Route("/zoeken", name="getZoeken")
      * @Route("/zoek", name="getZoek")
      * @Method({"GET", "HEAD"})
+     * @param Request $request
+     * @return Response
      */
     public function searchFormAction(Request $request){
         $searchTerm = $request->query->get("q");
@@ -159,74 +113,14 @@ class SearchController extends Controller
         ));
     }
 
-    //deprecated route, stuff from Jelle (nog niet wegsmijten, moet nog stuk uit gerefactored worden)
-    public function searchAction()
-    {
-        $request = Request::createFromGlobals();
-
-        $form = $this->createForm(SearchFilterType::class, new SearchFilter, ["method" => "GET"]);
-        $form->handleRequest($request);
-
-        $searchTerm = $request->query->get("q");
-        $results = null;
-        if ($searchTerm)
-        {
-            $results = $this->plainSearch($searchTerm);
-        }
-        else if ($request->query->get("cat"))
-        {
-            $cat = urldecode($request->query->get("cat"));
-
-            $em = $this->getDoctrine()->getManager();
-
-            $childCategories = $em->getRepository("AppBundle:Skill")
-                ->createQueryBuilder("s1")
-                ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
-                ->where("s2.name = :parentName")
-                ->setParameter("parentName", $cat)
-                ->getQuery()
-                ->getResult();
-
-            $allvacancies = [];
-            foreach ($childCategories as $category) {
-                foreach ($category->getVacancies() as $vacancy) {
-                    if(!in_array($vacancy, $allvacancies))
-                    {
-                        $allvacancies[] = $vacancy;
-                    }
-                }
-            }
-
-            $results = $allvacancies;
-        }
-        else if ($form->isSubmitted() && $form->isValid())
-        {
-            $data = $form->getData();
-
-            $types = array();
-            if ($data->getPerson()) {array_push($types, "person");}
-            if ($data->getOrganisation()) {array_push($types, "organisation");}
-            if ($data->getVacancy()) {array_push($types, "vacancy");}
-
-            $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
-
-            $results = $this->specificSearch($types, ["query" => $query]);
-        }
-
-        return $this->render("search/zoekpagina.html.twig", array(
-            "form" => $form->createView(),
-            "results" => $results,
-            "searchTerm" => $searchTerm,
-            "filters" => false,
-        ));
-    }
-
     /**
+     * Wordt gebruikt in base.html.twig (lijn 16, RV_GLOBALS)
      * @Route("/api/search", name="api_search")
      */
     public function apiSearchAction()
     {
         $request = Request::createFromGlobals();
+        $results = null;
         $query = $request->query->get("q");
         if ($query)
         {
@@ -245,6 +139,7 @@ class SearchController extends Controller
 
 
     /**
+     * Wordt gebruikt in base.html.twig (lijn 17, RV_GLOBALS)
      * @Route("/api/usersearch", name="api_usersearch")
      */
     public function apiSearchUserAction()
@@ -264,202 +159,9 @@ class SearchController extends Controller
     }
 
     /**
-     * function to build the form for the searchFormAction Controller
-     * @param  array $defaultData any data that has to be entered into the field
-     * @return form
-     */
-    private function buildSearchForm($defaultData = array()){
-        $t = $this->get('translator');
-
-        return $this->createFormBuilder($defaultData)
-        ->add("search", SearchType::class, array(
-            "label" => false,
-            "required" => false,
-            "attr" => array("placeholder" => $t->trans('search.placeholder.searchTerm'))
-        ))
-        ->add("submit", SubmitType::class, array(
-            "label" => $t->trans('search.label.search'),
-        ))
-        ->add('sort', ChoiceType::class, array(
-            "label" => $t->trans('search.label.sort'),
-            'choices'  => array(
-                $t->trans('search.choices.distance') => 'distance',
-                $t->trans('search.choices.date') => 'date',
-                $t->trans('search.choices.endDate') => 'endDate',
-                $t->trans('search.choices.reward') => 'reward',
-            ),
-            // render as select box
-            'expanded' => false,
-            'multiple' => false,
-            'required' => false,
-        ))
-        ->add("person", CheckboxType::class, array(
-            "label" => $t->trans('search.label.person'),
-            "required" => false,
-        ))
-        ->add("org", CheckboxType::class, array(
-            "label" => $t->trans('search.label.organisation'),
-            "required" => false,
-        ))
-        ->add("vacancy", CheckboxType::class, array(
-            "label" => $t->trans('search.label.vacancy'),
-            "required" => false,
-        ))
-        ->add("sectors", EntityType::class, array(
-            "label" => false,
-            "placeholder" => false,
-            // query choices from this entity
-            'class' => 'AppBundle:Skill',
-            //only pick skills that are childs of the sector skill
-            'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('s')
-                        ->where('s.parent = 36')
-                        ->orderBy('s.name', 'ASC');
-                },
-            // use the name property as the visible option string
-            'choice_label' => 'name',
-            // render as select box
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ))
-        ->add('categories', EntityType::class, array(
-            'label' => false,
-            // query choices from this entity
-            'class' => 'AppBundle:Skill',
-            // use the name property as the visible option string
-            'choice_label' => 'name',
-            // render as checkbox
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-            ))
-        ->add('intensity', ChoiceType::class, array(
-            'label' => false,
-            'choices'  => array(
-                $t->trans('search.choices.long') => 'long',
-                $t->trans('search.choices.1time') => '1time',
-            ),
-            // render as checkbox
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ))
-        ->add('hoursAWeek', IntegerType::class, array(
-            'label' => $t->trans('search.label.hoursAWeek'),
-            'required' => false,
-        ))
-        ->add('distance', IntegerType::class, array(
-            'label' => $t->trans('search.label.distance'),
-            'required' => false,
-        ))
-        ->add('characteristic', ChoiceType::class, array(
-            'label' => false,
-            'choices'  => array(
-                $t->trans('search.choices.weelchair') => 'weelchair',
-                $t->trans('search.choices.lotsContact') => 'lotsContact',
-                $t->trans('search.choices.littleContact') => 'littleContact',
-            ),
-            // render as checkbox
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ))
-        ->add('advantages', ChoiceType::class, array(
-            'label' => false,
-            'choices'  => array(
-                $t->trans('search.choices.renumeration') => 'reward',
-                $t->trans('search.choices.other') => 'other',
-            ),
-            // render as checkbox
-            'expanded' => true,
-            'multiple' => true,
-            'required' => false,
-        ))
-        ->getForm();
-    }
-
-    /**
-     * helper function for searchAction to generate an array of results based on
-     * the different use cases
-     * @param  string   $searchTerm   a search term
-     * @param  form     $form         the submitted form
-     * @param  request  $request      the submitted request
-     * @return array of results
-     */
-    private function getResultsOfSearch($searchTerm, $form = null, $request = null){
-        if ($searchTerm && is_null($form))
-        {
-            return $this->plainSearch($searchTerm);
-        }
-        else if ($request->query->get("cat"))
-        {
-            return $this->catSearch($request);
-        }
-        else if ($form->isSubmitted() && $form->isValid())
-        {
-            return $this->validFormSearch($form);
-        }
-    }
-
-    /**
-     * Helper function for getResultsOfSearch() to be executed when the query-string
-     * contains "cat"
-     * @param  $request
-     * @return array of results
-     */
-    private function catSearch($request){
-        $cat = urldecode($request->query->get("cat"));
-
-        $em = $this->getDoctrine()->getManager();
-
-        $childCategories = $em->getRepository("AppBundle:Skill")
-            ->createQueryBuilder("s1")
-            ->join("AppBundle:Skill", "s2", "WITH", "s1.parent = s2")
-            ->where("s2.name = :parentName")
-            ->setParameter("parentName", $cat)
-            ->getQuery()
-            ->getResult();
-
-        $allvacancies = [];
-        foreach ($childCategories as $category) {
-            foreach ($category->getVacancies() as $vacancy) {
-                if(!in_array($vacancy, $allvacancies))
-                {
-                    $allvacancies[] = $vacancy;
-                }
-            }
-        }
-
-        return $allvacancies;
-    }
-
-    /**
-     * Helper function for getResultsOfSearch() to be executed when a valid form entry has been submitted
-     * @param  $request
-     * @return array of results
-     */
-    private function validFormSearch($form){
-        //TODO: seriously flesh this out!
-        $data = $form->getData();
-        $searchTerm = $data['search'];
-
-        return $this->plainSearch($searchTerm);
-
-        // $types = array();
-        // if ($data->getPerson()) {array_push($types, "person");}
-        // if ($data->getOrganisation()) {array_push($types, "organisation");}
-        // if ($data->getVacancy()) {array_push($types, "vacancy");}
-
-        // $query = $data->getTerm() ? ["query_string" => ["query" => $data->getTerm()]] : ["query" => ["match_all" => []]];
-
-        // return $this->specificSearch($types, ["query" => $query]);
-    }
-
-    /**
      * Assemble the array of document types to search
-     * @param  Form     $form   the search form as posted by the user
-     * @return Array            an array of ES document types
+     * @param  \Symfony\Component\Form\Form     $form   the search form as posted by the user
+     * @return array            an array of ES document types
      */
     private function getTypes($form){
         $types = [];
@@ -481,9 +183,9 @@ class SearchController extends Controller
     }
 
     /**
-     * Use a submitted buildSearchForm to assemble a valid ES query
-     * @param  Form     $form   the search form as posted by the user
-     * @return Array            a valid ES query in php format
+     * Use a submitted SearchForm to assemble a valid ES query
+     * @param  \Symfony\Component\Form\Form     $form   the search form as posted by the user
+     * @return array            a valid ES query in php format
      */
     private function assembleQuery($form){
         $categories = $form->get('categories')->getData(); //array
@@ -549,7 +251,7 @@ class SearchController extends Controller
     /**
      * Helper function for assembleQuery, processing the sort preference of the user
      * @param  String   $sort     the sort preference of the user
-     * @return Array              array representing a sort clause
+     * @return array              array representing a sort clause
      */
     private function processSort($sort){
         $score = [ '_score' => [ 'order' => 'desc' ]];
@@ -574,7 +276,8 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the distance filter set by the user
-     * @return string/boolean    distance string if possible, else false
+     * @param $distance int
+     * @return string /boolean    distance string if possible, else false
      */
     private function processDistance($distance){
         $user = $this->getUser();
@@ -605,7 +308,7 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the advantages array
-     * @param  String   $advantages   the advantages the user wants to filter on
+     * @param  array   $advantages   the advantages the user wants to filter on
      * @param  String   $exists       the array representing the exists filter
      * @param  String   $range        the array representing the range filter
      */
@@ -626,9 +329,9 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the characteristic array
-     * @param  String   $characteristic   the characteristic the user wants to filter on
+     * @param  array   $characteristic   the characteristic the user wants to filter on
      * @param  String   $must             the array representing the must filter
-     * @return Array                      array representing a term/s filter
+     * @return array                      array representing a term/s filter
      */
     private function processCharacteristic($characteristic, &$must){
         foreach ($characteristic as $key => $value) {
@@ -651,7 +354,7 @@ class SearchController extends Controller
     /**
      * Helper function for assembleQuery, processing the intensity array
      * @param  String   $intensity     the intensity the user wants to filter on
-     * @return Array                   array representing a term/s filter
+     * @return array                   array representing a term/s filter
      */
     private function processIntensity(&$intensity){
         return ['term' => [ 'longterm' => ($intensity === '1time' ? false : true) ]];
@@ -659,9 +362,9 @@ class SearchController extends Controller
 
     /**
      * Helper function for assembleQuery, processing the skill arrays
-     * @param  Array    $array      all skills the user wants to filter on
+     * @param  array    $array      all skills the user wants to filter on
      * @param  string   $termName   the name of the term in ES to filter on
-     * @return Array                array representing a term/s filter
+     * @return array                array representing a term/s filter
      */
     private function processSkillArray($array, $termName){
         if(sizeof($array) > 1){
@@ -670,15 +373,15 @@ class SearchController extends Controller
                 $skills[] = $skill->getName();
             }
         } else {
-            $skils = $array[0]->getName();
+            $skills = $array[0]->getName();
         }
         return [(sizeof($array) > 1 ? 'terms' : 'term') => [ $termName => $skills ]];
     }
 
     /**
      * Create an instance of SearchFilter to be used in the search page form.
-     * @param  Array        $array      either a post or get array of values
-     * @return AppBundle\Entity\SearchFilter        a Search Filter
+     * @param  array        $array      either a post or get array of values
+     * @return \AppBundle\Entity\SearchFilter        a Search Filter
      */
     private function createSearchFilter($array){
         $sf = new SearchFilter();
@@ -690,8 +393,8 @@ class SearchController extends Controller
                         break;
                     case 'categories':
                         if(is_array($value)){
-                            foreach ($value as $key => $id) {
-                                # code...
+                            foreach ($value as $thekey => $id) {
+                                //TODO
                             }
                         }
                         $sf->{ 'addCategory' }($value);
