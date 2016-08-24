@@ -29,6 +29,8 @@
 
 /* ---------------------------- START CSS ---------------------------- */
 
+body {color: @cTXTgrijs; }
+
 /* main header / menu */
 body>header {
 	background-color: @cHeader;
@@ -190,7 +192,7 @@ body>header {
 		background: @cCarousel;
 		.container {height: 444px; }
 		.slide1 {
-			background: url("../images/caroesel.png") no-repeat right bottom;
+			background: url("../images/handen.png") no-repeat right bottom;
 		}
 	}
 	.slidetoggle {
@@ -217,7 +219,7 @@ body>header {
 			text-align: left; margin: 0; padding: 0;
 			li {
 				padding: 5px 10px; display: block;
-				a {color: black; text-decoration: none; }
+				a {color: @cTXTgrijs; text-decoration: none; }
 				&:nth-child(odd) {background: rgba(255, 255, 255, 0.8); }
 				&:nth-child(even) {background: rgba(255, 255, 255, 0.6); }
 			}
@@ -258,23 +260,38 @@ body>header {
 	h1 {margin-bottom: 0; }
 	span.baseline {font-size: 20px; margin-bottom: 15px; margin-top: 0; }
 	aside {
-		flex: 1 1 @iContainerWidth/4;
+		flex: 1 1 30%; min-width: 300px;
 		display: flex; flex-direction: column;
-		#googlemaps {
-			margin: 0-@iPadding; margin-top: 0; flex: 1;
-			div.googlemap {height: 100%; min-height: 350px;
-				#map-canvas {height: 100%; }
-			}
-		}
 		div.cta {
 			flex: 1; display: inline-flex; flex-direction: column; justify-content: flex-end;
 			text-align: center;
 		}
 	}
 	article {
-		flex: 1 1 @iContainerWidth/4*2;  display: flex; flex-direction: column;
+		flex: 1 1 60%;  display: flex; flex-direction: column;
+		header {margin-bottom: 10px; }
 		footer {
-			flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+			flex: 1; display: flex; flex-direction: column; justify-content: flex-end; margin-top: 15px;
+			ul.social {float: right; }
+		}
+		dl {
+			dt {text-transform: uppercase; white-space: nowrap; color: @cTXTgrijs; clear: left; }
+			dd {padding-bottom: 8px; }
+		}
+		ul.skills {
+			margin: 0; padding: 0;
+			li {background: transparent url("../images/skill.png") no-repeat left center; padding-left: 20px; padding-right: 10px; display: inline-block; }
+		}
+	}
+	>article.vereniging img.logo {max-width: 50%; float: right; }
+	section {
+		flex: 1 1 @iContainerWidth;
+	}
+
+	#googlemaps {
+		margin: 0-@iPadding; margin-top: 0; flex: 1;
+		div.googlemap {height: 100%; min-height: 350px;
+			#map-canvas {height: 100%; }
 		}
 	}
 }
@@ -285,10 +302,12 @@ article.vacature, article.vereniging, .blok {
 	position: relative;
 	padding: @iPadding;
 	margin: @iMargin;
+	.tabblad & {margin-top: 0; }
 	overflow: auto;
 	h2 {text-align: left; }
-	span.baseline {color: yellow; font-style: italic; color: black; margin-top: 3px; display: block; }
-	img.logo {max-width: 100%; max-height: 310px; margin: 10px; float: right; }
+	figure {text-align: center; }
+	span.baseline {font-style: italic; margin-top: 3px; display: block; }
+	img.logo {max-width: 95%; max-height: 310px; margin: 10px auto; }
 	a.fav {
 		background: url("../images/fav.png") no-repeat center center; width: 26px; height: 33px; display: block;
 		position: absolute;  right: 20px; top: -2px;
@@ -299,7 +318,7 @@ article.vacature, article.vereniging, .blok {
 	.googlemap {
 		position: relative; clear: both;
 		#map-canvas {width: 100%; height: 350px; z-index: 10; }
-		#targetaddress {position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
+		#targetaddress {display: none; position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
 			background-color: #fff; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
 		 }
 		 ul.transit {
@@ -320,10 +339,15 @@ article.vacature, article.vereniging, .blok {
 	}
 }
 
+
 div.vacatures, div.organisaties, .blokken {
 	overflow: auto; width: 100%;
 	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch;
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
+	.tabblad & {
+		flex-flow: row nowrap; justify-content: flex-start;
+		>article.vacature, >article.vereniging {flex: 0 0 235px; }
+	}
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
@@ -361,6 +385,28 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 
+.tabblad {
+	.nav-tabs {
+	    border: 0; text-align: center;
+	    li {
+	    	float: none; display: inline-block; padding: 0 5px;
+	    	a {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
+    		&.active a  {color: @cRood; }
+    		&.active.geel a  {color: @cGeel; }
+    		&.active.groen a {color: @cGroen; }
+    		&.active.blauw a  {color: @cBlauw; }
+    		&.active.paars a {color: @cPaars; }
+    		&.geel a  {background-color: @cGeel; }
+    		&.groen a {background-color: @cGroen; }
+    		&.blauw a  {background-color: @cBlauw; }
+    		&.paars a {background-color: @cPaars; }
+	    	&.active a {
+	    		background-color: @cBGgrijsA;
+	    	}
+	    }
+	}
+}
+
 ul.icons {
 	display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
 	li {
@@ -368,10 +414,24 @@ ul.icons {
 		background: white no-repeat left 2px; padding-left: 23px; display: inline-block; padding-bottom: 3px;
 		&.people {background-image: url("../images/people.png"); }
 		&.loc {background-image: url("../images/loc.png"); }
-		&.number {background-image: url("../images/doc.png"); }
+		&.number {background-image: url("../images/doc.png");  background-position: 1px 2px; }
 		&.mail {background-image: url("../images/mail.png"); background-position: left 4px; }
 		&.phone {background-image: url("../images/foon.png"); }
+		&.date {background-image: url("../images/date.png"); }
+		&.web {background-image: url("../images/website.png"); }
+		&.organisation {background-image: url("../images/organisation.png"); }
 		a {color: inherit; }
+	}
+}
+
+ul.social {
+	margin: 0; padding: 0;
+	li {
+		display: inline-block;
+		a {display: block; width: 22px; height: 22px; overflow: hidden; color: transparent; background: transparent url("../images/share.png") no-repeat center center;  }
+		&.facebook a {background-image: url("../images/share_fb.png"); }
+		&.twitter a {background-image: url("../images/share_twitter.png"); }
+		&.googleplus a {background-image: url("../images/share_google.png"); }
 	}
 }
 
@@ -398,10 +458,7 @@ ul.icons {
 		width: 160px;
 	}
 }
-.part:nth-child(odd) {
-	background: @cBGgrijsA;
-	.blok.special {background: @cBGgrijsB;   }
-}
+
 
 h1, h2, h3 {margin: 0; padding: 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold; text-align: center;  }
@@ -579,6 +636,7 @@ body>footer {
 .part:nth-child(even) {
 	background: @cBGgrijsB;
 	.blok.special {background: @cBGgrijsA;  }
+	.tabblad .nav-tabs li.active a {background-color: @cBGgrijsA; }
 	.grijs {
 		background: @cBGgrijsA;
 	}
@@ -586,8 +644,17 @@ body>footer {
 .part:nth-child(odd) {
 	background: @cBGgrijsA;
 	.blok.special {background: @cBGgrijsB; }
+	.tabblad .nav-tabs li.active a {background-color: @cBGgrijsB; }
 	.grijs {
 		background: @cBGgrijsB;
+	}
+}.part.header {
+	background-color: @cCarousel; padding: 0;
+	div.container {
+		padding: @iMargin 30px;
+		background: @cCarousel url("../images/handen.png") no-repeat right -70px;
+		background-size: 280px;
+		h1 {color: white; }
 	}
 }
 
@@ -610,11 +677,19 @@ h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
 h3 {.grijzetitel(); }
 /*   */
 
-a.cta {.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;  }
+a.cta {
+	.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
+	&.groen {.shaduwblok(@cGroen); }
+	&.blauw {.shaduwblok(@cBlauw); }
+	&.geel {.shaduwblok(@cGeel); }
+	&.paars {.shaduwblok(@cPaars); }
+}
+
 
 /* PAGE WIDTH  */
 .container {
 	max-width: @iContainerWidth; margin: auto; padding: 0 10px; overflow: visible;
+	&.spacing {padding: 0 30px; }
 }
 body {background: @cMainBG; }
 .center {text-align: center; }

@@ -1,7 +1,8 @@
 {% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
 
-{% block title %}{{ "org.org.title"|trans }}{% endblock %}
+{% block title %}{{ organisation.name }}{% endblock %}
+
 
 {% block body %}
 {% if organisation.deleted %}
@@ -49,35 +50,12 @@
 					{% endif %}
 				#}
 			</div>
+			<footer>
+				<div>
+					{% embed "default/socialshare.html.twig" %}{% endembed %}
+				</div>
+			</footer>
 
-			{% if app.user in organisation.administrators %}
-				<footer>
-					<h3>{{ "general.admin.title"|trans }}</h3>
-					<ul>
-						<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
-						<li>
-							<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
-						</li>
-						{% if not organisation.deleted %}
-							<li>
-								<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
-							</li>
-						{% endif %}
-						<li>{{ "general.admin.admins"|trans }}:
-							<ul>
-								{% for administrator in organisation.administrators %}
-									<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
-								{% endfor %}
-								<li>
-									{{ form_start(form) }}
-										{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
-									{{ form_end(form) }}
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</footer>
-			{% endif %}
 		</article>
 
 		<aside class="blok">
@@ -95,12 +73,43 @@
 				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
 			</ul>
 			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
+				{% embed "snippets/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
 			{% endif %}
 		</aside>
 
+
+		{% if app.user in organisation.administrators %}
+			<section class="administrators blok">
+				<h3>{{ "general.admin.title"|trans }}</h3>
+				<ul>
+					<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
+					<li>
+						<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
+					</li>
+					{% if not organisation.deleted %}
+						<li>
+							<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
+						</li>
+					{% endif %}
+					<li>{{ "general.admin.admins"|trans }}:
+						<ul>
+							{% for administrator in organisation.administrators %}
+								<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
+							{% endfor %}
+							<li>
+								{{ form_start(form) }}
+									{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
+								{{ form_end(form) }}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		{% endif %}
+
 	</div>
 
+	<a name="vacatures"></a>
 	{% if organisation.vacancies %}
 		<h2>{{ "org.org.vacancies"|trans }}</h2>
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
@@ -116,4 +125,21 @@
 
 	<script src="{{ asset("js/googleMaps.js") }}"></script>
 	<script src="{{ asset("js/usersearch.js") }}"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+$('#openBtn').click(function(){
+	strURL = $(this).attr("href");
+	alert(strURL);
+    $('#myModal').on('show', function () {
+     //  $('iframe').attr("src", strURL);
+
+	});
+    $('#myModal').modal({show:true})
+    return false;
+});
+})
+</script>
 {% endblock %}
