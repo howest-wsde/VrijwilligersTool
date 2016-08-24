@@ -96,9 +96,10 @@ class ElasticsearchQuery
             'host' => $this->es_host,
             'port' => $this->es_port
         ));
-        $index = $client->getIndex($this->getIndex());
+
         $path = $this->getIndex() . '/' . $type . '/_search';
         $response = $client->request($path, $requestType, $query)->getData();
+
         return $this->esMapper->getEntities($response['hits']['hits']);
     }
 

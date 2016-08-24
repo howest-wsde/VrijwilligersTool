@@ -1,5 +1,10 @@
+{% trans_default_domain "views" %}
 <div class="vacatures">
-    {% for vacancy in vacancies %}
-        {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length}%}{% endembed %}
-    {% endfor %}
+    {% if vacancies %}
+        {% for vacancy in vacancies %}
+            {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length}%}{% endembed %}
+        {% endfor %}
+    {% else %}
+        <p>{{ "general.tailored.novacancy"|trans }}</p>
+    {% endif %}
 </div>

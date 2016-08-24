@@ -197,6 +197,19 @@ class PersonType extends AbstractType
                 'label' => 'person.label.estimatedWorkInHours',
                 'required' => false,
             ))
+            ->add('socialInteraction', ChoiceType::class, array(
+                'label' => 'person.label.socialInteraction',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.all' => 'all',
+                    'person.choices.normal' => 'normal',
+                    'person.choices.little' => 'little',
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => false,

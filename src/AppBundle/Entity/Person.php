@@ -368,6 +368,15 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     private $estimatedWorkInHours = 0;
 
     /**
+     * @var string
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $socialInteraction = "normal";
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -1294,6 +1303,30 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->estimatedWorkInHours;
     }
 
+    /**
+     * Set socialInteraction
+     *
+     * @param string $socialInteraction
+     *
+     * @return Person
+     */
+    public function setSocialInteraction($socialInteraction)
+    {
+        $this->socialInteraction = $socialInteraction;
+
+        return $this;
+    }
+
+    /**
+     * Get socialInteraction
+     *
+     * @return string
+     */
+    public function getSocialInteraction()
+    {
+        return $this->socialInteraction;
+    }
+
    /**
      * Get the class name
      *
@@ -1350,5 +1383,18 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         }
 
         return null;
+    }
+
+    /**
+     * Get the id's of all liked organisations as an array
+     * @return array
+     */
+    public function getLikedOrganisationIds(){
+        $ids = [];
+        foreach ($this->getLikedOrganisations() as $key => $org) {
+            $ids[] = $org->getId();
+        }
+
+        return $ids;
     }
 }

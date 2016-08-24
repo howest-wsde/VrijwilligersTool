@@ -80,6 +80,10 @@ AppBundle\Entity\Person:
             type: smallint
             nullable: true
             options: { default: 0 }
+        socialInteraction:
+            type: string
+            length: 10
+            options: { default: "normal" }
     oneToMany:
         organisation:
             targetEntity: Organisation
@@ -142,5 +146,5 @@ AppBundle\Entity\Person:
               person_id:
                 referencedColumnName: id
             inverseJoinColumns:
-              organisation_id:
+              vacancy_id:
                 referencedColumnName: id

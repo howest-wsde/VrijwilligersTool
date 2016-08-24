@@ -4,6 +4,8 @@ general:
     search: zoeken
     org: organisatie
     vol: vrijwilliger
+    tailored:
+        novacancy: 'Wij vinden momenteel geen vacatures op jouw maat.  Het kan zijn dat er geen vacatures overeenkomen met jouw profiel.  Als je profiel nog niet volledig is ingevuld, dan kan het invullen van je profiel betere resultaten geven.'
     flash:
         success: Success!
         fail: Afgekeurd!

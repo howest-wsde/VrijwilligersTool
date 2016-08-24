@@ -161,6 +161,7 @@ person:
         renumeration: Are you willing to do volunteer-work that is not renumerated financially?
         longterm: Are you willing to engage into a recurring commitment?
         estimatedWorkInHours: How many hours are you willing to volunteer per week?
+        socialInteraction: What amount of social interaction do you find comfortable?
     choices:
         immediately: Immediately
         daily: Daily
@@ -169,6 +170,9 @@ person:
         nomail: I don't want to receive any notifications
         yes: Yes
         no: No
+        all: The more the better!
+        normal: 'Not too much, not too little'
+        little: Not too much preferably
 search:
     label:
         hoursaweek: hours per week

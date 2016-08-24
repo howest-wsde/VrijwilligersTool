@@ -70,6 +70,9 @@ class ESMapper{
         if(array_key_exists('location', $source)){
             unset($source['location']);
         }
+        if(array_key_exists('likers', $source)){
+            unset($source['likers']);
+        }
         foreach ($source as $key => $value) {
             if(!empty($value)){
                 if(is_array($value)){ // two options here: it's an object, or it's an array of objects
