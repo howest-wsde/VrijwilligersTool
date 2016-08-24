@@ -192,7 +192,7 @@ body>header {
 		background: @cCarousel;
 		.container {height: 444px; }
 		.slide1 {
-			background: url("../images/caroesel.png") no-repeat right bottom;
+			background: url("../images/handen.png") no-repeat right bottom;
 		}
 	}
 	.slidetoggle {
@@ -219,7 +219,7 @@ body>header {
 			text-align: left; margin: 0; padding: 0;
 			li {
 				padding: 5px 10px; display: block;
-				a {color: black; text-decoration: none; }
+				a {color: @cTXTgrijs; text-decoration: none; }
 				&:nth-child(odd) {background: rgba(255, 255, 255, 0.8); }
 				&:nth-child(even) {background: rgba(255, 255, 255, 0.6); }
 			}
@@ -302,6 +302,7 @@ article.vacature, article.vereniging, .blok {
 	position: relative;
 	padding: @iPadding;
 	margin: @iMargin;
+	.tabblad & {margin-top: 0; }
 	overflow: auto;
 	h2 {text-align: left; }
 	figure {text-align: center; }
@@ -338,10 +339,15 @@ article.vacature, article.vereniging, .blok {
 	}
 }
 
+
 div.vacatures, div.organisaties, .blokken {
 	overflow: auto; width: 100%;
 	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch;
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
+	.tabblad & {
+		flex-flow: row nowrap;
+		>article.vacature, >article.vereniging {flex: 0 0 235px; }
+	}
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
@@ -379,6 +385,27 @@ div.vacatures, div.organisaties, .blokken {
 	}
 }
 
+.tabblad {
+	.nav-tabs {
+	    border: 0; text-align: center;
+	    li {
+	    	float: none; display: inline-block; padding: 0 5px;
+	    	a {font-weight: bold; color: white; font-size: 17px; border: 0;  }
+    		&.active.geel a  {color: @cGeel; }
+    		&.active.groen a {color: @cGroen; }
+    		&.active.blauw a  {color: @cBlauw; }
+    		&.active.paars a {color: @cPaars; }
+    		&.geel a  {background-color: @cGeel; }
+    		&.groen a {background-color: @cGroen; }
+    		&.blauw a  {background-color: @cBlauw; }
+    		&.paars a {background-color: @cPaars; }
+	    	&.active a {
+	    		background-color: @cBGgrijsA;
+	    	}
+	    }
+	}
+}
+
 ul.icons {
 	display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
 	li {
@@ -386,11 +413,12 @@ ul.icons {
 		background: white no-repeat left 2px; padding-left: 23px; display: inline-block; padding-bottom: 3px;
 		&.people {background-image: url("../images/people.png"); }
 		&.loc {background-image: url("../images/loc.png"); }
-		&.number {background-image: url("../images/doc.png"); }
+		&.number {background-image: url("../images/doc.png");  background-position: 1px 2px; }
 		&.mail {background-image: url("../images/mail.png"); background-position: left 4px; }
 		&.phone {background-image: url("../images/foon.png"); }
 		&.date {background-image: url("../images/date.png"); }
 		&.web {background-image: url("../images/website.png"); }
+		&.organisation {background-image: url("../images/organisation.png"); }
 		a {color: inherit; }
 	}
 }
@@ -429,10 +457,7 @@ ul.social {
 		width: 160px;
 	}
 }
-.part:nth-child(odd) {
-	background: @cBGgrijsA;
-	.blok.special {background: @cBGgrijsB;   }
-}
+
 
 h1, h2, h3 {margin: 0; padding: 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold; text-align: center;  }
@@ -610,6 +635,7 @@ body>footer {
 .part:nth-child(even) {
 	background: @cBGgrijsB;
 	.blok.special {background: @cBGgrijsA;  }
+	.tabblad .nav-tabs li.active a {background-color: @cBGgrijsA; }
 	.grijs {
 		background: @cBGgrijsA;
 	}
@@ -617,8 +643,17 @@ body>footer {
 .part:nth-child(odd) {
 	background: @cBGgrijsA;
 	.blok.special {background: @cBGgrijsB; }
+	.tabblad .nav-tabs li.active a {background-color: @cBGgrijsB; }
 	.grijs {
 		background: @cBGgrijsB;
+	}
+}.part.header {
+	background-color: @cCarousel; padding: 0;
+	div.container {
+		padding: @iMargin 30px;
+		background: @cCarousel url("../images/handen.png") no-repeat right -70px;
+		background-size: 280px;
+		h1 {color: white; }
 	}
 }
 
@@ -649,9 +684,11 @@ a.cta {
 	&.paars {.shaduwblok(@cPaars); }
 }
 
+
 /* PAGE WIDTH  */
 .container {
 	max-width: @iContainerWidth; margin: auto; padding: 0 10px; overflow: visible;
+	&.spacing {padding: 0 30px; }
 }
 body {background: @cMainBG; }
 .center {text-align: center; }

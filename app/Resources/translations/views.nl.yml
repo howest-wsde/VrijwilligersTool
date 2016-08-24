@@ -201,6 +201,11 @@ person:
             navprofile: Overzicht profiel
             navdata: Mijn gegevens
             searchtitle: Op zoek naar vrijwilligerswerk?
+        tabs:
+            personal: Vacatures op maat
+            saved: Bewaarde vacatures
+            recent: Recente vacatures
+            spotlights: Verenigingen in de kijker
         org:
             navsearch: Zoek vrijwilligers
             navmyorgs: Mijn organisaties

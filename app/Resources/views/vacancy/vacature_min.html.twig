@@ -32,6 +32,9 @@
     </ul>
 
     <ul class="icons">
+        {% if (vacancy.organisation) %}
+            <li class="organisation"><a href="{{ path("organisation_by_urlid", { "urlid": vacancy.organisation.urlid }) }}">{{ vacancy.organisation.name }}</a></li>
+        {% endif %}
         {% if vacancy.street %}
             <li class="loc">
                 <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlid }) }}">{{ vacancy.street }} {{ vacancy.number }} {% if vacancy.bus %} / {{ vacancy.bus }}{% endif %}<br />{{ vacancy.postalCode }} {{ vacancy.city }}

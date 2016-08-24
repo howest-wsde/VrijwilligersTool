@@ -3,6 +3,7 @@
 
 {% block title %}{{ organisation.name }}{% endblock %}
 
+
 {% block body %}
 {% if organisation.deleted %}
 	<h1>{{ organisation.name }}</h1>
@@ -72,7 +73,7 @@
 				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
 			</ul>
 			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
-				{% embed "info/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
+				{% embed "snippets/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
 			{% endif %}
 		</aside>
 

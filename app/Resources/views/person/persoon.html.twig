@@ -1,104 +1,165 @@
 {% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
+
 {% block title %}{{ "person.dash.dash"|trans|capitalize }} {% endblock %}
 
-{% block body %}
-    <h1>
-        {% if person.firstname %} {{ person.firstname }} {% elseif person.username %} {{ person.username }} {% endif %} {{ "person.general.vols"|trans|capitalize }}
-    </h1>
-    <section>
-        <h2>{{ "general.vol"|trans }}</h2>
-        <nav>
-            <ul>
-                <li><a href="#blocks">{{ "person.dash.vol.navblocks"|trans }}</a></li>
-                <li><a href="#search">{{ "person.dash.vol.navsearch"|trans }}</a></li>
-                <li><a href="#profile">{{ "person.dash.vol.navprofile"|trans }}</a></li>
-                <li><a href="#data">{{ "person.dash.vol.navdata"|trans }}</a></li>
+{% block outerbody %}
+    <main>
+        {% if person.firstname %}
+            {% embed "snippets/extraheader.html.twig" with {"title": person.firstname ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
+        {% elseif person.username %}
+            {% embed "snippets/extraheader.html.twig" with {"title": person.username ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
+        {% endif %}
+
+            {#
+            <h2>{{ "general.vol"|trans }}</h2>
+            <nav>
+                <ul>
+                    <li><a href="#blocks">{{ "person.dash.vol.navblocks"|trans }}</a></li>
+                    <li><a href="#search">{{ "person.dash.vol.navsearch"|trans }}</a></li>
+                    <li><a href="#profile">{{ "person.dash.vol.navprofile"|trans }}</a></li>
+                    <li><a href="#data">{{ "person.dash.vol.navdata"|trans }}</a></li>
+                </ul>
+            </nav>
+            #}
+
+        <section class="part"><div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="active groen"><a href="#opmaat" data-toggle="tab">{{ "person.dash.tabs.personal"|trans }}</a></li>
+                {% if app.user.likedvacancies|length > 0 %}
+                    <li class="blauw"><a href="#bewaard" data-toggle="tab">{{ "person.dash.tabs.saved"|trans }}</a></li>
+                {% endif %}
+                <li class="geel"><a href="#recent" data-toggle="tab">{{ "person.dash.tabs.recent"|trans }}</a></li>
+                <li class="paars"><a href="#spot" data-toggle="tab">{{ "person.dash.tabs.spotlights"|trans }}</a></li>
             </ul>
-        </nav>
-        <div id="blocks"> {# blok met tabs met daarin een carrousel van "tiles" #}
-            {# vacatures op maat #}
-                {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}
-            {# bewaarde vacatures #}
-                {{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
-            {# recente vacatures #}
-                {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 10, "viewMode": "tile" } )) }}
-            {# organisaties in de kijker #}
-                {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
-            {# organisaties op maat -> issue #163 #}
-        </div>
-        <div id="#search">
-            {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.vol.searchtitle"|trans } %}{% endembed %}
-        </div>
-        <div id="profile">
-            {# mijn profiel met lopende engagementen en testimonials => superman card view => voor benedikt issue #246 #}
-        </div>
-        <div id="data">
-            {# mijn persoonlijke gegevens => voor benedikt issue #246 #}
-        </div>
-    </section>
-    <section>
-        <h2>{{ "general.org"|trans }}</h2>
-        <div id="#search">
-            {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.org.searchtitle"|trans } %}{% endembed %}
-        </div>
-        <nav>
-            <li><a href="#search">{{ "person.dash.org.navsearch"|trans }}</a></li>
-            <li><a href="#myorgs">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
-            <li><a href="#vacancies">{{ "person.dash.org.navvacancies"|trans }}</a></li>
-            <li><a href="#volunteers">{{ "person.dash.org.navvolunteers"|trans }}</a></li>
-        </nav>
-        <div id="myorgs">
-            <h3>{{ "person.dash.org.myorg"|trans }}</h3>
-            {# card view (tile slider indien nodig) van organisaties #}
-            {% for org in person.organisations %}
-                {% embed "organisation/vereniging_min.html.twig" with {"organisation": org }%}{% endembed %}
-            {% endfor %}
-            {# cta om getuigenissen te schrijven over medewerkers #}
-            <button>
-                {{ "person.dash.org.cta"|trans }}<br/>
-                <small>{{ "person.dash.org.ctasmall"|trans }}</small>
-            </button>
-            {# tile om een nieuwe organisatie aan te maken #}
 
-        </div>
-        {# per organisatie in de bovenstaande tab:  #}
-
-        <ul>{# tabbed navigation #}
-            {% for org in person.organisations %}
-                <li>{{ org.name }}</li>
-            {% endfor %}
-        </ul>
-        <div id="vacancies">
-            {% for org in person.organisations %}
-                <div>
-                    {{ "person.dash.org.openvac"|trans }}
-                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="opmaat">
+                    {# vacatures op maat #}
+                    {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}
                 </div>
-
-                <div>
-                    {{ "person.dash.org.closedvac"|trans }}
-                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
+                <div class="tab-pane" id="bewaard">
+                    {# bewaarde vacatures #}
+                    {{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
                 </div>
-
-                <div>
-                    {{ "person.dash.org.savedvac"|trans }}
-                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
+                <div class="tab-pane" id="recent">
+                    {# recente vacatures #}
+                    {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 10, "viewMode": "tile" } )) }}
                 </div>
-            {% endfor %}
+                <div class="tab-pane" id="spot">
+                    {# organisaties in de kijker #}
+                    {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
+                </div>
+                 {# organisaties op maat -> issue #163 #}
+
+            </div>
+        </div></section>
+
+        <div class="part">
+            <div class="container">
+                <section class="col-md-12">
+                    <div id="handenuitmouwen" class="blok special">
+                        {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.vol.searchtitle"|trans } %}{% endembed %}
+                    </div>
+                </section>
+            </div>
         </div>
-        <div id="volunteers">
-            <h3>{{ "person.dash.org.vols"|trans }}</h3>
-            {% for org in person.organisations %}
-                {#
-                    medewerkerspoule => benedikt issue #246?
-                    probleem: org heeft geen var "volunteers" of iets dergelijks
-                        wel: administrators (= alle beheerders)
-                        vacancies: (= alle vacatures)
-                        => lijkt het simpelste om een ES search te doen naar alle medewerkers (ooit) van een organisatie, + huidige beheerders & die dan via een controller die je hier embed in een template te gieten
-                #}
-            {% endfor %}
-        </div>
-    </section>
+
+        <!--<section class="part"><div class="container">
+            <div id="profile">
+                {# mijn profiel met lopende engagementen en testimonials => superman card view => voor benedikt issue #246 #}
+            </div>
+            <div id="data">
+                {# mijn persoonlijke gegevens => voor benedikt issue #246 #}
+            </div>
+        </div></section>-->
+<!--
+        <section class="part"><div class="container">
+            <h2>{{ "general.org"|trans }}</h2>
+            <div id="#search">
+                {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.org.searchtitle"|trans } %}{% endembed %}
+            </div>
+        </div></section>
+-->
+        {#
+
+            <nav>
+                <li><a href="#search">{{ "person.dash.org.navsearch"|trans }}</a></li>
+                <li><a href="#myorgs">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
+                <li><a href="#vacancies">{{ "person.dash.org.navvacancies"|trans }}</a></li>
+                <li><a href="#volunteers">{{ "person.dash.org.navvolunteers"|trans }}</a></li>
+            </nav>
+        #}
+
+        <section class="part"><div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="active blauw"><a href="#myorgs" data-toggle="tab">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
+                <li class="paars"><a href="#myvacancies" data-toggle="tab">{{ "person.dash.org.navvacancies"|trans }}</a></li>
+            </ul>
+
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="myorgs">
+                    {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.organisations } %}{% endembed %}
+                </div>
+                <div class="tab-pane" id="myvacancies">
+                    TODO
+                </div>
+            </div>
+        </div></section>
+
+            <div id="myorgs">
+                <h3>{{ "person.dash.org.myorg"|trans }}</h3>
+                {# card view (tile slider indien nodig) van organisaties #}
+                {% for org in person.organisations %}
+                    {% embed "organisation/vereniging_min.html.twig" with {"organisation": org }%}{% endembed %}
+                {% endfor %}
+                {# cta om getuigenissen te schrijven over medewerkers #}
+                <button>
+                    {{ "person.dash.org.cta"|trans }}<br/>
+                    <small>{{ "person.dash.org.ctasmall"|trans }}</small>
+                </button>
+                {# tile om een nieuwe organisatie aan te maken #}
+
+            </div>
+            {# per organisatie in de bovenstaande tab:  #}
+
+            <ul>{# tabbed navigation #}
+                {% for org in person.organisations %}
+                    <li>{{ org.name }}</li>
+                {% endfor %}
+            </ul>
+            <div id="vacancies">
+                {% for org in person.organisations %}
+                    <div>
+                        {{ "person.dash.org.openvac"|trans }}
+                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+                    </div>
+
+                    <div>
+                        {{ "person.dash.org.closedvac"|trans }}
+                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
+                    </div>
+
+                    <div>
+                        {{ "person.dash.org.savedvac"|trans }}
+                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="volunteers">
+                <h3>{{ "person.dash.org.vols"|trans }}</h3>
+                {% for org in person.organisations %}
+                    {#
+                        medewerkerspoule => benedikt issue #246?
+                        probleem: org heeft geen var "volunteers" of iets dergelijks
+                            wel: administrators (= alle beheerders)
+                            vacancies: (= alle vacatures)
+                            => lijkt het simpelste om een ES search te doen naar alle medewerkers (ooit) van een organisatie, + huidige beheerders & die dan via een controller die je hier embed in een template te gieten
+                    #}
+                {% endfor %}
+            </div>
+        </div></section>
+
+    </main>
 {% endblock %}
