@@ -39,7 +39,7 @@
             </li>
         {% endif %}
         <li class="number">
-            {% if vacancy.stillWanted == 1 %} {{ "vacancy.min.1place"|trans }} {% else %} {{ vacancy.stillWanted }} {{ "vacancy.min.xplaces"|trans }} {% endif %}
+            <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{% if vacancy.stillWanted == 1 %} {{ "vacancy.min.1place"|trans }} {% else %} {{ vacancy.stillWanted }} {{ "vacancy.min.xplaces"|trans }} {% endif %}</a>
         </li>
     </ul>
 

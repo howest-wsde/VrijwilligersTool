@@ -108,6 +108,7 @@
 
 	</div>
 
+	<a name="vacatures"></a>
 	{% if organisation.vacancies %}
 		<h2>{{ "org.org.vacancies"|trans }}</h2>
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
@@ -123,4 +124,21 @@
 
 	<script src="{{ asset("js/googleMaps.js") }}"></script>
 	<script src="{{ asset("js/usersearch.js") }}"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+$('#openBtn').click(function(){
+	strURL = $(this).attr("href");
+	alert(strURL);
+    $('#myModal').on('show', function () {
+     //  $('iframe').attr("src", strURL);
+
+	});
+    $('#myModal').modal({show:true})
+    return false;
+});
+})
+</script>
 {% endblock %}

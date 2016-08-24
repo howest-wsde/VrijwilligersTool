@@ -74,4 +74,5 @@ class InfopageController extends Controller
     {
         return $this->render("info/waaromvrijwilligen.html.twig");
     }
+
 }
