@@ -207,6 +207,9 @@ person:
             recent: Recente vacatures
             spotlights: Verenigingen in de kijker
         org:
+            spotlights: Organisaties in de kijker
+            personal: Organisaties op maat
+            saved: Bewaarde organisaties
             navsearch: Zoek vrijwilligers
             navmyorgs: Mijn organisaties
             navvacancies: Vacatures

@@ -31,7 +31,6 @@
                     <li class="blauw"><a href="#bewaard" data-toggle="tab">{{ "person.dash.tabs.saved"|trans }}</a></li>
                 {% endif %}
                 <li class="geel"><a href="#recent" data-toggle="tab">{{ "person.dash.tabs.recent"|trans }}</a></li>
-                <li class="paars"><a href="#spot" data-toggle="tab">{{ "person.dash.tabs.spotlights"|trans }}</a></li>
             </ul>
 
             <div class="tab-content clearfix blok special">
@@ -47,11 +46,6 @@
                     {# recente vacatures #}
                     {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 10, "viewMode": "tile" } )) }}
                 </div>
-                <div class="tab-pane" id="spot">
-                    {# organisaties in de kijker #}
-                    {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
-                </div>
-                 {# organisaties op maat -> issue #163 #}
 
             </div>
         </div></section>
@@ -65,6 +59,34 @@
                 </section>
             </div>
         </div>
+
+
+        <section class="part"><div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="rood active"><a href="#spot" data-toggle="tab">{{ "person.dash.org.spotlights"|trans }}</a></li>
+                <li class="blauw"><a href="#orgopmaat" data-toggle="tab">{{ "person.dash.org.personal"|trans }}</a></li>
+                {% if app.user.likedorganisations|length > 0 %}
+                    <li class="groen"><a href="#savedorgs" data-toggle="tab">{{ "person.dash.org.saved"|trans }}</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="spot">
+                    {# organisaties in de kijker #}
+                    {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
+                </div>
+                <div class="tab-pane" id="orgopmaat">
+                    Binnenkort
+                    {# organisaties op maat -> issue #163 #}
+                </div>
+                <div class="tab-pane" id="savedorgs">
+                    {# bewaarde organisaties #}
+                    {% if app.user.likedorganisations|length > 0 %}
+                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.likedorganisations } %}{% endembed %}
+                    {% endif %}
+                </div>
+            </div>
+        </div></section>
 
         <!--<section class="part"><div class="container">
             <div id="profile">
@@ -92,21 +114,25 @@
             </nav>
         #}
 
-        <section class="part"><div class="container tabblad spacing">
-            <ul class="nav nav-tabs">
-                <li class="active blauw"><a href="#myorgs" data-toggle="tab">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
-                <li class="paars"><a href="#myvacancies" data-toggle="tab">{{ "person.dash.org.navvacancies"|trans }}</a></li>
-            </ul>
+        {% if app.user.organisations|length > 0 %}
+            <section class="part"><div class="container tabblad spacing">
+                <ul class="nav nav-tabs">
+                    {% if app.user.organisations|length > 0 %}
+                        <li class="active blauw"><a href="#myorgs" data-toggle="tab">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
+                    {% endif %}
+                    <li class="paars"><a href="#myvacancies" data-toggle="tab">{{ "person.dash.org.navvacancies"|trans }}</a></li>
+                </ul>
 
-            <div class="tab-content clearfix blok special">
-                <div class="tab-pane active" id="myorgs">
-                    {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.organisations } %}{% endembed %}
+                <div class="tab-content clearfix blok special">
+                    <div class="tab-pane active" id="myorgs">
+                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.organisations } %}{% endembed %}
+                    </div>
+                    <div class="tab-pane" id="myvacancies">
+                        Binnenkort
+                    </div>
                 </div>
-                <div class="tab-pane" id="myvacancies">
-                    TODO
-                </div>
-            </div>
-        </div></section>
+            </div></section>
+        {% endif %}
 
             <div id="myorgs">
                 <h3>{{ "person.dash.org.myorg"|trans }}</h3>

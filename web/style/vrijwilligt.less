@@ -345,7 +345,7 @@ div.vacatures, div.organisaties, .blokken {
 	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch;
 	>article.vacature, >article.vereniging {flex: 1 0 250px; }
 	.tabblad & {
-		flex-flow: row nowrap;
+		flex-flow: row nowrap; justify-content: flex-start;
 		>article.vacature, >article.vereniging {flex: 0 0 235px; }
 	}
 	>.blok {flex: 1 0 200px; }
@@ -390,7 +390,8 @@ div.vacatures, div.organisaties, .blokken {
 	    border: 0; text-align: center;
 	    li {
 	    	float: none; display: inline-block; padding: 0 5px;
-	    	a {font-weight: bold; color: white; font-size: 17px; border: 0;  }
+	    	a {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
+    		&.active a  {color: @cRood; }
     		&.active.geel a  {color: @cGeel; }
     		&.active.groen a {color: @cGroen; }
     		&.active.blauw a  {color: @cBlauw; }
