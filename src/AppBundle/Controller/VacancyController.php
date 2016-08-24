@@ -434,10 +434,10 @@ class VacancyController extends UtilityController
                                     "scale": "4w"
                                 }
                             }
-                        },';
+                        }';
 
         if($user->getLatitude() && $user->getLongitude()){
-            $query .= '{
+            $query .= ',{
                             "filter": {
                                 "exists": {
                                     "field": "location"
@@ -451,12 +451,12 @@ class VacancyController extends UtilityController
                                 }
                             },
                             "weight": 2
-                        },';
+                        }';
         }
 
         $estimatedWorkInHours = $user->getEstimatedWorkInHours();
         if($estimatedWorkInHours > 0){
-            $query .= '{
+            $query .= ',{
                             "filter": {
                                 "exists": {
                                     "field": "estimatedWorkInHours"
@@ -469,45 +469,45 @@ class VacancyController extends UtilityController
                                     "scale": 1
                                 }
                             }
-                        },';
+                        }';
         }
 
-        $query .= '{
+        $query .= ',{
                       "gauss": {
                         "likers": {
                             "origin": 50,
                             "scale": 5
                         }
                       }
-                    },';
+                    }';
 
         $userSkills = $user->getSkills();
-        if(!$userSkills->isEmpty()){
+        if(!is_null($userSkills) && !$userSkills->isEmpty()){
             foreach ($userSkills as $key => $skill) {
-                $query .= '{
+                $query .= ',{
                                 "filter": {
                                     "term": {
                                        "skills.name": "' . $skill->getName() . '"
                                     }
                                 },
                                 "weight": 1
-                            },';
+                            }';
             }
         }
 
-        $query .= '{
+        $query .= ',{
                         "filter": {
                             "term": {
                                "socialInteraction": "normal"
                             }
                         },
                         "weight": 2
-                    },';
+                    }';
 
         $orgIds = $user->getLikedOrganisationIds();
         if(!empty($orgIds)){
             foreach ($orgIds as $key => $id) {
-                $query .= '{
+                $query .= ',{
                             "filter": {
                                 "term": {
                                    "organisation.id": ' . $id . '

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use libphonenumber\PhoneNumberUtil as phoneUtil;
 use Symfony\Component\HttpFoundation\File\File;
@@ -1391,8 +1392,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function getLikedOrganisationIds(){
         $ids = [];
-        foreach ($this->getLikedOrganisations() as $key => $org) {
-            $ids[] = $org->getId();
+        $likedOrganisations = $this->getLikedOrganisations();
+        if(!is_null($likedOrganisations) && !$likedOrganisations->isEmpty()){
+            foreach ($likedOrganisations->toArray() as $key => $org) {
+                $ids[] = $org->getId();
+            }
         }
 
         return $ids;
