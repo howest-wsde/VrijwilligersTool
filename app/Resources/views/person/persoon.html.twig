@@ -6,11 +6,15 @@
 
 {% block outerbody %}
     <main>
+{# --------------------------- HEADER ------------------------------------- #}
+
         {% if person.firstname %}
             {% embed "snippets/extraheader.html.twig" with {"title": person.firstname ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
         {% elseif person.username %}
             {% embed "snippets/extraheader.html.twig" with {"title": person.username ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
         {% endif %}
+
+{# ------------------------------------------------------------------------- #}
 
             {#
             <h2>{{ "general.vol"|trans }}</h2>
@@ -24,10 +28,12 @@
             </nav>
             #}
 
+{# --------------------------- TABS VACATURES  ------------------------------------- #}
+
         <section class="part"><div class="container tabblad spacing">
             <ul class="nav nav-tabs">
                 <li class="active groen"><a href="#opmaat" data-toggle="tab">{{ "person.dash.tabs.personal"|trans }}</a></li>
-                {% if app.user.likedvacancies|length > 0 %}
+                {% if person.likedvacancies|length > 0 %}
                     <li class="blauw"><a href="#bewaard" data-toggle="tab">{{ "person.dash.tabs.saved"|trans }}</a></li>
                 {% endif %}
                 <li class="geel"><a href="#recent" data-toggle="tab">{{ "person.dash.tabs.recent"|trans }}</a></li>
@@ -36,11 +42,11 @@
             <div class="tab-content clearfix blok special">
                 <div class="tab-pane active" id="opmaat">
                     {# vacatures op maat #}
-                    {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }}
+                    {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": person } )) }}
                 </div>
                 <div class="tab-pane" id="bewaard">
                     {# bewaarde vacatures #}
-                    {{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
+                    {{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": person } )) }}
                 </div>
                 <div class="tab-pane" id="recent">
                     {# recente vacatures #}
@@ -49,6 +55,8 @@
 
             </div>
         </div></section>
+
+{# --------------------------- ZOEKEN ------------------------------------- #}
 
         <div class="part">
             <div class="container">
@@ -60,12 +68,13 @@
             </div>
         </div>
 
+{# --------------------------- TABS ORGANISATIES ------------------------------------- #}
 
         <section class="part"><div class="container tabblad spacing">
             <ul class="nav nav-tabs">
                 <li class="rood active"><a href="#spot" data-toggle="tab">{{ "person.dash.org.spotlights"|trans }}</a></li>
                 <li class="blauw"><a href="#orgopmaat" data-toggle="tab">{{ "person.dash.org.personal"|trans }}</a></li>
-                {% if app.user.likedorganisations|length > 0 %}
+                {% if person.likedorganisations|length > 0 %}
                     <li class="groen"><a href="#savedorgs" data-toggle="tab">{{ "person.dash.org.saved"|trans }}</a></li>
                 {% endif %}
             </ul>
@@ -81,12 +90,14 @@
                 </div>
                 <div class="tab-pane" id="savedorgs">
                     {# bewaarde organisaties #}
-                    {% if app.user.likedorganisations|length > 0 %}
-                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.likedorganisations } %}{% endembed %}
+                    {% if person.likedorganisations|length > 0 %}
+                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": person.likedorganisations } %}{% endembed %}
                     {% endif %}
                 </div>
             </div>
         </div></section>
+
+{# ------------------------------------------------------------------------- #}
 
         <!--<section class="part"><div class="container">
             <div id="profile">
@@ -114,25 +125,48 @@
             </nav>
         #}
 
-        {% if app.user.organisations|length > 0 %}
-            <section class="part"><div class="container tabblad spacing">
-                <ul class="nav nav-tabs">
-                    {% if app.user.organisations|length > 0 %}
-                        <li class="active blauw"><a href="#myorgs" data-toggle="tab">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
-                    {% endif %}
-                    <li class="paars"><a href="#myvacancies" data-toggle="tab">{{ "person.dash.org.navvacancies"|trans }}</a></li>
-                </ul>
+{# --------------------------- EIGEN AANBOD  ------------------------------------- #}
 
-                <div class="tab-content clearfix blok special">
-                    <div class="tab-pane active" id="myorgs">
-                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": app.user.organisations } %}{% endembed %}
-                    </div>
-                    <div class="tab-pane" id="myvacancies">
-                        Binnenkort
-                    </div>
+        {% if person.organisations|length > 0 %}
+
+            <section class="part"><div class="container tabblad spacing">
+
+                {% if person.organisations|length > 1 %}
+                    <ul class="nav nav-pills">
+                        {% for org in person.organisations %}
+                            <li class="kleur"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="tab-content clearfix">
+                    {% for org in person.organisations %}
+                        <div id="org_{{ org.urlId }}" class="tab-pane">
+                            <ul class="nav nav-tabs">
+                                <li class="geel active"><a href="#org_{{ org.urlId }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
+                                <li class="rood"><a href="#org_{{ org.urlId }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
+                                <li class="groen"><a href="#org_{{ org.urlId }}_savedvac" data-toggle="tab">{{ "person.dash.org.savedvac"|trans }}</a></li>
+                            </ul>
+
+                            <div class="tab-content clearfix blok special">
+                                <div class="tab-pane active" id="org_{{ org.urlId }}_openvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_closedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_savedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
+
             </div></section>
         {% endif %}
+
+{# ------------------------------------------------------------------------- #}
 
             <div id="myorgs">
                 <h3>{{ "person.dash.org.myorg"|trans }}</h3>

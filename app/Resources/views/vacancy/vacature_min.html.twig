@@ -26,10 +26,12 @@
             <span class="baseline">{{ vacancy.organisation.name }}</span>
         {% endif %}
     {% endif %}
-    <p>{{ vacancy.description|truncate(200, true) }}</p>
-    <ul>
-        {# TODO: alter dbase to remember and add icons here #}
-    </ul>
+    {% if (vacancy.summary) %}
+        <p>{{ vacancy.summary|truncate(200, true) }}</p>
+    {% else %}
+        <p>{{ vacancy.description|truncate(200, true) }}</p>
+    {% endif %}
+
 
     <ul class="icons">
         {% if (vacancy.organisation) %}
