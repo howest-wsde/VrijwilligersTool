@@ -133,15 +133,19 @@
 
                 {% if person.organisations|length > 1 %}
                     <ul class="nav nav-pills">
+                        {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
+                        {% set teller = 0 %}
                         {% for org in person.organisations %}
-                            <li class="kleur"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
+                            <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
+                            {% set teller = teller + 1 %}
                         {% endfor %}
                     </ul>
                 {% endif %}
 
                 <div class="tab-content clearfix">
+                    {% set teller = 0 %}
                     {% for org in person.organisations %}
-                        <div id="org_{{ org.urlId }}" class="tab-pane">
+                        <div id="org_{{ org.urlId }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
                             <ul class="nav nav-tabs">
                                 <li class="geel active"><a href="#org_{{ org.urlId }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
                                 <li class="rood"><a href="#org_{{ org.urlId }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
@@ -160,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% set teller = teller + 1 %}
                     {% endfor %}
                 </div>
 
@@ -167,46 +172,24 @@
         {% endif %}
 
 {# ------------------------------------------------------------------------- #}
-
+{#
             <div id="myorgs">
                 <h3>{{ "person.dash.org.myorg"|trans }}</h3>
-                {# card view (tile slider indien nodig) van organisaties #}
+                {# card view (tile slider indien nodig) van organisaties #//}
                 {% for org in person.organisations %}
                     {% embed "organisation/vereniging_min.html.twig" with {"organisation": org }%}{% endembed %}
                 {% endfor %}
-                {# cta om getuigenissen te schrijven over medewerkers #}
+                {# cta om getuigenissen te schrijven over medewerkers #//}
                 <button>
                     {{ "person.dash.org.cta"|trans }}<br/>
                     <small>{{ "person.dash.org.ctasmall"|trans }}</small>
                 </button>
-                {# tile om een nieuwe organisatie aan te maken #}
+                {# tile om een nieuwe organisatie aan te maken #//}
 
             </div>
-            {# per organisatie in de bovenstaande tab:  #}
+            {# per organisatie in de bovenstaande tab:  #//}
 
-            <ul>{# tabbed navigation #}
-                {% for org in person.organisations %}
-                    <li>{{ org.name }}</li>
-                {% endfor %}
-            </ul>
-            <div id="vacancies">
-                {% for org in person.organisations %}
-                    <div>
-                        {{ "person.dash.org.openvac"|trans }}
-                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
-                    </div>
 
-                    <div>
-                        {{ "person.dash.org.closedvac"|trans }}
-                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
-                    </div>
-
-                    <div>
-                        {{ "person.dash.org.savedvac"|trans }}
-                        {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
-                    </div>
-                {% endfor %}
-            </div>
             <div id="volunteers">
                 <h3>{{ "person.dash.org.vols"|trans }}</h3>
                 {% for org in person.organisations %}
@@ -216,9 +199,10 @@
                             wel: administrators (= alle beheerders)
                             vacancies: (= alle vacatures)
                             => lijkt het simpelste om een ES search te doen naar alle medewerkers (ooit) van een organisatie, + huidige beheerders & die dan via een controller die je hier embed in een template te gieten
-                    #}
+                    #//}
                 {% endfor %}
             </div>
+#}
         </div></section>
 
     </main>

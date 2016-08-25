@@ -386,7 +386,7 @@ div.vacatures, div.organisaties, .blokken {
 }
 
 .tabblad {
-	.nav-tabs {
+	.nav-tabs, .nav-pills {
 	    border: 0; text-align: center;
 	    li {
 	    	float: none; display: inline-block; padding: 0 5px;
@@ -396,14 +396,18 @@ div.vacatures, div.organisaties, .blokken {
     		&.active.groen a {color: @cGroen; }
     		&.active.blauw a  {color: @cBlauw; }
     		&.active.paars a {color: @cPaars; }
-    		&.geel a  {background-color: @cGeel; }
-    		&.groen a {background-color: @cGroen; }
-    		&.blauw a  {background-color: @cBlauw; }
-    		&.paars a {background-color: @cPaars; }
+    		&.geel a  {background-color: @cGeel; border-color: @cGeel; }
+    		&.groen a {background-color: @cGroen; border-color: @cGroen; }
+    		&.blauw a  {background-color: @cBlauw; border-color: @cBlauw; }
+    		&.paars a {background-color: @cPaars; border-color: @cPaars; }
 	    	&.active a {
 	    		background-color: @cBGgrijsA;
 	    	}
 	    }
+	}
+	.nav-pills {
+		margin-bottom: 15px;
+		li a {border: 3px solid @cRood; }
 	}
 }
 
