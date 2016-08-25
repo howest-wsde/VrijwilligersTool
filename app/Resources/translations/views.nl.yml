@@ -284,6 +284,9 @@ search:
         advantages: Filter op voordelen
         noresults: Er werden geen resultaten gevonden
         for: voor
+        vacancies: Vacatures
+        organisations: Organisaties
+        people: Vrijwilligers
 security:
     login: Inloggen
     status:

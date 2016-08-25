@@ -1,0 +1,13 @@
+{% if viewMode == 'list' %}
+<ul>
+    {% for person in persons %}
+        <li><a href="{{ path("person_username", { "username": person.username }) }}">{{ person.firstname}} {{ person.lastname}}</a></li>
+    {% endfor %}
+</ul>
+{% elseif viewMode == 'tile' %}
+	<div class="blokken">
+		{% for person in persons %}
+		    {% embed "person/persoon_min.html.twig" with {"person": person }%}{% endembed %}
+		{% endfor %}
+	</div>
+{% endif %}
