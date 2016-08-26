@@ -515,6 +515,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function setUsername($username)
     {
+        if(empty($username)){
+            $username = 'gebruiker' . $this->getId();
+        }
         $this->username = $username;
 
         return $this;

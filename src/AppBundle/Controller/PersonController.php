@@ -30,7 +30,7 @@ class PersonController extends UtilityController
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/persoon/{id}", name="person_id")
+     * @Route("/persoon/{id}"), name="person_id")
      */
     public function personViewByIdAction($id)
     {
@@ -72,10 +72,16 @@ class PersonController extends UtilityController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $person = $form->getData();
+            if(empty($person->getUsername())){
+                $person->setUsername('');
+            }
             $this->setCoordinates($person);
             $em = $this->getDoctrine()->getManager();
             $em->persist($person);
             $em->flush();
+
+            //recreate form so the changes are visible
+            $form = $this->createForm(EditPersonType::class, $person);
 
             //set a success message
             $this->addFlash('approve_message', $t->trans('person.flash.editProfile'));
@@ -88,16 +94,4 @@ class PersonController extends UtilityController
 
         return $this->render("person/edit_profile.html.twig", array("form" => $form->createView() ));
     }
-
-
-    /*
-    public function listRecentPersonsAction($nr)
-    {
-        $entities = $this->getDoctrine()
-                        ->getRepository("AppBundle:Person")
-                        ->findBy(array(), array('id' => 'DESC'), $nr);
-        return $this->render('person/recente_vrijwilligers.html.twig',
-            ['persons' => $entities]);
-    }
-    */
 }
