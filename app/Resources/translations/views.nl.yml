@@ -84,6 +84,7 @@ def: #default
         infoteaser: Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
         more: Of lees de uitleg ...
         notsure: Niet zeker wat je wil?
+        notsureteaser: Door middel van enkele simpele vragen leidt de site je naar de perfecte vrijwilligerstaak.
         test: Doe hier de test!
     index:
         logintitle: Log in met je gebruikersgegevens
@@ -283,6 +284,9 @@ search:
         advantages: Filter op voordelen
         noresults: Er werden geen resultaten gevonden
         for: voor
+        vacancies: Vacatures
+        organisations: Organisaties
+        people: Vrijwilligers
 security:
     login: Inloggen
     status:

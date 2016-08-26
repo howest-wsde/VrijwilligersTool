@@ -7,36 +7,30 @@
           <!-- Indicators -->
           <div class="carousel-inner" role="listbox">
             <div class="item active">
-              <div class="container slide1">
+              <div class="container slide slide1">
                   <h1>{{ "def.carousel.title"|trans }}</h1>
-                  <p>{{ "def.carousel.difference"|trans }}</p>
-                  <p><a class="btn btn-lg btn-primary" href="{{ path("register_user") }}" role="button">{{ "def.carousel.participate"|trans }}</a></p>
-
+                  <div class="box">
+                    <p>{{ "def.carousel.difference"|trans }}</p>
+                    <p><a class="cta" href="{{ path("self_profile") }}" role="button">{{ "def.carousel.participate"|trans }}</a></p>
+                  </div>
               </div>
             </div>
             <div class="item">
-              <div class="container">
-                <div class="carousel-caption">
-                  <h2>{{ "def.carousel.info"|trans }}</h2>
-                  <p>{{ "def.carousel.infoteaser"|trans }}</p>
-                  <figure>{# TODO: dit verder uitwerken #}
-                      <img src="#">
-                      <caption><a href="#">{{ "def.carousel.more"|trans }}</a></caption>
-                  </figure>
-                </div>
+              <div class="container slide slide2">
+                  <h1>{{ "def.carousel.info"|trans }}</h1>
+                  <div class="box">
+                    <p>{{ "def.carousel.infoteaser"|trans }}</p>
+                    <p><a class="cta" href="{{ path("info_vrijwilligersinfo") }}" role="button">{{ "def.carousel.more"|trans }}</a></p>
+                  </div>
               </div>
             </div>
             <div class="item">
-              <div class="container">
-                <div class="carousel-caption">
-
-
-                  <button>{# TODO: dit verder uitwerken + nakijken: button tag? #}
-                      <h2>{{ "def.carousel.notsure"|trans }}</h2>
-                      <p>{{ "def.carousel.test"|trans }}</p>
-                  </button>
-
-                </div>
+              <div class="container slide slide3">
+                  <h1>{{ "def.carousel.notsure"|trans }}</h1>
+                  <div class="box">
+                    <p>{{ "def.carousel.notsureteaser"|trans }}</p>
+                    <p><a class="cta" href="{{ path("tests") }}" role="button">{{ "def.carousel.test"|trans }}</a></p>
+                  </div>
               </div>
             </div>
           </div>
