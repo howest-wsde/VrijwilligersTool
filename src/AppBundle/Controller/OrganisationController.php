@@ -433,15 +433,14 @@ class OrganisationController extends UtilityController
                         }';
         }
 
-        //likers
-        // $query .= ',{
-        //               "gauss": {
-        //                 "likers": {
-        //                     "origin": 50,
-        //                     "scale": 5
-        //                 }
-        //               }
-        //             }';
+        $query .= ',{
+                      "gauss": {
+                        "likers": {
+                            "origin": 50,
+                            "scale": 5
+                        }
+                      }
+                    }';
 
         $userSectors = $user->esGetSectors();
         if(!is_null($userSectors) && !$userSectors->isEmpty()){

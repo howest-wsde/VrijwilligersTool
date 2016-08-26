@@ -1036,4 +1036,13 @@ class Organisation extends EntityBase
 
         return null;
     }
+
+    /**
+     * Get the number of likers for a vacancy
+     * @return int
+     */
+    public function esGetNumberOfLikers()
+    {
+        return $this->getLikers()->count();
+    }
 }

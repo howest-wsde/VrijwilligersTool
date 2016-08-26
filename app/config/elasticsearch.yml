@@ -138,6 +138,7 @@ fos_elastica:
                         slogan: { type: string, analyzer: nl_analyzer }
                         telephone: { type: string, index: not_analyzed }
                         website: { type: string, index: not_analyzed }
+                        likers: { type: integer, property_path: esGetNumberOfLikers }
                         sectors:
                             type: object
                             properties:
