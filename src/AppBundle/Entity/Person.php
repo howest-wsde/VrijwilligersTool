@@ -1390,6 +1390,19 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     }
 
     /**
+     * Return all sectors a user marked of as an interest for ES (tailored organisation query)
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function esGetSectors()
+    {
+        //TODO: replace this by using a Criteria (see Organisation line 536)
+        return $this->getSkills()->filter(
+            function($skill) {
+               return ($skill->getParent() === 36);
+        });
+    }
+
+    /**
      * Get the id's of all liked organisations as an array
      * @return array
      */

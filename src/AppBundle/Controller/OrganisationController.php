@@ -394,6 +394,83 @@ class OrganisationController extends UtilityController
     }
 
     /**
+     * Get organisations matching a user profile
+     * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+     */
+    public function organisatiesOpMaatAction($user)
+    {
+        $t = $this->get('translator');
+        $es = $this->get("ElasticsearchQuery");
+
+        $query = '{
+            "query": {
+                "function_score": {
+                    "filter": {
+                      "bool": {
+                        "must": [
+                           { "term": { "deleted": false }}';
+
+        $query .= '     ]
+                      }
+                    },
+                    "functions": [';
+
+        if($user->getLatitude() && $user->getLongitude()){
+            $query .= '{
+                            "filter": {
+                                "exists": {
+                                    "field": "location"
+                                }
+                            },
+                            "gauss":{
+                                "location":{
+                                    "origin": { "lat": ' . $user->getLatitude() . ', "lon": ' . $user->getLongitude() . ' },
+                                    "offset": "1km",
+                                    "scale": "1km"
+                                }
+                            },
+                            "weight": 2
+                        }';
+        }
+
+        //likers
+        // $query .= ',{
+        //               "gauss": {
+        //                 "likers": {
+        //                     "origin": 50,
+        //                     "scale": 5
+        //                 }
+        //               }
+        //             }';
+
+        $userSectors = $user->esGetSectors();
+        if(!is_null($userSectors) && !$userSectors->isEmpty()){
+            foreach ($userSectors as $key => $sector) {
+                $query .= ',{
+                                "filter": {
+                                    "term": {
+                                       "sectors.name": "' . $sector->getName() . '"
+                                    }
+                                },
+                                "weight": 1
+                            }';
+            }
+        }
+
+        $query .= '],
+                       "score_mode": "sum"
+                       }
+                   }
+               }';
+
+        return $this->render("organisation/verenigingOpMaat.html.twig",
+        [
+            'organisations' => $es->requestByType($query, 'organisation'),
+            'viewMode' => 'tile'
+        ]);
+    }
+
+    /**
      * Helper function for viewOrganisationAction.  It creates the form needed to add admins and some helper variables.
      * @param  string $urlid the urlid of an organisation
      * @return mixed array        the form, the organisation and the entity manger

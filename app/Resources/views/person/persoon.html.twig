@@ -85,8 +85,7 @@
                     {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
                 </div>
                 <div class="tab-pane" id="orgopmaat">
-                    Binnenkort
-                    {# organisaties op maat -> issue #163 #}
+                    {{ render(controller("AppBundle:Organisation:organisatiesOpMaat", { "user": app.user } )) }}
                 </div>
                 <div class="tab-pane" id="savedorgs">
                     {# bewaarde organisaties #}
