@@ -410,16 +410,18 @@ class VacancyController extends UtilityController
                     "filter": {
                       "bool": {
                         "must": [
-                           { "term": { "published": 1 }},';
+                           { "term": { "published": 1 }}';
 
         if($user->getAccess()){
-            $query .= '{ "term": { "access": true }},';
+            $query .= ',{ "term": { "access": true }}';
         }
 
-        $query .= '{ "term": { "longterm": ' . $user->getLongterm() . ' }},';
+        if(!$user->getLongterm()){
+            $query .= ',{ "term": { "longterm": ' . $user->getLongterm() . ' }}';
+        }
 
-        if($user->getRenumerate()){
-            $query .= '{ "exists": { "field": "renumerate" }}';
+        if(!$user->getRenumerate()){
+            $query .= ',{ "exists": { "field": "renumerate" }}';
         }
 
         $query .= '     ]
