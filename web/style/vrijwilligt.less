@@ -191,14 +191,20 @@ body>header {
 		.carousel-control.left, .carousel-control.right { background: none; }
 		background: @cCarousel;
 		.container {height: 444px; }
-		.slide1 {
+		.slide {
+			display: flex; padding-right: 40%; flex-direction: column; justify-content: space-around;
+			h1 {color: white; font-size: 50px; }
+			.box {
+				background: @cPaars; .rounded(5px); padding: 10px 15px; color: white; text-align: center;
+				p {padding: 10px 0; }
+			}
 			background: url("../images/handen.png") no-repeat right bottom;
 		}
 	}
 	.slidetoggle {
 		text-align: center; padding: 0; margin: 0;
 		li {
-			background: #6cb9b3;
+			background: @cGroen;
 			cursor: pointer;
 			display: inline-block;
 			height: 5px;
@@ -207,8 +213,8 @@ body>header {
 			padding-top: 5px;
 			width: 100px;
 		}
-		li+li {background-color: #2eb1d3; }
-		li+li+li {background-color: #d6b729; }
+		li+li {background-color: @cBlauw; }
+		li+li+li {background-color: @cGeel; }
 	}
 }
 
@@ -386,24 +392,31 @@ div.vacatures, div.organisaties, .blokken {
 }
 
 .tabblad {
-	.nav-tabs {
+	.nav-tabs, .nav-pills {
 	    border: 0; text-align: center;
 	    li {
 	    	float: none; display: inline-block; padding: 0 5px;
-	    	a {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
+	    	a, a:hover, a:active, a:link, a:visited {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
     		&.active a  {color: @cRood; }
     		&.active.geel a  {color: @cGeel; }
     		&.active.groen a {color: @cGroen; }
     		&.active.blauw a  {color: @cBlauw; }
     		&.active.paars a {color: @cPaars; }
-    		&.geel a  {background-color: @cGeel; }
-    		&.groen a {background-color: @cGroen; }
-    		&.blauw a  {background-color: @cBlauw; }
-    		&.paars a {background-color: @cPaars; }
+    		&.rood a  {background-color: @cRood; border-color: @cRood; }
+    		&.geel a  {background-color: @cGeel; border-color: @cGeel; }
+    		&.groen a {background-color: @cGroen; border-color: @cGroen; }
+    		&.blauw a  {background-color: @cBlauw; border-color: @cBlauw; }
+    		&.paars a {background-color: @cPaars; border-color: @cPaars; }
 	    	&.active a {
 	    		background-color: @cBGgrijsA;
 	    	}
 	    }
+	}
+	.nav-pills {
+		margin-bottom: 15px;
+		li {
+			a, a:hover, a:active, a:link, a:visited {border-width: 3px; border-style: solid;  }
+		}
 	}
 }
 
