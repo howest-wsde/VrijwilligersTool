@@ -259,8 +259,8 @@ class SearchController extends Controller
             $sort = [ $sort => [ 'order' => ($sort === 'reward' ? 'desc' : 'asc' ) ]];
         } else {
             $sort = [
-                'geo_distance' => [
-                    'location' => $this->getUserLocation(),
+                '_geo_distance' => [
+                    'location' => $this->getUser()->esGetLocation(),
                     'order' => 'asc',
                     'unit' => 'km',
                     'distance_type' => 'plane'
@@ -284,23 +284,6 @@ class SearchController extends Controller
 
         if($user->esGetLocation()){
             return ($distance . 'km');
-        }
-
-        return false;
-    }
-
-    /**
-     * Helper function for assembleQuery, returning a formatted location for the user if possible
-     * @return array/boolean  array holding a value for location or false if not possible
-     */
-    private function getUserLocation(){
-        $user = $this->getUser();
-
-        if($user->esGetLocation()){
-            return [
-                      'lat' => $user->getLatitude(),
-                      'long' => $user->getLongitude()
-                   ];
         }
 
         return false;
