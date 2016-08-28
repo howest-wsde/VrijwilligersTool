@@ -70,7 +70,6 @@ fos_elastica:
                             properties:
                                 id: { type: integer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
-
                                 name: { type: string, index: not_analyzed }
                                 type: { type: string, index: not_analyzed }
                                 intermediary: { type: boolean }
@@ -97,6 +96,60 @@ fos_elastica:
                                         email: { type: string, index: not_analyzed }
                                         telephone: { type: string, index: not_analyzed }
                                         linkedinUrl: { type: string, index: not_analyzed }
+                        liked_organisations:
+                            type: object
+                            properties:
+                                id: { type: integer }
+                                entity: { type: string, property_path: esGetNoMap, index: no }
+                                name: { type: string, index: not_analyzed }
+                                type: { type: string, index: not_analyzed }
+                                intermediary: { type: boolean }
+                                deleted: { type: boolean }
+                                description: { type: string, analyzer: nl_analyzer }
+                                email: { type: string, index: not_analyzed }
+                                street: { type: string, index: not_analyzed }
+                                number: { type: integer }
+                                postalcode: { type: integer }
+                                bus: { type: string, index: not_analyzed }
+                                city: { type: string, index: not_analyzed }
+                                urlId: { type: string, index: not_analyzed }
+                                slogan: { type: string, analyzer: nl_analyzer }
+                                telephone: { type: string, index: not_analyzed }
+                                website: { type: string, index: not_analyzed }
+                                creator:
+                                    type: object
+                                    properties:
+                                        id: { type: integer }
+                                        entity: { type: string, property_path: esGetEntityName, index: no }
+                                        firstName: { type: string, index: not_analyzed }
+                                        lastName: { type: string, index: not_analyzed }
+                                        username: { type: string, index: not_analyzed }
+                                        email: { type: string, index: not_analyzed }
+                                        telephone: { type: string, index: not_analyzed }
+                                        linkedinUrl: { type: string, index: not_analyzed }
+                        liked_vacancies:
+                            type: object
+                            properties:
+                                id: { type: integer }
+                                entity: { type: string, property_path: esGetNoMap, index: no }
+                                title: { type: string, analyzer: nl_analyzer }
+                                description: { type: string, analyzer: nl_analyzer }
+                                startdate: { type: date }
+                                enddate: { type: date }
+                                urlId: { type: string, index: not_analyzed }
+                                likers: { type: integer, property_path: esGetNumberOfLikers }
+                        candidacies:
+                            type: nested
+                            properties:
+                                id: { type: integer }
+                                entity: { type: string, property_path: esGetNoMap, index: no }
+                                state: { type: integer }
+                                vacancy:
+                                    type: object
+                                    properties:
+                                        id: { type: integer }
+                                        entity: { type: string, property_path: esGetEntityName, index: no }
+                                        title: { type: string, analyzer: nl_analyzer }
 
                         # testimonials: "%nl%" TODO: change to object mapping
                         skills:

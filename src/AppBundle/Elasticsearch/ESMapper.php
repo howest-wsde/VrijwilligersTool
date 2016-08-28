@@ -56,62 +56,72 @@ class ESMapper{
             $self = $hits[$i];
             $source = $self["_source"];
             $entity = $this->getEntity($self["_type"], $source);
-            $id = $self["_id"];
-            $entity->setId($id);
-            array_push($entities, $entity);
+            if(!empty($entity)){
+                $id = $self["_id"];
+                $entity->setId($id);
+                array_push($entities, $entity);
+            }
+            else{
+                var_dump($self);
+                echo "<br/><br/>";
+            }
         }
 
         return $entities;
     }
 
     public function getEntity($name, $source){
-        $classname = "AppBundle\Entity\\" . ucfirst($name);
-        $entity = new $classname();
-        if(array_key_exists('location', $source)){
-            unset($source['location']);
-        }
-        if(array_key_exists('likers', $source)){
-            unset($source['likers']);
-        }
-        foreach ($source as $key => $value) {
-            if(!empty($value)){
-                if(is_array($value)){ // two options here: it's an object, or it's an array of objects
-                    if(array_key_exists('entity', $value)){ //if it's an object map recursively and remove the entity property which is used to identify the type of entity
-                        $name = $value['entity'];
-                        unset($value['entity']);
-                        $value = $this->getEntity($name, $value);
-                        if(!empty($value)){
-                            $entity->{ "set" . ucfirst($key) }($value);
-                        }
+        if(!($name == 'nomap')){
+            $classname = "AppBundle\Entity\\" . ucfirst($name);
+            $entity = new $classname();
+            if(array_key_exists('location', $source)){
+                unset($source['location']);
+            }
+            if(array_key_exists('likers', $source)){
+                unset($source['likers']);
+            }
 
-                    } else { //if it's an array every item in it will be an object which can be mapped recursively
-                        foreach ($value as $key2 => $object) {
-                            $name = $object['entity'];
-                            unset($object['entity']);
-                            $method = '';
-
-                            switch ($name) { //made into a switch so it can be expanded easily if that need arises in the future
-                                case 'skill':
-                                    $method = 'addSkill';
-                                    break;
-                                case 'sector':
-                                    $name = 'skill';
-                                    $method = 'addSector';
-                                    break;
-                                case 'organisation':
-                                    $method = 'addOrganisation';
-                                    break;
+            foreach ($source as $key => $value) {//iterate over all properties
+                if(!empty($value)){
+                    if(is_array($value)){ // if true it can be an object or an array
+                        if(array_key_exists('entity', $value)){ // it's an object and we can map it recursively
+                            $name = $value['entity'];
+                            unset($value['entity']);
+                            $value = $this->getEntity($name, $value);
+                            if(!empty($value)){
+                                $entity->{ "set" . ucfirst($key) }($value);
                             }
+                        } else { //it's an array: every item in it will be an object which we can again map recursively
+                            foreach ($value as $key2 => $object) {
+                                $name = $object['entity'];
+                                unset($object['entity']);
+                                $method = '';
 
-                            $entity->{ $method }($this->getEntity($name, $object));
+                                switch ($name) { //made into a switch so it can be expanded easily if that need arises in the future
+                                    case 'skill':
+                                        $method = 'addSkill';
+                                        break;
+                                    case 'sector':
+                                        $name = 'skill';
+                                        $method = 'addSector';
+                                        break;
+                                    case 'organisation':
+                                        $method = 'addOrganisation';
+                                        break;
+                                }
+
+                                $result = $this->getEntity($name, $object);
+                                if(!empty($result)){
+                                    $entity->{ $method }($result);
+                                }
+                            }
                         }
+                    } else { //it's a simple property
+                        $entity->{ "set" . ucfirst($key) }($value);
                     }
-                } else {
-                    $entity->{ "set" . ucfirst($key) }($value);
                 }
             }
+            return $entity;
         }
-
-        return $entity;
     }
 }

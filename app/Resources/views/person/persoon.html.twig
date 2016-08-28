@@ -154,6 +154,8 @@
                             <div class="tab-content clearfix blok special">
                                 <div class="tab-pane active" id="org_{{ org.urlId }}_openvac">
                                     {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+                                    {# voor de actieve vacature via ajax deze controller renderen (of voor elke vacature laden en dan tonen afhankelijk van welke geklikt wordt) {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": <-- hier een vacancy id --> } )) }} #}
+                                    {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": 7 } )) }}
                                 </div>
                                 <div class="tab-pane" id="org_{{ org.urlId }}_closedvac">
                                     {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}

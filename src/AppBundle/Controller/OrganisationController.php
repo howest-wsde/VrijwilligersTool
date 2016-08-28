@@ -399,7 +399,6 @@ class OrganisationController extends UtilityController
      */
     public function organisatiesOpMaatAction($user)
     {
-        $t = $this->get('translator');
         $es = $this->get("ElasticsearchQuery");
 
         $query = '{

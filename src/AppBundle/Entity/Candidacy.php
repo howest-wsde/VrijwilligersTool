@@ -9,7 +9,7 @@ class Candidacy extends EntityBase
 {
     const PENDING = 0;
     const APPROVED = 1;
-    const DECLINED = 2; 
+    const DECLINED = 2;
 
     /**
      * @var integer
@@ -19,7 +19,7 @@ class Candidacy extends EntityBase
     /**
      * @var integer
      */
-    private $state = Candidacy::PENDING; 
+    private $state = Candidacy::PENDING;
 
     /**
      * @var Person
@@ -111,5 +111,23 @@ class Candidacy extends EntityBase
     public function getVacancy()
     {
         return $this->vacancy;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'candidacy';
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the string "nomap" to avoid it being mapped further
+     * @return String the classname of this entity
+     */
+    public function esGetNoMap()
+    {
+        return 'nomap';
     }
 }

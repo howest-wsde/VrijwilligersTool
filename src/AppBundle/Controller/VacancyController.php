@@ -401,9 +401,7 @@ class VacancyController extends UtilityController
         $t = $this->get('translator');
         $es = $this->get("ElasticsearchQuery");
 
-        $access = $user->getAccess();
-        $renumerate = $user->getRenumerate();
-
+        //published filter
         $query = '{
             "query": {
                 "function_score": {
@@ -412,18 +410,19 @@ class VacancyController extends UtilityController
                         "must": [
                            { "term": { "published": 1 }}';
 
-        if($user->getAccess()){
+        if($user->getAccess()){ //if user needs access, filter out vacancies that provide access
             $query .= ',{ "term": { "access": true }}';
         }
 
-        if(!$user->getLongterm()){
-            $query .= ',{ "term": { "longterm": ' . $user->getLongterm() . ' }}';
+        if(!$user->getLongterm()){ //if user does not want to do longterm volunteering, filter out all vacancies that don't require longterm volunteering
+            $query .= ',{ "term": { "longterm": false }}';
         }
 
-        if(!$user->getRenumerate()){
-            $query .= ',{ "exists": { "field": "renumerate" }}';
+        if($user->getRenumerate()){ //if user wants to be payed, filter out all vacancies where pay is given
+            $query .= ',{ "exists": { "field": "renumeration" }}';
         }
 
+        //date boost
         $query .= '     ]
                       }
                     },
@@ -438,7 +437,7 @@ class VacancyController extends UtilityController
                             }
                         }';
 
-        if($user->getLatitude() && $user->getLongitude()){
+        if($user->getLatitude() && $user->getLongitude()){ //proximity boost
             $query .= ',{
                             "filter": {
                                 "exists": {
@@ -457,7 +456,7 @@ class VacancyController extends UtilityController
         }
 
         $estimatedWorkInHours = $user->getEstimatedWorkInHours();
-        if($estimatedWorkInHours > 0){
+        if($estimatedWorkInHours > 0){ //boost on work time
             $query .= ',{
                             "filter": {
                                 "exists": {
@@ -466,14 +465,15 @@ class VacancyController extends UtilityController
                             },
                             "gauss":{
                                 "estimatedWorkInHours":{
-                                    "origin": 4,
-                                    "offset": 4,
+                                    "origin": ' . $estimatedWorkInhours / 2 . ',
+                                    "offset": ' . $estimatedWorkInhours / 2 . ',
                                     "scale": 1
                                 }
                             }
                         }';
         }
 
+        //boost on likers
         $query .= ',{
                       "gauss": {
                         "likers": {
@@ -483,7 +483,7 @@ class VacancyController extends UtilityController
                       }
                     }';
 
-        $userSkills = $user->getSkills();
+        $userSkills = $user->getSkills(); //boost on overlapping skills
         if(!is_null($userSkills) && !$userSkills->isEmpty()){
             foreach ($userSkills as $key => $skill) {
                 $query .= ',{
@@ -506,7 +506,7 @@ class VacancyController extends UtilityController
                         "weight": 2
                     }';
 
-        $orgIds = $user->getLikedOrganisationIds();
+        $orgIds = $user->getLikedOrganisationIds(); //boost if org is liked
         if(!empty($orgIds)){
             foreach ($orgIds as $key => $id) {
                 $query .= ',{
