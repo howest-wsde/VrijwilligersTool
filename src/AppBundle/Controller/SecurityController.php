@@ -25,6 +25,7 @@ class SecurityController extends UtilityController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            $user = $form->getData();
             //encode password en replace the plain password to the encoded one
             $password = $this->get("security.password_encoder")
                              ->encodePassword($user, $user->getPlainPassword());
@@ -32,11 +33,17 @@ class SecurityController extends UtilityController
 
             //set latitude and longitude
             $this->setCoordinates($user);
+            if(empty($person->getUsername())){
+                $person->setUsername('');
+            }
 
             //persist the user to the dbase
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            //recreate form to ensure all changes are visible
+            $form = $this->createForm(PersonType::class, $user);
 
             //log in the user as far as Symfony is concerned
             $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));

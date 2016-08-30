@@ -161,12 +161,22 @@ person:
         backToRegistration: Terug naar registratie
         backToGeneral: Terug naar algemene gegevens
         mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
+        accessible: Bent u mindermobiel?
+        renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?
+        longterm: Bent u bereid om een langdurig engagement aan te gaan?
+        estimatedWorkInHours: Hoeveel uur per week bent u bereid om te vrijwilligen?
+        socialInteraction: Welke hoeveelheid sociale interactie vindt u comfortabel?
     choices:
         immediately: Onmiddelijk
         daily: Dagelijks
         weekly: Wekelijks
         monthly: Maandelijks
         nomail: Ik wil geen meldingen ontvangen
+        yes: Ja
+        no: Nee
+        all: Hoe meer hoe liever!
+        normal: 'Niet speciaal veel, niet speciaal weinig'
+        little: Liefst niet te veel
 search:
     label:
         hoursAWeek: uren per week

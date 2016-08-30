@@ -9,7 +9,7 @@ class Candidacy extends EntityBase
 {
     const PENDING = 0;
     const APPROVED = 1;
-    const DECLINED = 2; 
+    const DECLINED = 2;
 
     /**
      * @var integer
@@ -19,15 +19,15 @@ class Candidacy extends EntityBase
     /**
      * @var integer
      */
-    private $state = Candidacy::PENDING; 
+    private $state = Candidacy::PENDING;
 
     /**
-     * @var \AppBundle\Entity\Person
+     * @var Person
      */
     private $candidate;
 
     /**
-     * @var \AppBundle\Entity\Vacancy
+     * @var Vacancy
      */
     private $vacancy;
 
@@ -68,11 +68,11 @@ class Candidacy extends EntityBase
     /**
      * Set candidate
      *
-     * @param \AppBundle\Entity\Person $candidate
+     * @param Person $candidate
      *
      * @return Candidacy
      */
-    public function setCandidate(\AppBundle\Entity\Person $candidate = null)
+    public function setCandidate(Person $candidate = null)
     {
         $this->candidate = $candidate;
 
@@ -82,7 +82,7 @@ class Candidacy extends EntityBase
     /**
      * Get candidate
      *
-     * @return \AppBundle\Entity\Person
+     * @return Person
      */
     public function getCandidate()
     {
@@ -92,11 +92,11 @@ class Candidacy extends EntityBase
     /**
      * Set vacancy
      *
-     * @param \AppBundle\Entity\Vacancy $vacancy
+     * @param Vacancy $vacancy
      *
      * @return Candidacy
      */
-    public function setVacancy(\AppBundle\Entity\Vacancy $vacancy = null)
+    public function setVacancy(Vacancy $vacancy = null)
     {
         $this->vacancy = $vacancy;
 
@@ -106,10 +106,28 @@ class Candidacy extends EntityBase
     /**
      * Get vacancy
      *
-     * @return \AppBundle\Entity\Vacancy
+     * @return Vacancy
      */
     public function getVacancy()
     {
         return $this->vacancy;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'candidacy';
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the string "nomap" to avoid it being mapped further
+     * @return String the classname of this entity
+     */
+    public function esGetNoMap()
+    {
+        return 'nomap';
     }
 }

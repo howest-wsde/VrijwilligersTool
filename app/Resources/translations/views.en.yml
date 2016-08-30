@@ -3,6 +3,9 @@ general:
     login: login
     search: search
     org: organisation
+    tailored:
+        novacancy: "Currently no vacancies tailored to your profile can be found.  It's possible no vacancies fit your profile at this time.  If, however, you haven't fully filled out your profile, completing it can help getting better results."
+        noorg: "Currently no organisations tailored to your profile can be found.  It's possible no organisations fit your profile at this time.  If, however, you haven't fully filled out your profile, completing it can help getting better results.  A good place to start is by crossing of the sectors you are interested in."
     flash:
         success: Success!
         fail: Disapproved!

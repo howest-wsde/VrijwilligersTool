@@ -84,7 +84,26 @@
                     {{ form_row (form.skills) }}
                 </fieldset>
                 <fieldset>
-                    {{ form_row (form.digest) }}
+                    <div class='col-md-12'>
+                        {{ form_row (form.digest) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class='col-md-4'>
+                        {{ form_row(form.access) }}
+                    </div>
+                    <div class='col-md-8'>
+                        {{ form_row(form.renumerate) }}
+                    </div>
+                    <div class='col-md-6'>
+                        {{ form_row(form.longterm) }}
+                    </div>
+                    <div class='col-md-6'>
+                        {{ form_row(form.estimatedWorkInHours) }}
+                    </div>
+                    <div class='col-md-12'>
+                        {{ form_row(form.socialInteraction) }}
+                    </div>
                 </fieldset>
                 <fieldset>
                     {{ form_row (form.submit2) }}

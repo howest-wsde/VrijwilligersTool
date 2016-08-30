@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -229,17 +231,17 @@ class Vacancy extends EntityBase
     private $stillWanted = 1;
 
     /**
-     * @var \AppBundle\Entity\Organisation
+     * @var Organisation
      */
     private $organisation;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $skills;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $candidacies;
 
@@ -249,7 +251,7 @@ class Vacancy extends EntityBase
     private $urlid = "";
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $likers;
 
@@ -282,7 +284,7 @@ class Vacancy extends EntityBase
      */
     public function __construct()
     {
-        $this->skills= new \Doctrine\Common\Collections\ArrayCollection();
+        $this->skills= new ArrayCollection();
     }
 
     /**
@@ -418,6 +420,7 @@ class Vacancy extends EntityBase
     /**
      * Set id
      *
+     * @param $id
      * @return Vacancy
      */
     public function setId($id)
@@ -753,7 +756,7 @@ class Vacancy extends EntityBase
      *
      * @return Organisation
      */
-    public function setpostalCode($postalCode)
+    public function setPostalCode($postalCode)
     {
         $this->postalCode = $postalCode;
 
@@ -765,7 +768,7 @@ class Vacancy extends EntityBase
      *
      * @return \int
      */
-    public function getpostalCode()
+    public function getPostalCode()
     {
         return $this->postalCode;
     }
@@ -793,7 +796,6 @@ class Vacancy extends EntityBase
     {
         return $this->bus;
     }
-
 
     /**
      * Set city
@@ -870,11 +872,11 @@ class Vacancy extends EntityBase
     /**
      * Set organisation
      *
-     * @param \AppBundle\Entity\Organisation $organisation
+     * @param Organisation $organisation
      *
      * @return Vacancy
      */
-    public function setOrganisation(\AppBundle\Entity\Organisation $organisation = null)
+    public function setOrganisation(Organisation $organisation = null)
     {
         $this->organisation = $organisation;
 
@@ -884,7 +886,7 @@ class Vacancy extends EntityBase
     /**
      * Get organisation
      *
-     * @return \AppBundle\Entity\Organisation
+     * @return Organisation
      */
     public function getOrganisation()
     {
@@ -894,11 +896,11 @@ class Vacancy extends EntityBase
     /**
      * Add skills
      *
-     * @param \AppBundle\Entity\Skill $skill
+     * @param Skill $skill
      *
      * @return Vacancy
      */
-    public function addSkill(\AppBundle\Entity\Skill $skill)
+    public function addSkill(Skill $skill)
     {
         $this->skills[] = $skill;
 
@@ -908,9 +910,9 @@ class Vacancy extends EntityBase
     /**
      * Remove skill
      *
-     * @param \AppBundle\Entity\Skill $skill
+     * @param Skill $skill
      */
-    public function removeSkill(\AppBundle\Entity\Skill $skill)
+    public function removeSkill(Skill $skill)
     {
         $this->skills->removeElement($skill);
     }
@@ -918,11 +920,11 @@ class Vacancy extends EntityBase
     /**
      * Add candidacy
      *
-     * @param \AppBundle\Entity\Candidacy $candidacy
+     * @param Candidacy $candidacy
      *
      * @return Person
      */
-    public function addCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    public function addCandidacy(Candidacy $candidacy)
     {
         $this->candidacies[] = $candidacy;
 
@@ -932,11 +934,11 @@ class Vacancy extends EntityBase
     /**
      * Remove candidacy
      *
-      * @param \AppBundle\Entity\Candidacy $candidacy
+      * @param Candidacy $candidacy
      *
      * @return Person
      */
-    public function removeCandidacy(\AppBundle\Entity\Candidacy $candidacy)
+    public function removeCandidacy(Candidacy $candidacy)
     {
         $this->candidacies->removeElement($candidacy);
 
@@ -946,7 +948,7 @@ class Vacancy extends EntityBase
     /**
      * Get candidacies
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCandidacies()
     {
@@ -957,7 +959,7 @@ class Vacancy extends EntityBase
     /**
      * Get pending candidates
      *
-     * @return Array
+     * @return array
      */
     public function getCandidates()
     {
@@ -977,11 +979,11 @@ class Vacancy extends EntityBase
     /**
      * Add liker
      *
-     * @param \AppBundle\Entity\Person $liker
+     * @param Person $liker
      *
      * @return Vacancy
      */
-    public function addLiker(\AppBundle\Entity\Person $liker)
+    public function addLiker(Person $liker)
     {
         $this->likers[] = $liker;
 
@@ -991,9 +993,9 @@ class Vacancy extends EntityBase
     /**
      * Remove liker
      *
-     * @param \AppBundle\Entity\Person $liker
+     * @param Person $liker
      */
-    public function removeLiker(\AppBundle\Entity\Person $liker)
+    public function removeLiker(Person $liker)
     {
         $this->likers->removeElement($liker);
     }
@@ -1001,7 +1003,7 @@ class Vacancy extends EntityBase
     /**
      * Get likers
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getLikers()
     {
@@ -1033,18 +1035,19 @@ class Vacancy extends EntityBase
     /**
      * Get skills
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSkills()
     {
         return $this->skills;
     }
 
-        /**
+    /**
      * Set skills
-     * @param \Doctrine\Common\Collections\Collection  $skills  collection of skills
+     * @param Collection $skills collection of skills
+     * @return Vacancy
      */
-    public function setSkills(\Doctrine\Common\Collections\Collection $skills)
+    public function setSkills(Collection $skills)
     {
         $this->skills = $skills;
         return $this;
@@ -1076,5 +1079,32 @@ class Vacancy extends EntityBase
         }
 
         return null;
+    }
+
+    /**
+     * Get the number of likers for a vacancy
+     * @return int
+     */
+    public function esGetNumberOfLikers()
+    {
+        return $this->getLikers()->count();
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'vacancy';
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the string "nomap" to avoid it being mapped further
+     * @return String the classname of this entity
+     */
+    public function esGetNoMap()
+    {
+        return 'nomap';
     }
 }

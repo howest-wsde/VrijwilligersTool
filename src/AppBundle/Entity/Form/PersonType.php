@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -152,6 +153,59 @@ class PersonType extends AbstractType
                     'person.choices.nomail' => '5',
                 ),
                 // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add('access', ChoiceType::class, array(
+                'label' => 'person.label.accessible',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.accessible' => true,
+                    'person.choices.notaccessible' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("renumerate", ChoiceType::class, array(
+                "label" => "person.label.renumeration",
+                "placeholder" => false,
+                'choices'  => array(
+                    'person.choices.yes' => true,
+                    'person.choices.no' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("longterm", ChoiceType::class, array(
+                "label" => "person.label.longterm",
+                "placeholder" => false,
+                'choices'  => array(
+                    'person.choices.yes' => true,
+                    'person.choices.no' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add('estimatedWorkInHours', IntegerType::class, array(
+                'label' => 'person.label.estimatedWorkInHours',
+                'required' => false,
+            ))
+            ->add('socialInteraction', ChoiceType::class, array(
+                'label' => 'person.label.socialInteraction',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.all' => 'all',
+                    'person.choices.normal' => 'normal',
+                    'person.choices.little' => 'little',
+                ),
+                // render as radiobuttons
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
