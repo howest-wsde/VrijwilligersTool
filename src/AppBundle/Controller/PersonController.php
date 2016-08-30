@@ -30,7 +30,7 @@ class PersonController extends UtilityController
 
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/persoon/{id}"), name="person_id")
+     * @Route("/persoon/{id}", name="person_id")
      */
     public function personViewByIdAction($id)
     {
