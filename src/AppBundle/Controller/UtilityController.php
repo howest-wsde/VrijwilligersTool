@@ -62,19 +62,19 @@ class UtilityController extends Controller
     {
         $org = $info['data']['org'];
         //first take care of the admins that need mailing
-        $this->sendEmails($info, $org);
+        $this->sendImmediateEmails($info, $org);
 
         //then take care of those that need a digest entry added/removed
         $this->addOrRemoveDigests($info, $org);
     }
 
     /**
-     * Send all mails for the admins of an organisation who have chosen that
-     * delivery mode
+     * Send all mails for the admins of an organisation who have chosen to be
+     * notified immediately (by email)
      * @param Array                     $info   All necessary information to add the correct digest entry
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function sendEmails($info, $org)
+    protected function sendImmediateEmails($info, $org)
     {
         $admins = $org->getAdministratorsByDigest(1);
         if(!is_null($admins))
