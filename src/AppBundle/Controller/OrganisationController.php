@@ -380,8 +380,8 @@ class OrganisationController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation");
 
-        $query = $em->createQuery("select count(c) from AppBundle:Candidacy c
-                 where c.vacancy in (select distinct v.id from AppBundle:Vacancy
+        $query = $em->createQuery("select count(distinct c.candidate) from AppBundle:Candidacy c
+                 where c.state = 1 and c.vacancy in (select distinct v.id from AppBundle:Vacancy
                   v where v.organisation = :id)")
                  ->setParameter('id', $id);
 
