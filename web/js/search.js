@@ -41,6 +41,24 @@
                     } else $(search["form"]).find(".searchResult").html("");
                 }, 500)
             });
+
+        $("#zoekpage div:has(>div.option)").each(function(){ // inkorten filters op zoekpagina
+            if ($(this).find("div.option").length > 5) {
+                var strClass = "more" + $(this).index("#zoekpage div:has(>div.option)");
+                $(this).find("div.option").slice(5).addClass(strClass).hide();
+                $(this).append(
+                    $("<div />").addClass("readmore").append(
+                        $("<a />").attr("href", "#more").attr("rel", strClass).html("Toon meer").click(function(){
+                            $("." + $(this).attr("rel")).show();
+                            $(this).hide();
+                            return false;
+                        })
+                    ).append(
+                        $("<span />").html("&#8681;")
+                    )
+                );
+            }
+        });
     });
 
     var logError = function (xhr, message, error) {
