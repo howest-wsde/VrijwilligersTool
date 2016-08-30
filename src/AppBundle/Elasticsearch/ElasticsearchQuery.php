@@ -168,12 +168,14 @@ class ElasticsearchQuery
      * @param  boolean       $raw   whether or not the raw result is desired
      * @return array                json array of ES entities or arrayCollection of doctrine entities (depending on whether or not $raw is true).
      */
-    public function searchByType($types, $query, $term, $raw = false)
+    public function searchByType($types, $query, $term, $raw = false, $from = 0, $size = 100)
     {
         $params = [
                     'index' => $this->getIndex(),
                     'type' => $types,
                     'body' => [
+                        'from' => $from,
+                        'size' => $size,
                         'query' => $this->assembleQuery($query, $term),
                     ],
                   ];

@@ -40,12 +40,12 @@ class SearchController extends Controller
      * @param  String   $searchTerm a term to search for
      * @return array             an array of hydrated results
      */
-    private function searchByType($form, $searchTerm){
+    private function searchByType($form, $searchTerm, $from = 0, $to = 100){
         $ESquery = $this->get("ElasticsearchQuery");
         $types = $this->getTypes($form);
         $query = $this->assembleQuery($form);
 
-        return $ESquery->searchByType($types, $query, $searchTerm);
+        return $ESquery->searchByType($types, $query, $searchTerm, $from, $to);
     }
 
     /**

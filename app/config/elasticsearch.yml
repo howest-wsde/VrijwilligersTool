@@ -54,17 +54,6 @@ fos_elastica:
                                 slogan: { type: string, analyzer: nl_analyzer }
                                 telephone: { type: string, index: not_analyzed }
                                 website: { type: string, index: not_analyzed }
-                                creator:
-                                    type: object
-                                    properties:
-                                        id: { type: integer }
-                                        entity: { type: string, property_path: esGetEntityName, index: no }
-                                        firstName: { type: string, index: not_analyzed }
-                                        lastName: { type: string, index: not_analyzed }
-                                        username: { type: string, index: not_analyzed }
-                                        email: { type: string, index: not_analyzed }
-                                        telephone: { type: string, index: not_analyzed }
-                                        linkedinUrl: { type: string, index: not_analyzed }
                         organisations:
                             type: object
                             properties:
@@ -85,17 +74,6 @@ fos_elastica:
                                 slogan: { type: string, analyzer: nl_analyzer }
                                 telephone: { type: string, index: not_analyzed }
                                 website: { type: string, index: not_analyzed }
-                                creator:
-                                    type: object
-                                    properties:
-                                        id: { type: integer }
-                                        entity: { type: string, property_path: esGetEntityName, index: no }
-                                        firstName: { type: string, index: not_analyzed }
-                                        lastName: { type: string, index: not_analyzed }
-                                        username: { type: string, index: not_analyzed }
-                                        email: { type: string, index: not_analyzed }
-                                        telephone: { type: string, index: not_analyzed }
-                                        linkedinUrl: { type: string, index: not_analyzed }
                         liked_organisations:
                             type: object
                             properties:
@@ -116,17 +94,6 @@ fos_elastica:
                                 slogan: { type: string, analyzer: nl_analyzer }
                                 telephone: { type: string, index: not_analyzed }
                                 website: { type: string, index: not_analyzed }
-                                creator:
-                                    type: object
-                                    properties:
-                                        id: { type: integer }
-                                        entity: { type: string, property_path: esGetEntityName, index: no }
-                                        firstName: { type: string, index: not_analyzed }
-                                        lastName: { type: string, index: not_analyzed }
-                                        username: { type: string, index: not_analyzed }
-                                        email: { type: string, index: not_analyzed }
-                                        telephone: { type: string, index: not_analyzed }
-                                        linkedinUrl: { type: string, index: not_analyzed }
                         liked_vacancies:
                             type: object
                             properties:
@@ -291,17 +258,6 @@ fos_elastica:
                                 slogan: { type: string, analyzer: nl_analyzer }
                                 telephone: { type: string, index: not_analyzed }
                                 website: { type: string, index: not_analyzed }
-                                creator:
-                                    type: object
-                                    properties:
-                                        id: { type: integer }
-                                        entity: { type: string, property_path: esGetEntityName, index: no }
-                                        firstName: { type: string, index: not_analyzed }
-                                        lastName: { type: string, index: not_analyzed }
-                                        username: { type: string, index: not_analyzed }
-                                        email: { type: string, index: not_analyzed }
-                                        telephone: { type: string, index: not_analyzed }
-                                        linkedinUrl: { type: string, index: not_analyzed }
                         summary: { type: string, analyzer: nl_analyzer }
                         longterm: { type: boolean }
                         street: { type: string, index: not_analyzed }
