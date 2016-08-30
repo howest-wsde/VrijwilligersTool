@@ -22,7 +22,7 @@ class SearchController extends Controller
         $params = [
             'index' => $query->getIndex(),
             'type' => $types,
-            'body' => [
+          'body' => [
                 'query' => [
                     'query_string' => [
                         'query' => $term,
@@ -46,6 +46,30 @@ class SearchController extends Controller
         $query = $this->assembleQuery($form);
 
         return $ESquery->searchByType($types, $query, $searchTerm);
+    }
+
+    /**
+     * Zoeken op vacature-categorie (aka skill)
+     * @Route("/zoeken/{cat}", name="zoekOpCategorie")
+     */
+    public function searchByCategory($cat)
+    {
+        $es = $this->get("ElasticsearchQuery");
+
+        $form = $this->createForm(SearchFilterType::class, new SearchFilter());
+        $form->handleRequest(Request::createFromGlobals());
+
+        $query = '{
+            "query": {
+                "term": { "skills.name": "Creatief bezig zijn" }
+            }
+        }';
+
+        return $this->render("search/zoekpagina.html.twig", array(
+            "form" => $form->createView(),
+            "results" => $es->requestByType($query, 'vacancy'),
+            "filters" => true,
+        ));
     }
 
     /**
