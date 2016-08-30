@@ -1043,7 +1043,9 @@ class Organisation extends EntityBase
      */
     public function esGetNumberOfLikers()
     {
-        return $this->getLikers()->count();
+        if ($this->getLikers()) {
+            return $this->getLikers()->count();
+        } else return ;
     }
 
     /**
