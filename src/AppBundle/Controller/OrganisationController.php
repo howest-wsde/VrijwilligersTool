@@ -429,10 +429,10 @@ class OrganisationController extends UtilityController
                                 }
                             },
                             "weight": 2
-                        }';
+                        },';
         }
 
-        $query .= ',{
+        $query .= '{
                       "gauss": {
                         "likers": {
                             "origin": 50,
