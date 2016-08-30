@@ -9,8 +9,7 @@ class Skill extends EntityBase
 {
     /**
      * Constructor
-     *
-     * @param string name
+     * @param string $name
      */
     public function __construct($name = "")
     {
@@ -84,6 +83,7 @@ class Skill extends EntityBase
     /**
      * Set id
      *
+     * @param $id
      * @return Skill
      */
     public function setId($id)
@@ -116,7 +116,7 @@ class Skill extends EntityBase
      *
      * @return Skill
      */
-    public function setParent(\AppBundle\Entity\Skill $parent = null)
+    public function setParent(Skill $parent = null)
     {
         $this->parent = $parent;
 

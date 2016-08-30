@@ -224,6 +224,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * Callback that check if either the email or telephone fields are valid
+     * @param Organisation $org
+     * @param ExecutionContextInterface $context
+     * @return bool
      */
     public static function validateContacts($org, ExecutionContextInterface  $context)
     {
@@ -341,6 +344,38 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      */
     private $liked_vacancies;
+
+    /**
+     * Whether or not a person desires weelchair-accessibility
+     * @var bool
+     */
+    private $access = false;
+
+    /**
+     * Whether or not a person is willing to do non-renumerated volunteerwork
+     * @var bool
+     */
+    private $renumerate = true;
+
+    /**
+     * Whether or not a person is willing to enter a longterm engagement
+     * @var bool
+     */
+    private $longterm = true;
+
+    /**
+     * @var int
+     */
+    private $estimatedWorkInHours = 0;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $socialInteraction = "normal";
 
     /**
      * Constructor
@@ -480,6 +515,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function setUsername($username)
     {
+        if(empty($username)){
+            $username = 'gebruiker' . $this->getId();
+        }
         $this->username = $username;
 
         return $this;
@@ -1173,6 +1211,126 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->liked_vacancies;
     }
 
+    /**
+     * Set accessible
+     *
+     * @param bool $accessible
+     *
+     * @return Person
+     */
+    public function setAccess($accessible)
+    {
+        $this->access = $accessible;
+
+        return $this;
+    }
+
+    /**
+     * Get accessible
+     *
+     * @return bool
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * Set renumerate
+     *
+     * @param bool $renumerate
+     *
+     * @return Person
+     */
+    public function setRenumerate($renumerate)
+    {
+        $this->renumerate = $renumerate;
+
+        return $this;
+    }
+
+    /**
+     * Get renumerate
+     *
+     * @return bool
+     */
+    public function getRenumerate()
+    {
+        return $this->renumerate;
+    }
+
+    /**
+     * Set longterm
+     *
+     * @param bool $longterm
+     *
+     * @return Person
+     */
+    public function setLongterm($longterm)
+    {
+        $this->longterm = $longterm;
+
+        return $this;
+    }
+
+    /**
+     * Get longterm
+     *
+     * @return bool
+     */
+    public function getLongterm()
+    {
+        return $this->longterm;
+    }
+
+    /**
+     * Set estimatedWorkInHours
+     *
+     * @param int $estimatedWorkInHours
+     *
+     * @return Person
+     */
+    public function setEstimatedWorkInHours($estimatedWorkInHours)
+    {
+        $this->estimatedWorkInHours = $estimatedWorkInHours;
+
+        return $this;
+    }
+
+    /**
+     * Get estimatedWorkInHours
+     *
+     * @return int
+     */
+    public function getEstimatedWorkInHours()
+    {
+        return $this->estimatedWorkInHours;
+    }
+
+    /**
+     * Set socialInteraction
+     *
+     * @param string $socialInteraction
+     *
+     * @return Person
+     */
+    public function setSocialInteraction($socialInteraction)
+    {
+        $this->socialInteraction = $socialInteraction;
+
+        return $this;
+    }
+
+    /**
+     * Get socialInteraction
+     *
+     * @return string
+     */
+    public function getSocialInteraction()
+    {
+        return $this->socialInteraction;
+    }
+
    /**
      * Get the class name
      *
@@ -1229,5 +1387,34 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         }
 
         return null;
+    }
+
+    /**
+     * Return all sectors a user marked of as an interest for ES (tailored organisation query)
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function esGetSectors()
+    {
+        //TODO: replace this by using a Criteria (see Organisation line 536)
+        return $this->getSkills()->filter(
+            function($skill) {
+               return ($skill->getParent() === 36);
+        });
+    }
+
+    /**
+     * Get the id's of all liked organisations as an array
+     * @return array
+     */
+    public function getLikedOrganisationIds(){
+        $ids = [];
+        $likedOrganisations = $this->getLikedOrganisations();
+        if(!is_null($likedOrganisations) && !$likedOrganisations->isEmpty()){
+            foreach ($likedOrganisations->toArray() as $key => $org) {
+                $ids[] = $org->getId();
+            }
+        }
+
+        return $ids;
     }
 }

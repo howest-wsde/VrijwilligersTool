@@ -15,7 +15,138 @@ class TestController extends Controller
      */
     public function testsAction()
     {
-        return $this->render("tests/tests.html.twig");
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $es = $this->get("ElasticsearchQuery");
+
+        $access = $user->getAccess();
+        $renumerate = $user->getRenumerate();
+
+        $query = '{
+            "query": {
+                "function_score": {
+                    "filter": {
+                      "bool": {
+                        "must": [
+                           { "term": { "published": 1 }},';
+
+        if($user->getAccess()){
+            $query .= '{ "term": { "access": true }},';
+        }
+
+        $query .= '{ "term": { "longterm": ' . $user->getLongterm() . ' }},';
+
+        if($user->getRenumerate()){
+            $query .= '{ "exists": { "field": "renumerate" }}';
+        }
+
+        $query .= '     ]
+                      }
+                    },
+                    "functions": [
+                        {
+                            "gauss":{
+                                "startdate":{
+                                    "origin": "now",
+                                    "offset": "4w",
+                                    "scale": "4w"
+                                }
+                            }
+                        },';
+
+        if($user->getLatitude() && $user->getLongitude()){
+            $query .= '{
+                            "filter": {
+                                "exists": {
+                                    "field": "location"
+                                }
+                            },
+                            "gauss":{
+                                "location":{
+                                    "origin": { "lat": 50.9436034, "lon": 3.1242917 },
+                                    "offset": "1km",
+                                    "scale": "1km"
+                                }
+                            },
+                            "weight": 2
+                        },';
+        }
+
+        $estimatedWorkInHours = $user->getEstimatedWorkInHours();
+        if($estimatedWorkInHours > 0){
+            $query .= '{
+                            "filter": {
+                                "exists": {
+                                    "field": "estimatedWorkInHours"
+                                }
+                            },
+                            "gauss":{
+                                "estimatedWorkInHours":{
+                                    "origin": 4,
+                                    "offset": 4,
+                                    "scale": 1
+                                }
+                            }
+                        },';
+        }
+
+        $query .= '{
+                      "gauss": {
+                        "likers": {
+                            "origin": 50,
+                            "scale": 5
+                        }
+                      }
+                    },';
+
+        $userSkills = $user->getSkills();
+        if(!$userSkills->isEmpty()){
+            foreach ($userSkills as $key => $skill) {
+                $query .= '{
+                                "filter": {
+                                    "term": {
+                                       "skills.name": "' . $skill->getName() . '"
+                                    }
+                                },
+                                "weight": 1
+                            },';
+            }
+        }
+
+        $query .= '{
+                        "filter": {
+                            "term": {
+                               "socialInteraction": "normal"
+                            }
+                        },
+                        "weight": 2
+                    },';
+
+        $orgIds = $user->getLikedOrganisationIds();
+        if(!empty($orgIds)){
+            foreach ($orgIds as $key => $id) {
+                $query .= '{
+                            "filter": {
+                                "term": {
+                                   "organisation.id": ' . $id . '
+                                }
+                            },
+                            "weight": 1
+                           }';
+            }
+        }
+
+        $query .= '],
+                       "score_mode": "sum"
+                       }
+                   }
+               }';
+
+        return $this->render("vacancy/vacature_tab.html.twig",
+            [
+                'vacancies' => $es->requestByType($query, 'vacancy'),
+                'title' => $t->trans('vacancy.template.vacancyFit')
+            ]);
     }
 
     /**

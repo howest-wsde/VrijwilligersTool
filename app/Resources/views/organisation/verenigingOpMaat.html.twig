@@ -1,0 +1,10 @@
+{% trans_default_domain "views" %}
+<div class="organisaties">
+    {% if organisations %}
+        {% for organisation in organisations %}
+            {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation} %}{% endembed %}
+        {% endfor %}
+    {% else %}
+        <p>{{ "general.tailored.noorg"|trans }}</p>
+    {% endif %}
+</div>

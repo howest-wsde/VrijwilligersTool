@@ -394,21 +394,143 @@ class VacancyController extends UtilityController
 
     /**
      * Get vacancies matching a user profile
-     * TODO: work on this
      * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
      */
     public function vacaturesOpMaatAction($user)
     {
         $t = $this->get('translator');
-        $query = $this->get("ElasticsearchQuery");
-        $params = [
-            'index' => $query->getIndex(),
-            'type' => 'vacancy',
-        ];
+        $es = $this->get("ElasticsearchQuery");
 
-        $results = $query->search($params);
+        //published filter
+        $query = '{
+            "query": {
+                "function_score": {
+                    "filter": {
+                      "bool": {
+                        "must": [
+                           { "term": { "published": 1 }}';
 
-        return $this->render("vacancy/vacature_tab.html.twig", ['vacancies' => $results, 'title' => $t->trans('vacancy.template.vacancyFit')]);//TODO retrieve and add matching vacancies here
+        if($user->getAccess()){ //if user needs access, filter out vacancies that provide access
+            $query .= ',{ "term": { "access": true }}';
+        }
+
+        if(!$user->getLongterm()){ //if user does not want to do longterm volunteering, filter out all vacancies that don't require longterm volunteering
+            $query .= ',{ "term": { "longterm": false }}';
+        }
+
+        if($user->getRenumerate()){ //if user wants to be payed, filter out all vacancies where pay is given
+            $query .= ',{ "exists": { "field": "renumeration" }}';
+        }
+
+        //date boost
+        $query .= '     ]
+                      }
+                    },
+                    "functions": [
+                        {
+                            "gauss":{
+                                "startdate":{
+                                    "origin": "now",
+                                    "offset": "4w",
+                                    "scale": "4w"
+                                }
+                            }
+                        }';
+
+        if($user->getLatitude() && $user->getLongitude()){ //proximity boost
+            $query .= ',{
+                            "filter": {
+                                "exists": {
+                                    "field": "location"
+                                }
+                            },
+                            "gauss":{
+                                "location":{
+                                    "origin": { "lat": ' . $user->getLatitude() . ', "lon": ' . $user->getLongitude() . ' },
+                                    "offset": "1km",
+                                    "scale": "1km"
+                                }
+                            },
+                            "weight": 2
+                        }';
+        }
+
+        $estimatedWorkInHours = $user->getEstimatedWorkInHours();
+        if($estimatedWorkInHours > 0){ //boost on work time
+            $query .= ',{
+                            "filter": {
+                                "exists": {
+                                    "field": "estimatedWorkInHours"
+                                }
+                            },
+                            "gauss":{
+                                "estimatedWorkInHours":{
+                                    "origin": ' . $estimatedWorkInhours / 2 . ',
+                                    "offset": ' . $estimatedWorkInhours / 2 . ',
+                                    "scale": 1
+                                }
+                            }
+                        }';
+        }
+
+        //boost on likers
+        $query .= ',{
+                      "gauss": {
+                        "likers": {
+                            "origin": 50,
+                            "scale": 5
+                        }
+                      }
+                    }';
+
+        $userSkills = $user->getSkills(); //boost on overlapping skills
+        if(!is_null($userSkills) && !$userSkills->isEmpty()){
+            foreach ($userSkills as $key => $skill) {
+                $query .= ',{
+                                "filter": {
+                                    "term": {
+                                       "skills.name": "' . $skill->getName() . '"
+                                    }
+                                },
+                                "weight": 1
+                            }';
+            }
+        }
+
+        $query .= ',{
+                        "filter": {
+                            "term": {
+                               "socialInteraction": "normal"
+                            }
+                        },
+                        "weight": 2
+                    }';
+
+        $orgIds = $user->getLikedOrganisationIds(); //boost if org is liked
+        if(!empty($orgIds)){
+            foreach ($orgIds as $key => $id) {
+                $query .= ',{
+                            "filter": {
+                                "term": {
+                                   "organisation.id": ' . $id . '
+                                }
+                            },
+                            "weight": 1
+                           }';
+            }
+        }
+
+        $query .= '],
+                       "score_mode": "sum"
+                       }
+                   }
+               }';
+
+        return $this->render("vacancy/vacature_tab.html.twig",
+            [
+                'vacancies' => $es->requestByType($query, 'vacancy'),
+                'title' => $t->trans('vacancy.template.vacancyFit')
+            ]);
     }
 
     /**

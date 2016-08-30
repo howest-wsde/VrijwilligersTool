@@ -1036,4 +1036,22 @@ class Organisation extends EntityBase
 
         return null;
     }
+
+    /**
+     * Get the number of likers for a vacancy
+     * @return int
+     */
+    public function esGetNumberOfLikers()
+    {
+        return $this->getLikers()->count();
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the string "nomap" to avoid it being mapped further
+     * @return String the classname of this entity
+     */
+    public function esGetNoMap()
+    {
+        return 'nomap';
+    }
 }

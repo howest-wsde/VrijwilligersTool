@@ -32,7 +32,7 @@ class SearchFilterType extends AbstractType
         ->add('sort', ChoiceType::class, array(
             "label" => 'search.label.sort',
             'choices'  => array(
-                // 'search.choices.distance' => 'distance',
+                'search.choices.distance' => 'distance',
                 'search.choices.date' => 'startdate',
                 'search.choices.endDate' => 'enddate',
                 'search.choices.reward' => 'reward',

@@ -77,13 +77,13 @@ class SearchFilter
 
     /**
      * An additional characteristic to filter on, can at current be either weelchair-accessibility and the amount of social contact
-     * @var Array (of strings)
+     * @var array (of strings)
      */
     private $characteristic = [];
 
     /**
      * Whether or not there's a renumeration, either money or another kind.
-     * @var Array (of strings)
+     * @var array (of strings)
      */
     private $advantages = [];
 
@@ -100,7 +100,7 @@ class SearchFilter
 
     /**
      * Set id
-     *
+     * @param $id
      * @return SearchFilter
      */
     public function setId($id)
@@ -261,7 +261,7 @@ class SearchFilter
      *
      * @return SearchFilter
      */
-    public function addSector(\AppBundle\Entity\Skill $sector)
+    public function addSector(Skill $sector)
     {
         $this->sectors[] = $sector;
 
@@ -271,11 +271,11 @@ class SearchFilter
     /**
      * Remove sector
      *
-     * @param \AppBundle\Entity\Skill $sector
+     * @param Skill $sector
      *
      * @return SearchFilter
      */
-    public function removeSector(\AppBundle\Entity\Skill $sector)
+    public function removeSector(Skill $sector)
     {
         $this->sectors->removeElement($sector);
 
@@ -295,11 +295,10 @@ class SearchFilter
     /**
      * Add categories
      *
-     * @param \AppBundle\Entity\Skill $categorie
-     *
+     * @param Skill $category
      * @return SearchFilter
      */
-    public function addCategory(\AppBundle\Entity\Skill $category)
+    public function addCategory(Skill $category)
     {
         $this->categories[] = $category;
 
@@ -309,11 +308,11 @@ class SearchFilter
     /**
      * Remove categorie
      *
-     * @param \AppBundle\Entity\Skill $categorie
+     * @param Skill $category
      *
      * @return SearchFilter
      */
-    public function removeCategory(\AppBundle\Entity\Skill $category)
+    public function removeCategory(Skill $category)
     {
         $this->categories->removeElement($category);
 
