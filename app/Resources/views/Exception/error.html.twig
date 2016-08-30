@@ -1,0 +1,10 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	 <p>Er was een probleem bij het laden van deze pagina. De beheerders zijn hiervan op de hoogte gebracht en proberen dit zo snel mogelijk op te lossen</p>
+
+	 <p><a href="javascript:history.back()">Keer terug naar de vorige pagina</a> of ga naar <a href="{{ path('homepage') }}">de homepage</a> om verder te doen. </p>
+
+{% endblock %}

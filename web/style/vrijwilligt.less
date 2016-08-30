@@ -538,6 +538,35 @@ h3 {.grijzetitel(); }
 	}
 }
 
+#zoekpage {
+	display: flex; flex-flow: row wrap; justify-content: stretch;
+	.filters {
+		flex: 1;
+		div.lbl {display: none; }
+		div.vals {
+			label {font-weight: normal; font-size: 13px; }
+		}
+		div.vals, div.option {
+			display: flex; flex-flow: row nowrap;
+			input {flex: 0 0 20px; }
+			label {flex: 1; }
+		}
+		h3 {margin-top: 10px; }
+		.readmore {font-size: 13px; }
+	}
+	.results {
+		flex: 4;
+		.nav-tabs {white-space: nowrap;}
+	}
+	.tabblad .blokken, .tabblad div.organisaties, .tabblad div.vacatures {
+	    flex-flow: row wrap;
+		>.blok, >article.vacature, >article.vereniging {
+			flex: 0 1 235px;
+		}
+	}
+	.readmore a {margin-right: 5px; margin-left: 20px; }
+}
+
 
 .oauthlogin {
 	display: flex; flex-flow: row wrap;
