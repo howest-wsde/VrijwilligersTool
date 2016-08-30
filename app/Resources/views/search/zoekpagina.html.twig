@@ -4,109 +4,115 @@
 {% block title %}{{ "general.search"|trans|capitalize }}{% endblock %}
 
 {% block body %}
-	{{ form_start(form) }}
-	    {{ form_errors(form) }}
-		<section class="col-md-2">
-			<h2>{{ "search.page.site"|trans }}</h2>
-		        {{ form_row(form.search) }}
-				{{ form_row(form.submit) }}
-				{# {% embed "search/history_search.html.twig" %}{% endembed %} #}
+	<div id="zoekpage">
+		 <div class="filters">
 
-			{{ form_row(form.sort) }}{# TODO: create issue #}
-			{#{ form_row(form.pagination) }}{# TODO: create issue #}
-				{% if filters %}
-				<fieldset>
-					<legend>{{ "search.page.filters"|trans }}</legend>
+			{{ form_start(form) }}
+			    {{ form_errors(form) }}
+				<section class="blok">
+					<h2>{{ "search.page.site"|trans }}</h2>
+				        {{ form_row(form.search) }}
+						{{ form_row(form.submit) }}
+						{# {% embed "search/history_search.html.twig" %}{% endembed %} #}
+
+					{{ form_row(form.sort) }}{# TODO: create issue #}
+					{#{ form_row(form.pagination) }}{# TODO: create issue #}
+						{% if filters %}
 						<fieldset>
-							<h3>{{ "search.page.type"|trans }}</h3>
-					        {{ form_row(form.person) }}
-							{{ form_row(form.org) }}
-							{{ form_row(form.vacancy) }}
-						</fieldset>
+							<legend>{{ "search.page.filters"|trans }}</legend>
+								<fieldset>
+									<h3>{{ "search.page.type"|trans }}</h3>
+							        {{ form_row(form.person) }}
+									{{ form_row(form.org) }}
+									{{ form_row(form.vacancy) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.cat"|trans }}</h3>
-							{{ form_row(form.categories) }}
-						</fieldset>
+								<fieldset>
+									<h3>{{ "search.page.cat"|trans }}</h3>
+									{{ form_row(form.categories) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.sector"|trans }}</h3>
-							{{ form_row(form.sectors) }}
-						</fieldset>
+								<fieldset>
+									<h3>{{ "search.page.sector"|trans }}</h3>
+									{{ form_row(form.sectors) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.intensity"|trans }}</h3>
-							{{ form_row(form.intensity) }}
-							{{ form_row(form.estimatedWorkInHours) }}
-						</fieldset>
+								<fieldset>
+									<h3>{{ "search.page.intensity"|trans }}</h3>
+									{{ form_row(form.intensity) }}
+									{{ form_row(form.estimatedWorkInHours) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.distance"|trans }}</h3>
-							{{ form_row(form.distance) }}
-						</fieldset>
+								<fieldset>
+									<h3>{{ "search.page.distance"|trans }}</h3>
+									{{ form_row(form.distance) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.char"|trans }}</h3>
-							{{ form_row(form.characteristic) }}
-						</fieldset>
+								<fieldset>
+									<h3>{{ "search.page.char"|trans }}</h3>
+									{{ form_row(form.characteristic) }}
+								</fieldset>
 
-						<fieldset>
-							<h3>{{ "search.page.advantages"|trans }}</h3>
-							{{ form_row(form.advantages) }}
+								<fieldset>
+									<h3>{{ "search.page.advantages"|trans }}</h3>
+									{{ form_row(form.advantages) }}
+								</fieldset>
 						</fieldset>
-				</fieldset>
-				{% endif %}
-		    {{ form_end(form) }}
-		</section>
+						{% endif %}
+				</section>
+			{{ form_end(form) }}
+		</div>
 
-		<section class="col-md-10">
-			{% if results|length == 999990 %}
-				<p>{{ "search.page.noresults"|trans }}</p>
-		   	{% else %}
-				{% set people = [] %}
-				{% set vacancies = [] %}
-				{% set organisations = [] %}
-				{% for result in results %}
-					{% if (result.isoftype("Person")) %}
-						{% set people = people|merge([result]) %}
-					{% elseif (result.isoftype("Vacancy")) %}
-						{% set vacancies = vacancies|merge([result]) %}
-					{% elseif (result.isoftype("Organisation")) %}
-						{% set organisations = organisations|merge([result]) %}
-					{% else %}
-						{#{ dump(result) }#}
+		<div class="results">
+			<section>
+				{% if results|length == 999990 %}
+					<p>{{ "search.page.noresults"|trans }}</p>
+			   	{% else %}
+					{% set people = [] %}
+					{% set vacancies = [] %}
+					{% set organisations = [] %}
+					{% for result in results %}
+						{% if (result.isoftype("Person")) %}
+							{% set people = people|merge([result]) %}
+						{% elseif (result.isoftype("Vacancy")) %}
+							{% set vacancies = vacancies|merge([result]) %}
+						{% elseif (result.isoftype("Organisation")) %}
+							{% set organisations = organisations|merge([result]) %}
+						{% else %}
+							{#{ dump(result) }#}
+						{% endif %}
+					{% endfor %}
+					{% set activetab = "vacancies" %}
+					{% if (vacancies|length == 0) and (organisations|length > 0) %}
+						{% set activetab = "organisations" %}
+					{% elseif (vacancies|length == 0) and (people|length > 0) %}
+						{% set activetab = "people" %}
 					{% endif %}
-				{% endfor %}
-				{% set activetab = "vacancies" %}
-				{% if (vacancies|length == 0) and (organisations|length > 0) %}
-					{% set activetab = "organisations" %}
-				{% elseif (vacancies|length == 0) and (people|length > 0) %}
-					{% set activetab = "people" %}
+
+				   	<div class="tabblad">
+			            <ul class="nav nav-tabs">
+			                <li class="rood {% if (activetab == "vacancies") %} active {% endif %}"><a href="#vacancies" data-toggle="tab">{{ "search.page.vacancies"|trans }} ({{ vacancies|length }})</a></li>
+			                <li class="blauw {% if (activetab == "organisations") %} active {% endif %}"><a href="#organisations" data-toggle="tab">{{ "search.page.organisations"|trans }} ({{ organisations|length }})</a></li>
+			                <li class="geel {% if (activetab == "people") %} active {% endif %}"><a href="#people" data-toggle="tab">{{ "search.page.people"|trans }} ({{ people|length }})</a></li>
+			            </ul>
+
+			            <div class="tab-content clearfix blok special">
+			                <div class="tab-pane {% if (activetab == "vacancies") %} active {% endif %}" id="vacancies">
+								{% if vacancies|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
+			                	{% embed "vacancy/vacatures_oplijsten.html.twig" with {"viewMode": "tile", "vacancies": vacancies } %}{% endembed %}
+			                </div>
+			                <div class="tab-pane {% if (activetab == "organisations") %} active {% endif %}" id="organisations">
+								{% if organisations|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
+			                	{% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": organisations } %}{% endembed %}
+			                </div>
+			                <div class="tab-pane {% if (activetab == "people") %} active {% endif %}" id="people">
+								{% if people|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
+			                	{% embed "person/personen_oplijsten.html.twig" with {"viewMode": "tile", "persons": people } %}{% endembed %}
+			                </div>
+			            </div>
+				   	</div>
 				{% endif %}
-
-			   	<div class="searchpage tabblad">
-		            <ul class="nav nav-tabs">
-		                <li class="rood {% if (activetab == "vacancies") %} active {% endif %}"><a href="#vacancies" data-toggle="tab">{{ "search.page.vacancies"|trans }} ({{ vacancies|length }})</a></li>
-		                <li class="blauw {% if (activetab == "organisations") %} active {% endif %}"><a href="#organisations" data-toggle="tab">{{ "search.page.organisations"|trans }} ({{ organisations|length }})</a></li>
-		                <li class="geel {% if (activetab == "people") %} active {% endif %}"><a href="#people" data-toggle="tab">{{ "search.page.people"|trans }} ({{ people|length }})</a></li>
-		            </ul>
-
-		            <div class="tab-content clearfix blok special">
-		                <div class="tab-pane {% if (activetab == "vacancies") %} active {% endif %}" id="vacancies">
-							{% if vacancies|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
-		                	{% embed "vacancy/vacatures_oplijsten.html.twig" with {"viewMode": "tile", "vacancies": vacancies } %}{% endembed %}
-		                </div>
-		                <div class="tab-pane {% if (activetab == "organisations") %} active {% endif %}" id="organisations">
-							{% if organisations|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
-		                	{% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": organisations } %}{% endembed %}
-		                </div>
-		                <div class="tab-pane {% if (activetab == "people") %} active {% endif %}" id="people">
-							{% if people|length == 0 %}<p>{{ "search.page.noresults"|trans }}</p>{% endif %}
-		                	{% embed "person/personen_oplijsten.html.twig" with {"viewMode": "tile", "persons": people } %}{% endembed %}
-		                </div>
-		            </div>
-			   	</div>
-			{% endif %}
-		</section>
-
+			</section>
+		</div>
+	</div>
 {% endblock %}

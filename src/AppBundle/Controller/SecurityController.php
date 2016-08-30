@@ -33,8 +33,8 @@ class SecurityController extends UtilityController
 
             //set latitude and longitude
             $this->setCoordinates($user);
-            if(empty($person->getUsername())){
-                $person->setUsername('');
+            if(empty($user->getUsername())){
+                $user->setUsername('');
             }
 
             //persist the user to the dbase

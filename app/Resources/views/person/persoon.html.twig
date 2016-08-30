@@ -85,7 +85,7 @@
                     {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
                 </div>
                 <div class="tab-pane" id="orgopmaat">
-                    {{ render(controller("AppBundle:Organisation:organisatiesOpMaat", { "user": app.user } )) }}
+                    {{ render(controller("AppBundle:Organisation:organisatiesOpMaat", { "user": person } )) }}
                 </div>
                 <div class="tab-pane" id="savedorgs">
                     {# bewaarde organisaties #}
