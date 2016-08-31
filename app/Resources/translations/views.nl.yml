@@ -366,7 +366,8 @@ vacancy:
         delete: Delete
         1place: 1 vrijwilliger gezocht
         xplaces: vrijwilligers gezocht
-
+        opencanidacy: onbeantwoorde kandidaat
+        opencanidacies: onbeantwoorde kandidaten
     new:
         title: Vacature aanmaken
         looking: Op zoek naar vrijwilligers?
