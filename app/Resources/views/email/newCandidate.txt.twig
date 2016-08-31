@@ -1,8 +1,10 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
 Nieuwe kandidaat!
 
 Beste beheerder voor {{ org.name }},
 
-zonet gaf {{ candidate.firstname }} {{ candidate.lastname }} zich op Roeselare Vrijwilligt als kandidaat voor de vacature {{ vacancy.title }}.  U kan deze vacature goed/afkeuren via deze link: {{ url('vacancy_candidacies', {'urlid': vacancy.urlId }) }}
+zonet gaf {{ candidate.firstname }} {{ candidate.lastname }} zich op Roeselare Vrijwilligt als kandidaat voor de vacature {{ vacancy.title }}.  U kan deze vacature goed/afkeuren via deze link: {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{% endblock %}

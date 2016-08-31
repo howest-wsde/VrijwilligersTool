@@ -46,9 +46,17 @@
         <li class="number">
             <a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{% if vacancy.stillWanted == 1 %} {{ "vacancy.min.1place"|trans }} {% else %} {{ vacancy.stillWanted }} {{ "vacancy.min.xplaces"|trans }} {% endif %}</a>
         </li>
+
+        {% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+            {% if vacancy.candidates|length == 1 %}
+                <li class="number"><strong><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">1 {{ "vacancy.min.opencanidacy"|trans }}</a></strong></li>
+            {% elseif vacancy.candidates|length > 1 %}
+                <li class="number"><strong><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.candidates|length }}  {{ "vacancy.min.opencanidacies"|trans }}</a></strong></li>
+            {% endif %}
+        {% endif %}
     </ul>
 
     <div class="cta">
-        <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
+        <a href="{{ cta.href }}" class="cta groen">{{ cta.txt }}</a>
     </div>
 </article>

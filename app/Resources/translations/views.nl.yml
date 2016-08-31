@@ -353,14 +353,21 @@ vacancy:
         title: Kandidaten voor deze vacature
         candidates: Goedgekeurde kandidaten
         open: Open kandidaatstellingen
+        declined: Afgekeurde kandidaatstellingen
+        removed: Vroegere vrijwilligers
         look: Bekijk Profiel
+        approve: Goedkeuren
+        cancel: Afkeuren
+        remove: Verwijderen
+        restore: Heractiveren
     min:
         remove: Verwijder uit bewaarde vacatures
         save: Bewaar
         delete: Delete
         1place: 1 vrijwilliger gezocht
         xplaces: vrijwilligers gezocht
-
+        opencanidacy: onbeantwoorde kandidaat
+        opencanidacies: onbeantwoorde kandidaten
     new:
         title: Vacature aanmaken
         looking: Op zoek naar vrijwilligers?

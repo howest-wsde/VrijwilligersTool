@@ -1,8 +1,10 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
 Kandidaat goedgekeurd!
 
 Beste beheerder voor {{ org.name }},
 
 zonet werd {{ candidate.firstname }} {{ candidate.lastname }} goedgekeurd als vrijwilliger voor de vacature {{ vacancy.title }}.
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{% endblock %}
