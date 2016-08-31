@@ -74,6 +74,6 @@ org:
     ajax:
         removeFromSaved: Remove from saved organisations
     list:
-        volunteer: volunteer
-        volunteers: employees and volunteers
+        volunteer: ' volunteer'
+        volunteers: ' employees and volunteers'
         here: on this site

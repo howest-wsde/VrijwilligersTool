@@ -161,8 +161,8 @@ class PersonType extends AbstractType
                 'label' => 'person.label.accessible',
                 'placeholder' => false,
                 'choices'  => array(
-                    'person.choices.accessible' => true,
-                    'person.choices.notaccessible' => false,
+                    'person.choices.yes' => true,
+                    'person.choices.no' => false,
                 ),
                 // render as radiobuttons
                 'expanded' => true,

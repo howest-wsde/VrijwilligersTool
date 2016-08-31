@@ -75,6 +75,6 @@ org:
     ajax:
         removeFromSaved: Verwijder uit bewaarde organisaties
     list:
-        volunteer: medewerker
-        volunteers: medewerkers en vrijwilligers
+        volunteer: ' medewerker'
+        volunteers: ' medewerkers en vrijwilligers'
         here: op deze site
