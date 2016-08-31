@@ -7,6 +7,7 @@ security:
             algorithm: bcrypt
             cost: 15
 
+    # http://symfony.com/doc/current/security/multiple_user_providers.html
     providers:
         chain_provider:
             chain:

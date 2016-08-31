@@ -112,6 +112,7 @@ class PersonController extends UtilityController
 
         $must = '';
         if(!$vacancy->getAccess()){ //if vacancy does not provide access, filter out users that don't need it
+            empty($must) ? false : $must .= ',';
             $must .= '{ "term": { "access": false }}';
         }
 
