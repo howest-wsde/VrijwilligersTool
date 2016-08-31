@@ -2,222 +2,591 @@
 
 namespace AppBundle\Controller;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-=======
-
-use AppBundle\Entity\Organisation;
-use AppBundle\Entity\Vacancy;
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-<<<<<<< HEAD
-=======
-use AppBundle\Entity\Form\VacancyType;
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\Vacancy;
+use AppBundle\Entity\Candidacy;
+use AppBundle\Entity\DigestEntry;
+use AppBundle\Entity\Form\VacancyType;
+use AppBundle\Controller\UtilityController;
 
-class VacancyController extends controller
+class VacancyController extends UtilityController
 {
     /**
-<<<<<<< HEAD
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf", requirements={"id" = "\d+"})
-=======
-<<<<<<< HEAD
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf", requirements={"id" = "\d+"})
-=======
-     * @Route("/vacature/pdf/{id}" , name="vacancy_pdf")
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+     * @Route("/vacature/pdf/{urlid}", name="vacancy_pdf_by_urlid")
      */
-    public function createPDFAction($id)
+    public function createPdfAction($title)
     {
-        $em = $this->getDoctrine()->getManager();
-<<<<<<< HEAD
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($id);
-=======
-<<<<<<< HEAD
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->find($id);
-
+        $t = $this->get('translator');
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($title);
         if ($vacancy) {
             $pdf = new \FPDF_FPDF("P", "pt", "A4");
             $pdf->AddPage();
-
             $pdf->SetFont("Times", "B", 12);
             $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, "C");
-            $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
-                $vacancy->getCreationtime()->format("Y-m-d"));
             $pdf->MultiCell(0, 20, "Beschrijving: \t".
                 $vacancy->getDescription());
             $pdf->MultiCell(0, 20, "Organisatie: \t".
-                $vacancy->getOrganisation()->getContact()->getAddress(), 0, "L");
+                $vacancy->getOrganisation()->getStreet(), 0, "L");
             $pdf->MultiCell(0, 20, "Locatie: \t", 0, "L");
-=======
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-
-        if ($vacancy) {
-            $pdf = new \FPDF_FPDF("P", "pt", "A4");
-            $pdf->AddPage();
-
-            $pdf->SetFont("Times", "B", 12);
-            $pdf->Cell(0, 10, $vacancy->getTitle(), 0, 2, "C");
-            $pdf->MultiCell(0, 20, "Gecreëerd op: \t".
-                $vacancy->getCreationtime()->format("Y-m-d"));
-            $pdf->MultiCell(0, 20, "Beschrijving: \t".
-                $vacancy->getDescription());
-            $pdf->MultiCell(0, 20, "Organisatie: \t".
-<<<<<<< HEAD
-                $vacancy->getOrganisation()->getContact()->getAddress(), 0, "L");
-            $pdf->MultiCell(0, 20, "Locatie: \t", 0, "L");
-=======
-                $vacancy->getOrganisation()->getContact()->getAddress(), 0, 'L');
-            $pdf->MultiCell(0, 20, "Locatie: \t", 0, 'L');
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
             $pdf->Output();
             return $this->render($pdf->Output());
         } else
-            throw new \Exception("De gevraagde vacature bestaat niet!");
+            throw new \Exception($t->trans('vacancy.createPdf.exception'));
     }
 
     /**
+     * Controller to give the user a choice of what kind of vacancy he wants to create.
+     * @Route("/vacature/start", name="start_vacancy")
+     */
+    public function startVacancyAction(Request $request)
+    {
+        $user = $this->getUser();
+        $authenticationUtils = $this->get("security.authentication_utils");
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        if($user){
+            $organisations = $user->getOrganisations();
+        }
+        else
+        {
+            $organisations = null;
+        }
+
+        return $this->render("organisation/vrijwilliger_vinden.html.twig",
+                [
+                    "organisations" => $organisations,
+                    "last_username" => $lastUsername,
+                    "error"         => $error,
+                    "path" => "start_vacancy",
+                ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')") //TODO: apply correct role
      * @Route("/vacature/nieuw", name="create_vacancy")
-<<<<<<< HEAD
-     *
-     * @Security("has_role('ROLE_USER')")
-=======
-<<<<<<< HEAD
-     *
-     * @Security("has_role('ROLE_USER')")
+     * @Route("/{organisation_urlid}/vacature/nieuw", name="create_vacancy_for_organisation")
      */
-    public function createVacancyAction(Request $request)
+    public function createVacancyAction(Request $request, $organisation_urlid = null)
     {
+        $t = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        if($organisation_urlid){
+            $user = $this->getUser();
+            $organisation = $em->getRepository("AppBundle:Organisation")
+                                ->findOneByUrlid($organisation_urlid);
+            if(!$user->getOrganisations()->contains($organisation)){
+                throw $this->createAccessDeniedException($t->trans('vacancy.create.noAdmin'));
+            }
+        }
+
         $vacancy = new Vacancy();
         $vacancy->setStartdate(new \DateTime("today"))
             ->setEnddate(new \DateTime("today"));
         $form = $this->createForm(VacancyType::class, $vacancy);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $vacancy = $form->getData();
+            if (!is_null($organisation_urlid)){
+                $vacancy->setOrganisation($organisation);
+            }
+
+            if($form->get('save')->isClicked()){
+                $vacancy->setPublished(Vacancy::SAVED);
+            }
+
+            $this->setCoordinates($vacancy);
             $em->persist($vacancy);
             $em->flush();
 
-            $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
-            return $this->redirect($this->generateUrl("create_vacancy"));
+            //set a success message
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.createStart') . ' ' . $vacancy->getTitle() . ' ' . $t->trans('vacancy.flash.createEnd')
+            );
+
+            //set digest / send email to all administrators
+            $info = array(
+                        'subject' => $t->trans('vacancy.mail.create'),
+                        'template' => 'vacature_aangemaakt.html.twig',
+                        'txt/plain' => 'vacature_aangemaakt.txt.twig',
+                        'to' => $user->getEmail(),
+                        'data' => array(
+                            'user' => $user,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWVACANCY,
+                    );
+            $this->digestOrMail($info, $organisation);
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+            ["urlid" => $vacancy->getUrlId() ] ));
+
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("vacancy/vacature_nieuw.html.twig",
-            array("form" => $form->createView()));
+            [
+                "form" => $form->createView(),
+                "createForm" => true,
+            ]);
     }
 
     /**
-     * @Route("/vacature/{id}", name="vacancy_id")
+     * @Route("/vacature/{urlid}", name="vacancy_by_urlid")
      */
-    public function viewVacancyIdAction($id)
+    public function vacancyViewAction($urlid)
     {
-        $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')
-            ->findOneById($id);
-        return $this->render("vacancy/vacature.html.twig",array(
-            "vacature" => $vacancy)
-        );
+        $vacancy = $this->getVacancyRepository()->findOneByUrlid($urlid);
+        return $this->render("vacancy/vacature.html.twig",
+            ["vacancy" => $vacancy]);
     }
 
     /**
-     * @Route("/vacature/t/{title}", name="vacancy_title")
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
+     * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
      */
-    public function viewVacancyTitleAction($title)
+    public function subscribeVacancyAction($urlid)
     {
-        $title = str_replace("-", " ", $title);
+        $t = $this->get('translator');
+        $person = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByTitle($title);
-        return $this->render("vacancy/vacature.html.twig", array(
-            "vacature" => $vacancy)
-        );
-    }
+            ->findOneByUrlid($urlid);
 
-    public function listRecentVacanciesAction(){
-        // retreiving 5 most recent vacancies 
-        $entities = $this->getDoctrine()
-                        ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array('id' => 'DESC'),5);
-        return $this->render('vacancy/recente_vacatures.html.twig',
-            array('vacancies' => $entities)
-        );
+        $candidacies = $em->getRepository('AppBundle:Candidacy')
+            ->findBy(array(
+                'candidate' => $person->getId(),
+                'vacancy' => $vacancy->getId(),
+                'state' => Candidacy::PENDING,
+            ));
 
-=======
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-     */
-    public function createVacancyAction(Request $request)
-    {
-        $vacancy = new Vacancy();
-        $vacancy->setStartdate(new \DateTime("today"))
-            ->setEnddate(new \DateTime("today"));
-        $form = $this->createForm(VacancyType::class, $vacancy);
+        if ($candidacies) {
+            foreach ($candidacies as $candidacy) {
+                $em->remove($candidacy);
+                $em->flush();
+            }
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($vacancy);
+            //set a success message
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.okRemoveSubscribe'));
+
+            //remove digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'ranCandidate.html.twig',
+                        'txt/plain' => 'ranCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                        'remove' => true,
+                    );
+            $this->digestOrMail($info);
+        } else {
+            $candidacy = new Candidacy();
+            $candidacy->setCandidate($person)->setVacancy($vacancy);
+            $em->persist($candidacy);
             $em->flush();
 
-            $this->addFlash("success-notice","Uw vacature werd correct ontvangen en opgeslagen");
-            return $this->redirect($this->generateUrl("create_vacancy"));
+            //set a success message
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.submitCandidacy'));
+
+            //set digest / send email to all administrators
+            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                       ' ' . $t->trans('vacancy.mail.submitCandidacy') . ' ' . $vacancy->getTitle();
+            $organisation = $vacancy->getOrganisation();
+            $info = array(
+                        'subject' => $subject,
+                        'template' => 'newCandidate.html.twig',
+                        'txt/plain' => 'newCandidate.txt.twig',
+                        'data' => array(
+                            'candidate' => $person,
+                            'vacancy' => $vacancy,
+                            'org' => $organisation,
+                        ),
+                        'event' => DigestEntry::NEWCANDIDATE,
+                    );
+            $this->digestOrMail($info);
         }
 
-        return $this->render("vacancy/vacature_nieuw.html.twig",
-            array("form" => $form->createView()));
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
     }
 
     /**
-     * @Route("/vacature/{id}", name="vacancy_id")
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{saveaction}",
+     *              name="vacancy_save",
+     *              requirements={"saveaction": "save|remove"})
      */
-    public function viewVacancyIdAction($id)
+    public function saveVacancyAction($urlid, $saveaction)
     {
+        $t = $this->get('translator');
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $vacancy = $em->getRepository('AppBundle:Vacancy')
-            ->findOneById($id);
-        return $this->render("vacancy/vacature.html.twig",array(
-            "vacature" => $vacancy)
-        );
-    }
-
-    /**
-     * @Route("/vacature/t/{title}", name="vacancy_title")
-     */
-    public function viewVacancyTitleAction($title)
-    {
-        $title = str_replace("-", " ", $title);
-        $em = $this->getDoctrine()->getManager();
-<<<<<<< HEAD
         $vacancy = $em->getRepository("AppBundle:Vacancy")
-            ->findOneByTitle($title);
-        return $this->render("vacancy/vacature.html.twig", array(
-            "vacature" => $vacancy)
-        );
+            ->findOneByUrlid($urlid);
+
+        $ajax = isset($_GET['ajax']);
+
+        // standaard unliken om geen doubles te creeren
+        $user->removeLikedVacancy($vacancy);
+        if ($saveaction == "save")
+        {
+            $user->addLikedVacancy($vacancy);
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.addToSaved'));
+            }
+        } else {
+            if(!$ajax){
+                //set a success message
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.removeFromSaved'));
+            }
+        }
+        $em->persist($user);
+        $em->flush();
+
+
+        if (!$ajax) {
+            return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+        } else {
+            if ($saveaction == "save") {
+                $arResult = array(
+                    "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "remove")),
+                    "class" => "liked",
+                    "text" => $t->trans('vacancy.ajax.removeFromSaved'),
+                );
+            } else {
+                $arResult = array(
+                    "url" => $this->generateUrl('vacancy_save', array('urlid' => $urlid, "saveaction" => "save")),
+                    "class" => "notliked",
+                    "text" => $t->trans('general.label.save'),
+                );
+            }
+
+            $response = new Response();
+            $response->setContent(json_encode($arResult));
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
     }
 
-    public function listRecentVacanciesAction(){
-        // retreiving 5 most recent vacancies 
-        $entities = $this->getDoctrine()
-                        ->getRepository("AppBundle:Vacancy")
-                        ->findBy(array(), array('id' => 'DESC'),5);
-        return $this->render('vacancy/recente_vacatures.html.twig',
-            array('vacancies' => $entities)
-        );
-=======
-        $vacancy = $em->getRepository('AppBundle:Vacancy')->find($id);
-        return $this->render("vacancy/vacature.html.twig",array('vacature' => $vacancy));
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
+     */
+    public function vacancyCandidacies($urlid)
+    {
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();;
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
+
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+                'state' => Candidacy::APPROVED));
+
+            $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
+                'state' => Candidacy::PENDING));
+
+
+            return $this->render("vacancy/vacature_goedkeuren.html.twig",
+                ["vacancy" => $vacancy,
+                 "approved" => $approved,
+                 "pending" => $pending]);
+        }
+
+        throw $this->createAccessDeniedException($t->trans('vacancy.exception.noAdmin'));
+    }
+
+    /**
+     * A list of the most recently created vacancies.
+     * @param  integer $nr       The amount of vacancies desired
+     * @param  string  $viewMode The viewmode for the generated output
+     */
+    public function listRecentVacanciesAction($nr, $viewMode = 'list')
+    {
+        $es = $this->get("ElasticsearchQuery");
+
+        $query = '{
+                    "query": {
+                        "function_score": {
+                           "filter": {
+                               "bool": {
+                                   "must": [
+                                      {
+                                          "term": {"published": 1 }
+                                      }
+                                   ]
+                               }
+                            },
+                            "functions": [
+                                {
+                                "random_score": {}
+                                }
+                            ]
+                        }
+                    },
+                    "size": ' . $nr . '
+                }';
+
+        return $this->render("vacancy/vacatures_oplijsten.html.twig", [
+                "vacancies" => $es->requestByType($query, 'vacancy'),
+                 "viewMode" => $viewMode
+         ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/aanpassen/{urlid}", name="vacancy_edit")
+     */
+    public function editVacancyAction($urlid, Request $request){
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $form = $this->createForm(VacancyType::class, $vacancy);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $vacancy = $form->getData();
+                $this->setCoordinates($vacancy);
+                $em->persist($vacancy);
+                $em->flush();
+
+                //set a success message
+                $this->addFlash('approve_message', $t->trans('vacancy.flash.okModification'));
+
+                return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                    array("urlid" => $vacancy->getUrlId() ) ));
+            }
+            else if ($form->isSubmitted() && !$form->isValid())
+            {
+                //set an error message
+                $this->addFlash('error', $t->trans('general.flash.formError'));
+            }
+
+            return $this->render("vacancy/vacature_aanpassen.html.twig",
+                array("form" => $form->createView(),
+                      "urlid" => $urlid) );
+        }
+
+        throw $this->createAccessDeniedException($t->trans('vacancy.exception.noAdmin'));
+    }
+
+    /**
+     * Get vacancies matching a user profile
+     * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+     */
+    public function vacaturesOpMaatAction($user)
+    {
+        $t = $this->get('translator');
+        $es = $this->get("ElasticsearchQuery");
+
+        //published filter
+        $query = '{
+            "query": {
+                "function_score": {
+                    "filter": {
+                      "bool": {
+                        "must": [
+                           { "term": { "published": 1 }}';
+
+        if($user->getAccess()){ //if user needs access, filter out vacancies that provide access
+            $query .= ',{ "term": { "access": true }}';
+        }
+
+        if(!$user->getLongterm()){ //if user does not want to do longterm volunteering, filter out all vacancies that don't require longterm volunteering
+            $query .= ',{ "term": { "longterm": false }}';
+        }
+
+        if($user->getRenumerate()){ //if user wants to be payed, filter out all vacancies where pay is given
+            $query .= ',{ "exists": { "field": "renumeration" }}';
+        }
+
+        //date boost
+        $query .= '     ]
+                      }
+                    },
+                    "functions": [
+                        {
+                            "gauss":{
+                                "startdate":{
+                                    "origin": "now",
+                                    "offset": "4w",
+                                    "scale": "4w"
+                                }
+                            }
+                        }';
+
+        if($user->getLatitude() && $user->getLongitude()){ //proximity boost
+            $query .= ',{
+                            "filter": {
+                                "exists": {
+                                    "field": "location"
+                                }
+                            },
+                            "gauss":{
+                                "location":{
+                                    "origin": { "lat": ' . $user->getLatitude() . ', "lon": ' . $user->getLongitude() . ' },
+                                    "offset": "1km",
+                                    "scale": "1km"
+                                }
+                            },
+                            "weight": 2
+                        }';
+        }
+
+        $estimatedWorkInHours = $user->getEstimatedWorkInHours();
+        if($estimatedWorkInHours > 0){ //boost on work time
+            $query .= ',{
+                            "filter": {
+                                "exists": {
+                                    "field": "estimatedWorkInHours"
+                                }
+                            },
+                            "gauss":{
+                                "estimatedWorkInHours":{
+                                    "origin": ' . $estimatedWorkInhours / 2 . ',
+                                    "offset": ' . $estimatedWorkInhours / 2 . ',
+                                    "scale": 1
+                                }
+                            }
+                        }';
+        }
+
+        //boost on likers
+        $query .= ',{
+                      "gauss": {
+                        "likers": {
+                            "origin": 50,
+                            "scale": 5
+                        }
+                      }
+                    }';
+
+        $userSkills = $user->getSkills(); //boost on overlapping skills
+        if(!is_null($userSkills) && !$userSkills->isEmpty()){
+            foreach ($userSkills as $key => $skill) {
+                $query .= ',{
+                                "filter": {
+                                    "term": {
+                                       "skills.name": "' . $skill->getName() . '"
+                                    }
+                                },
+                                "weight": 1
+                            }';
+            }
+        }
+
+        $query .= ',{
+                        "filter": {
+                            "term": {
+                               "socialInteraction": "normal"
+                            }
+                        },
+                        "weight": 2
+                    }';
+
+        $orgIds = $user->getLikedOrganisationIds(); //boost if org is liked
+        if(!empty($orgIds)){
+            foreach ($orgIds as $key => $id) {
+                $query .= ',{
+                            "filter": {
+                                "term": {
+                                   "organisation.id": ' . $id . '
+                                }
+                            },
+                            "weight": 1
+                           }';
+            }
+        }
+
+        $query .= '],
+                       "score_mode": "sum"
+                       }
+                   }
+               }';
+
+        return $this->render("vacancy/vacature_tab.html.twig",
+            [
+                'vacancies' => $es->requestByType($query, 'vacancy'),
+                'title' => $t->trans('vacancy.template.vacancyFit')
+            ]);
+    }
+
+    /**
+     * Get all saved vacancies for a user
+     * @param  AppBundle\Entity\Person $user the user for which the vacancies have to be retrieved
+     */
+    public function listSavedVacanciesAction($user)
+    {
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+            ["vacancies" => $user->getLikedVacancies(), "viewMode" => 'tile']);
+    }
+
+    /**
+     * Create a list of all vacancies that are currently open, for a given organisation
+     * @param integer $id an organisation id
+     */
+    public function ListOrganisationVacanciesAction($id, $status = Vacancy::OPEN)
+    {
+        $vacancy = $this->getVacancyRepository();
+        $query = $vacancy->createQueryBuilder("v")
+            ->where("v.organisation = :id and v.published = :status")
+            ->setParameter('id', $id)
+            ->setParameter('status', $status)
+            ->getQuery();
+
+        $vacancies = $query->getResult();
+
+        return $this->render("vacancy/vacatures_oplijsten.html.twig",
+                [
+                    "vacancies" => $vacancies,
+                    "viewMode" => "tile",
+                ]);
+    }
+
+    /**
+     * Delete or restore a vacancy
+     * @Route("/vacature/{urlid}/delete", name="delete_vacancy", defaults={ "deleted" = 4 })
+     * @Route("/vacature/{urlid}/restore", name="restore_vacancy", defaults={ "deleted" = 1 })
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be deleted or restored
+     */
+    public function changeVacancyPublishedStatusAction($urlid, $deleted)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $vacancy->setPublished($deleted);
+            $em->persist($vacancy);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('vacancy_by_urlid', array('urlid' => $urlid));
+    }
+
+    private function getVacancyRepository(){
+        return $this->getDoctrine()->getManager()->getRepository("AppBundle:Vacancy");
     }
 }

@@ -43,6 +43,8 @@ twig:
         fb_id: "%fb_id%"
         linkedin_id: "%linkedin_id%"
         googlemaps_key: "%googlemaps_key%"
+    form_themes:
+        - 'form/fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -105,6 +107,25 @@ hwi_oauth:
                 email:          email
                 firstname:   first_name
                 lastname:  last_name
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
+    mappings:
+        person_avatar:
+            uri_prefix:         /images/users
+            upload_destination: %kernel.root_dir%/../web/images/users
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+        organisation_logo:
+            uri_prefix:         /images/organisations
+            upload_destination: %kernel.root_dir%/../web/images/organisations
+            namer:              vich_uploader.namer_uniqid
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+
 services:
     # Injectors
     ElasticsearchQuery:
@@ -124,3 +145,9 @@ services:
         class: AppBundle\EventListener\UrlListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    #Twig Extensions
+    twig.extension.text:
+         class: Twig_Extensions_Extension_Text
+         tags:
+             - { name: twig.extension }

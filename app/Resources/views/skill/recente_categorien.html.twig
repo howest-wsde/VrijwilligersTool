@@ -1,6 +1,7 @@
-<header><h1>Vacature types</h1></header>
+{% trans_default_domain "views" %}
+<header><h1>{{ "skills.vacancytypes"|trans }}</h1></header>
 <ul>
 	{% for skill in skills %}
-		<li><a href="{{ path("zoeken", { "cat": skill.name }) }}">{{ skill.name }} </a></li>
+		<li><a href="{{ path("zoekOpCategorie", { "cat": skill.name }) }}">{{ skill.name }} </a></li>
 	{% endfor %}
 </ul>

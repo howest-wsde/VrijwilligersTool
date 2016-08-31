@@ -1,8 +1,20 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vacature Aanpassen{% endblock %}
+{% block title %}{{ "vacancy.modify.title"|trans }}{% endblock %}
 
 {% block body %}
+    {% for flash_message in app.session.flashbag.get('success-notice') %}
+        <div class="success-notice">
+            <script type="text/javascript">alert("{{ flash_message }}");</script>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
@@ -13,12 +25,6 @@
     {{ form_end(form) }}
 
     <form action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
-        <input type="submit" value="Annuleren"/>
+        <input type="submit" value="{{ "vacancy.modify.anul"|trans }}"/>
     </form>
-
-    {% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="success-notice">
-            <script type="text/javascript">alert("{{ flash_message }}");</script>
-        </div>
-    {% endfor %}
 {% endblock %}

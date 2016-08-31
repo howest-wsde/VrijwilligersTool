@@ -1,0 +1,24 @@
+<aside id="googlemaps">
+    <!--<div>
+        <button id="getRoute">{{ "general.map.show"|trans }}</button>
+        <div id="description" class="hidden"></div>
+    </div>-->
+
+    <div class="googlemap">
+        <div id="targetaddress">{{ street }} {{ number }}<br />{{ postalcode }} {{ city }}</div>
+        <input type="hidden" name="transitMethod" id="transitMethod" value="BICYCLING" />
+        <input type="hidden" name="homeMarker" id="homeMarker" value="{{ asset("images/homeIcon.png") }}" />
+        <input type="hidden" name="workMarker" id="workMarker" value="{{ asset("images/vacancyIcon.png") }}" />
+        {% if app.user %}
+            {% if app.user.city %}
+                <ul class="transit">
+                    <li><a href="#walking" class="walking" rel="WALKING"></a></li>
+                    <li><a href="#bike" class="bike" rel="BICYCLING"></a></li>
+                    <li><a href="#driving" class="driving" rel="DRIVING"></a></li>
+                    <li><a href="#transit" class="transit" rel="TRANSIT"></a></li>
+                </ul>
+            {% endif %}
+        {% endif %}
+        <div id="map-canvas" data-useraddress="{% if app.user %}{{ app.user.street }} {{ app.user.number }}, {{ app.user.postalcode }} {{ app.user.city }}{% endif %}"></div>
+    </div>
+</aside>

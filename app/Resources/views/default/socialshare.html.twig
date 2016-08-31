@@ -1,0 +1,23 @@
+<ul class="social">
+	<li class="facebook"><a href="{{ app.request.uri }}" target="_blank" title="Share on Facebook">Share on Facebook</a></li>
+	<li class="googleplus"><a href="{{ app.request.uri }}" target="_blank" title="Share on Google Plus">Share on Google Plus</a></li>
+	<li class="twitter"><a href="{{ app.request.uri }}" target="_blank" title="Tweet about this">Tweet about this</a></li>
+	{#<li class="linkedin"><a href="{{ app.request.uri }}" target="_blank" title="Share on LinkedIn">Share on LinkedIn</a></li>#}
+</ul>
+
+{#
+<div class="twitter">
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ app.request.uri }}"
+	   data-text="Bekijk deze vrijwilligersvacature:" data-lang="nl" data-hashtags="RoeselareVrijwilligt">{{ "vacancy.vacancy.tweet"|trans }}</a>
+</div>
+<div class="g-plus" data-action="share" data-annotation="bubble"></div>
+<div class="fb-share-button" data-href="{{ app.request.uri}}" data-layout="button_count"></div>
+<script type="IN/Share" data-counter="right"></script>
+
+<div class="mail">
+	<button id="email">{{ "vacancy.vacancy.mail"|trans }}</button>
+</div>
+<form action="{{ path("vacancy_pdf_by_urlid", {"urlid": vacancy.urlId }) }}" target="_blank">
+	<input type="submit" value="{{ "vacancy.vacancy.print"|trans }}"/>
+</form>
+#}

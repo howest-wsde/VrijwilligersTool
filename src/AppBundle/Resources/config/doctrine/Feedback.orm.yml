@@ -1,0 +1,24 @@
+AppBundle\Entity\Feedback:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        reportdate:
+            type: date 
+        url:
+            type: string
+            length: 250
+        report:
+            type: text 
+        state:
+            type: smallint
+            nullable: true
+    manyToOne:
+        reporter:
+            targetEntity: Person
+            inversedBy: feedback
+            joinColumn:
+                name: person_id
+                referencedColumnName: id

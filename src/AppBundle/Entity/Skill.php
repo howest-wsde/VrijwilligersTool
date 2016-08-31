@@ -9,8 +9,7 @@ class Skill extends EntityBase
 {
     /**
      * Constructor
-     *
-     * @param string name
+     * @param string $name
      */
     public function __construct($name = "")
     {
@@ -84,6 +83,7 @@ class Skill extends EntityBase
     /**
      * Set id
      *
+     * @param $id
      * @return Skill
      */
     public function setId($id)
@@ -116,7 +116,7 @@ class Skill extends EntityBase
      *
      * @return Skill
      */
-    public function setParent(\AppBundle\Entity\Skill $parent = null)
+    public function setParent(Skill $parent = null)
     {
         $this->parent = $parent;
 
@@ -131,5 +131,23 @@ class Skill extends EntityBase
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'skill';
+    }
+
+    /**
+     * helper function to enable the entity property of the nested sector object in the organisation document to display the correct "class" name.  The class name is then afterwards correctly replaced to skill.
+     * @return String the classname of this entity
+     */
+    public function esGetSectorName()
+    {
+        return 'sector';
     }
 }

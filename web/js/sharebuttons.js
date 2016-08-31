@@ -1,23 +1,16 @@
 "use strict";
 $(function(){
-
-    //Tijdelijke styling
-    $(".share-buttons > div").css({
-        "display":"block",
-        "margin":"5px 0 5px 0"
-    });
-    
     //email
     $("#email").on("click",function(){
         var email = "ontvanger@vacature.com";
         var subject =$("#vacature-title").text() + " - Interessante vacature op Roeselare Vrijwilligt!";
         //var message = "Bekijk deze vacature op " + window.location.href + "%0D%0A"+ $("article").html();
-        var message = "<strong>" + $("#vacature-title").text() + "</strong>";
-        message += "<p>" + $("#vacature-description").text() + "</p>";
-        message += "<p> Ons aanbod: </p>";
-        message += "<p>" + $("#vacature-organisation").text() + "</p>";
-        message += "<p>" + $("#vacature-location").text() + "</p>";
-        message += "<p> Bekijk online <a href=\"" + window.location.href + "\">hier</a>!";
+        var message = "<h1>" + $("#vacancy_title").text() + "</h1>";
+        message += "<p> Ons aanbod:";
+        message += "<br>" + $("#vacancy_description").text() + "</p>";
+        message += "<p>" + $("#vacancy_organisation").text();
+        message += "<br>" + $("#vacancy_location").text() + "</p>";
+        message += "<p> Bekijk online <a href=\"" + window.location.href + "\">hier</a>!</p>";
 
         //todo: mail stylen, maar zal dit maar doen na de overhaul van het designen en fancier maken :)
         var mailto_link = 'mailto:' + email + '?subject=' + subject + '&body=' + message;
@@ -41,5 +34,5 @@ $(function(){
         }(document, 'script', 'facebook-jssdk'));
     
     //linkedin
-    $("#share-linkedin").attr("data-url", document.URL);
+    $("#share-linkedin").attr("data-url", window.location.href );
 });

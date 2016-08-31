@@ -4,13 +4,17 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use libphonenumber\PhoneNumberUtil as phoneUtil;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Organisation
- * @Assert\Callback({"AppBundle\Entity\organisation", "validateTelephone"})
- * @UniqueEntity(fields = "email", message = "organisation.email.already_used")
- * @UniqueEntity(fields = "telephone", message = "organisation.telephone.already_used")
+ * @Assert\Callback({"AppBundle\Entity\organisation", "validatePhoneNumber"}, groups = {"secondStep"})
+ *
+ * @Vich\Uploadable
+ *
  */
 class Organisation extends EntityBase
 {
@@ -21,27 +25,48 @@ class Organisation extends EntityBase
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 4,
      *      max = 150,
      *      minMessage = "organisation.min_message",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     private $name;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
      * @Assert\Length(
-     *      min = 20,
+     *      max = 3,
+     *      maxMessage = "organisation.max_message", groups = {"firstStep"}
+     * )
+     */
+    private $type;
+
+    /**
+     * @var bool
+     */
+    private $intermediary = false;
+
+    /**
+     * @var bool
+     */
+    private $deleted = false;
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"firstStep"})
+     * @Assert\Length(
+     *      min = 5,
      *      max = 2000,
      *      minMessage = "vacancy.min_message",
-     *      maxMessage = "vacancy.max_message"
+     *      maxMessage = "vacancy.max_message",
+     *      groups = {"firstStep"}
      * )
-     * @Assert\NotEqualTo("nieuw")
-     * )
+     * @Assert\NotEqualTo("nieuw"), groups = {"firstStep"})
     */
     private $description;
 
@@ -50,27 +75,33 @@ class Organisation extends EntityBase
      */
     private $creator;
 
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $administrators;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likers;
+
+    /**
      * @var string
      * @Assert\Email(
      *     message = "organisation.email.valid",
-     *     checkHost = true
+     *     checkHost = true,
+     *     groups = {"firstStep"}
      * )
      */
     private $email;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "organisation.not_blank")
+     * @Assert\NotBlank(message = "organisation.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     private $street;
@@ -79,12 +110,14 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message = "organisation.not_numeric"
+     *     message = "organisation.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 0,
      *      max = 999999,
-     *      minMessage = "organisation.not_positive"
+     *      minMessage = "organisation.not_positive",
+     *      groups = {"secondStep"}
      * )
      */
     private $number;
@@ -95,11 +128,13 @@ class Organisation extends EntityBase
      * 		min = 1,
      *      max = 6,
      *      minMessage = "organisation.min_message_one",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
-     *     message = "organisation.bus.valid"
+     *     message = "organisation.bus.valid",
+     *     groups = {"secondStep"}
      * )
      */
     private $bus;
@@ -108,18 +143,21 @@ class Organisation extends EntityBase
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message = "organisation.not_numeric"
+     *     message = "organisation.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 1000,
      *      max = 9999,
      *      minMessage = "organisation.not_positive",
-     *      maxMessage = "not_more_than"
+     *      maxMessage = "not_more_than",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Length(
      *      min = 4,
      *      max = 4,
-     *      exactMessage = "organisation.exact"
+     *      exactMessage = "organisation.exact",
+     *      groups = {"secondStep"}
      * )
      */
     private $postalCode;
@@ -130,7 +168,8 @@ class Organisation extends EntityBase
      *      min = 1,
      *      max = 100,
      *      minMessage = "organisation.min_message",
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     private $city;
@@ -138,14 +177,49 @@ class Organisation extends EntityBase
     /**
      * @var string
      */
+    protected $latitude;
+
+    /**
+     * @var string
+     */
+    protected $longitude;
+
+    /**
+     * @var string
+     */
     private $urlid;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
+     *
+     * @var File
+     */
+    protected $logoFile;
+
+    /**
+     *
+     * @var string
+     */
+    protected $logoName;
+
+    /**
+     * @var string
+     */
+    private $slogan;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected $sectors;
 
     /**
      * Set urlId
      *
      * @param string $urlId
      *
-     * @return Vacancy
+     * @return Organisation
      */
     public function setUrlId($urlId)
     {
@@ -170,16 +244,50 @@ class Organisation extends EntityBase
      */
     private $telephone;
 
-    public static function validateTelephone($org, ExecutionContextInterface  $context)
-    {
-        $telephone = str_replace(' ', '', $org->getTelephone());
+    /**
+     * @var string
+     * @Assert\Url(
+     *    message = "organisation.url.valid",
+     *    protocols = {"http", "https"},
+     *    checkDNS = true,
+     *    dnsMessage = "organisation.url.valid"
+     * )
+     */
+    private $website;
 
-        if (!ctype_digit($telephone)
-        or !strlen($telephone) == 10)
-        {
-            $context->buildViolation("organisation.telephone.valid")
+    /**
+     * Function to validate a phonenumber using the mid-service phone number bundle.
+     * @param  ExecutionContextInterface    $context the context
+     * @param  Organisation                 $org     an organisation
+     */
+    public static function validatePhoneNumber($org, ExecutionContextInterface $context){
+        $tel = $org->getTelephone();
+
+        if(!$tel){
+            return true;
+        }
+
+        $phoneUtil = phoneUtil::getInstance();
+        $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
+        $matchesPattern = preg_match($pattern, $tel);
+
+        if($matchesPattern != 1){
+            $context->buildViolation("organisation.telephone.numericWithExtra")
                 ->atPath("telephone")
                 ->addViolation();
+        } else{
+            $number = $phoneUtil->parse($tel, 'BE');
+            if(!$phoneUtil->isValidNumber($number))
+            {
+                $context->buildViolation("organisation.telephone.valid")
+                    ->atPath("telephone")
+                    ->addViolation();
+            }
+            else
+            {
+                $org->setTelephone($phoneUtil->format($number,
+                                \libphonenumber\PhoneNumberFormat::NATIONAL));
+            }
         }
     }
 
@@ -209,6 +317,77 @@ class Organisation extends EntityBase
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set intermediary
+     *
+     * @param bool $intermediary
+     *
+     * @return Organisation
+     */
+    public function setIntermediary($intermediary)
+    {
+        $this->intermediary = $intermediary;
+
+        return $this;
+    }
+
+    /**
+     * Get intermediary
+     *
+     * @return bool
+     */
+    public function getIntermediary()
+    {
+        return $this->intermediary;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param bool $deleted
+     *
+     * @return Organisation
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return bool
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Organisation
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -304,45 +483,168 @@ class Organisation extends EntityBase
         return $this->creator;
     }
 
-
     /**
-     * Add administator
+     * Add administrator
      *
-     * @param \AppBundle\Entity\Person $administator
+     * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function addAdministrator(\AppBundle\Entity\Person $administator)
+    public function addAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators[] = $administator;
+        $this->administrators[] = $administrator;
 
         return $this;
     }
 
     /**
-     * Remove administator
+     * Remove administrator
      *
-      * @param \AppBundle\Entity\Person $administator
+      * @param \AppBundle\Entity\Person $administrator
      *
-     * @return Person
+     * @return Organisation
      */
-    public function removeAdministator(\AppBundle\Entity\Person $administator)
+    public function removeAdministrator(\AppBundle\Entity\Person $administrator)
     {
-        $this->administators->removeElement($administator);
+        $this->administrators->removeElement($administrator);
 
         return $this;
     }
 
     /**
-     * Get administators
+     * Get administrators
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAdministators()
+    public function getAdministrators()
     {
-        return $this->administators;
+        return $this->administrators;
     }
 
+    /**
+     * Get administrators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAdministratorsByDigest($digest)
+    {
+        return $this->getAdministrators()->filter(
+            function($admin) use ($digest) {
+               return ($admin->getDigest() === $digest);
+        });
+
+        //TODO: find out why this criteria fails, and fix it so the method does use the criteria over the filter.
+        // $admins = $this->getAdministrators();
+        // $criteria = Criteria::create()
+        //             ->where(Criteria::expr()->eq("digest", $digest));
+        // return $admins->matching($criteria);
+    }
+
+    /**
+     * Add liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     *
+     * @return Organisation
+     */
+    public function addLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers[] = $liker;
+
+        return $this;
+    }
+
+    /**
+     * Remove liker
+     *
+     * @param \AppBundle\Entity\Person $liker
+     */
+    public function removeLiker(\AppBundle\Entity\Person $liker)
+    {
+        $this->likers->removeElement($liker);
+    }
+
+    /**
+     * Get likers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikers()
+    {
+        return $this->likers;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Organisation
+     */
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+        if ($image) {
+            $this->setLogoName($this->getLogoName());
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param string $logoName
+     *
+     * @return Organisation
+     */
+    public function setLogoName($logoName)
+    {
+        $this->logoName = $logoName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoName()
+    {
+        return $this->logoName;
+    }
+
+    /**
+     * Set slogan
+     *
+     * @param string $slogan
+     *
+     * @return Organisation
+     */
+    public function setSlogan($slogan)
+    {
+        $this->slogan = $slogan;
+
+        return $this;
+    }
+
+    /**
+     * Get slogan
+     *
+     * @return string
+     */
+    public function getSlogan()
+    {
+        return $this->slogan;
+    }
 
     /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
@@ -394,30 +696,6 @@ class Organisation extends EntityBase
     }
 
     /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Organisation
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -426,7 +704,7 @@ class Organisation extends EntityBase
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = preg_replace("/\D/", "", $telephone);
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -439,6 +717,29 @@ class Organisation extends EntityBase
     public function getTelephone()
     {
         return $this->telephone;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     *
+     * @return Organisation
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 
     /**
@@ -537,7 +838,6 @@ class Organisation extends EntityBase
         return $this->bus;
     }
 
-
     /**
      * Set city
      *
@@ -560,6 +860,54 @@ class Organisation extends EntityBase
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Person
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set long
+     *
+     * @param string $long
+     *
+     * @return Person
+     */
+    public function setLongitude($long)
+    {
+        $this->longitude = $long;
+
+        return $this;
+    }
+
+    /**
+     * Get long
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
     }
 
     /**
@@ -614,5 +962,96 @@ class Organisation extends EntityBase
         }
     }
 
+    /**
+     * Add sectors
+     *
+     * @param \AppBundle\Entity\Skill $sector
+     *
+     * @return Organisation
+     */
+    public function addSector(\AppBundle\Entity\Skill $sector)
+    {
+        $this->sectors[] = $sector;
 
+        return $this;
+    }
+
+    /**
+     * Remove sector
+     *
+     * @param \AppBundle\Entity\Skill $sector
+     *
+     * @return Organisation
+     */
+    public function removeSector(\AppBundle\Entity\Skill $sector)
+    {
+        $this->sectors->removeElement($sector);
+
+        return $this;
+    }
+
+    /**
+     * Get sectors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSectors()
+    {
+        return $this->sectors;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'organisation';
+    }
+
+    /**
+     * Getter for a full address in string form, like so:
+     * 'Koning Alberstraat 12, 9900 Eeklo'
+     */
+    public function getAddress()
+    {
+        return $this->getStreet() . ' '
+               . $this->getNumber() . ', '
+               . $this->getCity() . ' '
+               . $this->getPostalCode();
+    }
+
+    /**
+     * Return latitude and longitude in the correct format for ES
+     * @return string string formatted as lat, long
+     */
+    public function esGetLocation()
+    {
+        $lat = $this->getLatitude();
+        $long = $this->getLongitude();
+
+        if($lat && $long){
+            return $this->getLatitude() . ', ' . $this->getLongitude();
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the number of likers for a vacancy
+     * @return int
+     */
+    public function esGetNumberOfLikers()
+    {
+        return $this->getLikers()->count();
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the string "nomap" to avoid it being mapped further
+     * @return String the classname of this entity
+     */
+    public function esGetNoMap()
+    {
+        return 'nomap';
+    }
 }

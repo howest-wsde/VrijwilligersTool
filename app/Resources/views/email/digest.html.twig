@@ -1,0 +1,143 @@
+<h1>Digest mail vanwege Roeselare Vrijwilligt</h1>
+
+Beste beheerder,
+
+u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze {% if admin.digest == 2 %} dag {% elseif admin.digest == 3 %} week {% elseif admin.digest == 4 %} maand {% endif %}.
+
+{% if newCharge is not empty %}
+<h2>Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen</h2>
+<table>
+    <tr>
+        <th>Voornaam</th>
+        <th>Achternaam</th>
+        <th>Gebruikersnaam</th>
+        <th>Link naar publiek profiel</th>
+    </tr>
+    {% for entry in newCharge %}
+        <tr>
+            <td>{{ entry.charge.firstname }}</td>
+            <td>{{ entry.charge.lastname }}</td>
+            <td>{{ entry.charge.username }}</td>
+            <td>
+                <a href="{{ url('person_username', {'username': entry.charge.username }) }}">Bekijk hier het publiek profiel</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if newVacancy is not empty %}
+<h2>Nieuw aangemaakte vacatures</h2>
+<table>
+    <tr>
+        <th>Titel</th>
+        <th>Begindatum</th>
+        <th>Einddatum</th>
+        <th>Link naar vacature</th>
+    </tr>
+    {% for entry in newVacancy %}
+        <tr>
+            <td>{{ entry.vacancy.title }}</td>
+            <td>{{ entry.vacancy.startdate|date("d/m/Y") }}</td>
+            <td>{{ entry.vacancy.enddate|date("d/m/Y") }}</td>
+            <td>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Bekijk hier de vacature</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if newCandidate is not empty %}
+<h2>Nieuwe kandidaten</h2>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Gebruikersnaam</th>
+        <th>Naam organisatie</th>
+        <th>Titel vacature</th>
+        <th>Beheerslink</th>
+    </tr>
+    {% for entry in newCandidate %}
+        <tr>
+            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td>{{ entry.organisation.name }}</td>
+            <td>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+            </td>
+            <td>
+                <a href="{{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if newAdmin is not empty %}
+<h2>Nieuwe beheerders</h2>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Gebruikersnaam</th>
+        <th>Naam organisatie</th>
+    </tr>
+    {% for entry in newAdmin %}
+        <tr>
+            <td>{{ entry.admin.firstname }} {{ entry.admin.lastname }}</td>
+            <td><a href="{{ url('person_username', {'username': entry.admin.username }) }}">{{ entry.admin.username }}</a></td>
+            <td>{{ entry.organisation.name }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if approveCandidate is not empty %}
+<h2>Goedgekeurde kandidaten</h2>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Gebruikersnaam</th>
+        <th>Naam organisatie</th>
+        <th>Titel vacature</th>
+    </tr>
+    {% for entry in approveCandidate %}
+        <tr>
+            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td>{{ entry.organisation.name }}</td>
+            <td>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if removeCandidate is not empty %}
+<h2>Verwijderde vrijwilligers</h2>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Gebruikersnaam</th>
+        <th>Naam organisatie</th>
+        <th>Titel vacature</th>
+    </tr>
+    {% for entry in removeCandidate %}
+        <tr>
+            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td>{{ entry.organisation.name }}</td>
+            <td>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<p>
+    Met vriendelijke groeten,</br>
+    Roeselare Vrijwilligt
+</p>
+<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">

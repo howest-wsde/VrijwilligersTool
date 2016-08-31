@@ -1,0 +1,208 @@
+{% trans_default_domain "views" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "person.become.name"|trans }}{% endblock %}
+
+{% block body %}
+
+	{% if not app.user %}
+	    <header class="center">
+	    	<h1>{{ "person.become.name"|trans }}</h1>
+			<p>
+				{{ "person.become.notsure"|trans }}<br />
+				{{ "person.become.stepbystep"|trans }}<br />
+				{{ "person.become.skip"|trans }}
+			</p>
+			<p><a href="{{ path("login") }}">{{ "person.become.login"|trans }}</a></p>
+	    </header>
+	{% elseif app.user %}
+		<header class="center">
+			<h1>{{ "person.become.name"|trans }}</h1>
+		</header>
+	{% endif %}
+
+    <section class="steps">
+	    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+	        <div class="alert alert-success">
+	            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+	        </div>
+	    {% endfor %}
+	    {% for flashMessage in app.session.flashbag.get('error') %}
+	        <div class="alert alert-danger">
+	            {{ flashMessage }}
+	        </div>
+	    {% endfor %}
+
+		{% if not app.user %}
+			{{ form_start(form) }}
+				<h2 class="steptitle rood"><a href="#profiel" name="profiel">{{ "person.become.create"|trans }}</a></h2>
+				<div class="step grijs rood">
+					{% block bron %}{% endblock %}
+					<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
+					<fieldset>
+						<div class="col-md-8">
+							<h3>{{ "person.become.personal"|trans }}</h3>
+						    {{ form_row (form.firstname) }}
+						    {{ form_row (form.lastname) }}
+						</div>
+						<div class="col-md-4">
+							{{ form_row (form.avatarFile) }}
+						</div>
+						<div class="col-md-12">
+							<h3>{{ "person.become.min"|trans }}</h3>
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.email) }}
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.telephone) }}
+						</div>
+						<div class="col-md-4">
+						    {{ form_row (form.contactOrganisation) }}
+						</div>
+						<div class="col-md-6">
+						    {{ form_row (form.plainPassword.first) }}
+						</div>
+						<div class="col-md-6">
+						    {{ form_row (form.plainPassword.second) }}
+						</div>
+						<div class="col-md-12">
+							{{ form_row (form.submit) }}
+						</div>
+					</fieldset>
+				</div>
+
+
+				<h2 class="steptitle groen"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
+				<div class="step grijs groen">
+					<fieldset>
+						<div class="col-md-12">{{ form_row (form.username) }}</div>
+					    <div class="row">
+			                <div class="col-md-7">
+			                	<div class="col-md-12">
+			                		<h3>{{ "person.become.address"|trans }}</h3>
+			                	</div>
+			                    <div class="col-md-6">
+			                        {{ form_row(form.street) }}
+			                    </div>
+			                    <div class="col-md-3">
+			                      {{ form_row(form.number) }}
+			                    </div>
+			                    <div class="col-md-3">
+			                        {{ form_row(form.bus) }}
+			                    </div>
+			                    <div class="col-md-4">
+			                        {{ form_row(form.postalcode) }}
+			                    </div>{{ "person.become.name"|trans }}
+			                    <div class="col-md-8">
+			                        {{ form_row(form.city) }}
+			                    </div>
+			                </div>
+			                <div class="col-md-5">
+			                    <div class="col-md-12 google">{{ "person.become.map"|trans }}</div>
+			                </div>
+			            </div>
+			            <div class="col-md-12">
+							{{ form_row (form.linkedinUrl) }}
+							{{ form_row (form.submit2) }}
+							{{ form_row (form.backToRegistration) }}
+						</div>
+					</fieldset>
+				</div>
+
+				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
+				<div class="step grijs paars">
+					<fieldset>
+						{{ form_row (form.skills) }}
+					</fieldset>
+					<fieldset>
+					<div class='col-md-12'>
+						{{ form_row (form.digest) }}
+					</div>
+					</fieldset>
+	                <fieldset>
+	                    <div class='col-md-4'>
+	                        {{ form_row(form.access) }}
+	                    </div>
+	                    <div class='col-md-8'>
+	                        {{ form_row(form.renumerate) }}
+	                    </div>
+	                    <div class='col-md-6'>
+	                        {{ form_row(form.longterm) }}
+	                    </div>
+	                    <div class='col-md-6'>
+	                        {{ form_row(form.estimatedWorkInHours) }}
+	                    </div>
+	                    <div class='col-md-6'>
+	                        {{ form_row(form.socialInteraction) }}
+	                    </div>
+	                </fieldset>
+					<fieldset>
+						{{ form_row (form.submit2) }}
+						{{ form_row (form.backToGeneral) }}
+					</fieldset>
+				</div>
+				{{ form_row(form._token) }}
+			    {# {{ form_row (form.termsAccepted) }} #}
+			{{ form_end(form) }}
+		{% endif %}
+
+
+		{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
+		<h2 class="steptitle geel"><a href="#interessantevacatures" name="interessantevacatures">{{ "person.become.interesting"|trans }}</a></h2>
+		<div id="interessant" class="step grijs geel">
+			<p>
+				{{ "person.become.goodvol"|trans }} <a href="#zoekVacatures">{{ "person.become.search"|trans }}</a> {{ "person.become.but"|trans }}
+				<a href="{{ path("test_type") }}">
+					<h3>{{ "person.become.dotest"|trans }}</h3>
+					{{ "person.become.learn"|trans }}
+				</a>
+			</p>
+		</div>
+
+		<h2 class="steptitle blauw"><a href="#spelregels" name="spelregels">{{ "person.become.rules"|trans }}</a></h2>
+		<div class="step grijs blauw">
+            {% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
+            {% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
+		</div>
+
+		<h2 class="steptitle rood"><a href="#zoek" name="zoek">{{ "person.become.search"|trans|capitalize }}</a></h2>
+		<div id="zoekVacatures" class="step grijs rood">
+			<p>{{ "person.become.ways"|trans }}</p>
+			<ul>
+				<li>{{ "person.become.choices"|trans }}:</li>
+						<ul>
+							<li>{{ "person.become.tailored"|trans }}</li>
+							<li>{{ "person.become.featured"|trans }}</li>
+							<li>{{ "person.become.recent"|trans }}</li>
+						</ul>
+				<li>{{ "person.become.or"|trans }} <a href="{{ path("test_type") }}">{{ "person.become.test"|trans }}</a> {{ "person.become.see"|trans }}</li>
+			</ul>
+
+			{# Search block #}
+		    {% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}
+		</div>
+
+		{# Vacature/organisatieblock #}
+		{% if app.user %}
+			<h2 class="steptitle groen"><a href="#opmaat" name="opmaat">{{ "person.become.tailoredtitle"|trans }}</a></h2>
+			<div id="vacaturesOpMaat" class="step grijs groen">
+		        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }} {# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
+		        <h2>{{ "person.become.saved"|trans }}</h2>
+				{{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
+			</div>
+		{% endif %}
+
+		<h2 class="steptitle paars"><a href="#kandidaatstellen" name="kandidaatstellen">{{ "person.become.candidate"|trans }}</a></h2>
+		<div id="zoekVacatures" class="step grijs paars">
+			<p>{{ "person.become.candidateexplanation"|trans }}</p>
+		</div>
+	</section>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

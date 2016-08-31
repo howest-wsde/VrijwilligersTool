@@ -1,6 +1,6 @@
 <header><h1>Recente vrijwilligers</h1></header>
 <ul>
-	{% for person in persons %}
-	    <li><a href="{{ path("person_username", { "username": person.username }) }}">{{ person.firstname}} {{ person.lastname}}</a></li>
-	{% endfor %}
+    {% for person in persons %}
+    <li><a href="{{ path("person_username", { "username": person.username }) }}">{{ person.firstname}} {{ person.lastname}}</a></li>
+    {% endfor %}
 </ul>

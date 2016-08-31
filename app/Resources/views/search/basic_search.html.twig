@@ -1,0 +1,10 @@
+{% trans_default_domain "views" %}
+<form class="search" method="get" action="{{ path("zoeken") }}" autocomplete="off">
+    {% if withTitle %}<h2>{{ title }}</h2>{% endif %}
+    <input type="text" class="searchq" name="q" placeholder="{{ "general.search"|trans|capitalize }}" value="{% block search_term %}{% endblock %}" />
+    <input type="submit" value="zoeken" class="dosearch cta" />
+    {% if withHistory %}
+        {% embed "search/history_search.html.twig" %}{% endembed %}
+    {% endif %}
+    <div class="searchResult"></div>
+</form>

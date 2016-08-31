@@ -6,165 +6,73 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-<<<<<<< HEAD
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
 
 class InfopageController extends Controller
 {
-
-=======
-<<<<<<< HEAD
-use AppBundle\Entity\Person;
-use AppBundle\Entity\Skill;
-
-class InfopageController extends Controller
-{
-=======
-use AppBundle\Entity\Volunteer;
-use AppBundle\Entity\Contact;
-use AppBundle\Entity\Skillproficiency;
-use AppBundle\Entity\Skill;
-
-class InfopageController extends Controller
-{ 
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
     /**
-     * @Route("/tos", name="privacy_en_legal")
+     * @Route("/tos", name="info_privacy_and_legal")
      */
     public function tos()
-<<<<<<< HEAD
     {
-        return $this->render("info/privacy_en_legal.html.twig");
+        return $this->render("info/privacy_and_legal.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/privacy_en_legal.html.twig"); 
-    }
-
-
->>>>>>> master
     /**
-     * @Route("/over_ons", name="over_ons")
+     * @Route("/over_ons", name="info_over_ons")
      */
-<<<<<<< HEAD
-    public function overons()    
-    {
-        return $this->render("info/over_ons.html.twig");
-=======
     public function overons()
-<<<<<<< HEAD
     {
         return $this->render("info/over_ons.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/over_ons.html.twig"); 
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-    }
-
-
->>>>>>> master
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="info_contact")
      */
     public function contact()
-<<<<<<< HEAD
     {
         return $this->render("info/contact.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/contact.html.twig"); 
-    }
-
-
->>>>>>> master
     /**
-     * @Route("/vrijwilligersinfo", name="vrijwilligersinfo")
+     * @Route("/vrijwilligersinfo", name="info_vrijwilligersinfo")
      */
     public function vrijwilligersinfo()
-<<<<<<< HEAD
-    {
-        return $this->render("info/vrijwilligersinfo.html.twig");
-=======
-<<<<<<< HEAD
     {
         return $this->render("info/vrijwilligersinfo.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/vrijwilligersinfo.html.twig"); 
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-    }
-
-
->>>>>>> master
     /**
-     * @Route("/wetgeving", name="wetgeving")
+     * @Route("/wetgeving", name="info_wetgeving")
      */
     public function wetgeving()
-<<<<<<< HEAD
-    {
-        return $this->render("info/wetgeving.html.twig");
-=======
-<<<<<<< HEAD
     {
         return $this->render("info/wetgeving.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/wetgeving.html.twig"); 
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-    }
-
-
->>>>>>> master
     /**
-     * @Route("/spelregels", name="spelregels")
+     * @Route("/spelregels", name="info_spelregels")
      */
-    public function spelregels()
-<<<<<<< HEAD
-    {
-        return $this->render("info/spelregels.html.twig");
-=======
-<<<<<<< HEAD
+    public function spelregelsAction()
     {
         return $this->render("info/spelregels.html.twig");
     }
 
-=======
-    { 
-        return $this->render("info/spelregels.html.twig"); 
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
-    }
-
-
->>>>>>> master
-    /**
-     * @Route("/faq", name="faq")
+        /**
+     * @Route("/profiel-van-een-vrijwilliger", name="info_profiel")
      */
-    public function faq()
-<<<<<<< HEAD
+    public function infoProfielAction()
     {
-        return $this->render("info/faq.html.twig");
+        return $this->render("info/profielvrijwilliger.html.twig");
     }
-    
-=======
-<<<<<<< HEAD
+
+    /**
+     * @Route("/waarom-vrijwilligen", name="info_waarom")
+     */
+    public function infoWaaromAction()
     {
-        return $this->render("info/faq.html.twig");
+        return $this->render("info/waaromvrijwilligen.html.twig");
     }
-=======
-    { 
-        return $this->render("info/faq.html.twig"); 
-    } 
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+
 }

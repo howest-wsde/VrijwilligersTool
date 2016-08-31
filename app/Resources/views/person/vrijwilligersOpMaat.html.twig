@@ -1,0 +1,6 @@
+{% trans_default_domain "views" %}
+<div class="personen">
+    {% for person in persons %}
+        {{ person.username }}
+    {% endfor %}
+</div>

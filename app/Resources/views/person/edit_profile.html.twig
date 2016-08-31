@@ -1,0 +1,120 @@
+{% trans_default_domain "views" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "person.profile.name"|trans }}{% endblock %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+        <div class="alert alert-success">
+            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <section class="steps">
+        {{ form_start(form) }}
+            <h2 class="steptitle groen"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
+            <div class="step grijs groen">
+                <fieldset>
+                    <div class="col-md-8">
+                        <h3>{{ "person.become.personal"|trans }}</h3>
+                        {{ form_row (form.firstname) }}
+                        {{ form_row (form.lastname) }}
+                        {{ form_row (form.username) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.avatarFile) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="col-md-12">
+                        <h3>{{ "person.become.min"|trans }}</h3>
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.email) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.telephone) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row (form.contactOrganisation) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row (form.plainPassword) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="col-md-12">
+                                <h3>{{ "person.become.address"|trans }}</h3>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.street) }}
+                            </div>
+                            <div class="col-md-3">
+                              {{ form_row(form.number) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bus) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.postalcode) }}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_row(form.city) }}
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-12 google">{{ "person.become.map"|trans }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row (form.linkedinUrl) }}
+                        {{ form_row (form.submit) }}
+                    </div>
+                </fieldset>
+            </div>
+
+            <h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
+            <div class="step grijs paars">
+                <fieldset>
+                    {{ form_row (form.skills) }}
+                </fieldset>
+                <fieldset>
+                    <div class='col-md-12'>
+                        {{ form_row (form.digest) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class='col-md-4'>
+                        {{ form_row(form.access) }}
+                    </div>
+                    <div class='col-md-8'>
+                        {{ form_row(form.renumerate) }}
+                    </div>
+                    <div class='col-md-6'>
+                        {{ form_row(form.longterm) }}
+                    </div>
+                    <div class='col-md-6'>
+                        {{ form_row(form.estimatedWorkInHours) }}
+                    </div>
+                    <div class='col-md-12'>
+                        {{ form_row(form.socialInteraction) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    {{ form_row (form.submit2) }}
+                </fieldset>
+            </div>
+            {{ form_row(form._token) }}
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}

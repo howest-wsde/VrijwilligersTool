@@ -1,0 +1,367 @@
+general:
+    register: registreer
+    login: login
+    search: zoeken
+    org: organisatie
+    vol: vrijwilliger
+    tailored:
+        novacancy: 'Wij vinden geen vacatures op jouw maat.  Het kan zijn dat er momenteel geen vacatures overeenkomen met jouw profiel.  Als je profiel nog niet volledig is ingevuld, dan kan het invullen van je profiel betere resultaten geven.'
+        noorg: 'Wij vinden momenteel geen organisaties op jouw maat.  Het kan zijn dat er momenteel geen organisaties overeenkomen met jouw profiel.  Als je profiel nog niet volledig is ingevuld, dan kan het invullen van je profiel betere resultaten geven.'
+    flash:
+        success: Success!
+        fail: Afgekeurd!
+    button:
+        next: Volgende
+        click: klik dan op deze link
+        unlike: Verwijder
+        like: Bewaar
+        more: lees meer
+    map:
+        show: Toon routebeschrijving
+        select: selecteer uw gewenste transportwijze
+        car: Auto
+        bike: Fiets
+        foot: Te voet
+        public: Openbaar vervoer
+        bus: Per bus
+        track: 'Per spoor (combinatie van trein, tram, metro,...)'
+        metro: Per metro
+        trolley: Per tram
+    admin:
+        title: Links voor beheer
+        modify: Aanpassen
+        createvacancy: Vacature aanmaken
+        deleteorg: Organisatie verwijderen
+        admins: Beheerders
+        away: ontneem admin rechten
+base:
+    general:
+        name: Roeselare vrijwilligt
+        about:
+            stimulate: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
+            develop: 'ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.'
+            capital: 'ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.'
+            initiative: "Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
+            platform: Het platform werd ontwikkeld door Howest.
+    head:
+        title: Roeselare Vrijwilligt
+    body:
+        header:
+            title: Roeselare Vrijwilligt
+            menu:
+                about: over ons
+                contact: contact
+                profile: mijn profiel
+                editprofile: instellingen
+                logout: uitloggen
+                login: inloggen
+                become: vrijwilliger worden
+                find: vrijwilliger vinden
+                info: vrijwilligersinfo
+                tests: Wat wil ik?
+        newsletter:
+            cta: Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!
+        footer:
+            recvac: recente vacatures
+            recorg: recente verenigingen
+            info: vrijwilligersinfo
+            legislation: wetgeving
+            profile: profiel van een vrijwilliger
+            what: wat is vrijwilligerswerk
+            why: moeder waarom vrijwilligen wij?
+            rules: spelregels
+            tests: Wat wil ik?
+            type: welk type vrijwilliger ben ik?
+            about: over ons
+            contact: contact
+            partners: partners
+            howest: Howest
+            city: Stad Roeselare
+            privacy: Privacy en legale voorwaarden
+def: #default
+    carousel:
+        title: Zinvol vrijwilligerswerk
+        difference: Ervaar hoe een paar uur van je tijd een groot verschil maken.
+        participate: Doe mee!
+        info: Informatie over vrijwilligerswerk
+        infoteaser: Wat is een vrijwilliger?  Welke vaardigheden heb je nodig?  Wat met onkosten?  Hier vind je een antwoord op al je vragen...
+        more: Of lees de uitleg ...
+        notsure: Niet zeker wat je wil?
+        notsureteaser: Door middel van enkele simpele vragen leidt de site je naar de perfecte vrijwilligerstaak.
+        test: Doe hier de test!
+    index:
+        logintitle: Log in met je gebruikersgegevens
+        id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
+        phrase: Wachtzin of wachtwoord
+        login: login
+        external: Log in via een externe site
+        google: Inloggen via je Google-account
+        fb: Inloggen via Facebook
+        none: Nog geen login?
+        create: Maak een account
+    info:
+        more: lees meer
+        how:
+            title: Hoe werkt het?
+            teaser: 'Op Roeselare Vrijwilligt bundelen we de vrijwilligersorganisaties uit Roeselare en hun beschikbare taken. Via simpele zoekopdrachten kun jij een ideale taak vinden. '
+        stories:
+            title: Verhalen
+            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+        info:
+            title: Vrijwilligersinfo
+            teaser: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare..'
+        test:
+            title: Doe de test
+            teaser: 'Weet je niet zeker hoe je profiel te optimaliseren? Beantwoord enkele simpele vragen en wij zoeken je ideale vrijwilligersorganisatie. '
+feedback:
+    send: verzenden
+    feedback: Feedback
+info:
+    contact: Contacteer ons - wordt aangevuld
+    about: Over ons
+    privacy: Privacy en legale voorwaarden
+    profile:
+        title: Profiel van een vrijwilliger
+        body: Een tof iemand
+    info: Vrijwilligersinfo - wordt aangevuld
+    why:
+        title: Waarom vrijwilligen?
+        body: Waarom niet?
+    legal: Wetgeving
+    rules:
+        title: Spelregels
+        volunteer:
+            title: Spelregels voor vrijwilligers
+            intro: Roeselare vrijwilligt heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
+            honour: Je houdt je aan je afspraken.
+            secret: Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt.  Uitzonderingen worden door de organisatie meegedeeld.
+            respect: Je gedraagt je respectvol.
+            legal: Je bent op de hoogte van de wettelijke bepalingen.
+        org:
+            title: Spelregels voor verenigingen
+            intro: Roeselare vrijwilligt heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
+            honour: Je houdt je aan je afspraken.
+            respect: Je gedraagt je respectvol.
+            privacy: Je respecteert de privacy van elke vrijwilliger.
+            insurance: Je sluit een verzekering af voor elke vrijwilliger.
+            guidance: 'Je zorgt dat elke vrijwilliger goed begeleid wordt.  Een vrijwilliger is geen gratis werkpaard maar een waardevol medewerker!'
+org:
+    general:
+        name: Vrijwilliger vinden
+        looking: Op zoek naar vrijwilligers?
+        profile: Maak nu een profiel voor je vereniging zodat je vacatures kan plaatsen!
+    make:
+        rules: Bekijk de spelregels
+        place: Plaats een vacature
+    tailored:
+        look: Bekijk vrijwilligers
+        list: -- LIJST --
+    org:
+        title: Vereniging
+        deleted: Deze vereniging werd verwijderd.
+        unjust: 'Indien dit onterecht was en u de verwijdering ongedaan wil maken,'
+        noadres: Voor deze organisatie is geen adres bekend.
+        vacancies: Vacatures
+    modify:
+        title: Organisatie-gegevens aanpassen
+        data: Gegevens
+        modify: aanpassen
+    form:
+        general: Algemene gegevens
+        org: Organisatiegegevens
+        contact: Contactgegevens
+        created: Uw organisatie werd succesvol aangemaakt!
+        extra: 'Vul nu hieronder extra informatie in, of'
+        place: Plaats een vacature
+        sectoral: Sectorale info
+        active: In welke sectoren is deze vereniging actief?
+    min:
+        remove: Verwijder uit bewaarde organisaties
+        noopen: geen openstaande vacatures
+        1open: 1 openstaande vacature
+        open: openstaande vacatures
+    find:
+        looking: Ben je op zoek naar één of meerdere vrijwilligers?
+        here: Op deze pagina kan je
+        registered: als geregistreerde gebruiker
+        create: een vacature aanmaken
+        choice: Je hebt daarbij de keuze tussen een vacature voor een organisatie of voor een persoon.
+        which: Voor welke vereniging wil je een vrijwilliger vinden?
+        new: Ik wil eerst een nieuwe vereniging aanmaken
+        self: Ik wil als particulier een vrijwilliger zoeken
+person:
+    general:
+        volunteer: vrijwilliger
+        firstname: voornaam
+        sirname: familienaam
+        username: gebruikersnaam
+        fullname: naam
+        vols: vrijwilligt
+    dash:
+        dash: dashboard
+        vol:
+            navblocks: 'Vacatures & organisaties'
+            navsearch: Zoek vacatures
+            navprofile: Overzicht profiel
+            navdata: Mijn gegevens
+            searchtitle: Op zoek naar vrijwilligerswerk?
+        tabs:
+            personal: Vacatures op maat
+            saved: Bewaarde vacatures
+            recent: Recente vacatures
+            spotlights: Verenigingen in de kijker
+        org:
+            spotlights: Organisaties in de kijker
+            personal: Organisaties op maat
+            saved: Bewaarde organisaties
+            navsearch: Zoek vrijwilligers
+            navmyorgs: Mijn organisaties
+            navvacancies: Vacatures
+            navvolunteers: Medewerkerspoule
+            searchtitle: Op zoek naar vrijwilligers?
+            myorg: Mijn organisaties
+            openvac: Openstaande vacatures
+            closedvac: Afgesloten vacatures
+            savedvac: Onafgewerkte vacatures
+            vols: Medewerkerspoule
+            cta: Schrijf een getuigenis!
+            ctasmall: en beloon zo jouw vrijwilligers...
+    rules:
+        name: Vrijwilliger vinden
+    search:
+        username: Geef een gebruikersnaam in
+    profile:
+        name: Profiel aanpassen
+    become:
+        name: Vrijwilliger worden
+        notsure: Wil je vrijwilliger worden maar weet je niet goed hoe je eraan moet beginnen?
+        stepbystep: Doorloop hieronder het stappenplan.
+        skip: 'Je kan de meeste stappen overslaan, kwestie van de boekhouding tot een minimum te beperken.'
+        login: Al vrijwilliger? Log dan hier in!
+        create: Maak een profiel aan
+        personal: Persoonsgegevens
+        min: Kies minimum één inlogmethode
+        contact: Contactgegevens
+        address: Adresgegevens
+        map: map preview
+        preferences: 'Interesses & Voorkeuren'
+        interesting: Kijk welke vacatures interessant zijn
+        goodvol: Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie
+        search: zoek naar vacatures
+        but: 'kan je gemakkelijk te weten komen welke vacatures aansluiten bij jouw interesses.  Maar wat als je nog niet weet welke vacatures voor je interessant vindt?  Daarvoor hebben we een test ontwikkelt die je op weg helpt!'
+        dotest: Doe de vrijwilligerstest!
+        learn: En leer zo welke vacatures jou het meeste liggen.
+        rules: Bekijk de spelregels
+        ways: Een interessante vacature vinden kan je op meerdere manieren...
+        choices: Eens je een profielpagina aanmaakt kan je kiezen uit volgende opties
+        tailored: Kijk naar de vacatures op jouw maat.  Ons systeem vergelijkt jouw profiel met de openstaande vacatures en kiest er de interessantste uit.
+        featured: Kijk naar de vacatures in de kijker.
+        recent: Kijk naar de recentste vacatures.
+        or: Daarnaast kan je ook
+        test: een test doen
+        see: 'om te kijken welk soort vacatures voor jou het interessantste zijn, of je kan de zoekfunctie gebruiken om naar vacatures te zoeken.  De zoekfunctie vind je steeds in de header terug, maar ook op je profielpagina en hieronder.'
+        tailoredtitle: Vacatures op maat
+        saved: Bewaarde vacatures
+        candidate: Stel je kandidaat
+        candidateexplanation: Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.
+search:
+    recent: Recente zoekopdrachten
+    saved: Mijn bewaarde zoekopdrachten
+    noresults: Geen resultaten
+    result: resultaat
+    results: resultaten
+    vacancy:
+        offer: Ons Aanbod
+        enddate: vervaldatum
+        location: locatie
+    page:
+        title: Zoeken binnen Roeselare Vrijwilligt
+        site: Doorzoek onze site
+        filters: Filters
+        type: Filter op type
+        cat: Filter op interesse
+        sector: Filter op sector
+        intensity: Filter op intensiteit
+        distance: Filter op afstand
+        char: Filter op kenmerk
+        advantages: Filter op voordelen
+        noresults: Er werden geen resultaten gevonden
+        for: voor
+        vacancies: Vacatures
+        organisations: Organisaties
+        people: Vrijwilligers
+security:
+    login: Inloggen
+    status:
+        title: Login status
+        hi: Dag
+        userdata: gebruikersgegevens
+        myorg: mijn organisaties
+        currentvacancies: huidige vacatures
+        approved: kandidaten goedkeuren
+        candidates: huidige kandidaatstellingen
+        status: status
+        pending: in afwachting
+        approved: goedgekeurd
+        loggedout: Niet ingelogd!
+skills:
+    vacancytypes: Vacature types
+tests:
+    volunteer:
+        title: Welk type vrijwilliger ben jij?
+        body: Zeg het maar eens
+    tests:
+        body: Enkele tests
+        title: Tests
+vacancy:
+    vacancy:
+        removed: Deze vacature werd verwijderd.
+        undo: 'Indien dit onterecht was en u de verwijdering ongedaan wil maken,'
+        filled: Deze vacature is reeds ingevuld.  Momenteel worden er geen vrijwilligers meer gezocht voor dit profiel.
+        want1: kandidaat gezocht.
+        wantseveral: kandidaten gezocht
+        offer: Ons aanbod
+        summary: Jobinhoud
+        description: Omschrijving
+        startdate: Begindatum
+        enddate: Einddatum
+        categories: Categorieën
+        location: Locatie
+        bus: bus
+        tweet: Tweeten
+        mail: Email deze vacature
+        print: Print deze vacature
+        remove: Verwijder uit bewaarde vacatures
+        save: Bewaar
+        candremove: Verwijder kandidatuur
+        candpose: Stel je kandidaat
+        admin:
+            modify: Vacature aanpassen
+            select: Kandidaten selecteren
+            delete: Vacature verwijderen
+    modify:
+        title: Vacature Aanpassen
+        anul: Annuleren
+    form:
+        general: Algemene gegevens
+        where: Waar zal de vrijwilliger werken?
+        googlemap: map preview
+        moreinfo: Meer info
+        skills: Interesses
+        advantages: Voordelen voor de vrijwilliger
+    approve:
+        title: Kandidaten voor deze vacature
+        candidates: Goedgekeurde kandidaten
+        open: Open kandidaatstellingen
+        look: Bekijk Profiel
+    min:
+        remove: Verwijder uit bewaarde vacatures
+        save: Bewaar
+        delete: Delete
+        1place: 1 vrijwilliger gezocht
+        xplaces: vrijwilligers gezocht
+
+    new:
+        title: Vacature aanmaken
+        looking: Op zoek naar vrijwilligers?
+        fill: Vul hier de gegevens van je vacature in.

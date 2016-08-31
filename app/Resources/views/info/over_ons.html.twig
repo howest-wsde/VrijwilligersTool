@@ -1,7 +1,36 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Over ons{% endblock %}
-	
+{% block title %}{{ "info.about"|trans }}{% endblock %}
+
 {% block body %}
-Over ons
+
+	{{ "info.contact"|trans }}
+
+	<h1>Over ons</h1>
+<p>Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare.</p>
+
+<p>Roeselare vrijwilligt</p>
+
+<ul>
+	<li>ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.</li>
+	<li>ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.</li>
+</ul>
+
+<p>Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw.</p>
+
+<p>Het platform werd ontwikkeld door Howest.</p>
+
+<h2>Contactgegevens:</h2>
+<p><strong>Vrijetijdspunt</strong>
+	<br/>Zuidstraat 17, 8800 Roeselare
+</p>
+
+<dl>
+	<dt>tel:</dt>
+	<dd>051 26 24 00</dd>
+	<dt>mail:</dt>
+	<dd><a href="{{ path("info_contact") }}">contacteer ons</a></dd>
+</dl>
+
 {% endblock %}

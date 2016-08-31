@@ -8,6 +8,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
+use libphonenumber\PhoneNumberUtil as phoneUtil;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\Form\UserRepository")
@@ -16,52 +19,63 @@ use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
  * @UniqueEntity(fields = "email", message = "person.email.already_used")
  * @UniqueEntity(fields = "telephone", message = "person.telephone.already_used")
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validate_email_and_telephone"})
+ * @Vich\Uploadable
+ *
+ * @Assert\Callback({"AppBundle\Entity\Person", "validateContacts"}, groups = {"firstStep"})
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
+    const NOMAIL = 0;
+    const IMMEDIATELY = 1;
+    const DAILY = 2;
+    const WEEKLY = 3;
+    const MONTHLY = 4;
+    //if more constants are added then pls do adjust the digestcommand check for periodicity.
+
     /**
      * @var integer
      */
     protected $id;
 
-
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     protected $firstname;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
     */
     protected $lastname;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
      * @Assert\Length(
      *      min = 2,
      *      max = 150,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[^ \/]+$/",
-     *     message = "geen spaties of slashes"
+     *     message = "geen spaties of slashes",
+     *     groups = {"secondStep"}
      * )
     */
     protected $username;
@@ -75,28 +89,31 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var string
      * @Assert\Email(
      *     message = "person.email.valid",
-     *     checkHost = true
+     *     checkHost = true,
+     *     groups = {"firstStep"}
      * )
      */
     protected $email;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups = {"firstStep"})
      * @Assert\Length(
-     *      min = 10,
+     *      min = 8,
      *      max = 4096,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep"}
      * )
      */
     protected $plainPassword;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank")
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep"})
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "organisation.max_message"
+     *      maxMessage = "organisation.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     protected $street;
@@ -105,12 +122,14 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="person.not_numeric"
+     *     message="person.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 0,
      *      max = 999999,
-     *      minMessage = "person.not_positive"
+     *      minMessage = "person.not_positive",
+     *      groups = {"secondStep"}
      * )
      */
     protected $number;
@@ -121,11 +140,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * 		min = 1,
      *      max = 6,
      *      minMessage = "person.min_message_one",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="person.bus.valid"
+     *     message="person.bus.valid",
+     *     groups = {"secondStep"}
      * )
      */
     protected $bus;
@@ -134,18 +155,21 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @var int
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
-     *     message="person.not_numeric"
+     *     message="person.not_numeric",
+     *     groups = {"secondStep"}
      * )
      * @Assert\Range(
      *      min = 1000,
      *      max = 9999,
      *      minMessage = "person.not_positive",
-     *      maxMessage = "not_more_than"
+     *      maxMessage = "not_more_than",
+     *      groups = {"secondStep"}
      * )
      * @Assert\Length(
      *      min = 4,
      *      max = 4,
-     *      exactMessage = "person.exact"
+     *      exactMessage = "person.exact",
+     *      groups = {"secondStep"}
      * )
      */
     protected $postalcode;
@@ -156,10 +180,21 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message",
-     *      maxMessage = "person.max_message"
+     *      maxMessage = "person.max_message",
+     *      groups = {"secondStep"}
      * )
      */
     protected $city;
+
+    /**
+     * @var string
+     */
+    protected $latitude;
+
+    /**
+     * @var string
+     */
+    protected $longitude;
 
     /**
      * @var string
@@ -168,40 +203,83 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $telephone;
 
     /**
-     * Callback that check if either the email or telephone fields are valid
+     * @var string
      */
-    public static function validate_email_and_telephone($org, ExecutionContextInterface  $context)
+    protected $language;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
+     *
+     * @var File
+     */
+    protected $avatarFile;
+
+    /**
+     *
+     * @var string
+     */
+    protected $avatarName;
+
+    /**
+     * Callback that check if either the email or telephone fields are valid
+     * @param Organisation $org
+     * @param ExecutionContextInterface $context
+     * @return bool
+     */
+    public static function validateContacts($org, ExecutionContextInterface  $context)
     {
         $fields = 0;
         if ($org->getTelephone())
         {
-            $fields++;
+            $org->validatePhoneNumber($org, $context);
+        }
+        else if ($org->getEmail() || $org->getContactOrganisation())
+        {
+            return true; // other validators are enabled with annotations
+        }
+        else {
+            $context->buildViolation("person.one_of_three")
+                ->atPath("telephone")
+                ->addViolation();
+            $context->buildViolation("person.one_of_three")
+                ->atPath("email")
+                ->addViolation();
+            $context->buildViolation("person.one_of_three")
+                ->atPath("contactOrganisation")
+                ->addViolation();
+        }
+    }
 
-            $telephone = str_replace(' ', '', $org->getTelephone());
+    /**
+     * Function to validate a phonenumber using the mid-service phone number bundle.
+     * @param  ExecutionContextInterface    $context the context
+     * @param  Organisation                 $org     an organisation
+     */
+    public function validatePhoneNumber($org, $context){
+        $tel = $org->getTelephone();
+        $phoneUtil = phoneUtil::getInstance();
+        $pattern = '/^[0-9+\-\/\\\.\(\)\s]{6,35}$/i';
+        $matchesPattern = preg_match($pattern, $tel);
 
-            if (!ctype_digit($telephone)
-            or !strlen($telephone) == 10)
+        if($matchesPattern != 1){
+            $context->buildViolation("person.telephone.numericWithExtra")
+                ->atPath("telephone")
+                ->addViolation();
+        } else{
+            $number = $phoneUtil->parse($tel, 'BE');
+            if(!$phoneUtil->isValidNumber($number))
             {
                 $context->buildViolation("person.telephone.valid")
                     ->atPath("telephone")
                     ->addViolation();
             }
-        }
-        if ($org->getEmail())
-        {
-            $fields++;
-
-            // other validators are enabled with annotations
-        }
-
-        if ($fields <= 0)
-        {
-            $context->buildViolation("person.one_of_both")
-                ->atPath("telephone")
-                ->addViolation();
-            $context->buildViolation("person.one_of_both")
-                ->atPath("email")
-                ->addViolation();
+            else
+            {
+                $org->setTelephone($phoneUtil->format($number,
+                                \libphonenumber\PhoneNumberFormat::NATIONAL));
+            }
         }
     }
 
@@ -242,12 +320,62 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     protected $organisation;
 
+    /**
+     * @var \AppBundle\Entity\Organisation
+     */
+    protected $contactOrganisation;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $organisations;
 
+    /**
+     * @var int
+     */
+    private $digest = Person::IMMEDIATELY;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $liked_vacancies;
+
+    /**
+     * Whether or not a person desires weelchair-accessibility
+     * @var bool
+     */
+    private $access = false;
+
+    /**
+     * Whether or not a person is willing to do non-renumerated volunteerwork
+     * @var bool
+     */
+    private $renumerate = true;
+
+    /**
+     * Whether or not a person is willing to enter a longterm engagement
+     * @var bool
+     */
+    private $longterm = true;
+
+    /**
+     * @var int
+     */
+    private $estimatedWorkInHours = 0;
+
+    /**
+     * @var string
+     * @Assert\Length(
+     *      max = 10,
+     *      maxMessage = "vacancy.max_message"
+     * )
+     */
+    private $socialInteraction = "normal";
 
     /**
      * Constructor
@@ -257,6 +385,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->skill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->organisations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->isActive = true;
+        $this->setLanguage("nl");
     }
 
     public function getFullName()
@@ -285,7 +414,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         $this->email = $email;
         return $this;
     }
- 
+
 
     public function getSalt()
     {
@@ -386,6 +515,9 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function setUsername($username)
     {
+        if(empty($username)){
+            $username = 'gebruiker' . $this->getId();
+        }
         $this->username = $username;
 
         return $this;
@@ -593,7 +725,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     public function setTelephone($telephone)
     {
-        $this->telephone = preg_replace("/\D/", "", $telephone);
+        $this->telephone = $telephone;
 
         return $this;
     }
@@ -607,6 +739,32 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->telephone;
     }
+
+
+    /**
+     * Set language
+     *
+     * @param string $language
+     *
+     * @return Person
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
 
     /**
      * Set street
@@ -705,6 +863,102 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     }
 
     /**
+     * Set lat
+     *
+     * @param string $lat
+     *
+     * @return Person
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Get lat
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set long
+     *
+     * @param string $long
+     *
+     * @return Person
+     */
+    public function setLongitude($long)
+    {
+        $this->longitude = $long;
+
+        return $this;
+    }
+
+    /**
+     * Get long
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Person
+     */
+    public function setAvatarFile(File $image = null)
+    {
+        $this->avatarFile = $image;
+        if ($image) {
+            $this->setAvatarName($this->getAvatarName());
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @param string $avatarName
+     *
+     * @return Person
+     */
+    public function setAvatarName($avatarName)
+    {
+        $this->avatarName = $avatarName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarName()
+    {
+        return $this->avatarName;
+    }
+
+    /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
      * @return string
@@ -726,6 +980,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
                 "Bus" => $this->getBus(),
                 "City" => $this->getCity(),
                 "Telephone" => $this->getTelephone(),
+                "Language" => $this->getLanguage(),
                 "LinkedinUrl" => $this->getLinkedinUrl()
             )
         ));
@@ -803,6 +1058,30 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
 
     /**
+     * Get contactOrganisation
+     *
+     * @return Organisation
+     */
+    public function getContactOrganisation()
+    {
+        return $this->contactOrganisation;
+    }
+
+    /**
+     * Set contactOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $contactOrganisation
+     *
+     * @return Person
+     */
+    public function setContactOrganisation(\AppBundle\Entity\Organisation $contactOrganisation)
+    {
+        $this->contactOrganisation = $contactOrganisation;
+
+        return $this;
+    }
+
+    /**
      * Add organisation
      *
      * @param \AppBundle\Entity\Organisation $organisation
@@ -840,6 +1119,217 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->organisations;
     }
 
+    /**
+     * Set digest
+     *
+     * @param int $digest
+     *
+     * @return Person
+     */
+    public function setDigest($digest)
+    {
+        $this->digest = $digest;
+
+        return $this;
+    }
+
+    /**
+     * Get digest
+     *
+     * @return int
+     */
+    public function getDigest()
+    {
+        return $this->digest;
+    }
+
+    /**
+     * Add likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     *
+     * @return Person
+     */
+    public function addLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations[] = $likedOrganisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $likedOrganisation
+     */
+    public function removeLikedOrganisation(\AppBundle\Entity\Organisation $likedOrganisation)
+    {
+        $this->liked_organisations->removeElement($likedOrganisation);
+    }
+
+    /**
+     * Get likedOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedOrganisations()
+    {
+        return $this->liked_organisations;
+    }
+
+    /**
+     * Add likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     *
+     * @return Person
+     */
+    public function addLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies[] = $likedVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $likedVacancy
+     */
+    public function removeLikedVacancy(\AppBundle\Entity\Vacancy $likedVacancy)
+    {
+        $this->liked_vacancies->removeElement($likedVacancy);
+    }
+
+    /**
+     * Get likedVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedVacancies()
+    {
+        return $this->liked_vacancies;
+    }
+
+    /**
+     * Set accessible
+     *
+     * @param bool $accessible
+     *
+     * @return Person
+     */
+    public function setAccess($accessible)
+    {
+        $this->access = $accessible;
+
+        return $this;
+    }
+
+    /**
+     * Get accessible
+     *
+     * @return bool
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * Set renumerate
+     *
+     * @param bool $renumerate
+     *
+     * @return Person
+     */
+    public function setRenumerate($renumerate)
+    {
+        $this->renumerate = $renumerate;
+
+        return $this;
+    }
+
+    /**
+     * Get renumerate
+     *
+     * @return bool
+     */
+    public function getRenumerate()
+    {
+        return $this->renumerate;
+    }
+
+    /**
+     * Set longterm
+     *
+     * @param bool $longterm
+     *
+     * @return Person
+     */
+    public function setLongterm($longterm)
+    {
+        $this->longterm = $longterm;
+
+        return $this;
+    }
+
+    /**
+     * Get longterm
+     *
+     * @return bool
+     */
+    public function getLongterm()
+    {
+        return $this->longterm;
+    }
+
+    /**
+     * Set estimatedWorkInHours
+     *
+     * @param int $estimatedWorkInHours
+     *
+     * @return Person
+     */
+    public function setEstimatedWorkInHours($estimatedWorkInHours)
+    {
+        $this->estimatedWorkInHours = $estimatedWorkInHours;
+
+        return $this;
+    }
+
+    /**
+     * Get estimatedWorkInHours
+     *
+     * @return int
+     */
+    public function getEstimatedWorkInHours()
+    {
+        return $this->estimatedWorkInHours;
+    }
+
+    /**
+     * Set socialInteraction
+     *
+     * @param string $socialInteraction
+     *
+     * @return Person
+     */
+    public function setSocialInteraction($socialInteraction)
+    {
+        $this->socialInteraction = $socialInteraction;
+
+        return $this;
+    }
+
+    /**
+     * Get socialInteraction
+     *
+     * @return string
+     */
+    public function getSocialInteraction()
+    {
+        return $this->socialInteraction;
+    }
 
    /**
      * Get the class name
@@ -860,5 +1350,71 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function isOfType($type)
     {
         return $this->getClassName() == $type;
+    }
+
+    /**
+     * helper function to enable the entity property in nested objects within ES documents.  The helper property simply contains the name of the object type (in other words: the class name)
+     * @return String the classname of this entity
+     */
+    public function esGetEntityName()
+    {
+        return 'person';
+    }
+
+    /**
+     * Getter for a full address in string form, like so:
+     * 'Koning Alberstraat 12, 9900 Eeklo'
+     */
+    public function getAddress()
+    {
+        return $this->getStreet() . ' '
+               . $this->getNumber() . ', '
+               . $this->getCity() . ' '
+               . $this->getPostalCode();
+    }
+
+    /**
+     * Return latitude and longitude in the correct format for ES
+     * @return string string formatted as lat, long
+     */
+    public function esGetLocation()
+    {
+        $lat = $this->getLatitude();
+        $long = $this->getLongitude();
+
+        if($lat && $long){
+            return $this->getLatitude() . ', ' . $this->getLongitude();
+        }
+
+        return null;
+    }
+
+    /**
+     * Return all sectors a user marked of as an interest for ES (tailored organisation query)
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function esGetSectors()
+    {
+        //TODO: replace this by using a Criteria (see Organisation line 536)
+        return $this->getSkills()->filter(
+            function($skill) {
+               return ($skill->getParent() === 36);
+        });
+    }
+
+    /**
+     * Get the id's of all liked organisations as an array
+     * @return array
+     */
+    public function getLikedOrganisationIds(){
+        $ids = [];
+        $likedOrganisations = $this->getLikedOrganisations();
+        if(!is_null($likedOrganisations) && !$likedOrganisations->isEmpty()){
+            foreach ($likedOrganisations->toArray() as $key => $org) {
+                $ids[] = $org->getId();
+            }
+        }
+
+        return $ids;
     }
 }

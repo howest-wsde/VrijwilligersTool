@@ -1,0 +1,31 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "org.modify.title"|trans }}{% endblock %}
+
+{% block body %}
+	<header class="center">
+    	<h1>{{ "org.modify.data"|trans }} {{ organisation.name }} {{ "org.modify.modify"|trans }}</h1>
+    </header>
+
+    <section id="maakVereniging" class="steps">
+        {% for flash_message in app.session.flashbag.get('approve_message') %}
+            <div class="alert alert-success">
+                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+	    {% embed "organisation/vereniging_form.html.twig" with { 'form': form, 'organisation': organisation, "source": "create_organisation" } %}{% endembed %}
+	</section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

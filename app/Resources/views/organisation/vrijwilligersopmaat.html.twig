@@ -1,19 +1,18 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vrijwilliger vinden{% endblock %}
-	
+{% block title %}{{ "org.general.name"|trans }}{% endblock %}
+
 {% block body %}
 	<header>
-		<h1>Vrijwilliger vinden</h1>
-		<p>Op zoek naar vrijwilligers?</p>
-		<p>Maak nu een profiel zodat je vacatures kan plaatsen! </p>
+		<h1>{{ "org.general.name"|trans }}</h1>
+		<p>{{ "org.general.looking"|trans }}</p>
+		<p>{{ "org.general.profile"|trans }}</p>
 	</header>
 	<form method="post">
-		 
 		<section>
-			
-			<h2>Bekijk vrijwilligers</h2>
-			-- LIJST --
+			<h2>{{ "org.tailored.look"|trans }}</h2>
+			{{ "org.tailored.list"|trans }}
 		</section>
 	</form>
 {% endblock %}

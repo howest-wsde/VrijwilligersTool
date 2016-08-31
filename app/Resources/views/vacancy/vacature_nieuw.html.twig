@@ -1,19 +1,29 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vacature Aanmaken{% endblock %}
+{% block title %}{{ "vacancy.new.title"|trans }}{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
+    <header class="center">
+        <h1>{{ "vacancy.new.title"|trans }}</h1>
+        <p>{{ "vacancy.new.looking"|trans }}</p>
+        <p>{{ "vacancy.new.fill"|trans }}</p>
+    </header>
 
-        {{ form_row(form.title) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.enddate) }}
-    {{ form_end(form) }}
+	<section class="steps">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
-    {% for flash_message in app.session.flashbag.get('success-notice') %}
-        <div class="success-notice">
-            <script type="text/javascript">alert("{{ flash_message }}");</script>
-        </div>
-    {% endfor %}
+    	{% embed "vacancy/vacature_form.html.twig" with { 'form': form } %}{% endembed %}
+	</section>
 {% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
+

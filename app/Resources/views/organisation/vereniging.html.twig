@@ -1,16 +1,128 @@
-{% extends 'base.html.twig' %}
+{% trans_default_domain "views" %}
+{% extends "base.html.twig" %}
 
-{% block title %}Vereniging{% endblock %}
+{% block title %}{{ organisation.name }}{% endblock %}
+
 
 {% block body %}
-	naam: {{ organisation.name }} <br />
-<<<<<<< HEAD
-	omschrijving: {{ organisation.description }}
-=======
-<<<<<<< HEAD
-	omschrijving: {{ organisation.description }}
-=======
-	omscrijving: {{ organisation.description }}
->>>>>>> master
->>>>>>> 425577f92ba02987d807c89208595ae3766a9613
+{% if organisation.deleted %}
+	<h1>{{ organisation.name }}</h1>
+	<p>{{ "org.org.deleted"|trans }}  {% if app.user in organisation.administrators %}{{ "org.org.unjust"|trans }} <a href="{{ path('restore_organisation', {'urlid': organisation.urlId, 'deleted': false }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
+{% else %}
+
+	 <div class="verenigingpage">
+		<article class="vereniging">
+			{% if app.user %}
+			    {% if app.user in organisation.likers %}
+			        <a class="fav liked" title="{{ "org.min.remove"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+			    {% else %}
+			        <a class="fav notliked" title="{{ "general.button.like"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+			    {% endif %}
+		    {% endif %}
+			<div class="content">
+			    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+		            <div class="alert alert-success">
+		                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+		            </div>
+		        {% endfor %}
+		        {% for flashMessage in app.session.flashbag.get('error') %}
+		            <div class="alert alert-danger">
+		                {{ flashMessage }}
+		            </div>
+		        {% endfor %}
+
+				{% if organisation.logoName %}
+					{% set logoLink %}images/organisations/{{organisation.logoName}}{% endset %}
+					<img class="logo" src="{{ asset(logoLink) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}">
+				{% endif %}
+				<h1>{{ organisation.name }}</h1>
+				{% if organisation.slogan %}<span class="baseline">{{ organisation.slogan }}</span>{% endif %}
+				<p>{{ organisation.description }}</p>
+
+				{#
+					{% if organisation.sectors %}
+						<p>
+							<h3>Sectoren:</h3>
+							{% for sector in organisation.sectors %}
+								{{ sector.name }}
+							{% endfor %}
+						</p>
+					{% endif %}
+				#}
+			</div>
+			<footer>
+				<div>
+					{% embed "default/socialshare.html.twig" %}{% endembed %}
+				</div>
+			</footer>
+
+		</article>
+
+		<aside class="blok">
+			<ul class="icons">
+				<li class="loc">
+					{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+						{{ organisation.street }} {{ organisation.number }} {% if organisation.bus %}/ {{ organisation.bus }}{% endif %}
+						<br />{{ organisation.postalcode }} {{ organisation.city }}
+					{% else %}
+						{{ "org.org.noadres"|trans }}
+					{% endif %}
+				</li>
+
+				{% if organisation.telephone %}<li class="phone">{{ organisation.telephone }}</li>{% endif %}
+				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
+			</ul>
+			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
+				{% embed "snippets/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}
+			{% endif %}
+		</aside>
+
+
+		{% if app.user in organisation.administrators %}
+			<section class="administrators blok">
+				<h3>{{ "general.admin.title"|trans }}</h3>
+				<ul>
+					<li><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}">{{ "general.admin.modify"|trans }}</a></li>
+					<li>
+						<a href="{{ path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) }}">{{ "general.admin.createvacancy"|trans }}</a>
+					</li>
+					{% if not organisation.deleted %}
+						<li>
+							<a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a>
+						</li>
+					{% endif %}
+					<li>{{ "general.admin.admins"|trans }}:
+						<ul>
+							{% for administrator in organisation.administrators %}
+								<li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
+							{% endfor %}
+							<li>
+								{{ form_start(form) }}
+									{{ form_row (form.addAdmin) }}{{ form_row (form.submitAdmin) }}
+								{{ form_end(form) }}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+		{% endif %}
+
+	</div>
+
+	<a name="vacatures"></a>
+	{% if organisation.vacancies %}
+		<h2>{{ "org.org.vacancies"|trans }}</h2>
+		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
+	{% endif %}
+
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: "nl"}</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
+
+	<script src="{{ asset("js/googleMaps.js") }}"></script>
+	<script src="{{ asset("js/usersearch.js") }}"></script>
 {% endblock %}

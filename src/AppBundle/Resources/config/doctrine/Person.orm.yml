@@ -14,6 +14,7 @@ AppBundle\Entity\Person:
         username:
             type: string
             length: 150
+            nullable: true
         passphrase:
             type: string
             length: 60
@@ -35,18 +36,54 @@ AppBundle\Entity\Person:
             type: string
             scale: 100
             nullable: true
+        latitude:
+            type: string
+            nullable: true
+        longitude:
+            type: string
+            nullable: true
         email:
             type: string
             length: 255
             nullable: true
         telephone:
             type: string
-            length: 10
+            length: 35
             nullable: true
+        language:
+            type: string
+            length: 2
+            nullable: false
+            options:
+                default: nl
         linkedinUrl:
             type: string
             length: 150
             nullable: true
+        avatarName:
+            type: string
+            length: 255
+            nullable: true
+        digest:
+            type: smallint
+            options: { default: 1 }
+        access:
+            type: boolean
+            options: { default: false }
+        renumerate:
+            type: boolean
+            options: { default: true }
+        longterm:
+            type: boolean
+            options: { default: true }
+        estimatedWorkInHours:
+            type: smallint
+            nullable: true
+            options: { default: 0 }
+        socialInteraction:
+            type: string
+            length: 10
+            options: { default: "normal" }
     oneToMany:
         organisation:
             targetEntity: Organisation
@@ -54,6 +91,12 @@ AppBundle\Entity\Person:
         candidacies:
             targetEntity: Candidacy
             mappedBy: candidate
+    manyToOne:
+        contactOrganisation:
+            targetEntity: Organisation
+            joinColumn:
+                name: contactOrganisation_id
+                referencedColumnName: id
     manyToMany:
         skills:
             targetEntity: Skill
@@ -69,11 +112,10 @@ AppBundle\Entity\Person:
                 inverseJoinColumns:
                     -
                         name: skill_id
-                        referencedColumnName: id 
+                        referencedColumnName: id
         organisations:
           targetEntity: Organisation
           inversedBy: administrators
-          cascade: ["persist"]
           joinTable:
             name: organisations_administrators
             joinColumns:
@@ -81,4 +123,28 @@ AppBundle\Entity\Person:
                 referencedColumnName: id
             inverseJoinColumns:
               organisation_id:
+                referencedColumnName: id
+        liked_organisations:
+          targetEntity: Organisation
+          inversedBy: likers
+          cascade: ["persist"]
+          joinTable:
+            name: organisations_likers
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
+                referencedColumnName: id
+        liked_vacancies:
+          targetEntity: Vacancy
+          inversedBy: likers
+          cascade: ["persist"]
+          joinTable:
+            name: vacancies_likers
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              vacancy_id:
                 referencedColumnName: id

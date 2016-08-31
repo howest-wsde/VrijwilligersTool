@@ -1,0 +1,7 @@
+<h2>{{ title }}</h2>{# TODO: remove this once tab block has been implemented #}
+
+<ul>
+{% for vacancy in vacancies %}
+    {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length }%}{% endembed %}
+{% endfor %}
+</ul>

@@ -1,0 +1,72 @@
+{% trans_default_domain "views" %}
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "vacancy.form.general"|trans }}</a></h2>
+    <div class="step actief grijs rood">
+        <fieldset>
+            {{ form_row(form.title) }}
+            {{ form_row(form.summary) }}
+            {{ form_row(form.description) }}
+            <div class="onerow">{{ form_row(form.wanted) }}</div>
+            <div class="onerow">{{ form_row(form.enddate) }}</div>
+            {{ form_row(form.longterm) }}
+            <div class="onerow">{{ form_row(form.estimatedWorkInHours) }}</div>
+        </fieldset>
+    </div>
+
+    <h2 class="steptitle groen"><a href="#locatie" name="locatie">{{ "vacancy.form.where"|trans }}</a></h2>
+    <div class="step grijs groen">
+        <fieldset>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="col-md-6">
+                        {{ form_row(form.street) }}
+                    </div>
+                    <div class="col-md-3">
+                      {{ form_row(form.number) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_row(form.bus) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.postalCode) }}
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_row(form.city) }}
+                    </div>
+                    <div class='col-md-12'>
+                        {{ form_row(form.access) }}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="col-md-12 google">{{ "vacancy.form.googlemap"|trans }}</div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <h2 class="steptitle geel"><a href="#info" name="info">{{ "vacancy.form.moreinfo"|trans }}</a></h2>
+    <div class="step grijs geel">
+        <fieldset>
+           {{ form_row(form.socialInteraction) }}
+            {{ form_row(form.independent) }}
+        </fieldset>
+    </div>
+
+    <h2 class="steptitle blauw"><a href="#vaardigheden" name="vaardigheden">{{ "vacancy.form.skills"|trans }}</a></h2>
+    <div class="step grijs blauw">
+        <fieldset>
+            {{ form_row(form.skills) }}
+        </fieldset>
+    </div>
+
+    <h2 class="steptitle rood"><a href="#voordelen" name="voordelen">{{ "vacancy.form.advantages"|trans }}</a></h2>
+    <div class="step grijs rood">
+        <fieldset>
+            <div class="onerow">{{ form_row(form.renumeration) }}</div>
+            {{ form_row(form.otherReward) }}
+        </fieldset>
+    {{ form_row(form.submit) }}
+    {{ form_row(form.save) }}
+{{ form_end(form) }}

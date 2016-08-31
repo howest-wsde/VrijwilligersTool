@@ -1,0 +1,51 @@
+{% trans_default_domain "views" %}
+{% if not cta is defined %}
+    {% set txt = "general.button.more"|trans %}
+    {% set cta = {
+        "href": path("organisation_by_urlid", { "urlid": organisation.urlid }) ,
+        "txt": txt
+    } %}
+{% endif %}
+<article class="vereniging cta">
+    {% if app.user %}
+        {% if app.user in organisation.likers %}
+            <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+        {% else %}
+            <a class="fav notliked" title="Bewaar" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+        {% endif %}
+    {% endif %}
+
+    <header>
+        <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}">
+            <h3>{{ organisation.name}}</h3>
+        </a>
+    </header>
+    {% if (organisation.logoName) %}
+        <figure><img src="{{ asset
+    ("images/organisations/" ~ organisation.logoName) }}" text="logo {{ organisation.name }}" alt="logo {{ organisation.name }}" class="logo"></figure>
+    {% else %}
+        <span class="baseline">{{ organisation.name }}</span>
+    {% endif %}
+    <p>{{ organisation.description|truncate(200, true) }}</p>
+    <ul class="icons">
+        {% if organisation.street %}
+            <li class="loc">
+                {{ organisation.street }} {{ organisation.number }} {% if organisation.bus %} / {{ organisation.bus }}{% endif %}<br />{{ organisation.postalCode }} {{ organisation.city }}
+            </li>
+        {% endif %}
+        <li class="people">
+            {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
+        </li>
+        <li class="number">
+            {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ "org.min.1open"|trans }}</a> {% else %}<a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ organisation.vacancies|length }}  {{ "org.min.open"|trans }}</a>{% endif %}
+        </li>
+        {% if include is defined %}
+            {% if "website" in include|keys and organisation.website %}
+                <li class="web"><a href="{{ organisation.website }}" target="_blank">{{ organisation.website }}</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+    <div class="cta">
+        <a href="{{ cta.href }}" class="cta">{{ cta.txt }}</a>
+    </div>
+</article>

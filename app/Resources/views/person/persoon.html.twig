@@ -1,10 +1,210 @@
+{% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}Vrijwilliger{% endblock %}
 
-{% block body %}
-	voornaam: {{ person.firstname }}<br />
-	familienaam: {{ person.lastname }}<br />
-	gebruikersnaam: {{ person.username }}<br />
-	volledige naam: : {{ person.getFullName() }}
+{% block title %}{{ "person.dash.dash"|trans|capitalize }} {% endblock %}
+
+{% block outerbody %}
+    <main>
+{# --------------------------- HEADER ------------------------------------- #}
+
+        {% if person.firstname %}
+            {% embed "snippets/extraheader.html.twig" with {"title": person.firstname ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
+        {% elseif person.username %}
+            {% embed "snippets/extraheader.html.twig" with {"title": person.username ~ " " ~ "person.general.vols"|trans|capitalize } %}{% endembed %}
+        {% endif %}
+
+{# ------------------------------------------------------------------------- #}
+
+            {#
+            <h2>{{ "general.vol"|trans }}</h2>
+            <nav>
+                <ul>
+                    <li><a href="#blocks">{{ "person.dash.vol.navblocks"|trans }}</a></li>
+                    <li><a href="#search">{{ "person.dash.vol.navsearch"|trans }}</a></li>
+                    <li><a href="#profile">{{ "person.dash.vol.navprofile"|trans }}</a></li>
+                    <li><a href="#data">{{ "person.dash.vol.navdata"|trans }}</a></li>
+                </ul>
+            </nav>
+            #}
+
+{# --------------------------- TABS VACATURES  ------------------------------------- #}
+
+        <section class="part"><div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="active groen"><a href="#opmaat" data-toggle="tab">{{ "person.dash.tabs.personal"|trans }}</a></li>
+                {% if person.likedvacancies|length > 0 %}
+                    <li class="blauw"><a href="#bewaard" data-toggle="tab">{{ "person.dash.tabs.saved"|trans }}</a></li>
+                {% endif %}
+                <li class="geel"><a href="#recent" data-toggle="tab">{{ "person.dash.tabs.recent"|trans }}</a></li>
+            </ul>
+
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="opmaat">
+                    {# vacatures op maat #}
+                    {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": person } )) }}
+                </div>
+                <div class="tab-pane" id="bewaard">
+                    {# bewaarde vacatures #}
+                    {{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": person } )) }}
+                </div>
+                <div class="tab-pane" id="recent">
+                    {# recente vacatures #}
+                    {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 10, "viewMode": "tile" } )) }}
+                </div>
+
+            </div>
+        </div></section>
+
+{# --------------------------- ZOEKEN ------------------------------------- #}
+
+        <div class="part">
+            <div class="container">
+                <section class="col-md-12">
+                    <div id="handenuitmouwen" class="blok special">
+                        {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.vol.searchtitle"|trans } %}{% endembed %}
+                    </div>
+                </section>
+            </div>
+        </div>
+
+{# --------------------------- TABS ORGANISATIES ------------------------------------- #}
+
+        <section class="part"><div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="rood active"><a href="#spot" data-toggle="tab">{{ "person.dash.org.spotlights"|trans }}</a></li>
+                <li class="blauw"><a href="#orgopmaat" data-toggle="tab">{{ "person.dash.org.personal"|trans }}</a></li>
+                {% if person.likedorganisations|length > 0 %}
+                    <li class="groen"><a href="#savedorgs" data-toggle="tab">{{ "person.dash.org.saved"|trans }}</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="spot">
+                    {# organisaties in de kijker #}
+                    {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 10, "viewMode": "tile" } )) }}
+                </div>
+                <div class="tab-pane" id="orgopmaat">
+                    {{ render(controller("AppBundle:Organisation:organisatiesOpMaat", { "user": person } )) }}
+                </div>
+                <div class="tab-pane" id="savedorgs">
+                    {# bewaarde organisaties #}
+                    {% if person.likedorganisations|length > 0 %}
+                        {% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": person.likedorganisations } %}{% endembed %}
+                    {% endif %}
+                </div>
+            </div>
+        </div></section>
+
+{# ------------------------------------------------------------------------- #}
+
+        <!--<section class="part"><div class="container">
+            <div id="profile">
+                {# mijn profiel met lopende engagementen en testimonials => superman card view => voor benedikt issue #246 #}
+            </div>
+            <div id="data">
+                {# mijn persoonlijke gegevens => voor benedikt issue #246 #}
+            </div>
+        </div></section>-->
+<!--
+        <section class="part"><div class="container">
+            <h2>{{ "general.org"|trans }}</h2>
+            <div id="#search">
+                {% embed "search/basic_search.html.twig" with { 'withHistory': true, 'withTitle': true, 'title': "person.dash.org.searchtitle"|trans } %}{% endembed %}
+            </div>
+        </div></section>
+-->
+        {#
+
+            <nav>
+                <li><a href="#search">{{ "person.dash.org.navsearch"|trans }}</a></li>
+                <li><a href="#myorgs">{{ "person.dash.org.navmyorgs"|trans }}</a></li>
+                <li><a href="#vacancies">{{ "person.dash.org.navvacancies"|trans }}</a></li>
+                <li><a href="#volunteers">{{ "person.dash.org.navvolunteers"|trans }}</a></li>
+            </nav>
+        #}
+
+{# --------------------------- EIGEN AANBOD  ------------------------------------- #}
+
+        {% if person.organisations|length > 0 %}
+
+            <section class="part"><div class="container tabblad spacing">
+
+                {% if person.organisations|length > 1 %}
+                    <ul class="nav nav-pills">
+                        {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
+                        {% set teller = 0 %}
+                        {% for org in person.organisations %}
+                            <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
+                            {% set teller = teller + 1 %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="tab-content clearfix">
+                    {% set teller = 0 %}
+                    {% for org in person.organisations %}
+                        <div id="org_{{ org.urlId }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
+                            <ul class="nav nav-tabs">
+                                <li class="geel active"><a href="#org_{{ org.urlId }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
+                                <li class="rood"><a href="#org_{{ org.urlId }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
+                                <li class="groen"><a href="#org_{{ org.urlId }}_savedvac" data-toggle="tab">{{ "person.dash.org.savedvac"|trans }}</a></li>
+                            </ul>
+
+                            <div class="tab-content clearfix blok special">
+                                <div class="tab-pane active" id="org_{{ org.urlId }}_openvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+                                    {# voor de actieve vacature via ajax deze controller renderen (of voor elke vacature laden en dan tonen afhankelijk van welke geklikt wordt) {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": <-- hier een vacancy id --> } )) }} #}
+                                    {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": 7 } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_closedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_savedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
+                                </div>
+                            </div>
+                        </div>
+                        {% set teller = teller + 1 %}
+                    {% endfor %}
+                </div>
+
+            </div></section>
+        {% endif %}
+
+{# ------------------------------------------------------------------------- #}
+{#
+            <div id="myorgs">
+                <h3>{{ "person.dash.org.myorg"|trans }}</h3>
+                {# card view (tile slider indien nodig) van organisaties #//}
+                {% for org in person.organisations %}
+                    {% embed "organisation/vereniging_min.html.twig" with {"organisation": org }%}{% endembed %}
+                {% endfor %}
+                {# cta om getuigenissen te schrijven over medewerkers #//}
+                <button>
+                    {{ "person.dash.org.cta"|trans }}<br/>
+                    <small>{{ "person.dash.org.ctasmall"|trans }}</small>
+                </button>
+                {# tile om een nieuwe organisatie aan te maken #//}
+
+            </div>
+            {# per organisatie in de bovenstaande tab:  #//}
+
+
+            <div id="volunteers">
+                <h3>{{ "person.dash.org.vols"|trans }}</h3>
+                {% for org in person.organisations %}
+                    {#
+                        medewerkerspoule => benedikt issue #246?
+                        probleem: org heeft geen var "volunteers" of iets dergelijks
+                            wel: administrators (= alle beheerders)
+                            vacancies: (= alle vacatures)
+                            => lijkt het simpelste om een ES search te doen naar alle medewerkers (ooit) van een organisatie, + huidige beheerders & die dan via een controller die je hier embed in een template te gieten
+                    #//}
+                {% endfor %}
+            </div>
+#}
+
+
+    </main>
 {% endblock %}

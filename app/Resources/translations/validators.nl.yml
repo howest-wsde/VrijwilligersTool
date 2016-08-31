@@ -1,20 +1,58 @@
 vacancy:
     not_blank: Gelieve een waarde op te geven.
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
+    min_message_one: Gelieve minimum {{ limit }} teken in te geven.
     max_message: Gelieve maximum {{ limit }} tekens in te geven.
+    not_numeric: Gelieve een numerieke waarde op te geven.
+    not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
+    not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
+    exact: De waarde moet exact {{ limit }} tekens langs zijn.
     date:
         valid: Gelieve een geldige datum op te geven.
         not_today: Gelieve een datum in de toekomst op te geven.
         not_more_than: Gelieve een datum op te geven die later valt dan de begindatum.
         max_period: De vacature mag maximum 6 maanden geldig zijn.
+    bus:
+        valid: Gelieve een geldige postbus in te geven.
     label:
         title: Titel
-        description: Omschrijving
+        summary: Beknopte omschrijving
+        description: Jobinhoud
         startdate: Begindatum
-        enddate: Einddatum
-        submit: Opslaan
+        enddate: Vervaldatum
+        street: Straatnaam
+        number: Huisnummer
+        bus: Busnummer
+        postalcode: Postcode
+        city: Stad
+        accessible: Is er toegang mogelijk voor mindermobielen (inclusief rolstoel)?
+        submit: Plaats vacature!
+        save: Bewaar en publiceer later
+        otherReward: Andere
+        renumeration: Vrijwilligersvergoeding
+        skills: Welke interesses / vaardigheden moet een vrijwilliger hebben voor deze vacature?
+        independent: Moet de vrijwilliger zelfstandig kunnen werken?
+        socialInteraction: Hoeveel sociale interactie zal er zijn?
+        estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
+        location: Op welke locatie zal de vrijwilliger werken?
+        longterm: Betreft de vacature een langdurig engagement?
+        wanted: Hoeveel vrijwilligers zoekt u voor deze vacature?
+    choices:
+        accessible: Ja
+        notaccessible: Nee
+        independent: Ja
+        dependent: Nee
+        all: Alles draait rond sociale interactie
+        normal: 'Niet speciaal veel, niet speciaal weinig'
+        little: Sociale interactie is beperkt
     placeholder:
+        street: Straat
+        bus: Bus
+        number: Huisnummer
+        postalcode: Postcode
+        city: Gemeente
         date: jjjj-mm-dd
+        summary: Beschrijf in maximaal 120 tekens de inhoud van deze vacature.
 organisation:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.
@@ -30,16 +68,15 @@ organisation:
         valid: Gelieve een geldige postbus in te geven.
     telephone:
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     email:
         valid: Gelieve een geldig e-mailadres in te geven.
-        already_used: Dit telefoonnummer is reeds in gebruik.
-        valid: Gelieve een geldig telefoonnummer in te geven.
-    email:
-        valid: Gelieve een geldig e-mailadres in te geven.
-        already_used: Dit e-mailadres is reeds in gebruik.
     label:
+        addAdmin: Nieuwe beheerder
+        submitAdmin: Voeg beheerder toe
         name: Naam
-        description: Een omschrijving van uw bedrijf
+        slogan: De slogan van uw organisatie
+        description: Een omschrijving van uw organisatie
         email: E-mailadres
         street: Straatnaam
         number: Huisnummer
@@ -47,10 +84,28 @@ organisation:
         postalcode: Postcode
         city: Stad
         telephone: Telefoonnummer
-        submit: Opslaan
+        logo: Logo
+        create: Maak organisatie aan
+        backToRegistration: Terug naar registratie
+        submitContact: Contactinformatie indienen
+        backToContact: Terug naar contactgegevens
+        type: Type vereniging
+        intermediary: Bemiddelingsorganisatie
+        website: Website
+        fieldOfActivity: Sectoren
     placeholder:
         email: uw@email.be
         telephone: 051 123 456
+        website: http://www.uwvereniging.be
+        street: Straat
+        bus: Bus
+        number: Huisnummer
+        postalcode: Postcode
+        city: Gemeente
+    choices:
+        ngo: Vereniging Zonder Winstoogmerk (VZW)
+        fv: Feitelijke Vereniging
+        intermediary: Ja
 person:
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
     min_message_one: Gelieve minimum {{ limit }} teken in te geven.
@@ -61,7 +116,7 @@ person:
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
     no_whitespaces: Mag geen spaties bevatten.
     exact: De waarde moet exact {{ limit }} tekens langs zijn.
-    one_of_both: Gelieve ofwel een telefoonnummer ofwel een e-mailadres in te geven.
+    one_of_three: 'Gelieve hetzij een telefoonnummer of een e-mailadres in te geven, hetzij een bemiddelingsorganisatie te kiezen.  Wij hebben een manier nodig om u te contacteren.'
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.
@@ -70,27 +125,83 @@ person:
     telephone:
         already_used: Dit telefoonnummer is reeds in gebruik.
         valid: Gelieve een geldig telefoonnummer in te geven.
+        numericWithExtra: 'Telefoonnummers mogen enkel cijfers bevatten en volgende speciale karakters: +./()-\'
     bus:
         valid: Gelieve een geldige postbus in te geven.
     linkedin:
         valid: url {{ value }} is geen geldige linkedIn url.
     placeholder:
+        telephone: 051 123 456
         username: gebruikersnaam of e-mailadres of telefoonnummer
         linkedin: https://be.linkedin.com/in/<uw naam>
-        password: lange en veilige wachtzien
+        password: lange en veilige wachtzin
+        organisation: Selecteer een organisatie
     label:
         firstname: Voornaam
         lastname: Familienaam
         username: Gebruikersnaam
+        avatar: Foto
         email: E-mailadres
         telephone: Telefoonnummer
+        organisation: Contact via organisatie
         street: Straat
         bus: Bus
         number: Huisnummer
         postalcode: Postcode
         city: Gemeente
-        password: Wachtzin
-        repeat_password: Herhaal wachtzin
+        password: Wachtzin of wachtwoord
+        repeat_password: Herhaal wachtzin of wachtwoord
+        language: Taal
         linkedin: linkedIn profiel
         eula: Ik ga akkoord met de overeenkomst
-        submit: Registreren
+        submit: Maak account
+        next: Volgende
+        skills: Interesses / Capaciteiten
+        finish: Indienen
+        backToRegistration: Terug naar registratie
+        backToGeneral: Terug naar algemene gegevens
+        mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
+        accessible: Bent u mindermobiel?
+        renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?
+        longterm: Bent u bereid om een langdurig engagement aan te gaan?
+        estimatedWorkInHours: Hoeveel uur per week bent u bereid om te vrijwilligen?
+        socialInteraction: Welke hoeveelheid sociale interactie vindt u comfortabel?
+    choices:
+        immediately: Onmiddelijk
+        daily: Dagelijks
+        weekly: Wekelijks
+        monthly: Maandelijks
+        nomail: Ik wil geen meldingen ontvangen
+        yes: Ja
+        no: Nee
+        all: Hoe meer hoe liever!
+        normal: 'Niet speciaal veel, niet speciaal weinig'
+        little: Liefst niet te veel
+search:
+    label:
+        hoursAWeek: uren per week
+        distance: km
+        search: Zoeken
+        sort: 'Sorteer op:'
+        person: Personen
+        organisation: Verenigingen
+        vacancy: Vacatures
+    choices:
+        distance: Afstand
+        date: Datum
+        endDate: Vervaldatum
+        reward: Vergoeding
+        long: langdurig
+        1time: éénmalig
+        weelchair: Toegankelijk voor rolstoel
+        lotsContact: Veel sociaal contact
+        littleContact: Weinig sociaal contact
+        renumeration: Vrijwilligersvergoeding
+        other: Andere voordelen
+    placeholder:
+        searchTerm: zoekterm (optioneel)
+general:
+    label:
+        previous: Vorige
+        next: Volgende
+        submit: Indienen

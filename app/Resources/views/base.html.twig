@@ -1,28 +1,21 @@
+{% trans_default_domain "views" %}
 <!DOCTYPE html>
 <html lang="nl">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Talent Roeselen{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{{"base.head.title"|trans}}{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-            <link rel="stylesheet" type="text/css" href="{{ asset("style/reset.css") }}" />
-            <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css") }}" />
-            <link rel="stylesheet" type="text/css" href="{{ asset("style/search.css") }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css?v1") }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset("style/feedback.css") }}" />
         {% endblock %}
         <script>
             var RV_GLOBALS = {
                 "searchURL": "{{ path("api_search") }}",
+                "usersearchURL": "{{ path("api_usersearch") }}",
             }
-            {#
-                //use this pattern to add globals to the RV_GLOBALS module.  That way we only ever have one global variable that can potentially have name-spacing collisions with external globals (highly unlikely)
-                RV_GLOBALS = (function (previous) {
-                    if(!previous.searchURL){
-                        previous.searchURL = "{{ path("api_search") }}";
-                    }
-
-                    return previous;
-                }(RV_GLOBALS || {}));
-            #}
         </script>
         <link rel="icon" type="image/x-icon" href="{{ asset("favicon.ico") }}" />
         {%  block head %} {% endblock %}
@@ -30,113 +23,181 @@
     <body>
         {% block header %}
             <header>
-                <div class="logo">
-                    <h1><a href="{{ path("homepage") }}"><span>Roeselare vrijwilligt</span></a></h1>
-                    <span class="baseline">Baseline</span>
-                </div>
-                <form class="search" method="get" action="{{ path("zoeken") }}" autocomplete="off">
-                    <input type="text" name="q" id="searchq" placeholder="Zoeken" value="{% block search_term %}{% endblock %}" />
-                    <br />
-                    <div id="divResult">
-                    </div>
-                </form>
+                <div class="container mainnav">
+                    <a href="{{ path("homepage") }}" class="logo"><h1>{{"base.body.header.title"|trans}}</h1></a>
 
-                <nav class="about nav">
-                    <ul>
-                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
-                        <li><a href="{{ path("contact") }}">Contact</a></li>
-                    </ul>
-                </nav>
-                <nav class="top nav">
-                    <ul>
-                        <li><a href="{{ path("self_profile") }}">Mijn profiel</a></li>
-                        <li><a href="{{ path("register_user") }}">Vrijwilliger worden</a></li>
-                        <li><a href="{{ path("start_vacancy") }}">Vrijwilliger vinden</a></li>
-                        <li><a href="{{ path("vrijwilligersinfo") }}">Vrijwilligersinfo</a></li>
-                        <li><a href="">Tests</a></li>
-                        <li>{% if app.user %}
-                            <a href="{{ path("logout") }}">Uitloggen</a>
+                    <a class="burger" href="#menu" data-toggle="collapse" data-target=".hoofdnavigatie"><span></span><span></span><span></span></a>
+
+                    <nav class="hoofdnavigatie">
+
+                        {% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}
+
+                        <ul class="usermenu">
+                            <li><a href="{{ path("info_over_ons") }}" class="{% if app.request.attributes.get('_route') == 'info_over_ons' %}actief{% endif %}">{{ "base.body.header.menu.about"|trans }}</a></li>
+                            <li><a href="{{ path("info_contact") }}" class="{% if app.request.attributes.get('_route') == 'info_contact' %}actief{% endif %}">{{ "base.body.header.menu.contact"|trans }}</a></li>
+                            {% if app.user %}
+                                <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.editprofile"|trans }}</a></li>
+                                <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }}</a></li>
                             {% else %}
-                            <a href="{{ path("login") }}">Inloggen</a>
-                            {% endif %}</li>
-                    </ul>
-                </nav>
+                                <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>
+                            {% endif %}
+                        </ul>
+
+                        <ul class="mainmenu">
+                            <li><a href="{{ path("self_profile") }}" class="{% if app.request.attributes.get('_route') == 'self_profile' %}actief{% endif %}">{{ "base.body.header.menu.profile"|trans|capitalize }}</a></li>
+                            <li><a href="{{ path("register_user") }}" class="{% if app.request.attributes.get('_route') == 'register_user' %}actief{% endif %}">{{ "base.body.header.menu.become"|trans|capitalize }}</a></li>
+                            <li><a href="{{ path("start_vacancy") }}" class="{% if app.request.attributes.get('_route') == 'start_vacancy' %}actief{% endif %}">{{ "base.body.header.menu.find"|trans|capitalize }}</a></li>
+                            <li><a href="{{ path("info_vrijwilligersinfo") }}" class="{% if app.request.attributes.get('_route') == 'info_vrijwilligersinfo' %}actief{% endif %}">{{ "base.body.header.menu.info"|trans|capitalize }}</a></li>
+                            <li><a href="{{ path("tests") }}" class="{% if app.request.attributes.get('_route') == 'tests' %}actief{% endif %}">{{ "base.body.header.menu.tests"|trans|capitalize }}</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </header>
         {% endblock %}
-        <main>
-            {% block body %}
-            {% endblock %}
-        </main>
-        {% block footer %}
-            <nav class="bottom nav">
-                <section>
-                    {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
+
+        {% block outerbody %}
+            {% block extraheader %}{% endblock %}
+            <div class="part"><div class="container">
+                <main>
+                    {% block body %}
+                    {% endblock %}
+                </main>
+            </div></div>
+        {% endblock %}
+        <section data-role="newsletter" class="part">
+            <div class="container">
+                <section class="col-md-12">
+                    <div class="blok special nieuwsbrief">
+                        <h2>{{ "base.body.newsletter.cta"|trans }}</h2>
+                        {# TODO: nieuwsbrief implementeren #}
+                        <form>
+                            <input type="email" name="mailadres" placeholder="e-mailadres" />
+                            <input type="submit" value="inschrijven" class="cta" />
+                        </form>
+                    </div>
                 </section>
-                <section>
-                    {{ render(controller("AppBundle:Person:listRecentPersons", { "nr": 5 } )) }}
-                </section>
-                <section>
-                    {{ render(controller("AppBundle:Vacancy:listParentSkills", { "nr": 10 } )) }}
-                </section>
-                <section>
-                    <header><h1>Vrijwilligersinfo</h1></header>
-                    <ul>
-                        <li><a href="{{ path("wetgeving") }}">Wetgeving</a></li>
-                        <li><a href="">Profiel van een vrijwilliger</a></li>
-                        <li><a href="{{ path("vrijwilligersinfo") }}">Wat is vrijwilligerswerk</a></li>
-                        <li><a href="">Moeder waarom vrijwilligen wij? </a></li>
-                        <li><a href="{{ path("spelregels") }}">Spelregels</a></li>
-                        <li><a href="{{ path("faq") }}">Veelgestelde vragen</a></li>
-                    </ul>
-                </section>
-                <section>
-                    <header><h1>Tests</h1></header>
-                    <ul>
-                        <li><a href="">Welk type vrijwilliger ben ik? </a></li>
-                        <li><a href="">Taaltest</a></li>
-                        <li><a href="">Computervaardigheidstest</a></li>
-                    </ul>
-                </section>
-                <section>
-                    <header><h1>Roeselare vrijwilligt</h1></header>
-                    <ul>
-                        <li><a href="{{ path("over_ons") }}">Over ons</a></li>
-                        <li><a href="{{ path("contact") }}">Contact</a></li>
-                    </ul>
-                </section>
-            </nav>
-            <section class="partners">
-                <ul>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                    <li><a href="" target="_blank"><span>X logo</span></a></li>
-                </ul>
-            </section>
+            </div>
+        </section>
+
+        {% block footernav %}
+            <div class="part">
+                <div id="footernav"><div class="container">
+                    <nav class="bottom nav">
+                        <section class="col-md-3">
+                            <header><h1>{{ "base.body.footer.recvac"|trans|capitalize }}</h1></header>
+                            {{ render(controller("AppBundle:Vacancy:listRecentVacancies", { "nr": 5 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>{{ "base.body.footer.recorg"|trans|capitalize }}</h1></header>
+                            {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            {{ render(controller("AppBundle:Skill:listParentSkills", { "nr": 10 } )) }}
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>{{ "base.body.footer.info"|trans|capitalize }}</h1></header>
+                            <ul>
+                                <li><a href="{{ path("info_wetgeving") }}">{{ "base.body.footer.legislation"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_profiel") }}">{{ "base.body.footer.profile"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_vrijwilligersinfo") }}">{{ "base.body.footer.what"|trans|capitalize }}<base></base></a></li>
+                                <li><a href="{{ path("info_waarom") }}">{{ "base.body.footer.why"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_spelregels") }}">{{ "base.body.footer.rules"|trans|capitalize }}</a></li>
+                            </ul>
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>{{ "base.body.footer.tests"|trans|capitalize }}</h1></header>
+                            <ul>
+                                <li><a href="{{ path("test_type") }}">{{ "base.body.footer.type"|trans|capitalize }}</a></li>
+                            </ul>
+                        </section>
+                        <section class="col-md-3">
+                            <header><h1>{{ "base.general.name"|trans|capitalize }}</h1></header>
+                            <ul>
+                                <li><a href="{{ path("info_over_ons") }}">{{ "base.body.footer.about"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_contact") }}">{{ "base.body.footer.contact"|trans|capitalize }}</a></li>
+                            </ul>
+                        </section>
+                    </nav>
+                </div></div>
+
+
+                <section id="partners"><div class="container blokken">
+                    <h3>{{ "base.body.footer.partners"|trans|capitalize }}:</h3>
+
+                    <div class="blok">
+                        <a href="http://www.roeselare.be" target="_blank"><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Stad Roeselare" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.howest.be" target="_blank"><img src="{{ asset("images/partners/howest.png") }}" alt="logo Howest" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.thope.eu" target="_blank"><img src="{{ asset("images/partners/thope.jpg") }}" alt="logo 't hope vzw" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.groepintro.be" target="_blank"><img src="{{ asset("images/partners/groepintro-logo.png") }}" alt="logo Groep Intro vzw" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.vocopstap.be" target="_blank"><img src="{{ asset("images/partners/organogram-opstap-2015-png.png") }}" alt="logo Voc Opstap vzw" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.west-vlaanderen.be" target="_blank"><img src="{{ asset("images/partners/provincie.jpg") }}" alt="logo provincie Wvl" /></a>
+                    </div>
+                    <div class="blok">
+                        <a href="http://www.vrijwilligerswerk.be" target="_blank"><img src="{{ asset("images/partners/logo_steunpunt.jpg") }}" alt="logo steunpunt vrijwilligers" /></a>
+                    </div>
+                </div></section>
+            </div>
+
             <footer>
-                <address>
-                    <span>Botermarkt 2</span>
-                    <span>8800 Roeselare</span>
-                    <span class="nav"><a href="mailto:info@talentroeselen.be">info@talentroeselen.be</a></span>
-                    <span>051 26 21 11</span>
-                </address>
-                <div class="legal nav">
-                    <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">Howest</a> &amp; <a href="http://www.roeselare.be" target="_blank">Stad Roeselare</a></span>
-                    <span><a href="{{ path("privacy_en_legal") }}">Privacy en legale voorwaarden</a></span>
+                <div id="contactdata">
+                    <div class="container">
+                        <address class="col-md-3">
+                            <h2>{{ "base.general.name"|trans }}</h2>
+                            <p><strong>Vrijetijdspunt</strong><br />Zuidstraat 17, 8800 Roeselare</p>
+                            <dl>
+                                <dt>tel: </dt>
+                                <dd>051 26 24 00</dd>
+                                <dt>mail:</dt>
+                                <dd><a href="{{ path("info_contact") }}">{{ "base.body.footer.contact"|trans|capitalize }}</a></dd>
+                            </dl>
+                        </address>
+                        <div class="col-md-9">
+                            <h3>{{ "base.body.footer.about"|trans|capitalize }}</h3>
+                            <p>{{ "base.general.about.stimulate"|trans|capitalize }}</p>
+                            <p>{{ "base.general.name"|trans }}</p>
+                            <ul>
+                                <li>{{ "base.general.about.develop"|trans }}</li>
+                                <li>{{ "base.general.about.capital"|trans }}</li>
+                            </ul>
+                            <p>{{ "base.general.about.initiative"|trans }}</p>
+                            <p>{{ "base.general.about.platform"|trans }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="legalfooter">
+                    <div class="container">
+                        <div class="col-md-6">
+                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">{{ "base.body.footer.howest"|trans }}</a> &amp; <a href="http://www.roeselare.be" target="_blank">{{ "base.body.footer.city"|trans }}</a></span> -
+                            <span><a href="{{ path("info_privacy_and_legal") }}">{{ "base.body.footer.privacy"|trans }}</a></span>
+                        </div>
+                    </div>
                 </div>
             </footer>
         {% endblock %}
+        {% block feedback %}{% embed "feedback/feedback.html.twig" %}{% endembed %}{% endblock %}
         {% block javascripts %}
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
             {#
             <script type="text/javascript" src="https://www.google.com/jsapi"></script>
             <script type="text/javascript">
                google.load("jquery", "1.4.2");
             </script>
             #}
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-            <script src="{{ asset("js/tmp_bootstrap.js") }}"></script>
+            <script src="{{ asset("js/feedback.js") }}"></script>
             <script src="{{ asset("js/search.js") }}"></script>
+            <script src="{{ asset("js/vrijwilligt.js") }}"></script>
         {% endblock %}
     </body>
 </html>

@@ -1,0 +1,80 @@
+general:
+    label:
+        previous: Vorige
+        save: Bewaar
+    flash:
+        formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en de instructies bij het veld / de velden waar de foutmelding staat de nodige stappen te ondernemen.'
+candidacy:
+    mail:
+        approve: werd goedgekeurd als vrijwilliger
+        disapprove: werd afgekeurd als vrijwilliger
+        remove: werd verwijderd als vrijwilliger
+    flash:
+        approve: " werd goedgekeurd voor de vacature "
+        disapprove: " werd afgekeurd voor de vacature "
+        remove: " werd verwijderd als vrijwilliger voor de vacature "
+utility:
+    send:
+        subject: Mail vanwege Roeselare Vrijwilligt
+security:
+    mail:
+        welcome: Welkom bij Roeselare Vrijwilligt
+        newCharge: Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie
+    flash:
+        newUserStart: Een nieuwe gebruiker met naam
+        newUser2: werd succesvol aangemaakt
+        newUserMail: '.  Een bevestigingsbericht werd gestuurd naar '
+person:
+    flash:
+        editProfile: Uw profiel werd succesvol aangepast
+vacancy:
+    template:
+        vacancyFit: Vacatures op maat
+    exception:
+        noAdmin: 'Je bent geen beheerder voor de organisatie die deze vacature uitschreef.  Gelieve de aanpassingen aan een beheerder door te geven.'
+    createPdf:
+        exception: De gevraagde vacature bestaat niet!
+    create:
+        noAdmin: U bent geen beheerder van deze organisatie en kan er dus geen vacatures voor aanmaken.
+    ajax:
+        removeFromSaved: Verwijder uit bewaarde vacatures
+    flash:
+        createStart: Een nieuwe vacature met naam
+        createEnd: werd aangemaakt.
+        okRemoveSubscribe: Uw kandidatuur voor deze vacature werd succesvol verwijderd.
+        submitCandidacy: Uw kandidatuur werd succesvol doorgezonden aan de beheerder(s) van deze vacature.
+        addToSaved: Deze vacature werd toegevoegd aan uw bewaarde vacatures.
+        removeFromSaved: Deze vacature werd verwijderd uit uw bewaarde vacatures.
+        okModification: Deze vacature werd succesvol aangepast.
+    mail:
+        create: Nieuwe vacature aangemaakt
+        removeCandidacySubjectStart: trok haar/zijn kandidaat voor de vacature met titel
+        removeCandidacySubjectEnd: 'in.'
+        submitCandidacy: 'stelde zich kandidaat voor de vacature met titel:'
+org:
+    label:
+        addAdmin: Nieuwe beheerder
+        submitAdmin: Voeg beheerder toe
+    flash:
+        createStart: Een nieuwe organisatie met naam
+        createEnd: ' werd aangemaakt.'
+        saved: De extra informatie werd succesvol opgeslagen.
+        editOk: De wijzigingen werden succesvol opgeslagen.
+        newAdmin: werd succesvol toegevoegd als beheerder voor deze organisatie.
+        removeAdmin: werd succesvol verwijderd als beheerder voor deze organisatie.
+        addToSaved: Deze organisatie werd toegevoegd aan uw bewaarde organisaties.
+        removeFromSaved: Deze organisatie werd verwijderd uit uw bewaarde organisaties.
+    exception:
+        notFoundStart: De organisatie met id
+        notFoundEnd: werd niet teruggevonden
+        notFound: De organisatie werd niet teruggevonden
+        noAdmin: U bent geen beheerder van deze organisatie.
+    mail:
+        view: werd toegevoegd als admin voor
+        removeAdmin: werd verwijderd als beheerder voor
+    ajax:
+        removeFromSaved: Verwijder uit bewaarde organisaties
+    list:
+        volunteer: ' medewerker'
+        volunteers: ' medewerkers en vrijwilligers'
+        here: op deze site
