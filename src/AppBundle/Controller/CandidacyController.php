@@ -22,40 +22,27 @@ class CandidacyController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository("AppBundle:Candidacy");
         $candidacy = $repository->findOneById($candidacyId);
+        $person = $candidacy->getCandidate();
+        $vacancy = $candidacy->getVacancy();
+        $fullname = $person->getFullName();
+        $info = [];
 
         if($request->request->has("approve")) {
+            //use reduceByOne method to both subtract one from stillWanted and
+            //close the vacancy if need be, then persist the vacancy
+            $vacancy->reduceByOne();
+            $em->persist($vacancy);
             $candidacy->setState(Candidacy::APPROVED);
             $em->persist($candidacy);
             $em->flush();
 
-            //get vacancy for this candidacy and use reduceByOne method to both
-            //subtract one from stillWanted and close the vacancy if need be
-            //then persist the vacancy
-            $vacancy = $candidacy->getVacancy()->reduceByOne();
-            $em->persist($vacancy);
-            $em->flush();
-
             //set digest / send email to all administrators
-            $person = $candidacy->getCandidate();
-            $organisation = $vacancy->getOrganisation();
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('candidacy.mail.approve');
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'approvedCandidate.html.twig',
-                        'txt/plain' => 'approvedCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'org' => $organisation,
-                            'vacancy' => $vacancy,
-                        ),
-                        'event' => DigestEntry::APPROVECANDIDATE,
-                    );
-            $this->digestOrMail($info);
+            $info['subject'] = $fullname . ' ' . $t->trans('candidacy.mail.approve');
+            $info['template'] = 'approvedCandidate.html.twig';
+            $info['txt/plain'] = 'approvedCandidate.txt.twig';
+            $info['event'] = DigestEntry::APPROVECANDIDATE;
 
-            $this->addFlash('approve_message', $candidacy->getCandidate()->getFirstname() . " " . $candidacy->getCandidate()->getLastname() .
-                $t->trans('candidacy.flash.approve') .
-                $candidacy->getVacancy()->getTitle() . "."
+            $this->addFlash('approve_message', $fullname . $t->trans('candidacy.flash.approve') . $vacancy->getTitle() . "."
             );
         }
         else if($request->request->has("cancel")){
@@ -64,65 +51,43 @@ class CandidacyController extends UtilityController
             $em->flush();
 
             //set digest / send email to all administrators
-            $person = $candidacy->getCandidate();
-            $vacancy = $candidacy->getVacancy();
-            $organisation = $vacancy->getOrganisation();
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('candidacy.mail.disapprove');
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'disapprovedCandidate.html.twig',
-                        'txt/plain' => 'disapprovedCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'org' => $organisation,
-                            'vacancy' => $vacancy,
-                        ),
-                        'event' => DigestEntry::APPROVECANDIDATE,
-                        'remove' => true,
-                    );
-            $this->digestOrMail($info);
+            $info['subject'] = $fullname . ' ' . $t->trans('candidacy.mail.disapprove');
+            $info['template'] = 'disapprovedCandidate.html.twig';
+            $info['txt/plain'] = 'disapprovedCandidate.txt.twig';
+            $info['event'] = DigestEntry::APPROVECANDIDATE;
+            $info['remove'] = true;
 
-            $this->addFlash('cancel_message', $candidacy->getCandidate()->getFirstname() .
-                            " " .
-                            $candidacy->getCandidate()->getLastname() .
+            $this->addFlash('cancel_message', $fullname .
                             $t->trans('candidacy.flash.disapprove') .
-                            $candidacy->getVacancy()->getTitle() . "."
+                            $vacancy->getTitle() . "."
                         );
         }
         else if($request->request->has("remove")){
             $candidacy->setState(Candidacy::DECLINED);
-            $vacancy = $candidacy->getVacancy()->increaseByOne();
+            $vacancy->increaseByOne();
             $em->persist($candidacy);
             $em->persist($vacancy);
             $em->flush();
 
             //set digest / send email to all administrators
-            $person = $candidacy->getCandidate();
-            $organisation = $vacancy->getOrganisation();
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('candidacy.mail.remove');
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'removedVolunteer.html.twig',
-                        'txt/plain' => 'removedVolunteer.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'org' => $organisation,
-                            'vacancy' => $vacancy,
-                        ),
-                        'event' => DigestEntry::REMOVECANDIDATE,
-                    );
-            $this->digestOrMail($info);
+            $info['subject'] = $fullname . ' ' . $t->trans('candidacy.mail.remove');
+            $info['template'] = 'removedVolunteer.html.twig';
+            $info['txt/plain'] = 'removedVolunteer.txt.twig';
+            $info['event'] = DigestEntry::REMOVECANDIDATE;
 
-            $this->addFlash('cancel_message', $candidacy->getCandidate()->getFirstname() .
-                            " " .
-                            $candidacy->getCandidate()->getLastname() .
+            $this->addFlash('cancel_message', $fullname .
                             $t->trans('candidacy.flash.remove') .
-                            $candidacy->getVacancy()->getTitle() . "."
+                            $vacancy->getTitle() . "."
                         );
         }
 
+        $info['data'] = array(
+            'candidate' => $person,
+            'org' => $vacancy->getOrganisation(),
+            'vacancy' => $vacancy,
+        );
+
+        $this->digestOrMail($info);
 
         return $this->redirect($request->headers->get('referer')); //return to sender -Elvis Presley, 1962
     }
