@@ -27,6 +27,7 @@ security:
 person:
     flash:
         editProfile: Uw profiel werd succesvol aangepast
+        notyourprofile: Enkel het eigen profiel is toegankelijk!
 vacancy:
     template:
         vacancyFit: Vacatures op maat
@@ -64,6 +65,7 @@ org:
         removeAdmin: werd succesvol verwijderd als beheerder voor deze organisatie.
         addToSaved: Deze organisatie werd toegevoegd aan uw bewaarde organisaties.
         removeFromSaved: Deze organisatie werd verwijderd uit uw bewaarde organisaties.
+        lastAdmin: Een organisatie heeft altijd minimaal 1 beheerder nodig.  U kan de laatste beheerder niet verwijderen voor deze organisatie.
     exception:
         notFoundStart: De organisatie met id
         notFoundEnd: werd niet teruggevonden

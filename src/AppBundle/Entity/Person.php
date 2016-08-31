@@ -21,7 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @Vich\Uploadable
  *
- * @Assert\Callback({"AppBundle\Entity\Person", "validateContacts"}, groups = {"firstStep"})
+ * @Assert\Callback({"AppBundle\Entity\Person", "validateContacts"}, groups = {"firstStep", "edit"})
  */
 class Person extends OAuthUser implements UserInterface, \Serializable
 {
@@ -39,20 +39,20 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep", "edit"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
      *      minMessage = "person.min_message_one",
      *      maxMessage = "person.max_message",
-     *      groups = {"firstStep"}
+     *      groups = {"firstStep", "edit"}
      * )
     */
     protected $firstname;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep"})
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"firstStep", "edit"})
      * @Assert\Length(
      *      min = 1,
      *      max = 100,
@@ -70,12 +70,12 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      max = 150,
      *      minMessage = "person.min_message",
      *      maxMessage = "person.max_message",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      * @Assert\Regex(
      *     pattern = "/^[^ \/]+$/",
      *     message = "geen spaties of slashes",
-     *     groups = {"secondStep"}
+     *     groups = {"secondStep", "edit"}
      * )
     */
     protected $username;
@@ -90,7 +90,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @Assert\Email(
      *     message = "person.email.valid",
      *     checkHost = true,
-     *     groups = {"firstStep"}
+     *     groups = {"firstStep", "edit"}
      * )
      */
     protected $email;
@@ -102,18 +102,18 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      max = 4096,
      *      minMessage = "person.min_message",
      *      maxMessage = "person.max_message",
-     *      groups = {"firstStep"}
+     *      groups = {"firstStep", "edit"}
      * )
      */
     protected $plainPassword;
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep"})
+     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep", "edit"})
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "organisation.max_message",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      */
     protected $street;
@@ -123,13 +123,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
      *     message="person.not_numeric",
-     *     groups = {"secondStep"}
+     *     groups = {"secondStep", "edit"}
      * )
      * @Assert\Range(
      *      min = 0,
      *      max = 999999,
      *      minMessage = "person.not_positive",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      */
     protected $number;
@@ -141,12 +141,12 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      max = 6,
      *      minMessage = "person.min_message_one",
      *      maxMessage = "person.max_message",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      * @Assert\Regex(
      *     pattern="/^[a-zA-Z0-9]{1,6}$/",
      *     message="person.bus.valid",
-     *     groups = {"secondStep"}
+     *     groups = {"secondStep", "edit"}
      * )
      */
     protected $bus;
@@ -156,20 +156,20 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * @Assert\Regex(
      *     pattern = "/^[0-9]*$/",
      *     message="person.not_numeric",
-     *     groups = {"secondStep"}
+     *     groups = {"secondStep", "edit"}
      * )
      * @Assert\Range(
      *      min = 1000,
      *      max = 9999,
      *      minMessage = "person.not_positive",
      *      maxMessage = "not_more_than",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      * @Assert\Length(
      *      min = 4,
      *      max = 4,
      *      exactMessage = "person.exact",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      */
     protected $postalcode;
@@ -181,7 +181,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      max = 100,
      *      minMessage = "person.min_message",
      *      maxMessage = "person.max_message",
-     *      groups = {"secondStep"}
+     *      groups = {"secondStep", "edit"}
      * )
      */
     protected $city;
@@ -289,11 +289,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *    message = "person.linkedin.valid",
      *    protocols = {"http", "https"},
      *    checkDNS = true,
-     *    dnsMessage = "person.linkedin.valid"
+     *    dnsMessage = "person.linkedin.valid",
+     *    groups = {"secondStep", "edit"}
      * )
      * @Assert\Regex(
      *     pattern = "/\blinkedin.com\b/",
-     *     message = "person.linkedin.valid"
+     *     message = "person.linkedin.valid",
+     *     groups = {"secondStep", "edit"}
      * )
      */
     protected $linkedinUrl;
@@ -516,7 +518,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     public function setUsername($username)
     {
         if(empty($username)){
-            $username = 'gebruiker' . $this->getId();
+            $username = 'gebruiker' . time();
         }
         $this->username = $username;
 

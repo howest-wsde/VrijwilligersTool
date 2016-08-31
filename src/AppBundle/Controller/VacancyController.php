@@ -152,6 +152,7 @@ class VacancyController extends UtilityController
     }
 
     /**
+     * Kandidaat stellen voor een vacature
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
@@ -173,7 +174,7 @@ class VacancyController extends UtilityController
 
         if ($candidacies) {
             foreach ($candidacies as $candidacy) {
-                $em->remove($candidacy);
+                $candidacy->setState(Candidacy::WITHDRAWN);
                 $em->flush();
             }
 
@@ -198,8 +199,20 @@ class VacancyController extends UtilityController
                     );
             $this->digestOrMail($info);
         } else {
-            $candidacy = new Candidacy();
-            $candidacy->setCandidate($person)->setVacancy($vacancy);
+            $candidacies = $em->getRepository('AppBundle:Candidacy')
+                ->findBy(array(
+                    'candidate' => $person->getId(),
+                    'vacancy' => $vacancy->getId(),
+                ));
+            if($candidacies){
+                foreach ($candidacies as $candidacy) {
+                    $candidacy->setState(Candidacy::PENDING);
+                }
+            } else {
+                $candidacy = new Candidacy();
+                $candidacy->setCandidate($person)->setVacancy($vacancy);
+            }
+
             $em->persist($candidacy);
             $em->flush();
 
@@ -287,33 +300,6 @@ class VacancyController extends UtilityController
         }
     }
 
-    /**
-     * @Security("has_role('ROLE_USER')")
-     * @Route("/vacature/{urlid}/goedkeuren", name="vacancy_candidacies")
-     */
-    public function vacancyCandidacies($urlid)
-    {
-        $t = $this->get('translator');
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();;
-        $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByUrlid($urlid);
-
-        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
-            $approved =$em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-                'state' => Candidacy::APPROVED));
-
-            $pending = $em->getRepository("AppBundle:Candidacy")->findBy(array('vacancy' => $vacancy->getId(),
-                'state' => Candidacy::PENDING));
-
-
-            return $this->render("vacancy/vacature_goedkeuren.html.twig",
-                ["vacancy" => $vacancy,
-                 "approved" => $approved,
-                 "pending" => $pending]);
-        }
-
-        throw $this->createAccessDeniedException($t->trans('vacancy.exception.noAdmin'));
-    }
 
     /**
      * A list of the most recently created vacancies.

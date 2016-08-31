@@ -1,8 +1,10 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
 Nieuwe beheerder toegevoegd
 
 Beste beheerder voor {{ org.name }},
 
 zonet werd {{ newAdmin.firstname }} {{ newAdmin.lastname }} toegevoegd als beheerder voor {{ org.name }}.
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{% endblock %}

@@ -11,6 +11,7 @@ class Candidacy extends EntityBase
     const APPROVED = 1;
     const DECLINED = 2;
     const REMOVED = 3;
+    const WITHDRAWN = 4;
 
     /**
      * @var integer

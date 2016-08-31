@@ -1,3 +1,6 @@
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
 <h1>Nieuwe beheerder toegevoegd</h1>
 
 <p>Beste beheerder voor {{ org.name }},</p>
@@ -6,8 +9,4 @@
     zonet werd {{ newAdmin.firstname }} {{ newAdmin.lastname }} toegevoegd als beheerder voor {{ org.name }}.
 </p>
 
-<p>
-    Met vriendelijke groeten,</br>
-    Roeselare Vrijwilligt
-</p>
-<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">
+{% endblock %}
