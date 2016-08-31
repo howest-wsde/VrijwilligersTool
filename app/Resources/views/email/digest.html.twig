@@ -1,3 +1,6 @@
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
 <h1>Digest mail vanwege Roeselare Vrijwilligt</h1>
 
 Beste beheerder,
@@ -136,8 +139,5 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 </table>
 {% endif %}
 
-<p>
-    Met vriendelijke groeten,</br>
-    Roeselare Vrijwilligt
-</p>
-<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">
+
+{% endblock %}
