@@ -1,6 +1,6 @@
-
-
 {% extends 'base.html.twig' %}
+
+{# currently not in use #}
 
 {% block title %}register{% endblock %}
 
@@ -15,4 +15,9 @@
 	    {{ form_row (form.termsAccepted) }}
 	    <button type="submit">Register</button>
 	{{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+	{{  parent() }}
+	<script src="{{ asset('js/validation.js') }}"></script>
 {% endblock %}

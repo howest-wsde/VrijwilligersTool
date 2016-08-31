@@ -13,10 +13,13 @@ AppBundle\Entity\Vacancy:
             type: text
         startdate:
             type: date
-            nullable: true
         enddate:
             type: date
             nullable: true
+        urlid:
+            type: string
+            length: 100
+            options: {default: ""}
     manyToOne:
         organisation:
             targetEntity: Organisation
@@ -24,11 +27,16 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
+    oneToMany:
+        candidacies:
+            targetEntity: Candidacy
+            mappedBy: vacancy
     manyToMany:
         skills:
             targetEntity: Skill
             nullable: true
             mappedBy: null
+            inversedBy: vacancies
             cascade: ["persist"]
             joinTable:
                 name: vacancy_has_skill

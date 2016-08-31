@@ -22,7 +22,7 @@
             if (search["term"] != "") {
                 $.ajax({
                     type: "GET",
-                    url: searchURL,
+                    url: RV_GLOBALS.searchURL,
                     data: "q=" + search["term"],
                     cache: true,
                     success: searchSucces,
