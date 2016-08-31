@@ -103,9 +103,7 @@
 				{% set open = [] %}
 				{% set candidates = [] %}
 				{% set declined = [] %}
-				{% set openactions = [] %}
-				{% set candidatesactions = [] %}
-				{% set declinedactions = [] %}
+				{% set removed = [] %}
 				{% for candidacy in vacancy.candidacies %}
 					{% if (candidacy.state == 0) %}
 						{% set open = open|merge([candidacy.candidate]) %}
@@ -113,6 +111,8 @@
 						{% set candidates = candidates|merge([candidacy.candidate]) %}
 					{% elseif (candidacy.state == 2) %}
 						{% set declined = declined|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 3) %}
+						{% set removed = removed|merge([candidacy.candidate]) %}
 					{% endif %}
 				{% endfor %}
 				{% set activetab = "open" %}
@@ -120,6 +120,7 @@
 	                <li class="paars {% if (activetab == "open") %} active {% endif %}"><a href="#open" data-toggle="tab">{{ "vacancy.approve.open"|trans }} ({{ open|length }})</a></li>
 	                <li class="blauw {% if (activetab == "candidates") %} active {% endif %}"><a href="#candidates" data-toggle="tab">{{ "vacancy.approve.candidates"|trans }} ({{ candidates|length }})</a></li>
 	                {% if (declined|length > 0) %}<li class="rood {% if (activetab == "declined") %} active {% endif %}"><a href="#declined" data-toggle="tab">{{ "vacancy.approve.declined"|trans }} ({{ declined|length }})</a></li>{% endif %}
+	                {% if (removed|length > 0) %}<li class="geel {% if (activetab == "removed") %} active {% endif %}"><a href="#removed" data-toggle="tab">{{ "vacancy.approve.removed"|trans }} ({{ removed|length }})</a></li>{% endif %}
 	            </ul>
 
 	            <div class="tab-content clearfix blok special">
@@ -132,9 +133,15 @@
 							{% endfor %}
 						</div>
 	                </div>
+
 	                <div class="tab-pane {% if (activetab == "candidates") %} active {% endif %}" id="candidates">
-						{% embed "person/personen_oplijsten.html.twig" with {"viewMode": "tile", "persons": candidates, "contact": true } %}{% endembed %}
+						{% for candidacy in vacancy.candidacies %}
+							{% if (candidacy.state == 2) %}
+								{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": {"href": path('approve_candidacy', {'candidacyId': candidacy.id}), "txt": "verwijderen", "class": "rood"} }%}{% endembed %}
+							{% endif %}
+						{% endfor %}
 	                </div>
+
 	                <div class="tab-pane {% if (activetab == "declined") %} active {% endif %}" id="declined">
 						{% for candidacy in vacancy.candidacies %}
 							{% if (candidacy.state == 2) %}
@@ -142,13 +149,12 @@
 							{% endif %}
 						{% endfor %}
 	                </div>
+
+	                <div class="tab-pane {% if (activetab == "removed") %} active {% endif %}" id="candidates">
+						{% embed "person/personen_oplijsten.html.twig" with {"viewMode": "tile", "persons": removed, "contact": true } %}{% endembed %}
+	                </div>
+
 				</div>
-
-
-
-
-
-
 
 			</section>
 
