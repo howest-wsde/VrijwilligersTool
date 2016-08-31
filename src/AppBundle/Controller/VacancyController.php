@@ -152,6 +152,7 @@ class VacancyController extends UtilityController
     }
 
     /**
+     * Kandidaat stellen voor een vacature
      * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/inschrijven", name="vacancy_subscribe")
      * @Route("/vacature/{urlid}/uitschrijven", name="vacancy_unsubscribe")
@@ -173,7 +174,7 @@ class VacancyController extends UtilityController
 
         if ($candidacies) {
             foreach ($candidacies as $candidacy) {
-                $em->remove($candidacy);
+                $candidacy->setState(Candidacy::WITHDRAWN);
                 $em->flush();
             }
 
@@ -198,8 +199,20 @@ class VacancyController extends UtilityController
                     );
             $this->digestOrMail($info);
         } else {
-            $candidacy = new Candidacy();
-            $candidacy->setCandidate($person)->setVacancy($vacancy);
+            $candidacies = $em->getRepository('AppBundle:Candidacy')
+                ->findBy(array(
+                    'candidate' => $person->getId(),
+                    'vacancy' => $vacancy->getId(),
+                ));
+            if($candidacies){
+                foreach ($candidacies as $candidacy) {
+                    $candidacy->setState(Candidacy::PENDING);
+                }
+            } else {
+                $candidacy = new Candidacy();
+                $candidacy->setCandidate($person)->setVacancy($vacancy);
+            }
+
             $em->persist($candidacy);
             $em->flush();
 

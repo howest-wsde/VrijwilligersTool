@@ -24,6 +24,7 @@ class PersonController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
             ->findOneByUsername($username);
+
         return $this->render('person/persoon.html.twig',
             ["person" => $person]);
     }
@@ -37,6 +38,7 @@ class PersonController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
             ->findOneById($id);
+
         return $this->render('person/persoon.html.twig',
             ["person" => $person]);
     }
