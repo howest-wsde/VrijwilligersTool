@@ -29,7 +29,7 @@ class CandidacyController extends UtilityController
         $fullname = $person->getFullName();
         $info = [];
 
-        if($action == "approve") {
+        if($action == "approve") { //kandidaat goedkeuren
             //use reduceByOne method to both subtract one from stillWanted and
             //close the vacancy if need be, then persist the vacancy
             $vacancy->reduceByOne();
@@ -47,7 +47,7 @@ class CandidacyController extends UtilityController
             $this->addFlash('approve_message', $fullname . $t->trans('candidacy.flash.approve') . $vacancy->getTitle() . "."
             );
         }
-        else if($action == "cancel"){
+        else if($action == "cancel"){ //kandidaat afwijzen
             $candidacy->setState(Candidacy::DECLINED);
             $em->persist($candidacy);
             $em->flush();
@@ -64,7 +64,7 @@ class CandidacyController extends UtilityController
                             $vacancy->getTitle() . "."
                         );
         }
-        else if($action == "remove"){
+        else if($action == "remove"){ //actieve vrijwilliger verwijderen
             $candidacy->setState(Candidacy::REMOVED);
             $vacancy->increaseByOne();
             $em->persist($candidacy);
