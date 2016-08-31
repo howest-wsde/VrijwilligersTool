@@ -165,11 +165,11 @@ class PersonController extends UtilityController
                         "scale": 1
                     }
                 }
-            }';
+            },';
         }
 
         //boost as per social interaction preference
-        $query .= ',{
+        $query .= '{
             "filter": {
                 "term": {
                    "socialInteraction": "' . $vacancy->getSocialInteraction() . '"
