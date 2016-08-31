@@ -1,12 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block outerbody %}
+    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+        <div class="alert alert-success">
+            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
 
     {% embed "default/carousel.html.twig" %}{% endembed %}
 
     <div class="part">
         <div class="container">
             <section class="col-md-12">
+
                 <div id="handenuitmouwen" class="blok special">
                     <h2>Zin om de handen uit de mouwen te steken? </h2>
                     {% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}

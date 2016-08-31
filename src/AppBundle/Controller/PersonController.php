@@ -21,12 +21,17 @@ class PersonController extends UtilityController
      */
     public function personViewAction($username)
     {
+        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
             ->findOneByUsername($username);
 
-        return $this->render('person/persoon.html.twig',
-            ["person" => $person]);
+        if($this->getUser()->getUsername() === $username){
+            return $this->render('person/persoon.html.twig', ["person" => $person]);
+        } else {
+            $this->addFlash('error', $t->trans('person.flash.notyourprofile'));
+            return $this->redirectToRoute('homepage');
+        }
     }
 
     /**
@@ -35,12 +40,17 @@ class PersonController extends UtilityController
      */
     public function personViewByIdAction($id)
     {
+        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
-            ->findOneById($id);
+            ->indOneById($id);
 
-        return $this->render('person/persoon.html.twig',
-            ["person" => $person]);
+        if($this->getUser()->getId() === $id){
+            return $this->render('person/persoon.html.twig', ["person" => $person]);
+        } else {
+            $this->addFlash('error', $t->trans('person.flash.notyourprofile'));
+            return $this->redirectToRoute('homepage');
+        }
     }
 
     /**

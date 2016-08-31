@@ -26,6 +26,7 @@ security:
 person:
     flash:
         editProfile: Your profile has been succesfully modified
+        notyourprofile: Only your own profile is accessible!
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you
