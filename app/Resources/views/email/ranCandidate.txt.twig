@@ -1,8 +1,10 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
 Een kandidaat droop af!
 
 Beste beheerder voor {{ org.name }},
 
 zonet trok {{ candidate.firstname }} {{ candidate.lastname }} op Roeselare Vrijwilligt haar / zijn kandidatuur voor de vacature {{ vacancy.title }} in.
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{% endblock %}

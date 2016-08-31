@@ -1,0 +1,12 @@
+{% trans_default_domain "views" %}
+
+{% block body %}{% endblock %}
+
+<p>
+    Met vriendelijke groeten,</br>
+    Roeselare Vrijwilligt
+</p>
+<img src="{{ absolute_url(asset('images/logo_roeselarevrijwilligt.png')) }}">
+
+<p><small>Deze mail werd u gestuurd vanuit Roeselare Vrijwilligt.
+<br />U kunt uw instellingen aanpassen via <a href="{{ path("profile_edit") }}">deze pagina</a>.</small></p>

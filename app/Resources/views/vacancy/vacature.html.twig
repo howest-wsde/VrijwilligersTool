@@ -83,10 +83,14 @@
 
 			<footer>
 				<div>
-					{% if app.user in vacancy.candidates %}
-						<a class="cta rood" href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a>
-					{% else %}
-						<a class="cta groen"  href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a>
+					{% if app.user not in vacancy.volunteers %}
+						{% if vacancy.stillWanted > 0 %}
+							{% if app.user in vacancy.candidates %}
+								<a class="cta rood" href="{{ path("vacancy_unsubscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candremove"|trans }}</a>
+							{% else %}
+								<a class="cta groen"  href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a>
+							{% endif %}
+						{% endif %}
 					{% endif %}
 
 					{% embed "default/socialshare.html.twig" %}{% endembed %}
@@ -99,14 +103,84 @@
 		{% endif %}
 
 		{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+			<section class="administrators tabblad tiles">
+				{% set open = [] %}
+				{% set candidates = [] %}
+				{% set declined = [] %}
+				{% set removed = [] %}
+				{% for candidacy in vacancy.candidacies %}
+					{% if (candidacy.state == 0) %}
+						{% set open = open|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 1) %}
+						{% set candidates = candidates|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 2) %}
+						{% set declined = declined|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 3) %}
+						{% set removed = removed|merge([candidacy.candidate]) %}
+					{% endif %}
+				{% endfor %}
+				{% set activetab = "open" %}
+				{% if (open|length == 0) %}
+					{% set activetab = "candidates" %}
+				{% endif %}
+	            <ul class="nav nav-tabs">
+	                <li class="paars {% if (activetab == "open") %} active {% endif %}"><a href="#open" data-toggle="tab">{{ "vacancy.approve.open"|trans }} ({{ open|length }})</a></li>
+	                <li class="blauw {% if (activetab == "candidates") %} active {% endif %}"><a href="#candidates" data-toggle="tab">{{ "vacancy.approve.candidates"|trans }} ({{ candidates|length }})</a></li>
+	                {% if (declined|length > 0) %}<li class="rood {% if (activetab == "declined") %} active {% endif %}"><a href="#declined" data-toggle="tab">{{ "vacancy.approve.declined"|trans }} ({{ declined|length }})</a></li>{% endif %}
+	                {% if (removed|length > 0) %}<li class="geel {% if (activetab == "removed") %} active {% endif %}"><a href="#removed" data-toggle="tab">{{ "vacancy.approve.removed"|trans }} ({{ removed|length }})</a></li>{% endif %}
+	            </ul>
+
+	            <div class="tab-content clearfix blok special">
+	                <div class="tab-pane {% if (activetab == "open") %} active {% endif %}" id="open">
+						<div class="blokken">
+							{% for candidacy in vacancy.candidacies %}
+								{% if (candidacy.state == 0) %}
+									{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": [{"href": path('approve_candidacy', {'candidacyId': candidacy.id, "action": "approve"}), "txt": "vacancy.approve.approve"|trans, "class": "groen"}, {"href": path('approve_candidacy', {'candidacyId': candidacy.id, "action": "cancel"}), "txt": "vacancy.approve.cancel"|trans, "class": "rood"}] }%}{% endembed %}
+								{% endif %}
+							{% endfor %}
+						</div>
+	                </div>
+
+	                <div class="tab-pane blokken {% if (activetab == "candidates") %} active {% endif %}" id="candidates">
+	                	<div class="blokken">
+							{% for candidacy in vacancy.candidacies %}
+								{% if (candidacy.state == 1) %}
+									{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": {"href": path('approve_candidacy', {'candidacyId': candidacy.id, "action": "remove"}), "txt": "vacancy.approve.remove"|trans, "class": "rood"} }%}{% endembed %}
+								{% endif %}
+							{% endfor %}
+						</div>
+	                </div>
+
+	                <div class="tab-pane {% if (activetab == "declined") %} active {% endif %}" id="declined">
+	                	<div class="blokken">
+							{% for candidacy in vacancy.candidacies %}
+								{% if (candidacy.state == 2) %}
+									{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": {"href": path('approve_candidacy', {'candidacyId': candidacy.id, "action": "approve"}), "txt": "goedkeuren", "class": "groen"} }%}{% endembed %}
+								{% endif %}
+							{% endfor %}
+						</div>
+	                </div>
+
+	                <div class="tab-pane {% if (activetab == "removed") %} active {% endif %}" id="removed">
+						<div class="blokken">
+							{% for candidacy in vacancy.candidacies %}
+								{% if (candidacy.state == 3) %}
+									{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": [{"href": path('approve_candidacy', {'candidacyId': candidacy.id, "action": "approve"}), "txt": "vacancy.approve.restore"|trans, "class": "groen"}] }%}{% endembed %}
+								{% endif %}
+							{% endfor %}
+						</div>
+	                </div>
+
+				</div>
+
+			</section>
+
 			<section class="administrators blok">
-				<ul>
-					<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a></li>
-					<li><a href="{{ path("vacancy_candidacies", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.select"|trans }}</a></li>
-						{% if vacancy.published != 4 %}
-							<li><a href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a></li>
-						{% endif %}
-				</ul>
+				<a class="cta groen" href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a>
+
+				{% if vacancy.published != 4 %}
+					<a class="cta rood" href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a>
+				{% endif %}
 			</section>
 		{% endif %}
 

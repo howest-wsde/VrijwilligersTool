@@ -14,9 +14,11 @@ class CandidacyController extends UtilityController
 {
     /**
      * @Security("has_role('ROLE_USER')")
-     * @Route("/kandidatuur/{candidacyId}/goedkeuren", name="approve_candidacy")
+     * @Route("/kandidatuur/{candidacyId}/{action}",
+     *              name="approve_candidacy",
+     *              requirements={"action": "approve|cancel|remove"} )
      */
-    public function approveCandidacy(Request $request, $candidacyId)
+    public function approveCandidacy(Request $request, $candidacyId, $action)
     {
         $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
@@ -27,7 +29,7 @@ class CandidacyController extends UtilityController
         $fullname = $person->getFullName();
         $info = [];
 
-        if($request->request->has("approve")) {
+        if($action == "approve") {
             //use reduceByOne method to both subtract one from stillWanted and
             //close the vacancy if need be, then persist the vacancy
             $vacancy->reduceByOne();
@@ -45,7 +47,7 @@ class CandidacyController extends UtilityController
             $this->addFlash('approve_message', $fullname . $t->trans('candidacy.flash.approve') . $vacancy->getTitle() . "."
             );
         }
-        else if($request->request->has("cancel")){
+        else if($action == "cancel"){
             $candidacy->setState(Candidacy::DECLINED);
             $em->persist($candidacy);
             $em->flush();
@@ -62,7 +64,7 @@ class CandidacyController extends UtilityController
                             $vacancy->getTitle() . "."
                         );
         }
-        else if($request->request->has("remove")){
+        else if($action == "remove"){
             $candidacy->setState(Candidacy::REMOVED);
             $vacancy->increaseByOne();
             $em->persist($candidacy);

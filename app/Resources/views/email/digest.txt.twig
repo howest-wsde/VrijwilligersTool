@@ -1,3 +1,6 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
 Digest mail vanwege Roeselare Vrijwilligt
 
 Beste beheerder,
@@ -26,7 +29,7 @@ Titel        Begindatum        Einddatum        Link naar vacature
 Nieuwe kandidaten
 Naam        Gebruikersnaam        Naam organisatie        Titel vacature        Beheerslink
 {% for entry in newCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        Keur de kandidaat goed/af: {{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        Keur de kandidaat goed/af: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
@@ -58,6 +61,4 @@ Naam        Gebruikersnaam        Naam organisatie        Titel vacature
 {% endif %}
 
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
-
+{% endblock %}

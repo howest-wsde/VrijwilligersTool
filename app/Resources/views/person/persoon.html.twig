@@ -28,6 +28,55 @@
             </nav>
             #}
 
+
+{# --------------------------- EIGEN AANBOD  ------------------------------------- #}
+
+        {% if person.organisations|length > 0 %}
+
+            <section class="part"><div class="container tabblad spacing">
+
+                {% if person.organisations|length > 1 %}
+                    <ul class="nav nav-pills">
+                        {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
+                        {% set teller = 0 %}
+                        {% for org in person.organisations %}
+                            <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
+                            {% set teller = teller + 1 %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="tab-content clearfix">
+                    {% set teller = 0 %}
+                    {% for org in person.organisations %}
+                        <div id="org_{{ org.urlId }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
+                            <ul class="nav nav-tabs">
+                                <li class="geel active"><a href="#org_{{ org.urlId }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
+                                <li class="rood"><a href="#org_{{ org.urlId }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
+                                <li class="groen"><a href="#org_{{ org.urlId }}_savedvac" data-toggle="tab">{{ "person.dash.org.savedvac"|trans }}</a></li>
+                            </ul>
+
+                            <div class="tab-content clearfix blok special">
+                                <div class="tab-pane active" id="org_{{ org.urlId }}_openvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
+                                    {# voor de actieve vacature via ajax deze controller renderen (of voor elke vacature laden en dan tonen afhankelijk van welke geklikt wordt) {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": <-- hier een vacancy id --> } )) }} #}
+                                    {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": 7 } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_closedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
+                                </div>
+                                <div class="tab-pane" id="org_{{ org.urlId }}_savedvac">
+                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
+                                </div>
+                            </div>
+                        </div>
+                        {% set teller = teller + 1 %}
+                    {% endfor %}
+                </div>
+
+            </div></section>
+        {% endif %}
+
 {# --------------------------- TABS VACATURES  ------------------------------------- #}
 
         <section class="part"><div class="container tabblad spacing">
@@ -124,53 +173,6 @@
             </nav>
         #}
 
-{# --------------------------- EIGEN AANBOD  ------------------------------------- #}
-
-        {% if person.organisations|length > 0 %}
-
-            <section class="part"><div class="container tabblad spacing">
-
-                {% if person.organisations|length > 1 %}
-                    <ul class="nav nav-pills">
-                        {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
-                        {% set teller = 0 %}
-                        {% for org in person.organisations %}
-                            <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
-                            {% set teller = teller + 1 %}
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-
-                <div class="tab-content clearfix">
-                    {% set teller = 0 %}
-                    {% for org in person.organisations %}
-                        <div id="org_{{ org.urlId }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
-                            <ul class="nav nav-tabs">
-                                <li class="geel active"><a href="#org_{{ org.urlId }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
-                                <li class="rood"><a href="#org_{{ org.urlId }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
-                                <li class="groen"><a href="#org_{{ org.urlId }}_savedvac" data-toggle="tab">{{ "person.dash.org.savedvac"|trans }}</a></li>
-                            </ul>
-
-                            <div class="tab-content clearfix blok special">
-                                <div class="tab-pane active" id="org_{{ org.urlId }}_openvac">
-                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id } )) }}
-                                    {# voor de actieve vacature via ajax deze controller renderen (of voor elke vacature laden en dan tonen afhankelijk van welke geklikt wordt) {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": <-- hier een vacancy id --> } )) }} #}
-                                    {{ render(controller("AppBundle:Person:vrijwilligersOpMaat", { "id": 7 } )) }}
-                                </div>
-                                <div class="tab-pane" id="org_{{ org.urlId }}_closedvac">
-                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 2 } )) }}
-                                </div>
-                                <div class="tab-pane" id="org_{{ org.urlId }}_savedvac">
-                                    {{ render(controller("AppBundle:Vacancy:listOrganisationVacancies", { "id": org.id, "status": 3 } )) }}
-                                </div>
-                            </div>
-                        </div>
-                        {% set teller = teller + 1 %}
-                    {% endfor %}
-                </div>
-
-            </div></section>
-        {% endif %}
 
 {# ------------------------------------------------------------------------- #}
 {#

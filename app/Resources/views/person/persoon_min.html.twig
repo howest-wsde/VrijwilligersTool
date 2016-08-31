@@ -1,11 +1,26 @@
+{% if cta is not defined %}
+	{% set cta = [] %}{# formaat: actions = [{"href": "#, "txt": "link"}] #}
+{% elseif cta.href is defined %}
+	{% set cta = [cta] %}
+{% endif %}
+
 <article class="blok">
     <header>
         <a href="{{ path("person_username", { "username": person.username }) }}">
             <h3>{{ person.firstname}} {{ person.lastname}}</h3>
         </a>
     </header>
-    <p>xx</p>
+    {# <p>xx</p> #}
     <ul class="icons">
-        <li class="loc">x</li>
+        {% if person.city %}<li class="loc">{{ person.city }}</li>{% endif %}
+    	{% if contact %}
+	        {% if person.telephone %}<li class="phone">{{ person.telephone }}</li>{% endif %}
+	        {% if person.email %}<li class="mail"><a href="mailto:{{ person.email }}">{{ person.email }}</a></li>{% endif %}
+    	{% endif %}
     </ul>
+    {% if cta|length > 0 %}<div class="cta">
+		{% for action in cta %}
+        	<a href="{{ action.href }}" class="cta {% if action.class is defined %}{{ action.class }}{% endif %}">{{ action.txt }}</a>
+		{% endfor %}
+    </div>{% endif %}
 </article>

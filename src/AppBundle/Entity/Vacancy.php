@@ -977,6 +977,26 @@ class Vacancy extends EntityBase
     }
 
     /**
+     * Get active volunteers
+     *
+     * @return array
+     */
+    public function getVolunteers()
+    {
+        $volunteers = [];
+        $openCandidacies = $this->getCandidacies()->filter(
+            function($candidacy){
+               return ($candidacy->getState() === Candidacy::APPROVED);
+        });
+
+        foreach ($openCandidacies as $candidacy){
+            $volunteers[] = $candidacy->getCandidate();
+        }
+
+        return $volunteers;
+    }
+
+    /**
      * Add liker
      *
      * @param Person $liker
@@ -1087,7 +1107,9 @@ class Vacancy extends EntityBase
      */
     public function esGetNumberOfLikers()
     {
-        return $this->getLikers()->count();
+        if (!is_null($this->getLikers())) {
+            return $this->getLikers()->count();
+        } else return 0;
     }
 
     /**
