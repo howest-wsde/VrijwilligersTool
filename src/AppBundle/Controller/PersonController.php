@@ -146,13 +146,13 @@ class PersonController extends UtilityController
                     }
                 },
                 "weight": 2
-            }';
+            },';
         }
 
         //boost (sliding scale) as per work load
         $estimatedWorkInHours = $vacancy->getEstimatedWorkInHours();
         if(!empty($estimatedWorkInHours)){ //boost on work time
-            $query .= ',{
+            $query .= '{
                 "filter": {
                     "exists": {
                         "field": "estimatedWorkInHours"
