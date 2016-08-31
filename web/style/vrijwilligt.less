@@ -1,3 +1,5 @@
+@import "browserprefixes.less";
+
 @cMainBG: #f3f3f3;
 @cHeader: #76c7c0;
 @cCarousel: #6cb9b3;
@@ -35,29 +37,29 @@ body {color: @cTXTgrijs; }
 body>header {
 	background-color: @cHeader;
 	.mainnav {
-		display: flex;
+		.flex-display(flex);
 		padding-top: @iPadding;
-		flex-flow: row wrap; justify-content: space-between;
+		.flex-flow(row wrap) ; .justify-content(space-between);
 		a.logo {
 			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
 			height: 104px;
-			flex: 0 0 250px;
+			.flex(0 0 250px);
 			h1 {display: none; }
 		}
 		a.showhide {display: none; }
 		nav {
-			flex: 1;
-			display: flex; flex-flow: row wrap;
-			justify-content: flex-end; align-content: space-between;
+			.flex(1);
+			.flex-display(flex);  .flex-flow(row wrap) ;
+			.justify-content(flex-end); .align-content(space-between);
 			form.search {
-				margin: 0; align-content: space-between; display: flex; .rounded(5px);
-				align-items: baseline; font-size: 90%; position: relative;
+				margin: 0; .align-content(space-between);  .flex-display(flex);  .rounded(5px);
+				.align-items(baseline); font-size: 90%; position: relative;
 				.searchq {
-					border: 0; padding: 5px 10px; flex: 1;
+					border: 0; padding: 5px 10px; .flex(1);
 					color: white; text-align: right; background: transparent;
 				}
 				.dosearch {
-					flex: 0 0 35px; border: 0; overflow: hidden; color: transparent;  padding: 5px;
+					.flex(0 0 35px); border: 0; overflow: hidden; color: transparent;  padding: 5px;
 					background: transparent url("../images/search.png") no-repeat center center;
 				}
 				.searchResult {display: none; }
@@ -103,7 +105,7 @@ body>header {
 				}
 			}
 			ul.mainmenu {
-				flex: 0 0 100%; display: flex; flex-flow: row wrap; justify-content: flex-end; margin: @iMargin;
+				.flex(0 0 100%); .flex-display(flex);  .flex-flow(row wrap) ; .justify-content(flex-end); margin: @iMargin;
 				li {
 					padding-left: 10px;
 					a {
@@ -123,8 +125,8 @@ body>header {
 	@media screen and (max-width: @iContainerWidth){
 		position: relative; z-index: 10;
 		.mainnav {
-			flex-flow: column wrap;
-			a.logo {flex: 0 0 104px; }
+			.flex-flow(column wrap) ;
+			a.logo {.flex(0 0 104px); }
 			a.burger {
 				position: absolute; top: @iMargin; right: @iMargin; display: block; .rounded(4px);
 				width: 40px; background: lighten(@cHeader, 20%); padding: 5px;
@@ -132,11 +134,11 @@ body>header {
 			}
 			nav {
 				display: none;
-				&.collapse.in {display: flex; }
+				&.collapse.in {.flex-display(flex);  }
 				background: darken(@cHeader, 10%);
 				ul.mainmenu {
 					order: 2;
-					flex-direction: column;
+					.flex-direction(column);
 					margin: 0;
 					li {
 						padding: 2px @iPadding;
@@ -147,19 +149,19 @@ body>header {
 				}
 				ul.usermenu {
 					border-top: 2px dotted lighten(@cHeader, 10%);
-					display: flex; flex-flow: row wrap;
+					.flex-display(flex);  .flex-flow(row wrap) ;
 					width: 100%; margin: 10px 0; padding: 10px;
 					order: 3;
 					li {
 						padding: 2px;
-						flex: 1; white-space: nowrap;
+						.flex(1); white-space: nowrap;
 						border: 0; padding: 2px 7px;
 					}
 				}
 				form.search {
 					order: 1;
 					width: 100%; margin: @iMargin;
-					flex-flow: row wrap;
+					.flex-flow(row wrap) ;
 					background: lighten(@cHeader, 10%);
 					.searchq {text-align: left; }
 					&, &.actief {
@@ -167,7 +169,7 @@ body>header {
 							position: relative;
 							background: lighten(@cHeader, 5%);
 							z-index: 0;
-							flex: 0 0 100%; top: 0;
+							.flex(0 0 100%); top: 0;
 						}
 					}
 				}
@@ -177,7 +179,7 @@ body>header {
 	}
 
 	.menu_primary {
-		display: flex;
+		.flex-display(flex);
 
 		a {
 			color: white; text-decoration: none; padding: 10px 20px;
@@ -192,7 +194,7 @@ body>header {
 		background: @cCarousel;
 		.container {height: 444px; }
 		.slide {
-			display: flex; padding-right: 40%; flex-direction: column; justify-content: space-around;
+			.flex-display(flex);  padding-right: 40%; .flex-direction(column);  .justify-content(space-around);
 			h1 {color: white; font-size: 50px; }
 			.box {
 				background: @cPaars; .rounded(5px); padding: 10px 15px; color: white; text-align: center;
@@ -258,22 +260,22 @@ body>header {
 }
 
 .verenigingpage, .vacaturepage {
-	display: flex; flex-flow: row wrap;
+	.flex-display(flex);  .flex-flow(row wrap) ;
 	h1 {margin-bottom: 0; }
 	span.baseline {font-size: 20px; margin-bottom: 15px; margin-top: 0; }
 	aside {
-		flex: 1 1 30%; min-width: 300px;
-		display: flex; flex-direction: column;
+		.flex(1 1 30%); min-width: 300px;
+		.flex-display(flex);  .flex-direction(column);
 		div.cta {
-			flex: 1; display: inline-flex; flex-direction: column; justify-content: flex-end;
+			.flex(1); .flex-display(inline-flex);  .flex-direction(column);  .justify-content(flex-end);
 			text-align: center;
 		}
 	}
 	article {
-		flex: 1 1 60%;  display: flex; flex-direction: column;
+		.flex(1 1 60%);  .flex-display(flex);  .flex-direction(column);
 		header {margin-bottom: 10px; }
 		footer {
-			flex: 1; display: flex; flex-direction: column; justify-content: flex-end; margin-top: 15px;
+			.flex(1); .flex-display(flex);  .flex-direction(column);  .justify-content(flex-end); margin-top: 15px;
 			ul.social {float: right; }
 		}
 		dl {
@@ -287,11 +289,11 @@ body>header {
 	}
 	>article.vereniging img.logo {max-width: 50%; float: right; }
 	section {
-		flex: 1 1 @iContainerWidth;
+		.flex(1 1 @iContainerWidth);
 	}
 
 	#googlemaps {
-		margin: 0-@iPadding; margin-top: 0; flex: 1;
+		margin: 0-@iPadding; margin-top: 0; .flex(1);
 		div.googlemap {height: 100%; min-height: 350px;
 			#map-canvas {height: 100%; }
 		}
@@ -344,22 +346,22 @@ article.vacature, article.vereniging, .blok {
 
 div.vacatures, div.organisaties, .blokken {
 	overflow: auto; width: 100%;
-	display: flex; flex-flow: row wrap; justify-content: space-between; align-items: stretch;
-	>article.vacature, >article.vereniging {flex: 1 0 250px; }
+	.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(space-between); .align-items(stretch);
+	>article.vacature, >article.vereniging {.flex(1 0 250px); }
 	.tabblad & {
-		flex-flow: row nowrap; justify-content: flex-start;
-		>article.vacature, >article.vereniging {flex: 0 0 235px; }
+		.flex-flow(row nowrap);  .justify-content(flex-start);
+		>article.vacature, >article.vereniging {.flex(0 0 235px); }
 	}
 	.tabblad.tiles & {
-	    flex-flow: row wrap;
+	    .flex-flow(row wrap) ;
 		>.blok, >article.vacature, >article.vereniging {
-			flex: 0 1 235px;
+			.flex(0 1 235px);
 		}
 	}
-	>.blok {flex: 1 0 200px; }
+	>.blok {.flex(1 0 200px); }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
-		display: flex; flex-direction: column;
+		.flex-display(flex);  .flex-direction(column);
 		img.logo {max-height: 110px; float: none; margin: 10px auto; }
 		a.cta {
 			color: white;
@@ -373,8 +375,8 @@ div.vacatures, div.organisaties, .blokken {
 		}
 		p {margin-top: 15px; }
 		ul.icons {
-			flex: 1; align-self: center;
-			display: inline-flex; flex-direction: column; justify-content: flex-end;
+			.flex(1); .align-self(center);
+			.flex-display(inline-flex);  .flex-direction(column);  .justify-content(flex-end);
 		}
 	}
 	>article.vacature, >article.vereniging {
@@ -427,7 +429,7 @@ div.cta a.cta {display: inline-block; }
 }
 
 ul.icons {
-	display: inline-flex; flex-direction: column; padding: 0; align-items: flex-start;
+	.flex-display(inline-flex);  .flex-direction(column);  padding: 0; .align-items(flex-start);
 	li {
 		text-align: left;
 		background: white no-repeat left 2px; padding-left: 23px; display: inline-block; padding-bottom: 3px;
@@ -439,7 +441,7 @@ ul.icons {
 		&.date {background-image: url("../images/date.png"); }
 		&.web {background-image: url("../images/website.png"); }
 		&.organisation {background-image: url("../images/organisation.png"); }
-		&.strong {font-weight: bold; color: @cRood; }
+		&.strong {font-weight: bold; color: @cRood; 	}
 		a {color: inherit; }
 	}
 }
@@ -534,54 +536,54 @@ h3 {.grijzetitel(); }
 		&.paars button {.shaduwblok(@cPaars, 2px);}
 		div.google {background: #c3c3c3; .rounded(5px); height: 185px; color: white; padding: 15px; }
 		div.onerow>div {
-			display: flex; align-items: center;
+			.flex-display(flex);  .align-items(center);
 			div.lbl {padding-bottom: 5px; padding-right: 15px; }
-			div.vals {display: flex; align-items: baseline; }
+			div.vals {.flex-display(flex);  .align-items(baseline); }
 		}
 		#vacancy_skills, #person_skills {
-			display: flex; flex-flow: row wrap; justify-content: flex-start;
-			div.option {flex: 1 0 220px; }
+			.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(flex-start);
+			div.option {.flex(1 0 220px); }
 		}
 	}
 }
 
 #zoekpage {
-	display: flex; flex-flow: row wrap; justify-content: stretch;
+	.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(stretch);
 	.filters {
-		flex: 1;
+		.flex(1);
 		div.lbl {display: none; }
 		div.vals {
 			label {font-weight: normal; font-size: 13px; }
 		}
 		div.vals, div.option {
-			display: flex; flex-flow: row nowrap;
-			input {flex: 0 0 20px; }
-			label {flex: 1; }
+			.flex-display(flex);  .flex-flow(row nowrap);
+			input {.flex(0 0 20px); }
+			label {.flex(1); }
 		}
 		h3 {margin-top: 10px; }
 		.readmore {font-size: 13px; }
 	}
 	.results {
-		flex: 4;
+		.flex(4);
 		.nav-tabs {white-space: nowrap;}
 	}
 	.readmore a {margin-right: 5px; margin-left: 20px; }
 }
 
 .dashoverzicht {
-	display: flex; flex-flow: row wrap;
-	.links {flex: 0 0 235px; }
-	.rechts {flex: 1 0 300px; }
+	.flex-display(flex);  .flex-flow(row wrap) ;
+	.links {.flex(0 0 235px); }
+	.rechts {.flex(1 0 300px); }
 }
 
 
 .oauthlogin {
-	display: flex; flex-flow: row wrap;
+	.flex-display(flex);  .flex-flow(row wrap) ;
 	a {
 		background: #ff6952 none no-repeat left center; display: block;
 	    height: 47px; margin: 10px; .rounded(5px); text-align: center;
 	    padding-left: 47px; color: white; font-weight: bold;
-	    display: flex; align-items: center; flex: 1 1 200px; justify-content: center;
+	    .flex-display(flex);  .align-items(center); .flex(1 1 200px); .justify-content(center);
 	    &:hover {text-decoration: none; }
 		&.googlelogin {background-image: url(../images/google.png);  }
 		&.fblogin {background-image: url(../images/fb.png); background-color: #5b76b3; }
@@ -593,13 +595,13 @@ h3 {.grijzetitel(); }
 
 #partners {
 	h3 {
-		font-size: 18px; text-transform: none; flex: 0 0 100%;
+		font-size: 18px; text-transform: none; .flex(0 0 100%);
 		padding: @iMargin @iMargin 0; border-top: 3px dotted @cGroen;
 	}
-	.blokken {justify-content: center; }
+	.blokken {.justify-content(center); }
 	.blok {
-		display: flex; align-items: center; justify-content: center;
-		flex: 0 1 250px;
+		.flex-display(flex);  .align-items(center); .justify-content(center);
+		.flex(0 1 250px);
 		img {max-width: 100%; max-height: 70px; }
 	}
 }
@@ -629,9 +631,9 @@ body>footer {
 		h3 {color: white; font-style: italic;  }
 		h2, h3 {height: 50px; text-transform: none; }
 		dl {
-			display: flex; flex-flow: row wrap; justify-content: space-between;
-			dt {flex: 0 1 35%; }
-			dd {flex: 1 0 65%; }
+			.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(space-between);
+			dt {.flex(0 1 35%); }
+			dd {.flex(1 0 65%); }
 		}
 	}
 
