@@ -439,6 +439,7 @@ ul.icons {
 		&.date {background-image: url("../images/date.png"); }
 		&.web {background-image: url("../images/website.png"); }
 		&.organisation {background-image: url("../images/organisation.png"); }
+		&.strong {font-weight: bold; color: @cRood; }
 		a {color: inherit; }
 	}
 }
@@ -565,6 +566,12 @@ h3 {.grijzetitel(); }
 		.nav-tabs {white-space: nowrap;}
 	}
 	.readmore a {margin-right: 5px; margin-left: 20px; }
+}
+
+.dashoverzicht {
+	display: flex; flex-flow: row wrap;
+	.links {flex: 0 0 235px; }
+	.rechts {flex: 1 0 300px; }
 }
 
 
