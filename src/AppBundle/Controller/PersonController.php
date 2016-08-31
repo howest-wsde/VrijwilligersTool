@@ -123,7 +123,7 @@ class PersonController extends UtilityController
 
         if($vacancy->getRenumeration() == 0){ //if no pay is provided, filter out users that don't require payment
             empty($must) ? false : $must .= ',';
-            $query .= '{ "term": { "renumerate": false }}';
+            $must .= '{ "term": { "renumerate": false }}';
         }
 
         $query .= $must . '     ]
