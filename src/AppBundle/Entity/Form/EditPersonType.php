@@ -194,12 +194,12 @@ class EditPersonType extends AbstractType
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "person.label.finish",
-                "validation_groups" => false,
+                "validation_groups" => array('edit'),
             ))
             ->add("submit2", SubmitType::class, array(
                 "label" => "person.label.finish",
-                "validation_groups" => false,
-            ));
+                "validation_groups" => array('edit'),
+            )); #http://symfony.com/doc/current/form/validation_groups.html
     }
 
     public function configureOptions(OptionsResolver $resolver)
