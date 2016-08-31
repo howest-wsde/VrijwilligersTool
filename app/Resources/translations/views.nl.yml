@@ -354,7 +354,12 @@ vacancy:
         candidates: Goedgekeurde kandidaten
         open: Open kandidaatstellingen
         declined: Afgekeurde kandidaatstellingen
+        removed: Vroegere vrijwilligers
         look: Bekijk Profiel
+        approve: Goedkeuren
+        cancel: Afkeuren
+        remove: Verwijderen
+        restore: Heractiveren
     min:
         remove: Verwijder uit bewaarde vacatures
         save: Bewaar

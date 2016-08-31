@@ -245,19 +245,15 @@ body>header {
 	 }
 	.hoewerkthet {
 		h3 a {background-image: url("../images/hoewerkthet.png"); }
-		.cta {.shaduwblok(@cRood); }
 	}
 	.verhalen {
 		h3 a {background-image: url("../images/verhalen.png"); }
-		.cta {.shaduwblok(@cGroen); }
 	}
 	.informatie {
 		h3 a {background-image: url("../images/info.png"); }
-		.cta {.shaduwblok(@cBlauw); }
 	}
 	.doedetest {
 		h3 a {background-image: url("../images/doetest.png"); }
-		.cta {.shaduwblok(@cGeel); }
 	}
 }
 
@@ -373,6 +369,7 @@ div.vacatures, div.organisaties, .blokken {
 			.rounded(5px);
 			width: 160px;
 			text-decoration: none;
+			margin: 3px;
 		}
 		p {margin-top: 15px; }
 		ul.icons {
@@ -387,15 +384,18 @@ div.vacatures, div.organisaties, .blokken {
 		margin-bottom: (@iMargin + 20); padding-bottom: 30px;
 		div.cta {
 			bottom: -20px; left: 0; position: absolute; width: 100%;
-			a.cta {position: relative; margin: 0; bottom: 0; }
+			//a.cta {position: relative; margin: 0; bottom: 0; }
 		}
+		/*
 		a.cta {
 			position: absolute;
 			bottom: -20px;
 			margin-left: -80px;
-		}
+		}*/
 	}
 }
+
+div.cta a.cta {display: inline-block; }
 
 .tabblad {
 	.nav-tabs, .nav-pills {

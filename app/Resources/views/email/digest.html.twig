@@ -67,7 +67,7 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
                 <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
             </td>
             <td>
-                <a href="{{ url('vacancy_candidacies', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
             </td>
         </tr>
     {% endfor %}
