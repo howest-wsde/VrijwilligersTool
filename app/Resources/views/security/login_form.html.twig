@@ -1,13 +1,10 @@
 {% trans_default_domain "validators" %}
 
-
-
 <form action="{{ path("login") }}" method="post">
     <div class="col-md-6">
         <h2 class="steptitle blauw">{{ "def.index.logintitle"|trans({}, "views") }}</h2>
         <div class="step actief grijs blauw">
             <fieldset>
-
                 <div class="lbl"><label for="username">{{ "def.index.id"|trans({}, "views") }}:</label></div>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{"person.placeholder.username"|trans}}"/>
 

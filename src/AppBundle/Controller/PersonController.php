@@ -112,6 +112,7 @@ class PersonController extends UtilityController
 
         $must = '';
         if(!$vacancy->getAccess()){ //if vacancy does not provide access, filter out users that don't need it
+            empty($must) ? false : $must .= ',';
             $must .= '{ "term": { "access": false }}';
         }
 
@@ -122,7 +123,7 @@ class PersonController extends UtilityController
 
         if($vacancy->getRenumeration() == 0){ //if no pay is provided, filter out users that don't require payment
             empty($must) ? false : $must .= ',';
-            $query .= '{ "term": { "renumerate": false }}';
+            $must .= '{ "term": { "renumerate": false }}';
         }
 
         $query .= $must . '     ]
@@ -145,13 +146,13 @@ class PersonController extends UtilityController
                     }
                 },
                 "weight": 2
-            }';
+            },';
         }
 
         //boost (sliding scale) as per work load
         $estimatedWorkInHours = $vacancy->getEstimatedWorkInHours();
         if(!empty($estimatedWorkInHours)){ //boost on work time
-            $query .= ',{
+            $query .= '{
                 "filter": {
                     "exists": {
                         "field": "estimatedWorkInHours"
@@ -164,11 +165,11 @@ class PersonController extends UtilityController
                         "scale": 1
                     }
                 }
-            }';
+            },';
         }
 
         //boost as per social interaction preference
-        $query .= ',{
+        $query .= '{
             "filter": {
                 "term": {
                    "socialInteraction": "' . $vacancy->getSocialInteraction() . '"

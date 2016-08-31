@@ -7,11 +7,23 @@ security:
             algorithm: bcrypt
             cost: 15
 
+    # http://symfony.com/doc/current/security/multiple_user_providers.html
     providers:
-        user_db_provider:
+        chain_provider:
+            chain:
+                providers: [user_name_provider, user_mail_provider, user_tel_provider]
+        user_name_provider:
             entity:
                 class: AppBundle:Person
                 property: username
+        user_mail_provider:
+            entity:
+                class: AppBundle:Person
+                property: email
+        user_tel_provider:
+            entity:
+                class: AppBundle:Person
+                property: telephone
                 # if you're using multiple entity managers
                 # manager_name: customer
 
@@ -24,7 +36,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
             methods: [GET, POST]
-            provider: user_db_provider
+            # provider: user_db_provider
             anonymous: ~
             form_login:
                 login_path: login
@@ -37,7 +49,7 @@ security:
 
         main:
             pattern:    ^/
-            provider: user_db_provider
+            # provider: user_db_provider
             anonymous: ~
             form_login:
                 login_path: login
