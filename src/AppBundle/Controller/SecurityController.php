@@ -20,8 +20,7 @@ class SecurityController extends UtilityController
     {
         $t = $this->get('translator');
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
-        $user = new Person();
-        $form = $this->createForm(PersonType::class, $user);
+        $form = $this->createForm(PersonType::class, new Person());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -86,7 +85,7 @@ class SecurityController extends UtilityController
             }
 
             //set a success message
-            $this->addFlash('approve_message', $t->trans('security.flash.newUserStart') . ' ' . $user->getFirstname() . ' ' . $user->getLastname() . ' ' . $t->trans('security.flash.newUser2') . ($email ? $t->trans('security.flash.newUserMail') . $email . '.' : '.')
+            $this->addFlash('approve_message', $t->trans('security.flash.newUserStart') . ' ' . $user->getFullName() . ' ' . $t->trans('security.flash.newUser2') . ($email ? $t->trans('security.flash.newUserMail') . $email . '.' : '.')
             );
         }
         else if ($form->isSubmitted() && !$form->isValid())
