@@ -63,7 +63,7 @@ class CandidacyController extends UtilityController
                         );
         }
         else if($request->request->has("remove")){
-            $candidacy->setState(Candidacy::DECLINED);
+            $candidacy->setState(Candidacy::REMOVED);
             $vacancy->increaseByOne();
             $em->persist($candidacy);
             $em->persist($vacancy);
