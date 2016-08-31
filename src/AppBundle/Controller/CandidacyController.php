@@ -24,9 +24,7 @@ class CandidacyController extends UtilityController
         $candidacy = $repository->findOneById($candidacyId);
         $person = $candidacy->getCandidate();
         $vacancy = $candidacy->getVacancy();
-        $organisation = $vacancy->getOrganisation();
         $fullname = $person->getFullName();
-
         $info = [];
 
         if($request->request->has("approve")) {
