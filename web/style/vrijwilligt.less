@@ -354,6 +354,12 @@ div.vacatures, div.organisaties, .blokken {
 		flex-flow: row nowrap; justify-content: flex-start;
 		>article.vacature, >article.vereniging {flex: 0 0 235px; }
 	}
+	.tabblad.tiles & {
+	    flex-flow: row wrap;
+		>.blok, >article.vacature, >article.vereniging {
+			flex: 0 1 235px;
+		}
+	}
 	>.blok {flex: 1 0 200px; }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
@@ -363,7 +369,7 @@ div.vacatures, div.organisaties, .blokken {
 			color: white;
 			padding: 10px;
 			display: inline-block;
-			.shaduwblok(@cGroen);
+			//.shaduwblok(@cGroen);
 			.rounded(5px);
 			width: 160px;
 			text-decoration: none;
@@ -557,12 +563,6 @@ h3 {.grijzetitel(); }
 	.results {
 		flex: 4;
 		.nav-tabs {white-space: nowrap;}
-	}
-	.tabblad .blokken, .tabblad div.organisaties, .tabblad div.vacatures {
-	    flex-flow: row wrap;
-		>.blok, >article.vacature, >article.vereniging {
-			flex: 0 1 235px;
-		}
 	}
 	.readmore a {margin-right: 5px; margin-left: 20px; }
 }

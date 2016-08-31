@@ -99,6 +99,59 @@
 		{% endif %}
 
 		{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+			<section class="administrators tabblad tiles">
+				{% set open = [] %}
+				{% set candidates = [] %}
+				{% set declined = [] %}
+				{% set openactions = [] %}
+				{% set candidatesactions = [] %}
+				{% set declinedactions = [] %}
+				{% for candidacy in vacancy.candidacies %}
+					{% if (candidacy.state == 0) %}
+						{% set open = open|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 1) %}
+						{% set candidates = candidates|merge([candidacy.candidate]) %}
+					{% elseif (candidacy.state == 2) %}
+						{% set declined = declined|merge([candidacy.candidate]) %}
+					{% endif %}
+				{% endfor %}
+				{% set activetab = "open" %}
+	            <ul class="nav nav-tabs">
+	                <li class="paars {% if (activetab == "open") %} active {% endif %}"><a href="#open" data-toggle="tab">{{ "vacancy.approve.open"|trans }} ({{ open|length }})</a></li>
+	                <li class="blauw {% if (activetab == "candidates") %} active {% endif %}"><a href="#candidates" data-toggle="tab">{{ "vacancy.approve.candidates"|trans }} ({{ candidates|length }})</a></li>
+	                {% if (declined|length > 0) %}<li class="rood {% if (activetab == "declined") %} active {% endif %}"><a href="#declined" data-toggle="tab">{{ "vacancy.approve.declined"|trans }} ({{ declined|length }})</a></li>{% endif %}
+	            </ul>
+
+	            <div class="tab-content clearfix blok special">
+	                <div class="tab-pane {% if (activetab == "open") %} active {% endif %}" id="open">
+						<div class="blokken">
+							{% for candidacy in vacancy.candidacies %}
+								{% if (candidacy.state == 0) %}
+									{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": [{"href": path('approve_candidacy', {'candidacyId': candidacy.id}), "txt": "goedkeuren", "class": "groen"}, {"href": path('approve_candidacy', {'candidacyId': candidacy.id}), "txt": "afkeuren", "class": "rood"}] }%}{% endembed %}
+								{% endif %}
+							{% endfor %}
+						</div>
+	                </div>
+	                <div class="tab-pane {% if (activetab == "candidates") %} active {% endif %}" id="candidates">
+						{% embed "person/personen_oplijsten.html.twig" with {"viewMode": "tile", "persons": candidates, "contact": true } %}{% endembed %}
+	                </div>
+	                <div class="tab-pane {% if (activetab == "declined") %} active {% endif %}" id="declined">
+						{% for candidacy in vacancy.candidacies %}
+							{% if (candidacy.state == 2) %}
+								{% embed "person/persoon_min.html.twig" with {"person": candidacy.candidate , "contact": true, "cta": {"href": path('approve_candidacy', {'candidacyId': candidacy.id}), "txt": "goedkeuren", "class": "groen"} }%}{% endembed %}
+							{% endif %}
+						{% endfor %}
+	                </div>
+				</div>
+
+
+
+
+
+
+
+			</section>
+
 			<section class="administrators blok">
 				<ul>
 					<li><a href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a></li>

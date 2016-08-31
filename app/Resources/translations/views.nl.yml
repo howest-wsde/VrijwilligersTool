@@ -353,6 +353,7 @@ vacancy:
         title: Kandidaten voor deze vacature
         candidates: Goedgekeurde kandidaten
         open: Open kandidaatstellingen
+        declined: Afgekeurde kandidaatstellingen
         look: Bekijk Profiel
     min:
         remove: Verwijder uit bewaarde vacatures
