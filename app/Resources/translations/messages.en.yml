@@ -63,6 +63,7 @@ org:
         removeAdmin: has been removed as an admin for the organisation.
         addToSaved: The organisation has been added to your saved organisations.
         removeFromSaved: The organisation has been removed from your saved organisations.
+        lastAdmin: An organisation needs at least one admin.  You cannot delete the last one.
     exception:
         notFoundStart: The organisation with id
         notFoundEnd: could not be found

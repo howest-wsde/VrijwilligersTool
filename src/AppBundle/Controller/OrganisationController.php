@@ -213,29 +213,35 @@ class OrganisationController extends UtilityController
             ->findOneByUrlid($organisation_urlid);
         $person = $em->getRepository("AppBundle:Person")
             ->findOneByUsername($person_username);
-        if($organisation->getAdministrators()->contains($user)){
-            $person->removeOrganisation($organisation);
-            $em->persist($person);
-            $em->flush();
 
-            //set digest / send email to all administrators
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('org.mail.removeAdmin') . ' ' . $organisation->getName();
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'removeAdmin.html.twig',
-                        'txt/plain' => 'removeAdmin.txt.twig',
-                        'data' => array(
-                            'newAdmin' => $person,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWADMIN,
-                        'remove' => true,
-                    );
-            $this->digestOrMail($info);
+        if($organisation->getAdministrators()->count() > 1){ //als niet laatste admin
+            if($organisation->getAdministrators()->contains($user)){
+                $person->removeOrganisation($organisation);
+                $em->persist($person);
+                $em->flush();
 
-           //set a success message
-            $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.removeAdmin'));
+                //set digest / send email to all administrators
+                $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                           ' ' . $t->trans('org.mail.removeAdmin') . ' ' . $organisation->getName();
+                $info = array(
+                            'subject' => $subject,
+                            'template' => 'removeAdmin.html.twig',
+                            'txt/plain' => 'removeAdmin.txt.twig',
+                            'data' => array(
+                                'newAdmin' => $person,
+                                'org' => $organisation,
+                            ),
+                            'event' => DigestEntry::NEWADMIN,
+                            'remove' => true,
+                        );
+                $this->digestOrMail($info);
+
+               //set a success message
+                $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
+            }
+        } else {
+           //set a failure message
+            $this->addFlash('error', $t->trans('org.flash.lastAdmin'));
         }
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
