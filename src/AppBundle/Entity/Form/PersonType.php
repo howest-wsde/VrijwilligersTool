@@ -58,6 +58,7 @@ class PersonType extends AbstractType
                         ->where('o.intermediary = true')
                         ->orderBy('o.name', 'ASC');
                 },
+                "attr" => array("info" => "Beheert een bemiddelingsorganisatie uw profiel? Kies dan voor deze optie. "),
                 // use the name property as the visible option string
                 'choice_label' => 'name',
                 // render as select box
@@ -69,7 +70,10 @@ class PersonType extends AbstractType
                 "type" => PasswordType::class,
                 "first_options"  => array(
                     "label" => "person.label.password",
-                    "attr" => array("placeholder" => "person.placeholder.password")
+                    "attr" => array(
+                            "placeholder" => "person.placeholder.password",
+                            "info" => "Een wachtzin is het 'nieuwe en veilige wachtwoord'. In plaats van één woord gebruikt u een volledige zin. Deze is makkelijker te onthouden en moeilijker te hacken. ",
+                        )
                 ),
                 "second_options" => array(
                     "label" => "person.label.repeat_password",

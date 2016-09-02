@@ -5,10 +5,44 @@
         <div class="lbl">{{ form_label(form) }}</div>
         <div class="vals">{{ form_widget(form) }}</div>
         {% if form_errors(form) is not empty %}
-	        <div class="error">{{ form_errors(form) }}</div>
-	    {% endif %}
+            <div class="error">{{ form_errors(form) }}</div>
+        {% endif %}
     </div>
 {% endblock form_row %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+
+    <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}
+
+    {% if required %}
+        <span class="required" title="Verplicht veld">*</span>
+    {% endif %}
+    {% if attr.info is defined %}
+        <span class="info" title="{{attr.info}}"></span>
+    {% endif %}
+</label>
+{% endspaceless %}
+{% endblock form_label %}
+{#}
+{% block form_label %}
+    {{ block('base_form_label') }}
+
+
+{% endblock %}
+
+{#
+<span class="info" title="Info"></span>
+    #}
 
 {%- block widget_attributes -%}
     id="{{ id }}" name="{{ full_name }}"
