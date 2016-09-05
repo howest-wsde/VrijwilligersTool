@@ -71,15 +71,6 @@ class Vacancy extends EntityBase
      *      value = "today",
      *      message = "vacancy.date.not_today"
      * )
-     * @Assert\Expression(
-     *     "this.getEnddate() >= this.getStartdate()",
-     *     message = "vacancy.date.not_more_than"
-     * )
-     *
-     * @Assert\Expression(
-     *     "this.getEnddate() <= this.getStartdate().modify('+6 month')",
-     *     message = "vacancy.date.max_period"
-     * )
      */
     private $enddate;
 
