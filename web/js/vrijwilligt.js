@@ -24,6 +24,16 @@ $(function() {
         return share("https://plus.google.com/share?url="+encodeURIComponent($(this).attr("href")));
     });
 
+    $("span.info").mouseover(function(){
+        var strInfo = $(this).attr("title");
+        if ($(this).find(".infopop").show().length == 0) {
+            $(this).append(
+                $("<div />").addClass("infopop").html(strInfo).mouseout(function(){
+                    $(this).hide();
+                })
+            )
+        }
+    });
 });
 
 

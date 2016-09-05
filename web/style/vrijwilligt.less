@@ -22,7 +22,7 @@
 .grijzetitel() {
 	color: @cTXTgrijs; font-size: 16px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-weight: bold;
 }
-.shaduwblok(@achtergrond, @size: 4px){
+.schaduwblok(@achtergrond, @size: 4px){
 	background: @achtergrond; box-shadow: 0px @size 0px 0px darken(@achtergrond, 8%);
 }
 .rounded(@iHoek){
@@ -111,8 +111,8 @@ body>header {
 					a {
 						text-decoration: none; color: white; text-transform: uppercase;
 						.rounded(5px); padding: 5px 10px;
-						&.actief {.shaduwblok(darken(@cHeader, 30%), 2px);  }
-						&:hover {.shaduwblok(@cRood, 2px); }
+						&.actief {.schaduwblok(darken(@cHeader, 30%), 2px);  }
+						&:hover {.schaduwblok(@cRood, 2px); }
 					}
 				}
 
@@ -301,7 +301,7 @@ body>header {
 }
 
 article.vacature, article.vereniging, .blok {
-	.shaduwblok(white);
+	.schaduwblok(white);
 	.rounded(10px);
 	position: relative;
 	padding: @iPadding;
@@ -367,7 +367,7 @@ div.vacatures, div.organisaties, .blokken {
 			color: white;
 			padding: 10px;
 			display: inline-block;
-			//.shaduwblok(@cGroen);
+			//.schaduwblok(@cGroen);
 			.rounded(5px);
 			width: 160px;
 			text-decoration: none;
@@ -458,7 +458,7 @@ ul.social {
 }
 
 .tempblok {
-	.shaduwblok(white);
+	.schaduwblok(white);
 	.rounded(10px);
 	padding: @iPadding;
 	margin: @iMargin;
@@ -475,7 +475,7 @@ ul.social {
 		color: white;
 		padding: 10px;
 		display: inline-block;
-		.shaduwblok(@cGroen);
+		.schaduwblok(@cGroen);
 		.rounded(5px);
 		width: 160px;
 	}
@@ -490,12 +490,12 @@ h3 {.grijzetitel(); }
 .steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
 	form {margin: 0; }
 	h2.steptitle {
-		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
-		&.geel {.shaduwblok(@cGeel, 2px); }
-		&.rood {.shaduwblok(@cRood, 2px); }
-		&.groen {.shaduwblok(@cGroen, 2px); }
-		&.blauw {.shaduwblok(@cBlauw, 2px); }
-		&.paars {.shaduwblok(@cPaars, 2px); }
+		margin: @iMargin;  .rounded(5px); .schaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
+		&.geel {.schaduwblok(@cGeel, 2px); }
+		&.rood {.schaduwblok(@cRood, 2px); }
+		&.groen {.schaduwblok(@cGroen, 2px); }
+		&.blauw {.schaduwblok(@cBlauw, 2px); }
+		&.paars {.schaduwblok(@cPaars, 2px); }
 		a {
 			color: white;
 			&:hover {text-decoration: none; }
@@ -529,11 +529,11 @@ h3 {.grijzetitel(); }
 				li {display: block; }
 			}
 		 }
-		button {padding: 5px 15px; border: 0; color: white; .shaduwblok(@cRood, 2px); .rounded(5px); }
-		&.geel button {.shaduwblok(@cGeel, 2px);}
-		&.blauw button {.shaduwblok(@cBlauw, 2px);}
-		&.groen button {.shaduwblok(@cGroen, 2px);}
-		&.paars button {.shaduwblok(@cPaars, 2px);}
+		button {padding: 5px 15px; border: 0; color: white; .schaduwblok(@cRood, 2px); .rounded(5px); }
+		&.geel button {.schaduwblok(@cGeel, 2px);}
+		&.blauw button {.schaduwblok(@cBlauw, 2px);}
+		&.groen button {.schaduwblok(@cGroen, 2px);}
+		&.paars button {.schaduwblok(@cPaars, 2px);}
 		div.google {background: #c3c3c3; .rounded(5px); height: 185px; color: white; padding: 15px; }
 		div.onerow>div {
 			.flex-display(flex);  .align-items(center);
@@ -663,7 +663,10 @@ body>footer {
 	}
 }
 
-span.info {background: url("../images/help.png") no-repeat center center; width: 16px; height: 16px; display: inline-block; cursor: help; margin-left: 12px; }
+span.info {
+	background: url("../images/help.png") no-repeat center center; width: 16px; height: 16px; display: inline-block; cursor: help; margin-left: 12px;
+	.infopop {position: absolute; .schaduwblok(@cGroen); width: 222px; .rounded(5px); text-transform: none; padding: 10px 15px; color: white; }
+}
 input.required {background:  red; }
 
 
@@ -673,7 +676,7 @@ input.required {background:  red; }
 	border-radius: 10px;
 	padding: 15px; text-align: center;
 	margin: 15px;
-	.shaduwblok(white);
+	.schaduwblok(white);
 	margin: 30px 0;
 } */
 .part {
@@ -687,7 +690,7 @@ input.required {background:  red; }
 			border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
 		}
 		input.cta {
-			.shaduwblok(@cRood);
+			.schaduwblok(@cRood);
 			color: white; text-transform: uppercase; padding: 10px 20px 8px;
 			min-width: 200px;
 		}
@@ -740,11 +743,11 @@ h3 {.grijzetitel(); }
 /*   */
 
 a.cta {
-	.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
-	&.groen {.shaduwblok(@cGroen); }
-	&.blauw {.shaduwblok(@cBlauw); }
-	&.geel {.shaduwblok(@cGeel); }
-	&.paars {.shaduwblok(@cPaars); }
+	.schaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
+	&.groen {.schaduwblok(@cGroen); }
+	&.blauw {.schaduwblok(@cBlauw); }
+	&.geel {.schaduwblok(@cGeel); }
+	&.paars {.schaduwblok(@cPaars); }
 }
 
 
