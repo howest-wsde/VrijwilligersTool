@@ -28,6 +28,14 @@ class InfopageController extends Controller
     }
 
     /**
+     * @Route("/verhalen", name="info_verhalen")
+     */
+    public function verhalen()
+    {
+        return $this->render("info/verhalen.html.twig");
+    }
+
+    /**
      * @Route("/contact", name="info_contact")
      */
     public function contact()

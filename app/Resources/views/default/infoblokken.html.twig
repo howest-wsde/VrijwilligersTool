@@ -6,9 +6,9 @@
 		<div class="cta"><a class="cta rood" href="{{ path("info_spelregels") }}">{{ "def.info.more"|trans }}</a></div>
 	</article>
 	<article class="blok cta verhalen">
-		<h3><a href="#">{{ "def.info.stories.title"|trans }}</a></h3>
-		<p>{{ "def.info.stories.teaser"|trans }}</p>
-		<div class="cta"><a class="cta groen" href="#">{{ "def.info.more"|trans }}</a></div>
+		<h3><a href="{{ path("info_verhalen") }}">{{ "def.info.stories.title"|trans }}</a></h3>
+		<p>{{ random(["def.info.stories.teaser.a"|trans, "def.info.stories.teaser.b"|trans, "def.info.stories.teaser.c"|trans, "def.info.stories.teaser.d"|trans]) }}</p>
+		<div class="cta"><a class="cta groen" href="{{ path("info_verhalen") }}">{{ "def.info.more"|trans }}</a></div>
 	</article>
 	<article class="blok cta informatie">
 		<h3><a href="{{ path("info_vrijwilligersinfo") }}">{{ "def.info.info.title"|trans }}</a></h3>
