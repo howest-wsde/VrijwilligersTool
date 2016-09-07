@@ -106,7 +106,11 @@ def: #default
             teaser: 'Op Roeselare Vrijwilligt bundelen we de vrijwilligersorganisaties uit Roeselare en hun beschikbare taken. Via simpele zoekopdrachten kun jij een ideale taak vinden. '
         stories:
             title: Verhalen
-            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+            teaser:
+                a: 'Ik werk al enkele jaren als vrijwilliger op de Speelpleinwerking Speelodroom en vind het vooral leuk  bij de kleuters. Ik sta altijd paraat om in te springen ...'
+                b: 'Ik ben Jochen en ben 1 van de TRAX buddies. Eventjes kort beschrijven wat zoal onze taak is op de  trax site in Roeselare. Aangestuurd door een vaste ...'
+                c: 'Eén van mijn engagementen is vrijwilliger voor het Trax Festival. Ik zorg er voor de communicatie.  Samen met anderen probeer ik Trax Festival dus gekend te maken. ...'
+                d: 'Ik ben vrijwilliger bij de Directeurswoning in Roeselare, daar doe ik het onthaal van bezoekers bij  expo’s.  Ik koos voor vrijwilligerswerk want kunst en cultuur ...'
         info:
             title: Vrijwilligersinfo
             teaser: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare..'
