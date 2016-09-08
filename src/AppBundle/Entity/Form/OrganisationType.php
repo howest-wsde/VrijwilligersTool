@@ -55,6 +55,7 @@ class OrganisationType extends AbstractType
             ->add("intermediary", CheckboxType::class, array(
                 "label" => 'organisation.label.intermediary',
                 'required' => false,
+                "attr" => array("info" => "Bent u een bemiddelingsorganisatie die het profiel van andere gebruikers beheert? Selecteer dan deze optie. "),
             ))
             ->add("description", TextareaType::class, array(
                 "label" => "organisation.label.description",

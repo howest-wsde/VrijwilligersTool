@@ -1,5 +1,5 @@
 {% trans_default_domain "views" %}
-<h2><a href="{{ path("person_id", { "id": person.id }) }}">{{ person.firstname}} {{ person.lastname}}</a></h2>
+<h2>{{ person.firstname}} {{ person.lastname}}</h2>
 {{ "person.general.firstname"|trans|capitalize }}: {{ person.firstname }}<br />
 {{ "person.general.sirname"|trans|capitalize }}: {{ person.lastname }}<br />
 {{ "person.general.username"|trans|capitalize }}: {{ person.username }}<br />

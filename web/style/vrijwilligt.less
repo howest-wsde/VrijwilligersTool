@@ -22,7 +22,7 @@
 .grijzetitel() {
 	color: @cTXTgrijs; font-size: 16px; font-weight: bold; text-decoration: none; text-transform: uppercase; font-weight: bold;
 }
-.shaduwblok(@achtergrond, @size: 4px){
+.schaduwblok(@achtergrond, @size: 4px){
 	background: @achtergrond; box-shadow: 0px @size 0px 0px darken(@achtergrond, 8%);
 }
 .rounded(@iHoek){
@@ -75,10 +75,9 @@ body>header {
 						li {
 							display: block;
 							span {
-								display: block; padding: 8px 10px;
-								color: white; font-style: italic;
+								font-style: italic;
 							}
-							a {
+							a, span {
 								display: block; padding: 8px 10px; text-decoration: none;
 								color: white;
 								&:hover {background: lighten(@cHeader, 5%);}
@@ -111,8 +110,8 @@ body>header {
 					a {
 						text-decoration: none; color: white; text-transform: uppercase;
 						.rounded(5px); padding: 5px 10px;
-						&.actief {.shaduwblok(darken(@cHeader, 30%), 2px);  }
-						&:hover {.shaduwblok(@cRood, 2px); }
+						&.actief {.schaduwblok(darken(@cHeader, 30%), 2px);  }
+						&:hover {.schaduwblok(@cRood, 2px); }
 					}
 				}
 
@@ -264,7 +263,7 @@ body>header {
 	h1 {margin-bottom: 0; }
 	span.baseline {font-size: 20px; margin-bottom: 15px; margin-top: 0; }
 	aside {
-		.flex(1 1 30%); min-width: 300px;
+		.flex(1 1 25%); min-width: 300px;
 		.flex-display(flex);  .flex-direction(column);
 		div.cta {
 			.flex(1); .flex-display(inline-flex);  .flex-direction(column);  .justify-content(flex-end);
@@ -275,7 +274,7 @@ body>header {
 		.flex(1 1 60%);  .flex-display(flex);  .flex-direction(column);
 		header {margin-bottom: 10px; }
 		footer {
-			.flex(1); .flex-display(flex);  .flex-direction(column);  .justify-content(flex-end); margin-top: 15px;
+			.flex(1 1 30px); .flex-display(flex);  .flex-direction(column);  .justify-content(flex-end); margin-top: 15px;
 			ul.social {float: right; }
 		}
 		dl {
@@ -301,7 +300,7 @@ body>header {
 }
 
 article.vacature, article.vereniging, .blok {
-	.shaduwblok(white);
+	.schaduwblok(white);
 	.rounded(10px);
 	position: relative;
 	padding: @iPadding;
@@ -361,13 +360,13 @@ div.vacatures, div.organisaties, .blokken {
 	>.blok {.flex(1 0 200px); }
 	>article.vacature, >article.vereniging, >.blok {
 		text-align: center; overflow: visible;
-		.flex-display(flex);  .flex-direction(column);
+		// .flex-display(flex);  .flex-direction(column);
 		img.logo {max-height: 110px; float: none; margin: 10px auto; }
 		a.cta {
 			color: white;
 			padding: 10px;
 			display: inline-block;
-			//.shaduwblok(@cGroen);
+			//.schaduwblok(@cGroen);
 			.rounded(5px);
 			width: 160px;
 			text-decoration: none;
@@ -458,7 +457,7 @@ ul.social {
 }
 
 .tempblok {
-	.shaduwblok(white);
+	.schaduwblok(white);
 	.rounded(10px);
 	padding: @iPadding;
 	margin: @iMargin;
@@ -475,7 +474,7 @@ ul.social {
 		color: white;
 		padding: 10px;
 		display: inline-block;
-		.shaduwblok(@cGroen);
+		.schaduwblok(@cGroen);
 		.rounded(5px);
 		width: 160px;
 	}
@@ -490,12 +489,12 @@ h3 {.grijzetitel(); }
 .steps { /* FORMULIEREN DIE UIT VERSCHILLENDE STAPPEN BESTAAN */
 	form {margin: 0; }
 	h2.steptitle {
-		margin: @iMargin;  .rounded(5px); .shaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
-		&.geel {.shaduwblok(@cGeel, 2px); }
-		&.rood {.shaduwblok(@cRood, 2px); }
-		&.groen {.shaduwblok(@cGroen, 2px); }
-		&.blauw {.shaduwblok(@cBlauw, 2px); }
-		&.paars {.shaduwblok(@cPaars, 2px); }
+		margin: @iMargin;  .rounded(5px); .schaduwblok(@cBlauw, 2px); font-size: 120%; padding: 15px 10px; text-align: center; color: white;
+		&.geel {.schaduwblok(@cGeel, 2px); }
+		&.rood {.schaduwblok(@cRood, 2px); }
+		&.groen {.schaduwblok(@cGroen, 2px); }
+		&.blauw {.schaduwblok(@cBlauw, 2px); }
+		&.paars {.schaduwblok(@cPaars, 2px); }
 		a {
 			color: white;
 			&:hover {text-decoration: none; }
@@ -529,11 +528,11 @@ h3 {.grijzetitel(); }
 				li {display: block; }
 			}
 		 }
-		button {padding: 5px 15px; border: 0; color: white; .shaduwblok(@cRood, 2px); .rounded(5px); }
-		&.geel button {.shaduwblok(@cGeel, 2px);}
-		&.blauw button {.shaduwblok(@cBlauw, 2px);}
-		&.groen button {.shaduwblok(@cGroen, 2px);}
-		&.paars button {.shaduwblok(@cPaars, 2px);}
+		button {padding: 5px 15px; border: 0; color: white; .schaduwblok(@cRood, 2px); .rounded(5px); margin: 3px; }
+		&.geel button {.schaduwblok(@cGeel, 2px);}
+		&.blauw button {.schaduwblok(@cBlauw, 2px);}
+		&.groen button {.schaduwblok(@cGroen, 2px);}
+		&.paars button {.schaduwblok(@cPaars, 2px);}
 		div.google {background: #c3c3c3; .rounded(5px); height: 185px; color: white; padding: 15px; }
 		div.onerow>div {
 			.flex-display(flex);  .align-items(center);
@@ -543,6 +542,14 @@ h3 {.grijzetitel(); }
 		#vacancy_skills, #person_skills {
 			.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(flex-start);
 			div.option {.flex(1 0 220px); }
+		}
+	}
+	#edit_person_skills, #organisation_sectors, #vacancy_skills {
+		.flex-display(flex); .flex-flow(row wrap);
+		div.option {
+			.flex(0 1 250px); .flex-display(flex); .flex-flow(row nowrap);
+			input {flex: 0 0 20px; }
+			label {flex: 1; }
 		}
 	}
 }
@@ -655,6 +662,12 @@ body>footer {
 	}
 }
 
+span.info {
+	background: url("../images/help.png") no-repeat center center; width: 16px; height: 16px; display: inline-block; cursor: help; margin-left: 12px;
+	.infopop {position: absolute; .schaduwblok(@cGroen); width: 222px; .rounded(5px); text-transform: none; padding: 10px 15px; color: white; }
+}
+input.required {background:  red; }
+
 
 /* PAGE DEFAULTS */
 /*
@@ -662,7 +675,7 @@ body>footer {
 	border-radius: 10px;
 	padding: 15px; text-align: center;
 	margin: 15px;
-	.shaduwblok(white);
+	.schaduwblok(white);
 	margin: 30px 0;
 } */
 .part {
@@ -676,7 +689,7 @@ body>footer {
 			border: 0; .rounded(5px); padding: 12px 10px; min-width: 60%; margin: 10px;
 		}
 		input.cta {
-			.shaduwblok(@cRood);
+			.schaduwblok(@cRood);
 			color: white; text-transform: uppercase; padding: 10px 20px 8px;
 			min-width: 200px;
 		}
@@ -722,6 +735,13 @@ body>footer {
 	}
 }
 
+img.verhaal {
+	width: 40%; min-width: 300px; float: right; margin: 10px; margin-top: 0;
+	@media screen and (max-width: 668px) {
+		width: 80%; margin: 10px 10% 10px; float: none; min-width: 100px;
+	}
+}
+
 h1, h2, h3 {margin: 0; padding: 0; }
 h1 {color: #876b97; font-size: 32px; font-weight: bold; margin: 15px 0; }
 h2 {color: @cRood; font-size: 30px; font-weight: bold;  }
@@ -729,11 +749,11 @@ h3 {.grijzetitel(); }
 /*   */
 
 a.cta {
-	.shaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
-	&.groen {.shaduwblok(@cGroen); }
-	&.blauw {.shaduwblok(@cBlauw); }
-	&.geel {.shaduwblok(@cGeel); }
-	&.paars {.shaduwblok(@cPaars); }
+	.schaduwblok(@cRood); padding: 10px 20px; color: white; .rounded(5px); font-weight: bold;
+	&.groen {.schaduwblok(@cGroen); }
+	&.blauw {.schaduwblok(@cBlauw); }
+	&.geel {.schaduwblok(@cGeel); }
+	&.paars {.schaduwblok(@cPaars); }
 }
 
 

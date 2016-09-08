@@ -81,7 +81,7 @@
             <h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
             <div class="step grijs paars">
                 <fieldset>
-                    {{ form_row (form.skills) }}
+                    <div class='col-md-12'>{{ form_row (form.skills) }}</div>
                 </fieldset>
                 <fieldset>
                     <div class='col-md-12'>
@@ -89,10 +89,10 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div class='col-md-4'>
+                    <div class='col-md-12'>
                         {{ form_row(form.access) }}
                     </div>
-                    <div class='col-md-8'>
+                    <div class='col-md-12'>
                         {{ form_row(form.renumerate) }}
                     </div>
                     <div class='col-md-6'>

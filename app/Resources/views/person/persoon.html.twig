@@ -39,7 +39,7 @@
                     <ul class="nav nav-pills">
                         {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
                         {% set teller = 0 %}
-                        {% for org in person.organisations %}
+                        {% for org in person.organisations if not org.deleted %}
                             <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ org.urlId }}" data-toggle="tab">{{ org.name }}</a></li>
                             {% set teller = teller + 1 %}
                         {% endfor %}

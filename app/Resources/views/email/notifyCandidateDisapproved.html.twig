@@ -1,0 +1,16 @@
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
+	<h1>Uw kandidatuur werd afgekeurd!</h1>
+
+	<p>Beste {{ candidate.firstname }},</p>
+
+	<p>
+	    zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} afgekeurd.
+	</p>
+    <p>
+        Met vriendelijke groeten,<br />
+        Roeselare Vrijwilligt
+    </p>
+
+{% endblock %}

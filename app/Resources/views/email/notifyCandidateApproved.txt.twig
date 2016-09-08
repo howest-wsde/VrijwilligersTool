@@ -1,0 +1,13 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+Uw kandidatuur werd goedgekeurd!
+
+Beste {{ candidate.firstname }},
+
+zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} goedgekeurd.
+
+Met vriendelijke groeten,
+Roeselare Vrijwilligt
+
+{% endblock %}

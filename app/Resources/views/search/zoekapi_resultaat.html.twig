@@ -4,7 +4,7 @@
 {% for result in results %}
 	<li>
 		{% if (result.isoftype("Person")) %}
-			<a class="person" href="{{ path("person_username", { "username": result.username }) }}">{{ result.firstname}} {{ result.lastname}}</a>
+			<span class="person">{{ result.firstname}} {{ result.lastname}}</span>
 		{% elseif (result.isoftype("Vacancy")) %}
 			<a class="vacancy" href="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}">{{ result.title}}</a>
 		{% elseif (result.isoftype("Organisation")) %}
