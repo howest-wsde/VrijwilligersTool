@@ -47,7 +47,7 @@
                             <li><a href="{{ path("self_profile") }}" class="{% if app.request.attributes.get('_route') == 'self_profile' %}actief{% endif %}">{{ "base.body.header.menu.profile"|trans|capitalize }}</a></li>
                             <li><a href="{{ path("register_user") }}" class="{% if app.request.attributes.get('_route') == 'register_user' %}actief{% endif %}">{{ "base.body.header.menu.become"|trans|capitalize }}</a></li>
                             <li><a href="{{ path("start_vacancy") }}" class="{% if app.request.attributes.get('_route') == 'start_vacancy' %}actief{% endif %}">{{ "base.body.header.menu.find"|trans|capitalize }}</a></li>
-                            <li><a href="{{ path("info_vrijwilligersinfo") }}" class="{% if app.request.attributes.get('_route') == 'info_vrijwilligersinfo' %}actief{% endif %}">{{ "base.body.header.menu.info"|trans|capitalize }}</a></li>
+                            <li><a href="{{ path("info_algemeen") }}" class="{% if app.request.attributes.get('_route') == 'info_algemeen' %}actief{% endif %}{% if app.request.attributes.get('_route') == 'info_vrijwilligers' %}actief{% endif %}{% if app.request.attributes.get('_route') == 'info_organisaties' %}actief{% endif %}">{{ "base.body.header.menu.info"|trans|capitalize }}</a></li>
                             <li><a href="{{ path("tests") }}" class="{% if app.request.attributes.get('_route') == 'tests' %}actief{% endif %}">{{ "base.body.header.menu.tests"|trans|capitalize }}</a></li>
                         </ul>
                     </nav>
@@ -99,8 +99,9 @@
                             <ul>
                                 <li><a href="{{ path("info_wetgeving") }}">{{ "base.body.footer.legislation"|trans|capitalize }}</a></li>
                                 <li><a href="{{ path("info_profiel") }}">{{ "base.body.footer.profile"|trans|capitalize }}</a></li>
-                                <li><a href="{{ path("info_vrijwilligersinfo") }}">{{ "base.body.footer.what"|trans|capitalize }}<base></base></a></li>
-                                <li><a href="{{ path("info_waarom") }}">{{ "base.body.footer.why"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_algemeen") }}">{{ "base.body.footer.what"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_vrijwilligers") }}">{{ "base.body.footer.volunteers"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("info_organisaties") }}">{{ "base.body.footer.organisations"|trans|capitalize }}</a></li>
                                 <li><a href="{{ path("info_spelregels") }}">{{ "base.body.footer.rules"|trans|capitalize }}</a></li>
                                 <li><a href="{{ path("info_verhalen") }}">{{ "base.body.footer.stories"|trans|capitalize }}</a></li>
                             </ul>

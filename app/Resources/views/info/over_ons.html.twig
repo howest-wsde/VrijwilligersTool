@@ -5,7 +5,8 @@
 
 {% block body %}
 
-	{{ "info.contact"|trans }}
+<div class="infoteksten">
+	<div class="blok">
 
 	<h1>Over ons</h1>
 <p>Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare.</p>
@@ -20,6 +21,9 @@
 <p>Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw.</p>
 
 <p>Het platform werd ontwikkeld door Howest.</p>
+</div>
+
+<div class="blok">
 
 <h2>Contactgegevens:</h2>
 <p><strong>Vrijetijdspunt</strong>
@@ -32,5 +36,5 @@
 	<dt>mail:</dt>
 	<dd><a href="{{ path("info_contact") }}">contacteer ons</a></dd>
 </dl>
-
+</div></div>
 {% endblock %}
