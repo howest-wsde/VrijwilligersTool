@@ -44,13 +44,28 @@ class InfopageController extends Controller
     }
 
     /**
-     * @Route("/vrijwilligersinfo", name="info_vrijwilligersinfo")
+     * @Route("/vrijwilligersinfo/vrijwilligers", name="info_vrijwilligers")
+     */
+    public function vrijwilligersinfovrijwilligers()
+    {
+        return $this->render("info/info.vrijwilligers.html.twig");
+    }
+
+    /**
+     * @Route("/vrijwilligersinfo/organisaties", name="info_organisaties")
+     */
+    public function vrijwilligersinfoorganisaties()
+    {
+        return $this->render("info/info.organisaties.html.twig");
+    }
+
+    /**
+     * @Route("/vrijwilligersinfo", name="info_algemeen")
      */
     public function vrijwilligersinfo()
     {
         return $this->render("info/vrijwilligersinfo.html.twig");
     }
-
     /**
      * @Route("/wetgeving", name="info_wetgeving")
      */

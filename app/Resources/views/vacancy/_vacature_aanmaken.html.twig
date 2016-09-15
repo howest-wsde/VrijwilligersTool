@@ -1,0 +1,62 @@
+{# TODO: mag dit volledig formulier weg?  nakijken #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Vacature Aanmaken{% endblock %}
+
+{% block body %}
+    <header class="center">
+        <h1>Vacature aanmaken</h1>
+        <p>Op zoek naar vrijwilligers?</p>
+        <p>Vul hier de gegevens van je vacature in. </p>
+    </header>
+    <section id="maakVereniging" class="steps">
+        <form action="{{ path('create_vacancy') }}" method="post">
+            {{ form_errors(form) }}
+
+            <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">Algemene gegevens</a></h2>
+            <div class="step actief grijs rood">
+                <fieldset>
+                    <legend>Algemeen</legend>
+                    {#{ form_row(form.organisation) } TODO: must be derived from logged in organisation #}
+                    {{ form_row(form.title) }}
+                    {#{ form_row(form.summary) }#}
+                    {{ form_row(form.description) }}
+                    {#{ form_row(form.startdate) } TODO: bekijken of we dit willen, en zo ja, veld toevoegen in vacancytype #}
+                    {{ form_row(form.enddate) }}
+                    {#{ form_row(form.longterm) }#}
+                    {#{ form_row(form.estimatedWorkInHours) }#}
+                    {#{ form_row(form.location) }#}
+                    {#{ form_row(form.socialInteraction) }#}
+                    {#{ form_row(form.independent) }#}
+                </fieldset>
+            </div>
+
+            <h2 class="steptitle geel"><a href="#vaardigheden" name="vaardigheden">Vaardigheden</a></h2>
+            <div class="step grijs geel">
+                <fieldset>
+                    <legend>skills</legend>
+                    {{ form_row(form.skills) }}
+                </fieldset>
+            </div>
+
+
+            <h2 class="steptitle blauw"><a href="#voordelen" name="voordelen">Voordelen voor de vrijwilliger</a></h2>
+            <div class="step grijs blauw">
+                <fieldset>
+                    <legend>Voordelen voor de vrijwilliger</legend>
+                    {#{ form_row(form.renumeration) }#}
+                    {#{ form_row(form.otherReward) }#}
+                </fieldset>
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_row(form.save) }}
+            {{ form_widget(form._token) }}
+        </form>
+
+        {% for flash_message in app.session.flashbag.get('success-notice') %}
+            <div class="success-notice">
+                <script type="text/javascript">alert("{{ flash_message }}");</script>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
