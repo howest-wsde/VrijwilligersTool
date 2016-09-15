@@ -4,12 +4,15 @@
 {% block title %}{{ "info.rules.title"|trans }}{% endblock %}
 
 {% block body %}
-	<article>
-		<h1>{{ "info.rules.volunteer.title"|trans }}</h1>
-		{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
-	</article>
-	<article>
-		<h1>{{ "info.rules.org.title"|trans }}</h1>
-		{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
-	</article>
+
+	<div class="col2 infoteksten">
+		<div class="blok">
+			<h3>{{ "info.rules.volunteer.title"|trans }}</h3>
+			{% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
+		</div>
+		<div class="blok">
+			<h3>{{ "info.rules.org.title"|trans }}</h3>
+			{% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
+		</div>
+	</div>
 {% endblock %}
