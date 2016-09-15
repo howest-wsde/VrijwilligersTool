@@ -4,23 +4,38 @@
 {% block title %}{{ "info.info"|trans }}{% endblock %}
 
 {% block body %}
-{{ "info.info"|trans }}
 
-<h1>Wat is vrijwilligerswerk?</h1>
+<div class="col2 infoteksten">
+	<div class="blok">
+		<h3>Wat is vrijwilligen in Roeselare?</h3>
+		<img src="{{ asset("images/infopage/paddenoversteek.jpg") }}" alt="Vrijwilligers paddenoversteek" class="fotorechts" width="200" />
+		<p>Vrijwilligerswerk is een verhaal van mensen. <strong>Geëngageerde mensen</strong>. Mensen met een groot hart. Mensen die zich belangeloos en vrijblijvend inzetten voor elkaar. Mensen die elkaar ontmoeten en daar vreugde, sterkte en (zelf)respect in vinden. </p>
 
-<p>Heb jij al van de vrijwilligerswet gehoord? Deze wet is er om jou als vrijwilliger te beschermen, dus het is best handig als je je rechten en plichten kent. Als je vrijwilligt, geef je eigenlijk een stukje van je tijd weg om mee te werken aan een initiatief of doel dat je zelf kiest. Je bent vrijwilliger als:</p>
+		<p>Er bestaat een <strong>vrijwilligerswet</strong> in België, om jou als vrijwilliger te beschermen. Let wel, deze wet geldt voor wie zich inzet voor een organisatie, die <strong>niet gericht is op het maken van winst</strong>. Meehelpen aan de barbecue van de voetbalclub, een wielerwedstrijd in veilige banen leiden, in het bestuur zitten van een vereniging, activiteiten doen met het straatcomité,  ... zijn hier voorbeelden van. </p>
 
-<ul>
-	<li>Jij je inzet voor een organisatie*: je helpt mee op de jaarlijkse barbecue van de voetbalclub, je begeleidt elke woensdag kinderen met hun huiswerk, je zit in het bestuur van de lokale afdeling van je vereniging, ...</li>
-	<li>Je er geen geld mee verdient</li>
-	<li>Niemand je verplicht dit te doen</li>
-</ul>
+		<p>Daarnaast bestaat er ook iets als <strong>‘burenzorg’</strong>, zoals het haar van de buurvrouw knippen, boodschappen doen voor je tante, helpen in een gedeelde moestuin (die niet erkend is als ‘organisatie’), ... . Dit doe je op <strong>eigen initiatief</strong>, en dus op <strong>eigen risico</strong>. </p>
 
-<p>Let op! Je bent dus geen vrijwilliger als je het gras van je buurvrouw maait, boodschappen voor je moeder doet, spaghetti gaat eten op een benefietavond, een breicursus volgt ...</p>
+		<p><a href="{{ path("info_vrijwilligers") }}" class="readmore">Lees meer in onze rubriek info voor vrijwilligers </a></p>
+	</div>
 
-<h2>Zijn mensen die in het bestuur van een organisatie zitten ook vrijwilligers?</h2>
-<p>Ja hoor! Je bent ook vrijwilliger als je, zonder dat je ervoor betaald wordt, in het bestuur van een organisatie zit. De vrijwilligerswet geldt dus ook voor jou. Let op! Afhankelijk van de organisatie heb je hierdoor bestuursaansprakelijkheid volgens de vzw-wet.</p>
+	<div class="blok">
+		<h3>Mag je vrijwilligers inschakelen? </h3>
+		<p>Elke <strong>feitelijke vereniging</strong>, <strong>private of publieke rechtspersoon zonder winstoogmerk</strong> mag vrijwilligers inschakelen: </p>
+		<ul>
+			<li>een <strong>vzw</strong>, denk aan De Roma, Borgerstein, Joka, ...</li>
+			<li>een lokale afdeling van een koepel, zoals een afdeling van KVG, Femma, s-plus, ...</li>
+			<li>een <strong>feitelijke vereniging, door minstens 2 personen geleid</strong>, bijvoorbeeld een straatcomité,  een dartsclub</li>
+			<li>een <strong>stichting van openbaar nut</strong>, zoals Het Rode Kruis</li>
+			<li><strong>openbare besturen</strong>, denk maar aan een gemeente, OCMW, een school, een bibliotheek</li>
+			<li>ivzw’s (<strong>internationale vzw’s</strong>) als Don Bosco Youth-Net</li>
+		</ul>
 
+		<p><strong>Opgelet!</strong> Organisaties mét winstoogmerk, zelfstandigen of individuele personen kunnen nooit vrijwilligerswerk organiseren volgens de wet. Dat betekent dat de mensen die daar onbezoldigd werken, niet dezelfde bescherming genieten als in bovenstaande organisaties. Ze zijn dus niet immuun en vergoedingen zijn belastbaar.</p>
+
+		<p><a href="{{ path("info_organisaties") }}" class="readmore">Lees meer in onze rubriek info voor organisaties </a></p>
+	</div>
+
+</div>
 
 
 

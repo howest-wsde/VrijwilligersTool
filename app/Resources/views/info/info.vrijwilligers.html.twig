@@ -1,0 +1,110 @@
+{% trans_default_domain "views" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "info.info"|trans }}{% endblock %}
+
+{% block body %}
+
+<div class="infoteksten">
+	<div class="blok">
+		<h3>Wat is vrijwilligen in Roeselare? </h3>
+		<img src="{{ asset("images/infopage/paddenoversteek.jpg") }}" alt="Vrijwilligers paddenoversteek" class="verhaal" />
+		<p>Vrijwilligerswerk is een verhaal van mensen. Geëngageerde mensen. Mensen met een groot hart. Mensen die zich belangeloos en vrijblijvend inzetten voor elkaar. Mensen die elkaar ontmoeten en daar vreugde, sterkte en (zelf)respect in vinden. </p>
+		<p>Er bestaat een <strong>vrijwilligerswet</strong> in België, om jou als vrijwilliger te beschermen. Let wel, deze wet geldt voor wie zich inzet voor een <strong>organisatie</strong>, die niet gericht is op het maken van winst. Meehelpen aan de barbecue van de voetbalclub, een wielerwedstrijd in veilige banen leiden, in het bestuur zitten van een vereniging, activiteiten doen met het straatcomité,  ... zijn hier voorbeelden van. </p>
+		<p>Daarnaast bestaat er ook iets als '<strong>burenzorg</strong>', zoals het haar van de buurvrouw knippen, boodschappen doen voor je tante, helpen in een gedeelde moestuin (die niet erkend is als 'organisatie'), ... . Dit doe je op eigen initiatief, en dus op eigen risico. </p>
+		<p><strong>Elke vrijwillige inzet telt</strong>. Roeselare Vrijwilligt biedt een vrijblijvend platform voor iedereen met goesting heeft. </p>
+	</div>
+
+	<div class="blok">
+		<h3>Waarom vrijwilligen? </h3>
+		<p>Dat is simpel: Iedereen vrijwilligt. Niemand bepaalt waarom. </p>
+		<p>Is het zuiver idealisme? Wil je iets nuttigs doen in je vrije tijd? Wil je iets betekenen voor anderen? Of doe je het gewoon graag? </p>
+		<p>Een reden hoeven we niet te geven. We weten alleen dat elke inzet. Elk talent telt! Vrijwilligerswerk levert op, voor jezelf, voor je vrienden, voor je buurt en voor de samenleving. </p>
+		<p><a href="{{ path("info_verhalen") }}">Lees de verhalen van vrijwilligers</a></p>
+
+
+	</div>
+
+	<div class="blok">
+		<h3>Wie mag vrijwilligen? </h3>
+
+		<img src="{{ asset("images/infopage/compost.jpg") }}" alt="Vrijwilliger Roeselare"  class="verhaal" />
+		<p>Iedereen mag vrijwilligen, zolang je je maar aan de spelregels houdt. Roeselare vrijwilligt heeft vier spelregels opgesteld:</p>
+		<ul>
+			<li>Je houdt je aan je afspraken.</li>
+			<li>Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt. Uitzonderingen worden door de organisatie meegedeeld.</li>
+			<li>Je gedraagt je respectvol.</li>
+			<li>Je bent op de hoogte van de wettelijke bepalingen.</li>
+		</ul>
+
+		<p><strong>Let wel:</strong> je inzetten voor een organisatie kan pas vanaf het jaar waarin je 16 wordt. Je mag nooit dezelfde taken doen als vrijwilliger als diegene waarvoor je betaald wordt in dezelfde organisatie. En soms moet je eerst een aantal zaken in orde brengen voor je vrijwilliger kan zijn bij een organisatie:</p>
+
+		<h4>Je krijgt een uitkering van de RVA?</h4>
+		<p>Je vult <a href="http://www.rva.be/nl/formulieren/c45b" target="_blank">formulier C45B</a> in en geeft dit aan je vakbond of de hulpkas. Je organisatie moet het formulier C45B ook afstempelen. Je mag meteen na je melding starten als vrijwilliger. De RVA heeft 12 dagen de tijd om op je melding te reageren. Hoor je niets of krijg je een goedkeuring, mag je gewoon verder doen. De RVA kan je vrijwilligerswerk ook weigeren of beperken. Dan moet je meteen stoppen of je taken aanpassen.</p>
+		<p><strong>Tip!</strong> Het kan ook dat je organisatie een 'algemene toelating' heeft van de RVA. Misschien moet je dan zelf geen melding meer doen. Vraag dit zeker eens na in je organisatie.</p>
+		<h4>Je krijgt een leefloon?</h4>
+		<p>Breng je dossierbeheerder bij het <a href="http://www.roeselare.be/inwoners/openingsuren/welzijnshuis" target="_blank">welzijnshuis</a> op de hoogte. Bespreek samen welke vrijwillige inzet mogelijk is. </p>
+		<p><strong>Tip!</strong> Vraag je organisatie een bewijsje op te maken voor je dossierbeheerder, dat jij je als vrijwilliger zal inzetten.</p>
+		<h4>Je krijgt een uitkering van de mutualiteit ?</h4>
+		<p>De adviserend geneesheer van je mutualiteit moet akkoord zijn. Deze geneesheer zal kijken of het werk dat je als vrijwilliger wil doen je gezondheid niet (verder) in gevaar brengt. Je mag pas starten na de toelating van de adviserend geneesheer. Een gewoon briefje van de huisdokter is niet genoeg!</p>
+		<p><strong>Tip!</strong> Duurt het meer dan 2 weken voor je iets hoort? Vraag dan even bij de adviserend geneesheer na of alles in orde is.</p>
+
+		<img src="{{ asset("images/infopage/verhuiswielermuseum.jpg") }}" alt="verhuis fietsen Wielermuseum"  class="verhaal" />
+		<h4>Je bent ambtenaar?</h4>
+		<p>In theorie moet je toelating vragen om te mogen vrijwilligen. In praktijk gebeurt dit steeds minder, maar vraag toch best even na op de dienst. </p>
+		<h4>Je ben asielzoeker? </h4>
+		<p>Als je 'recht hebt op opvang' of wettelijke verblijfsdocumenten hebt mag je vrijwilligen. Als je in een opvangcentrum zit moet je vrijwilligerswerk gemeld worden bij Fedasil. Dit is in de praktijk een melding aan de maatschappelijk werker van het opvangcentrum. </p>
+		<p><strong>Tip!</strong> Zorg voor goede afspraken en duidelijke afbakening van vrijwillige inzet zodat je niet beticht kan worden van zwartwerk, omzeilen van regelgeving, ... Ga ook de verzekering na! </p>
+
+
+	</div>
+
+	<div class="blok">
+		<h3>Onkosten? </h3>
+		<p>Voor kosten die je als vrijwilliger maakt, krijg je soms een vergoeding. Organisaties of burgers onderling <strong>beslissen zelf</strong> of onkosten vergoedt worden of niet. </p>
+		<p>Als je een vergoeding ontvang, is die in principe <strong>belastingvrij</strong>, zolang je de spelregels volgt en het belastingvrije bedrag per jaar niet overschrijdt.</p>
+		<p>Als je een kostenvergoeding ontvangt moet je een keuze maken tussen een vast bedrag (zonder bewijsstukken) of kosten die je kan bewijzen. Je kan vergoedingen met en zonder bewijsstukken niet combineren. Spreek dus goed af met de (verschillende) organisaties of personen waar je vrijwilligerswerk voor doet. </p>
+		<p>Kies je voor <strong>een vast bedrag zonder bewijsstukken</strong>: </p>
+		<p>De kostenvergoedingen voor het vrijwilligerswerk in 2016, bedragen maximum 32,71 euro per dag met een maximum van 1308,38 euro per jaar. Als je een vast bedrag krijgt, dan kunnen je vervoerskosten bijkomend terugbetaald worden. Het maximum is 2000 km vervoerskosten per jaar: </p>
+		<ul>
+			<li>voor je eigen auto: maximum 0,3363 euro per kilometer. Dit bedrag geldt vanaf 1 juli 2016 blijft van toepassing tot 30 juni 2017.</li>
+			<li>voor de fiets en de trein: het jaarlijks bedrag dat je hiervoor krijgt, mag dan niet hoger zijn dan het bedrag voor de auto.</li>
+		</ul>
+		<p><strong>Kies je voor bewijstukken</strong>, dan krijg je enkel de kosten terug waar je een bewijsstuk voor aflevert, zoals je treinticket, een kasbonnetje,... </p>
+		<p><strong>Let op!</strong> Je mag deze twee manieren niet door elkaar gebruiken: ofwel krijg je een vast bedrag, ofwel krijg je de kosten die je kan bewijzen. Ook al vrijwillig je in meer organisaties, dan moet jij je nog houden aan de maximum bedragen. Je kan dus niet verschillende keren via de kassa passeren! Zorg ook dat je zeker nooit over het maximum van 2000 km gaat voor vervoerskosten, als je vast bedrag krijgt. Volg je de regels niet, dan loop je het risico om belastingen op je vergoeding te betalen.</p>
+
+		<h4>Vrijwilligersvergoedingen en uitkeringen</h4>
+		<p>In principe kan je nooit iets van je uitkering verliezen als je een vrijwilligersvergoeding ontvangt. Zorg wel dat je in orde bent met de regels:</p>
+		<ul>
+			<li>je hebt de toestemming om vrijwilligerswerk te doen op zak van de RVA, je dossierbeheerder van het OCMW of je adviserend geneesheer van de mutualiteit</li>
+			<li>je gaat nooit over de maximumbedragen voor een vaste vergoeding</li>
+			<li>je krijgt niet voor meer dan 2000 km vervoerskosten terug als je een vaste vergoeding krijgt</li>
+			<li>je levert een bewijs van je kosten aan je organisatie, als je enkel de echt gemaakte kosten terugkrijgt</li>
+		</ul>
+		<p>Als je de regels niet volgt, kan het zijn dat je toch (een stuk van) je uitkering verliest.</p>
+
+	</div>
+
+	<div class="blok">
+		<h3>Verzekering? </h3>
+
+		<img src="{{ asset("images/infopage/traxbar.jpg") }}" alt="Vrijwilligers TRAX Festival"  class="verhaal" />
+		<p>Als je vrijwilligerswerk doet in een organisatie, is de organisatie in principe aansprakelijk voor schade én verplicht verzekerd. Je bent dan als vrijwilliger 'immuun'. Bij sommige organisaties is er echter geen verplichting en val je terug op je eigen familiale polis! Afhankelijk van de aard van de organisatie zijn er ook andere verplichtingen naar verzekering. Vraag dus eerst eens na bij je organisatie voor wat je precies verzekerd bent. Schade aan jezelf (Lichamelijke ongevallen) bijvoorbeeld valt niet onder een verzekering burgerrechtelijke aansprakelijkheid. </p>
+		<p><strong>Opgelet!</strong> In sommige gevallen kan het zijn dat je toch zelf de schade moet terugbetalen: </p>
+		<ul>
+			<li>Je maakt telkens dezelfde fout, ook al werd daar al vaker op gewezen, bijvoorbeeld: materiaal laten rondslingeren</li>
+			<li>Je maakt een zware fout, bijvoorbeeld: je bent dronken tijdens je vrijwilligerswerk en veroorzaakt daardoor schade</li>
+			<li>Je pleegt bedrog of je maakt met opzet een fout, bijvoorbeeld: je steelt iets</li>
+		</ul>
+
+		<p>Ontstaat er discussie over wie de schade moet betalen, is het de rechter die beslist. Ga goed na wat de regels zijn binnen jouw organisatie. Zorg jij voor een goede uitvoering van je taken, zal je organisatie normaal gezien voor je opkomen.</p>
+		<p>Als je bestuurder bent in een vzw of een stichting ben je verzekerd zoals andere vrijwilligers voor je vrijwilligerswerk. Je hebt wel een bijkomende bestuursaansprakelijkheid voor bestuurstaken. Hiervoor en je niet immuun. Dit valt onder de bestuursaansprakelijkheid van de vzw-wetgeving. Je organisatie kan hiervoor een extra verzekering afsluiten voor haar bestuursleden. Vraag dit best even na. </p>
+		<p>Vrijwilligerswerk in de sfeer van burenzorg is op eigen risico. Hierbij raden we aan om goede afspraken te maken en ten minste voor een familiale verzekering te zorgen.
+	</div>
+
+</div>
+
+
+
+
+{% endblock %}
