@@ -48,11 +48,13 @@ class InfopageController extends UtilityController
                         ->setFirstname("Benedikt")
                         ->setLastname("Beun");
 
-        $user = $this->getUser();
-        $defaults = (new Contact())
-                    ->setEmail($user->getEmail())
-                    ->setName($user->getFirstname() . " " . $user->getLastname())
-                    ->setTelephone($user->getTelephone());
+        $defaults = new Contact();
+        if ($user = $this->getUser()) {
+            $defaults
+                ->setEmail($user->getEmail())
+                ->setName($user->getFirstname() . " " . $user->getLastname())
+                ->setTelephone($user->getTelephone());
+        }
 
         $form = $this->createForm(ContactType::class, $defaults);
         $form->handleRequest($request);
