@@ -43,12 +43,21 @@ class InfopageController extends UtilityController
      */
     public function contact(Request $request)
     {
-        $contact = (new Contact())->setEmail("benedikt@beuntje.com")->setName("Benedikt Beun");
+        $target = (new Person())
+                        ->setEmail("benedikt@beuntje.com")
+                        ->setFirstname("Benedikt")
+                        ->setLastname("Beun");
 
-        $form = $this->createForm(ContactType::class, $contact);
+        $user = $this->getUser();
+        $defaults = (new Contact())
+                    ->setEmail($user->getEmail())
+                    ->setName($user->getFirstname() . " " . $user->getLastname())
+                    ->setTelephone($user->getTelephone());
+
+        $form = $this->createForm(ContactType::class, $defaults);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $contact = $form->getData();
             $info = array(
                 'subject' => "Contactformulier roeselarevrijwilligt.be",
                 'template' => 'contact.html.twig',
@@ -58,14 +67,10 @@ class InfopageController extends UtilityController
                 ),
                 'event' => DigestEntry::NEWADMIN,
             );
-            $this->sendMail($contact, $info);
+            $this->sendMail($target, $info);
 
-            $this->addFlash('approve_message', $this->get('translator')->trans('contact.flash.sent'));
+            $this->addFlash('approve_message', "Uw bericht werd succesvol verstuurd. Bedankt! ");
 
-
-        } else {
-            $user = $this->getUser();
-          //  $form->setData
         }
 
         return $this->render("info/contact.html.twig",
