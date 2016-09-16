@@ -8,8 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Form\ContactType;
+use AppBundle\Entity\DigestEntry;
 
-class InfopageController extends Controller
+class InfopageController extends UtilityController
 {
     /**
      * @Route("/tos", name="info_privacy_and_legal")
@@ -38,9 +41,38 @@ class InfopageController extends Controller
     /**
      * @Route("/contact", name="info_contact")
      */
-    public function contact()
+    public function contact(Request $request)
     {
-        return $this->render("info/contact.html.twig");
+        $contact = (new Contact())->setEmail("benedikt@beuntje.com")->setName("Benedikt Beun");
+
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $info = array(
+                'subject' => "Contactformulier roeselarevrijwilligt.be",
+                'template' => 'contact.html.twig',
+                'txt/plain' => 'contact.txt.twig',
+                'data' => array(
+                    'contact' => $contact,
+                ),
+                'event' => DigestEntry::NEWADMIN,
+            );
+            $this->sendMail($contact, $info);
+
+            $this->addFlash('approve_message', $this->get('translator')->trans('contact.flash.sent'));
+
+
+        } else {
+            $user = $this->getUser();
+          //  $form->setData
+        }
+
+        return $this->render("info/contact.html.twig",
+            [
+                "form" => $form->createView(),
+            ]);
+
     }
 
     /**

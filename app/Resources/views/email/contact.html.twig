@@ -1,0 +1,14 @@
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
+	<dl>
+		<dt>Naam: </dt>
+		<dd>{{ contact.name }}</dd>
+		<dt>E-mail: </dt>
+		<dd>{{ contact.email }}</dd>
+		<dt>Telefoon: </dt>
+		<dd>{{ contact.telephone }}</dd>
+		<dt>Bericht: </dt>
+		<dd>{{ contact.description }}</dd>
+	</dl>
+{% endblock %}

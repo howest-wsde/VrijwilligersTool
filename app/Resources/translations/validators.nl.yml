@@ -200,6 +200,20 @@ search:
         other: Andere voordelen
     placeholder:
         searchTerm: zoekterm (optioneel)
+contact:
+    label:
+        name: Naam
+        email:  E-mailadres
+        telephone:  Telefoon
+        description: Uw bericht
+        create: Verzenden
+    placeholder:
+        name: Naam
+        email:  E-mailadres
+        telephone:  Telefoon
+        description: Uw bericht
+    flash:
+        sent: Uw vraag werd succesvol verzonden.
 general:
     label:
         previous: Vorige
