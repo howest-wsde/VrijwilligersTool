@@ -1,0 +1,8 @@
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+Naam: {{ contact.name }}
+E-mail: {{ contact.email }}
+Telefoon: {{ contact.telephone }}
+Bericht: {{ contact.description }}
+{% endblock %}
