@@ -6,8 +6,8 @@
 {% block body %}
 
 <section class="steps">
-                <h2 class="steptitle blauw">{{ "info.contact"|trans }}</h2>
-                <div class="step actief grijs ">
+        <h2 class="steptitle blauw">{{ "info.contact"|trans }}</h2>
+        <div class="step actief grijs ">
 
         {% for flashMessage in app.session.flashbag.get('approve_message') %}
             <div class="alert alert-success">
