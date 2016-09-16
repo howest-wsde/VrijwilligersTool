@@ -44,9 +44,9 @@ class InfopageController extends UtilityController
     public function contact(Request $request)
     {
         $target = (new Person())
-                        ->setEmail("benedikt@beuntje.com")
-                        ->setFirstname("Benedikt")
-                        ->setLastname("Beun");
+                        ->setEmail("vrijwilligerswerk@roeselare.be")
+                        ->setFirstname("Vrijwilligerswerk")
+                        ->setLastname("Roeselare");
 
         $defaults = new Contact();
         if ($user = $this->getUser()) {
