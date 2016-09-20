@@ -219,3 +219,6 @@ general:
         previous: Vorige
         next: Volgende
         submit: Indienen
+    choices:
+        yes: Ja
+        no: Nee

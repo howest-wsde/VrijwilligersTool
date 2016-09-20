@@ -201,3 +201,6 @@ general:
         previous: Previous
         next: Next
         submit: Indienen
+    choices:
+        yes: Yes
+        no: No
