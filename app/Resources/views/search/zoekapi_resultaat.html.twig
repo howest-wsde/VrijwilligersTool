@@ -8,7 +8,7 @@
 		{% elseif (result.isoftype("Vacancy")) %}
 			<a class="vacancy" href="{{ path("vacancy_by_urlid", { "urlid": result.urlId }) }}">{{ result.title}}</a>
 		{% elseif (result.isoftype("Organisation")) %}
-			<a class="organisation" href="{{ path("organisation_by_urlid", { "urlid": result.name }) }}">{{ result.name }}</a>
+			<a class="organisation" href="{{ path("organisation_by_urlid", { "urlid": result.urlId }) }}">{{ result.name }}</a>
 		{% else %}
 			{#{ dump(result) }#}
 		{% endif %}

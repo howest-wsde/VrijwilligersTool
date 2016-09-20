@@ -8,8 +8,10 @@
                 <div class="lbl"><label for="username">{{ "def.index.id"|trans({}, "views") }}:</label></div>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="{{"person.placeholder.username"|trans}}"/>
 
-                <div class="lbl"><label for="password">{{ "def.index.phrase"|trans({}, "views") }}:</label></div>
+                <div class="lbl"><label for="password">{{ "def.index.phrase"|trans({}, "views") }}:<span class="info" title="Een wachtzin is het &#039;nieuwe en veilige wachtwoord&#039;. In plaats van één woord gebruikt u een volledige zin. Deze is makkelijker te onthouden en moeilijker te hacken. "></span></label></div>
                 <input type="password" id="password" name="_password" placeholder="{{"person.placeholder.password"|trans}}"/>
+
+
 
                 {% if error %}
                     <div class="error">{{ error.messageKey|trans(error.messageData, "security") }}</div>

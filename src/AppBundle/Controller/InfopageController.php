@@ -8,8 +8,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Skill;
+use AppBundle\Entity\Contact;
+use AppBundle\Entity\Form\ContactType;
+use AppBundle\Entity\DigestEntry;
 
-class InfopageController extends Controller
+class InfopageController extends UtilityController
 {
     /**
      * @Route("/tos", name="info_privacy_and_legal")
@@ -38,9 +41,45 @@ class InfopageController extends Controller
     /**
      * @Route("/contact", name="info_contact")
      */
-    public function contact()
+    public function contact(Request $request)
     {
-        return $this->render("info/contact.html.twig");
+        $target = (new Person())
+                        ->setEmail("vrijwilligerswerk@roeselare.be")
+                        ->setFirstname("Vrijwilligerswerk")
+                        ->setLastname("Roeselare");
+
+        $defaults = new Contact();
+        if ($user = $this->getUser()) {
+            $defaults
+                ->setEmail($user->getEmail())
+                ->setName($user->getFirstname() . " " . $user->getLastname())
+                ->setTelephone($user->getTelephone());
+        }
+
+        $form = $this->createForm(ContactType::class, $defaults);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+            $info = array(
+                'subject' => "Contactformulier roeselarevrijwilligt.be",
+                'template' => 'contact.html.twig',
+                'txt/plain' => 'contact.txt.twig',
+                'data' => array(
+                    'contact' => $contact,
+                ),
+                'event' => DigestEntry::NEWADMIN,
+            );
+            $this->sendMail($target, $info);
+
+            $this->addFlash('approve_message', "Uw bericht werd succesvol verstuurd. Bedankt! ");
+
+        }
+
+        return $this->render("info/contact.html.twig",
+            [
+                "form" => $form->createView(),
+            ]);
+
     }
 
     /**

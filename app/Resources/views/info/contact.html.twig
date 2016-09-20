@@ -4,5 +4,25 @@
 {% block title %}{{ "info.contact"|trans }}{% endblock %}
 
 {% block body %}
-{{ "info.contact"|trans }}
+
+<section class="steps">
+        <h2 class="steptitle blauw">{{ "info.contact"|trans }}</h2>
+        <div class="step actief grijs ">
+
+        {% for flashMessage in app.session.flashbag.get('approve_message') %}
+            <div class="alert alert-success">
+                <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+    	{{ form_start(form) }}
+    		{{ form_errors(form) }}
+    	{{ form_end(form) }}
+    </div></section>
+
 {% endblock %}
