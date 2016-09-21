@@ -31,8 +31,8 @@ vacancy:
         otherReward: Andere
         renumeration: Vrijwilligersvergoeding
         skills: Welke interesses / vaardigheden moet een vrijwilliger hebben voor deze vacature?
-        independent: Moet de vrijwilliger zelfstandig kunnen werken?
-        socialInteraction: Hoeveel sociale interactie zal er zijn?
+        independent: is uw vacature toegankelijk voor vrijwilligers die ondersteuning nodig hebben?
+        socialInteraction: Hoeveel contact met mensen is er?
         estimatedWorkInHours: 'Geschat aantal werkuren (indien langdurig: wekelijks)'
         location: Op welke locatie zal de vrijwilliger werken?
         longterm: Betreft de vacature een langdurig engagement?
@@ -42,7 +42,7 @@ vacancy:
         notaccessible: Nee
         independent: Ja
         dependent: Nee
-        all: Alles draait rond sociale interactie
+        all: Alles draait rond sociaal contact
         normal: 'Niet speciaal veel, niet speciaal weinig'
         little: Sociale interactie is beperkt
     placeholder:
