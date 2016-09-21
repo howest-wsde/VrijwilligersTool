@@ -22,14 +22,14 @@ class SearchController extends Controller
         $params = [
             'index' => $query->getIndex(),
             'type' => $types,
-          'body' => [
-                'query' => [
-                    'query_string' => [
-                        'query' => $term,
-                    ],
-                ],
-            ],
-        ];
+            'body' => [
+                  'query' => [
+                      'query_string' => [
+                          'query' => $term,
+                      ],
+                  ],
+              ],
+          ];
 
         return $query->search($params);
     }
@@ -45,7 +45,7 @@ class SearchController extends Controller
         $types = $this->getTypes($form);
         $query = $this->assembleQuery($form);
 
-        return $ESquery->searchByType($types, $query, $searchTerm, $from, $to);
+        return $ESquery->searchByType($types, $query, $searchTerm, false, $from, $to);
     }
 
     /**
