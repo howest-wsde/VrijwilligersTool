@@ -1,0 +1,20 @@
+AppBundle\Entity\Testanswer:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        answer:
+            type: string
+            length: 200
+        weight:
+            type: smallint
+            nullable: true
+        skill:
+            type: integer
+            nullable: true
+    manyToOne:
+        question:
+            targetEntity: Testquestion
+            mappedBy: id

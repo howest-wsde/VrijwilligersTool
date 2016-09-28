@@ -6,7 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Entity\Testresult;
 
 class TestController extends Controller
 {
@@ -155,6 +157,54 @@ class TestController extends Controller
     public function testTypeOfVolunteerAction()
     {
         return $this->render("tests/type-vrijwilliger.html.twig");
+    }
+
+
+    /**
+     * @Route("/doe-de-test/", defaults={"next" = 1}, name="test_test")
+     * @Route("/doe-de-test/{next}", name="test_answer")
+     */
+    public function doeDeTestAction($next, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $questions = $em->getRepository('AppBundle:Testquestion')->findBy(
+             array(),
+             array('weight' => 'ASC')
+        );
+
+        $nr = 0;
+        foreach ($questions as $question) {
+            $question->setNr(++$nr);
+            if ($nr == $next) $newquestion = $question;
+        }
+
+        $session = new Session();
+
+        if ($request->isMethod('POST')) {
+            if ($request->request->get("answer")) {
+
+                $user = $this->getUser();
+                $answer = $em->getRepository('AppBundle:Testanswer')->findOneById($request->request->get("answer"));
+
+                $session->set('q' . $answer->getQuestion()->getId(), $answer);
+
+                $testresult = new Testresult();
+                $testresult->setPerson( $user);
+                $testresult->setanswer( $answer );
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($testresult);
+                $em->flush();
+            }
+        }
+
+        if (isset($newquestion)) {
+            return $this->render('tests/doedetest.html.twig', ["question" => $newquestion]);
+        } else {
+            $session = $request->getSession();
+            return $this->render('tests/testresult.html.twig', ["session" => $session->all()]);
+        }
+
+
     }
 
     /**

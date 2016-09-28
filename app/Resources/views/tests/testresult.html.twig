@@ -1,0 +1,11 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "tests.tests.title"|trans }}{% endblock %}
+
+{% block body %}
+
+		<p>{{ dump(session) }}</p>
+
+
+{% endblock %}
