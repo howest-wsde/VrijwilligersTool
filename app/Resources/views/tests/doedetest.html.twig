@@ -4,16 +4,14 @@
 {% block title %}{{ "tests.tests.title"|trans }}{% endblock %}
 
 {% block body %}
-	<form action="{{ path('test_answer', {'next': (question.nr + 1) }) }}" method="post">
 		<p>{{ question.question }}</p>
 
 		<ul>
 			{% for answer in question.answers %}
 				<li>
-					<button name="answer" value="{{ answer.id }}" type="submit">{{ answer.answer }}</button>
+					<a href="{{ path('test_history', {'history': answer.history }) }}">{{ answer.answer }}</a>
 				</li>
 			{% endfor %}
 		</ul>
-	</form>
 
 {% endblock %}

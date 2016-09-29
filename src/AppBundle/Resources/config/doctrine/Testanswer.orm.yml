@@ -14,6 +14,21 @@ AppBundle\Entity\Testanswer:
         skill:
             type: integer
             nullable: true
+        type1score:
+            type: integer
+            nullable: true
+        type2score:
+            type: integer
+            nullable: true
+        type3score:
+            type: integer
+            nullable: true
+        type4score:
+            type: integer
+            nullable: true
+        type5score:
+            type: integer
+            nullable: true
     manyToOne:
         question:
             targetEntity: Testquestion

@@ -321,6 +321,22 @@ tests:
     tests:
         body: Enkele tests
         title: Tests
+    type:
+        1:
+            name: Het sociaal beestje
+            text: "Jij bent een sociaal beestje. Jij bent een echte dienstverlener. Je doet graag een babbeltje met de mensen rondom jou en je weet snel waarmee je hen kan helpen. Jij maakt tijd voor je medemens."
+        2:
+            name: De doener
+            text: "Proficiat! Jij bent een doener. Jij steekt graag de handen uit de mouwen. Je bent praktisch ingesteld en kan overweg met allerlei materialen. Je hoeft niet lang na te denken, je ziet snel wat je te doen staat. Geen uren dagdromen of palaveren, liever snel het serieuze werk opnemen. "
+        3:
+            name: Het pietje precies
+            text: "Proficiat! Jij bent een pietje precies. Voor jou graag duidelijkheid en gestructureerde activiteiten! Je houdt je taken systematisch bij en werkt op een kritische, ordelijke manier. Alleen een opdracht uitwerken schrikt jou niet af. Jij zet graag de puntjes op de ‘i’. "
+        4:
+            name: De leider
+            text: "Proficiat! Jij bent een leider. Organiseren en coördineren zijn je op het lijf geschreven. Je gaat geen uitdaging uit de weg en hebt geen angst om verantwoordelijkheden op te nemen. Je luistert naar je team en weet de juiste beslissingen te nemen. Jij bent de trekker die vaart kan steken in een project "
+        5:
+            name: De creatieveling
+            text: "Proficiat! Jij bent een creatieveling. Je hoofd zit boordevol ideeën. Op je eigen manier, ben je graag creatief bezig. Tekenen, schrijven, lay-outen, fotograferen … Je hebt een creatief talent dat je graag deelt met anderen. Je bent niet bang om nieuwe dingen uit te proberen. "
 vacancy:
     vacancy:
         removed: Deze vacature werd verwijderd.

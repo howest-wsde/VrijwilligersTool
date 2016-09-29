@@ -4,8 +4,8 @@
 {% block title %}{{ "tests.tests.title"|trans }}{% endblock %}
 
 {% block body %}
-
-		<p>{{ dump(session) }}</p>
+	<h2>{{ ("tests.type." ~ type ~ ".name")|trans }}</h2>
+	<p>{{ ("tests.type." ~ type ~ ".text")|trans }}</p>
 
 
 {% endblock %}
