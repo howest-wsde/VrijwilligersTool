@@ -1,5 +1,5 @@
 "use strict";
-
+/*test*/
 var geocoder;
 var mapcanvas = $("#map-preview");
 var mapOptions = {
