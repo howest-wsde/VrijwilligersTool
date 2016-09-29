@@ -4,14 +4,16 @@
 {% block title %}{{ "tests.tests.title"|trans }}{% endblock %}
 
 {% block body %}
-		<p>{{ question.question }}</p>
+	<section class="col-md-12"><div class="blok special">
+		<h2>{{ question.question }}</h2>
 
-		<ul>
+		<ul class="quiz">
 			{% for answer in question.answers %}
 				<li>
 					<a href="{{ path('test_history', {'history': answer.history }) }}">{{ answer.answer }}</a>
 				</li>
 			{% endfor %}
 		</ul>
+	</div></section>
 
 {% endblock %}

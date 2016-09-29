@@ -4,8 +4,8 @@
 {% block title %}{{ "tests.tests.title"|trans }}{% endblock %}
 
 {% block body %}
-	<h2>{{ ("tests.type." ~ type ~ ".name")|trans }}</h2>
-	<p>{{ ("tests.type." ~ type ~ ".text")|trans }}</p>
-
-
+	<section class="col-md-12"><div class="blok grijs">
+		<h2>{{ ("tests.type." ~ type ~ ".name")|trans }}</h2>
+		<p>{{ ("tests.type." ~ type ~ ".text")|trans }}</p>
+	</div></section>
 {% endblock %}
