@@ -78,6 +78,16 @@ class DigestEntry extends EntityBase
      */
     private $vacancy;
 
+    /**
+     * @var bool
+     */
+    private $sent;
+
+    /**
+     * @var bool
+     */
+    private $handled;
+
     ////////////////
     //Constructor //
     ////////////////
@@ -323,5 +333,53 @@ class DigestEntry extends EntityBase
     public function getOrganisation()
     {
         return $this->organisation;
+    }
+
+    /**
+     * Set sent
+     *
+     * @param boolean $sent
+     *
+     * @return DigestEntry
+     */
+    public function setSent($sent)
+    {
+        $this->sent = $sent;
+
+        return $this;
+    }
+
+    /**
+     * Get sent
+     *
+     * @return boolean
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * Set handled
+     *
+     * @param boolean $handled
+     *
+     * @return DigestEntry
+     */
+    public function setHandled($handled)
+    {
+        $this->handled = $handled;
+
+        return $this;
+    }
+
+    /**
+     * Get handled
+     *
+     * @return boolean
+     */
+    public function getHandled()
+    {
+        return $this->handled;
     }
 }
