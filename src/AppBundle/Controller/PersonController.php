@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\DigestEntry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -62,6 +63,13 @@ class PersonController extends UtilityController
         if ($this->get('security.authorization_checker')
         ->isGranted('IS_AUTHENTICATED_FULLY'))
         {
+
+            $this->addFlash(
+                'notice',
+                'This is a test flash!'
+            );
+
+
             return $this->redirectToRoute("person_username",
             ["username" => $this->getUser()->getUsername()]);
         }
@@ -275,5 +283,23 @@ class PersonController extends UtilityController
        [
            'persons' => $es->requestByType($query, 'person')
        ]);
+    }
+
+    /**
+     * Create a list of all notifications
+     * @param person $user a user
+     */
+    public function listNotificationsAction($user)
+    {
+        $t = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('AppBundle:Person')
+            ->findOneByUsername($user->getUsername());
+
+        $notifications = ["Johan Boskamp heeft je vacature opgeslaan.", "Koning Filip heeft je een mail gestuurd.","Jesus Christus heeft je vacature gerapporteerd."];
+
+        return $this->render("person/persoon_notificaties.html.twig", [
+            "notifications" => $notifications
+        ]);
     }
 }
