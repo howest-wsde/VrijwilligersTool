@@ -1,14 +1,14 @@
 <section class="part"><div class="container tabblad spacing">
-        <ul class="nav nav-tabs">
-            <li class="groen"><a href="#notificaties" data-toggle="tab">{{ notifications|length }} Notificaties</a></li>
-        </ul>
 
         <div class="tab-content clearfix blok special">
-            <div class="tab-pane" id="notificaties">
+            <div class="tab-pane active" id="notificaties">
                 <div class="blokken">
                     {% for notification in notifications %}
-                        <div class="blok">
+                        <div class="blok cta">
                             <h4>{{ notification }}</h4>
+                            <div class="cta">
+                            <a href="#" class="cta blauw">Actie</a>
+                                </div>
                         </div>
                     {% endfor %}
                 </div>
