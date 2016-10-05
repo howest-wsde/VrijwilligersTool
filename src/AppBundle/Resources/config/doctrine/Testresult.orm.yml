@@ -1,0 +1,19 @@
+AppBundle\Entity\Testresult:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    manyToOne:
+        person:
+            targetEntity: Person
+            inversedBy: testresults
+            joinColumn:
+                name: person
+                referencedColumnName: id
+        answer:
+            targetEntity: Testanswer
+            inversedBy: testresults
+            joinColumn:
+                name: answer
+                referencedColumnName: id
