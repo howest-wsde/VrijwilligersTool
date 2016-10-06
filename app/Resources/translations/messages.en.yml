@@ -28,14 +28,14 @@ person:
         editProfile: Your profile has been succesfully modified
         notyourprofile: Only your own profile is accessible!
     events:
-        newcharge: has registered
-        newvacancy: is a new vacancy
-        newcandidate: is a new candidate
-        newadmin: is a new admin
-        approvecandidate: is approved
-        removecandidate: is removed
-        savedvacancy: has saved your vacancy
-        savedorganisation: has saved your organization
+        newcharge: "[personName] is registered."
+        newvacancy: "[vacancyTitle] is a new vacancy made by[personName]"
+        newcandidate: "[personName] is a new candidate"
+        newadmin: "[personName] is a new admin"
+        approvecandidate: "[personName] is approved"
+        removecandidate: "[personName] is removed"
+        savedvacancy: "[personName] has saved [vacancyTitle]"
+        savedorganisation: "[personName] has saved [organisationName]"
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you
