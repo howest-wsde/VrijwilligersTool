@@ -296,7 +296,9 @@ class PersonController extends UtilityController
 
         $digests  = $qb->select(array('dE')) //Get all notifications except the ones from registration.
             ->from('AppBundle:DigestEntry', 'dE')
-            ->where($qb->expr()->neq('dE.event', 1))
+            ->where($qb->expr()->andX(
+                $qb->expr()->eq('dE.handled', 0),
+                $qb->expr()->neq('dE.event', 1)))
             ->getQuery()->getResult();
 
         foreach ($digests as $digest){

@@ -189,11 +189,29 @@ class UtilityController extends Controller
             case 6: //REMOVECANDIDATE
                 //hier moet niets gebeuren
                 break;
+
+            case 7: //SAVEVACANCY
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'vacancy' => $vacancy,
+                    'user' => $user,
+                    'saver' => $saver,
+                ));
+                break;
+
+            case 8: //SAVEORGANISATION
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'organisation' => $org,
+                    'user' => $saver,
+                    'saver' => $saver,
+                ));
+                break;
         }
 
         foreach ($digests as $digest) {
-          $em->remove($digest);
-          $em->flush();
+            $digest->setSent(true);
+            $em->flush();
         }
     }
 
