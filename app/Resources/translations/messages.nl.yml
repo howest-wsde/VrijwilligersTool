@@ -28,6 +28,15 @@ person:
     flash:
         editProfile: Uw profiel werd succesvol aangepast
         notyourprofile: Enkel het eigen profiel is toegankelijk!
+    events:
+        newcharge: heeft zich geregistreerd.
+        newvacancy: is een nieuwe vacature
+        newcandidate: is een nieuwe kandidaat
+        newadmin: is een nieuwe admin
+        approvecandidate: is aangenomen
+        removecandidate: is verwijderd
+        savedvacancy: heeft uw vacature opgeslagen
+        savedorganisation: heeft uw organisatie opgeslagen
 vacancy:
     template:
         vacancyFit: Vacatures op maat

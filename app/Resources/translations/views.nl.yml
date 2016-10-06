@@ -234,18 +234,9 @@ person:
             vols: Medewerkerspoule
             cta: Schrijf een getuigenis!
             ctasmall: en beloon zo jouw vrijwilligers...
-         notifications:
+        notifications:
             notifications: Notificatie(s)
             see: Bekijk
-            events:
-                newcharge: heeft zich geregistreerd.
-                newvacancy: is een nieuwe vacature
-                newcandidate: is een nieuwe kandidaat
-                newadmin: is een nieuwe admin
-                approvecandidate: is aangenomen
-                removecandidate: is verwijderd
-                savedvacancy: heeft uw vacature opgeslagen
-                savedorganisation: heeft uw organisatie opgeslagen
     rules:
         name: Vrijwilliger vinden
     search:
