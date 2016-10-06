@@ -45,9 +45,22 @@ class VacancyType extends AbstractType
                 "label" => 'vacancy.label.wanted',
                 'required' => false,
             ))
-            ->add("longterm", CheckboxType::class, array(
+            // ->add("longterm", CheckboxType::class, array(
+            //     "label" => 'vacancy.label.longterm',
+            //     'required' => false,
+            // ))
+            ->add("longterm", ChoiceType::class, array(
                 "label" => 'vacancy.label.longterm',
+                'placeholder' => false,
+                'choices'  => array(
+                    'general.choices.yes' => true,
+                    'general.choices.no' => false,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
                 'required' => false,
+
             ))
             ->add('estimatedWorkInHours', IntegerType::class, array(
                 'label' => 'vacancy.label.estimatedWorkInHours',

@@ -43,7 +43,7 @@ body>header {
 		a.logo {
 			background: url("../images/logo_roeselarevrijwilligt.png") no-repeat @iMargin bottom;
 			height: 104px;
-			.flex(0 0 250px);
+			.flex(0 0 280px);
 			h1 {display: none; }
 		}
 		a.showhide {display: none; }
@@ -199,7 +199,7 @@ body>header {
 				background: @cPaars; .rounded(5px); padding: 10px 15px; color: white; text-align: center;
 				p {padding: 10px 0; }
 			}
-			background: url("../images/handen.png") no-repeat right bottom;
+			background: url("../images/carousel.png") no-repeat right bottom;
 		}
 	}
 	.slidetoggle {
@@ -765,6 +765,17 @@ a.cta {
 	&.blauw {.schaduwblok(@cBlauw); }
 	&.geel {.schaduwblok(@cGeel); }
 	&.paars {.schaduwblok(@cPaars); }
+}
+
+ul.quiz {
+	margin: 10px 20px; padding: 0;
+	li {
+		display: block;
+		a {
+			display: list-item; padding: 5px; text-align: left; color: @cTXTgrijs;
+			&:hover {text-decoration: none; color: black; }
+		}
+	}
 }
 
 

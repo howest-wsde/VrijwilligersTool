@@ -4,6 +4,8 @@
 {% block title %}{{ "person.profile.name"|trans }}{% endblock %}
 
 {% block body %}
+
+
     {% for flashMessage in app.session.flashbag.get('approve_message') %}
         <div class="alert alert-success">
             <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
@@ -47,28 +49,29 @@
                         {{ form_row (form.plainPassword) }}
                     </div>
                     <div class="row">
-                        <div class="col-md-7">
+                        <div id="address" class="col-md-7">
                             <div class="col-md-12">
                                 <h3>{{ "person.become.address"|trans }}</h3>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="street">
                                 {{ form_row(form.street) }}
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" id="number">
                               {{ form_row(form.number) }}
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" id="bus">
                                 {{ form_row(form.bus) }}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" id="postalcode">
                                 {{ form_row(form.postalcode) }}
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8" id="city">
                                 {{ form_row(form.city) }}
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="col-md-12 google">{{ "person.become.map"|trans }}</div>
+                            <div class="col-md-12 google" id="map-preview" >
+                                {{ "person.become.map"|trans }}</div>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -116,5 +119,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g"></script>
     <script src="{{ asset("js/forms.js") }}"></script>
+    <script src="{{ asset("js/livemap.js") }}"></script>
 {% endblock %}
