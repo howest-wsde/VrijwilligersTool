@@ -291,15 +291,70 @@ class PersonController extends UtilityController
      */
     public function listNotificationsAction($user)
     {
-        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
             ->findOneByUsername($user->getUsername());
 
-        $notifications = ["Johan Boskamp heeft je vacature opgeslaan.", "Koning Filip heeft je een mail gestuurd.","Jesus Christus heeft je vacature gerapporteerd."];
+        $digests = $em->getRepository('AppBundle:DigestEntry')
+            ->findBy(
+                array('user' => $person)
+            );
+
+        $digestNotifications = [];
+        foreach ($digests as $digest){
+            $textAndActionLink = $this->getTextAndActionLinkForEvent($digest);
+            array_push($digestNotifications, $textAndActionLink);
+        }
 
         return $this->render("person/persoon_notificaties.html.twig", [
-            "notifications" => $notifications
+            "notifications" => $digestNotifications
         ]);
+    }
+
+    function getTextAndActionLinkForEvent($digest){
+        $t = $this->get('translator');
+        $personName = $digest->getUser()->getFullName();
+        $vacancyTitle = ($digest->getVacancy() != null) ? $digest->getVacancy()->getTitle() : "";
+        $text = "";
+
+        switch ($digest->getEvent()) {
+            case DigestEntry::NEWCHARGE:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.newcharge');
+                break;
+            case DigestEntry::NEWVACANCY:
+                $text .= $vacancyTitle . " ";
+                $text .= $t->trans('person.events.newvacancy');
+                break;
+            case DigestEntry::NEWCANDIDATE:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.newcandidate');
+                break;
+            case DigestEntry::NEWADMIN:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.newadmin');
+                break;
+            case DigestEntry::APPROVECANDIDATE:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.approvecandidate');
+                break;
+            case DigestEntry::REMOVECANDIDATE:
+                $text .= $personName . " ";
+                $text = $t->trans('person.events.removecandidate');
+                break;
+            case DigestEntry::SAVEDVACANSY:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.savedvacancy');
+                break;
+            case DigestEntry::SAVEDORGANISATION:
+                $text .= $personName . " ";
+                $text .= $t->trans('person.events.savedorganisation');
+                break;
+        }
+
+        return [
+            "text" => $text,
+            "actionLink" => ""
+        ];
     }
 }

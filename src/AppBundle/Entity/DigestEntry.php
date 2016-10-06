@@ -14,8 +14,8 @@ class DigestEntry extends EntityBase
     const NEWADMIN = 4; //see OrganisationController.organisationRemoveAction & organisationViewAction
     const APPROVECANDIDATE = 5; //see CandidacyController.approveCandidacy
     const REMOVECANDIDATE = 6; //see CandidacyController.approveCandidacy
-    const SAVEDVACANSY = 7; //TODO Create event when user saves vacansie
-    const SAVEDORGANISATION = 7; //TODO Create event when user saves organisation
+    const SAVEDVACANCY = 7; //TODO Create event when user saves vacansie
+    const SAVEDORGANISATION = 8; //TODO Create event when user saves organisation
     // ! => when adding new types of events, pleas also modify 2 methods in
     // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
     // removeDigestEntry: new switch case
