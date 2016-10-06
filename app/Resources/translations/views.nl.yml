@@ -234,6 +234,8 @@ person:
             vols: Medewerkerspoule
             cta: Schrijf een getuigenis!
             ctasmall: en beloon zo jouw vrijwilligers...
+            notifications: Notificatie(s)
+            see: Bekijk
     rules:
         name: Vrijwilliger vinden
     search:

@@ -1,13 +1,19 @@
+{% trans_default_domain "views" %}
+
 <section class="part"><div class="container tabblad spacing">
+
+        <ul class="nav nav-tabs">
+            <li class="blauw active"><a href="#notificaties" data-toggle="tab">{{ notifications|length }} {{ "person.dash.org.notifications"|trans }}</a></li>
+        </ul>
 
         <div class="tab-content clearfix blok special">
             <div class="tab-pane active" id="notificaties">
                 <div class="blokken">
                     {% for notification in notifications %}
                         <div class="blok cta">
-                            <h4>{{ notification }}</h4>
+                            <h4>{{ notification.content }}</h4>
                             <div class="cta">
-                            <a href="#" class="cta blauw">Actie</a>
+                            <a href="{{ notification.action }}" class="cta blauw">{{ "person.dash.org.see"|trans }}</a>
                                 </div>
                         </div>
                     {% endfor %}
@@ -15,4 +21,5 @@
 
             </div>
         </div>
+    </div>
 </section>

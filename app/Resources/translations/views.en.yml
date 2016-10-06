@@ -194,6 +194,39 @@ person:
         sirname: sirname
         username: username
         fullname: name
+        vols: volunteers
+    dash:
+        dash: dashboard
+        vol:
+            navblocks: 'Vacancies & organization'
+            navsearch: Search for vacancies
+            navprofile: Overview profile
+            navdata: My data
+            searchtitle: Looking for volunteering?
+        tabs:
+            personal: Custom vacancies
+            saved: Saved vacancies
+            recent: Recent vacansies
+            spotlights: Associations in the spotlight
+        org:
+            main: Overview
+            spotlights: Organizations in the spotlight
+            personal: Custom organizations
+            saved: Saved organization
+            navsearch: Search for volunteers
+            navmyorgs: My organizations
+            navvacancies: Vacnsies
+            navvolunteers: Contributors pool
+            searchtitle: Looking for volunteers?
+            myorg: My organizations
+            openvac: Open vacansies
+            closedvac: Finished vacansies
+            savedvac: Unfinished vacansies
+            vols: Contributors pool
+            cta: Write a testimony!
+            ctasmall: and reward your volunteers...
+            notifications: Notification(s)
+            see: See
     rules:
         name: Find volunteers
     search:
