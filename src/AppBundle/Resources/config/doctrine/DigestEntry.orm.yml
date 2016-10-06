@@ -40,6 +40,11 @@ AppBundle\Entity\DigestEntry:
             joinColumn:
                 name: admin_id
                 referencedColumnName: id
+        saver:
+            targetEntity: Person
+            joinColumn:
+               name: saver_id
+               referencedColumnName: id
         organisation:
             targetEntity: Organisation
             joinColumn:

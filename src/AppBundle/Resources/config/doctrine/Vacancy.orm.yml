@@ -87,6 +87,13 @@ AppBundle\Entity\Vacancy:
             joinColumn:
                 name: organisation_id
                 referencedColumnName: id
+        creator:
+             targetEntity: Person
+             inversedBy: vacancies
+             joinColumn:
+                name: creator_id
+                referencedColumnName: id
+
     oneToMany:
         candidacies:
             targetEntity: Candidacy

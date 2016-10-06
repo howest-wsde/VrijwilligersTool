@@ -14,7 +14,7 @@ class DigestEntry extends EntityBase
     const NEWADMIN = 4; //see OrganisationController.organisationRemoveAction & organisationViewAction
     const APPROVECANDIDATE = 5; //see CandidacyController.approveCandidacy
     const REMOVECANDIDATE = 6; //see CandidacyController.approveCandidacy
-    const SAVEDVACANCY = 7; //TODO Create event when user saves vacansie
+    const SAVEDVACANCY = 7; //TODO Create event when user saves vacanscy
     const SAVEDORGANISATION = 8; //TODO Create event when user saves organisation
     // ! => when adding new types of events, pleas also modify 2 methods in
     // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
@@ -383,5 +383,34 @@ class DigestEntry extends EntityBase
     public function getHandled()
     {
         return $this->handled;
+    }
+    /**
+     * @var \AppBundle\Entity\Person
+     */
+    private $saver;
+
+
+    /**
+     * Set saver
+     *
+     * @param \AppBundle\Entity\Person $saver
+     *
+     * @return DigestEntry
+     */
+    public function setSaver(\AppBundle\Entity\Person $saver = null)
+    {
+        $this->saver = $saver;
+
+        return $this;
+    }
+
+    /**
+     * Get saver
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getSaver()
+    {
+        return $this->saver;
     }
 }
