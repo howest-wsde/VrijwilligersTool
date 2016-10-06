@@ -31,8 +31,8 @@ person:
     events:
         newcharge: "[personName] heeft zich geregistreerd."
         newvacancy: "[vacancyTitle] is een nieuwe vacature gemaakt door [personName]"
-        newcandidate: "[personName] is een nieuwe kandidaat"
-        newadmin: "[personName] is een nieuwe admin"
+        newcandidate: "[personName] is een nieuwe kandidaat voor [vacancyTitle]"
+        newadmin: "[personName] is een nieuwe admin voor [organisationName]"
         approvecandidate: "[personName] is aangenomen voor [vacancyTitle]"
         removecandidate: "[personName] is verwijderd van [vacancyTitle]"
         savedvacancy: "[personName] heeft [vacancyTitle] opgeslagen"

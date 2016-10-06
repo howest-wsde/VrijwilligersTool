@@ -30,8 +30,8 @@ person:
     events:
         newcharge: "[personName] is registered."
         newvacancy: "[vacancyTitle] is a new vacancy made by[personName]"
-        newcandidate: "[personName] is a new candidate"
-        newadmin: "[personName] is a new admin"
+        newcandidate: "[personName] is a new candidate for [vacancyTitle]"
+        newadmin: "[personName] is a new admin for [organisationName]"
         approvecandidate: "[personName] is approved for [vacancyTitle]"
         removecandidate: "[personName] is removed from [vacancyTitle]"
         savedvacancy: "[personName] has saved [vacancyTitle]"
