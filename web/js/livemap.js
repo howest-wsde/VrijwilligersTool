@@ -6,7 +6,7 @@ var codeAddress = function() {
     var mapcanvas = $("#map-preview");
     var mapOptions = {
         zoom: 15,
-        center: {lat: 50.948352, lng: 3.131108},  //this defaults to a map of the centre of Roeselare
+        center: {lat: 50.948352, lng: 3.131108},
         streetViewControl: false,
         mapTypeControl: false
     };
