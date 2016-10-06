@@ -6,7 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Entity\Testresult;
 
 class TestController extends Controller
 {
@@ -155,6 +157,72 @@ class TestController extends Controller
     public function testTypeOfVolunteerAction()
     {
         return $this->render("tests/type-vrijwilliger.html.twig");
+    }
+
+
+    /**
+     * @Route("/doe-de-test/", defaults={"history"=""}, name="test_test")
+     * @Route("/doe-de-test/{history}", name="test_history")
+     */
+    public function doeDeTestAction($history, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $questions = $em->getRepository('AppBundle:Testquestion')->findBy(
+             array(),
+             array('weight' => 'ASC')
+        );
+
+        if ($history == "") {
+            $history = array(
+                "q"=>1,
+                "a"=>array(),
+            );
+        } else {
+            $history = json_decode(base64_decode($history), true);
+            $history["q"]++;
+        }
+
+        $nr = 0;
+        foreach ($questions as $question) {
+            $question->setNr(++$nr);
+            if ($nr == $history["q"]) $newquestion = $question;
+        }
+
+        if (isset($newquestion)) {
+            foreach ($newquestion->getAnswers() as $answer) {
+                $set = $history;
+                $set["a"][] = $answer->getId();
+                $answer->setHistory(base64_encode(json_encode($set)));
+            }
+            return $this->render('tests/doedetest.html.twig', ["question" => $newquestion]);
+        } else {
+            $user = $this->getUser();
+            $arType = array();
+            for ($i=1;$i<=5;$i++) $arType[$i] = 0;
+            foreach ($history["a"] as $answerID){
+                $answer = $em->getRepository('AppBundle:Testanswer')->findOneById($answerID);
+                $arType[1] += $answer->getType1score();
+                $arType[2] += $answer->getType2score();
+                $arType[3] += $answer->getType3score();
+                $arType[4] += $answer->getType4score();
+                $arType[5] += $answer->getType5score();
+                $testresult = new Testresult();
+                $testresult->setPerson( $user);
+                $testresult->setanswer( $answer );
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($testresult);
+                $em->flush();
+            }
+            $iMax = 0;
+            $iType = 0;
+            for ($i=1;$i<=5;$i++) {
+                if ($arType[$i]>$iMax) {
+                    $iMax = $arType[$i];
+                    $iType = $i;
+                }
+            }
+            return $this->render('tests/testresult.html.twig', ["type" => $iType]);
+        }
     }
 
     /**
