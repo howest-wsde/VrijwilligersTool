@@ -43,7 +43,7 @@ class PersonController extends UtilityController
         $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('AppBundle:Person')
-            ->indOneById($id);
+            ->findOneById($id);
 
         if($this->getUser()->getId() === $id){
             return $this->render('person/persoon.html.twig', ["person" => $person]);
