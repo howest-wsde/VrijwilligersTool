@@ -291,16 +291,14 @@ class PersonController extends UtilityController
      */
     public function listNotificationsAction($user)
     {
-        $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository('AppBundle:Person')
-            ->findOneByUsername($user->getUsername());
-
-        $digests = $em->getRepository('AppBundle:DigestEntry')
-            ->findBy(
-                array('user' => $person)
-            );
-
         $digestNotifications = [];
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $digests  = $qb->select(array('dE')) //Get all notifications except the ones from registration.
+            ->from('AppBundle:DigestEntry', 'dE')
+            ->where($qb->expr()->neq('dE.event', 1))
+            ->getQuery()->getResult();
+
         foreach ($digests as $digest){
             $textAndActionLink = $this->getTextAndActionLinkForEvent($digest);
             array_push($digestNotifications, $textAndActionLink);
@@ -312,49 +310,67 @@ class PersonController extends UtilityController
     }
 
     function getTextAndActionLinkForEvent($digest){
+        $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
         $t = $this->get('translator');
-        $personName = $digest->getUser()->getFullName();
+        $actionLink = null;
+        $personName = "";
+        $vacancyTitle = "";
+        $organisationName = "";
         $vacancyTitle = ($digest->getVacancy() != null) ? $digest->getVacancy()->getTitle() : "";
-        $text = "";
+        $whatToReplace = ["[personName]", "[vacancyTitle]", "[organisationName]"];
+        $translation = "";
 
         switch ($digest->getEvent()) {
-            case DigestEntry::NEWCHARGE:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.newcharge');
-                break;
             case DigestEntry::NEWVACANCY:
-                $text .= $vacancyTitle . " ";
-                $text .= $t->trans('person.events.newvacancy');
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $personName = $digest->getVacancy()->getCreator()->getFullName();
+                $actionLink = $root . "vacature/" . $digest->getVacancy()->getUrlId();
+                $translation = 'person.events.newvacancy';
                 break;
             case DigestEntry::NEWCANDIDATE:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.newcandidate');
+                $personName = $digest->getUser()->getFullName();
+                $organisationName = $digest->getOrganisation()->getName();
+                $actionLink = $root . "vacature/" . $digest->getVacancy()->getUrlId();
+                $translation = 'person.events.newcandidate';
                 break;
             case DigestEntry::NEWADMIN:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.newadmin');
+                $personName = $digest->getAdmin()->getFullName();
+                $organisationName = $digest->getOrganisation()->getName();
+                $actionLink = $root . "vereniging/" . $digest->getOrganisation()->getUrlId();
+                $translation = 'person.events.newadmin';
                 break;
             case DigestEntry::APPROVECANDIDATE:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.approvecandidate');
+                $personName = $digest->getCandidate()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $actionLink = $root . "vacature/" . $digest->getVacancy()->getUrlId();
+                $translation = 'person.events.approvecandidate';
                 break;
             case DigestEntry::REMOVECANDIDATE:
-                $text .= $personName . " ";
-                $text = $t->trans('person.events.removecandidate');
+                $personName = $digest->getCandidate()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $actionLink = $root . "vacature/" . $digest->getVacancy()->getUrlId();
+                $translation = 'person.events.removecandidate';
                 break;
-            case DigestEntry::SAVEDVACANSY:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.savedvacancy');
+            case DigestEntry::SAVEDVACANCY:
+                $personName = $digest->getSaver()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $actionLink = $root . "vacature/" . $digest->getVacancy()->getUrlId();
+                $translation = 'person.events.savedvacancy';
                 break;
             case DigestEntry::SAVEDORGANISATION:
-                $text .= $personName . " ";
-                $text .= $t->trans('person.events.savedorganisation');
+                $personName = $digest->getSaver()->getFullName();
+                $organisationName = $digest->getOrganisation()->getName();
+                $actionLink = $root . "vereniging/" . $digest->getOrganisation()->getUrlId();
+                $translation = 'person.events.savedorganisation';
                 break;
         }
 
+        $replaceBy = [$personName, $vacancyTitle, $organisationName];
+        $text = str_replace($whatToReplace,$replaceBy, $t->trans($translation));
+
         return [
             "text" => $text,
-            "actionLink" => ""
+            "actionLink" => $actionLink
         ];
     }
 }
