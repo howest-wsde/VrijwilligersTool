@@ -225,8 +225,18 @@ person:
             vols: Contributors pool
             cta: Write a testimony!
             ctasmall: and reward your volunteers...
+        notifications:
             notifications: Notification(s)
             see: See
+            events:
+                newcharge: has registered.
+                newvacancy: is a new vacancy
+                newcandidate: is a new candidate
+                newadmin: is a new admin
+                approvecandidate: is approved
+                removecandidate: is removed
+                savedvacancy: has saved your vacancy
+                savedorganisation: has saved your organization
     rules:
         name: Find volunteers
     search:
