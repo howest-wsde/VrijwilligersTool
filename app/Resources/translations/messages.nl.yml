@@ -33,8 +33,8 @@ person:
         newvacancy: "[vacancyTitle] is een nieuwe vacature gemaakt door [personName]"
         newcandidate: "[personName] is een nieuwe kandidaat"
         newadmin: "[personName] is een nieuwe admin"
-        approvecandidate: "[personName] is aangenomen"
-        removecandidate: "[personName] is verwijderd"
+        approvecandidate: "[personName] is aangenomen voor [vacancyTitle]"
+        removecandidate: "[personName] is verwijderd van [vacancyTitle]"
         savedvacancy: "[personName] heeft [vacancyTitle] opgeslagen"
         savedorganisation: "[personName] heeft [organisationName] opgeslagen"
 vacancy:

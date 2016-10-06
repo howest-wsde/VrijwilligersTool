@@ -32,8 +32,8 @@ person:
         newvacancy: "[vacancyTitle] is a new vacancy made by[personName]"
         newcandidate: "[personName] is a new candidate"
         newadmin: "[personName] is a new admin"
-        approvecandidate: "[personName] is approved"
-        removecandidate: "[personName] is removed"
+        approvecandidate: "[personName] is approved for [vacancyTitle]"
+        removecandidate: "[personName] is removed from [vacancyTitle]"
         savedvacancy: "[personName] has saved [vacancyTitle]"
         savedorganisation: "[personName] has saved [organisationName]"
 vacancy:
