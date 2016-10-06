@@ -29,6 +29,11 @@
             #}
 
 
+{# --------------------------- NOTIFICATIONS  ------------------------------------- #}
+        
+        {{ render(controller("AppBundle:Person:listNotifications", { "user": person} )) }}
+
+
 {# --------------------------- EIGEN AANBOD  ------------------------------------- #}
 
         {% if person.organisations|length > 0 %}
@@ -104,11 +109,6 @@
 
             </div></section>
         {% endif %}
-
-{# --------------------------- NOTIFICATIONS  ------------------------------------- #}
-
-        {# notificaties #}
-        {{ render(controller("AppBundle:Person:listNotifications", { "user": person} )) }}
 
 
 {# --------------------------- TABS VACATURES  ------------------------------------- #}
