@@ -375,39 +375,44 @@ class PersonController extends UtilityController
      */
     public function notificationHandleAction($id)
     {
-        $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-        $actionLink = "";
         $em = $this->getDoctrine()->getManager();
         $digest = $em->getRepository('AppBundle:DigestEntry')
             ->findOneById($id);
 
-        $digest->setHandled(true);
-        $em->flush();
+        if($this->getUser()->getId() === $digest->getUser()->getId()){
+            $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+            $actionLink = "";
+            
+            $digest->setHandled(true);
+            $em->flush();
 
-        switch ($digest->getEvent()) {
-            case DigestEntry::NEWVACANCY:
-                $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
-                break;
-            case DigestEntry::NEWCANDIDATE:
-                $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
-                break;
-            case DigestEntry::NEWADMIN:
-                $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
-                break;
-            case DigestEntry::APPROVECANDIDATE:
-                $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
-                break;
-            case DigestEntry::REMOVECANDIDATE:
-                $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
-                break;
-            case DigestEntry::SAVEDVACANCY:
-                $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
-                break;
-            case DigestEntry::SAVEDORGANISATION:
-                $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
-                break;
+            switch ($digest->getEvent()) {
+                case DigestEntry::NEWVACANCY:
+                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    break;
+                case DigestEntry::NEWCANDIDATE:
+                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    break;
+                case DigestEntry::NEWADMIN:
+                    $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
+                    break;
+                case DigestEntry::APPROVECANDIDATE:
+                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    break;
+                case DigestEntry::REMOVECANDIDATE:
+                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    break;
+                case DigestEntry::SAVEDVACANCY:
+                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    break;
+                case DigestEntry::SAVEDORGANISATION:
+                    $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
+                    break;
+            }
+
+            return $this->redirect($root.$actionLink);
+        } else {
+            return $this->redirectToRoute('homepage');
         }
-
-        return $this->redirect($root.$actionLink);
     }
 }
