@@ -34,6 +34,12 @@ $(function() {
             )
         }
     });
+
+    $(".lessismore").each(function(){
+        $(this).find(">.lessismore").click(function(){
+            $(this).parent().toggleClass("minified");
+        }).parent().addClass("minified");
+    })
 });
 
 
