@@ -56,8 +56,8 @@
         {% endblock %}
 
         {% for flashMessage in app.session.flashbag.get('default') %}
-            <div class="alert alert-success">
-                <div class="container">{{ flashMessage }}</div>
+            <div class="alert alert-success basealert">
+                {{ flashMessage }}
             </div>
         {% endfor %}
 
