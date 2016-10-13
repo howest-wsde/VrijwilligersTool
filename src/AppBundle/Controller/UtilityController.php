@@ -58,14 +58,14 @@ class UtilityController extends Controller
      * Process an array of administrators and apply either a sendEmail action or an addDigestEntry action.
      * @param  array    $info   All necessary info to either send an email or add a digest entry
      */
-    protected function digestOrMail($info)
+    protected function digestAndMail($info)
     {
         $org = $info['data']['org'];
         //first take care of the admins that need mailing
         $this->sendImmediateEmails($info, $org);
 
-        //then take care of those that need a digest entry added/removed
-        $this->addOrRemoveDigests($info, $org);
+        //then take care of those that need a digest entry added/set sent
+        $this->addOrSetSentRemoveDigests($info, $org);
     }
 
     /**
@@ -92,14 +92,14 @@ class UtilityController extends Controller
      * @param Array                     $info   All necessary information to add the correct digest entry
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function addOrRemoveDigests($info, $org){
-        $remove = array_key_exists('remove', $info);
+    protected function addOrSetSentRemoveDigests($info, $org){
+        $sent = array_key_exists('sent', $info);
         for ($i = 2; $i < 7; $i++) {
             $admins = $org->getAdministratorsByDigest($i);
             if($admins){
                 foreach ($admins as $admin) {
                     $info['admin'] = $admin;
-                    $remove ? $this->removeDigestEntry($info, $org) : $this->addDigestEntry($info, $org);
+                    $sent ? $this->setDigestEntrySent($info, $org) : $this->addDigestEntry($info, $org);
                 }
             }
         }
@@ -117,6 +117,7 @@ class UtilityController extends Controller
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
         $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
         $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
+        $saver = array_key_exists('saver', $info) ? $info['data']['saver'] : null;
 
         $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge, $candidate, $newAdmin, $vacancy);
 
@@ -130,7 +131,7 @@ class UtilityController extends Controller
      * @param Array                     $info   An array containing all the necessary data.
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function removeDigestEntry($info, $org)
+    protected function setDigestEntrySent($info, $org)
     {
         $event = $info['event'];
         $user = $info['admin'];
@@ -138,6 +139,7 @@ class UtilityController extends Controller
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
         $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
         $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
+        $saver = array_key_exists('saver', $info['data']) ? $info['data']['saver'] : null;
         $em = $this->getDoctrine()->getManager();
         $digestRepo = $em->getRepository('AppBundle:DigestEntry');
 
@@ -190,7 +192,7 @@ class UtilityController extends Controller
                 //hier moet niets gebeuren
                 break;
 
-            case 7: //SAVEVACANCY
+            case 7: //SAVEVACANCY //TODO Create event
                 $digests = $digestRepo->findBy(array(
                     'event' => $event,
                     'vacancy' => $vacancy,
@@ -199,7 +201,7 @@ class UtilityController extends Controller
                 ));
                 break;
 
-            case 8: //SAVEORGANISATION
+            case 8: //SAVEORGANISATION //TODO Create event
                 $digests = $digestRepo->findBy(array(
                     'event' => $event,
                     'organisation' => $org,

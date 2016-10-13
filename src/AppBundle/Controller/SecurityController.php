@@ -81,7 +81,7 @@ class SecurityController extends UtilityController
                             'event' => DigestEntry::NEWCHARGE,
                             'newCharge' => $user,
                         );
-                $this->digestOrMail($info);
+                $this->digestAndMail($info);
             }
 
             //set a success message

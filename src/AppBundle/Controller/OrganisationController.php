@@ -167,7 +167,7 @@ class OrganisationController extends UtilityController
                         ),
                         'event' => DigestEntry::NEWADMIN,
                     );
-            $this->digestOrMail($info);
+            $this->digestAndMail($info);
 
            //set a success message
             $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.newAdmin'));
@@ -232,9 +232,9 @@ class OrganisationController extends UtilityController
                                 'org' => $organisation,
                             ),
                             'event' => DigestEntry::NEWADMIN,
-                            'remove' => true,
+                            'sent' => true,
                         );
-                $this->digestOrMail($info);
+                $this->digestAndMail($info);
 
                //set a success message
                 $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));

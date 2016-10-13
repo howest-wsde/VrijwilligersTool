@@ -40,8 +40,8 @@ class CandidacyController extends UtilityController
 
             //set digest / send email to all administrators & to candidate
             $subject = $fullname . ' ' . $t->trans('candidacy.mail.approve');
-            $this->sendDigestOrMail($person, $vacancy, $subject, 'approvedCandidate', DigestEntry::APPROVECANDIDATE);
-            $this->sendDigestOrMail($person, $vacancy, $subject,
+            $this->sendDigestAndMail($person, $vacancy, $subject, 'approvedCandidate', DigestEntry::APPROVECANDIDATE);
+            $this->sendDigestAndMail($person, $vacancy, $subject,
                                 'notifyCandidateApproved', false, false, false);
 
             $this->addFlash('approve_message', $fullname . $t->trans('candidacy.flash.approve') . $vacancy->getTitle() . "."
@@ -54,8 +54,8 @@ class CandidacyController extends UtilityController
 
             //set digest / send email to all administrators & candidate
             $subject = $fullname . ' ' . $t->trans('candidacy.mail.disapprove');
-            $this->sendDigestOrMail($person, $vacancy, $subject, 'disapprovedCandidate', DigestEntry::APPROVECANDIDATE, true);
-            $this->sendDigestOrMail($person, $vacancy, $subject,
+            $this->sendDigestAndMail($person, $vacancy, $subject, 'disapprovedCandidate', DigestEntry::APPROVECANDIDATE, true);
+            $this->sendDigestAndMail($person, $vacancy, $subject,
                                 'notifyCandidateDisapproved', false, false, false);
 
             $this->addFlash('cancel_message', $fullname .
@@ -72,8 +72,8 @@ class CandidacyController extends UtilityController
 
             //set digest / send email to all administrators & volunteer
             $subject = $fullname . ' ' . $t->trans('candidacy.mail.remove');
-            $this->sendDigestOrMail($person, $vacancy, $subject, 'removedVolunteer', DigestEntry::REMOVECANDIDATE);
-            $this->sendDigestOrMail($person, $vacancy, $subject,
+            $this->sendDigestAndMail($person, $vacancy, $subject, 'removedVolunteer', DigestEntry::REMOVECANDIDATE);
+            $this->sendDigestAndMail($person, $vacancy, $subject,
                                 'notifyVolunteerRemoved', false, false, false);
 
 
@@ -86,13 +86,13 @@ class CandidacyController extends UtilityController
         return $this->redirect($request->headers->get('referer')); //return to sender -Elvis Presley, 1962
     }
 
-    private function sendDigestOrMail($person, $vacancy, $subject, $template, $event, $remove = false, $digest = true){
+    private function sendDigestAndMail($person, $vacancy, $subject, $template, $event, $sent = false, $digest = true){
         $info = [
             'subject' => $subject,
             'template' => $template . '.html.twig',
             'txt/plain' => $template . '.txt.twig',
             'event' => $event,
-            'remove' => $remove,
+            'sent' => $sent,
             'data' => array(
                 'candidate' => $person,
                 'org' => $vacancy->getOrganisation(),
@@ -100,6 +100,6 @@ class CandidacyController extends UtilityController
             )
         ];
 
-        $digest ? $this->digestOrMail($info) : $this->sendMail($person, $info);
+        $digest ? $this->digestAndMail($info) : $this->sendMail($person, $info);
     }
 }
