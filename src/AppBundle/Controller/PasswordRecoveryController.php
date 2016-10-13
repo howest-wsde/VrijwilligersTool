@@ -6,6 +6,7 @@ use AppBundle\Entity\Form\ResetPasswordType;
 use AppBundle\Entity\PasswordRecover;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -26,8 +27,10 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  * TODO=============================
  * - zelfde paswoord constraints als person toevoegen
  * - vertalingen implementeren
- *
- *
+ * - implementatie voor enkel email
+ * - evt fancy html mail maken?
+ * - change route to paswoord/trecover/hash
+ * - duplicate error fix
  * */
 
 class PasswordRecoveryController extends Controller
@@ -92,8 +95,20 @@ class PasswordRecoveryController extends Controller
 
         $em->persist($reset);
         $em->flush();
-        echo "<script>alert('persisted!')</script>";
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('roeselarevrijwilligt.be wachtwoord reset')
+            ->setFrom('reset@roeselarevrijwilligt.be')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'passwordrecovery/reset_email.html.twig',
+                    array('user' => $reset)
+                ),
+                'text/plain'
+            );
+
+        $this->get('mailer')->send($message);
     }
 
 
@@ -103,7 +118,31 @@ class PasswordRecoveryController extends Controller
     /**
      * @Route("/paswoord/{hash}", name="password_recover")
      */
-    public function resetForm(){
+    public function resetForm($hash){
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $recovery = $em->getRepository("AppBundle:PasswordRecover")
+                       ->findOneBy(array('hash' => $hash));
+        if(!is_null($recovery)){
+            if(strtotime($recovery->getExpiryDate()) >= strtotime(date("Y-m-d H:i:s"))){
+                echo "<script>alert('valid!')</script>";
+                //toon form en handle form
+                //---> update database en delete entry from password_recovery
+            }
+            else{
+                $this->addFlash('error', 'vraag een nieuwe link aan, deze is vervallen!');
+                return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
+            }
+        }
+        else{
+            $this->addFlash('error', "Deze link is niet valid!");
+            return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
+
+        }
+
+
+        return $this->render('base.html.twig');
+/*
         $form = $this->createFormBuilder()
             ->add('newPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
@@ -113,6 +152,7 @@ class PasswordRecoveryController extends Controller
                 'second_options' => array('label' => 'Repeat Password')))
             ->add('save', SubmitType::class, array('label' => 'Versturen'))
             ->getForm();
+*/
     }
 
 

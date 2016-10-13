@@ -32,4 +32,13 @@ monolog:
         #    level:  info
 
 swiftmailer:
-   delivery_address: info@roeselarevrijwilligt.be
+   delivery_address: thibault.durnez@student.howest.be
+
+
+#swiftmailer:
+   transport: smtp
+#    host:      smtp.gmail.com
+#    username:  'durneztjdev@gmail.com'
+#    password:  'ditiseenwachtwoord'
+#    spool:     { type: memory }
+
