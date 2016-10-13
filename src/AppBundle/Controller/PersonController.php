@@ -298,6 +298,7 @@ class PersonController extends UtilityController
             ->from('AppBundle:DigestEntry', 'dE')
             ->where($qb->expr()->andX(
                 $qb->expr()->eq('dE.handled', 0),
+                $qb->expr()->eq('dE.user', $user->getId()),
                 $qb->expr()->neq('dE.event', 1)))
             ->getQuery()->getResult();
 
