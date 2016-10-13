@@ -29,14 +29,13 @@ person:
         editProfile: Uw profiel werd succesvol aangepast
         notyourprofile: Enkel het eigen profiel is toegankelijk!
     events:
-        newcharge: "[personName] heeft zich geregistreerd."
-        newvacancy: "[vacancyTitle] is een nieuwe vacature gemaakt door [personName]"
-        newcandidate: "[personName] is een nieuwe kandidaat voor [vacancyTitle]"
-        newadmin: "[personName] is een nieuwe admin voor [organisationName]"
-        approvecandidate: "[personName] is aangenomen voor [vacancyTitle]"
-        removecandidate: "[personName] is verwijderd van [vacancyTitle]"
-        savedvacancy: "[personName] heeft [vacancyTitle] opgeslagen"
-        savedorganisation: "[personName] heeft [organisationName] opgeslagen"
+        newvacancy: "'[vacancyTitle]' is een nieuwe vacature gemaakt door [personName]."
+        newcandidate: "[personName] is een nieuwe kandidaat voor '[vacancyTitle]'."
+        newadmin: "[personName] is een nieuwe admin voor '[organisationName]'."
+        approvecandidate: "[personName] is aangenomen voor '[vacancyTitle]'."
+        removecandidate: "[personName] is verwijderd van '[vacancyTitle]'."
+        savedvacancy: "[personName] heeft uw vacature '[vacancyTitle]' opgeslagen."
+        savedorganisation: "[personName] heeft uw organisatie '[organisationName]' opgeslagen."
 vacancy:
     template:
         vacancyFit: Vacatures op maat
