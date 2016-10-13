@@ -1,0 +1,13 @@
+{% trans_default_domain "validators" %}
+{% extends "base.html.twig" %}
+
+{% block title %}Paswoord vergeten?{% endblock %}
+
+{% block body %}
+    <h2>vul uw email of telefoonnummer in.</h2>
+	<h3>Dan sturen wij u een mail waar u uw paswoord kan veranderen</h3>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\PasswordRecover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,4 +142,11 @@ class SecurityController extends UtilityController
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));
     }
+
+
+
+
+
+
 }
+
