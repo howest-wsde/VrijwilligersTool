@@ -30,7 +30,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  * - implementatie voor enkel email
  * - evt fancy html mail maken?
  * - change route to paswoord/trecover/hash
- * - duplicate error fix
+ * - duplicate error fix --> check if already in db on request
  * */
 
 class PasswordRecoveryController extends Controller
