@@ -261,6 +261,18 @@ class VacancyController extends UtilityController
         if ($saveaction == "save")
         {
             $user->addLikedVacancy($vacancy);
+            $organisation = $vacancy->getOrganisation();
+
+            $info = array(
+                'data' => array(
+                    'saver' => $user,
+                    'vacancy' => $vacancy,
+                    'org' => $organisation,
+                ),
+                'event' => DigestEntry::SAVEDVACANCY
+            );
+            $this->addOrSetDigestsSent($info, $organisation);
+
             if(!$ajax){
                 //set a success message
                 $this->addFlash('approve_message', $t->trans('vacancy.flash.addToSaved'));
