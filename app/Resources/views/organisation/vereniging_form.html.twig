@@ -2,8 +2,8 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "org.form.general"|trans }}</a></h2>
-    <div class="step {% if organisation==false %}actief{% endif %} grijs rood">
+    <h2 class="steptitle groen"><a href="#algemeen" name="algemeen">{{ "org.form.general"|trans }}</a></h2>
+    <div class="step {% if organisation==false %}actief{% endif %} grijs groen">
         <fieldset>
             <legend>{{ "org.form.org"|trans }}</legend>
             <div class="col-md-8">
@@ -27,8 +27,8 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle blauw"><a href="#contact" name="contact">{{ "org.form.contact"|trans }}</a></h2>
-    <div class="step {% if organisation %}actief{% endif %} grijs blauw">
+    <h2 class="steptitle geel"><a href="#contact" name="contact">{{ "org.form.contact"|trans }}</a></h2>
+    <div class="step {% if organisation %}actief{% endif %} grijs geel">
         <fieldset>
             {% if organisation and source=="create_organisation" %}
                 <p>
@@ -69,8 +69,8 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle geel"><a href="#sectoraal" name="sectoraal">{{ "org.form.sectoral"|trans }}</a></h2>
-    <div class="step grijs geel">
+    <h2 class="steptitle blauw"><a href="#sectoraal" name="sectoraal">{{ "org.form.sectoral"|trans }}</a></h2>
+    <div class="step grijs blauw">
         <fieldset>
             <p><strong>{{ "org.form.active"|trans }}</strong></p>
             {{ form_row(form.sectors) }}
@@ -78,4 +78,28 @@
             {{ form_row(form.submitEnd) }}
         </fieldset>
     </div>
+
+
+    {% if organisation %}
+
+        <h2 class="steptitle rood"><a href="#ddd" name="ddd">{{ "org.form.admin"|trans }}</a></h2>
+        <div class="step grijs rood">
+            <h3>{{ "general.admin.admins"|trans }}</h3>
+            <ul class="admins">
+                {% for administrator in organisation.administrators %}
+                    <li><a href="{{ path('person_username', {'username' : administrator.username}) }}">{{ administrator.firstname}} {{ administrator.lastname}}</a> -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}">{{ "general.admin.away"|trans }}</a></li>
+                {% endfor %}
+                <li>
+                </li>
+            </ul>
+
+
+            <h3>{{ "general.admin.deleteorg"|trans }}</h3>
+            {% if not organisation.deleted %}
+                <ul><li><a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a></li></ul>
+            {% endif %}
+
+
+        </div>
+    {% endif %}
 {{ form_end(form) }}
