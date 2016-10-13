@@ -41,8 +41,78 @@ class PasswordRecover
     public function __construct($person)
     {
         $this->person = $person;
-        $this->hash = random_bytes(10); //generates secure random string
+        $this->hash = bin2hex(random_bytes(10)); //generates secure random string
         $this->expiryDate = date("Y-m-d H:i:s", strtotime (PasswordRecover::EXPIREIN));
+        //sets current date + expiration on creation
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param Person $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param string $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpiryDate()
+    {
+        return $this->expiryDate;
+    }
+
+    /**
+     * @param string $expiryDate
+     */
+    public function setExpiryDate($expiryDate)
+    {
+        $this->expiryDate = $expiryDate;
+    }
+
+
+
+
+
 
 }
