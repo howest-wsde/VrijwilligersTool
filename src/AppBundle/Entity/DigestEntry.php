@@ -14,8 +14,8 @@ class DigestEntry extends EntityBase
     const NEWADMIN = 4; //see OrganisationController.organisationRemoveAction & organisationViewAction
     const APPROVECANDIDATE = 5; //see CandidacyController.approveCandidacy
     const REMOVECANDIDATE = 6; //see CandidacyController.approveCandidacy
-    const SAVEDVACANCY = 7; //TODO Create event when user saves vacanscy
-    const SAVEDORGANISATION = 8; //TODO Create event when user saves organisation
+    const SAVEDVACANCY = 7; //see VacancyController.saveVacancyAction
+    const SAVEDORGANISATION = 8; // see OrganisationController.saveOrganisationAction
     // ! => when adding new types of events, pleas also modify 2 methods in
     // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
     // removeDigestEntry: new switch case
@@ -94,7 +94,7 @@ class DigestEntry extends EntityBase
     //Constructor //
     ////////////////
 
-    public function __construct($event, $organisation, $periodicity = Person::DAILY, $user, $charge = null, $candidate = null, $admin = null, $vacancy = null)
+    public function __construct($event, $organisation, $periodicity = Person::DAILY, $user, $charge = null, $candidate = null, $admin = null, $vacancy = null, $saver = null, $sent = false, $handled = false)
     {
         $this->setEvent($event)
              ->setOrganisation($organisation)
@@ -103,7 +103,10 @@ class DigestEntry extends EntityBase
              ->setCharge($charge)
              ->setCandidate($candidate)
              ->setAdmin($admin)
-             ->setVacancy($vacancy);
+             ->setVacancy($vacancy)
+             ->setSaver($saver)
+             ->setSent($sent)
+             ->setHandled($handled);
     }
 
     //////////////////////
