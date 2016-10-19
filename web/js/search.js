@@ -50,7 +50,7 @@
                     $("<div />").addClass("readmore").append(
                         $("<a />").attr("href", "#more").attr("rel", strClass).html("Toon meer").click(function(){
                             $("." + $(this).attr("rel")).show();
-                            $(this).hide();
+                            $(this).parent().hide();
                             return false;
                         })
                     ).append(
