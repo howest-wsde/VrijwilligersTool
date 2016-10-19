@@ -55,6 +55,12 @@
             </header>
         {% endblock %}
 
+        {% for flashMessage in app.session.flashbag.get('default') %}
+            <div class="alert alert-success basealert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
         {% block outerbody %}
             {% block extraheader %}{% endblock %}
             <div class="part"><div class="container">
@@ -70,7 +76,7 @@
                     <div class="blok special nieuwsbrief">
                         <h2>{{ "base.body.newsletter.cta"|trans }}</h2>
                         {# TODO: nieuwsbrief implementeren #}
-                        <form>
+                        <form action="{{ path("newsletter") }}" method="post">
                             <input type="email" name="mailadres" placeholder="e-mailadres" />
                             <input type="submit" value="inschrijven" class="cta" />
                         </form>

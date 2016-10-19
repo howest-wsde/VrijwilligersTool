@@ -14,6 +14,7 @@ use AppBundle\Entity\Form\PersonType;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\Skillproficiency;
 use AppBundle\Entity\Skill;
+use AppBundle\Entity\Newslettersubscriber;
 use AppBundle\Entity\Volunteer;
 
 class DefaultController extends Controller
@@ -27,6 +28,27 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
         ]);
+    }
+
+    /**
+     * @Route("/nieuwsbrief", name="newsletter")
+     */
+    public function newsletterAction(Request $request)
+    {
+        $t = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isMethod('POST')) {
+            $newslettersubscriber = new Newslettersubscriber();
+            $newslettersubscriber->setEmail( $request->request->get("mailadres") );
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newslettersubscriber);
+            $em->flush();
+
+            $this->addFlash('default', $t->trans('general.newsletter.ok'));
+        }
+
+        return $this->redirect($request->server->get('HTTP_REFERER'));
     }
 
     /**
