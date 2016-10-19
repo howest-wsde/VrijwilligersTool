@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\SearchFilter;
 use AppBundle\Entity\Form\SearchFilterType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class SearchController extends Controller
 {
@@ -166,19 +168,28 @@ class SearchController extends Controller
      * Wordt gebruikt in base.html.twig (lijn 17, RV_GLOBALS)
      * @Route("/api/usersearch", name="api_usersearch")
      */
-    public function apiSearchUserAction()
+    public function apiSearchUserAction(Request $request)
     {
-        $request = Request::createFromGlobals();
-        $query = $request->request->get("person");
-        //var_dump($request);
+        $query = $request->query->get("person");
+        $results = [];
         if ($query) {
-            $results = $this->plainSearch($query, ["person"]);
-        } else $results = [];
+            foreach($this->plainSearch($query, ["person"]) as $person) {
+                $results[] = array(
+                        "id"=> $person->getId(),
+                        "name"=> $person->getFirstName() . " " . $person->getLastName()
+                    );
+            }
+        }
+
+        $response = new JsonResponse();
+        $response->setData($results);
+/*
         $response = new Response(
             $this->renderView("person/usersearch.user.html.twig",
                 ["results" => $results]),
                 200
             );
+            */
         return $response;
     }
 

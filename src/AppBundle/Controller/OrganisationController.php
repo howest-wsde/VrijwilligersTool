@@ -47,6 +47,7 @@ class OrganisationController extends UtilityController
 
             $em->flush();
 
+
             if(!$urlid){
                 //set a success message
                 $this->addFlash('approve_message', $t->trans('org.flash.createStart') . ' ' . $organisation->getName() . $t->trans('org.flash.createEnd')
