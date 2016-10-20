@@ -29,10 +29,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
  * - zelfde paswoord CONSTRAINTS als person toevoegen
  * - vertalingen implementeren
  * - implementatie voor enkel email
- * - evt fancy html mail maken?
  * - change route to paswoord/trecover/hash
- * - duplicate error fix --> check if already in db on request
- * - reuse existing form for resetting?
  * */
 
 class PasswordRecoveryController extends Controller
@@ -80,15 +77,12 @@ class PasswordRecoveryController extends Controller
                 $requested = $test->getQuery()->getResult();
                 $requested = array_pop($requested);
 
-
-                if(empty($requested))
-                    echo "<h1>user mag resetten</h1>";
-                else
-                    echo "<h1>user al bezig aan het restten</h1>";
-
-
-                $this->recoverAction($user);
-                $this->addFlash('success', 'er werd een mail gestuurd naar het ingevulde adres. Volg de link in de mail om uw paswoord te resetten');
+                if(empty($requested)) {
+                    $this->recoverAction($user);
+                    $this->addFlash('success', 'er werd een mail gestuurd naar het ingevulde adres. Volg de link in de mail om uw paswoord te resetten');
+                }else{
+                    $this->addFlash('error',"deze gebruikersnaam werd al reeds opgegeven voor een paswoord reset");
+                }
             }else{
                 $this->addFlash('error', 'dit emailadres of telefoonnummer werd niet gevonden.');
                 //dit moet beter geschreven worden, temporary + vertaling
