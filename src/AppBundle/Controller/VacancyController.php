@@ -102,6 +102,7 @@ class VacancyController extends UtilityController
             }
 
             $this->setCoordinates($vacancy);
+            $vacancy->setCreator($this->getUser());
             $em->persist($vacancy);
             $em->flush();
 
