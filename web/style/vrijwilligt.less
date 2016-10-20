@@ -543,15 +543,44 @@ h3 {.grijzetitel(); }
 		}
 		#vacancy_skills, #person_skills {
 			.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(flex-start);
-			div.option {.flex(1 0 220px); }
+			div.option {.flex(0 1 270px); }
 		}
 	}
 	#edit_person_skills, #organisation_sectors, #vacancy_skills {
 		.flex-display(flex); .flex-flow(row wrap);
 		div.option {
 			.flex(0 1 250px); .flex-display(flex); .flex-flow(row nowrap);
-			input {flex: 0 0 20px; }
-			label {flex: 1; }
+			input {flex: 0 0 20px; display:none;}
+			input + label {
+				.flex(1); padding-left: 30px;
+				background: url("../images/skills/checkmark-unchecked.svg") left top no-repeat;
+				background-size: 17px auto;
+				opacity: 0.35; filter: alpha(opacity=35); color: black;
+			}
+			input#vacancy_skills_49 + label {background-image: url("../images/skills/administratie.svg"); }
+			input#vacancy_skills_66 + label {background-image: url("../images/skills/andere.svg"); }
+			input#vacancy_skills_51 + label {background-image: url("../images/skills/communicatie.svg"); }
+			input#vacancy_skills_50 + label {background-image: url("../images/skills/computer.svg"); }
+			input#vacancy_skills_1 + label {background-image: url("../images/skills/creatief.svg"); }
+			input#vacancy_skills_62 + label {background-image: url("../images/skills/cultuur.svg"); }
+			input#vacancy_skills_22 + label {background-image: url("../images/skills/dieren.svg"); }
+			input#vacancy_skills_64 + label {background-image: url("../images/skills/goededoelen.svg"); }
+			input#vacancy_skills_15 + label {background-image: url("../images/skills/handenarbeid.svg"); }
+			input#vacancy_skills_10 + label {background-image: url("../images/skills/klussen.svg"); }
+			input#vacancy_skills_52 + label {background-image: url("../images/skills/mensen.svg"); }
+			input#vacancy_skills_35 + label {background-image: url("../images/skills/muziek.svg"); }
+			input#vacancy_skills_63 + label {background-image: url("../images/skills/onderwijs.svg"); }
+			input#vacancy_skills_60 + label {background-image: url("../images/skills/onthaal.svg"); }
+			input#vacancy_skills_61 + label {background-image: url("../images/skills/organisatie.svg"); }
+			input#vacancy_skills_16 + label {background-image: url("../images/skills/planten.svg"); }
+			input#vacancy_skills_36 + label {background-image: url("../images/skills/sector.svg"); }
+			input#vacancy_skills_24 + label {background-image: url("../images/skills/sport.svg"); }
+			input#vacancy_skills_65 + label {background-image: url("../images/skills/zingeving.svg"); }
+			input:checked + label {
+				background-image: url("../images/skills/checkmark-checked.svg");
+				opacity: 1; filter: alpha(opacity=100); color: inherit;
+			}
+
 		}
 	}
 }
