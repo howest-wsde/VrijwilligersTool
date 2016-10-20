@@ -16,9 +16,11 @@ class DigestEntry extends EntityBase
     const REMOVECANDIDATE = 6; //see CandidacyController.approveCandidacy
     const SAVEDVACANCY = 7; //see VacancyController.saveVacancyAction
     const SAVEDORGANISATION = 8; // see OrganisationController.saveOrganisationAction
+    const DISAPPROVECANDIDATE = 9; // see CandidacyController.approveCandidacy
     // ! => when adding new types of events, pleas also modify 2 methods in
     // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
     // removeDigestEntry: new switch case
+    // The name and point of these functions have been changed.
 
     //constants for variable $status
     const SENT = 'sent';
