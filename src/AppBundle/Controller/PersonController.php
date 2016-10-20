@@ -300,6 +300,7 @@ class PersonController extends UtilityController
                 $qb->expr()->eq('dE.handled', 0),
                 $qb->expr()->eq('dE.user', $user->getId()),
                 $qb->expr()->neq('dE.event', 1)))
+            ->add('orderBy', 'dE.id DESC')
             ->getQuery()->getResult();
 
         foreach ($digests as $digest){
@@ -330,7 +331,7 @@ class PersonController extends UtilityController
                 $translation = 'person.events.newvacancy';
                 break;
             case DigestEntry::NEWCANDIDATE:
-                $personName = $digest->getUser()->getFullName();
+                $personName = $digest->getCandidate()->getFullName();
                 $organisationName = $digest->getOrganisation()->getName();
                 $translation = 'person.events.newcandidate';
                 break;
@@ -342,12 +343,20 @@ class PersonController extends UtilityController
             case DigestEntry::APPROVECANDIDATE:
                 $personName = $digest->getCandidate()->getFullName();
                 $vacancyTitle = $digest->getVacancy()->getTitle();
-                $translation = 'person.events.approvecandidate';
+                if ($this->isDigestForCandidate($digest)) $translation = 'person.events.approvecandidate_user';
+                else $translation = 'person.events.approvecandidate_admin';
+                break;
+            case DigestEntry::DISAPPROVECANDIDATE:
+                $personName = $digest->getCandidate()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                if ($this->isDigestForCandidate($digest)) $translation = 'person.events.disapprovecandidate_user';
+                else $translation = 'person.events.disapprovecandidate_admin';
                 break;
             case DigestEntry::REMOVECANDIDATE:
                 $personName = $digest->getCandidate()->getFullName();
                 $vacancyTitle = $digest->getVacancy()->getTitle();
-                $translation = 'person.events.removecandidate';
+                if ($this->isDigestForCandidate($digest)) $translation = 'person.events.removecandidate_user';
+                else $translation = 'person.events.removecandidate_admin';
                 break;
             case DigestEntry::SAVEDVACANCY:
                 $personName = $digest->getSaver()->getFullName();
@@ -368,6 +377,10 @@ class PersonController extends UtilityController
             "text" => $text,
             "actionLink" => $actionLink
         ];
+    }
+
+    private function isDigestForCandidate($digest){
+        return $digest->getUser()->getId() == $digest->getCandidate()->getId();
     }
 
     /**
