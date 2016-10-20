@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Candidacy;
+use AppBundle\Entity\Person;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -76,26 +77,23 @@ class UtilityController extends Controller
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
     protected function sendImmediateEmails($info, $org)
-    { //TODO Fix emails for admins and candidates
-        /*
-        $event = $info['event'];
-        $user = array_key_exists('user', $info) ? $info['user'] : null;
+    {
+        $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-
-        if ($this->isEventForCandidacyAndIsUserTheCandidate($user, $candidate, $event)){
-            $info['to'] = $user->getEmail();
-            $this->sendMail($user, $info);
-        }
-
+        $hasCandidateDigest1 = $candidate->getDigest() === Person::IMMEDIATELY;
         $admins = $org->getAdministratorsByDigest(1);
-        if(!is_null($admins))
+
+        if ($isForCandidate && $hasCandidateDigest1){
+            $info['to'] = $candidate->getEmail();
+            $this->sendMail($candidate, $info);
+        }
+        else if($admins)
         {
             foreach ($admins as $admin) {
                 $info['to'] = $admin->getEmail();
                 $this->sendMail($admin, $info);
             }
         }
-        */
     }
 
     /**
