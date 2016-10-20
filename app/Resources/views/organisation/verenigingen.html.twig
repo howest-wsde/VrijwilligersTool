@@ -1,0 +1,9 @@
+{% trans_default_domain "views" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ "general.orgs"|trans|capitalize }}{% endblock %}
+
+
+{% block body %}
+	{% embed "organisation/verenigingen_oplijsten.html.twig" with {"viewMode": "tile", "organisations": organisations } %}{% endembed %}
+{% endblock %}
