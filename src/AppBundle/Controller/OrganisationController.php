@@ -180,6 +180,25 @@ class OrganisationController extends UtilityController
             ]);
     }
 
+
+    /**
+     * @Route("/verenigingen" , name="organisations")
+     */
+    public function organisationsViewAction()
+    {
+        $t = $this->get('translator');
+
+        $em = $this->getDoctrine()->getManager();
+        $organisations = $em->getRepository("AppBundle:Organisation")
+            ->findAll();
+
+        return $this->render("organisation/verenigingen.html.twig",
+            [
+                "organisations" => $organisations,
+            ]);
+    }
+
+
     /**
      * Delete or restore an organisation
      * @Route("/vereniging/{urlid}/delete", name="delete_organisation", defaults={ "deleted" = true })
