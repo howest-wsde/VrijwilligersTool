@@ -39,10 +39,8 @@ class PasswordRecoveryController extends Controller
 {
     /**
      * @Route("/paswoord/recover/", name="request_recover")
-     */
-    //REQUEST OF PASSWORD RESET
+    */
     public function requestReset(Request $request){ //build form and submit
-
         $form = $this->createFormBuilder()
             ->add('logincredential', TextType::class,array(
                 'label' => 'Telefoon of email-adres',
@@ -53,12 +51,13 @@ class PasswordRecoveryController extends Controller
 
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getEntityManager();
 
         if($form->isSubmitted() && $form->isValid()){
+
             $loginCredential = $form['logincredential']->getData();
 
-            $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder();
-
+            $qb = $em->createQueryBuilder();
             $qb ->select('person')
                 ->from('AppBundle:Person', 'person')
                 ->where('person.email = ?1')
@@ -69,7 +68,25 @@ class PasswordRecoveryController extends Controller
             $user = $qb->getQuery()->getResult();
             $user = array_pop($user);
 
+
             if(!is_null($user)){
+                $test = $em->createQueryBuilder();
+                $test->select('recover.id')
+                    ->from('AppBundle:PasswordRecover','recover')
+                    ->where('recover.person = ?1')
+                    ->setParameter(1, $user->getId());
+
+
+                $requested = $test->getQuery()->getResult();
+                $requested = array_pop($requested);
+
+
+                if(empty($requested))
+                    echo "<h1>user mag resetten</h1>";
+                else
+                    echo "<h1>user al bezig aan het restten</h1>";
+
+
                 $this->recoverAction($user);
                 $this->addFlash('success', 'er werd een mail gestuurd naar het ingevulde adres. Volg de link in de mail om uw paswoord te resetten');
             }else{
@@ -78,22 +95,17 @@ class PasswordRecoveryController extends Controller
             }
             return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');//submitted,show status
         }
-
         return $this->render('passwordrecovery/recover_form.html.twig', array(//show recover form
             'form' => $form->createView(),
         ));
     }
-
-
     // GETS CALLED BY REQUEST AND INSERTS INTO DB AND SENDS MAIL
-    public function recoverAction(Person $user){
+    public function recoverAction(Person $user)
+    {
         $reset = new PasswordRecover($user);
-
         $em = $this->getDoctrine()->getManager();
-
         $em->persist($reset);
         $em->flush();
-
         $message = \Swift_Message::newInstance()
             ->setSubject('roeselarevrijwilligt.be wachtwoord reset')
             ->setFrom('reset@roeselarevrijwilligt.be')
@@ -105,13 +117,11 @@ class PasswordRecoveryController extends Controller
                 ),
                 'text/plain'
             );
-
         $this->get('mailer')->send($message);
     }
 
 
-
-    //HANDLES THE VALIDATION OG HASH URL AND SHOWS FORM PASSWD CHANGE
+        //HANDLES THE VALIDATION OG HASH URL AND SHOWS FORM PASSWD CHANGE
     //GET CURRENT TIME AND CHECK
     /**
      * @Route("/paswoord/{hash}", name="password_recover")
