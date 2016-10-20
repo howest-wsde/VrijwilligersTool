@@ -25,12 +25,14 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /*
  * TODO=============================
- * - zelfde paswoord constraints als person toevoegen
+ * - VALIDATE PERSON
+ * - zelfde paswoord CONSTRAINTS als person toevoegen
  * - vertalingen implementeren
  * - implementatie voor enkel email
  * - evt fancy html mail maken?
  * - change route to paswoord/trecover/hash
  * - duplicate error fix --> check if already in db on request
+ * - reuse existing form for resetting?
  * */
 
 class PasswordRecoveryController extends Controller
@@ -65,10 +67,6 @@ class PasswordRecoveryController extends Controller
                 ->setParameter(2,$loginCredential);
 
             $user = $qb->getQuery()->getResult();
-
-            //$em = $this->getDoctrine()->getManager();
-            //$user = $em->getRepository("AppBundle:Person")->findBy(array('email' => $loginCredential));
-
             $user = array_pop($user);
 
             if(!is_null($user)){
@@ -118,16 +116,53 @@ class PasswordRecoveryController extends Controller
     /**
      * @Route("/paswoord/{hash}", name="password_recover")
      */
-    public function resetForm($hash){
+    public function resetForm($hash, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
 
         $recovery = $em->getRepository("AppBundle:PasswordRecover")
                        ->findOneBy(array('hash' => $hash));
+
+
         if(!is_null($recovery)){
             if(strtotime($recovery->getExpiryDate()) >= strtotime(date("Y-m-d H:i:s"))){
-                echo "<script>alert('valid!')</script>";
-                //toon form en handle form
-                //---> update database en delete entry from password_recovery
+
+                $person  = $em->getRepository("AppBundle:Person")
+                    ->find($recovery->getPerson()->getId());//BETER schrijven!!
+
+                $form = $this->createFormBuilder()//$perrson?s
+                             ->add('newPassword', RepeatedType::class, array(
+                                   'type' => PasswordType::class,
+                                   'invalid_message' => 'De paswoorden moeten overeen komen!.',
+                                   'required' => true,
+                                   'first_options'  => array('label' => 'Password'),
+                                   'second_options' => array('label' => 'Repeat Password'),
+                                  )
+                             )
+                             ->add('submit', SubmitType::class)
+                             ->getForm();
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+
+                    $person->setPlainPassword($form->get('newPassword')->getData());
+                    $password = $this->get("security.password_encoder")
+                                     ->encodePassword($person, $person->getPlainPassword());
+                    $person->setPassword($password);
+
+                    $em->persist($person);//persist new password
+                    $em->remove($recovery);// remove recovery from database
+                    $em->flush();
+
+                    $this->addFlash('success', "uw paswoord werd succesvol aangepast! U kan nu inloggen met uw nieuw paswoord.");
+                    return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
+
+                }
+
+                return $this->render('passwordrecovery/recover_form.html.twig', array(
+                                     'form' => $form->createView(),
+                                    ));
+
             }
             else{
                 $this->addFlash('error', 'vraag een nieuwe link aan, deze is vervallen!');
@@ -135,27 +170,11 @@ class PasswordRecoveryController extends Controller
             }
         }
         else{
-            $this->addFlash('error', "Deze link is niet valid!");
+            $this->addFlash('error', "Deze link is niet valid! Ofwel is deze al gebruikt geweest ofwel is deze gewoon niet gelidg!");
             return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
 
         }
 
-
-        return $this->render('base.html.twig');
-/*
-        $form = $this->createFormBuilder()
-            ->add('newPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'paswoorden komen niet overeen!',
-                'required' => true,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password')))
-            ->add('save', SubmitType::class, array('label' => 'Versturen'))
-            ->getForm();
-*/
     }
-
-
-
 
 }

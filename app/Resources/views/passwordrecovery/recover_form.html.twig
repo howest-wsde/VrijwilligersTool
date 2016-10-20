@@ -8,6 +8,25 @@
 	<h3>Dan sturen wij u een mail waar u uw paswoord kan veranderen</h3>
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    {{ form_errors(form) }}
     {{ form_end(form) }}
+
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+                <a href="{{app.request.headers.get('referer')}}">Klik hier</a> om terug te gaan.
+            {% endfor %}
+        </div>
+    {% endif %}
+
 
 {% endblock %}
