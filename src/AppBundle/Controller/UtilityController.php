@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Candidacy;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -65,7 +66,7 @@ class UtilityController extends Controller
         $this->sendImmediateEmails($info, $org);
 
         //then take care of those that need a digest entry added/set sent
-        $this->addOrSetSentRemoveDigests($info, $org);
+        $this->addOrSetDigestsSent($info, $org);
     }
 
     /**
@@ -75,7 +76,17 @@ class UtilityController extends Controller
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
     protected function sendImmediateEmails($info, $org)
-    {
+    { //TODO Fix emails for admins and candidates
+        /*
+        $event = $info['event'];
+        $user = array_key_exists('user', $info) ? $info['user'] : null;
+        $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+
+        if ($this->isEventForCandidacyAndIsUserTheCandidate($user, $candidate, $event)){
+            $info['to'] = $user->getEmail();
+            $this->sendMail($user, $info);
+        }
+
         $admins = $org->getAdministratorsByDigest(1);
         if(!is_null($admins))
         {
@@ -84,6 +95,7 @@ class UtilityController extends Controller
                 $this->sendMail($admin, $info);
             }
         }
+        */
     }
 
     /**
@@ -92,17 +104,30 @@ class UtilityController extends Controller
      * @param Array                     $info   All necessary information to add the correct digest entry
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
-    protected function addOrSetSentRemoveDigests($info, $org){
+    protected function addOrSetDigestsSent($info, $org){
         $sent = array_key_exists('sent', $info);
-        for ($i = 2; $i < 7; $i++) {
-            $admins = $org->getAdministratorsByDigest($i);
-            if($admins){
-                foreach ($admins as $admin) {
-                    $info['admin'] = $admin;
-                    $sent ? $this->setDigestEntrySent($info, $org) : $this->addDigestEntry($info, $org);
+        $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
+        $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+        $admins = $org->getAdministrators();
+
+        if ($isForCandidate){
+            $info['user'] = $candidate;
+            if ($sent) $this->setDigestEntrySent($info, $org);
+            else $this->addDigestEntry($info, $org);
+        }
+        else if ($admins) {
+            foreach ($admins as $admin) {
+                if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event'])) {
+                    $info['user'] = $admin;
+                    if ($sent) $this->setDigestEntrySent($info, $org);
+                    else $this->addDigestEntry($info, $org);
                 }
             }
         }
+    }
+
+    private function isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $event){
+        return ($candidate && $event != DigestEntry::NEWCANDIDATE && ($admin->getId() === $candidate->getId()));
     }
 
     /**
@@ -111,17 +136,18 @@ class UtilityController extends Controller
      * @param AppBundle::Organisation   $org    The organisation for which all admins are iterated
      */
     protected function addDigestEntry($info, $org){
+        $em = $this->getDoctrine()->getManager();
         $event = $info['event'];
-        $user = $info['admin'];
+        $user = $info['user'];
         $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
         $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
+        $saver = array_key_exists('saver', $info['data']) ? $info['data']['saver'] : null;
         $charge = array_key_exists('newCharge', $info) ? $info['newCharge'] : null;
-        $saver = array_key_exists('saver', $info) ? $info['data']['saver'] : null;
+        $sent = array_key_exists('sent', $info) ? $info['sent'] : false;
+        $handled = false;
 
-        $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge, $candidate, $newAdmin, $vacancy);
-
-        $em = $this->getDoctrine()->getManager();
+        $digest = new DigestEntry($event, $org, $user->getDigest(), $user, $charge, $candidate, $newAdmin, $vacancy, $saver, $sent, $handled);
         $em->persist($digest);
         $em->flush();
     }
@@ -134,7 +160,7 @@ class UtilityController extends Controller
     protected function setDigestEntrySent($info, $org)
     {
         $event = $info['event'];
-        $user = $info['admin'];
+        $user = $info['user'];
         $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
         $newAdmin = array_key_exists('newAdmin', $info['data']) ? $info['data']['newAdmin'] : null;
@@ -144,7 +170,7 @@ class UtilityController extends Controller
         $digestRepo = $em->getRepository('AppBundle:DigestEntry');
 
         switch ($event) {
-            case 1: //NEWCHARGE
+            case DigestEntry::NEWCHARGE:
                 $digests = $digestRepo->findBy(array(
                               'event' => $event,
                               'charge' => $charge,
@@ -153,7 +179,7 @@ class UtilityController extends Controller
                           ));
                 break;
 
-            case 2: //NEWVACANCY
+            case DigestEntry::NEWVACANCY:
                 $digests = $digestRepo->findBy(array(
                               'event' => $event,
                               'vacancy' => $vacancy,
@@ -161,7 +187,7 @@ class UtilityController extends Controller
                           ));
                 break;
 
-            case 3: //NEWCANDIDATE
+            case DigestEntry::NEWCANDIDATE:
                 $digests = $digestRepo->findBy(array(
                               'event' => $event,
                               'candidate' => $candidate,
@@ -170,7 +196,7 @@ class UtilityController extends Controller
                           ));
                 break;
 
-            case 4: //NEWADMIN
+            case DigestEntry::NEWADMIN:
                 $digests = $digestRepo->findBy(array(
                               'event' => $event,
                               'admin' => $newAdmin,
@@ -179,7 +205,7 @@ class UtilityController extends Controller
                           ));
                 break;
 
-            case 5: //APPROVECANDIDATE
+            case DigestEntry::APPROVECANDIDATE:
                 $digests = $digestRepo->findBy(array(
                               'event' => $event,
                               'vacancy' => $vacancy,
@@ -188,11 +214,25 @@ class UtilityController extends Controller
                           ));
                 break;
 
-            case 6: //REMOVECANDIDATE
-                //hier moet niets gebeuren
+            case DigestEntry::DISAPPROVECANDIDATE:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'vacancy' => $vacancy,
+                    'user' => $user,
+                    'candidate' => $candidate,
+                ));
                 break;
 
-            case 7: //SAVEVACANCY //TODO Create event
+            case DigestEntry::REMOVECANDIDATE:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'vacancy' => $vacancy,
+                    'user' => $user,
+                    'candidate' => $candidate,
+                ));
+                break;
+
+            case DigestEntry::SAVEDVACANCY:
                 $digests = $digestRepo->findBy(array(
                     'event' => $event,
                     'vacancy' => $vacancy,
@@ -201,11 +241,11 @@ class UtilityController extends Controller
                 ));
                 break;
 
-            case 8: //SAVEORGANISATION //TODO Create event
+            case DigestEntry::SAVEDORGANISATION:
                 $digests = $digestRepo->findBy(array(
                     'event' => $event,
                     'organisation' => $org,
-                    'user' => $saver,
+                    'user' => $user,
                     'saver' => $saver,
                 ));
                 break;
