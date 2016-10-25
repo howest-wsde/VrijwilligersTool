@@ -60,6 +60,7 @@ base:
                 find: vrijwilliger vinden
                 info: vrijwilligersinfo
                 tests: Wat wil ik?
+                superadmin: Websitebeheer
         newsletter:
             cta: Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!
         footer:

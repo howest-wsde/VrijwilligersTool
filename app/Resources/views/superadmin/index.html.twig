@@ -1,0 +1,66 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Websitebeheer{% endblock %}
+
+{% block body %}
+	<header>
+		<h1>Websitebeheer</h1>
+	</header>
+	{% if persons|length > 0 %}
+		<section>
+			<h2><a href="{{ path("superadmin_users") }}">Gebruikers</a></h2>
+			<ol class="admin">
+				<li class="th"><ul>
+					<li>Voornaam</li>
+					<li>Familienaam</li>
+					<li>Gebruikersnaam</li>
+					<li>E-mail</li>
+					<li class="x"></li>
+				</ul></li>
+				{% for person in persons %}
+				    <li><ul>
+						<li>{{ person.firstname }}</li>
+						<li>{{ person.lastname }}</li>
+						<li>{{ person.username }}</li>
+						<li>{{ person.email }}</li>
+						<li class="x"><a class="edit" href="{{ path("superadmin_user", {"username": person.username }) }}">aanpassen</a></li>
+					</ul></li>
+				{% endfor %}
+			</ol>
+		</section>
+	{% endif %}
+
+	{% if organisations|length > 0 %}
+		<section>
+			<h2><a href="{{ path("superadmin_organisations") }}">Verenigingen</a></h2>
+			<ol class="admin">
+				{% for organisation in organisations %}
+				    <li><ul>
+						<li class="p2">{{ organisation.type }}</li>
+						<li>{{ organisation.name }}</li>
+						<li>{{ organisation.creator.firstname }} {{ organisation.creator.lastname }}</li>
+						<li class="x"><a class="edit" href="{{ path("superadmin_organisation", {"urlid": organisation.urlid }) }}">aanpassen</a></li>
+					</ul></li>
+				{% endfor %}
+			</ol>
+		</section>
+	{% endif %}
+
+	{% if vacancies|length > 0 %}
+		<section>
+			<h2><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></h2>
+			<ol class="admin">
+				{% for vacancy in vacancies %}
+				    <li><ul>
+						<li>{{ vacancy.title }}</li>
+						<li>{{ vacancy.organisation.name }}</li>
+						<li class="p2">{{ vacancy.startdate|date("d-m-Y") }}</li>
+						<li class="p2">{{ vacancy.enddate|date("d-m-Y") }}</li>
+						<li class="x"><a class="edit" href="{{ path("superadmin_vacancy", {"urlid": vacancy.urlid }) }}">aanpassen</a></li>
+					</ul></li>
+				{% endfor %}
+			</ol>
+		</section>
+	{% endif %}
+{% endblock %}
