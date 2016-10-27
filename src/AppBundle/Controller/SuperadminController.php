@@ -6,15 +6,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Form\SuperadminPersonType;
+use AppBundle\Entity\Form\SuperadminOrganisationType;
+use AppBundle\Entity\Form\SuperadminVacancyType;
 use AppBundle\Entity\Person;
+use AppBundle\Entity\Organisation;
+use AppBundle\Entity\Vacancy;
 
 class SuperadminController extends Controller
 {
     /**
-     * @Route("/admin", name="superadmin_main", defaults={"personcount" = 20, "organisationcount" = 20, "vacancycount" = 20} )
+     * @Route("/admin", name="superadmin_main", defaults={"personcount" = 1000} )
      * @Route("/admin/users", name="superadmin_users", defaults={"personcount" = 1000})
      * @Route("/admin/organisations", name="superadmin_organisations", defaults={"organisationcount" = 1000})
      * @Route("/admin/vacancies", name="superadmin_vacancies", defaults={"vacancycount" = 1000})
@@ -47,44 +49,72 @@ class SuperadminController extends Controller
 
 
     /**
-     * @Route("/admin/user/{username}", name="superadmin_user")
+     * @Route("/admin/user/{urlid}", name="superadmin_user", defaults={"type" = "person"})
+     * @Route("/admin/organisation/{urlid}", name="superadmin_organisation", defaults={"type" = "organisation"})
+     * @Route("/admin/vacancy/{urlid}", name="superadmin_vacancy", defaults={"type" = "vacancy"})
      */
-    public function adminUserAction($username)
+    public function adminChangeAction(Request $request, $urlid, $type)
     {
+        $t = $this->get('translator');
+
         $user = $this->getUser();
         if(!$user || !$user->getSuperadmin()) {
             return $this->redirect($this->generateUrl('homepage'));
         }
 
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository('AppBundle:Person')
-            ->findOneByUsername($username);
+        switch($type) {
+            case "person":
+                $entity = $em->getRepository('AppBundle:Person')->findOneByUsername($urlid);
+                $form = $this->createForm(SuperadminPersonType::class, $entity);
+                break;
+            case "organisation":
+                $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($urlid);
+                $form = $this->createForm(SuperadminOrganisationType::class, $entity);
+                break;
+            case "vacancy":
+                $entity = $em->getRepository('AppBundle:Vacancy')->findOneByUrlid($urlid);
+                $form = $this->createForm(SuperadminVacancyType::class, $entity);
+                break;
+            default:
+                return $this->redirect($this->generateUrl('superadmin_main'));
+        }
+        $form->handleRequest($request);
 
-        return $this->render('superadmin/user.html.twig', [
-            'person' => $person
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entity = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            //recreate form so the changes are visible
+            switch($type) {
+                case "person":
+                    $form = $this->createForm(SuperadminPersonType::class, $entity);
+                    break;
+                case "organisation":
+                    $form = $this->createForm(SuperadminOrganisationType::class, $entity);
+                    break;
+                case "vacancy":
+                    $form = $this->createForm(SuperadminVacancyType::class, $entity);
+                    break;
+            }
+
+            //set a success message
+            $this->addFlash('approve_message', $t->trans('general.flash.formOK'));
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            //set an error message
+            $this->addFlash('error', $t->trans('general.flash.formError'));
+        }
+
+        return $this->render('superadmin/edit.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-    /**
-     * @Route("/admin/organisation/{urlid}", name="superadmin_organisation")
-     */
-    public function adminOrganisationAction($urlid)
-    {
-
-        return $this->render('superadmin/organisation.html.twig', [
-            'organisation' => organisation
-        ]);
-    }
-
-    /**
-     * @Route("/admin/vacancy/{urlid}", name="superadmin_vacancy")
-     */
-    public function adminVacancyAction($urlid)
-    {
-
-        return $this->render('superadmin/vacancy.html.twig', [
-            'vacancy' => vacancy
-        ]);
-    }
 
 }
