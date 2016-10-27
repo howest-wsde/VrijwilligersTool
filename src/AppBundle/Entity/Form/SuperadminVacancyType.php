@@ -45,10 +45,6 @@ class SuperadminVacancyType extends AbstractType
                 "label" => 'vacancy.label.wanted',
                 'required' => false,
             ))
-            // ->add("longterm", CheckboxType::class, array(
-            //     "label" => 'vacancy.label.longterm',
-            //     'required' => false,
-            // ))
             ->add("longterm", ChoiceType::class, array(
                 "label" => 'vacancy.label.longterm',
                 'placeholder' => false,
@@ -148,10 +144,7 @@ class SuperadminVacancyType extends AbstractType
                 'required' => false,
             ))
             ->add("submit", SubmitType::class, array(
-                "label" => "vacancy.label.submit",
-            ))
-            ->add("save", SubmitType::class, array(
-                "label" => "vacancy.label.save",
+                "label" => "general.label.save",
             ));
     }
     public function configureOptions(OptionsResolver $resolver)

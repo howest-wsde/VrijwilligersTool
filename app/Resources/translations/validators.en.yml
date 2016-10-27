@@ -201,6 +201,7 @@ general:
         previous: Previous
         next: Next
         submit: Indienen
+        save: Save
     choices:
         yes: Yes
         no: No

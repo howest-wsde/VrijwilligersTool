@@ -898,6 +898,34 @@ ol.admin {
 	}
 }
 
+.adminform form {
+	> div {
+		.flex-display(flex); .flex-flow(row wrap); padding-bottom: 15px;
+		div.lbl {.flex(0 0 220px); padding: 3px 0; }
+		div.vals {
+			.flex(1 1 600px); .flex-display(flex);
+			input, textarea, select {width: 100%; border: 0; .rounded(5px); padding: 3px 10px; }
+			div.option {
+				input {width: 30px; float: left;}
+			}
+			input.chckbox {width: 30px; }
+			#superadmin_vacancy_skills, #superadmin_person_skills {
+				.flex-display(flex); .flex-flow(row wrap);
+				div {.flex(1 0 300px); }
+			}
+		}
+		div.error {
+		    border: 1px solid #ebccd1; .rounded(4px); padding: 15px; background-color: #f2dede; color: #a94442;
+		    	margin-top: 10px; margin-left: 220px; width: 100%;
+			ul {
+				padding: 0; margin: 0;
+				li {display: block; }
+			}
+		}
+		button[type=submit] {border: 0; .rounded(5px); .schaduwblok(@cRood); padding: 5px 20px; color: white; margin-left: 220px; }
+	}
+}
+
 
 /* PAGE WIDTH  */
 .container {

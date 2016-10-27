@@ -66,24 +66,6 @@ class SuperadminPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
-            ->add("plainPassword", RepeatedType::class, array(
-                "type" => PasswordType::class,
-                "first_options"  => array(
-                    "label" => "person.label.password",
-                    "attr" => array(
-                            "placeholder" => "person.placeholder.password",
-                            "info" => "Een wachtzin is het 'nieuwe en veilige wachtwoord'. In plaats van één woord gebruikt u een volledige zin. Deze is makkelijker te onthouden en moeilijker te hacken. ",
-                        )
-                ),
-                "second_options" => array(
-                    "label" => "person.label.repeat_password",
-                    "attr" => array("placeholder" => "person.placeholder.password")
-                ),
-            ))
-            ->add("submit", SubmitType::class, array(
-                "label" => "person.label.submit",
-                "validation_groups" => array("firstStep"),
-            ))
             ->add("username", TextType::class, array(
                 "label" => "person.label.username",
                 "attr" => array("placeholder" => "person.label.username",
@@ -119,14 +101,6 @@ class SuperadminPersonType extends AbstractType
                 "label" => "person.label.linkedin",
                 "required" => false,
                 "attr" => array("placeholder" => "person.placeholder.linkedin")
-            ))
-            ->add("submit2", SubmitType::class, array(
-                "label" => "person.label.next",
-                "validation_groups" => array("secondStep"),
-            ))
-            ->add('backToRegistration', SubmitType::class, array(
-                "label" => "person.label.backToRegistration",
-                'validation_groups' => false,
             ))
             ->add('skills', EntityType::class, array(
                 "label" => "person.label.skills",
@@ -214,13 +188,9 @@ class SuperadminPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
-            ->add("submit3", SubmitType::class, array(
-                "label" => "person.label.finish",
-                "validation_groups" => false,
-            ))
-            ->add('backToGeneral', SubmitType::class, array(
-                "label" => "person.label.backToGeneral",
-                'validation_groups' => false,
+            ->add("submit", SubmitType::class, array(
+                "label" => "general.label.save",
+                "validation_groups" => array("firstStep"),
             ));
     }
 

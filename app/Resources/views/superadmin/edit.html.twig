@@ -1,7 +1,7 @@
 {% trans_default_domain "views" %}
 {% extends 'base.html.twig' %}
 
-{% block title %}User edit{% endblock %}
+{% block title %}Gegevens aanpassen{% endblock %}
 
 {% block body %}
 
@@ -12,7 +12,7 @@
             <li class="rood"><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></li>
         </ul>
 
-        <div class="tab-content clearfix blok special">
+        <div class="tab-content clearfix blok grijs adminform">
 
 		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
 		        <div class="alert alert-success">

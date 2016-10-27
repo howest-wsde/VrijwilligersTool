@@ -67,18 +67,22 @@ class SuperadminController extends Controller
             case "person":
                 $entity = $em->getRepository('AppBundle:Person')->findOneByUsername($urlid);
                 $form = $this->createForm(SuperadminPersonType::class, $entity);
+                $redirectPath = $this->generateUrl("superadmin_users");
                 break;
             case "organisation":
                 $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($urlid);
                 $form = $this->createForm(SuperadminOrganisationType::class, $entity);
+                $redirectPath = $this->generateUrl("superadmin_organisations");
                 break;
             case "vacancy":
                 $entity = $em->getRepository('AppBundle:Vacancy')->findOneByUrlid($urlid);
                 $form = $this->createForm(SuperadminVacancyType::class, $entity);
+                $redirectPath = $this->generateUrl("superadmin_vacancies");
                 break;
             default:
                 return $this->redirect($this->generateUrl('superadmin_main'));
         }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -89,31 +93,24 @@ class SuperadminController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            //recreate form so the changes are visible
-            switch($type) {
-                case "person":
-                    $form = $this->createForm(SuperadminPersonType::class, $entity);
-                    break;
-                case "organisation":
-                    $form = $this->createForm(SuperadminOrganisationType::class, $entity);
-                    break;
-                case "vacancy":
-                    $form = $this->createForm(SuperadminVacancyType::class, $entity);
-                    break;
-            }
-
             //set a success message
             $this->addFlash('approve_message', $t->trans('general.flash.formOK'));
+
+            return $this->redirect($redirectPath);
         }
         else if ($form->isSubmitted() && !$form->isValid())
         {
             //set an error message
             $this->addFlash('error', $t->trans('general.flash.formError'));
+
+           // $this->addFlash('error', (string) $form->getErrors() );
+
         }
 
         return $this->render('superadmin/edit.html.twig', [
             'form' => $form->createView()
         ]);
+
     }
 
 

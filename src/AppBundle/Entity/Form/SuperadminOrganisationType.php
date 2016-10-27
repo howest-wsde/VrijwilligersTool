@@ -67,10 +67,6 @@ class SuperadminOrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.placeholder.email"),
                 "required" => false,
             ))
-            ->add("submit", SubmitType::class, array(
-                "label" => "organisation.label.create",
-                "validation_groups" => array("firstStep"),
-            ))
             ->add("street", TextType::class, array(
                 "label" => "organisation.label.street",
                 "attr" => array("placeholder" => "organisation.label.street"),
@@ -106,14 +102,6 @@ class SuperadminOrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.placeholder.website"),
                 "required" => false,
             ))
-            ->add('backToRegistration', SubmitType::class, array(
-                "label" => "organisation.label.backToRegistration",
-                'validation_groups' => false,
-            ))
-            ->add("submit2", SubmitType::class, array(
-                "label" => "organisation.label.submitContact",
-                "validation_groups" => array("secondStep"),
-            ))
             ->add('sectors', EntityType::class, array(
                 "label" => "organisation.label.fieldOfActivity",
                 "placeholder" => false,
@@ -132,12 +120,8 @@ class SuperadminOrganisationType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ))
-            ->add('backToContact', SubmitType::class, array(
-                "label" => "organisation.label.backToContact",
-                'validation_groups' => false,
-            ))
             ->add("submitEnd", SubmitType::class, array(
-                "label" => "general.label.submit",
+                "label" => "general.label.save",
                 "validation_groups" => array("thirdStep"),
             ));
     }
