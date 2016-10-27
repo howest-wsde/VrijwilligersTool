@@ -183,4 +183,33 @@ class Testimonial extends EntityBase
     {
         return str_replace(" ", "-", $this->sender);
     }
+    /**
+     * @var boolean
+     */
+    private $receiverIsVacancy;
+
+
+    /**
+     * Set receiverIsVacancy
+     *
+     * @param boolean $receiverIsVacancy
+     *
+     * @return Testimonial
+     */
+    public function setReceiverIsVacancy($receiverIsVacancy)
+    {
+        $this->receiverIsVacancy = $receiverIsVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverIsVacancy
+     *
+     * @return boolean
+     */
+    public function getReceiverIsVacancy()
+    {
+        return $this->receiverIsVacancy;
+    }
 }
