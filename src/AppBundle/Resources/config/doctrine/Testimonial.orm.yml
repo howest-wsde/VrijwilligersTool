@@ -10,17 +10,20 @@ AppBundle\Entity\Testimonial:
         approved:
             type: boolean
             nullable: true
-        receiverIsVacancy:
-            type: boolean
     manyToOne:
         sender:
             targetEntity: Person
             joinColumn:
                 name: sender_id
                 referencedColumnName: id
-        receiver:
+        receiverVacancy:
+            targetEntity: Vacancy
+            joinColumn:
+                name: receiver_vacancy_id
+                referencedColumnName: id
+        receiverPerson:
             targetEntity: Person
             joinColumn:
-                name: receiver_id
+                name: receiver_person_id
                 referencedColumnName: id
 
