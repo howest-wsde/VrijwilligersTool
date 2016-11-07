@@ -31,6 +31,18 @@ class PasswordRecover
     protected $hash;
 
     /**
+     * @Assert\NotBlank(groups = {"firstStep"})
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 4096,
+     *      minMessage = "person.min_message",
+     *      maxMessage = "person.max_message",
+     *      groups = {"firstStep", "edit"}
+     * )
+     */
+    protected $password;
+
+    /**
      * @var string
      */
     protected $expiryDate;

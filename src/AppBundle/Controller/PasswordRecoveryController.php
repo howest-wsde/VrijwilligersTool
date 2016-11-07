@@ -25,11 +25,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /*
  * TODO:
- * - verkeerde template render->controleer flow
- * - zelfde paswoord CONSTRAINTS als person toevoegen
  * - vertalingen implementeren
- * - implementatie voor enkel email
- * */
+ */
 
 class PasswordRecoveryController extends Controller
 {
@@ -78,14 +75,14 @@ class PasswordRecoveryController extends Controller
 
                 if(empty($requested)) {
                     $this->recoverAction($user);
-                    $this->addFlash('success', 'er werd een mail gestuurd naar het ingevulde adres. Volg de link in de mail om uw paswoord te resetten');
+                    $this->addFlash('success', 'Er werd een mail gestuurd naar het ingevulde adres. Volg de link in de mail om uw paswoord te resetten');
                 }else{
                     $this->addFlash('error',"deze gebruikersnaam werd al reeds opgegeven voor een paswoord reset");
                 }
             }else{
                 $this->addFlash('error', 'dit emailadres of telefoonnummer werd niet gevonden.');
             }
-            return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');//submitted,show status
+            return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');//submitted; show status
         }
 
         $this->addFlash('status',"vul uw email of telefoonnummer in. Dan sturen wij u een mail waar u uw paswoord kan veranderen.");
@@ -131,41 +128,47 @@ class PasswordRecoveryController extends Controller
             if(strtotime($recovery->getExpiryDate()) >= strtotime(date("Y-m-d H:i:s"))){
 
                 $person  = $em->getRepository("AppBundle:Person")
-                    ->find($recovery->getPerson()->getId());//BETER schrijven!?
+                    ->find($recovery->getPerson()->getId());
 
                 $form = $this->createFormBuilder()
                              ->add('newPassword', RepeatedType::class, array(
                                    'type' => PasswordType::class,
                                    'invalid_message' => 'De paswoorden moeten overeen komen!.',
                                    'required' => true,
-                                   'first_options'  => array('label' => 'Password'),
-                                   'second_options' => array('label' => 'Repeat Password'),
+                                   'first_options'  => array('label' => 'Nieuw wachtwoord'),
+                                   'second_options' => array('label' => 'Herhaal wachtwoord'),
                                   )
-                             )
+                                )
                              ->add('submit', SubmitType::class)
                              ->getForm();
 
                 $form->handleRequest($request);
 
-                if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted() && $form->isValid()){
+                    $len = strlen($form->get('newPassword')->getData());
+                    if($len <= 4096 && $len >= 8) {// moet uit entity constraint gehaald worden, hoe doe ik dit help?
+                        $person->setPlainPassword($form->get('newPassword')->getData());
+                        $password = $this->get("security.password_encoder")
+                            ->encodePassword($person, $person->getPlainPassword());
+                        $person->setPassword($password);
 
-                    $person->setPlainPassword($form->get('newPassword')->getData());
-                    $password = $this->get("security.password_encoder")
-                                     ->encodePassword($person, $person->getPlainPassword());
-                    $person->setPassword($password);
+                        $em->persist($person);//persist new password
+                        $em->remove($recovery);//remove recovery from database
+                        $em->flush();
 
-                    $em->persist($person);//persist new password
-                    $em->remove($recovery);// remove recovery from database
-                    $em->flush();
-
-                    $this->addFlash('success', "uw paswoord werd succesvol aangepast! U kan nu inloggen met uw nieuw paswoord.");
-                    return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
-
+                        $this->addFlash('success', "uw paswoord werd succesvol aangepast! U kan nu inloggen met uw nieuw paswoord.");
+                        return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
+                    }
+                    else {
+                        $this->addFlash('error', "Uw nieuw wachtwoord moet tussen de 8 en 4096 karakters bevatten!");
+                        return $this->render('passwordrecovery/recover_form.html.twig', array(
+                            'form' => $form->createView(),
+                        ));
+                    }
                 }
-                $this->addFlash('status',"Vul uw nieuw wachtwoord of wachtzin in.");
                 return $this->render('passwordrecovery/recover_form.html.twig', array(
-                                     'form' => $form->createView(),
-                                    ));
+                    'form' => $form->createView(),
+                ));
 
             }
             else{
@@ -178,7 +181,6 @@ class PasswordRecoveryController extends Controller
             return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
 
         }
-
     }
-
 }
+
