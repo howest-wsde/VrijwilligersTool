@@ -32,7 +32,7 @@ monolog:
         #    level:  info
 
 swiftmailer:
-   delivery_address: thibault.durnez@student.howest.be
+   delivery_address: info@roeselarevrijwilligt.be
 
 
 #swiftmailer:
