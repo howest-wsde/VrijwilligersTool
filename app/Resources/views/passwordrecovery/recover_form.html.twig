@@ -4,13 +4,15 @@
 {% block title %}Paswoord vergeten?{% endblock %}
 
 {% block body %}
-    <h2>vul uw email of telefoonnummer in.</h2>
-	<h3>Dan sturen wij u een mail waar u uw paswoord kan veranderen</h3>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_errors(form) }}
-    {{ form_end(form) }}
-
+    {% for msg in app.session.flashBag.get('status') %}
+        <h3>{{ msg }}</h3>
+    {% endfor %}
+    <fieldset>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+        {{ form_end(form) }}
+    </fieldset>
 
     {% if app.session.flashBag.has('success') %}
         <div class="alert alert-success">

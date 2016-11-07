@@ -24,12 +24,11 @@ use AppBundle\Entity\Form\PersonType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /*
- * TODO=============================
- * - VALIDATE PERSON
+ * TODO:
+ * - verkeerde template render->controleer flow
  * - zelfde paswoord CONSTRAINTS als person toevoegen
  * - vertalingen implementeren
  * - implementatie voor enkel email
- * - change route to paswoord/trecover/hash
  * */
 
 class PasswordRecoveryController extends Controller
@@ -37,7 +36,7 @@ class PasswordRecoveryController extends Controller
     /**
      * @Route("/paswoord/recover/", name="request_recover")
     */
-    public function requestReset(Request $request){ //build form and submit
+    public function requestReset(Request $request){ // 1. build form and submit
         $form = $this->createFormBuilder()
             ->add('logincredential', TextType::class,array(
                 'label' => 'Telefoon of email-adres',
@@ -85,15 +84,17 @@ class PasswordRecoveryController extends Controller
                 }
             }else{
                 $this->addFlash('error', 'dit emailadres of telefoonnummer werd niet gevonden.');
-                //dit moet beter geschreven worden, temporary + vertaling
             }
             return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');//submitted,show status
         }
+
+        $this->addFlash('status',"vul uw email of telefoonnummer in. Dan sturen wij u een mail waar u uw paswoord kan veranderen.");
         return $this->render('passwordrecovery/recover_form.html.twig', array(//show recover form
             'form' => $form->createView(),
         ));
     }
-    // GETS CALLED BY REQUEST AND INSERTS INTO DB AND SENDS MAIL
+
+    //2. GETS CALLED BY REQUEST AND INSERTS INTO DB AND SENDS MAIL
     public function recoverAction(Person $user)
     {
         $reset = new PasswordRecover($user);
@@ -115,10 +116,9 @@ class PasswordRecoveryController extends Controller
     }
 
 
-        //HANDLES THE VALIDATION OG HASH URL AND SHOWS FORM PASSWD CHANGE
-    //GET CURRENT TIME AND CHECK
+    // 3. HANDLES THE VALIDATION OG HASH URL AND SHOWS FORM PASSWD CHANGE
     /**
-     * @Route("/paswoord/{hash}", name="password_recover")
+     * @Route("/paswoord/recover/{hash}", name="password_recover")
      */
     public function resetForm($hash, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
@@ -131,9 +131,9 @@ class PasswordRecoveryController extends Controller
             if(strtotime($recovery->getExpiryDate()) >= strtotime(date("Y-m-d H:i:s"))){
 
                 $person  = $em->getRepository("AppBundle:Person")
-                    ->find($recovery->getPerson()->getId());//BETER schrijven!!
+                    ->find($recovery->getPerson()->getId());//BETER schrijven!?
 
-                $form = $this->createFormBuilder()//$perrson?s
+                $form = $this->createFormBuilder()
                              ->add('newPassword', RepeatedType::class, array(
                                    'type' => PasswordType::class,
                                    'invalid_message' => 'De paswoorden moeten overeen komen!.',
@@ -162,7 +162,7 @@ class PasswordRecoveryController extends Controller
                     return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
 
                 }
-
+                $this->addFlash('status',"Vul uw nieuw wachtwoord of wachtzin in.");
                 return $this->render('passwordrecovery/recover_form.html.twig', array(
                                      'form' => $form->createView(),
                                     ));
