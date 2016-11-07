@@ -71,7 +71,7 @@
 						<dd class="col-md-9">
 							<ul class="skills">
 								{% for skill in vacancy.skills %}
-									<li>{{ skill.name }}</li>
+									<li class="skill_{{ skill.id }}">{{ skill.name }}</li>
 								{% endfor %}
 							</ul>
 						</dd>
