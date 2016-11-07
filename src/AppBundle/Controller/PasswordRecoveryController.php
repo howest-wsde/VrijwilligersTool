@@ -1,32 +1,16 @@
 <?php
 namespace AppBundle\Controller;
 
-
-use AppBundle\Entity\Form\ResetPasswordType;
 use AppBundle\Entity\PasswordRecover;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Tests\Extension\Core\Type\PasswordTypeTest;
-use Symfony\Component\Form\Tests\Extension\Core\Type\RepeatedTypeTest;
-use Symfony\Component\Form\Tests\Extension\Core\Type\SubmitTypeTest;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Person;
-use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\PersonType;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-
-/*
- * TODO:
- * - vertalingen implementeren
- */
 
 class PasswordRecoveryController extends Controller
 {
