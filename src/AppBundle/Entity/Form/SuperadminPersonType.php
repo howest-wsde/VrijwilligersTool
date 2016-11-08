@@ -58,7 +58,6 @@ class SuperadminPersonType extends AbstractType
                         ->where('o.intermediary = true')
                         ->orderBy('o.name', 'ASC');
                 },
-                "attr" => array("info" => "Beheert een bemiddelingsorganisatie uw profiel? Kies dan voor deze optie. "),
                 // use the name property as the visible option string
                 'choice_label' => 'name',
                 // render as select box
@@ -189,8 +188,8 @@ class SuperadminPersonType extends AbstractType
                 'required' => false,
             ))
             ->add("submit", SubmitType::class, array(
-                "label" => "general.label.save",
-                "validation_groups" => array("firstStep"),
+                "label" => "person.label.finish",
+                "validation_groups" => array('edit'),
             ));
     }
 

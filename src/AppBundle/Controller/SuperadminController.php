@@ -28,17 +28,17 @@ class SuperadminController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $persons = $this->getDoctrine()
+        $persons = ($personcount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Person")
-            ->findBy(array(), array('id' => 'DESC'), $personcount);
+            ->findBy(array(), array('id' => 'DESC'), $personcount):Array();
 
-        $organisations = $this->getDoctrine()
+        $organisations = ($organisationcount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
-            ->findBy(array(), array('id' => 'DESC'), $organisationcount);
+            ->findBy(array(), array('id' => 'DESC'), $organisationcount):Array();
 
-        $vacancies = $this->getDoctrine()
+        $vacancies = ($vacancycount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Vacancy")
-            ->findBy(array(), array('id' => 'DESC'), $vacancycount);
+            ->findBy(array(), array('id' => 'DESC'), $vacancycount):Array();
 
         return $this->render('superadmin/index.html.twig', [
             'persons' => $persons,
