@@ -379,6 +379,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      */
     private $socialInteraction = "normal";
 
+
+    /**
+     * Whether or not a person is site-administrator (highest rank!)
+     * @var bool
+     */
+    private $superadmin = false;
+
     /**
      * Constructor
      */
@@ -1332,6 +1339,32 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->socialInteraction;
     }
+
+
+    /**
+     * Set superadmin
+     *
+     * @param bool $superadmin
+     *
+     * @return Person
+     */
+    public function setSuperadmin($superadmin)
+    {
+        $this->superadmin = $superadmin;
+
+        return $this;
+    }
+
+    /**
+     * Get superadmin
+     *
+     * @return bool
+     */
+    public function getSuperadmin()
+    {
+        return $this->superadmin;
+    }
+
 
    /**
      * Get the class name

@@ -1,0 +1,31 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Gegevens aanpassen{% endblock %}
+
+{% block body %}
+
+	<div class="tabblad tiles">
+        <ul class="nav nav-tabs">
+            <li class="geel"><a href="{{ path("superadmin_users") }}">Gebruikers</a></li>
+            <li class="blauw"><a href="{{ path("superadmin_organisations") }}">Verenigingen</a></li>
+            <li class="rood"><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></li>
+        </ul>
+
+        <div class="tab-content clearfix blok grijs adminform">
+
+		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+		        <div class="alert alert-success">
+		            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+		    {% for flashMessage in app.session.flashbag.get('error') %}
+		        <div class="alert alert-danger">
+		            {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+
+	        {{ form_start(form) }}{{ form_end(form) }}
+        </div>
+	</div>
+{% endblock %}

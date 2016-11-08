@@ -84,6 +84,9 @@ AppBundle\Entity\Person:
             type: string
             length: 10
             options: { default: "normal" }
+        superadmin:
+            type: boolean
+            options: { default: false }
     oneToMany:
         organisation:
             targetEntity: Organisation
