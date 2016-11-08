@@ -16,7 +16,7 @@
         <div class="alert alert-danger">
             {% for msg in app.session.flashBag.get('error') %}
                 {{ msg }}
-                <!--<a href="{{app.request.headers.get('referer')}}">Klik hier</a> om terug te gaan.-->
+                {# %}<a href="{{app.request.headers.get('referer')}}">Klik hier</a> om terug te gaan.#}
                  probeer opnieuw!
             {% endfor %}
         </div>
@@ -24,7 +24,7 @@
 
     <section class="steps">
         <div class="col-md-12">
-            <h2 class="steptitle rood">Vul uw nieuw wachtwoord of wachtzin in.</h2>
+            <h2 class="steptitle rood">{{ actionString }}</h2>
             <div class="step actief grijs rood">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}

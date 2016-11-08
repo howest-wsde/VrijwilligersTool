@@ -21,8 +21,8 @@ class PasswordRecoveryController extends Controller
     public function requestReset(Request $request){ // 1. build form and submit
         $form = $this->createFormBuilder()
             ->add('logincredential', TextType::class,array(
-                'label' => 'Telefoon of email-adres',
-                'invalid_message' => 'vul een geldig email of telefoonnummer in!',
+                'label' => 'email-adres',
+                'invalid_message' => 'vul een geldig e-mailadres in!',
                 'required' => true))
             ->add('save', SubmitType::class, array('label' => 'Versturen'))
             ->getForm();
@@ -65,14 +65,15 @@ class PasswordRecoveryController extends Controller
                     $this->addFlash('error',"deze gebruikersnaam werd al reeds opgegeven voor een paswoord reset");
                 }
             }else{
-                $this->addFlash('error', 'dit emailadres of telefoonnummer werd niet gevonden.');
+                $this->addFlash('error', 'dit e-mailadres werd niet gevonden.');
             }
             return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');//submitted; show status
         }
 
-        $this->addFlash('status',"vul uw email of telefoonnummer in. Dan sturen wij u een mail waar u uw paswoord kan veranderen.");
+
         return $this->render('passwordrecovery/recover_form.html.twig', array(//show recover form
             'form' => $form->createView(),
+            'actionString' => "vul uw email in. Dan sturen wij u een mail waar u uw paswoord kan veranderen."
         ));
     }
 
@@ -85,20 +86,20 @@ class PasswordRecoveryController extends Controller
         $em->flush();
         $message = \Swift_Message::newInstance()
             ->setSubject('roeselarevrijwilligt.be wachtwoord reset')
-            ->setFrom('reset@roeselarevrijwilligt.be')
+            ->setFrom('noreply@roeselarevrijwilligt.be')
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
-                    'passwordrecovery/reset_email.html.twig',
-                    array('user' => $reset)
+                    'email/reset_email.html.twig',
+                    array('recover' => $reset)
                 ),
-                'text/plain'
+                'text/html'
             );
         $this->get('mailer')->send($message);
     }
 
 
-    // 3. HANDLES THE VALIDATION OG HASH URL AND SHOWS FORM PASSWD CHANGE
+    // 3. HANDLES THE VALIDATION OF HASH URL AND SHOWS FORM PASSWD CHANGE
     /**
      * @Route("/paswoord/recover/{hash}", name="password_recover")
      */
@@ -148,11 +149,14 @@ class PasswordRecoveryController extends Controller
                         $this->addFlash('error', "Uw nieuw wachtwoord moet tussen de 8 en 4096 karakters bevatten!");
                         return $this->render('passwordrecovery/recover_form.html.twig', array(
                             'form' => $form->createView(),
-                        ));
+                            'actionString' => "Kies een nieuw wachtwoord."
+                            )
+                        );
                     }
                 }
                 return $this->render('passwordrecovery/recover_form.html.twig', array(
                     'form' => $form->createView(),
+                    'actionString' => "Kies een nieuw wachtwoord."
                 ));
 
             }

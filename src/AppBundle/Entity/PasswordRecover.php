@@ -54,6 +54,7 @@ class PasswordRecover
     {
         $this->person = $person;
         $this->hash = bin2hex(random_bytes(10)); //generates secure random string
+        //TODO change to mt_rand()??
         $this->expiryDate = date("Y-m-d H:i:s", strtotime (PasswordRecover::EXPIREIN));
         //sets current date + expiration on creation
     }
