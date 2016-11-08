@@ -63,13 +63,6 @@ class PersonController extends UtilityController
         if ($this->get('security.authorization_checker')
         ->isGranted('IS_AUTHENTICATED_FULLY'))
         {
-
-            $this->addFlash(
-                'notice',
-                'This is a test flash!'
-            );
-
-
             return $this->redirectToRoute("person_username",
             ["username" => $this->getUser()->getUsername()]);
         }
