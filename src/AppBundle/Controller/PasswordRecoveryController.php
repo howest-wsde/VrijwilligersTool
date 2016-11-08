@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Form\PersonType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PasswordRecoveryController extends Controller
 {

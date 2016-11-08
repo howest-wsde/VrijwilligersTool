@@ -23,8 +23,11 @@
                     <input type="hidden" name="_target_path" value="{{ path }}" />
                 {% endif %}
                 <button type="submit">{{ "def.index.login"|trans({}, "views") }}</button>
-                <button type="button"><a href="{{ path('request_recover') }}"> Paswoord vergeten?</a></button>
-
+               <a href="{{ path('request_recover') }}">
+                   <button type="button">
+                       Paswoord vergeten?
+                   </button>
+               </a>
             </fieldset>
         </div>
     </div>
