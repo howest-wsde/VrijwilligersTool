@@ -1,0 +1,15 @@
+AppBundle\Entity\Newslettersubscriber:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: false

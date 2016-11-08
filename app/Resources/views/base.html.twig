@@ -37,10 +37,14 @@
                             <li><a href="{{ path("info_contact") }}" class="{% if app.request.attributes.get('_route') == 'info_contact' %}actief{% endif %}">{{ "base.body.header.menu.contact"|trans }}</a></li>
                             {% if app.user %}
                                 <li><a href="{{ path("profile_edit") }}" class="{% if app.request.attributes.get('_route') == 'profile_edit' %}actief{% endif %}">{{ "base.body.header.menu.editprofile"|trans }}</a></li>
+                                {% if app.user.superadmin %}
+                                    <li><a href="{{ path("superadmin_main") }}" class="{% if app.request.attributes.get('_route') == 'superadmin_main' %}actief{% endif %}">{{ "base.body.header.menu.superadmin"|trans }}</a></li>
+                                {% endif %}
                                 <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }}</a></li>
                             {% else %}
                                 <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>
                             {% endif %}
+
                         </ul>
 
                         <ul class="mainmenu">
@@ -54,6 +58,12 @@
                 </div>
             </header>
         {% endblock %}
+
+        {% for flashMessage in app.session.flashbag.get('default') %}
+            <div class="alert alert-success basealert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
 
         {% block outerbody %}
             {% block extraheader %}{% endblock %}
@@ -70,7 +80,7 @@
                     <div class="blok special nieuwsbrief">
                         <h2>{{ "base.body.newsletter.cta"|trans }}</h2>
                         {# TODO: nieuwsbrief implementeren #}
-                        <form>
+                        <form action="{{ path("newsletter") }}" method="post">
                             <input type="email" name="mailadres" placeholder="e-mailadres" />
                             <input type="submit" value="inschrijven" class="cta" />
                         </form>
@@ -90,6 +100,9 @@
                         <section class="col-md-3">
                             <header><h1>{{ "base.body.footer.recorg"|trans|capitalize }}</h1></header>
                             {{ render(controller("AppBundle:Organisation:listRecentOrganisations", { "nr": 5 } )) }}
+                            <ul>
+                                <li><a href="{{ path("organisations") }}">{{ "base.body.footer.allorg"|trans|capitalize }}</a></li>
+                            </ul>
                         </section>
                         <section class="col-md-3">
                             {{ render(controller("AppBundle:Skill:listParentSkills", { "nr": 10 } )) }}
@@ -109,7 +122,7 @@
                         <section class="col-md-3">
                             <header><h1>{{ "base.body.footer.tests"|trans|capitalize }}</h1></header>
                             <ul>
-                                <li><a href="{{ path("test_type") }}">{{ "base.body.footer.type"|trans|capitalize }}</a></li>
+                                <li><a href="{{ path("test_test") }}">{{ "base.body.footer.type"|trans|capitalize }}</a></li>
                             </ul>
                         </section>
                         <section class="col-md-3">
@@ -200,6 +213,16 @@
             <script src="{{ asset("js/feedback.js") }}"></script>
             <script src="{{ asset("js/search.js") }}"></script>
             <script src="{{ asset("js/vrijwilligt.js") }}"></script>
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-86041127-1', 'auto');
+              ga('send', 'pageview');
+
+            </script>
         {% endblock %}
     </body>
 </html>

@@ -3,6 +3,7 @@ general:
     login: login
     search: zoeken
     org: organisatie
+    orgs: organisaties
     vol: vrijwilliger
     tailored:
         novacancy: 'Wij vinden geen vacatures op jouw maat.  Het kan zijn dat er momenteel geen vacatures overeenkomen met jouw profiel.  Als je profiel nog niet volledig is ingevuld, dan kan het invullen van je profiel betere resultaten geven.'
@@ -59,11 +60,13 @@ base:
                 find: vrijwilliger vinden
                 info: vrijwilligersinfo
                 tests: Wat wil ik?
+                superadmin: Websitebeheer
         newsletter:
             cta: Wil je mee zijn met de laatste nieuwtjes?  Schrijf je dan in voor onze nieuwsbrief!
         footer:
             recvac: recente vacatures
             recorg: recente verenigingen
+            allorg: alle verenigingen
             info: vrijwilligersinfo
             legislation: wetgeving
             profile: profiel van een vrijwilliger

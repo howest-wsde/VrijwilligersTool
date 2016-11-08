@@ -11,53 +11,58 @@
 			    {{ form_errors(form) }}
 				<section class="blok">
 					<h2>{{ "search.page.site"|trans }}</h2>
-				        {{ form_row(form.search) }}
-						{{ form_row(form.submit) }}
+					<div class="mainsearch">
+						<div class="search">{{ form_row(form.search) }}</div>
+				        <div class="btn">{{ form_row(form.submit) }}</div>
+
 						{# {% embed "search/history_search.html.twig" %}{% endembed %} #}
+						<div class="order">{{ form_row(form.sort) }}{# TODO: create issue #}</div>
 
-					{{ form_row(form.sort) }}{# TODO: create issue #}
-					{#{ form_row(form.pagination) }}{# TODO: create issue #}
+						{#{ form_row(form.pagination) }}{# TODO: create issue #}
+
 						{% if filters %}
-						<fieldset>
-							<legend>{{ "search.page.filters"|trans }}</legend>
-								<fieldset>
-									<h3>{{ "search.page.type"|trans }}</h3>
-							        {{ form_row(form.person) }}
-									{{ form_row(form.org) }}
-									{{ form_row(form.vacancy) }}
-								</fieldset>
+							<div class="type"><fieldset class="filtertype">
+						        {{ form_row(form.person) }}
+								{{ form_row(form.org) }}
+								{{ form_row(form.vacancy) }}
+							</fieldset></div>
+						{% endif %}
+					</div>
+						{% if filters %}
 
-								<fieldset>
-									<h3>{{ "search.page.cat"|trans }}</h3>
-									{{ form_row(form.categories) }}
-								</fieldset>
+								<div class="lessismore">
+									<div class="lessismore">Toon meer filters</div>
+									<fieldset>
+										<h3>{{ "search.page.cat"|trans }}</h3>
+										{{ form_row(form.categories) }}
+									</fieldset>
 
-								<fieldset>
-									<h3>{{ "search.page.sector"|trans }}</h3>
-									{{ form_row(form.sectors) }}
-								</fieldset>
+									<fieldset>
+										<h3>{{ "search.page.sector"|trans }}</h3>
+										{{ form_row(form.sectors) }}
+									</fieldset>
 
-								<fieldset>
-									<h3>{{ "search.page.intensity"|trans }}</h3>
-									{{ form_row(form.intensity) }}
-									{{ form_row(form.estimatedWorkInHours) }}
-								</fieldset>
+									<fieldset>
+										<h3>{{ "search.page.intensity"|trans }}</h3>
+										{{ form_row(form.intensity) }}
+										{{ form_row(form.estimatedWorkInHours) }}
+									</fieldset>
 
-								<fieldset>
-									<h3>{{ "search.page.distance"|trans }}</h3>
-									{{ form_row(form.distance) }}
-								</fieldset>
+									<fieldset>
+										<h3>{{ "search.page.distance"|trans }}</h3>
+										{{ form_row(form.distance) }}
+									</fieldset>
 
-								<fieldset>
-									<h3>{{ "search.page.char"|trans }}</h3>
-									{{ form_row(form.characteristic) }}
-								</fieldset>
+									<fieldset>
+										<h3>{{ "search.page.char"|trans }}</h3>
+										{{ form_row(form.characteristic) }}
+									</fieldset>
 
-								<fieldset>
-									<h3>{{ "search.page.advantages"|trans }}</h3>
-									{{ form_row(form.advantages) }}
-								</fieldset>
-						</fieldset>
+									<fieldset>
+										<h3>{{ "search.page.advantages"|trans }}</h3>
+										{{ form_row(form.advantages) }}
+									</fieldset>
+								</div>
 						{% endif %}
 				</section>
 			{{ form_end(form) }}

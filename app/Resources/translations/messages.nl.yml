@@ -4,6 +4,9 @@ general:
         save: Bewaar
     flash:
         formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en de instructies bij het veld / de velden waar de foutmelding staat de nodige stappen te ondernemen.'
+        formOK: 'Uw formulier werd succesvol verwerkt.'
+    newsletter:
+        ok: U werd succesvol ingeschreven voor de nieuwsbrief.
 candidacy:
     mail:
         approve: werd goedgekeurd als vrijwilliger
