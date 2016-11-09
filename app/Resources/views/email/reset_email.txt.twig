@@ -1,6 +1,7 @@
 {% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
+{% block body %}
 Beste {{ user.person.fullName }},
 
 Klik op volgende link om je wachtwoord te gaan resetten en volg alle instructies:
