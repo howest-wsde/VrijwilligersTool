@@ -102,6 +102,7 @@ class VacancyController extends UtilityController
             }
 
             $this->setCoordinates($vacancy);
+            $vacancy->setCreator($this->getUser());
             $em->persist($vacancy);
             $em->flush();
 
@@ -122,7 +123,7 @@ class VacancyController extends UtilityController
                         ),
                         'event' => DigestEntry::NEWVACANCY,
                     );
-            $this->digestOrMail($info, $organisation);
+            $this->digestAndMail($info, $organisation);
 
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
@@ -181,7 +182,7 @@ class VacancyController extends UtilityController
             //set a success message
             $this->addFlash('approve_message', $t->trans('vacancy.flash.okRemoveSubscribe'));
 
-            //remove digest / send email to all administrators
+            //set digest sent / send email to all administrators
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
                        ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
             $organisation = $vacancy->getOrganisation();
@@ -195,9 +196,9 @@ class VacancyController extends UtilityController
                             'org' => $organisation,
                         ),
                         'event' => DigestEntry::NEWCANDIDATE,
-                        'remove' => true,
+                        'sent' => true,
                     );
-            $this->digestOrMail($info);
+            $this->digestAndMail($info);
         } else {
             $candidacies = $em->getRepository('AppBundle:Candidacy')
                 ->findBy(array(
@@ -234,7 +235,7 @@ class VacancyController extends UtilityController
                         ),
                         'event' => DigestEntry::NEWCANDIDATE,
                     );
-            $this->digestOrMail($info);
+            $this->digestAndMail($info);
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
@@ -261,6 +262,18 @@ class VacancyController extends UtilityController
         if ($saveaction == "save")
         {
             $user->addLikedVacancy($vacancy);
+            $organisation = $vacancy->getOrganisation();
+
+            $info = array(
+                'data' => array(
+                    'saver' => $user,
+                    'vacancy' => $vacancy,
+                    'org' => $organisation,
+                ),
+                'event' => DigestEntry::SAVEDVACANCY
+            );
+            $this->addOrSetDigestsSent($info, $organisation);
+
             if(!$ajax){
                 //set a success message
                 $this->addFlash('approve_message', $t->trans('vacancy.flash.addToSaved'));

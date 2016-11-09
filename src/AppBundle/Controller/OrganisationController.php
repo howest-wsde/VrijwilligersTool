@@ -167,7 +167,7 @@ class OrganisationController extends UtilityController
                         ),
                         'event' => DigestEntry::NEWADMIN,
                     );
-            $this->digestOrMail($info);
+            $this->digestAndMail($info);
 
            //set a success message
             $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.newAdmin'));
@@ -251,9 +251,9 @@ class OrganisationController extends UtilityController
                                 'org' => $organisation,
                             ),
                             'event' => DigestEntry::NEWADMIN,
-                            'remove' => true,
+                            'sent' => true,
                         );
-                $this->digestOrMail($info);
+                $this->digestAndMail($info);
 
                //set a success message
                 $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
@@ -285,12 +285,22 @@ class OrganisationController extends UtilityController
 
         if ($saveaction == "save")
         {
+            $user->addLikedOrganisation($organisation);
+
+            $info = array(
+                'data' => array(
+                    'saver' => $user,
+                    'org' => $organisation,
+                ),
+                'event' => DigestEntry::SAVEDORGANISATION
+            );
+            $this->addOrSetDigestsSent($info, $organisation);
+
             if(!$ajax)
             {
                //set a success message
                 $this->addFlash('approve_message', $t->trans('org.flash.addToSaved'));
             }
-            $user->addLikedOrganisation($organisation);
         }
         else {
             if(!$ajax)

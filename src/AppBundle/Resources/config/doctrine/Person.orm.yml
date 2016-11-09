@@ -94,6 +94,10 @@ AppBundle\Entity\Person:
         candidacies:
             targetEntity: Candidacy
             mappedBy: candidate
+        vacancies:
+            targetEntity: Vacancy
+            mappedBy: creator
+
     manyToOne:
         contactOrganisation:
             targetEntity: Organisation

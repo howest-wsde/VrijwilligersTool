@@ -1114,4 +1114,33 @@ class Vacancy extends EntityBase
     {
         return 'nomap';
     }
+    /**
+     * @var \AppBundle\Entity\Person
+     */
+    private $creator;
+
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\Person $creator
+     *
+     * @return Vacancy
+     */
+    public function setCreator(\AppBundle\Entity\Person $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
 }
