@@ -1,4 +1,5 @@
 {% trans_default_domain "views" %}
+
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
@@ -92,7 +93,7 @@
             <div class="vals">
                 <ul id="administrators">
                     {% for administrator in organisation.administrators %}
-                        <li id="ad{{administrator.id}}">{{ administrator.firstname}} {{ administrator.lastname}} -  <a href="{{ path('organisation_remove_admin', {'person_username' : administrator.username, 'organisation_urlid' : organisation.urlid}) }}" data-target="li#ad{{administrator.id}}">{{ "general.admin.away"|trans }}</a></li>
+                        <li id="ad{{administrator.id}}">{{ administrator.firstname}} {{ administrator.lastname}} -  <a href="#remove" class="removeadmin" data-value="{{administrator.username}}">{{ "general.admin.away"|trans }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

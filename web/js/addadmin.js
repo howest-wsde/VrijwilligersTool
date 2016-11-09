@@ -7,7 +7,7 @@ $(document).ready(function(){
         clearTimeout(arTimerPeopleSearch["timer"]);
         var strID = $(this).attr("data-rel");
         if (typeof(strID) === typeof(undefined) || strID === false) {
-            strID = "testettetet";
+            strID = "tempkey";
             $(this).attr("data-rel", strID);
         }
         $("#" + strID + " li").remove();
@@ -21,6 +21,15 @@ $(document).ready(function(){
             });
         }, 500);
     });
+
+    $("a.removeadmin").click(function(){
+        var personid = $(this).attr("data-value");
+        $("ul#administrators").after(
+            $("<input />").attr("type", "xxxxhidden").attr("name", "removeadmin[]").val(personid)
+        );
+        $(this).parentsUntil("ul").remove();
+        return false;
+    })
 })
 
 function showPeople(strID){
@@ -50,7 +59,7 @@ function showPeople(strID){
                                 ).append(
                                     $("<span />").html(" - ")
                                 ).append(
-                                    $("<input />").attr("type", "hidden").attr("name", "admin[]").val(personid)
+                                    $("<input />").attr("type", "xxxxhidden").attr("name", "addadmin[]").val(personid)
                                 ).append(
                                     $("<a />").attr("href", "#").html("ontneem admin rechten").click(function(){
                                             $(this).parentsUntil("ul").remove();

@@ -102,26 +102,39 @@ class OrganisationController extends UtilityController
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $organisation = $form->getData();
-            $this->setCoordinates($organisation);
-            $em->persist($organisation);
-            $em->flush();
+        if ($form->isSubmitted()){
+            if ($request->request->get('addadmin')) foreach ($request->request->get('addadmin') as $admin_username){
+                $person = $em->getRepository("AppBundle:Person")->findOneByUsername($admin_username);
+                $person->addOrganisation($organisation);
+                $em->persist($person);
+                $em->flush();
+                //$this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.addAdmin'));
+            }
+            if ($request->request->get('removeadmin')) foreach ($request->request->get('removeadmin') as $admin_username) {
+                $this->organisationRemoveAdminAction($urlid, $admin_username);
+            }
 
-           //set a success message
-            $this->addFlash('approve_message', $t->trans('org.flash.editOk'));
+            if ($form->isValid()) {
+                $organisation = $form->getData();
+                $this->setCoordinates($organisation);
+                $em->persist($organisation);
+                $em->flush();
 
+               //set a success message
+                $this->addFlash('approve_message', $t->trans('org.flash.editOk'));
 
-            return $this->render("organisation/vereniging.html.twig",
-            [
-                "organisation" => $organisation,
-                "form" => $this->createAddAdminData($urlid)['form']->createView(),
-            ]);
-        }
-        else if ($form->isSubmitted() && !$form->isValid())
-        {
-            //set an error message
-            $this->addFlash('error', $t->trans('general.flash.formError'));
+                return $this->render("organisation/vereniging.html.twig",
+                [
+                    "organisation" => $organisation,
+                    "form" => $this->createAddAdminData($urlid)['form']->createView(),
+                ]);
+            }
+            else
+            {
+                //set an error message
+                $this->addFlash('error', $t->trans('general.flash.formError'));
+            }
+
         }
 
         return $this->render("organisation/vereniging_aanpassen.html.twig",
@@ -238,7 +251,7 @@ class OrganisationController extends UtilityController
                 $this->digestOrMail($info);
 
                //set a success message
-                $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
+             //   $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
             }
         } else {
            //set a failure message
@@ -247,6 +260,7 @@ class OrganisationController extends UtilityController
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
+
 
     /**
      * @Security("has_role('ROLE_USER')")

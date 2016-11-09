@@ -175,7 +175,7 @@ class SearchController extends Controller
         if ($query) {
             foreach($this->plainSearch($query, ["person"]) as $person) {
                 $results[] = array(
-                        "id"=> $person->getId(),
+                        "id"=> $person->getUsername(),
                         "name"=> $person->getFirstName() . " " . $person->getLastName()
                     );
             }
