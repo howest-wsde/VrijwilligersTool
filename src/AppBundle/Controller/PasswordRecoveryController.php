@@ -101,7 +101,7 @@ class PasswordRecoveryController extends Controller
 
     // 3. HANDLES THE VALIDATION OF HASH URL AND SHOWS FORM PASSWD CHANGE
     /**
-     * @Route("/paswoord/recover/{hash}", name="password_recover")
+     * @Route("/paswoord/recover/{hash}", name="password_recover_hash")
      */
     public function resetForm($hash, Request $request){
         $em = $this->getDoctrine()->getEntityManager();
