@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Nieuwe vacature aangemaakt!
+{{ "vacCre.header" | trans }}
 
-Beste {{ user.firstname }} {{ user.lastname }},
+{{ "vacCre.firstp" |trans }} {{ user.firstname }} {{ user.lastname }},
 
-als beheerder wensen wij er u van op de hoogte te brengen dat er een nieuwe vacature werd aangemaakt voor {{ org.name }}.  Het betreft de vacature met titel "{{ vacancy.title }}": {{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}.
+{{ "vacCre.secondp.fpart" |trans }} {{ org.name }}.  {{ "vacCre.secondp.spart" | trans }} "{{ vacancy.title }}": {{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}.
 
 {% endblock %}

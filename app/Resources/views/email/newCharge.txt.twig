@@ -1,14 +1,15 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie!
+{{ "newCharge.header"|trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "newCharge.firstp"|trans }} {{ org.name }},
 
-zonet registreerde {{ user.firstname }} {{ user.lastname }} zich op Roeselare Vrijwilligt en gaf uw organisatie op als contactmogelijkheid.  Wij houden er dan ook aan om u hiervan op de hoogte te brengen.
+{{ "newCharge.secondp.fpart"|trans }}{{ user.firstname }} {{ user.lastname }} {{ "newCharge.secondp.spart"|trans }}
 
-U kan zijn/haar profiel bekijken op uw dashboard.
+{{ "newCharge.thirdp"|trans }}
 
-Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Roeselare!
+{{ "newCharge.fourthp" | trans }}
 
 {% endblock %}

@@ -1,16 +1,13 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-	<h1>Uw kandidatuur werd goedgekeurd!</h1>
+	<h1>{{ "notCanApp.header" |trans }}</h1>
 
-	<p>Beste {{ candidate.firstname }},</p>
+	<p>{{ "notCanApp.firstp" |trans }}{{ candidate.firstname }},</p>
 
 	<p>
-	    zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} goedgekeurd.
+	{{ "notCanApp.secondp.fpart" | trans }}{{ vacancy.title }} {{ "notCanApp.secondp.spart" |trans }}
 	</p>
-    <p>
-        Met vriendelijke groeten,<br />
-        Roeselare Vrijwilligt
-    </p>
 
 {% endblock %}

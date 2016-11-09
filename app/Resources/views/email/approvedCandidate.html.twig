@@ -1,12 +1,13 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-	<h1>Kandidaat goedgekeurd!</h1>
+	<h1>{{ "candidate.header.title"|trans }}</h1>
 
-	<p>Beste beheerder voor {{ org.name }},</p>
+	<p>{{ "candidate.paragrafs.firstp" |trans }}{{ org.name }},</p>
 
 	<p>
-	    zonet werd {{ candidate.firstname }} {{ candidate.lastname }} goedgekeurd als vrijwilliger voor de vacature {{ vacancy.title }}.
+	{{ "candidate.paragrafs.secondp.first"|trans }}{{ candidate.firstname }} {{ candidate.lastname }} {{ "candidate.paragrafs.secondp.second" }}{{ vacancy.title }}.
 	</p>
 
 {% endblock %}

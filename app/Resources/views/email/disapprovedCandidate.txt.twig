@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Kandidaat afgekeurd!
+{{ "disaproved.header" |trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "disaproved.firstp"|trans }} {{ org.name }},
 
-zonet werd {{ candidate.firstname }} {{ candidate.lastname }} afgekeurd als vrijwilliger voor de vacature {{ vacancy.title }}.
+{{ "disaproved.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "dissaproved.secondp.spart" |trans }} {{ vacancy.title }}.
 
 {% endblock %}
