@@ -73,7 +73,7 @@ class PasswordRecoveryController extends Controller
 
         return $this->render('passwordrecovery/recover_form.html.twig', array(//show recover form
             'form' => $form->createView(),
-            'actionString' => "vul uw email in. Dan sturen wij u een mail waar u uw paswoord kan veranderen."
+            'actionString' => "Vul uw e-mailadres in. Dan sturen wij u een mail waar u uw paswoord kan veranderen."
         ));
     }
 
