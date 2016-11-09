@@ -316,7 +316,7 @@ class PersonController extends UtilityController
     function getTextAndActionLinkForEvent($digest){
         $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
         $t = $this->get('translator');
-        $actionLink = $root . "persoon/notificatie/" . $digest->getId();
+        $actionLink = $this->generateUrl('person_notification_handle', array('id' => $digest->getId()));
         $personName = "";
         $vacancyTitle = "";
         $organisationName = "";
@@ -394,7 +394,6 @@ class PersonController extends UtilityController
             ->findOneById($id);
 
         if($this->getUser()->getId() === $digest->getUser()->getId()){
-            $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
             $actionLink = "";
             
             $digest->setHandled(true);
@@ -402,29 +401,29 @@ class PersonController extends UtilityController
 
             switch ($digest->getEvent()) {
                 case DigestEntry::NEWVACANCY:
-                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
                     break;
                 case DigestEntry::NEWCANDIDATE:
-                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
                     break;
                 case DigestEntry::NEWADMIN:
-                    $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
+                    $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId()));
                     break;
                 case DigestEntry::APPROVECANDIDATE:
-                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
                     break;
                 case DigestEntry::REMOVECANDIDATE:
-                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
                     break;
                 case DigestEntry::SAVEDVACANCY:
-                    $actionLink = "vacature/" . $digest->getVacancy()->getUrlId();
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
                     break;
                 case DigestEntry::SAVEDORGANISATION:
-                    $actionLink = "vereniging/" . $digest->getOrganisation()->getUrlId();
+                    $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId()));
                     break;
             }
 
-            return $this->redirect($root.$actionLink);
+            return $this->redirect($actionLink);
         } else {
             return $this->redirectToRoute('homepage');
         }
