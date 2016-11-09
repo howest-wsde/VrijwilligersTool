@@ -52,11 +52,11 @@ class CandidacyController extends UtilityController
         $mailInfo = [
             "candidate" => [
                 "subject" => $t->trans('candidacy.candidate.mail.approve'),
-                "template" => "notifyVolunteerApproved"
+                "template" => "notifyCandidateApproved"
             ],
             "admins" => [
                 "subject" => $t->trans('candidacy.mail.approve'),
-                "template" => "approvedVolunteer"
+                "template" => "approvedCandidate"
             ]
         ];
 
@@ -74,11 +74,11 @@ class CandidacyController extends UtilityController
         $mailInfo = [
             "candidate" => [
                 "subject" => $t->trans('candidacy.candidate.mail.disapprove'),
-                "template" => "notifyVolunteerDisapproved"
+                "template" => "notifyCandidateDisapproved"
             ],
             "admins" => [
                 "subject" => $t->trans('candidacy.mail.disapprove'),
-                "template" => "disapprovedVolunteer"
+                "template" => "disapprovedCandidate"
             ]
         ];
 
