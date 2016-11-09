@@ -184,43 +184,38 @@ class Testimonial extends EntityBase
         return str_replace(" ", "-", $this->sender);
     }
     /**
-     * @var boolean
+     * @var \AppBundle\Entity\Person
      */
-    private $receiverIsVacancy;
+    private $receiverPerson;
 
 
     /**
-     * Set receiverIsVacancy
+     * Set receiverPerson
      *
-     * @param boolean $receiverIsVacancy
+     * @param \AppBundle\Entity\Person $receiverPerson
      *
      * @return Testimonial
      */
-    public function setReceiverIsVacancy($receiverIsVacancy)
+    public function setReceiverPerson(\AppBundle\Entity\Person $receiverPerson = null)
     {
-        $this->receiverIsVacancy = $receiverIsVacancy;
+        $this->receiverPerson = $receiverPerson;
 
         return $this;
     }
 
     /**
-     * Get receiverIsVacancy
+     * Get receiverPerson
      *
-     * @return boolean
+     * @return \AppBundle\Entity\Person
      */
-    public function getReceiverIsVacancy()
+    public function getReceiverPerson()
     {
-        return $this->receiverIsVacancy;
+        return $this->receiverPerson;
     }
     /**
      * @var \AppBundle\Entity\Vacancy
      */
     private $receiverVacancy;
-
-    /**
-     * @var \AppBundle\Entity\Person
-     */
-    private $receiverPerson;
 
 
     /**
@@ -245,29 +240,5 @@ class Testimonial extends EntityBase
     public function getReceiverVacancy()
     {
         return $this->receiverVacancy;
-    }
-
-    /**
-     * Set receiverPerson
-     *
-     * @param \AppBundle\Entity\Person $receiverPerson
-     *
-     * @return Testimonial
-     */
-    public function setReceiverPerson(\AppBundle\Entity\Person $receiverPerson = null)
-    {
-        $this->receiverPerson = $receiverPerson;
-
-        return $this;
-    }
-
-    /**
-     * Get receiverPerson
-     *
-     * @return \AppBundle\Entity\Person
-     */
-    public function getReceiverPerson()
-    {
-        return $this->receiverPerson;
     }
 }
