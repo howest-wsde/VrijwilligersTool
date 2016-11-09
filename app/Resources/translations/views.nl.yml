@@ -369,6 +369,7 @@ vacancy:
             modify: Vacature aanpassen
             select: Kandidaten selecteren
             delete: Vacature verwijderen
+            testimonial: Getuigschrift maken
     modify:
         title: Vacature Aanpassen
         anul: Annuleren
@@ -402,3 +403,8 @@ vacancy:
         title: Vacature aanmaken
         looking: Op zoek naar vrijwilligers?
         fill: Vul hier de gegevens van je vacature in.
+testimonial:
+    send:
+        title: Getuigschrift maken
+    form:
+        title: Getuigschrift maken

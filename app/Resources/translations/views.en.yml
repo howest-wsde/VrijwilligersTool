@@ -337,6 +337,7 @@ vacancy:
             modify: Modify vacancy
             select: Select candidates
             delete: Remove vacancy
+            testimonial: Create testimonial
     modify:
         title: Adjust vacancy
         anul: Cancel
@@ -360,3 +361,8 @@ vacancy:
         title: Create vacancy
         looking: Looking for volunteers?
         fill: Fill out the vacancy data.
+testimonial:
+    send:
+        title: Creating a testimonial
+    form:
+        title: Creating a testimonial
