@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Welkom bij Roeselare Vrijwilligt!
+{{ "reg.header" | trans}}
 
-Dag {{ user.firstname }} {{ user.lastname }},
+{{ "reg.firstp" | trans}} {{ user.firstname }} {{ user.lastname }},
 
-u bent succesvol geregistreerd bij Roeselare Vrijwilligt.  U bent automatisch ingelogd na registratie.  Bij een toekomstig bezoek kan u inloggen via deze link: {{ url('login') }}
+{{ "reg.secondp" | trans}} {{ url('login') }}
 
 {% endblock %}

@@ -86,7 +86,7 @@ class EditPersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.number"),
                 'required' => false,
             ))
-            ->add("bus", NumberType::class, array(
+            ->add("bus", TextType::class, array(
                 "label" => "person.label.bus",
                 "attr" => array("placeholder" => "person.label.bus"),
                 "required" => false

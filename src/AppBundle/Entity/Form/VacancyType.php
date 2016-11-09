@@ -76,7 +76,7 @@ class VacancyType extends AbstractType
                 "attr" => array("placeholder" => "vacancy.label.number"),
                 "required" => false,
             ))
-            ->add("bus", NumberType::class, array(
+            ->add("bus", TextType::class, array(
                 "label" => "vacancy.label.bus",
                 "attr" => array("placeholder" => "vacancy.label.bus"),
                 "required" => false,

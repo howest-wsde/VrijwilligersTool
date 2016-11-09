@@ -1,12 +1,13 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-<h1>Vrijwilliger verwijderd!</h1>
+<h1>{{ "remVol.header"|trans }}</h1>
 
-<p>Beste beheerder voor {{ org.name }},</p>
+<p>{{ "remVol.firstp"|trans }} {{ org.name }},</p>
 
 <p>
-    zonet werd {{ candidate.firstname }} {{ candidate.lastname }} verwijderd als vrijwilliger voor de vacature {{ vacancy.title }}.
+    {{ "remVol.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "remVol.secondp.spart"|trans }} {{ vacancy.title }}.
 </p>
 
 {% endblock %}

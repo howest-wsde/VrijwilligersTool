@@ -29,6 +29,11 @@
             #}
 
 
+{# --------------------------- NOTIFICATIONS  ------------------------------------- #}
+
+        {{ render(controller("AppBundle:Person:listNotifications", { "user": person} )) }}
+
+
 {# --------------------------- EIGEN AANBOD  ------------------------------------- #}
 
         {% if person.organisations|length > 0 %}
@@ -105,11 +110,12 @@
             </div></section>
         {% endif %}
 
+
 {# --------------------------- TABS VACATURES  ------------------------------------- #}
 
         <section class="part"><div class="container tabblad spacing">
             <ul class="nav nav-tabs">
-                <li class="active groen"><a href="#opmaat" data-toggle="tab">{{ "person.dash.tabs.personal"|trans }}</a></li>
+                <li class="groen active"><a href="#opmaat" data-toggle="tab">{{ "person.dash.tabs.personal"|trans }}</a></li>
                 {% if person.likedvacancies|length > 0 %}
                     <li class="blauw"><a href="#bewaard" data-toggle="tab">{{ "person.dash.tabs.saved"|trans }}</a></li>
                 {% endif %}

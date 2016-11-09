@@ -1,14 +1,15 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-<h1>Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie!</h1>
+    <h1>{{ "newCharge.header"|trans }}</h1>
 
-<p>Beste beheerder voor {{ org.name }},</p>
+    <p>{{ "newCharge.firstp"|trans }} {{ org.name }},</p>
 
-<p>
-    zonet registreerde {{ user.firstname }} {{ user.lastname }} zich op Roeselare Vrijwilligt en gaf uw organisatie op als contactmogelijkheid.  Wij houden er dan ook aan om u hiervan op de hoogte te brengen.
-</p>
+    <p>
+        {{ "newCharge.secondp.fpart"|trans }} {{ user.firstname }} {{ user.lastname }} {{ "newCharge.secondp.spart"|trans }}
+    </p>
 
-<p>U kan zijn/haar profiel bekijken op uw dashboard.</p>
-
+    <p>{{ "newCharge.thirdp"|trans }}</p>
+    <p> {{ "newCharge.fourthp" | trans }} </p>
 {% endblock %}

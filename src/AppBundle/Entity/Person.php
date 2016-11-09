@@ -135,18 +135,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     * 		min = 1,
      *      max = 6,
-     *      minMessage = "person.min_message_one",
      *      maxMessage = "person.max_message",
      *      groups = {"secondStep", "edit"}
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="person.bus.valid",
-     *     groups = {"secondStep", "edit"}
      * )
      */
     protected $bus;
@@ -378,6 +371,13 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * )
      */
     private $socialInteraction = "normal";
+
+
+    /**
+     * Whether or not a person is site-administrator (highest rank!)
+     * @var bool
+     */
+    private $superadmin = false;
 
     /**
      * Constructor
@@ -1333,6 +1333,32 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         return $this->socialInteraction;
     }
 
+
+    /**
+     * Set superadmin
+     *
+     * @param bool $superadmin
+     *
+     * @return Person
+     */
+    public function setSuperadmin($superadmin)
+    {
+        $this->superadmin = $superadmin;
+
+        return $this;
+    }
+
+    /**
+     * Get superadmin
+     *
+     * @return bool
+     */
+    public function getSuperadmin()
+    {
+        return $this->superadmin;
+    }
+
+
    /**
      * Get the class name
      *
@@ -1418,5 +1444,44 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         }
 
         return $ids;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+
+    /**
+     * Add vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Person
+     */
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies[] = $vacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
     }
 }

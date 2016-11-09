@@ -1,13 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Uw kandidatuur werd goedgekeurd!
+{{ "notCanApp.header" |trans }}
 
-Beste {{ candidate.firstname }},
+{{ "notCanApp.firstp" |trans }} {{ candidate.firstname }},
 
-zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} goedgekeurd.
-
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{{ "notCanApp.secondp.fpart" | trans }} {{ vacancy.title }} {{ "notCanApp.secondp.spart" |trans }}
 
 {% endblock %}

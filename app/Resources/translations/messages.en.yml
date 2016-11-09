@@ -12,6 +12,11 @@ candidacy:
         approve: " was approved for the vacancy "
         disapprove: " was rejected for the vacancy "
         remove: " was removed as a volunteer for the vacancy "
+    candidate:
+        mail:
+          approve: You were approved as a volunteer
+          disapprove: You were rejected as a volunteer
+          remove: You were removed as a volunteer
 utility:
     send:
         subject: Mail from Roeselare Vrijwilligt
@@ -27,6 +32,18 @@ person:
     flash:
         editProfile: Your profile has been succesfully modified
         notyourprofile: Only your own profile is accessible!
+    events:
+        newvacancy: "'[vacancyTitle]' is a new vacancy made by [personName]."
+        newcandidate: "[personName] is a new candidate for '[vacancyTitle]'."
+        newadmin: "[personName] is a new administrator for '[organisationName]'."
+        approvecandidate_admin: "[personName] is approved for '[vacancyTitle]'."
+        disapprovecandidate_admin: "[personName] is disapproved for '[vacancyTitle]'."
+        removecandidate_admin: "[personName] is removed from '[vacancyTitle]'."
+        approvecandidate_user: "You have been approved for '[vacancyTitle]'."
+        disapprovecandidate_user: "You have been disapproved for '[vacancyTitle]'."
+        removecandidate_user: "You have been removed from '[vacancyTitle]'."
+        savedvacancy: "[personName] has saved your vacancy'[vacancyTitle]'."
+        savedorganisation: "[personName] has saved your organisation '[organisationName]'."
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you

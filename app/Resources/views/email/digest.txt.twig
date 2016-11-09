@@ -1,60 +1,61 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Digest mail vanwege Roeselare Vrijwilligt
+{{ "digest.header.title"|trans }}
 
-Beste beheerder,
+{{ "digest.paragrafs.firstp"|trans }}
 
-u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze {% if admin.digest == 2 %} dag {% elseif admin.digest == 3 %} week {% elseif admin.digest == 4 %} maand {% endif %}.
+{{ "digest.paragrafs.secondp.first"|trans }} {% if admin.digest == 2 %} {{ "digest.paragrafs.secondp.day" | trans }} {% elseif admin.digest == 3 %} {{ "digest.paragrafs.secondp.week"|trans }} {% elseif admin.digest == 4 %} {{ "digest.paragrafs.secondp.month"|trans }} {% endif %}.
 
 {% if newCharge is not empty %}
-Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen
+{{ "newCharge.header.title" |trans }}
 
-Voornaam        Achternaam      Gebruikersnaam      Link naar publiek profiel
+{{ "newCharge.table.header.firstname"| trans }}        {{ "newCharge.table.header.lastname"|trans }}      {{ "newCharge.table.header.username" |trans }}      {{ "newCharge.table.header.link"|trans }}
 {% for entry in newCharge %}
-{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        Bekijk hier het publiek profiel: {{ url('person_username', {'username': entry.charge.username }) }}
+{{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        {{ "newCharge.table.data.profile"|trans }} {{ url('person_username', {'username': entry.charge.username }) }}
 {% endfor %}
 {% endif %}
 
 {% if newVacancy is not empty %}
-Nieuw aangemaakte vacatures
+{{ "newVacancy.header.title"|trans }}
 
-Titel        Begindatum        Einddatum        Link naar vacature
+{{ "newVacancy.table.header.title"|trans }}        {{ "newVacancy.table.header.startdate" |trans }}        {{ "newVacancy.table.header.enddate" |trans }}        {{ "newVacancy.table.header.link" | trans }}
 {% for entry in newVacancy %}
-{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        Bekijk hier de vacature: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        {{ "newVacancy.table.data.vacancy" | trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if newCandidate is not empty %}
-Nieuwe kandidaten
-Naam        Gebruikersnaam        Naam organisatie        Titel vacature        Beheerslink
+{{ "newCandidate.header.title" |trans }}
+{{ "newCandidate.table.header.name"|trans }}        {{ "newCandidate.table.header.username"|trans }}        {{ "newCandidate.table.header.organisation"|trans }}        {{ "newCandidate.table.header.title"|trans }}        {{ "newCandidate.table.header.link"|trans }}
 {% for entry in newCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        Keur de kandidaat goed/af: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        {{ "newCandidate.table.data.candidate"|trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if newAdmin is not empty %}
-Nieuwe beheerders
+{{ "newAdmin.header.title"|trans }}
 
-Naam        Gebruikersnaam        Naam organisatie
+{{ "newAdmin.table.header.name" |trans }}        {{ "newAdmin.table.header.username" |trans }}        {{ "newAdmin.table.header.organisation" |trans }}
 {% for entry in newAdmin %}
 {{ entry.admin.firstname }} {{ entry.admin.lastname }}        {{ entry.admin.username }}: {{ url('person_username', {'username': entry.admin.username }) }}        {{ entry.organisation.name }}
 {% endfor %}
 {% endif %}
 
 {% if approveCandidate is not empty %}
-Goedgekeurde kandidaten
+{{ "approveCandidate.header.title" |trans }}
 
-Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{{ "approveCandidate.table.name"|trans }}        {{ "approveCandidate.table.username"|trans  }}        {{  "approveCandidate.table.organisation"|trans }}        {{ "approveCandidate.table.vacancy"|trans  }}
 {% for entry in approveCandidate %}
 {{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if removeCandidate is not empty %}
-Verwijderde vrijwilligers
+{{ "removeCandidate.header.title"|trans  }}
 
-Naam        Gebruikersnaam        Naam organisatie        Titel vacature
+{{ "removeCandidate.table.name"|trans  }}        {{ "removeCandidate.table.username"|trans  }}        {{ "removeCandidate.table.organistation"|trans  }}        {{ "removeCandidate.table.vacancy"|trans  }}
 {% for entry in removeCandidate %}
 {{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}

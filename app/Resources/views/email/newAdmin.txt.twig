@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Nieuwe beheerder toegevoegd
+{{ "newAdmin.header" |trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "newAdmin.firstp" |trans}} {{ org.name }},
 
-zonet werd {{ newAdmin.firstname }} {{ newAdmin.lastname }} toegevoegd als beheerder voor {{ org.name }}.
+{{ "newAdmin.secondp.fpart"|trans }} {{ newAdmin.firstname }} {{ newAdmin.lastname }} {{ "newAdmin.secondp.spart" | trans }} {{ org.name }}.
 
 {% endblock %}

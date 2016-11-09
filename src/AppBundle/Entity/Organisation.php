@@ -123,18 +123,11 @@ class Organisation extends EntityBase
     private $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     * 		min = 1,
      *      max = 6,
-     *      minMessage = "organisation.min_message_one",
      *      maxMessage = "organisation.max_message",
      *      groups = {"secondStep"}
-     * )
-     * @Assert\Regex(
-     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
-     *     message = "organisation.bus.valid",
-     *     groups = {"secondStep"}
      * )
      */
     private $bus;

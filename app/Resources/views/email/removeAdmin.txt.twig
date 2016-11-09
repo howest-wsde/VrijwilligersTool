@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Beheerder verwijderd
+{{ "remAdm.header" | trans}}
 
-Beste beheerder voor {{ org.name }},
+{{ "remAdm.firstp" | trans}} {{ org.name }},
 
-zonet werd {{ newAdmin.firstname }} {{ newAdmin.lastname }} verwijderd als beheerder voor {{ org.name }}.
+{{ "remAdm.secondp.fpart" | trans}} {{ newAdmin.firstname }} {{ newAdmin.lastname }} {{ "remAdm.secondp.spart" | trans}} {{ org.name }}.
 
 {% endblock %}

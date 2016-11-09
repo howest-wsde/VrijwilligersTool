@@ -1,0 +1,164 @@
+candidate:
+      header:
+          title: 'Kandidaat goedgekeurd!'
+      paragrafs:
+          firstp: Beste beheerder voor
+          secondp:
+              first: zonet werd
+              second: goedgekeurd als vrijwilliger voor de vacature
+contact:
+      name: 'Naam:'
+      email: 'E-mail:'
+      telephone: 'Telefoon:'
+      message: 'Bericht:'
+digest:
+      header:
+          title: Digest mail vanwege Roeselare Vrijwilligt
+      paragrafs:
+          firstp: 'Beste beheerder,'
+          secondp:
+              first: 'u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze '
+              day: " dag "
+              week: " week "
+              month: " maand "
+      newCharge:
+          header:
+              title: Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen
+          table:
+              header:
+                  firstname: Voornaam
+                  lastname: Achternaam
+                  username: Gebruikersnaam
+                  link: Link naar publiek profiel
+              data:
+                  profile: "Bekijk hier het publiek profiel: "
+      newVacancy:
+            header:
+                title: Nieuw aangemaakte vacatures
+            table:
+                header:
+                    title: Titel
+                    startdate: Begindatum
+                    enddate: Einddatum
+                    link: Link naar vacature
+                data:
+                    vacancy: "Bekijk hier de vacature: "
+      newCandidate:
+            header:
+                title: Nieuwe kandidaten
+            table:
+              header:
+                    name: Naam
+                    username: Gebruikersnaam
+                    organisation: Naam organisatie
+                    title: Titel vacature
+                    link: Beheerslink
+              data:
+                    canditate: "Keur de kandidaat goed/af:"
+      newAdmin:
+            header:
+                title: Nieuwe beheerders
+            table:
+                name: Naam
+                username: Gebruikersnaam
+                organisation: Naam organistatie
+      approveCandidate:
+            header:
+                title: Goedgekeurde kandidaten
+            table:
+                name: Naam
+                username: Gebruikersnaam
+                organisation: Naam organistatie
+                vacancy: Titel vacature
+      removeCandidate:
+            header:
+                title: Verwijderde vrijwilligers
+            table:
+                name: Naam
+                username: Gebruikersnaam
+                organisation: Naam organistatie
+                vacancy: Titel vacature
+disaproved:
+      header: "Kandidaat afgekeurd!"
+      firstp: "Beste beheerder voor "
+      secondp:
+          fpart: zonet werd
+          spart:  afgekeurd als vrijwilliger voor de vacature
+newAdmin:
+      header: Nieuwe beheerder toegevoegd
+      firstp: Beste beheerder voor
+      secondp:
+          fpart: zonet werd
+          spart: toegevoegd als beheerder voor
+newCandidate:
+      header: "Nieuwe kandidaat!"
+      firstp: Beeste beheerder voor
+      secondp:
+          fpart: zonet gaf
+          spart: zich op Roeselare Vrijwilligt als kandidaat voor de vacature
+          tpart: "U kan deze vacature hier goed/afkeuren."
+newCharge:
+      header: "Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie!"
+      firstp: Beste beheerder voor
+      secondp:
+          fpart: zonet registreerde
+          spart: " zich op Roeselare Vrijwilligt en gaf uw organisatie op als contactmogelijkheid.  Wij houden er dan ook aan om u hiervan op de hoogte te brengen."
+      thirdp: "U kan zijn/haar profiel bekijken op uw dashboard."
+      fourthp: "Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Roeselare!"
+notCanApp:
+      header: "Uw kandidatuur werd goedgekeurd!"
+      firstp: Beste
+      secondp:
+          fpart: zonet werd uw kandidatuur als vrijwilliger voor de vacature
+          spart: "goedgekeurd."
+      thirdp:
+          fpart: "Met vriendelijke groeten,"
+          spart: Roeselare Vrijwilligt
+notCanDis:
+      header: "Uw kandidatuur werd afgekeurd!"
+      firstp: Beste
+      secondp:
+          fpart: zonet werd uw kandidatuur als vrijwilliger voor de vacature
+          spart: "afgekeurd."
+      thirdp:
+          fpart: "Met vriendelijke groeten,"
+          spart: "Roeselare Vrijwilligt"
+notVolRem:
+       header: "Bedankt voor uw inzet!"
+       firstp: Beste
+       secondp:
+          fpart: zonet werd u verwijderd als vrijwilliger voor de vacature
+          spart: "Wij bedanken u van harte voor uw inzet!"
+       thirdp:
+          fpart: "Met vriendelijke groeten,"
+          spart: "Roeselare Vrijwilligt"
+ranCan:
+      header: "Een kandidaat droop af!"
+      firstp: Beste beheerder voor
+      secondp:
+          fpart: zonet trok
+          spart: "op Roeselare Vrijwilligt haar / zijn kandidatuur voor de vacature"
+          tpart: "in."
+reg:
+      header: "Welkom bij Roeselare Vrijwilligt!"
+      firstp: Dag
+      secondp: " u bent succesvol geregistreerd bij Roeselare Vrijwilligt.  U bent automatisch ingelogd na registratie.  Bij een toekomstig bezoek kan u inloggen via deze link:"
+remAdm:
+      header: Beheerder verwijderd
+      fristp: Beste beheerder voor
+      secondp:
+          fpart: zonet werd
+          spart: verwijderd als beheerder voor
+remVol:
+      header: "Vrijwilliger verwijderd!"
+      fristp: Beste beheerder voor
+      secondp:
+          fpart: zonet werd
+          spart: verwijderd als vrijwilliger voor de vacature
+vacCre:
+      header: "Nieuwe vacature aangemaakt!"
+      firstp: Beste
+      secondp:
+          fpart: als beheerder wensen wij er u van op de hoogte te brengen dat er een nieuwe vacature werd aangemaakt voor
+          spart: ".  Het betreft de vacature met titel"
+

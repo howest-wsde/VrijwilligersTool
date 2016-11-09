@@ -219,6 +219,7 @@ general:
         previous: Vorige
         next: Volgende
         submit: Indienen
+        save: Opslaan
     choices:
         yes: Ja
         no: Nee

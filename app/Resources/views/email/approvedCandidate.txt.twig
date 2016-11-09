@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Kandidaat goedgekeurd!
+{{ "candidate.header.title"|trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "candidate.paragrafs.firstp" |trans }} {{ org.name }},
 
-zonet werd {{ candidate.firstname }} {{ candidate.lastname }} goedgekeurd als vrijwilliger voor de vacature {{ vacancy.title }}.
+{{ "candidate.paragrafs.secondp.first"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "candidate.paragrafs.secondp.second"|trans }}{{ vacancy.title }}.
 
 {% endblock %}

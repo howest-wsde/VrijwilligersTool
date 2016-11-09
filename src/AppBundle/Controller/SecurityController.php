@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\PasswordRecover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,7 +82,7 @@ class SecurityController extends UtilityController
                             'event' => DigestEntry::NEWCHARGE,
                             'newCharge' => $user,
                         );
-                $this->digestOrMail($info);
+                $this->digestAndMail($info);
             }
 
             //set a success message
@@ -141,4 +142,11 @@ class SecurityController extends UtilityController
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));
     }
+
+
+
+
+
+
 }
+
