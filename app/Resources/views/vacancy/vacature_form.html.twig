@@ -19,27 +19,27 @@
     <div class="step grijs groen">
         <fieldset>
             <div class="row">
-                <div class="col-md-7">
-                    <div class="col-md-6">
+                <div class="col-md-7" id="address">
+                    <div class="col-md-6" id="street">
                         {{ form_row(form.street) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="number">
                       {{ form_row(form.number) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="bus">
                         {{ form_row(form.bus) }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="postalcode">
                         {{ form_row(form.postalCode) }}
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="city">
                         {{ form_row(form.city) }}
                     </div>
                     <div class='col-md-12'>
                         {{ form_row(form.access) }}
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5" id="map-preview">
                     <div class="col-md-12 google">{{ "vacancy.form.googlemap"|trans }}</div>
                 </div>
             </div>
