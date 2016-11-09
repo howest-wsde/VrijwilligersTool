@@ -1,13 +1,14 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Uw kandidatuur werd afgekeurd!
+{{ "notCanDis.header" |trans }}
 
-Beste {{ candidate.firstname }},
+{{ "notCanDis.fistp" |trans }} {{ candidate.firstname }},
 
-zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} afgekeurd.
+{{ "notCanDis.secondp.fpart" |trans }} {{ vacancy.title }} {{ "notCanDis.secondp.spart" |trans }}
 
-Met vriendelijke groeten,
-Roeselare Vrijwilligt
+{{ "notCanDis.thirdp.fpart" |trans }}
+{{ "notCanDis.thirdp.spart" |trans }}
 
 {% endblock %}

@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Een kandidaat droop af!
+{{ "ranCan.header" |trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "ranCan.first" | trans }} {{ org.name }},
 
-zonet trok {{ candidate.firstname }} {{ candidate.lastname }} op Roeselare Vrijwilligt haar / zijn kandidatuur voor de vacature {{ vacancy.title }} in.
+{{ "ranCan.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "ranCan.secondp.spart" | trans }} {{ vacancy.title }} {{ "ranCan.secondp.tpart" | trans }}
 
 {% endblock %}

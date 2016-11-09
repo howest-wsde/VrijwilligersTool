@@ -1,8 +1,8 @@
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Naam: {{ contact.name }}
-E-mail: {{ contact.email }}
-Telefoon: {{ contact.telephone }}
-Bericht: {{ contact.description }}
+{{ "contact.name" |trans }} {{ contact.name }}
+{{ "contact.email" |trans }} {{ contact.email }}
+{{ "contact.telephone" | trans }} {{ contact.telephone }}
+{{ "contact.message" |trans }} {{ contact.description }}
 {% endblock %}

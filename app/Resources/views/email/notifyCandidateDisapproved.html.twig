@@ -1,16 +1,17 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-	<h1>Uw kandidatuur werd afgekeurd!</h1>
+	<h1>{{ "notCanDis.header" |trans }}</h1>
 
-	<p>Beste {{ candidate.firstname }},</p>
+	<p>{{ "notCanDis.firstp" |trans }} {{ candidate.firstname }},</p>
 
 	<p>
-	    zonet werd uw kandidatuur als vrijwilliger voor de vacature {{ vacancy.title }} afgekeurd.
+		{{ "notCanDis.secondp.fpart" |trans }} {{ vacancy.title }} {{ "notCanDis.secondp.spart" |trans }}
 	</p>
     <p>
-        Met vriendelijke groeten,<br />
-        Roeselare Vrijwilligt
+		{{ "notCanDis.thirdp.fpart" |trans }}<br />
+		{{ "notCanDis.thirdp.spart" |trans }}
     </p>
 
 {% endblock %}

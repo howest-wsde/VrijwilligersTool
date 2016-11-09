@@ -1,17 +1,18 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-	<h1>Bedankt voor uw inzet!</h1>
+	<h1>{{ "notVolRem.header" |trans }}</h1>
 
-	<p>Beste {{ candidate.firstname }},</p>
+	<p>{{ "notVolRem.firstp" |trans }} {{ candidate.firstname }},</p>
 
 	<p>
-	    zonet werd u verwijderd als vrijwilliger voor de vacature {{ vacancy.title }}.<br />
-        Wij bedanken u van harte voor uw inzet!
+    {{ "notVolRem.secondp.fpart" |trans }}{{ vacancy.title }}.<br />
+        {{ "notVolRem.secondp.spart" | trans }}
 	</p>
     <p>
-        Met vriendelijke groeten,<br />
-        Roeselare Vrijwilligt
+        {{ "notVolRem.thirdp.fpart" |trans }}<br />
+        {{ "notVolRem.thirdp.spart" |trans }}
     </p>
 
 {% endblock %}

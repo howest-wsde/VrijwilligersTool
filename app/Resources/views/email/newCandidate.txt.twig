@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Nieuwe kandidaat!
+{{ "newCandidate.header" | trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "newCandidate.firstp" |trans }} {{ org.name }},
 
-zonet gaf {{ candidate.firstname }} {{ candidate.lastname }} zich op Roeselare Vrijwilligt als kandidaat voor de vacature {{ vacancy.title }}.  U kan deze vacature goed/afkeuren via deze link: {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
+{{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  {{ "newCandidate.secondp.tpart" | trans }} {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
 
 {% endblock %}
