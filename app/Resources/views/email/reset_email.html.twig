@@ -1,3 +1,6 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.html.twig" %}
+
 <h1>
     Beste {{ recover.person.fullName }},
 </h1>
@@ -5,7 +8,7 @@
 <p>
     U hebt zonet een aanvraag gedaan om uw wachtwoord te resetten
     Klik
-    <a href="http://roeselarevrijwilligt.be{{ path('request_recover') }}{{recover.hash}}">
+    <a href="{{ url('request_recover') }}{{recover.hash}}">
         hier
     </a>
     om je wachtwoord te gaan resetten en volg alle instructies:
@@ -14,8 +17,4 @@
 
 </p>
 
-<footer>
-    Met vriendelijke groeten,
-    Het Roeselare Vrijwilligt Developers Team.
-</footer>
-
+{% endblock %}
