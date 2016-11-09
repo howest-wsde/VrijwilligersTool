@@ -81,7 +81,7 @@ class OrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.label.number"),
                 "required" => false,
             ))
-            ->add("bus", NumberType::class, array(
+            ->add("bus", TextType::class, array(
                 "label" => "organisation.label.bus",
                 "attr" => array("placeholder" => "organisation.label.bus"),
                 "required" => false,

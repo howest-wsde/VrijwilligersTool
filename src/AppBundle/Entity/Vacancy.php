@@ -119,16 +119,10 @@ class Vacancy extends EntityBase
     private $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     *      min = 1,
      *      max = 6,
-     *      minMessage = "vacancy.min_message_one",
-     *      maxMessage = "vacancy.max_message"
-     * )
-     * @Assert\Regex(
-     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
-     *     message = "vacancy.bus.valid"
+     *      maxMessage = "vacancy.max_message",
      * )
      */
     private $bus;
