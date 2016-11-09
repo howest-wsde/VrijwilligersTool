@@ -110,6 +110,7 @@
                 <ul><li><a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a></li></ul>
             {% endif %}
 
+            {{ form_row(form.submitAdmins) }}
 
 
         </div>

@@ -139,6 +139,10 @@ class OrganisationType extends AbstractType
             ->add("submitEnd", SubmitType::class, array(
                 "label" => "general.label.submit",
                 "validation_groups" => array("thirdStep"),
+            ))
+            ->add("submitAdmins", SubmitType::class, array(
+                "label" => "general.label.submit",
+                "validation_groups" => array("fourthStep"),
             ));
     }
 
