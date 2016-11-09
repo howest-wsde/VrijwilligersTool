@@ -38,20 +38,20 @@
                 </p>
             {% endif %}
             <div class="row">
-                <div class="col-md-7">
-                    <div class="col-md-6">
+                <div class="col-md-7" id="address">
+                    <div class="col-md-6" id="street">
                         {{ form_row(form.street) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="number">
                       {{ form_row(form.number) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="bus">
                         {{ form_row(form.bus) }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="postalcode">
                         {{ form_row(form.postalCode) }}
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="city">
                         {{ form_row(form.city) }}
                     </div>
                     <div class="col-md-12">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="col-md-12 google">map preview</div>
+                    <div class="col-md-12 google" id="map-preview">map preview</div>
                 </div>
             </div>
             <div class="col-md-12">
