@@ -3,9 +3,9 @@ candidate:
           title: 'Candidate approved!'
       paragrafs:
           firstp: 'Dear admin,'
-              secondp:
-                  first: a moment ago
-                  second: was approved as volunteer for the vacancy
+          secondp:
+              first: a moment ago
+              second: was approved as volunteer for the vacancy
 contact:
       name: 'name:'
       email: 'E-mail:'
@@ -53,8 +53,8 @@ digest:
                     organisation: Name organisation
                     title: Title vacancy
                     link: Adminlink
-                data:
-                    canditate: "(Dis)Approve the candidate:"
+              data:
+                  canditate: "(Dis)Approve the candidate:"
       newAdmin:
             header:
                 title: New admins
