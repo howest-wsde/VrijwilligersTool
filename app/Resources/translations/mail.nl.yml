@@ -3,9 +3,9 @@ candidate:
           title: 'Kandidaat goedgekeurd!'
       paragrafs:
           firstp: Beste beheerder voor
-              secondp:
-                  first: zonet werd
-                  second: goedgekeurd als vrijwilliger voor de vacature
+          secondp:
+              first: zonet werd
+              second: goedgekeurd als vrijwilliger voor de vacature
 contact:
       name: 'Naam:'
       email: 'E-mail:'
