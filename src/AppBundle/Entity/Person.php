@@ -135,18 +135,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     * 		min = 1,
      *      max = 6,
-     *      minMessage = "person.min_message_one",
      *      maxMessage = "person.max_message",
      *      groups = {"secondStep", "edit"}
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="person.bus.valid",
-     *     groups = {"secondStep", "edit"}
      * )
      */
     protected $bus;
