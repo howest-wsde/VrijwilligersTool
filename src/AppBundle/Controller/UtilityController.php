@@ -80,7 +80,7 @@ class UtilityController extends Controller
     {
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-        $hasCandidateDigest1 = $candidate->getDigest() === Person::IMMEDIATELY;
+        $hasCandidateDigest1 = ($isForCandidate) ? $candidate->getDigest() === Person::IMMEDIATELY : null;
         $admins = $org->getAdministratorsByDigest(1);
 
         if ($isForCandidate && $hasCandidateDigest1){
