@@ -97,14 +97,12 @@
                     {% endfor %}
                 </ul>
             </div>
-
             <div class="lbl">
                 <label for="addaddmin">Beheerder toevoegen </label>
             </div>
             <div class="vals">
-                <input id="addaddmin" name="addaddmin[]" placeholder="zoeken op naam of e-mail" type="text" data-dropdown="person" data-target="#administrators ul" />
+                <input id="addaddmin" name="addaddmin[]" placeholder="beheerder toevoegen: zoeken op naam of e-mail" type="text" data-dropdown="person" data-target="#administrators ul" />
             </div>
-
 
             <h3>{{ "general.admin.deleteorg"|trans }}</h3>
             {% if not organisation.deleted %}

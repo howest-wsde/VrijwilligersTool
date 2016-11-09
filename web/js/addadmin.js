@@ -25,7 +25,7 @@ $(document).ready(function(){
     $("a.removeadmin").click(function(){
         var personid = $(this).attr("data-value");
         $("ul#administrators").after(
-            $("<input />").attr("type", "xxxxhidden").attr("name", "removeadmin[]").val(personid)
+            $("<input />").attr("type", "hidden").attr("name", "removeadmin[]").val(personid)
         );
         $(this).parentsUntil("ul").remove();
         return false;
@@ -59,7 +59,7 @@ function showPeople(strID){
                                 ).append(
                                     $("<span />").html(" - ")
                                 ).append(
-                                    $("<input />").attr("type", "xxxxhidden").attr("name", "addadmin[]").val(personid)
+                                    $("<input />").attr("type", "hidden").attr("name", "addadmin[]").val(personid)
                                 ).append(
                                     $("<a />").attr("href", "#").html("ontneem admin rechten").click(function(){
                                             $(this).parentsUntil("ul").remove();
