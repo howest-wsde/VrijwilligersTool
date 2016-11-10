@@ -1,0 +1,7 @@
+{% macro dag(datum) %}{% set days = ["zondag","maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"] %}{{ days[datum|date("w")] }}{% endmacro %}
+
+{% macro maand(datum) %}{% set months = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus,", "september", "okt", "no", "de"] %}{{ months[datum|date("n")] }}{% endmacro %}
+
+{% macro volledig(datum) %}
+{% set days = ["zondag","maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"] %}{{ days[datum|date("w")] }} {{ datum|date("d") }} {% set months = ["", "januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus,", "september", "okt", "no", "de"] %}{{ months[datum|date("n")] }} {{ datum|date("Y") }}
+{% endmacro %}

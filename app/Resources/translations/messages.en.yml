@@ -3,6 +3,9 @@ general:
         previous: Back
     flash:
         formError: 'You forgot a field, or entered an invalid value for one of the fields.  Please check the form en follow the instructions for the field(s) with an error message.'
+        formOK: 'Your form was successfully processed'
+    newsletter:
+        ok: you successfully subscribed to the newsletter
 candidacy:
     mail:
         approve: was approved as a volunteer
