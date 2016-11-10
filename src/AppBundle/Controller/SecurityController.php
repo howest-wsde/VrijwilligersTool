@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ChangePassword;
+use AppBundle\Entity\Form\ChangePasswordType;
 use AppBundle\Entity\PasswordRecover;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\PersonType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
 
 class SecurityController extends UtilityController
 {
@@ -142,6 +145,49 @@ class SecurityController extends UtilityController
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));
     }
+
+
+    /**
+     * @Route("/veranderwachtwoord", name="change_password")
+     */
+    public function changePasswordAction(Request $request)
+    {
+        $form = $this->createForm(ChangePasswordType::class, new ChangePassword());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //controle en validatie voor user password correct wordt door de assert van $oldpassword gedaan in ChangePassword.php
+            $newpass = $form->get('newPassword')->getData();
+            if($form->get('oldPassword')->getData() != $newpass)
+            {
+                //encode and set the password
+                $user = $this->getUser();
+                $password = $this->get("security.password_encoder")
+                                 ->encodePassword($user, $newpass);
+                $user->setPassword($password);
+
+                //save in DB
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', 'Uw wachtwoord werd succesvol aangepast!');
+            }
+            else
+            {
+                $this->addFlash('error', 'Uw wachtwoord mag niet hetzelfde als uw oude wachtwoord zijn!');
+            }
+            return $this->render("passwordrecovery/password_recovery_submit_status.html.twig"); //hergebruiken van deze status pagina
+        }
+
+        return $this->render('security/change_password.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+
+
 
 
 

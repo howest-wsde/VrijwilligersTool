@@ -15,6 +15,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PasswordRecoveryController extends Controller
 {
+    //TODO: mogelijk lock-out om paswoord te gaan resetten als een aanvraag niet gedeletet wordt na het expiren ervan FIX!
+    //TODO: hashes zelf nog eens gaan obfuscaten, encrypteren???
+
+
+
     /**
      * @Route("/paswoord/recover/", name="request_recover")
     */
