@@ -9,7 +9,6 @@
 	<p>{{ "vacancy.vacancy.removed"|trans }}  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}{{ "vacancy.vacancy.undo"|trans }} <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
 	<div class="vacaturepage">
-
 		<article class="vacature">
 			{% if app.user %}
 			    {% if app.user in vacancy.likers %}
@@ -91,6 +90,10 @@
 								<a class="cta groen"  href="{{ path("vacancy_subscribe", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.candpose"|trans }}</a>
 							{% endif %}
 						{% endif %}
+					{% endif %}
+
+					{% if app.user in vacancy.volunteers %}
+						<a class="cta blauw" href="{{ path("send_testimonial_to_vacancy", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.volunteer.testimonial"|trans }}</a>
 					{% endif %}
 
 					{% embed "default/socialshare.html.twig" %}{% endembed %}
@@ -182,7 +185,7 @@
 					<a class="cta rood" href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a>
 				{% endif %}
 
-				<a class="cta blauw" href="{{ path("send_testimonial_to_volunteers", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.testimonial"|trans }}</a>
+				<a class="cta blauw" href="{{ path("send_testimonial_to_volunteer", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.testimonial"|trans }}</a>
 			</section>
 		{% endif %}
 
