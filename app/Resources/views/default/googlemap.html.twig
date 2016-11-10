@@ -38,7 +38,7 @@
     			url: "{{ location.link }}"
 	            });
 			google.maps.event.addListener(marker, 'click', function() {
-				window.location.href = this.url;
+				top.location.href = this.url;
 			});
 		{% endfor %}
 
