@@ -17,6 +17,8 @@ class DigestEntry extends EntityBase
     const SAVEDVACANCY = 7; //see VacancyController.saveVacancyAction
     const SAVEDORGANISATION = 8; // see OrganisationController.saveOrganisationAction
     const DISAPPROVECANDIDATE = 9; // see CandidacyController.approveCandidacy
+    const NEWTESTIMONIALTOPERSON = 10; // see VacancyController.sendTestimonialToVolunteers
+    const NEWTESTIMONIALTOVACANCY = 11; // see VacancyController.sendTestimonialToVacancy
     // ! => when adding new types of events, pleas also modify 2 methods in
     // UtilityController: addOrRemoveDigests (loop test needs to be adjusted) &
     // removeDigestEntry: new switch case
