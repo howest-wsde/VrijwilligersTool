@@ -230,6 +230,8 @@ person:
         notifications:
             notifications: Notification(s)
             see: See
+        testimonials:
+            testimonials: Testimonial(s)
     rules:
         name: Find volunteers
     search:

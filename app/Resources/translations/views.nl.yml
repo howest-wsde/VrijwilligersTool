@@ -240,6 +240,8 @@ person:
         notifications:
             notifications: Notificatie(s)
             see: Bekijk
+        testimonials:
+            testimonials: Getuigschrift(en)
     rules:
         name: Vrijwilliger vinden
     search:
