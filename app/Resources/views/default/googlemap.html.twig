@@ -21,8 +21,9 @@
     <script>
       var map;
       function initMap() {
+      	var startpos = {lat: 50.95007859, lng: 3.12588501};
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 50.95007859, lng: 3.12588501},
+          center: startpos,
           zoom: 14
         });
 
@@ -42,6 +43,9 @@
 			});
 		{% endfor %}
 
+		google.maps.event.addDomListener(window, 'resize', function() {
+		  map.setCenter(center);
+		});
 
       }
     </script>
