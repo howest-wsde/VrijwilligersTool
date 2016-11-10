@@ -42,7 +42,7 @@ class TestimonialType extends AbstractType
 
         if ($receiverType === "person") {
             $builder
-                ->add('receiver', ChoiceType::class, array(
+                ->add('receiverPerson', ChoiceType::class, array(
                     "label" => "testimonial.label.to",
                     'placeholder' => "testimonial.placeholder.to",
                     'choices' => $this->changeKeysOfPersonArrayToFullName($vacancy->getVolunteers()),
@@ -50,10 +50,10 @@ class TestimonialType extends AbstractType
                 ));
         } else if ($receiverType === "vacancy") {
             $builder
-                ->add("receiver", TextType::class, array(
+                ->add("receiverVacancy", TextType::class, array(
                     "label" => "testimonial.label.to",
                     "required" => true,
-                    "data" => $vacancy->getOrganisation()->getName(),
+                    "data" => $vacancy->getOrganisation()->getName() . " (" . $vacancy->getTitle() . ")",
                     "disabled" => true
                 ));
         }
