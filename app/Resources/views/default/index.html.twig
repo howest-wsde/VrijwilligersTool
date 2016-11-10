@@ -45,7 +45,10 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        RV_GLOBALS["locations"] = "{{ path("api_locations") }}";
+    </script>
     {{ parent() }}
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArNUWQYyHvnmCTEq2HfZE1R24uX2cGX0g"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
     <script src="{{ asset("js/mapoverview.js") }}"></script>
 {% endblock %}
