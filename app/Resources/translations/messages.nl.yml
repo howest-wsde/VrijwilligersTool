@@ -48,6 +48,8 @@ person:
         removecandidate_user: "U bent verwijderd van '[vacancyTitle]'."
         savedvacancy: "[personName] heeft uw vacature '[vacancyTitle]' opgeslagen."
         savedorganisation: "[personName] heeft uw organisatie '[organisationName]' opgeslagen."
+        newtestimonialtovacancy: "[personName] heeft een getuigschrift gemaakt voor uw vacature '[vacancyTitle]'."
+        newtestimonialtoperson: "U heeft een getuigschrift ontvangen van vacature '[vacancyTitle]'."
 vacancy:
     template:
         vacancyFit: Vacatures op maat

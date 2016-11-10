@@ -42,8 +42,10 @@ person:
         approvecandidate_user: "You have been approved for '[vacancyTitle]'."
         disapprovecandidate_user: "You have been disapproved for '[vacancyTitle]'."
         removecandidate_user: "You have been removed from '[vacancyTitle]'."
-        savedvacancy: "[personName] has saved your vacancy'[vacancyTitle]'."
+        savedvacancy: "[personName] has saved your vacancy '[vacancyTitle]'."
         savedorganisation: "[personName] has saved your organisation '[organisationName]'."
+        newtestimonialtovacancy: "[personName] has sent a testimonial to your vacancy '[vacancyTitle]'."
+        newtestimonialtoperson: "You just received a testimonial for vacancy '[vacancyTitle]'."
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you
