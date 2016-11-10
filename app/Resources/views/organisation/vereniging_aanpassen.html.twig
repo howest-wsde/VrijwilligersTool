@@ -25,6 +25,9 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script>
+        RV_GLOBALS["usersearchURL"] = "{{ path("api_usersearch") }}";
+    </script>
     {{ parent() }}
     <script src="{{ asset("js/forms.js") }}"></script>
     <script src="{{ asset("js/addadmin.js") }}"></script>
