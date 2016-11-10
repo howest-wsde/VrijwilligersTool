@@ -161,4 +161,22 @@ vacCre:
       secondp:
           fpart: als beheerder wensen wij er u van op de hoogte te brengen dat er een nieuwe vacature werd aangemaakt voor
           spart: ".  Het betreft de vacature met titel"
+testimonialFromPerson:
+      header: Nieuw getuigschrift gekregen
+      firstp: Beste administrator van
+      secondp:
+          fpart: Uw organisatie heeft een getuigschrift ontvangen van
+          spart: "voor de volgende vacature:"
+          tpart: Als het een goed getuigschrift is, kan u die accepteren zodat andere mensen die kunnen zien.
+testimonialFromVacancy:
+      header: Nieuw getuigschrift gekregen
+      firstp: Beste
+      secondp:
+          fpart: U heeft een getuigschrift gekregen van
+          spart: "voor de volgende vacature:"
+          tpart: "Klik hier om het getuigschrift te bekijken."
+
+
+
+
 
