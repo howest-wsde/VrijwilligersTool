@@ -6,7 +6,7 @@
 		<p>{{ "search.vacancy.offer"|trans }}</p>
 	</div>
 	<div>
-		<p>{{ "search.vacancy.enddate"|trans|capitalize }}: {{ vacancy.startdate|date("Y-m-d") }}</p>
+		<p>{{ "search.vacancy.enddate"|trans|capitalize }}: {{ vacancy.startdate|date("d/m/Y") }}</p>
 		<p>{{ "general.org"|trans|capitalize }}: {{ vacancy.organisation.name }}</p>
 		<p>{{ "search.vacancy.location"|trans|capitalize }}: {{ vacancy.organisation.street }}</p>
 	</div>

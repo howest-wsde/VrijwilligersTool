@@ -1,5 +1,6 @@
 {% trans_default_domain "views" %}
 {% extends "base.html.twig" %}
+{% import 'snippets/dates.html.twig' as datum %}
 
 {% block title %}{{ vacancy.title }}{% endblock %}
 
@@ -42,11 +43,11 @@
 
 					{% if vacancy.startdate %}
 						<dt class="col-md-3">{{ "vacancy.vacancy.startdate"|trans }}</dt>
-						<dd class="col-md-9">{{ vacancy.startdate|date("Y-m-d") }}</dd>
+						<dd class="col-md-9">{{ datum.volledig(vacancy.startdate) }}</dd>
 					{% endif %}
 					{% if vacancy.enddate %}
 						<dt class="col-md-3">{{ "vacancy.vacancy.enddate"|trans }}</dt>
-						<dd class="col-md-9">{{ vacancy.enddate|date("Y-m-d") }}</dd>
+						<dd class="col-md-9">{{ datum.volledig(vacancy.enddate) }}</dd>
 					{% endif %}
 
 					{% if vacancy.street and (vacancy.postalcode or vacancy.city) %}
