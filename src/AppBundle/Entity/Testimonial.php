@@ -241,4 +241,33 @@ class Testimonial extends EntityBase
     {
         return $this->receiverVacancy;
     }
+    /**
+     * @var \AppBundle\Entity\Vacancy
+     */
+    private $senderVacancy;
+
+
+    /**
+     * Set senderVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $senderVacancy
+     *
+     * @return Testimonial
+     */
+    public function setSenderVacancy(\AppBundle\Entity\Vacancy $senderVacancy = null)
+    {
+        $this->senderVacancy = $senderVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Get senderVacancy
+     *
+     * @return \AppBundle\Entity\Vacancy
+     */
+    public function getSenderVacancy()
+    {
+        return $this->senderVacancy;
+    }
 }
