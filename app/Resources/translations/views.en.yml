@@ -337,7 +337,9 @@ vacancy:
             modify: Modify vacancy
             select: Select candidates
             delete: Remove vacancy
-            testimonial: Create testimonial
+            testimonial: Sent testimonial to volunteer
+        volunteer:
+            testimonial: Sent testimonial to organisation
     modify:
         title: Adjust vacancy
         anul: Cancel

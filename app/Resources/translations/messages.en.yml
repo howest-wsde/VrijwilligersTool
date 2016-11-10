@@ -97,3 +97,6 @@ org:
         volunteer: ' volunteer'
         volunteers: ' employees and volunteers'
         here: on this site
+testimonial:
+    mail:
+        create: New testimonial received

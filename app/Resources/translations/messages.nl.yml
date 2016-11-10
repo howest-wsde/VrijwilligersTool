@@ -101,3 +101,6 @@ org:
         volunteer: ' medewerker'
         volunteers: ' medewerkers en vrijwilligers'
         here: op deze site
+testimonial:
+    mail:
+        create: New testimonial received

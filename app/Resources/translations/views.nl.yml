@@ -369,7 +369,9 @@ vacancy:
             modify: Vacature aanpassen
             select: Kandidaten selecteren
             delete: Vacature verwijderen
-            testimonial: Getuigschrift maken
+            testimonial: Getuigschrift sturen naar vrijwilliger
+        volunteer:
+            testimonial: Getuigschrift sturen naar organisatie
     modify:
         title: Vacature Aanpassen
         anul: Annuleren
