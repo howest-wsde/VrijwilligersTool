@@ -69,6 +69,7 @@ class DefaultController extends Controller
                         "latitude" => $organisation->getLatitude(),
                         "longitude" => $organisation->getLongitude(),
                         "type" => "organisation",
+                        "link" => $this->generateUrl("organisation_by_urlid", ['urlid' => $organisation->getUrlId() ])
                     );
 
             }
@@ -83,6 +84,7 @@ class DefaultController extends Controller
                         "latitude" => $vacancy->getLatitude(),
                         "longitude" => $vacancy->getLongitude(),
                         "type" => "vacancy",
+                        "link" => $this->generateUrl("vacancy_by_urlid", ['urlid' => $vacancy->getUrlId() ])
                     );
 
             }
