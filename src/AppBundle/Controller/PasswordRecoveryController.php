@@ -15,10 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class PasswordRecoveryController extends Controller
 {
-    //TODO: mogelijk lock-out om paswoord te gaan resetten als een aanvraag niet gedeletet wordt na het expiren ervan FIX!
     //TODO: hashes zelf nog eens gaan obfuscaten, encrypteren???
-
-
 
     /**
      * @Route("/paswoord/recover/", name="request_recover")
@@ -167,6 +164,8 @@ class PasswordRecoveryController extends Controller
             }
             else{
                 $this->addFlash('error', 'vraag een nieuwe link aan, deze is vervallen!');
+                $em->remove($recovery);
+                $em->flush();
                 return $this->render('passwordrecovery/password_recovery_submit_status.html.twig');
             }
         }
