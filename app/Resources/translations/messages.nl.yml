@@ -67,6 +67,7 @@ vacancy:
         addToSaved: Deze vacature werd toegevoegd aan uw bewaarde vacatures.
         removeFromSaved: Deze vacature werd verwijderd uit uw bewaarde vacatures.
         okModification: Deze vacature werd succesvol aangepast.
+        testimonialSent: Het getuigschrift is verzonden.
     mail:
         create: Nieuwe vacature aangemaakt
         removeCandidacySubjectStart: trok haar/zijn kandidaat voor de vacature met titel

@@ -63,6 +63,7 @@ vacancy:
         addToSaved: The vacancy has been added to your saved vancancies.
         removeFromSaved: The vacancy has been removed from your saved vacancies.
         okModification: The vacancy has been modified.
+        testimonialSent: The testimonial has been sent.
     mail:
         create: New vacancy created
         removeCandidacySubjectStart: withdrew his/her candidacy for the vacancy titled
