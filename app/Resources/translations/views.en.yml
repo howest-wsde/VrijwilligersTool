@@ -4,6 +4,7 @@ general:
     search: search
     org: organisation
     orgs: organisations
+    vol: volunteer
     tailored:
         novacancy: "Currently no vacancies tailored to your profile can be found.  It's possible no vacancies fit your profile at this time.  If, however, you haven't fully filled out your profile, completing it can help getting better results."
         noorg: "Currently no organisations tailored to your profile can be found.  It's possible no organisations fit your profile at this time.  If, however, you haven't fully filled out your profile, completing it can help getting better results.  A good place to start is by crossing of the sectors you are interested in."
@@ -34,6 +35,7 @@ general:
         deleteorg: Remove organisation
         admins: Admins
         away: revoke admin rights
+
 base:
     general:
         name: Roeselare Volunteers
@@ -59,6 +61,7 @@ base:
                 find: finding volunteers
                 info: info on volunteering
                 tests: What is it I want?
+                superadmin: Websitemanagement
         newsletter:
             cta: Do you want to be up to date on the latest?  Register for our newsletter!
         footer:
@@ -79,6 +82,9 @@ base:
             howest: Howest University
             city: Roeselare City
             privacy: Privacy and legal terms
+            volunteers: info for volunteers
+            organisations: info about organisations
+            stories: stories
 def: #default
     carousel:
         title: Meaningfull volunteer work
@@ -89,6 +95,7 @@ def: #default
         more: Or read the explanation ...
         notsure: Not sure what you want?
         test: Do the test!
+        notsureteaser: Through a few simple questions, the site will lead you to the perfect volunteer job.
     index:
         logintitle: 'Log in with your userdata, mail or passphrase or password.'
         id: 'Username, e-mail or phone number'
@@ -103,16 +110,20 @@ def: #default
         more: read more
         how:
             title: How does it work?
-            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sa amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+            teaser: On Roeselare Vrijwilligt we agreed to join volunteer organizations from Roeselare and their available jobs. Via simple searches can you find an ideal job.
         stories:
             title: Stories
-            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+            teaser:
+                a: "I have been working for several years as a volunteer at the Speelpleinwerking Speelodroom and especially like the children. I'm always ready to jump in ..."
+                b: "I'm Jochen and I'm 1 of the TRAX buddies. I briefly describe what our job is on the trax site in Roeselare. Managed by a fixed ..."
+                c: "One of my commitments is being a volunteer for the Trax Festival. I'm in touch for the communication. Together with other people, I try Trax Festival to get kwown by everyone. ..."
+                d: "I am a volunteer at the Executive Residence in Roeselare, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
         info:
             title: Information
-            teaser: 'Lorem ipsum dolor sit amet,  sit amet,  sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+            teaser: 'Roeselare Vrijwilligt is an open, independent platform that encourages collaboration and supports Roeselare..'
         test:
             title: Take the test
-            teaser: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis voluptatibus consequatur atque sapiente qui.'
+            teaser: 'Not sure how to optimize your profile? Answer a few simple questions and let us find your ideal volunteer organization.'
 feedback:
     send: send
     feedback: Feedback
@@ -175,6 +186,7 @@ org:
         place: Submit a vacancy
         sectoral: Sectoral information
         active: In which sectors is this organisation active?
+        admin: Functions of the admins
     min:
         remove: Remove from saved organisations
         noopen: no open vacancies
@@ -257,6 +269,9 @@ search:
         advantages: Filter by advantage
         noresults: No results were found
         for: for
+        vacancies: Vacancies
+        organisations: Organisations
+        people: Volunteers
 security:
     login: Log in
     status:
@@ -280,6 +295,22 @@ tests:
     tests:
         body: A couple of tests
         title: Tests
+    type:
+        1:
+            name: The social one
+            text: "You're the social one! You do like to have a chat with the people around you and you know quickly that you can help them. You make time for your fellow man."
+        2:
+            name: The doing person
+            text: "Congratulations! You're the doing person. Do you have a hands-on approach. You are practical and can handle all kinds of materials. You do not have to think twice, you can quickly see what you have to do. No hours daydreaming or palaver, rather quickly record the serious work."
+        3:
+            name: The perfectionist
+            text: "Congratulations! You're the perfectionist. You like clarity and structured activities! You keep your tasks systematically and works on a critical, orderly manner. Just work out a contract does not scare you. You'd put the dot on the 'i'."
+        4:
+            name: The leader
+            text: "Congratulations! You're the leader. Organize and coordinate you like a glove. You will not shy away from challenges and have no fear of taking on responsibilities. You listen to your team and know how to make the right decisions. You're the trigger that could stabbing momentum in a project."
+        5:
+            name: The creative one
+            text: "Congratulations! You're the creative one. Your head is full of ideas. On your way, you'd like to be creative. Drawing, writing, lay out, shooting ... You have a creative talent that you'd share with others. You are not afraid to try new things. "
 vacancy:
     vacancy:
         removed: This vacancy was removed.
@@ -299,6 +330,9 @@ vacancy:
         save: Save
         candremove: Remove application
         candpose: Submit application
+        summary: Job description
+        description: description
+        categories: categories
         admin:
             modify: Modify vacancy
             select: Select candidates
@@ -318,10 +352,20 @@ vacancy:
         candidates: Approved candidates
         open: Open candidacies
         look: Check profile
+        declined: Declined
+        removed: Removed
+        approve: Approve
+        cancel: Cancel
+        remove: Delete
+        restore: Restore
     min:
         remove: Remove from saved vacancies
         save: Save
         delete: Delete
+        1place: 1 volunteer wanted
+        xplaces: volunteers wanted
+        opencadidacy: unreplied candidate
+        opencadidacies: unreplied candidates
     new:
         title: Create vacancy
         looking: Looking for volunteers?

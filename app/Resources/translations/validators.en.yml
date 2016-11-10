@@ -16,6 +16,7 @@ vacancy:
         max_period: The vacancy can only last for a period of 6 months.
     label:
         title: Title
+        summary: Short description
         description: Description
         startdate: Start date
         enddate: End date
@@ -74,6 +75,7 @@ organisation:
         addAdmin: Select extra admin
         submitAdmin: Add admin
         name: Company name
+        slogan: The slogan of your organization
         description: A description of your company
         email: Email address
         street: Street name
@@ -82,6 +84,7 @@ organisation:
         postalcode: Postal code
         city: City
         telephone: Telephone number
+        logo: Logo
         create: Create organisation
         backToRegistration: Back to registration
         submitContact: Submit contactinformation
@@ -137,7 +140,8 @@ person:
         firstname: First name
         lastname: Surname
         username: User name
-        email: email
+        avatar: Photo
+        email: Email
         telephone: Phone number
         organisation: Contact via organisation
         street: Street
@@ -196,6 +200,20 @@ search:
         other: other advantages
     placeholder:
         searchTerm: search term (optional)
+contact:
+    label:
+        name: Name
+        email: Email
+        telephone:  Telephone
+        description: Your message
+        create: Send
+    placeholder:
+        name: Name
+        email:  Email
+        telephone:  Telephone
+        description: Your message
+    flash:
+        sent: Your message was sent successfully.
 general:
     label:
         previous: Previous
