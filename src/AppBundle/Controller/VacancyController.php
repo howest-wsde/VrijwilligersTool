@@ -614,7 +614,8 @@ class VacancyController extends UtilityController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $testimonial = $form->getData();
-            $testimonial->setSender($vacancy);
+            $testimonial->setSender($user);
+            $testimonial->setSenderVacancy($vacancy);
             $em->persist($testimonial);
             $em->flush();
 
