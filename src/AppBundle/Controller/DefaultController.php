@@ -54,20 +54,21 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/locations.json", name="api_locations")
+     * @Route("/locaties.html", name="googlemap")
      */
-    public function locationJsonAction()
+    public function googlemaptestAction(Request $request)
     {
-        $result = array();
+
+        $locations = array();
         $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
             ->findBy(array(), array('id' => 'DESC'), 30);
         foreach ($organisations as $organisation) {
             if ($organisation->getLatitude()) {
-                $result[] = array(
-                        "lat" => $organisation->getLatitude(),
-                        "long" => $organisation->getLongitude(),
-                        "t" => "organisation",
+                $locations[] = array(
+                        "latitude" => $organisation->getLatitude(),
+                        "longitude" => $organisation->getLongitude(),
+                        "type" => "organisation",
                     );
 
             }
@@ -78,17 +79,18 @@ class DefaultController extends Controller
             ->findBy(array(), array('id' => 'DESC'), 30);
         foreach ($vacancies as $vacancy) {
             if ($vacancy->getLatitude()) {
-                $result[] = array(
-                        "lat" => $vacancy->getLatitude(),
-                        "lng" => $vacancy->getLongitude(),
-                        "t" => "vacancy",
+                $locations[] = array(
+                        "latitude" => $vacancy->getLatitude(),
+                        "longitude" => $vacancy->getLongitude(),
+                        "type" => "vacancy",
                     );
 
             }
         }
 
-        return new JsonResponse($result);
+        return $this->render('default/googlemap.html.twig', ["locations"=>$locations]);
     }
+
 
     /**
      * @Route("/mode", name="mode_testing")
