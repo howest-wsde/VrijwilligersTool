@@ -247,6 +247,22 @@ class UtilityController extends Controller
                     'saver' => $saver,
                 ));
                 break;
+            case DigestEntry::NEWTESTIMONIALTOPERSON:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'organisation' => $org,
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                ));
+                break;
+            case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'organisation' => $org,
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                ));
+                break;
         }
 
         foreach ($digests as $digest) {
