@@ -1,12 +1,13 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-<h1>Nieuwe kandidaat!</h1>
+<h1>{{ "newCandidate.header" | trans }}</h1>
 
-<p>Beste beheerder voor {{ org.name }},</p>
+<p>{{ "newCandidate.firstp" |trans }}{{ org.name }}</p>
 
 <p>
-    zonet gaf {{ candidate.firstname }} {{ candidate.lastname }} zich op Roeselare Vrijwilligt als kandidaat voor de vacature {{ vacancy.title }}.  <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}">U kan deze vacature hier goed/afkeuren.</a>
+    {{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}">{{ "newCandidate.secondp.tpart" |trans }}</a>
 </p>
 
 {% endblock %}

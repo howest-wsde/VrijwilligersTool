@@ -1,9 +1,10 @@
 {% trans_default_domain "views" %}
+
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "org.form.general"|trans }}</a></h2>
-    <div class="step {% if organisation==false %}actief{% endif %} grijs rood">
+    <h2 class="steptitle groen"><a href="#algemeen" name="algemeen">{{ "org.form.general"|trans }}</a></h2>
+    <div class="step {% if organisation==false %}actief{% endif %} grijs groen">
         <fieldset>
             <legend>{{ "org.form.org"|trans }}</legend>
             <div class="col-md-8">
@@ -27,8 +28,8 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle blauw"><a href="#contact" name="contact">{{ "org.form.contact"|trans }}</a></h2>
-    <div class="step {% if organisation %}actief{% endif %} grijs blauw">
+    <h2 class="steptitle geel"><a href="#contact" name="contact">{{ "org.form.contact"|trans }}</a></h2>
+    <div class="step {% if organisation %}actief{% endif %} grijs geel">
         <fieldset>
             {% if organisation and source=="create_organisation" %}
                 <p>
@@ -37,20 +38,20 @@
                 </p>
             {% endif %}
             <div class="row">
-                <div class="col-md-7">
-                    <div class="col-md-6">
+                <div class="col-md-7" id="address">
+                    <div class="col-md-6" id="street">
                         {{ form_row(form.street) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="number">
                       {{ form_row(form.number) }}
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" id="bus">
                         {{ form_row(form.bus) }}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="postalcode">
                         {{ form_row(form.postalCode) }}
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8" id="city">
                         {{ form_row(form.city) }}
                     </div>
                     <div class="col-md-12">
@@ -58,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <div class="col-md-12 google">map preview</div>
+                    <div class="col-md-12 google" id="map-preview">map preview</div>
                 </div>
             </div>
             <div class="col-md-12">
@@ -69,8 +70,8 @@
         </fieldset>
     </div>
 
-    <h2 class="steptitle geel"><a href="#sectoraal" name="sectoraal">{{ "org.form.sectoral"|trans }}</a></h2>
-    <div class="step grijs geel">
+    <h2 class="steptitle blauw"><a href="#sectoraal" name="sectoraal">{{ "org.form.sectoral"|trans }}</a></h2>
+    <div class="step grijs blauw">
         <fieldset>
             <p><strong>{{ "org.form.active"|trans }}</strong></p>
             {{ form_row(form.sectors) }}
@@ -78,4 +79,39 @@
             {{ form_row(form.submitEnd) }}
         </fieldset>
     </div>
+
+
+    {% if organisation %}
+
+        <h2 class="steptitle rood"><a href="#ddd" name="ddd">{{ "org.form.admin"|trans }}</a></h2>
+        <div class="step grijs rood">
+            <h3>{{ "general.admin.admins"|trans }}</h3>
+
+            <div class="lbl">
+                <label>Beheerders </label>
+            </div>
+            <div class="vals">
+                <ul id="administrators">
+                    {% for administrator in organisation.administrators %}
+                        <li id="ad{{administrator.id}}">{{ administrator.firstname}} {{ administrator.lastname}} -  <a href="#remove" class="removeadmin" data-value="{{administrator.username}}">{{ "general.admin.away"|trans }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="lbl">
+                <label for="addaddmin">Beheerder toevoegen </label>
+            </div>
+            <div class="vals">
+                <input id="addaddmin" name="addaddmin[]" placeholder="beheerder toevoegen: zoeken op naam of e-mail" type="text" data-dropdown="person" data-target="#administrators ul" />
+            </div>
+
+            <h3>{{ "general.admin.deleteorg"|trans }}</h3>
+            {% if not organisation.deleted %}
+                <ul><li><a href="{{ path('delete_organisation', { 'urlid': organisation.urlId }) }}">{{ "general.admin.deleteorg"|trans }}</a></li></ul>
+            {% endif %}
+
+            {{ form_row(form.submitAdmins) }}
+
+
+        </div>
+    {% endif %}
 {{ form_end(form) }}

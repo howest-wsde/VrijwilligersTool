@@ -81,7 +81,7 @@ class OrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.label.number"),
                 "required" => false,
             ))
-            ->add("bus", NumberType::class, array(
+            ->add("bus", TextType::class, array(
                 "label" => "organisation.label.bus",
                 "attr" => array("placeholder" => "organisation.label.bus"),
                 "required" => false,
@@ -139,6 +139,10 @@ class OrganisationType extends AbstractType
             ->add("submitEnd", SubmitType::class, array(
                 "label" => "general.label.submit",
                 "validation_groups" => array("thirdStep"),
+            ))
+            ->add("submitAdmins", SubmitType::class, array(
+                "label" => "general.label.submit",
+                "validation_groups" => array("fourthStep"),
             ));
     }
 

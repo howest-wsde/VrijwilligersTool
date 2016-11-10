@@ -47,6 +47,7 @@ class OrganisationController extends UtilityController
 
             $em->flush();
 
+
             if(!$urlid){
                 //set a success message
                 $this->addFlash('approve_message', $t->trans('org.flash.createStart') . ' ' . $organisation->getName() . $t->trans('org.flash.createEnd')
@@ -101,26 +102,40 @@ class OrganisationController extends UtilityController
         $form = $this->createForm(OrganisationType::class, $organisation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $organisation = $form->getData();
-            $this->setCoordinates($organisation);
-            $em->persist($organisation);
-            $em->flush();
+        if ($form->isSubmitted()){
+            if ($request->request->get('addadmin')) foreach ($request->request->get('addadmin') as $admin_username){
+                $person = $em->getRepository("AppBundle:Person")->findOneByUsername($admin_username);
+                $person->removeOrganisation($organisation);
+                $person->addOrganisation($organisation);
+                $em->persist($person);
+                $em->flush();
+                //$this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.addAdmin'));
+            }
+            if ($request->request->get('removeadmin')) foreach ($request->request->get('removeadmin') as $admin_username) {
+                $this->organisationRemoveAdminAction($urlid, $admin_username);
+            }
 
-           //set a success message
-            $this->addFlash('approve_message', $t->trans('org.flash.editOk'));
+            if ($form->isValid()) {
+                $organisation = $form->getData();
+                $this->setCoordinates($organisation);
+                $em->persist($organisation);
+                $em->flush();
 
+               //set a success message
+                $this->addFlash('approve_message', $t->trans('org.flash.editOk'));
 
-            return $this->render("organisation/vereniging.html.twig",
-            [
-                "organisation" => $organisation,
-                "form" => $this->createAddAdminData($urlid)['form']->createView(),
-            ]);
-        }
-        else if ($form->isSubmitted() && !$form->isValid())
-        {
-            //set an error message
-            $this->addFlash('error', $t->trans('general.flash.formError'));
+                return $this->render("organisation/vereniging.html.twig",
+                [
+                    "organisation" => $organisation,
+                    "form" => $this->createAddAdminData($urlid)['form']->createView(),
+                ]);
+            }
+            else
+            {
+                //set an error message
+                $this->addFlash('error', $t->trans('general.flash.formError'));
+            }
+
         }
 
         return $this->render("organisation/vereniging_aanpassen.html.twig",
@@ -167,7 +182,7 @@ class OrganisationController extends UtilityController
                         ),
                         'event' => DigestEntry::NEWADMIN,
                     );
-            $this->digestOrMail($info);
+            $this->digestAndMail($info);
 
            //set a success message
             $this->addFlash('approve_message', $person->getFirstname() . ' ' . $person->getLastname() . ' ' . $t->trans('org.flash.newAdmin'));
@@ -251,12 +266,12 @@ class OrganisationController extends UtilityController
                                 'org' => $organisation,
                             ),
                             'event' => DigestEntry::NEWADMIN,
-                            'remove' => true,
+                            'sent' => true,
                         );
-                $this->digestOrMail($info);
+                $this->digestAndMail($info);
 
                //set a success message
-                $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
+             //   $this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.removeAdmin'));
             }
         } else {
            //set a failure message
@@ -265,6 +280,7 @@ class OrganisationController extends UtilityController
 
         return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $organisation_urlid]);
     }
+
 
     /**
      * @Security("has_role('ROLE_USER')")
@@ -285,12 +301,22 @@ class OrganisationController extends UtilityController
 
         if ($saveaction == "save")
         {
+            $user->addLikedOrganisation($organisation);
+
+            $info = array(
+                'data' => array(
+                    'saver' => $user,
+                    'org' => $organisation,
+                ),
+                'event' => DigestEntry::SAVEDORGANISATION
+            );
+            $this->addOrSetDigestsSent($info, $organisation);
+
             if(!$ajax)
             {
                //set a success message
                 $this->addFlash('approve_message', $t->trans('org.flash.addToSaved'));
             }
-            $user->addLikedOrganisation($organisation);
         }
         else {
             if(!$ajax)

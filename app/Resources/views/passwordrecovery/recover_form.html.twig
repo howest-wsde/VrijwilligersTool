@@ -1,0 +1,38 @@
+{% trans_default_domain "validators" %}
+{% extends "base.html.twig" %}
+
+{% block title %}Paswoord vergeten?{% endblock %}
+
+{% block body %}
+
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+                {# %}<a href="{{app.request.headers.get('referer')}}">Klik hier</a> om terug te gaan.#}
+                 probeer opnieuw!
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <section class="steps">
+        <div class="col-md-12">
+            <h2 class="steptitle rood">Paswoord vergeten</h2>
+            <div class="step actief grijs rood">
+                <p>{{ actionString }}</p>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

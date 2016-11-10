@@ -16,6 +16,11 @@ candidacy:
         approve: " werd goedgekeurd voor de vacature "
         disapprove: " werd afgekeurd voor de vacature "
         remove: " werd verwijderd als vrijwilliger voor de vacature "
+    candidate:
+        mail:
+          approve: U werd goedgekeurd als vrijwilliger
+          disapprove: U werd afgekeurd als vrijwilliger
+          remove: U werd verwijderd als vrijwilliger
 utility:
     send:
         subject: Mail vanwege Roeselare Vrijwilligt
@@ -31,6 +36,18 @@ person:
     flash:
         editProfile: Uw profiel werd succesvol aangepast
         notyourprofile: Enkel het eigen profiel is toegankelijk!
+    events:
+        newvacancy: "'[vacancyTitle]' is een nieuwe vacature gemaakt door [personName]."
+        newcandidate: "[personName] is een nieuwe kandidaat voor '[vacancyTitle]'."
+        newadmin: "[personName] is een nieuwe admin voor '[organisationName]'."
+        approvecandidate_admin: "[personName] is aangenomen voor '[vacancyTitle]'."
+        disapprovecandidate_admin: "[personName] is afgewezen voor '[vacancyTitle]'."
+        removecandidate_admin: "[personName] is verwijderd van '[vacancyTitle]'."
+        approvecandidate_user: "U bent aangenomen voor '[vacancyTitle]'."
+        disapprovecandidate_user: "U bent afgewezen voor '[vacancyTitle]'."
+        removecandidate_user: "U bent verwijderd van '[vacancyTitle]'."
+        savedvacancy: "[personName] heeft uw vacature '[vacancyTitle]' opgeslagen."
+        savedorganisation: "[personName] heeft uw organisatie '[organisationName]' opgeslagen."
 vacancy:
     template:
         vacancyFit: Vacatures op maat

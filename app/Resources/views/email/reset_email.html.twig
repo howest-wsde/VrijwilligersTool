@@ -1,0 +1,21 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
+<h1>
+    Beste {{ recover.person.fullName }},
+</h1>
+
+<p>
+    U hebt zonet een aanvraag gedaan om uw wachtwoord te resetten
+    Klik
+    <a href="{{ url('password_recover_hash', {'hash': recover.hash }) }}">
+        hier
+    </a>
+    om je wachtwoord te gaan resetten en volg alle instructies:
+
+    Heb je helemaal geen reset aangevraagd? Negeer deze mail dan gewoon.
+
+</p>
+
+{% endblock %}

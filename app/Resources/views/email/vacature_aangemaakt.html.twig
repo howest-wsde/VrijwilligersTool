@@ -1,12 +1,13 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-<h1>Nieuwe vacature aangemaakt!</h1>
+<h1>{{ "vacCre.header" | trans }}</h1>
 
-<p>Beste {{ user.firstname }} {{ user.lastname }},</p>
+<p>{{ "vacCre.firstp" |trans }} {{ user.firstname }} {{ user.lastname }},</p>
 
 <p>
-    als beheerder wensen wij er u van op de hoogte te brengen dat er een nieuwe vacature werd aangemaakt voor {{ org.name }}.  Het betreft de vacature met titel <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">"{{ vacancy.title }}".</a>
+    {{ "vacCre.secondp.fpart" |trans }}{{ org.name }} {{ "vacCre.secondp.spart" | trans }} <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">"{{ vacancy.title }}".</a>
 </p>
 
 {% endblock %}

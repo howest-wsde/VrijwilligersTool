@@ -1,14 +1,15 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
 	<dl>
-		<dt>Naam: </dt>
+		<dt>{{ "contact.name"|trans }} </dt>
 		<dd>{{ contact.name }}</dd>
-		<dt>E-mail: </dt>
+		<dt>E{{ "contact.email"|trans }} </dt>
 		<dd>{{ contact.email }}</dd>
-		<dt>Telefoon: </dt>
+		<dt>{{ "contact.telephone" | trans }} </dt>
 		<dd>{{ contact.telephone }}</dd>
-		<dt>Bericht: </dt>
+		<dt>{{ "contact.message" | trans }} </dt>
 		<dd>{{ contact.description }}</dd>
 	</dl>
 {% endblock %}

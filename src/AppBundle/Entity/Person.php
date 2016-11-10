@@ -135,18 +135,11 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     * 		min = 1,
      *      max = 6,
-     *      minMessage = "person.min_message_one",
      *      maxMessage = "person.max_message",
      *      groups = {"secondStep", "edit"}
-     * )
-     * @Assert\Regex(
-     *     pattern="/^[a-zA-Z0-9]{1,6}$/",
-     *     message="person.bus.valid",
-     *     groups = {"secondStep", "edit"}
      * )
      */
     protected $bus;
@@ -1451,5 +1444,44 @@ class Person extends OAuthUser implements UserInterface, \Serializable
         }
 
         return $ids;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vacancies;
+
+
+    /**
+     * Add vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     *
+     * @return Person
+     */
+    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies[] = $vacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $vacancy
+     */
+    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    {
+        $this->vacancies->removeElement($vacancy);
+    }
+
+    /**
+     * Get vacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
     }
 }

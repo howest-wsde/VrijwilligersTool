@@ -119,16 +119,10 @@ class Vacancy extends EntityBase
     private $number;
 
     /**
-     * @var int
+     * @var string
      * @Assert\Length(
-     *      min = 1,
      *      max = 6,
-     *      minMessage = "vacancy.min_message_one",
-     *      maxMessage = "vacancy.max_message"
-     * )
-     * @Assert\Regex(
-     *     pattern = "/^[a-zA-Z0-9]{1,6}$/",
-     *     message = "vacancy.bus.valid"
+     *      maxMessage = "vacancy.max_message",
      * )
      */
     private $bus;
@@ -1119,5 +1113,34 @@ class Vacancy extends EntityBase
     public function esGetNoMap()
     {
         return 'nomap';
+    }
+    /**
+     * @var \AppBundle\Entity\Person
+     */
+    private $creator;
+
+
+    /**
+     * Set creator
+     *
+     * @param \AppBundle\Entity\Person $creator
+     *
+     * @return Vacancy
+     */
+    public function setCreator(\AppBundle\Entity\Person $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getCreator()
+    {
+        return $this->creator;
     }
 }

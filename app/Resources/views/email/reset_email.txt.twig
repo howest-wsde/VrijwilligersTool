@@ -1,0 +1,13 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+Beste {{ user.person.fullName }},
+
+Klik op volgende link om je wachtwoord te gaan resetten en volg alle instructies:
+
+{{ url('password_recover_hash', {'hash': recover.hash }) }}
+
+Heb je helemaal geen reset aangevraagd? Negeer deze mail dan gewoon.
+
+{% endblock %}

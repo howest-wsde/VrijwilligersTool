@@ -185,6 +185,7 @@ org:
         place: Plaats een vacature
         sectoral: Sectorale info
         active: In welke sectoren is deze vereniging actief?
+        admin: Functie's voor beheerders
     min:
         remove: Verwijder uit bewaarde organisaties
         noopen: geen openstaande vacatures
@@ -237,6 +238,9 @@ person:
             vols: Medewerkerspoule
             cta: Schrijf een getuigenis!
             ctasmall: en beloon zo jouw vrijwilligers...
+        notifications:
+            notifications: Notificatie(s)
+            see: Bekijk
     rules:
         name: Vrijwilliger vinden
     search:

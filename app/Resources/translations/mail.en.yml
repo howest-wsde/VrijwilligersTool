@@ -1,0 +1,164 @@
+candidate:
+      header:
+          title: 'Candidate approved!'
+      paragrafs:
+          firstp: 'Dear admin,'
+          secondp:
+              first: a moment ago
+              second: was approved as volunteer for the vacancy
+contact:
+      name: 'name:'
+      email: 'E-mail:'
+      telephone: 'Telephone:'
+      message: 'message:'
+digest:
+      header:
+          title: Digest mail from Roeselare Vrijwilligt
+      paragrafs:
+          firstp: 'Dear admin,'
+          secondp:
+              first: 'you chose to get your notifications via email.  Here are the notifications for this '
+              day: " day "
+              week: " week "
+              month: " month "
+      newCharge:
+          header:
+              title: Volunteers who chose your organization as intermediary organization
+          table:
+              header:
+                  firstname: Fristname
+                  lastname: Lastname
+                  username: Username
+                  link: Link to public profile
+              data:
+                  profile: "View public profile here: "
+      newVacancy:
+            header:
+                title: Newly created vacancies
+            table:
+                header:
+                    title: Title
+                    startdate: Startdate
+                    enddate: Enddate
+                    link: Link to vacancy
+                data:
+                    vacancy: "View vacancy here: "
+      newCandidate:
+            header:
+                title: New Candidate
+            table:
+              header:
+                    name: Name
+                    username: Username
+                    organisation: Name organisation
+                    title: Title vacancy
+                    link: Adminlink
+              data:
+                  canditate: "(Dis)Approve the candidate:"
+      newAdmin:
+            header:
+                title: New admins
+            table:
+                name: Name
+                username: Username
+                organisation: Name organisation
+      approveCandidate:
+            header:
+                title: Approved candidates
+            table:
+                name: name
+                username: Username
+                organisation: Name organisation
+                vacancy: Title vacancy
+      removeCandidate:
+            header:
+                title: Deleted volunteers
+            table:
+                name: Name
+                username: Username
+                organisation: Name organisation
+                vacancy: Title vacancy
+disaproved:
+      header: "Candidate disapproved"
+      firstp: "Dear admin for "
+      secondp:
+          fpart: a moment ago
+          spart:  was disapproved as a volunteer for the vacancy
+newAdmin:
+      header: New admin added
+      firstp: 'Dear admin,'
+      secondp:
+          fpart: a moment ago
+          spart: was added as admin for
+newCandidate:
+      header: "New candidate!"
+      firstp: 'Dear admin,'
+      secondp:
+          fpart: a moment ago
+          spart: introduced himself as candidate on Roeselare Vrijwilligt for this vacancy
+          tpart: "Here you can dis/approve this candidate."
+newCharge:
+      header: "A new volunteer chose you as intermediary organization!"
+      firstp: Dear admin for
+      secondp:
+          fpart: a moment ago
+          spart: " introduced himself on Roeselare Vrijwilligt and mentioned your organization as a contact option.  We keep you posted with this new charge."
+      thirdp: "On your dashboard you can take a look at his/her profile."
+      fourthp: "We are already very excited that you are helping to build a dynamic Roeselare!"
+notCanApp:
+      header: "Your candidacy was approved!"
+      firstp: Dear
+      secondp:
+          fpart: a moment ago, your candidacy as volunteer for this vacancy
+          spart: "was approved."
+      thirdp:
+          fpart: "Yours sincerely,"
+          spart: Roeselare Vrijwilligt
+notCanDis:
+      header: "Your candidacy was disapproved!"
+      firstp: Dear
+      secondp:
+          fpart: a moment ago, your candidacy as volunteer for this vacancy
+          spart: "disapproved."
+      thirdp:
+          fpart: "Yours sincerely,"
+          spart: "Roeselare Vrijwilligt"
+notVolRem:
+       header: "Thank you for your effort!"
+       firstp: Dear
+       secondp:
+          fpart: a moment ago you were deleted for this vacanacy
+          spart: "We thank you for your commitment!"
+       thirdp:
+          fpart: "Yours sincerely,"
+          spart: "Roeselare Vrijwilligt"
+ranCan:
+      header: "A candidate backed off!"
+      firstp: Dear admin for
+      secondp:
+          fpart: a moment ago
+          spart: " withdrew his candidacy on Roeselare Vrijwilligt for this position "
+          tpart: "."
+reg:
+      header: "Welcome to Roeselare Vrijwilligt!"
+      firstp: Hello
+      secondp: " you have successfully registered on Roeselare Vrijwilligt. You are automatically logged in after registration. On a future visit, you can log in via this link:"
+remAdm:
+      header: Admin deleted
+      fristp: Dear admin for
+      secondp:
+          fpart: a moment ago
+          spart: was deleted as admin for
+remVol:
+      header: "Volunteer deleted!"
+      fristp: Dear admin for
+      secondp:
+          fpart: a moment ago
+          spart: was deleted as volunteer for this vacancy
+vacCre:
+      header: "New vacancy created!"
+      firstp: Dear
+      secondp:
+          fpart: as admin we wish there to bring you aware that there was a new job is created for
+          spart: ". It concerns the vacancy with title"
+

@@ -1,20 +1,21 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.html.twig" %}
 
 {% block body %}
-<h1>Digest mail vanwege Roeselare Vrijwilligt</h1>
+<h1>{{ "digest.header.title"|trans }}</h1>
 
-Beste beheerder,
+{{ "digest.paragrafs.firstp"|trans }}
 
-u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificaties voor deze {% if admin.digest == 2 %} dag {% elseif admin.digest == 3 %} week {% elseif admin.digest == 4 %} maand {% endif %}.
+    {{ "digest.paragrafs.secondp.first"|trans }}{% if admin.digest == 2 %} {{ "digest.paragrafs.secondp.day" | trans }} {% elseif admin.digest == 3 %} {{ "digest.paragrafs.secondp.week" |trans }} {% elseif admin.digest == 4 %} {{ "digest.paragrafs.secondp.month"|trans }}{% endif %}.
 
 {% if newCharge is not empty %}
-<h2>Vrijwilligers die uw organisatie als bemiddelingsorganisatie kozen</h2>
+<h2>{{ "newCharge.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>Voornaam</th>
-        <th>Achternaam</th>
-        <th>Gebruikersnaam</th>
-        <th>Link naar publiek profiel</th>
+        <th>{{ "newCharge.table.header.firstname"| trans }}</th>
+        <th>{{ "newCharge.table.header.lastname"|trans }}</th>
+        <th>{{ "newCharge.table.header.username" |trans }}</th>
+        <th>{{ "newCharge.table.header.link"|trans }}</th>
     </tr>
     {% for entry in newCharge %}
         <tr>
@@ -22,7 +23,7 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
             <td>{{ entry.charge.lastname }}</td>
             <td>{{ entry.charge.username }}</td>
             <td>
-                <a href="{{ url('person_username', {'username': entry.charge.username }) }}">Bekijk hier het publiek profiel</a>
+                <a href="{{ url('person_username', {'username': entry.charge.username }) }}">{{ "newCharge.table.data.profile"|trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -30,13 +31,13 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 {% endif %}
 
 {% if newVacancy is not empty %}
-<h2>Nieuw aangemaakte vacatures</h2>
+<h2>{{ "newVacancy.header.title"|trans }}</h2>
 <table>
     <tr>
-        <th>Titel</th>
-        <th>Begindatum</th>
-        <th>Einddatum</th>
-        <th>Link naar vacature</th>
+        <th>{{ "newVacancy.table.header.title"|trans }}</th>
+        <th>{{ "newVacancy.table.header.startdate" |trans }}</th>
+        <th>{{ "newVacancy.table.header.enddate" |trans }}</th>
+        <th>{{ "newVacancy.table.header.link" | trans }}</th>
     </tr>
     {% for entry in newVacancy %}
         <tr>
@@ -44,7 +45,7 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
             <td>{{ entry.vacancy.startdate|date("d/m/Y") }}</td>
             <td>{{ entry.vacancy.enddate|date("d/m/Y") }}</td>
             <td>
-                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Bekijk hier de vacature</a>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ "newVacancy.table.data.vacancy" |trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -52,14 +53,14 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 {% endif %}
 
 {% if newCandidate is not empty %}
-<h2>Nieuwe kandidaten</h2>
+<h2>{{ "newCandidate.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>Naam</th>
-        <th>Gebruikersnaam</th>
-        <th>Naam organisatie</th>
-        <th>Titel vacature</th>
-        <th>Beheerslink</th>
+        <th>{{ "newCandidate.table.header.name"|trans }}</th>
+        <th>{{ "newCandidate.table.header.username"|trans }}</th>
+        <th>{{ "newCandidate.table.header.organisation"|trans }}</th>
+        <th>{{ "newCandidate.table.header.title"|trans }}</th>
+        <th>{{ "newCandidate.table.header.link"|trans }}</th>
     </tr>
     {% for entry in newCandidate %}
         <tr>
@@ -70,7 +71,7 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
                 <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
             </td>
             <td>
-                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">Keur de kandidaat goed/af</a>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ "newCandidate.table.data.candidate"|trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -78,12 +79,12 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 {% endif %}
 
 {% if newAdmin is not empty %}
-<h2>Nieuwe beheerders</h2>
+<h2>{{ "newAdmin.header.title"|trans }}</h2>
 <table>
     <tr>
-        <th>Naam</th>
-        <th>Gebruikersnaam</th>
-        <th>Naam organisatie</th>
+        <th>{{ "newAdmin.table.header.name" |trans }}</th>
+        <th>{{ "newAdmin.table.header.username" |trans }}</th>
+        <th>{{ "newAdmin.table.header.organisation" |trans }}</th>
     </tr>
     {% for entry in newAdmin %}
         <tr>
@@ -96,13 +97,13 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 {% endif %}
 
 {% if approveCandidate is not empty %}
-<h2>Goedgekeurde kandidaten</h2>
+<h2>{{ "approveCandidate.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>Naam</th>
-        <th>Gebruikersnaam</th>
-        <th>Naam organisatie</th>
-        <th>Titel vacature</th>
+        <th>{{ "approveCandidate.table.name"|trans }}</th>
+        <th>{{ "approveCandidate.table.username"|trans  }}</th>
+        <th>{{  "approveCandidate.table.organisation"|trans }}</th>
+        <th>{{ "approveCandidate.table.vacancy"|trans  }}</th>
     </tr>
     {% for entry in approveCandidate %}
         <tr>
@@ -118,13 +119,13 @@ u koos er voor om uw notificaties via mail te krijgen.  Hier zijn de notificatie
 {% endif %}
 
 {% if removeCandidate is not empty %}
-<h2>Verwijderde vrijwilligers</h2>
+<h2>{{ "removeCandidate.header.title"|trans  }}</h2>
 <table>
     <tr>
-        <th>Naam</th>
-        <th>Gebruikersnaam</th>
-        <th>Naam organisatie</th>
-        <th>Titel vacature</th>
+        <th>{{ "removeCandidate.table.name"|trans  }}</th>
+        <th>{{ "removeCandidate.table.username"|trans  }}</th>
+        <th>{{ "removeCandidate.table.organistation"|trans  }}</th>
+        <th>{{ "removeCandidate.table.vacancy"|trans  }}</th>
     </tr>
     {% for entry in removeCandidate %}
         <tr>

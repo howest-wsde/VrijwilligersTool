@@ -1,10 +1,11 @@
+{% trans_default_domain "mail" %}
 {% extends "emailbase.txt.twig" %}
 
 {% block body %}
-Vrijwilliger afgekeurd!
+{{ "remVol.header"|trans }}
 
-Beste beheerder voor {{ org.name }},
+{{ "remVol.firstp"|trans }} {{ org.name }},
 
-zonet werd {{ candidate.firstname }} {{ candidate.lastname }} verwijderd als vrijwilliger voor de vacature {{ vacancy.title }}.
+{{ "remVol.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "remVol.secondp.spart"|trans }} {{ vacancy.title }}.
 
 {% endblock %}

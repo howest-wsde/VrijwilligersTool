@@ -13,10 +13,10 @@ var codeAddress = function() {
     var map = new google.maps.Map(mapcanvas[0], mapOptions);
     var marker;
     var address = $("#street").find("input").val() +" "+
-                  $("#number").find("input").val()+" "+
-                  $("#bus").find("input").val()+" "+
-                  $("#postalcode").find("input").val()+" "+
-                  $("#city").find("input").val();
+        $("#number").find("input").val()+" "+
+        $("#bus").find("input").val()+" "+
+        $("#postalcode").find("input").val()+" "+
+        $("#city").find("input").val();
 
     geocoder.geocode({'address': address}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -49,10 +49,11 @@ var codeAddress = function() {
         geocoder.geocode({'location': {lat: parseFloat(lat), lng: parseFloat(lng)} }, function(results, status) {
             if (status === 'OK') {
                 if (results[1]) {
-                    $("#edit_person_number").val(results[0].address_components[0].long_name);
-                    $("#edit_person_street").val(results[0].address_components[1].long_name);
-                    $("#edit_person_city").val(results[0].address_components[2].long_name);
-                    $("#edit_person_postalcode").val(results[0].address_components[6].long_name);
+
+                    $("[id*='number']").closest("input").val(results[0].address_components[0].long_name);
+                    $("[id*='street']").val(results[0].address_components[1].long_name);
+                    $("[id*='city']").val(results[0].address_components[2].long_name);
+                    $("[id*='postalcode']").val(results[0].address_components[6].long_name);
                 } else {
                     console.log('No results found');
                 }
@@ -65,7 +66,6 @@ var codeAddress = function() {
 
 
 $(document).ready(function(){
-
     geocoder = new google.maps.Geocoder();
     codeAddress();
     $("#address").on('change',function(){codeAddress();});
