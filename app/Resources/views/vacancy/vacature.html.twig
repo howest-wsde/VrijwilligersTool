@@ -181,6 +181,8 @@
 				{% if vacancy.published != 4 %}
 					<a class="cta rood" href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a>
 				{% endif %}
+
+				<a class="cta blauw" href="{{ path("send_testimonial_to_volunteers", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.testimonial"|trans }}</a>
 			</section>
 		{% endif %}
 
