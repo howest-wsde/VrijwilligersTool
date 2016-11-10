@@ -361,6 +361,15 @@ class PersonController extends UtilityController
                 $organisationName = $digest->getOrganisation()->getName();
                 $translation = 'person.events.savedorganisation';
                 break;
+            case DigestEntry::NEWTESTIMONIALTOPERSON:
+                $personName = $digest->getCandidate()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $translation = 'person.events.newtestimonialtoperson';
+                break;
+            case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $translation = 'person.events.newtestimonialtovacancy';
+                break;
         }
 
         $replaceBy = [$personName, $vacancyTitle, $organisationName];
@@ -414,11 +423,38 @@ class PersonController extends UtilityController
                 case DigestEntry::SAVEDORGANISATION:
                     $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId()));
                     break;
+                case DigestEntry::NEWTESTIMONIALTOPERSON:
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId())) . "#testimonialsToApprove";
+                    break;
+                case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                    $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId())) . "#tstimonialTab";
+                    break;
             }
 
             return $this->redirect($actionLink);
         } else {
             return $this->redirectToRoute('homepage');
         }
+    }
+
+    /**
+     * Create a list of all testimonials
+     * @param person $user a user
+     */
+    public function listTestimonialsAction($user)
+    {
+        $testimonials = [];
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $testimonials  = $qb->select(array('t'))
+        ->from('AppBundle:Testimonial', 't')
+            ->where($qb->expr()->andX($qb->expr()->eq('t.receiverPerson', $user->getId())))
+            ->add('orderBy', 't.id DESC')
+            ->getQuery()->getResult();
+
+
+        return $this->render("person/persoon_getuigschriften.html.twig", [
+            "testimonials" => $testimonials
+        ]);
     }
 }
