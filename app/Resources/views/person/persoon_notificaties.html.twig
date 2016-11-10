@@ -4,11 +4,11 @@
     <section class="part">
         <div class="container tabblad spacing">
             <ul class="nav nav-tabs">
-                <li class="blauw active"><a href="#notificaties" id="notificatiesTab" data-toggle="tab">{{  notifications|length }} {{ "person.dash.notifications.notifications"|trans }}</a></li>
+                <li class="blauw active"><a href="#notifications" id="notificationsTab" data-toggle="tab">{{  notifications|length }} {{ "person.dash.notifications.notifications"|trans }}</a></li>
             </ul>
 
             <div class="tab-content clearfix blok special">
-                <div class="tab-pane active" id="notificaties">
+                <div class="tab-pane active" id="notifications">
                     <div class="blokken">
                         {% for notification in notifications %}
                             <div class="blok cta">
@@ -25,12 +25,12 @@
         </div>
 
         <script>
-            var interval = setInterval(function() {
+            var intervalNotifications = setInterval(function() {
                 if (typeof $ == 'undefined') return;
-                clearInterval(interval);
-                $("#notificatiesTab").css({"cursor" : "pointer" , "cursor" : "hand"});
-                $("#notificatiesTab").on("click", function(){
-                    $("#notificaties").toggle();
+                clearInterval(intervalNotifications);
+                $("#notificationsTab").css("cursor", "pointer");
+                $("#notificationsTab").unbind().on("click", function(){
+                    $("#notifications").toggle();
                 })
             }, 10);
         </script>
