@@ -690,6 +690,7 @@ class VacancyController extends UtilityController
                     'user' => $user,
                     'vacancy' => $vacancy,
                     'org' => $vacancy->getOrganisation(),
+                    'candidate' => $user
                 ),
                 'event' => DigestEntry::NEWTESTIMONIALTOVACANCY ,
             );
