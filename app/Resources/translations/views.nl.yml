@@ -242,6 +242,8 @@ person:
             see: Bekijk
         testimonials:
             testimonials: Getuigschrift(en)
+            from: Van
+            vacancy: Vacature
     rules:
         name: Vrijwilliger vinden
     search:

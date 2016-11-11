@@ -232,6 +232,8 @@ person:
             see: See
         testimonials:
             testimonials: Testimonial(s)
+            from: From
+            vacancy: Vacancy
     rules:
         name: Find volunteers
     search:
