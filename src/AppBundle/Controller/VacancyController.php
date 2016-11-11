@@ -709,4 +709,76 @@ class VacancyController extends UtilityController
                 "urlid" => $urlid,
                 "receiverType" => $receiverType));
     }
+
+    /**
+     * Create a list of all testimonials
+     * @param person $user a user
+     */
+    public function listTestimonialsAction($vacancy)
+    {
+        $testimonials = [];
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select(array('t'))
+            ->from('AppBundle:Testimonial', 't')
+            ->where('t.receiverVacancy = :vacancy')
+            ->setParameter('vacancy', $vacancy->getId())
+            ->andWhere('t.approved = 1')
+            ->add('orderBy', 't.id DESC');;
+
+        $approvedTestimonials = $qb->getQuery()->getResult();
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select(array('t'))
+            ->from('AppBundle:Testimonial', 't')
+            ->where('t.receiverVacancy = :vacancy')
+            ->setParameter('vacancy', $vacancy->getId())
+            ->andWhere('t.approved = 0')
+            ->add('orderBy', 't.id DESC');;
+
+        $pendingTestimonials = $qb->getQuery()->getResult();
+
+        return $this->render("vacancy/vacature_getuigschriften.html.twig", [
+            "approvedTestimonials" => $approvedTestimonials,
+            "pendingTestimonials" => $pendingTestimonials,
+            "vacancy" => $vacancy
+        ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{action}/{testimonialid}", name="vacancy_handle_testimonial"))
+     */
+    public function handleTestimonialAction($urlid, $action, $testimonialid)
+    {
+        $t = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($vacancy->getOrganisation()->getUrlId());
+
+        if(!$user->getOrganisations()->contains($organisation)){
+            return $this->redirectToRoute('homepage');
+        }
+
+        $testimonial = $em->getRepository("AppBundle:Testimonial")
+            ->findOneById($testimonialid);
+        if ($action == "approve") {
+            $testimonial->setApproved(true);
+            $this->addFlash('approve_message', $t->trans('testimonial.flash.approved') );
+        }
+        elseif ($action == "remove") {
+            $em->remove($testimonial);
+            $this->addFlash('approve_message', $t->trans('testimonial.flash.removed') );
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl("vacancy_by_urlid",
+            ["urlid" => $vacancy->getUrlId() ] ));
+    }
 }

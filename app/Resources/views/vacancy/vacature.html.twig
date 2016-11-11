@@ -189,7 +189,12 @@
 			</section>
 		{% endif %}
 
-	</div>
+        {# --------------------------- TESTIMONIALS  ------------------------------------- #}
+
+        {{ render(controller("AppBundle:Vacancy:listTestimonials", { "vacancy": vacancy} )) }}
+
+
+    </div>
 {% endif %}
 {% endblock %}
 
