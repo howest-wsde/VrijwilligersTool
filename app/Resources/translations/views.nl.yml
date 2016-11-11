@@ -414,3 +414,10 @@ testimonial:
         title: Getuigschrift maken
     form:
         title: Getuigschrift maken
+    tab:
+        from: Van
+        title: Getuigschrift(en)
+        pendingtitle: Getuigschrift(en) in behandeling
+    button:
+        approve: Goedkeuren
+        remove: Verwijderen

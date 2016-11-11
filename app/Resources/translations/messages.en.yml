@@ -102,3 +102,6 @@ org:
 testimonial:
     mail:
         create: New testimonial received
+    flash:
+        approved: The testimonial has been approved and is now visible for everyone
+        removed: The testimonial has been disapproved and removed

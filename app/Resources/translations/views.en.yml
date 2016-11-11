@@ -372,3 +372,10 @@ testimonial:
         title: Creating a testimonial
     form:
         title: Creating a testimonial
+    tab:
+        from: From
+        title: Testimonial(s)
+        pendingtitle: Pending testimonial(s)
+    button:
+        approve: Approve
+        remove: Remove

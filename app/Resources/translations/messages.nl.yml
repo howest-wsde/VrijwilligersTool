@@ -105,4 +105,7 @@ org:
         here: op deze site
 testimonial:
     mail:
-        create: New testimonial received
+        create: Nieuw getuigschrift ontvangen
+    flash:
+        approved: Het getuigschrift is goedgekeurd en is nu voor iedereen zichtbaar
+        removed: Het getuigschrift is afgekeurd en verwijderd
