@@ -472,7 +472,7 @@ class PersonController extends UtilityController
         }
 
         if($vacancy) {
-            $qb->where('dE.vacancy = :vacancy')
+            $qb->where('t.receiverVacancy = :vacancy')
                 ->setParameter('vacancy', $vacancy->getId());
         }
 
