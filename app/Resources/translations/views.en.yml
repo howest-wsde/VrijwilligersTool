@@ -105,6 +105,8 @@ def: #default
         google: Log in with your google account
         fb: Log in via facebook
         none: No account yet?
+        noneinfo: You don't have an account?
+        nonelink: Create one here.
         create: Create an account
     info:
         more: read more
