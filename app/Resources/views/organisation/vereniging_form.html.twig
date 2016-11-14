@@ -34,7 +34,7 @@
             {% if organisation and source=="create_organisation" %}
                 <p>
                     {{ "org.form.created"|trans }}<br />
-                    {{ "org.form.extra"|trans }} <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">{{ "org.form.general"|trans }}</a>.
+                    {{ "org.form.extra"|trans }} <a href="{{ path('create_vacancy_for_organisation', { 'organisation_urlid': organisation.urlId }) }}">{{ "org.form.place"|trans }}</a>.
                 </p>
             {% endif %}
             <div class="row">
@@ -112,6 +112,10 @@
             {{ form_row(form.submitAdmins) }}
 
 
+        </div>
+    {% else %}
+        <div style="display: none; ">
+            {{ form_row(form.submitAdmins) }}
         </div>
     {% endif %}
 {{ form_end(form) }}

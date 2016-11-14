@@ -525,7 +525,8 @@ h3 {.grijzetitel(); }
 		&.blauw {.schaduwblok(@cBlauw, 2px); }
 		&.paars {.schaduwblok(@cPaars, 2px); }
 		a {
-			color: white;
+			color: white; display: block;
+			background: url("../images/down.png") no-repeat right center;
 			&:hover {text-decoration: none; }
 		}
 	}
@@ -536,6 +537,7 @@ h3 {.grijzetitel(); }
 		legend {color: @cTXTgrijs; border: 0; font-weight:  bold; margin-bottom: 10px; }
 		input, textarea, select {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white;  }
 		.inputlike {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white; }
+		textarea {height: 150px; }
 		label {font-weight: normal; }
 		.lbl label {
 			color: @cTXTgrijs; text-transform: uppercase;
@@ -573,6 +575,7 @@ h3 {.grijzetitel(); }
 			.flex-display(flex);  .flex-flow(row wrap) ; .justify-content(flex-start);
 			div.option {.flex(0 1 270px); }
 		}
+		.frm_vacancy_renumeration .vals input {margin-left: 10px; }
 	}
 	#person_skills, #edit_person_skills, #organisation_sectors, #vacancy_skills {
 		.flex-display(flex); .flex-flow(row wrap);
