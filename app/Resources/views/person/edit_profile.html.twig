@@ -46,12 +46,12 @@
                         <div class="col-md-4">
                             {{ form_row (form.contactOrganisation) }}
                         </div>
-                        <div class="col-md-6">
-                            <button type="button">
-                                <a href="{{ path('change_password') }}">Wachtwoord veranderen</a>
-                            </button>
-                        </div>
 
+                        <div class="col-md-6">
+                            <div class="lbl"><label>Wachtwoord</label></div>
+                            <div class="vals"><a href="{{ path('change_password') }}" class="inputlike">Wachtwoord veranderen</a></div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div id="address" class="col-md-7">
                             <div class="col-md-12">
