@@ -72,8 +72,8 @@
 					{% endif %}
 				</li>
 
-				{% if organisation.telephone %}<li class="phone">{{ organisation.telephone }}</li>{% endif %}
-				{% if organisation.email %}<li class="mail">{{ organisation.email }}</li>{% endif %}
+				{% if organisation.telephone %}<li class="phone"><a href="tel:{{ organisation.telephone }}">{{ organisation.telephone }}</a></li>{% endif %}
+				{% if organisation.email %}<li class="mail"><a href="mailto:{{ organisation.email }}">{{ organisation.email }}</a></li>{% endif %}
 			</ul>
 			{% if organisation.street and organisation.number and (organisation.postalcode or organisation.city) %}
 				{% embed "snippets/googlemaps.html.twig" with {"street": organisation.street, "number": organisation.number, "postalcode": organisation.postalcode, "city": organisation.city} %}{% endembed %}

@@ -104,6 +104,8 @@ def: #default
         google: Inloggen via je Google-account
         fb: Inloggen via Facebook
         none: Nog geen login?
+        noneinfo: Heb je nog geen account?
+        nonelink: Maak er dan hier één aan.
         create: Maak een account
     info:
         more: lees meer
@@ -182,7 +184,7 @@ org:
         contact: Contactgegevens
         created: Uw organisatie werd succesvol aangemaakt!
         extra: 'Vul nu hieronder extra informatie in, of'
-        place: Plaats een vacature
+        place: plaats een vacature
         sectoral: Sectorale info
         active: In welke sectoren is deze vereniging actief?
         admin: Functie's voor beheerders

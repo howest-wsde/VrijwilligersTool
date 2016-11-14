@@ -104,8 +104,10 @@
 			            </div>
 			            <div class="col-md-12">
 							{{ form_row (form.linkedinUrl) }}
-							{{ form_row (form.submit2) }}
-							{{ form_row (form.backToRegistration) }}
+							<div class="submits">
+								{{ form_row (form.submit2) }}
+								{{ form_row (form.backToRegistration) }}
+							</div>
 						</div>
 					</fieldset>
 				</div>
@@ -137,7 +139,7 @@
 	                        {{ form_row(form.socialInteraction) }}
 	                    </div>
 	                </fieldset>
-					<fieldset>
+					<fieldset class="submits">
 						{{ form_row (form.submit3) }}
 						{{ form_row (form.backToGeneral) }}
 					</fieldset>
@@ -152,12 +154,11 @@
 		<h2 class="steptitle geel"><a href="#interessantevacatures" name="interessantevacatures">{{ "person.become.interesting"|trans }}</a></h2>
 		<div id="interessant" class="step grijs geel">
 			<p>
-				{{ "person.become.goodvol"|trans }} <a href="#zoekVacatures">{{ "person.become.search"|trans }}</a> {{ "person.become.but"|trans }}
-				<a href="{{ path("test_type") }}">
-					<h3>{{ "person.become.dotest"|trans }}</h3>
-					{{ "person.become.learn"|trans }}
+				{{ "person.become.goodvol"|trans }} <a href="#zoekVacatures">{{ "person.become.search"|trans }}</a> {{ "person.become.but"|trans }}</p>
+			<div class="doetest"><a href="{{ path("test_type") }}" class="geel cta">
+					{{ "person.become.dotest"|trans }}
 				</a>
-			</p>
+			</div>
 		</div>
 
 		<h2 class="steptitle blauw"><a href="#spelregels" name="spelregels">{{ "person.become.rules"|trans }}</a></h2>
@@ -180,7 +181,9 @@
 			</ul>
 
 			{# Search block #}
-		    {% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}
+			<div id="handenuitmouwen">
+		    	{% embed "search/basic_search.html.twig" with { 'withHistory': false, 'withTitle': false } %}{% endembed %}
+		    </div>
 		</div>
 
 		{# Vacature/organisatieblock #}
@@ -193,10 +196,6 @@
 			</div>
 		{% endif %}
 
-		<h2 class="steptitle paars"><a href="#kandidaatstellen" name="kandidaatstellen">{{ "person.become.candidate"|trans }}</a></h2>
-		<div id="zoekVacatures" class="step grijs paars">
-			<p>{{ "person.become.candidateexplanation"|trans }}</p>
-		</div>
 	</section>
 {% endblock %}
 

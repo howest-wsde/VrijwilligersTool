@@ -8,6 +8,7 @@ use libphonenumber\PhoneNumberUtil as phoneUtil;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\Criteria;
+use AppBundle\Entity\Vacancy;
 
 /**
  * Organisation
@@ -944,6 +945,20 @@ class Organisation extends EntityBase
     public function getVacancies()
     {
         return $this->vacancies;
+    }
+
+    /**
+     * Get openvacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOpenvacancies()
+    {
+        return $this->vacancies->filter(
+            function($entry) {
+                return $entry->getPublished()==Vacancy::OPEN;
+            }
+        );
     }
 
     public function normaliseUrlId($em)

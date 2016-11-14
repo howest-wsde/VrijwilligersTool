@@ -86,9 +86,9 @@ organisation:
         telephone: Telefoonnummer
         logo: Logo
         create: Maak organisatie aan
-        backToRegistration: Terug naar registratie
+        backToRegistration: Terug naar de vorige stap
         submitContact: Contactinformatie indienen
-        backToContact: Terug naar contactgegevens
+        backToContact: Terug naar de vorige stap
         type: Type vereniging
         intermediary: Bemiddelingsorganisatie
         website: Website
@@ -158,8 +158,8 @@ person:
         next: Volgende
         skills: Interesses / Capaciteiten
         finish: Indienen
-        backToRegistration: Terug naar registratie
-        backToGeneral: Terug naar algemene gegevens
+        backToRegistration: Terug naar de vorige stap
+        backToGeneral: Terug naar de vorige stap
         mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
         accessible: Bent u mindermobiel?
         renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?

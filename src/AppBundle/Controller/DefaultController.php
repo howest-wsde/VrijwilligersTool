@@ -56,13 +56,13 @@ class DefaultController extends Controller
     /**
      * @Route("/locaties.html", name="googlemap")
      */
-    public function googlemaptestAction(Request $request)
+    public function googlemapAction(Request $request)
     {
 
         $locations = array();
         $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
-            ->findBy(array(), array('id' => 'DESC'), 30);
+            ->findBy(array("deleted"=>0), array('id' => 'DESC'), 30);
         foreach ($organisations as $organisation) {
             if ($organisation->getLatitude()) {
                 $locations[] = array(
@@ -77,7 +77,7 @@ class DefaultController extends Controller
 
         $vacancies = $this->getDoctrine()
             ->getRepository("AppBundle:Vacancy")
-            ->findBy(array(), array('id' => 'DESC'), 30);
+            ->findBy(array("published"=>Vacancy::OPEN), array('id' => 'DESC'), 30);
         foreach ($vacancies as $vacancy) {
             if ($vacancy->getLatitude()) {
                 $locations[] = array(
