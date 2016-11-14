@@ -34,7 +34,7 @@ class SuperadminController extends Controller
 
         $organisations = ($organisationcount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
-            ->findBy(array(), array('id' => 'DESC'), $organisationcount):Array();
+            ->findBy(array("deleted"=>0), array('id' => 'DESC'), $organisationcount):Array();
 
         $vacancies = ($vacancycount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Vacancy")

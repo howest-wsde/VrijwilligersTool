@@ -141,7 +141,7 @@ class SecurityController extends UtilityController
     public function statusAction(){
         $em = $this->getDoctrine()->getManager();
         $userId = $this->get('security.token_storage')->getToken()->getUser()->getId();
-        $myOrganisations = $em->getRepository("AppBundle:Organisation")->findBy(array('creator' => $userId));
+        $myOrganisations = $em->getRepository("AppBundle:Organisation")->findBy(array('creator' => $userId, "deleted"=>0));
 
         return $this->render("security/loginstatus.html.twig", array('myOrganisations' => $myOrganisations));
     }
