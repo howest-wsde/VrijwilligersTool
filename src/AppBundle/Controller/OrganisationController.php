@@ -205,7 +205,7 @@ class OrganisationController extends UtilityController
 
         $em = $this->getDoctrine()->getManager();
         $organisations = $em->getRepository("AppBundle:Organisation")
-            ->findAll();
+            ->findBy(array("deleted"=>0));
 
         return $this->render("organisation/verenigingen.html.twig",
             [
@@ -359,7 +359,7 @@ class OrganisationController extends UtilityController
     {
         $organisations = $this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
-            ->findBy(array(), array('id' => 'DESC'), $nr);
+            ->findBy(array("deleted"=>0), array('id' => 'DESC'), $nr);
         return $this->render('organisation/verenigingen_oplijsten.html.twig',
             ['organisations' => $organisations, 'viewMode' => $viewMode]);
     }

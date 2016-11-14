@@ -10,6 +10,7 @@ namespace AppBundle\Entity\Form;
 
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ResetPasswordType
 {

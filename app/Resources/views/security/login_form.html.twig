@@ -22,6 +22,7 @@
                 {% if path %}
                     <input type="hidden" name="_target_path" value="{{ path }}" />
                 {% endif %}
+                <div style="height: 82px; "></div>
                 <button type="submit">{{ "def.index.login"|trans({}, "views") }}</button>
                 <a href="{{ path('request_recover') }}">Paswoord vergeten?</a>
             </fieldset>
@@ -36,16 +37,26 @@
                 <a href="{{ path("oauth_facebook") }}" class="fblogin">{{ "def.index.fb"|trans({}, "views") }}</a>
             </fieldset>
         </div>
+
+        <h2 class="steptitle rood">{{ "def.index.none"|trans({}, "views") }}</h2>
+        <div class="step actief grijs rood">
+            <p>{{ "def.index.noneinfo"|trans({}, "views") }} <a href="{{ path("register_user") }}">{{ "def.index.nonelink"|trans({}, "views") }}</a></p>
+            <p><br /><a href="{{ path("register_user") }}" class="cta">{{ "def.index.create"|trans({}, "views") }}</a></p>
+        </div>
     </div>
 
     <div class="col-md-12">
+
+    </div>
+
+    {#
         <h2 class="steptitle rood">{{ "def.index.none"|trans({}, "views") }}</h2>
         <div class="step actief grijs">
             <fieldset>
                 <p><a href="{{ path("register_user") }}" class="cta">{{ "def.index.create"|trans({}, "views") }}</a></p>
             </fieldset>
         </div>
-    </div>
+        #}
 </form>
 
 <script type="in/Login"></script>

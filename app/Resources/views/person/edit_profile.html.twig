@@ -33,20 +33,24 @@
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div class="col-md-12">
-                        <h3>{{ "person.become.min"|trans }}</h3>
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_row (form.email) }}
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_row (form.telephone) }}
-                    </div>
-                    <div class="col-md-4">
-                        {{ form_row (form.contactOrganisation) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ form_row (form.plainPassword) }}
+                    <div>
+                        <div class="col-md-12">
+                            <h3>{{ "person.become.min"|trans }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row (form.email) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row (form.telephone) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form_row (form.contactOrganisation) }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="lbl"><label>Wachtwoord</label></div>
+                            <div class="vals"><a href="{{ path('change_password') }}" class="inputlike">Wachtwoord veranderen</a></div>
+                        </div>
                     </div>
                     <div class="row">
                         <div id="address" class="col-md-7">
@@ -114,7 +118,7 @@
                 </fieldset>
             </div>
             {{ form_row(form._token) }}
-        {{ form_end(form) }}
+        {{ form_end(form, {'render_rest': false}) }}
     </section>
 {% endblock %}
 

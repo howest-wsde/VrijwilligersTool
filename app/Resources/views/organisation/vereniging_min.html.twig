@@ -37,7 +37,7 @@
             {{ render(controller("AppBundle:Organisation:listOrganisationVolunteers", { "id": organisation.id } )) }}
         </li>
         <li class="number">
-            {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ "org.min.1open"|trans }}</a> {% else %}<a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ organisation.vacancies|length }}  {{ "org.min.open"|trans }}</a>{% endif %}
+            {% if organisation.vacancies|length == 0 %} {{ "org.min.noopen"|trans }} {% elseif organisation.vacancies|length == 1 %} <a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ "org.min.1open"|trans }}</a> {% else %}<a href="{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}#vacatures">{{ organisation.openvacancies|length }}  {{ "org.min.open"|trans }}</a>{% endif %}
         </li>
         {% if include is defined %}
             {% if "website" in include|keys and organisation.website %}
