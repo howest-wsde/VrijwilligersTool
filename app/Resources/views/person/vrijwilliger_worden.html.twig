@@ -104,8 +104,10 @@
 			            </div>
 			            <div class="col-md-12">
 							{{ form_row (form.linkedinUrl) }}
-							{{ form_row (form.submit2) }}
-							{{ form_row (form.backToRegistration) }}
+							<div class="submits">
+								{{ form_row (form.submit2) }}
+								{{ form_row (form.backToRegistration) }}
+							</div>
 						</div>
 					</fieldset>
 				</div>
@@ -137,7 +139,7 @@
 	                        {{ form_row(form.socialInteraction) }}
 	                    </div>
 	                </fieldset>
-					<fieldset>
+					<fieldset class="submits">
 						{{ form_row (form.submit3) }}
 						{{ form_row (form.backToGeneral) }}
 					</fieldset>
