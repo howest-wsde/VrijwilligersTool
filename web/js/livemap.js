@@ -66,7 +66,12 @@ var codeAddress = function() {
 
 
 $(document).ready(function(){
-    geocoder = new google.maps.Geocoder();
-    codeAddress();
-    $("#address").on('change',function(){codeAddress();});
+    if($("#map-preview").length) {//check if map exists
+        geocoder = new google.maps.Geocoder();
+        codeAddress();
+        $("#address").on('change', function () {
+            codeAddress();
+        });
+    }
+    else console.log("No map was found on this page");
 });
