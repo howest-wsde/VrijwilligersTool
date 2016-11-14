@@ -44,7 +44,7 @@ class SearchController extends Controller
         $ESquery = $this->get("ElasticsearchQuery");
         $returnArray = $this->getTypes($form);
         $types = $returnArray['types'];
-        $query = $this->assembleQuery($form, $returnArray['must_not']);
+        $query = $this->assembleQuery($form, $returnArray);
 
         return $ESquery->searchByType($types, $query, $searchTerm, false, $from, $to);
     }
@@ -209,6 +209,7 @@ class SearchController extends Controller
     private function getTypes($form){
         $types = [];
         $must_not = [];
+        $must = [];
 
         //get types to search for
         $person = $form->get('person')->getData(); //bool
@@ -230,12 +231,14 @@ class SearchController extends Controller
             if($vacancy){
               $types[] = 'vacancy';
               $must_not[] = [ 'term' => [ 'organisation.deleted' => true ]];
+              $must[] = [ 'term' => [ 'published' => 1]];
             }
         }
 
         return [
           'types' => $types,
-          'must_not' => (!empty($must_not) ? $must_not : [])
+          'must_not' => $must_not,
+          'must' => $must,
         ];
     }
 
@@ -244,7 +247,7 @@ class SearchController extends Controller
      * @param  \Symfony\Component\Form\Form     $form   the search form as posted by the user
      * @return array            a valid ES query in php format
      */
-    private function assembleQuery($form, $must_not){
+    private function assembleQuery($form, $returnArray){
         $categories = $form->get('categories')->getData(); //array
         $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
@@ -254,7 +257,8 @@ class SearchController extends Controller
         $distance = $form->get('distance')->getData(); //int
         $sort = $form->get('sort')->getData(); //string
         $should = [];
-        $must = [];
+        $must_not = $returnArray['must_not'];
+        $must = $returnArray['must'];
         $range = [];
         $exists = [];
 
