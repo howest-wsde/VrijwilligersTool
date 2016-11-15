@@ -26,7 +26,7 @@ digest:
               title: Volunteers who chose your organization as intermediary organization
           table:
               header:
-                  firstname: Fristname
+                  firstname: Firstname
                   lastname: Lastname
                   username: Username
                   link: Link to public profile
@@ -145,13 +145,13 @@ reg:
       secondp: " you have successfully registered on Roeselare Vrijwilligt. You are automatically logged in after registration. On a future visit, you can log in via this link:"
 remAdm:
       header: Admin deleted
-      fristp: Dear admin for
+      firstp: Dear admin for
       secondp:
           fpart: a moment ago
           spart: was deleted as admin for
 remVol:
       header: "Volunteer deleted!"
-      fristp: Dear admin for
+      firstp: Dear admin for
       secondp:
           fpart: a moment ago
           spart: was deleted as volunteer for this vacancy
