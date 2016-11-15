@@ -145,7 +145,7 @@ reg:
       secondp: " u bent succesvol geregistreerd bij Roeselare Vrijwilligt.  U bent automatisch ingelogd na registratie.  Bij een toekomstig bezoek kan u inloggen via deze link:"
 remAdm:
       header: Beheerder verwijderd
-      fristp: Beste beheerder voor
+      firstp: Beste beheerder voor
       secondp:
           fpart: zonet werd
           spart: verwijderd als beheerder voor
