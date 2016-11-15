@@ -44,8 +44,9 @@ class SearchController extends Controller
      */
     private function searchByType($form, $searchTerm, $from = 0, $to = 100){
         $ESquery = $this->get("ElasticsearchQuery");
-        $types = $this->getTypes($form);
-        $query = $this->assembleQuery($form);
+        $returnArray = $this->getTypes($form);
+        $types = $returnArray['types'];
+        $query = $this->assembleQuery($form, $returnArray);
 
         return $ESquery->searchByType($types, $query, $searchTerm, false, $from, $to);
     }
@@ -62,10 +63,28 @@ class SearchController extends Controller
         $form->handleRequest(Request::createFromGlobals());
 
         $query = '{
-            "query": {
-                "term": { "skills.name": "' . $cat . '" }
-            }
-        }';
+                "filter": {
+                "bool": {
+                    "must_not": [
+                       {
+                           "term": {
+                              "deleted": true
+                           }
+                       },
+                       {
+                           "term": {
+                              "organisation.deleted": true
+                           }
+                       }
+                    ],
+                    "must": [
+                        {
+                            "term": { "skills.name": ' . $cat . ' }
+                        }
+                    ]
+                }
+             }
+         }';
 
         return $this->render("search/zoekpagina.html.twig", array(
             "form" => $form->createView(),
@@ -200,6 +219,8 @@ class SearchController extends Controller
      */
     private function getTypes($form){
         $types = [];
+        $must_not = [];
+        $must = [];
 
         //get types to search for
         $person = $form->get('person')->getData(); //bool
@@ -208,13 +229,28 @@ class SearchController extends Controller
 
         if(($person && $org && $vacancy) || (!$person && !$org && !$vacancy)){ //search for all as user either selected all or none
             $types = ["person", "vacancy", "organisation"];
+            $must_not[] = [ 'term' => [ 'deleted' => true ]];
+            $must_not[] = [ 'term' => [ 'organisation.deleted' => true ]];
         } else {
             $person ? $types[] = 'person' : false;
-            $org ? $types[] = 'organisation' : false;
-            $vacancy ? $types[] = 'vacancy' : false;
+
+            if($org){
+              $types[] = 'organisation';
+              $must_not[] = [ 'term' => [ 'deleted' => true ]];
+            }
+
+            if($vacancy){
+              $types[] = 'vacancy';
+              $must_not[] = [ 'term' => [ 'organisation.deleted' => true ]];
+              $must[] = [ 'term' => [ 'published' => 1]];
+            }
         }
 
-        return $types;
+        return [
+          'types' => $types,
+          'must_not' => $must_not,
+          'must' => $must,
+        ];
     }
 
     /**
@@ -222,7 +258,7 @@ class SearchController extends Controller
      * @param  \Symfony\Component\Form\Form     $form   the search form as posted by the user
      * @return array            a valid ES query in php format
      */
-    private function assembleQuery($form){
+    private function assembleQuery($form, $returnArray){
         $categories = $form->get('categories')->getData(); //array
         $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
@@ -232,8 +268,8 @@ class SearchController extends Controller
         $distance = $form->get('distance')->getData(); //int
         $sort = $form->get('sort')->getData(); //string
         $should = [];
-        $must = [];
-        $must_not = [];
+        $must_not = $returnArray['must_not'];
+        $must = $returnArray['must'];
         $range = [];
         $exists = [];
 
