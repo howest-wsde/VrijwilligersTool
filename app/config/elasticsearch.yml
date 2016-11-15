@@ -39,7 +39,7 @@ fos_elastica:
                             properties:
                                 id: { type: integer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 type: { type: string, index: not_analyzed }
                                 intermediary: { type: boolean }
                                 deleted: { type: boolean }
@@ -59,7 +59,7 @@ fos_elastica:
                             properties:
                                 id: { type: integer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 type: { type: string, index: not_analyzed }
                                 intermediary: { type: boolean }
                                 deleted: { type: boolean }
@@ -79,7 +79,7 @@ fos_elastica:
                             properties:
                                 id: { type: integer }
                                 entity: { type: string, property_path: esGetNoMap, index: no }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 type: { type: string, index: not_analyzed }
                                 intermediary: { type: boolean }
                                 deleted: { type: boolean }
@@ -123,13 +123,13 @@ fos_elastica:
                             type: object
                             properties:
                                 id: { type: integer }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
                                 parent:
                                     type: object
                                     properties:
                                         id: { type: integer }
-                                        name: { type: string, index: not_analyzed }
+                                        name: { type: string, analyzer: nl_analyzer }
                                         entity: { type: string, property_path: esGetEntityName, index: no }
                     persistence:
                         driver: orm
@@ -142,7 +142,7 @@ fos_elastica:
                 organisation:
                     mappings:
                         id: { type: integer }
-                        name: { type: string, index: not_analyzed }
+                        name: { type: string, analyzer: nl_analyzer }
                         type: { type: string, index: not_analyzed }
                         intermediary: { type: boolean }
                         deleted: { type: boolean }
@@ -199,12 +199,12 @@ fos_elastica:
                 skill:
                     mappings:
                         id: { type: integer }
-                        name: { type: string, index: not_analyzed }
+                        name: { type: string, analyzer: nl_analyzer }
                         parent:
                             type: object
                             properties:
                                 id: { type: integer }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
                     persistence:
                         driver: orm
@@ -243,7 +243,7 @@ fos_elastica:
                             properties:
                                 id: { type: integer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 type: { type: string, index: not_analyzed }
                                 intermediary: { type: boolean }
                                 deleted: { type: boolean }
@@ -279,13 +279,13 @@ fos_elastica:
                             type: object
                             properties:
                                 id: { type: integer }
-                                name: { type: string, index: not_analyzed }
+                                name: { type: string, analyzer: nl_analyzer }
                                 entity: { type: string, property_path: esGetEntityName, index: no }
                                 parent:
                                     type: object
                                     properties:
                                         id: { type: integer }
-                                        name: { type: string, index: not_analyzed }
+                                        name: { type: string, analyzer: nl_analyzer }
                                         entity: { type: string, property_path: esGetEntityName, index: no }
                     persistence:
                         driver: orm
