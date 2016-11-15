@@ -1,0 +1,51 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Websitebeheer{% endblock %}
+
+{% block body %}
+	<div class="tabblad tiles">
+        <ul class="nav nav-tabs">
+            <li class="geel active"><a href="{{ path("superadmin_users") }}">Gebruikers</a></li>
+            <li class="blauw"><a href="{{ path("superadmin_organisations") }}">Verenigingen</a></li>
+            <li class="rood"><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></li>
+        </ul>
+
+        <div class="tab-content clearfix blok grijs">
+
+		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+		        <div class="alert alert-success">
+		            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+		    {% for flashMessage in app.session.flashbag.get('error') %}
+		        <div class="alert alert-danger">
+		            {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+
+
+			{% if persons|length > 0 %}
+				<ol class="admin">
+					<li class="th"><ul>
+						<li>Voornaam</li>
+						<li>Familienaam</li>
+						<li>Gebruikersnaam</li>
+						<li>E-mail</li>
+						<li class="x"></li>
+					</ul></li>
+					{% for person in persons %}
+					    <li><ul>
+							<li>{{ person.firstname }}</li>
+							<li>{{ person.lastname }}</li>
+							<li>{{ person.username }}</li>
+							<li>{{ person.email }}</li>
+							<li class="x"><a class="edit" href="{{ path("superadmin_user", {"urlid": person.username }) }}">aanpassen</a></li>
+						</ul></li>
+					{% endfor %}
+				</ol>
+			{% endif %}
+
+        </div>
+	</div>
+{% endblock %}

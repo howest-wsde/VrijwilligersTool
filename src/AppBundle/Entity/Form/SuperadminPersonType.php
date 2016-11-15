@@ -81,7 +81,7 @@ class SuperadminPersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.number"),
                 'required' => false,
             ))
-            ->add("bus", NumberType::class, array(
+            ->add("bus", TextType::class, array(
                 "label" => "person.label.bus",
                 "attr" => array("placeholder" => "person.label.bus"),
                 "required" => false
@@ -186,6 +186,11 @@ class SuperadminPersonType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
+            ))
+            ->add("superadmin", CheckboxType::class, array(
+                "label" => 'Websitebeheerder',
+                'required' => false,
+                "attr" => array("info" => "Websitebeheerders kunnen ALLE verenigingen, vacatures en gebruikers aanpassen"),
             ))
             ->add("submit", SubmitType::class, array(
                 "label" => "person.label.finish",

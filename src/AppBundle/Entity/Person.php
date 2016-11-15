@@ -109,7 +109,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
 
     /**
      * @var string
-     * @Assert\NotBlank(message = "person.not_blank", groups = {"secondStep", "edit"})
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "organisation.max_message",
