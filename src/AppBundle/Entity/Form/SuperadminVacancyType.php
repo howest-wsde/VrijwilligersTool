@@ -28,6 +28,17 @@ class SuperadminVacancyType extends AbstractType
                 "label" => "vacancy.label.title",
                 "attr" => array("placeholder" => "vacancy.label.title"),
             ))
+            ->add('organisation', EntityType::class, array(
+                'label' => "Organisatie",
+                // query choices from this entity
+                'class' => 'AppBundle:Organisation',
+                // use the name property as the visible option string
+                'choice_label' => 'name',
+                // render as select box
+                'expanded' => false,
+                'multiple' => false,
+                'required' => true,
+            ))
             ->add("summary", TextareaType::class, array(
                 "label" => "vacancy.label.summary",
                 "attr" => array("placeholder" => "vacancy.label.summary"),

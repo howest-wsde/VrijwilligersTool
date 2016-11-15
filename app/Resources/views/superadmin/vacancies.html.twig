@@ -1,0 +1,44 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Websitebeheer{% endblock %}
+
+{% block body %}
+	<div class="tabblad tiles">
+        <ul class="nav nav-tabs">
+            <li class="geel"><a href="{{ path("superadmin_users") }}">Gebruikers</a></li>
+            <li class="blauw"><a href="{{ path("superadmin_organisations") }}">Verenigingen</a></li>
+            <li class="rood active"><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></li>
+        </ul>
+
+        <div class="tab-content clearfix blok grijs">
+
+		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
+		        <div class="alert alert-success">
+		            <strong>{{ "general.flash.success"|trans }}</strong> {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+		    {% for flashMessage in app.session.flashbag.get('error') %}
+		        <div class="alert alert-danger">
+		            {{ flashMessage }}
+		        </div>
+		    {% endfor %}
+
+
+			{% if vacancies|length > 0 %}
+				<ol class="admin">
+					{% for vacancy in vacancies %}
+					    <li><ul>
+							<li>{{ vacancy.title }}</li>
+							<li>{{ vacancy.organisation.name }}</li>
+							<li class="p2">{{ vacancy.startdate|date("d-m-Y") }}</li>
+							<li class="p2">{{ vacancy.enddate|date("d-m-Y") }}</li>
+							<li class="x"><a class="edit" href="{{ path("superadmin_vacancy", {"urlid": vacancy.urlid }) }}">aanpassen</a></li>
+						</ul></li>
+					{% endfor %}
+				</ol>
+			{% endif %}
+
+        </div>
+	</div>
+{% endblock %}
