@@ -102,23 +102,10 @@ class SuperadminOrganisationType extends AbstractType
                 "attr" => array("placeholder" => "organisation.placeholder.website"),
                 "required" => false,
             ))
-            ->add('sectors', EntityType::class, array(
-                "label" => "organisation.label.fieldOfActivity",
-                "placeholder" => false,
-                // query choices from this entity
-                'class' => 'AppBundle:Skill',
-                //only pick skills that are childs of the sector skill
-                'query_builder' => function (EntityRepository $er){
-                        return $er->createQueryBuilder('s')
-                            ->where('s.parent = 36')
-                            ->orderBy('s.name', 'ASC');
-                    },
-                // use the name property as the visible option string
-                'choice_label' => 'name',
-                // render as select box
-                'expanded' => true,
-                'multiple' => true,
+            ->add("deleted", CheckboxType::class, array(
+                "label" => 'verwijderen',
                 'required' => false,
+                "attr" => array("info" => "Check deze box om de vereniging te verwijderen "),
             ))
             ->add("submitEnd", SubmitType::class, array(
                 "label" => "general.label.save",

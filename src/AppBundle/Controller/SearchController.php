@@ -63,7 +63,7 @@ class SearchController extends Controller
 
         $query = '{
             "query": {
-                "term": { "skills.name": "Creatief bezig zijn" }
+                "term": { "skills.name": "' . $cat . '" }
             }
         }';
 
