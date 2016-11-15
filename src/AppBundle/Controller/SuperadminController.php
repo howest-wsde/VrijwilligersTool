@@ -18,10 +18,8 @@ class SuperadminController extends Controller
     /**
      * @Route("/admin", name="superadmin_main", defaults={"personcount" = 1000} )
      * @Route("/admin/users", name="superadmin_users", defaults={"personcount" = 1000})
-     * @Route("/admin/organisations", name="superadmin_organisations", defaults={"organisationcount" = 1000})
-     * @Route("/admin/vacancies", name="superadmin_vacancies", defaults={"vacancycount" = 1000})
      */
-    public function adminAction($personcount=0, $organisationcount=0, $vacancycount=0)
+    public function adminUsersAction($personcount=0)
     {
         $user = $this->getUser();
         if(!$user || !$user->getSuperadmin()) {
@@ -32,17 +30,45 @@ class SuperadminController extends Controller
             ->getRepository("AppBundle:Person")
             ->findBy(array(), array('id' => 'DESC'), $personcount):Array();
 
+        return $this->render('superadmin/persons.html.twig', [
+            'persons' => $persons,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/organisations", name="superadmin_organisations", defaults={"organisationcount" = 1000})
+     */
+    public function adminOrganisationsAction($organisationcount=0)
+    {
+        $user = $this->getUser();
+        if(!$user || !$user->getSuperadmin()) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
         $organisations = ($organisationcount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Organisation")
             ->findBy(array("deleted"=>0), array('id' => 'DESC'), $organisationcount):Array();
+
+        return $this->render('superadmin/organisations.html.twig', [
+            'organisations' => $organisations,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/vacancies", name="superadmin_vacancies", defaults={"vacancycount" = 1000})
+     */
+    public function adminVacanciesAction($vacancycount=0)
+    {
+        $user = $this->getUser();
+        if(!$user || !$user->getSuperadmin()) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
 
         $vacancies = ($vacancycount > 0)?$this->getDoctrine()
             ->getRepository("AppBundle:Vacancy")
             ->findBy(array(), array('id' => 'DESC'), $vacancycount):Array();
 
-        return $this->render('superadmin/index.html.twig', [
-            'persons' => $persons,
-            'organisations' => $organisations,
+        return $this->render('superadmin/vacancies.html.twig', [
             'vacancies' => $vacancies
         ]);
     }
