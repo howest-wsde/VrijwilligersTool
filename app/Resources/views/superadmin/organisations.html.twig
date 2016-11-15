@@ -31,6 +31,7 @@
 							<li class="p2">{{ organisation.type }}</li>
 							<li>{{ organisation.name }}</li>
 							<li>{{ organisation.creator.firstname }} {{ organisation.creator.lastname }}</li>
+							<li class="x"><a class="edit" href="{{ path("superadmin_organisation_vacancies", {"organisation": organisation.urlid }) }}">vacatures</a></li>
 							<li class="x"><a class="edit" href="{{ path("superadmin_organisation", {"urlid": organisation.urlid }) }}">aanpassen</a></li>
 						</ul></li>
 					{% endfor %}
