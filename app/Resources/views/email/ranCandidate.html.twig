@@ -4,7 +4,7 @@
 {% block body %}
 <h1>{{ "ranCan.header" |trans }}</h1>
 
-<p>{{ "ranCan.first" | trans }} {{ org.name }},</p>
+<p>{{ "ranCan.first" | trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a>,</p>
 
 <p>
     {{ "ranCan.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "ranCan.secondp.spart" | trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a> {{ "ranCan.secondp.tpart" | trans }}
