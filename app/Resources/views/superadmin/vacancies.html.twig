@@ -27,6 +27,13 @@
 
 			{% if vacancies|length > 0 %}
 				<ol class="admin">
+					<li class="th"><ul>
+						<li>Titel</li>
+						<li>Organisatie</li>
+						<li class="p2">Start</li>
+						<li class="p2">Stop</li>
+						<li class="x"></li>
+					</ul></li>
 					{% for vacancy in vacancies %}
 					    <li><ul>
 							<li>{{ vacancy.title }}</li>
