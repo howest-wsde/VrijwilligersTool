@@ -7,7 +7,7 @@
 	<p>{{ "notCanDis.firstp" |trans }} {{ candidate.firstname }},</p>
 
 	<p>
-		{{ "notCanDis.secondp.fpart" |trans }} {{ vacancy.title }} {{ "notCanDis.secondp.spart" |trans }}
+		{{ "notCanDis.secondp.fpart" |trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a> {{ "notCanDis.secondp.spart" |trans }}
 	</p>
 
 {% endblock %}
