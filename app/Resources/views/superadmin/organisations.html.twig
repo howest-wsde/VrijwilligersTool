@@ -26,6 +26,13 @@
 
 			{% if organisations|length > 0 %}
 				<ol class="admin">
+					<li class="th"><ul>
+						<li class="p2">Type</li>
+						<li>Naam</li>
+						<li>Aangemaakt door</li>
+						<li class="x"></li>
+						<li class="x"></li>
+					</ul></li>
 					{% for organisation in organisations %}
 					    <li><ul>
 							<li class="p2">{{ organisation.type }}</li>
