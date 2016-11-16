@@ -9,53 +9,53 @@
 {{ "digest.paragrafs.secondp.first"|trans }} {% if admin.digest == 2 %} {{ "digest.paragrafs.secondp.day" | trans }} {% elseif admin.digest == 3 %} {{ "digest.paragrafs.secondp.week"|trans }} {% elseif admin.digest == 4 %} {{ "digest.paragrafs.secondp.month"|trans }} {% endif %}.
 
 {% if newCharge is not empty %}
-{{ "newCharge.header.title" |trans }}
+{{ "digest.newCharge.header.title" |trans }}
 
-{{ "newCharge.table.header.firstname"| trans }}        {{ "newCharge.table.header.lastname"|trans }}      {{ "newCharge.table.header.username" |trans }}      {{ "newCharge.table.header.link"|trans }}
+{{ "digest.newCharge.table.header.firstname"| trans }}        {{ "digest.newCharge.table.header.lastname"|trans }}      {{ "digest.newCharge.table.header.username" |trans }}      {{ "digest.newCharge.table.header.link"|trans }}
 {% for entry in newCharge %}
 {{ entry.charge.firstname }}        {{ entry.charge.lastname }}        { entry.charge.username }        {{ "newCharge.table.data.profile"|trans }} {{ url('person_username', {'username': entry.charge.username }) }}
 {% endfor %}
 {% endif %}
 
 {% if newVacancy is not empty %}
-{{ "newVacancy.header.title"|trans }}
+{{ "digest.newVacancy.header.title"|trans }}
 
-{{ "newVacancy.table.header.title"|trans }}        {{ "newVacancy.table.header.startdate" |trans }}        {{ "newVacancy.table.header.enddate" |trans }}        {{ "newVacancy.table.header.link" | trans }}
+{{ "digest.newVacancy.table.header.title"|trans }}        {{ "digest.newVacancy.table.header.startdate" |trans }}        {{ "digest.newVacancy.table.header.enddate" |trans }}        {{ "digest.newVacancy.table.header.link" | trans }}
 {% for entry in newVacancy %}
-{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        {{ "newVacancy.table.data.vacancy" | trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{{ entry.vacancy.title }}        {{ entry.vacancy.startdate|date("d/m/Y") }}        {{ entry.vacancy.enddate|date("d/m/Y") }}        {{ "digest.newVacancy.table.data.vacancy" | trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if newCandidate is not empty %}
-{{ "newCandidate.header.title" |trans }}
-{{ "newCandidate.table.header.name"|trans }}        {{ "newCandidate.table.header.username"|trans }}        {{ "newCandidate.table.header.organisation"|trans }}        {{ "newCandidate.table.header.title"|trans }}        {{ "newCandidate.table.header.link"|trans }}
+{{ "digest.newCandidate.header.title" |trans }}
+{{ "digest.newCandidate.table.header.name"|trans }}        {{ "digest.newCandidate.table.header.username"|trans }}        {{ "digest.newCandidate.table.header.organisation"|trans }}        {{ "digest.newCandidate.table.header.title"|trans }}        {{ "digest.newCandidate.table.header.link"|trans }}
 {% for entry in newCandidate %}
-{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        {{ "newCandidate.table.data.candidate"|trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
+{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}        {{ "digest.newCandidate.table.data.candidate"|trans }} {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if newAdmin is not empty %}
-{{ "newAdmin.header.title"|trans }}
+{{ "digest.newAdmin.header.title"|trans }}
 
-{{ "newAdmin.table.header.name" |trans }}        {{ "newAdmin.table.header.username" |trans }}        {{ "newAdmin.table.header.organisation" |trans }}
+{{ "digest.newAdmin.table.header.name" |trans }}        {{ "digest.newAdmin.table.header.username" |trans }}        {{ "digest.newAdmin.table.header.organisation" |trans }}
 {% for entry in newAdmin %}
 {{ entry.admin.firstname }} {{ entry.admin.lastname }}        {{ entry.admin.username }}: {{ url('person_username', {'username': entry.admin.username }) }}        {{ entry.organisation.name }}
 {% endfor %}
 {% endif %}
 
 {% if approveCandidate is not empty %}
-{{ "approveCandidate.header.title" |trans }}
+{{ "digest.approveCandidate.header.title" |trans }}
 
-{{ "approveCandidate.table.name"|trans }}        {{ "approveCandidate.table.username"|trans  }}        {{  "approveCandidate.table.organisation"|trans }}        {{ "approveCandidate.table.vacancy"|trans  }}
+{{ "digest.approveCandidate.table.name"|trans }}        {{ "digest.approveCandidate.table.username"|trans  }}        {{  "digest.approveCandidate.table.organisation"|trans }}        {{ "digest.approveCandidate.table.vacancy"|trans  }}
 {% for entry in approveCandidate %}
 {{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
 {% endif %}
 
 {% if removeCandidate is not empty %}
-{{ "removeCandidate.header.title"|trans  }}
+{{ "digest.removeCandidate.header.title"|trans  }}
 
-{{ "removeCandidate.table.name"|trans  }}        {{ "removeCandidate.table.username"|trans  }}        {{ "removeCandidate.table.organistation"|trans  }}        {{ "removeCandidate.table.vacancy"|trans  }}
+{{ "digest.removeCandidate.table.name"|trans  }}        {{ "digest.removeCandidate.table.username"|trans  }}        {{ "digest.removeCandidate.table.organistation"|trans  }}        {{ "digest.removeCandidate.table.vacancy"|trans  }}
 {% for entry in removeCandidate %}
 {{ entry.candidate.firstname }} {{ entry.candidate.lastname }}        {{ entry.candidate.username }}:{{ url('person_username', {'username': entry.candidate.username }) }}        {{ entry.organisation.name }}        {{ entry.vacancy.title }}: {{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}
 {% endfor %}
