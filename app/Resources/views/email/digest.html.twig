@@ -9,13 +9,13 @@
     {{ "digest.paragrafs.secondp.first"|trans }}{% if admin.digest == 2 %} {{ "digest.paragrafs.secondp.day" | trans }} {% elseif admin.digest == 3 %} {{ "digest.paragrafs.secondp.week" |trans }} {% elseif admin.digest == 4 %} {{ "digest.paragrafs.secondp.month"|trans }}{% endif %}.
 
 {% if newCharge is not empty %}
-<h2>{{ "newCharge.header.title" |trans }}</h2>
+<h2>{{ "digest.newCharge.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>{{ "newCharge.table.header.firstname"| trans }}</th>
-        <th>{{ "newCharge.table.header.lastname"|trans }}</th>
-        <th>{{ "newCharge.table.header.username" |trans }}</th>
-        <th>{{ "newCharge.table.header.link"|trans }}</th>
+        <th>{{ "digest.newCharge.table.header.firstname"| trans }}</th>
+        <th>{{ "digest.newCharge.table.header.lastname"|trans }}</th>
+        <th>{{ "digest.newCharge.table.header.username" |trans }}</th>
+        <th>{{ "digest.newCharge.table.header.link"|trans }}</th>
     </tr>
     {% for entry in newCharge %}
         <tr>
@@ -23,7 +23,7 @@
             <td>{{ entry.charge.lastname }}</td>
             <td>{{ entry.charge.username }}</td>
             <td>
-                <a href="{{ url('person_username', {'username': entry.charge.username }) }}">{{ "newCharge.table.data.profile"|trans }}</a>
+                <a href="{{ url('person_username', {'username': entry.charge.username }) }}">{{ "digest.newCharge.table.data.profile"|trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -31,21 +31,21 @@
 {% endif %}
 
 {% if newVacancy is not empty %}
-<h2>{{ "newVacancy.header.title"|trans }}</h2>
+<h2>{{ "digest.newVacancy.header.title"|trans }}</h2>
 <table>
     <tr>
-        <th>{{ "newVacancy.table.header.title"|trans }}</th>
-        <th>{{ "newVacancy.table.header.startdate" |trans }}</th>
-        <th>{{ "newVacancy.table.header.enddate" |trans }}</th>
-        <th>{{ "newVacancy.table.header.link" | trans }}</th>
+        <th>{{ "digest.newVacancy.table.header.title"|trans }}</th>
+        <th>{{ "digest.newVacancy.table.header.startdate" |trans }}</th>
+        <th>{{ "digest.newVacancy.table.header.enddate" |trans }}</th>
+        <th>{{ "digest.newVacancy.table.header.link" | trans }}</th>
     </tr>
     {% for entry in newVacancy %}
         <tr>
-            <td>{{ entry.vacancy.title }}</td>
+            <td><a href="{{ url("vacancy_by_urlid", { "urlid": entry.vacancy.urlId }) }}">{{ entry.vacancy.title }}</a></td>
             <td>{{ entry.vacancy.startdate|date("d/m/Y") }}</td>
             <td>{{ entry.vacancy.enddate|date("d/m/Y") }}</td>
             <td>
-                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ "newVacancy.table.data.vacancy" |trans }}</a>
+                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ "digest.newVacancy.table.data.vacancy" |trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -53,25 +53,19 @@
 {% endif %}
 
 {% if newCandidate is not empty %}
-<h2>{{ "newCandidate.header.title" |trans }}</h2>
+<h2>{{ "digest.newCandidate.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>{{ "newCandidate.table.header.name"|trans }}</th>
-        <th>{{ "newCandidate.table.header.username"|trans }}</th>
-        <th>{{ "newCandidate.table.header.organisation"|trans }}</th>
-        <th>{{ "newCandidate.table.header.title"|trans }}</th>
-        <th>{{ "newCandidate.table.header.link"|trans }}</th>
+        <th>{{ "digest.newCandidate.table.header.name"|trans }}</th>
+        <th>{{ "digest.newCandidate.table.header.organisation"|trans }}</th>
+        <th>{{ "digest.newCandidate.table.header.title"|trans }}</th>
     </tr>
     {% for entry in newCandidate %}
         <tr>
-            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
-            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</a></td>
             <td>{{ entry.organisation.name }}</td>
             <td>
                 <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
-            </td>
-            <td>
-                <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ "newCandidate.table.data.candidate"|trans }}</a>
             </td>
         </tr>
     {% endfor %}
@@ -79,17 +73,15 @@
 {% endif %}
 
 {% if newAdmin is not empty %}
-<h2>{{ "newAdmin.header.title"|trans }}</h2>
+<h2>{{ "digest.newAdmin.header.title"|trans }}</h2>
 <table>
     <tr>
-        <th>{{ "newAdmin.table.header.name" |trans }}</th>
-        <th>{{ "newAdmin.table.header.username" |trans }}</th>
-        <th>{{ "newAdmin.table.header.organisation" |trans }}</th>
+        <th>{{ "digest.newAdmin.table.header.name" |trans }}</th>
+        <th>{{ "digest.newAdmin.table.header.organisation" |trans }}</th>
     </tr>
     {% for entry in newAdmin %}
         <tr>
-            <td>{{ entry.admin.firstname }} {{ entry.admin.lastname }}</td>
-            <td><a href="{{ url('person_username', {'username': entry.admin.username }) }}">{{ entry.admin.username }}</a></td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</a></td>
             <td>{{ entry.organisation.name }}</td>
         </tr>
     {% endfor %}
@@ -97,18 +89,16 @@
 {% endif %}
 
 {% if approveCandidate is not empty %}
-<h2>{{ "approveCandidate.header.title" |trans }}</h2>
+<h2>{{ "digest.approveCandidate.header.title" |trans }}</h2>
 <table>
     <tr>
-        <th>{{ "approveCandidate.table.name"|trans }}</th>
-        <th>{{ "approveCandidate.table.username"|trans  }}</th>
-        <th>{{  "approveCandidate.table.organisation"|trans }}</th>
-        <th>{{ "approveCandidate.table.vacancy"|trans  }}</th>
+        <th>{{ "digest.approveCandidate.table.name"|trans }}</th>
+        <th>{{ "digest.approveCandidate.table.organisation"|trans }}</th>
+        <th>{{ "digest.approveCandidate.table.vacancy"|trans  }}</th>
     </tr>
     {% for entry in approveCandidate %}
         <tr>
-            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
-            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</a></td>
             <td>{{ entry.organisation.name }}</td>
             <td>
                 <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>
@@ -119,18 +109,16 @@
 {% endif %}
 
 {% if removeCandidate is not empty %}
-<h2>{{ "removeCandidate.header.title"|trans  }}</h2>
+<h2>{{ "digest.removeCandidate.header.title"|trans  }}</h2>
 <table>
     <tr>
-        <th>{{ "removeCandidate.table.name"|trans  }}</th>
-        <th>{{ "removeCandidate.table.username"|trans  }}</th>
-        <th>{{ "removeCandidate.table.organistation"|trans  }}</th>
-        <th>{{ "removeCandidate.table.vacancy"|trans  }}</th>
+        <th>{{ "digest.removeCandidate.table.name"|trans  }}</th>
+        <th>{{ "digest.removeCandidate.table.organistation"|trans  }}</th>
+        <th>{{ "digest.removeCandidate.table.vacancy"|trans  }}</th>
     </tr>
     {% for entry in removeCandidate %}
         <tr>
-            <td>{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</td>
-            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.username }}</a></td>
+            <td><a href="{{ url('person_username', {'username': entry.candidate.username }) }}">{{ entry.candidate.firstname }} {{ entry.candidate.lastname }}</a></td>
             <td>{{ entry.organisation.name }}</td>
             <td>
                 <a href="{{ url('vacancy_by_urlid', {'urlid': entry.vacancy.urlid }) }}">{{ entry.vacancy.title }}</a>

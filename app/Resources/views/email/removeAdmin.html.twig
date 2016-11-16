@@ -4,7 +4,7 @@
 {% block body %}
 <h1>{{ "remAdm.header" | trans}}</h1>
 
-<p>{{ "remAdm.firstp" | trans}} {{ org.name }},</p>
+<p>{{ "remAdm.firstp" | trans}} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a>,</p>
 
 <p>
     {{ "remAdm.secondp.fpart" | trans}} {{ newAdmin.firstname }} {{ newAdmin.lastname }} {{ "remAdm.secondp.spart" | trans}} {{ org.name }}.

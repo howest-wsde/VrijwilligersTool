@@ -4,10 +4,10 @@
 {% block body %}
 <h1>{{ "disaproved.header" |trans }}</h1>
 
-<p>{{ "disaproved.firstp"|trans }} {{ org.name }},</p>
+<p>{{ "disaproved.firstp"|trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a>,</p>
 
 <p>
-    {{ "disaproved.secondp.fpart"|trans }}{{ candidate.firstname }} {{ candidate.lastname }} {{ "dissaproved.secondp.spart" |trans }} {{ vacancy.title }}.
+    {{ "disaproved.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "dissaproved.secondp.spart" |trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a>.
 </p>
 
 {% endblock %}

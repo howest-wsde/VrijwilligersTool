@@ -13,7 +13,7 @@ contact:
       message: 'message:'
 digest:
       header:
-          title: Digest mail from Roeselare Vrijwilligt
+          title: Notfications from Roeselare Vrijwilligt
       paragrafs:
           firstp: 'Dear admin,'
           secondp:

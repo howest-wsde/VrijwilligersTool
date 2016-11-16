@@ -4,10 +4,10 @@
 {% block body %}
 	<h1>{{ "notCanApp.header" |trans }}</h1>
 
-	<p>{{ "notCanApp.firstp" |trans }}{{ candidate.firstname }},</p>
+	<p>{{ "notCanApp.firstp" |trans }} {{ candidate.firstname }},</p>
 
 	<p>
-	{{ "notCanApp.secondp.fpart" | trans }}{{ vacancy.title }} {{ "notCanApp.secondp.spart" |trans }}
+	{{ "notCanApp.secondp.fpart" | trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a> {{ "notCanApp.secondp.spart" |trans }}
 	</p>
 
 {% endblock %}

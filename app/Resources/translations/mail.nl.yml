@@ -13,7 +13,7 @@ contact:
       message: 'Bericht:'
 digest:
       header:
-          title: Digest mail vanwege Roeselare Vrijwilligt
+          title: notificaties voor Roeselare Vrijwilligt
       paragrafs:
           firstp: 'Beste beheerder,'
           secondp:
@@ -92,7 +92,7 @@ newAdmin:
           spart: toegevoegd als beheerder voor
 newCandidate:
       header: "Nieuwe kandidaat!"
-      firstp: Beeste beheerder voor
+      firstp: Beste beheerder voor
       secondp:
           fpart: zonet gaf
           spart: zich op Roeselare Vrijwilligt als kandidaat voor de vacature
