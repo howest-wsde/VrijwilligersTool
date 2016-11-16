@@ -106,10 +106,12 @@ class OrganisationController extends UtilityController
             if ($request->request->get('addadmin')) foreach ($request->request->get('addadmin') as $admin_username){
                 if ($admin_username!=""){
                     $person = $em->getRepository("AppBundle:Person")->findOneByUsername($admin_username);
-                    $person->removeOrganisation($organisation);
-                    $person->addOrganisation($organisation);
-                    $em->persist($person);
-                    $em->flush();
+                    if ($person){
+                        $person->removeOrganisation($organisation);
+                        $person->addOrganisation($organisation);
+                        $em->persist($person);
+                        $em->flush();
+                    }
                     //$this->addFlash('approve_message', $person->getFullName() . ' ' . $t->trans('org.flash.addAdmin'));
 
                 }
