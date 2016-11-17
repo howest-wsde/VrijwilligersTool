@@ -150,6 +150,20 @@ class SuperadminVacancyType extends AbstractType
                 "label" => "vacancy.label.renumeration",
                 'required' => false,
             ))
+            ->add('published', ChoiceType::class, array(
+                'label' => 'Status',
+                'placeholder' => false,
+                'choices'  => array(
+                    'actief' => 1,
+                    'gesloten' => 2,
+                    'niet gepubliceerd' => 3,
+                    'verwijderd' => 4,
+                ),
+                // render as radiobuttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
             ->add("otherReward", TextType::class, array(
                 "label" => "vacancy.label.otherReward",
                 'required' => false,
