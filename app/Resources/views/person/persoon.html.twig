@@ -53,7 +53,7 @@
 
                 <div class="tab-content clearfix">
                     {% set teller = 0 %}
-                    {% for org in person.organisations %}
+                    {% for org in person.organisations if not org.deleted %}
                         <div id="org_{{ org.urlId }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
                             <ul class="nav nav-tabs">
                                 <li class="blauw active"><a href="#org_{{ org.urlId }}_main" data-toggle="tab">{{ "person.dash.org.main"|trans }}</a></li>
