@@ -110,20 +110,22 @@ class VacancyController extends UtilityController
             $this->addFlash('approve_message', $t->trans('vacancy.flash.createStart') . ' ' . $vacancy->getTitle() . ' ' . $t->trans('vacancy.flash.createEnd')
             );
 
-            //set digest / send email to all administrators
-            $info = array(
-                        'subject' => $t->trans('vacancy.mail.create'),
-                        'template' => 'vacature_aangemaakt.html.twig',
-                        'txt/plain' => 'vacature_aangemaakt.txt.twig',
-                        'to' => $user->getEmail(),
-                        'data' => array(
-                            'user' => $user,
-                            'vacancy' => $vacancy,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWVACANCY,
-                    );
-            $this->digestAndMail($info, $organisation);
+            if (!is_null($organisation_urlid)){
+                //set digest / send email to all administrators
+                $info = array(
+                            'subject' => $t->trans('vacancy.mail.create'),
+                            'template' => 'vacature_aangemaakt.html.twig',
+                            'txt/plain' => 'vacature_aangemaakt.txt.twig',
+                            'to' => $user->getEmail(),
+                            'data' => array(
+                                'user' => $user,
+                                'vacancy' => $vacancy,
+                                'org' => $organisation,
+                            ),
+                            'event' => DigestEntry::NEWVACANCY,
+                        );
+                $this->digestAndMail($info, $organisation);
+            }
 
             return $this->redirect($this->generateUrl("vacancy_by_urlid",
             ["urlid" => $vacancy->getUrlId() ] ));
