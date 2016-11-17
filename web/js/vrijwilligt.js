@@ -31,7 +31,8 @@ $(function() {
                 $("<div />").addClass("infopop").html(strInfo).mouseout(function(){
                     $(this).hide();
                 })
-            )
+            );
+            $(this).attr("title", "");
         }
     });
 
