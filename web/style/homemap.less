@@ -1,0 +1,26 @@
+@cTXTgrijs: #7f8c8c;
+
+.rounded(@iHoek){
+	border-radius: @iHoek;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+#map {
+	height: 100%;
+}
+ul.legend {
+	margin: 0; padding: 15px; position: fixed; top: 30px; right: 30px; z-index: 99999; background: rgba(255, 255, 255, 0.8); .rounded(5px);
+	li {
+		background: none no-repeat left center; padding: 10px 10px 10px 35px ; margin: 0; display: block; color: #303030;
+	}
+	li.org {
+		background-image: url("../images/organisationIcon.png");
+	}
+	li.vac {
+		background-image: url("../images/vacancyIcon.png");
+	}
+}

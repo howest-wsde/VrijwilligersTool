@@ -5,19 +5,17 @@
     <title>{{"base.head.title"|trans}}</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-      #map {
-        height: 100%;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("style/homemap.css?v1") }}" />
   </head>
   <body>
     <div id="map"></div>
+    <div>
+      <ul class="legend">
+        <li class="org">Organisatie</li>
+        <li class="vac">Vacature</li>
+      </ul>
+    </div>
     <script>
       var map;
       function initMap() {
