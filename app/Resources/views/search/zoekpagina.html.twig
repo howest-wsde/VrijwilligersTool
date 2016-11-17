@@ -34,17 +34,17 @@
 									<div class="lessismore">Toon meer filters</div>
 									<fieldset>
 										<h3>{{ "search.page.cat"|trans }}</h3>
-										{{ form_row(form.categories) }}
+										{{ form_widget(form.categories) }}
 									</fieldset>
 
 									<fieldset>
 										<h3>{{ "search.page.sector"|trans }}</h3>
-										{{ form_row(form.sectors) }}
+										{{ form_widget(form.sectors) }}
 									</fieldset>
 
 									<fieldset>
 										<h3>{{ "search.page.intensity"|trans }}</h3>
-										{{ form_row(form.intensity) }}
+										{{ form_widget(form.intensity) }}
 										{{ form_row(form.estimatedWorkInHours) }}
 									</fieldset>
 
@@ -55,12 +55,12 @@
 
 									<fieldset>
 										<h3>{{ "search.page.char"|trans }}</h3>
-										{{ form_row(form.characteristic) }}
+										{{ form_widget(form.characteristic) }}
 									</fieldset>
 
 									<fieldset>
 										<h3>{{ "search.page.advantages"|trans }}</h3>
-										{{ form_row(form.advantages) }}
+										{{ form_widget(form.advantages) }}
 									</fieldset>
 								</div>
 						{% endif %}
