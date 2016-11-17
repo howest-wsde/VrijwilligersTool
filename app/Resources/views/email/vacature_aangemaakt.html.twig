@@ -7,7 +7,7 @@
 <p>{{ "vacCre.firstp" |trans }} {{ user.firstname }} {{ user.lastname }},</p>
 
 <p>
-    {{ "vacCre.secondp.fpart" |trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a> {{ "vacCre.secondp.spart" | trans }} <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">"{{ vacancy.title }}".</a>
+    {{ "vacCre.secondp.fpart" |trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a> {{ "vacCre.secondp.spart" | trans }} "<a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">{{ vacancy.title }}</a>".
 </p>
 
 {% endblock %}
