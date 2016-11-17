@@ -37,7 +37,7 @@
 				{% endif %}
 				<h1>{{ organisation.name }}</h1>
 				{% if organisation.slogan %}<span class="baseline">{{ organisation.slogan }}</span>{% endif %}
-				<p>{{ organisation.description }}</p>
+				<p>{{ organisation.description|nl2br }}</p>
 
 				{#
 					{% if organisation.sectors %}

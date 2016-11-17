@@ -35,11 +35,11 @@
 				<dl>
 					{% if vacancy.summary %}
 						<dt class="col-md-3">{{ "vacancy.vacancy.summary"|trans }}</dt>
-						<dd class="col-md-9">{{ vacancy.summary }}</dd>
+						<dd class="col-md-9">{{ vacancy.summary|nl2br }}</dd>
 					{% endif %}
 
 					<dt class="col-md-3">{{ "vacancy.vacancy.description"|trans }}</dt>
-					<dd class="col-md-9">{{ vacancy.description }}</dd>
+					<dd class="col-md-9">{{ vacancy.description|nl2br }}</dd>
 
 					{% if vacancy.startdate %}
 						<dt class="col-md-3">{{ "vacancy.vacancy.startdate"|trans }}</dt>
