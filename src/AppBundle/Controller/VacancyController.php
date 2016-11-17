@@ -51,7 +51,11 @@ class VacancyController extends UtilityController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         if($user){
-            $organisations = $user->getOrganisations();
+            $organisations = $user->getOrganisations()->filter(
+                function($org){
+                    return !$org->getDeleted();
+                }
+            );
         }
         else
         {
