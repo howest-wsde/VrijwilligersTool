@@ -37,9 +37,14 @@
 										{{ form_widget(form.categories) }}
 									</fieldset>
 
-									<fieldset>
+{# 									<fieldset>
 										<h3>{{ "search.page.sector"|trans }}</h3>
 										{{ form_widget(form.sectors) }}
+									</fieldset>
+ #}
+									<fieldset>
+										<h3>{{ "search.page.char"|trans }}</h3>
+										{{ form_widget(form.characteristic) }}
 									</fieldset>
 
 									<fieldset>
@@ -51,11 +56,6 @@
 									<fieldset>
 										<h3>{{ "search.page.distance"|trans }}</h3>
 										{{ form_row(form.distance) }}
-									</fieldset>
-
-									<fieldset>
-										<h3>{{ "search.page.char"|trans }}</h3>
-										{{ form_widget(form.characteristic) }}
 									</fieldset>
 
 									<fieldset>

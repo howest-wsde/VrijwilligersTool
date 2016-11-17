@@ -260,7 +260,7 @@ class SearchController extends Controller
      */
     private function assembleQuery($form, $returnArray){
         $categories = $form->get('categories')->getData(); //array
-        $sectors = $form->get('sectors')->getData(); //array
+        // $sectors = $form->get('sectors')->getData(); //array
         $intensity = $form->get('intensity')->getData(); //array
         $hoursAWeek = $form->get('estimatedWorkInHours')->getData(); //int;
         $characteristic = $form->get('characteristic')->getData(); //array
@@ -277,9 +277,9 @@ class SearchController extends Controller
           $should[] = $this->processSkillArray($categories->toArray(), 'skills.name');
         }
 
-        if(!empty($sectors) && !$sectors->isEmpty()){
-          $should[] = $this->processSkillArray($sectors->toArray(), 'sectors.name');
-        }
+        // if(!empty($sectors) && !$sectors->isEmpty()){
+        //   $should[] = $this->processSkillArray($sectors->toArray(), 'sectors.name');
+        // }
 
         if(!empty($intensity && sizeof($intensity) === 1)){
           $should[] = $this->processIntensity($intensity[0]);
