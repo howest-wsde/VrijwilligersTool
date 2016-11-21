@@ -154,6 +154,7 @@ class VacancyController extends UtilityController
     public function vacancyViewAction($urlid)
     {
         $vacancy = $this->getVacancyRepository()->findOneByUrlid($urlid);
+        if (!$vacancy) throw $this->createNotFoundException('Deze vacature bestaat niet');
         return $this->render("vacancy/vacature.html.twig",
             ["vacancy" => $vacancy]);
     }

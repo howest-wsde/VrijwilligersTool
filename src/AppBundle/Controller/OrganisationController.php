@@ -533,6 +533,9 @@ class OrganisationController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $organisation = $em->getRepository("AppBundle:Organisation")
             ->findOneByUrlid($urlid);
+
+        if (!$organisation) throw $this->createNotFoundException('Deze vereniging bestaat niet');
+
         $administrators = $organisation->getAdministrators()->map(function($person) {
                             return $person->getId();
                           })->toArray();
