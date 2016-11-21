@@ -44,20 +44,16 @@
                                 <div class="links">
                                     {% embed "organisation/vereniging_min.html.twig" with {"organisation": tab.parent }%}{% endembed %}
                                 </div>
-                                <div class="rechts blok">
-                                    <ul class="icons">
-                                        {% if tab.parent.telephone %}<li class="phone">{{ tab.parent.telephone }}</li>{% endif %}
-                                        {% if tab.parent.email %}<li class="mail">{{ tab.parent.email }}</li>{% endif %}
-                                        {% if opencadidacies == 0 %}
-                                            <li class="number">{{ opencadidacies }}  {{ "vacancy.min.opencanidacies"|trans }}</li>
-                                        {% elseif opencadidacies == 1 %}
-                                            <li class="number strong">1  {{ "vacancy.min.opencanidacy"|trans }}</li>
-                                        {% else %}
-                                            <li class="number strong">{{ opencadidacies }}  {{ "vacancy.min.opencanidacies"|trans }}</li>
-                                        {% endif %}
-                                    </ul>
+                            {% elseif tab.type == "person" %}
+                                <div class="links">
+                                    {% embed "person/persoon_min.html.twig" with {"person": tab.parent, "contact": true}%}{% endembed %}
                                 </div>
                             {% endif %}
+                            {#<div class="rechts blok vacatures">
+                                {% for vacancy in tab.vacancies if vacancy.candidates|length > 1 %}
+                                    {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy} %}{% endembed %}
+                                {% endfor %}
+                            </div>#}
                         </div>
                     </div>
                     {#
@@ -69,21 +65,21 @@
                     <div class="tab-pane" id="org_{{ tab.id }}_openvac">
                         <div class="vacatures">
                             {% for vacancy in tab.vacancies if vacancy.published == 1 %}
-                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy, "count": tab.vacancies|length } %}{% endembed %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
                             {% endfor %}
                         </div>
                     </div>
                     <div class="tab-pane" id="org_{{ tab.id }}_closedvac">
                         <div class="vacatures">
                             {% for vacancy in tab.vacancies if vacancy.published == 2 %}
-                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy, "count": tab.vacancies|length } %}{% endembed %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
                             {% endfor %}
                         </div>
                     </div>
                     <div class="tab-pane" id="org_{{ tab.id }}_savedvac">
                         <div class="vacatures">
                             {% for vacancy in tab.vacancies if vacancy.published == 3 %}
-                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy, "count": tab.vacancies|length } %}{% endembed %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
                             {% endfor %}
                         </div>
                     </div>
