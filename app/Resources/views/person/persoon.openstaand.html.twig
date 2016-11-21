@@ -49,11 +49,11 @@
                                     {% embed "person/persoon_min.html.twig" with {"person": tab.parent, "contact": true}%}{% endembed %}
                                 </div>
                             {% endif %}
-                            {#<div class="rechts blok vacatures">
-                                {% for vacancy in tab.vacancies if vacancy.candidates|length > 1 %}
+                            <div class="rechts vacatures">
+                                {% for vacancy in tab.vacancies %}
                                     {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy} %}{% endembed %}
                                 {% endfor %}
-                            </div>#}
+                            </div>
                         </div>
                     </div>
                     {#
