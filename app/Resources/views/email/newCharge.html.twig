@@ -4,7 +4,7 @@
 {% block body %}
     <h1>{{ "newCharge.header"|trans }}</h1>
 
-    <p>{{ "newCharge.firstp"|trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a>,</p>
+    <p>{{ "newCharge.firstp"|trans }} <a href="{{ url("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a>,</p>
 
     <p>
         {{ "newCharge.secondp.fpart"|trans }} {{ user.firstname }} {{ user.lastname }} {{ "newCharge.secondp.spart"|trans }}

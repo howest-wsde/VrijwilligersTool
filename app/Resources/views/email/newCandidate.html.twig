@@ -4,7 +4,7 @@
 {% block body %}
 <h1>{{ "newCandidate.header" | trans }}</h1>
 
-<p>{{ "newCandidate.firstp" |trans }} <a href="{{ path("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a></p>
+<p>{{ "newCandidate.firstp" |trans }} <a href="{{ url("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a></p>
 
 <p>
     {{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}">{{ "newCandidate.secondp.tpart" |trans }}</a>

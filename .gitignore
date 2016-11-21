@@ -22,3 +22,4 @@ composer.lock
 /elasticsearch*
 /web/images/organisations/*
 /web/images/users/*
+/web/robots.txt

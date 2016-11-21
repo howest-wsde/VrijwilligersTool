@@ -1,0 +1,92 @@
+{% trans_default_domain "views" %}
+
+<section class="part"><div class="container tabblad spacing">
+
+    {% set tabs = [] %}
+    {% if person.vacancies|length > 0 %}
+        {% set tabs = tabs|merge([{"id":person.username, "txt":person.firstname, "parent": person, "type": "person", "vacancies": person.vacancies}]) %}
+    {% endif %}
+    {% if person.organisations|length > 0 %}
+        {% for org in person.organisations if not org.deleted %}
+            {% set tabs = tabs|merge([{"id":org.urlId, "txt":org.name, "parent": org, "type": "organisation", "vacancies": org.vacancies}]) %}
+        {% endfor %}
+    {% endif %}
+    {% if tabs|length > 1 %}
+        <ul class="nav nav-pills">
+            {% set kleuren = ["rood", "groen", "blauw", "geel", "paars"] %}
+            {% set teller = 0 %}
+            {% for tab in tabs %}
+                <li class="{{ kleuren[teller % kleuren|length] }} {% if teller == 0 %}active{% endif %}"><a href="#org_{{ tab.id }}" data-toggle="tab">{{ tab.txt }}</a></li>
+                {% set teller = teller + 1 %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="tab-content clearfix">
+        {% set teller = 0 %}
+        {% for tab in tabs %}
+            <div id="org_{{ tab.id }}" class="tab-pane {% if teller == 0 %}active{% endif %}">
+                <ul class="nav nav-tabs">
+                    <li class="blauw active"><a href="#org_{{ tab.id }}_main" data-toggle="tab">{{ "person.dash.org.main"|trans }}</a></li>
+                    <li class="geel"><a href="#org_{{ tab.id }}_openvac" data-toggle="tab">{{ "person.dash.org.openvac"|trans }}</a></li>
+                    <li class="rood"><a href="#org_{{ tab.id }}_closedvac" data-toggle="tab">{{ "person.dash.org.closedvac"|trans }}</a></li>
+                    <li class="groen"><a href="#org_{{ tab.id }}_savedvac" data-toggle="tab">{{ "person.dash.org.savedvac"|trans }}</a></li>
+                </ul>
+
+                <div class="tab-content clearfix blok special">
+                    {% set opencadidacies = 0 %}
+                    {% for vacancy in tab.vacancies %}
+                        {% set opencadidacies = opencadidacies + vacancy.candidates|length %}
+                    {% endfor %}
+                    <div class="tab-pane active" id="org_{{ tab.id }}_main">
+                        <div class="dashoverzicht">
+                            {% if tab.type == "organisation" %}
+                                <div class="links">
+                                    {% embed "organisation/vereniging_min.html.twig" with {"organisation": tab.parent }%}{% endembed %}
+                                </div>
+                            {% elseif tab.type == "person" %}
+                                <div class="links">
+                                    {% embed "person/persoon_min.html.twig" with {"person": tab.parent, "contact": true}%}{% endembed %}
+                                </div>
+                            {% endif %}
+                            <div class="rechts vacatures">
+                                {% for vacancy in tab.vacancies %}
+                                    {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy} %}{% endembed %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {#
+                        const OPEN = 1;
+                        const CLOSED = 2;
+                        const SAVED = 3;
+                        const DELETED = 4;
+                    #}
+                    <div class="tab-pane" id="org_{{ tab.id }}_openvac">
+                        <div class="vacatures">
+                            {% for vacancy in tab.vacancies if vacancy.published == 1 %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="org_{{ tab.id }}_closedvac">
+                        <div class="vacatures">
+                            {% for vacancy in tab.vacancies if vacancy.published == 2 %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="org_{{ tab.id }}_savedvac">
+                        <div class="vacatures">
+                            {% for vacancy in tab.vacancies if vacancy.published == 3 %}
+                                {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy } %}{% endembed %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% set teller = teller + 1 %}
+        {% endfor %}
+    </div>
+
+</div></section>
