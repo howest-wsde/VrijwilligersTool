@@ -370,8 +370,9 @@ class VacancyController extends UtilityController
         if (!$vacancy) throw $this->createNotFoundException('Deze vacature bestaat niet');
 
         $iamadmin = false;
-        if ($vacancy->getOrganisation()) if ($vacancy->getOrganisation()->getAdministrators()->contains($user)) $iamadmin = true;
-        if ($vacancy->getCreator() == $user) $iamadmin = true;
+        if ($vacancy->getOrganisation()) {
+            if ($vacancy->getOrganisation()->getAdministrators()->contains($user)) $iamadmin = true;
+        } else if ($vacancy->getCreator() == $user) $iamadmin = true;
 
         if($iamadmin){
             $form = $this->createForm(VacancyType::class, $vacancy);
