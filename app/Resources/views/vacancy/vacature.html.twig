@@ -2,6 +2,13 @@
 {% extends "base.html.twig" %}
 {% import 'snippets/dates.html.twig' as datum %}
 
+{% set admin = false %}
+{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+	{% set admin = true %}
+{% elseif vacancy.creator == app.user %}
+	{% set admin = true %}
+{% endif %}
+
 {% block title %}{{ vacancy.title }}{% endblock %}
 
 {% block body %}
@@ -103,7 +110,7 @@
 			<aside>{% embed "organisation/vereniging_min.html.twig" with {"organisation": vacancy.organisation, "include": ["website"] }%}{% endembed %}</aside>
 		{% endif %}
 
-		{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+		{% if admin %}
 			<section class="administrators tabblad tiles">
 				{% set open = [] %}
 				{% set candidates = [] %}
