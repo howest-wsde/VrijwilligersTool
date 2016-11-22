@@ -1,5 +1,5 @@
 {% if cta is not defined %}
-	{% set cta = [] %}{# formaat: actions = [{"href": "#, "txt": "link"}] #}
+	{% set cta = [] %}{# formaat: actions = [{"href": "#", "txt": "link"}] #}
 {% elseif cta.href is defined %}
 	{% set cta = [cta] %}
 {% endif %}

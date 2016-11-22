@@ -34,26 +34,42 @@
                 </ul>
 
                 <div class="tab-content clearfix blok special">
-                    {% set opencadidacies = 0 %}
-                    {% for vacancy in tab.vacancies %}
-                        {% set opencadidacies = opencadidacies + vacancy.candidates|length %}
-                    {% endfor %}
                     <div class="tab-pane active" id="org_{{ tab.id }}_main">
                         <div class="dashoverzicht">
                             {% if tab.type == "organisation" %}
                                 <div class="links">
-                                    {% embed "organisation/vereniging_min.html.twig" with {"organisation": tab.parent }%}{% endembed %}
+                                    {% embed "organisation/vereniging_min.html.twig" with {"organisation": tab.parent, "cta": {"href": path("organisation_edit", { "urlid": tab.parent.urlid }), "txt": "aanpassen"} }%}{% endembed %}
                                 </div>
                             {% elseif tab.type == "person" %}
                                 <div class="links">
-                                    {% embed "person/persoon_min.html.twig" with {"person": tab.parent, "contact": true}%}{% endembed %}
+                                    {% embed "person/persoon_min.html.twig" with {"person": tab.parent, "contact": true, "cta": [{"href": path("profile_edit"), "txt": "aanpassen"}] } %}{% endembed %}
                                 </div>
                             {% endif %}
-                            <div class="rechts vacatures">
+                            <div class="rechts blok">
+                                {% set opencadidacies = 0 %}
+                                {% set openvacancies = [] %}
+                                {% for vacancy in tab.vacancies %}
+                                    {% set opencadidacies = opencadidacies + vacancy.candidates|length %}
+                                    {% if (vacancy.candidates|length > 0) %}
+                                        {% set openvacancies = openvacancies|merge([vacancy]) %}
+                                    {% endif %}
+                                {% endfor %}
+                                <ul class="icons">
+                                    <li class="organisation">{{ tab.vacancies|length }} vacatures</li>
+                                    <li class="people">{{ opencadidacies|length }} onbeantwoorde kandidaturen
+                                        {% if (openvacancies|length > 0) %}
+                                            <ul class="icons">{% for vacancy in openvacancies %}
+                                                <li class="organisation"><a href="{{ path("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title}} </a></li>
+                                            {% endfor %}</ul>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                            {#<div class="rechts vacatures">
                                 {% for vacancy in tab.vacancies %}
                                     {% embed "vacancy/vacature_min.html.twig" with { "vacancy": vacancy} %}{% endembed %}
                                 {% endfor %}
-                            </div>
+                            </div>#}
                         </div>
                     </div>
                     {#

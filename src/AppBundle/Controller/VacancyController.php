@@ -367,8 +367,13 @@ class VacancyController extends UtilityController
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")->findOneByurlid($urlid);
+        if (!$vacancy) throw $this->createNotFoundException('Deze vacature bestaat niet');
 
-        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+        $iamadmin = false;
+        if ($vacancy->getOrganisation()) if ($vacancy->getOrganisation()->getAdministrators()->contains($user)) $iamadmin = true;
+        if ($vacancy->getCreator() == $user) $iamadmin = true;
+
+        if($iamadmin){
             $form = $this->createForm(VacancyType::class, $vacancy);
             $form->handleRequest($request);
 
