@@ -93,6 +93,7 @@ newAdmin:
 newCandidate:
       header: "Nieuwe kandidaat!"
       firstp: Beste beheerder voor
+      firstp_notOrg: Beste
       secondp:
           fpart: zonet gaf
           spart: zich op Roeselare Vrijwilligt als kandidaat voor de vacature
@@ -135,6 +136,7 @@ notVolRem:
 ranCan:
       header: "Een kandidaat droop af!"
       firstp: Beste beheerder voor
+      firstp_notOrg: Beste
       secondp:
           fpart: zonet trok
           spart: "op Roeselare Vrijwilligt haar / zijn kandidatuur voor de vacature"

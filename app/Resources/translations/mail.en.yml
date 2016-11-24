@@ -93,6 +93,7 @@ newAdmin:
 newCandidate:
       header: "New candidate!"
       firstp: 'Dear admin,'
+      firstp_notOrg: Dear
       secondp:
           fpart: a moment ago
           spart: introduced himself as candidate on Roeselare Vrijwilligt for this vacancy
@@ -135,6 +136,7 @@ notVolRem:
 ranCan:
       header: "A candidate backed off!"
       firstp: Dear admin for
+      firstp_notOrg: Deard
       secondp:
           fpart: a moment ago
           spart: " withdrew his candidacy on Roeselare Vrijwilligt for this position "

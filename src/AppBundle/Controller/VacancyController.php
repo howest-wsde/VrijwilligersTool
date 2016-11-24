@@ -116,7 +116,7 @@ class VacancyController extends UtilityController
             );
 
             if (!is_null($organisation_urlid)){
-                //set digest / send email to all administrators
+                //set digest / send email to all administrators or person who made it if private
                 $info = array(
                             'subject' => $t->trans('vacancy.mail.create'),
                             'template' => 'vacature_aangemaakt.html.twig',
@@ -194,18 +194,37 @@ class VacancyController extends UtilityController
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
                        ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
             $organisation = $vacancy->getOrganisation();
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'ranCandidate.html.twig',
-                        'txt/plain' => 'ranCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'vacancy' => $vacancy,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWCANDIDATE,
-                        'sent' => true,
-                    );
+            $info = null;
+
+            if (is_null($organisation)){
+                $info = array(
+                    'subject' => $subject,
+                    'template' => 'ranCandidate_notOrg.html.twig',
+                    'txt/plain' => 'ranCandidate_notOrg.txt.twig',
+                    'data' => array(
+                        'candidate' => $person,
+                        'vacancy' => $vacancy,
+                        'org' => $organisation,
+                    ),
+                    'event' => DigestEntry::NEWCANDIDATE,
+                    'sent' => true,
+                );
+            }
+            else {
+                $info = array(
+                    'subject' => $subject,
+                    'template' => 'ranCandidate.html.twig',
+                    'txt/plain' => 'ranCandidate.txt.twig',
+                    'data' => array(
+                        'candidate' => $person,
+                        'vacancy' => $vacancy,
+                        'org' => $organisation,
+                    ),
+                    'event' => DigestEntry::NEWCANDIDATE,
+                    'sent' => true,
+                );
+            }
+
             $this->digestAndMail($info);
         } else {
             $candidacies = $em->getRepository('AppBundle:Candidacy')
@@ -232,17 +251,34 @@ class VacancyController extends UtilityController
             $subject = $person->getFirstname() . ' ' . $person->getLastname() .
                        ' ' . $t->trans('vacancy.mail.submitCandidacy') . ' ' . $vacancy->getTitle();
             $organisation = $vacancy->getOrganisation();
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'newCandidate.html.twig',
-                        'txt/plain' => 'newCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'vacancy' => $vacancy,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWCANDIDATE,
-                    );
+            $info = null;
+
+            if (is_null($organisation)){
+                $info = array(
+                    'subject' => $subject,
+                    'template' => 'newCandidate_notOrg.html.twig',
+                    'txt/plain' => 'newCandidate_notOrg.txt.twig',
+                    'data' => array(
+                        'candidate' => $person,
+                        'vacancy' => $vacancy,
+                        'org' => $organisation,
+                    ),
+                    'event' => DigestEntry::NEWCANDIDATE,
+                );
+            }
+            else {
+                $info = array(
+                    'subject' => $subject,
+                    'template' => 'newCandidate.html.twig',
+                    'txt/plain' => 'newCandidate.txt.twig',
+                    'data' => array(
+                        'candidate' => $person,
+                        'vacancy' => $vacancy,
+                        'org' => $organisation,
+                    ),
+                    'event' => DigestEntry::NEWCANDIDATE,
+                );
+            }
             $this->digestAndMail($info);
         }
 

@@ -1,0 +1,11 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+{{ "ranCan.header" |trans }}
+
+<p>{{ "ranCan.firstp_notOrg" | trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},</p>
+
+{{ "ranCan.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "ranCan.secondp.spart" | trans }} {{ vacancy.title }} {{ "ranCan.secondp.tpart" | trans }}
+
+{% endblock %}

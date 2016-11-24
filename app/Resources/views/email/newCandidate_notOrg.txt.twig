@@ -1,0 +1,11 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+{{ "newCandidate.header" | trans }}
+
+{{ "newCandidate.firstp_notOrg" |trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }}
+
+{{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  {{ "newCandidate.secondp.tpart" | trans }} {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
+
+{% endblock %}

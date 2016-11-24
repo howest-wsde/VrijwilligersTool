@@ -1,0 +1,13 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+<h1>{{ "ranCan.header" |trans }}</h1>
+
+<p>{{ "ranCan.firstp_notOrg" | trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},</p>
+
+<p>
+    {{ "ranCan.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "ranCan.secondp.spart" | trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a> {{ "ranCan.secondp.tpart" | trans }}
+</p>
+
+{% endblock %}
