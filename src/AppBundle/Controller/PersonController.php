@@ -414,6 +414,8 @@ class PersonController extends UtilityController
                 case DigestEntry::SAVEDORGANISATION:
                     $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId()));
                     break;
+                case DigestEntry::DISAPPROVECANDIDATE:
+                    $actionLink = $this->generateUrl('vacancy_by_urlid', array('urlid' => $digest->getVacancy()->getUrlId()));
             }
 
             return $this->redirect($actionLink);
