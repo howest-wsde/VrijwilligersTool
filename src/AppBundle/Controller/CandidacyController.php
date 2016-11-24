@@ -118,7 +118,9 @@ class CandidacyController extends UtilityController
 
     private function handleDigestsAndMail($candidate, $vacancy, $mailInfo, $event){
         $this->handleDigestsAndMailForCandidate($candidate, $vacancy, $mailInfo["candidate"]["subject"], $mailInfo["candidate"]["template"], $event);
-        $this->handleDigestsAndMailForAdmins($candidate, $vacancy, $mailInfo["admins"]["subject"], $mailInfo["admins"]["template"], $event);
+        if (!is_null($vacancy->getOrganisation())){
+            $this->handleDigestsAndMailForAdmins($candidate, $vacancy, $mailInfo["admins"]["subject"], $mailInfo["admins"]["template"], $event);
+        }
     }
 
     private function handleDigestsAndMailForCandidate($candidate, $vacancy, $subject, $template, $event){
