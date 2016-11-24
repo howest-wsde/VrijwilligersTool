@@ -80,9 +80,10 @@ class VacancyController extends UtilityController
     {
         $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $organisation = null;
 
         if($organisation_urlid){
-            $user = $this->getUser();
             $organisation = $em->getRepository("AppBundle:Organisation")
                                 ->findOneByUrlid($organisation_urlid);
             if(!$user->getOrganisations()->contains($organisation)){

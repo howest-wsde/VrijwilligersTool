@@ -81,17 +81,21 @@ class UtilityController extends Controller
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
         $hasCandidateDigest1 = ($isForCandidate) ? $candidate->getDigest() === Person::IMMEDIATELY : null;
-        $admins = $org->getAdministratorsByDigest(1);
+        if (is_null($org)){
+            $this->sendMail($info["data"]["user"], $info);
+        } else {
+            $admins = $org->getAdministratorsByDigest(1);
 
-        if ($isForCandidate && $hasCandidateDigest1){
-            $info['to'] = $candidate->getEmail();
-            $this->sendMail($candidate, $info);
-        }
-        else if($admins)
-        {
-            foreach ($admins as $admin) {
-                $info['to'] = $admin->getEmail();
-                $this->sendMail($admin, $info);
+            if ($isForCandidate && $hasCandidateDigest1){
+                $info['to'] = $candidate->getEmail();
+                $this->sendMail($candidate, $info);
+            }
+            else if($admins)
+            {
+                foreach ($admins as $admin) {
+                    $info['to'] = $admin->getEmail();
+                    $this->sendMail($admin, $info);
+                }
             }
         }
     }
@@ -110,6 +114,12 @@ class UtilityController extends Controller
 
         if ($isForCandidate){
             $info['user'] = $candidate;
+            if ($sent) $this->setDigestEntrySent($info, $org);
+            else $this->addDigestEntry($info, $org);
+
+        }
+        else if (is_null($org)){
+            $info["user"] = $info["data"]["user"];
             if ($sent) $this->setDigestEntrySent($info, $org);
             else $this->addDigestEntry($info, $org);
         }
