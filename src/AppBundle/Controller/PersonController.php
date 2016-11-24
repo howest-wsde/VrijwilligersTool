@@ -325,7 +325,6 @@ class PersonController extends UtilityController
                 break;
             case DigestEntry::NEWCANDIDATE:
                 $personName = $digest->getCandidate()->getFullName();
-                $organisationName = $digest->getOrganisation()->getName();
                 $translation = 'person.events.newcandidate';
                 break;
             case DigestEntry::NEWADMIN:
