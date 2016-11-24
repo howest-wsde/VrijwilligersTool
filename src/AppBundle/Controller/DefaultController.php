@@ -90,7 +90,7 @@ class DefaultController extends Controller
             }
         }
 
-        return $this->render('default/googlemap.html.twig', ["locations"=>$locations]);
+        return $this->render('default/googlemap.html.twig', array("locations"=> $locations) );
     }
 
 

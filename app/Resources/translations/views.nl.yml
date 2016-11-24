@@ -95,6 +95,7 @@ def: #default
         notsure: Niet zeker wat je wil?
         notsureteaser: Door middel van enkele simpele vragen leidt de site je naar de perfecte vrijwilligerstaak.
         test: Doe hier de test!
+        mapstitle: Overzicht van alle verenigingen
     index:
         logintitle: Log in met je gebruikersgegevens
         id: 'Gebruikersnaam, e-mailadres of telefoonnummer'

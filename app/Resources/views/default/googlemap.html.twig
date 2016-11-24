@@ -17,15 +17,26 @@
       </ul>
     </div>
     <script>
+      "use strict";
       var map;
       function initMap() {
       	var startpos = {lat: 50.960182, lng: 3.095295};
         map = new google.maps.Map(document.getElementById('map'), {
           center: startpos,
-          zoom: 14
+          zoom: 15
         });
 
-        {% for location in locations %}
+      var markers = [];
+
+       var fitmap  = function() {
+           var bounds = new google.maps.LatLngBounds();
+           for (var i = 0; i < markers.length; i++) {
+              bounds.extend(markers[i].getPosition());
+          }
+          map.fitBounds(bounds);
+       };
+
+          {% for location in locations %}
         	var marker = new google.maps.Marker({
 				position: {lat: {{ location.latitude }}, lng: {{ location.longitude }}},
 				map: map,
@@ -39,13 +50,17 @@
 			google.maps.event.addListener(marker, 'click', function() {
 				top.location.href = this.url;
 			});
-		{% endfor %}
+          markers.push(marker);
+
+          {% endfor %}
+
+          fitmap();
 
 		google.maps.event.addDomListener(window, 'resize', function() {
-		  map.setCenter(center);
+		  initMap();
 		});
 
-      }
+      };
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}&callback=initMap"
     async defer></script>
