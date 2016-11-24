@@ -80,23 +80,28 @@ class UtilityController extends Controller
     {
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+        $creator = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy']->getCreator() : null;
         $hasCandidateDigest1 = ($isForCandidate) ? $candidate->getDigest() === Person::IMMEDIATELY : null;
-        if (is_null($org)){
-            $this->sendMail($info["data"]["user"], $info);
-        } else {
-            $admins = $org->getAdministratorsByDigest(1);
 
-            if ($isForCandidate && $hasCandidateDigest1){
-                $info['to'] = $candidate->getEmail();
-                $this->sendMail($candidate, $info);
-            }
-            else if($admins)
+        if ($isForCandidate && $hasCandidateDigest1){
+            $info['to'] = $candidate->getEmail();
+            $this->sendMail($candidate, $info);
+            return;
+        }
+
+        if (!is_null($org)){
+            $admins = $org->getAdministratorsByDigest(1);
+            if($admins)
             {
                 foreach ($admins as $admin) {
                     $info['to'] = $admin->getEmail();
                     $this->sendMail($admin, $info);
                 }
             }
+        }
+        else {
+            $info['to'] = $creator->getEmail();
+            $this->sendMail($creator, $info);
         }
     }
 
@@ -110,28 +115,38 @@ class UtilityController extends Controller
         $sent = array_key_exists('sent', $info);
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-        $admins = $org->getAdministrators();
+        $creator = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy']->getCreator() : null;
+        $admins = null;
 
         if ($isForCandidate){
             $info['user'] = $candidate;
-            if ($sent) $this->setDigestEntrySent($info, $org);
-            else $this->addDigestEntry($info, $org);
+            $this->handleDigestEntry($sent, $info, $org);
+            return;
+        }
 
-        }
-        else if (is_null($org)){
-            $info["user"] = $info["data"]["user"];
-            if ($sent) $this->setDigestEntrySent($info, $org);
-            else $this->addDigestEntry($info, $org);
-        }
-        else if ($admins) {
-            foreach ($admins as $admin) {
-                if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event'])) {
-                    $info['user'] = $admin;
-                    if ($sent) $this->setDigestEntrySent($info, $org);
-                    else $this->addDigestEntry($info, $org);
+        if (!is_null($org)){
+            $admins = $org->getAdministrators();
+
+            if ($admins) {
+                foreach ($admins as $admin) {
+                    if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event'])) {
+                        $info['user'] = $admin;
+                        $this->handleDigestEntry($sent, $info, $org);
+                    }
                 }
+                return;
             }
         }
+        else {
+            $info["user"] = $creator;
+            $this->handleDigestEntry($sent, $info, $org);
+            return;
+        }
+    }
+
+    private function handleDigestEntry($sent, $info, $org){
+        if ($sent) $this->setDigestEntrySent($info, $org);
+        else $this->addDigestEntry($info, $org);
     }
 
     private function isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $event){
