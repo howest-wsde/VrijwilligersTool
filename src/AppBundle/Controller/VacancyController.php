@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Form\TestimonialType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +12,7 @@ use AppBundle\Entity\Vacancy;
 use AppBundle\Entity\Candidacy;
 use AppBundle\Entity\DigestEntry;
 use AppBundle\Entity\Form\VacancyType;
+use AppBundle\Entity\Testimonial;
 use AppBundle\Controller\UtilityController;
 
 class VacancyController extends UtilityController
@@ -600,5 +602,196 @@ class VacancyController extends UtilityController
 
     private function getVacancyRepository(){
         return $this->getDoctrine()->getManager()->getRepository("AppBundle:Vacancy");
+    }
+
+    /**
+     * Send a testimonial to volunteer
+     * @Route("/vacature/{urlid}/testimonial-to-volunteer", name="send_testimonial_to_volunteer")
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy where the candidates will get a testimonial
+     */
+    public function sendTestimonialToVolunteers(Request $request, $urlid)
+    {
+        $user = $this->getUser();
+        $t = $this->get('translator');
+
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+
+
+        $receiverType = "person";
+        $testimonial = new Testimonial();
+        $form = $this->createForm(TestimonialType::class, $testimonial, array('attr' => array("receiverType" => $receiverType, "vacancy" => $vacancy)));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $testimonial = $form->getData();
+            $testimonial->setSender($user);
+            $testimonial->setSenderVacancy($vacancy);
+            $em->persist($testimonial);
+            $em->flush();
+
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.testimonialSent'));
+            $info = array(
+                'subject' => $t->trans('testimonial.mail.create'),
+                'template' => 'testimonialReceivedFromVacancy.html.twig',
+                'txt/plain' => 'testimonialReceivedFromVacancy.txt.twig',
+                'to' => $testimonial->getReceiverPerson()->getEmail(),
+                'isForCandidate' => true,
+                'data' => array(
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                    'org' => $vacancy->getOrganisation(),
+                    'candidate' => $testimonial->getReceiverPerson()
+                ),
+                'event' => DigestEntry::NEWTESTIMONIALTOPERSON,
+            );
+            $this->digestAndMail($info, $vacancy->getOrganisation());
+
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                ["urlid" => $vacancy->getUrlId() ] ));
+
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            $this->addFlash('error', $t->trans('general.flash.formError'));
+        }
+
+        return $this->render("testimonial/getuigschrift_maken.html.twig",
+            array("form" => $form->createView(),
+                "urlid" => $urlid,
+                "receiverType" => $receiverType));
+    }
+
+    /**
+     * Send a testimonial to vacancy
+     * @Route("/vacature/{urlid}/testimonial-to-vacancy", name="send_testimonial_to_vacancy")
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy where the candidates will get a testimonial
+     */
+    public function sendTestimonialToVacancy(Request $request, $urlid)
+    {
+        $user = $this->getUser();
+        $t = $this->get('translator');
+
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+
+
+        $receiverType = "vacancy";
+        $testimonial = new Testimonial();
+        $form = $this->createForm(TestimonialType::class, $testimonial, array('attr' => array("receiverType" => $receiverType, "vacancy" => $vacancy)));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $testimonial = $form->getData();
+            $testimonial->setSender($user);
+            $testimonial->setApproved(false);
+            $testimonial->setReceiverVacancy($vacancy);
+            $em->persist($testimonial);
+            $em->flush();
+
+            $this->addFlash('approve_message', $t->trans('vacancy.flash.testimonialSent'));
+            $info = array(
+                'subject' => $t->trans('testimonial.mail.create'),
+                'template' => 'testimonialReceivedFromPerson.html.twig',
+                'txt/plain' => 'testimonialReceivedFromPerson.txt.twig',
+                'to' => $user,
+                'data' => array(
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                    'org' => $vacancy->getOrganisation(),
+                    'candidate' => $user
+                ),
+                'event' => DigestEntry::NEWTESTIMONIALTOVACANCY ,
+            );
+            $this->digestAndMail($info, $vacancy->getOrganisation());
+            return $this->redirect($this->generateUrl("vacancy_by_urlid",
+                ["urlid" => $vacancy->getUrlId() ] ));
+
+        }
+        else if ($form->isSubmitted() && !$form->isValid())
+        {
+            $this->addFlash('error', $t->trans('general.flash.formError'));
+        }
+
+        return $this->render("testimonial/getuigschrift_maken.html.twig",
+            array("form" => $form->createView(),
+                "urlid" => $urlid,
+                "receiverType" => $receiverType));
+    }
+
+    /**
+     * Create a list of all testimonials
+     * @param person $user a user
+     */
+    public function listTestimonialsAction($vacancy)
+    {
+        $testimonials = [];
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select(array('t'))
+            ->from('AppBundle:Testimonial', 't')
+            ->where('t.receiverVacancy = :vacancy')
+            ->setParameter('vacancy', $vacancy->getId())
+            ->andWhere('t.approved = 1')
+            ->add('orderBy', 't.id DESC');;
+
+        $approvedTestimonials = $qb->getQuery()->getResult();
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select(array('t'))
+            ->from('AppBundle:Testimonial', 't')
+            ->where('t.receiverVacancy = :vacancy')
+            ->setParameter('vacancy', $vacancy->getId())
+            ->andWhere('t.approved = 0')
+            ->add('orderBy', 't.id DESC');;
+
+        $pendingTestimonials = $qb->getQuery()->getResult();
+
+        return $this->render("vacancy/vacature_getuigschriften.html.twig", [
+            "approvedTestimonials" => $approvedTestimonials,
+            "pendingTestimonials" => $pendingTestimonials,
+            "vacancy" => $vacancy
+        ]);
+    }
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{action}/{testimonialid}", name="vacancy_handle_testimonial"))
+     */
+    public function handleTestimonialAction($urlid, $action, $testimonialid)
+    {
+        $t = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($vacancy->getOrganisation()->getUrlId());
+
+        if(!$user->getOrganisations()->contains($organisation)){
+            return $this->redirectToRoute('homepage');
+        }
+
+        $testimonial = $em->getRepository("AppBundle:Testimonial")
+            ->findOneById($testimonialid);
+        if ($action == "approve") {
+            $testimonial->setApproved(true);
+            $this->addFlash('approve_message', $t->trans('testimonial.flash.approved') );
+        }
+        elseif ($action == "remove") {
+            $em->remove($testimonial);
+            $this->addFlash('approve_message', $t->trans('testimonial.flash.removed') );
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl("vacancy_by_urlid",
+            ["urlid" => $vacancy->getUrlId() ] ));
     }
 }

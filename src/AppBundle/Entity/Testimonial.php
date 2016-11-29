@@ -183,4 +183,91 @@ class Testimonial extends EntityBase
     {
         return str_replace(" ", "-", $this->sender);
     }
+    /**
+     * @var \AppBundle\Entity\Person
+     */
+    private $receiverPerson;
+
+
+    /**
+     * Set receiverPerson
+     *
+     * @param \AppBundle\Entity\Person $receiverPerson
+     *
+     * @return Testimonial
+     */
+    public function setReceiverPerson(\AppBundle\Entity\Person $receiverPerson = null)
+    {
+        $this->receiverPerson = $receiverPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverPerson
+     *
+     * @return \AppBundle\Entity\Person
+     */
+    public function getReceiverPerson()
+    {
+        return $this->receiverPerson;
+    }
+    /**
+     * @var \AppBundle\Entity\Vacancy
+     */
+    private $receiverVacancy;
+
+
+    /**
+     * Set receiverVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $receiverVacancy
+     *
+     * @return Testimonial
+     */
+    public function setReceiverVacancy(\AppBundle\Entity\Vacancy $receiverVacancy = null)
+    {
+        $this->receiverVacancy = $receiverVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverVacancy
+     *
+     * @return \AppBundle\Entity\Vacancy
+     */
+    public function getReceiverVacancy()
+    {
+        return $this->receiverVacancy;
+    }
+    /**
+     * @var \AppBundle\Entity\Vacancy
+     */
+    private $senderVacancy;
+
+
+    /**
+     * Set senderVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $senderVacancy
+     *
+     * @return Testimonial
+     */
+    public function setSenderVacancy(\AppBundle\Entity\Vacancy $senderVacancy = null)
+    {
+        $this->senderVacancy = $senderVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Get senderVacancy
+     *
+     * @return \AppBundle\Entity\Vacancy
+     */
+    public function getSenderVacancy()
+    {
+        return $this->senderVacancy;
+    }
 }

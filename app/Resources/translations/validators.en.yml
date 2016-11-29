@@ -223,3 +223,10 @@ general:
     choices:
         yes: Yes
         no: No
+testimonial:
+    label:
+        to: To
+        content: Content
+        submit: Send
+    placeholder:
+        to: Select a volunteer

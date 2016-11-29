@@ -115,7 +115,7 @@ class UtilityController extends Controller
         }
         else if ($admins) {
             foreach ($admins as $admin) {
-                if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event'])) {
+                if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event']) || $info["event"] == DigestEntry::NEWTESTIMONIALTOVACANCY) {
                     $info['user'] = $admin;
                     if ($sent) $this->setDigestEntrySent($info, $org);
                     else $this->addDigestEntry($info, $org);
@@ -245,6 +245,24 @@ class UtilityController extends Controller
                     'organisation' => $org,
                     'user' => $user,
                     'saver' => $saver,
+                ));
+                break;
+            case DigestEntry::NEWTESTIMONIALTOPERSON:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'organisation' => $org,
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                    'candidate' => $candidate
+                ));
+                break;
+            case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                $digests = $digestRepo->findBy(array(
+                    'event' => $event,
+                    'organisation' => $org,
+                    'user' => $user,
+                    'vacancy' => $vacancy,
+                    'candidate' => $candidate
                 ));
                 break;
         }

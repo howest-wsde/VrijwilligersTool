@@ -16,8 +16,19 @@ AppBundle\Entity\Testimonial:
             joinColumn:
                 name: sender_id
                 referencedColumnName: id
-        receiver:
+        senderVacancy:
+            targetEntity: Vacancy
+            joinColumn:
+                name: sender_vacancy_id
+                referencedColumnName: id
+        receiverVacancy:
+            targetEntity: Vacancy
+            joinColumn:
+                name: receiver_vacancy_id
+                referencedColumnName: id
+        receiverPerson:
             targetEntity: Person
             joinColumn:
-                name: receiver_id
+                name: receiver_person_id
                 referencedColumnName: id
+

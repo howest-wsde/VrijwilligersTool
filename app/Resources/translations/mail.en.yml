@@ -161,4 +161,18 @@ vacCre:
       secondp:
           fpart: as admin we wish there to bring you aware that there was a new job is created for
           spart: ". It concerns the vacancy with title"
+testimonialFromPerson:
+      header: New testimonial received
+      firstp: Dear admin for
+      secondp:
+          fpart: Your organisation has received a testimonial from
+          spart: "for the following vacancy:"
+          tpart: If it's a good testimonial, you can approve it so other people can view it.
+testimonialFromVacancy:
+      header: New testimonial received
+      firstp: Dear
+      secondp:
+          fpart: You have received a testimonial from
+          spart: "for the following vacancy:"
+          tpart: "Click here to view the testimonial."
 
