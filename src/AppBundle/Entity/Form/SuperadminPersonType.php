@@ -55,7 +55,7 @@ class SuperadminPersonType extends AbstractType
                 'class' => 'AppBundle:Organisation',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('o')
-                        ->where('o.intermediary = true')
+                        ->where('o.intermediary = true and o.deleted = false')
                         ->orderBy('o.name', 'ASC');
                 },
                 // use the name property as the visible option string
