@@ -45,8 +45,10 @@ person:
         approvecandidate_user: "You have been approved for '[vacancyTitle]'."
         disapprovecandidate_user: "You have been disapproved for '[vacancyTitle]'."
         removecandidate_user: "You have been removed from '[vacancyTitle]'."
-        savedvacancy: "[personName] has saved your vacancy'[vacancyTitle]'."
+        savedvacancy: "[personName] has saved your vacancy '[vacancyTitle]'."
         savedorganisation: "[personName] has saved your organisation '[organisationName]'."
+        newtestimonialtovacancy: "[personName] has sent a testimonial to your vacancy '[vacancyTitle]'."
+        newtestimonialtoperson: "You just received a testimonial for vacancy '[vacancyTitle]'."
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you
@@ -66,6 +68,7 @@ vacancy:
         addToSaved: The vacancy has been added to your saved vancancies.
         removeFromSaved: The vacancy has been removed from your saved vacancies.
         okModification: The vacancy has been modified.
+        testimonialSent: The testimonial has been sent.
     mail:
         create: New vacancy created
         removeCandidacySubjectStart: withdrew his/her candidacy for the vacancy titled
@@ -99,3 +102,9 @@ org:
         volunteer: ' volunteer'
         volunteers: ' employees and volunteers'
         here: on this site
+testimonial:
+    mail:
+        create: New testimonial received
+    flash:
+        approved: The testimonial has been approved and is now visible for everyone
+        removed: The testimonial has been disapproved and removed

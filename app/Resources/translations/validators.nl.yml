@@ -223,3 +223,10 @@ general:
     choices:
         yes: Ja
         no: Nee
+testimonial:
+    label:
+        to: Aan
+        content: Inhoud
+        submit: Verzenden
+    placeholder:
+        to: Selecteer een vrijwilliger

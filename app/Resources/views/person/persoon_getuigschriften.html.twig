@@ -1,0 +1,35 @@
+{% trans_default_domain "views" %}
+{% if testimonials|length>0 %}
+
+    <section class="part">
+        <div class="container tabblad spacing">
+            <ul class="nav nav-tabs">
+                <li class="blauw active"><a href="#testimonials" id="testimonialsTab" data-toggle="tab">{{  testimonials|length }} {{ "person.dash.testimonials.testimonials"|trans }}</a></li>
+            </ul>
+
+            <div class="tab-content clearfix blok special">
+                <div class="tab-pane active" id="testimonials">
+                    {% for testimonial in testimonials %}
+                    <div class="blokken blok" style="margin: 0 0 5px 0; text-align: left">
+                        <h4><span style="display: block"><b>{{ "person.dash.testimonials.from" | trans }}:</b> {{ testimonial.sender.fullname }}</span>
+                            <span style="display: block"><b>{{ "person.dash.testimonials.vacancy" | trans }}:</b> <a href="{{ path("vacancy_by_urlid", {'urlid': testimonial.senderVacancy.urlId }) }}">{{ testimonial.senderVacancy.title }}</a></span>
+                            {{ testimonial.value }}</h4>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var intervalTestimonials = setInterval(function() {
+                if (typeof $ == 'undefined') return;
+                clearInterval(intervalTestimonials);
+                $("#testimonialsTab").css("cursor", "pointer");
+                $("#testimonialsTab").unbind().on("click", function(){
+                    $("#testimonials").toggle();
+                });
+            }, 10);
+        </script>
+    </section>
+
+{% endif %}

@@ -1,0 +1,43 @@
+{% trans_default_domain "views" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "testimonial.send.title"|trans }}{% endblock %}
+
+{% block body %}
+    <section class="steps">
+        {% for flash_message in app.session.flashbag.get('success-notice') %}
+            <div class="success-notice">
+                <script type="text/javascript">alert("{{ flash_message }}");</script>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <h2 class="steptitle rood"><a href="#algemeen" name="algemeen">{{ "testimonial.form.title"|trans }}</a></h2>
+        <div class="step actief grijs rood">
+            <fieldset>
+                {% if receiverType == "person" %}
+                    {{ form_row(form.receiverPerson) }}
+                {% endif %}
+                {% if receiverType == "vacancy" %}
+                    {{ form_row(form.receiverVacancy) }}
+                {% endif %}
+                {{ form_row(form.value) }}
+                {{ form_row(form.submit) }}
+                {{ form_row(form._token) }}
+                {{ form_end(form) }}
+            </fieldset>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/forms.js") }}"></script>
+{% endblock %}
