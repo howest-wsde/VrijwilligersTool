@@ -4,7 +4,11 @@
 		$(".steps .steptitle").click(function(){
 			$(".steps .step").removeClass("actief");
 			$(this).next(".step").addClass("actief");
-		})
+            $('html, body').animate({
+                scrollTop: $(this).offset().top
+            }, 1000);
+		});
+		
 		if ($(".steps .step.actief").length == 0) $(".steps .step:first").addClass("actief");
 
 		$("input[type=file]").each(function(){
@@ -23,11 +27,11 @@
 
 				    reader.onload = function (e) {
 				        oLabel.css("background-image", "url(" + e.target.result + ")").addClass("hasvalue");
-				    }
+				    };
 
 				    reader.readAsDataURL(this.files[0]);
 				}
-			})
+			});
 		});
-	})
+	});
 })();
