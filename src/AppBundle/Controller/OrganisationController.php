@@ -442,7 +442,7 @@ class OrganisationController extends UtilityController
                  ->setParameter('id', $id);
 
         $count = $query->getResult()[0][1];
-        $count += sizeof($organisation->findOneById($id)->getAdministrators());
+        if ($organisation->findOneById($id)) $count += sizeof($organisation->findOneById($id)->getAdministrators());
 
         $count <= 1 ? $response = " " . $t->trans('org.list.volunteer') : $response = $t->trans('org.list.volunteers');
 
