@@ -326,7 +326,7 @@ body > header .menu_primary a {
   background: none;
 }
 #carouselhome #indexHeader .container {
-  height: 444px;
+  height: 500px;
 }
 #carouselhome #indexHeader .slide {
   display: -webkit-flex;
@@ -666,7 +666,7 @@ body > header .menu_primary a {
 article.vacature,
 article.vereniging,
 .blok {
-  background: white;
+  background: #ffffff;
   box-shadow: 0px 4px 0px 0px #ebebeb;
   border-radius: 10px;
   position: relative;
@@ -1118,7 +1118,7 @@ ul.icons {
 }
 ul.icons li {
   text-align: left;
-  background: white no-repeat left 2px;
+  background: #ffffff no-repeat left 2px;
   padding-left: 23px;
   display: inline-block;
   padding-bottom: 3px;
@@ -1181,7 +1181,7 @@ ul.social li.googleplus a {
   background-image: url("../images/share_google.png");
 }
 .tempblok {
-  background: white;
+  background: #ffffff;
   box-shadow: 0px 4px 0px 0px #ebebeb;
   border-radius: 10px;
   padding: 15px;
@@ -1897,9 +1897,6 @@ h3 {
 #zoekpage .filters .blok .filtertype div.lbl {
   display: none;
 }
-#zoekpage .filters .blok .vals > input {
-  padding-left: 5px;
-}
 #zoekpage .lessismore {
   border-top: 1px solid #ececec;
 }
@@ -2488,4 +2485,9 @@ body {
 #map-preview {
   padding: 0;
   height: 300px;
+}
+.form-control-clear {
+  z-index: 10;
+  pointer-events: auto;
+  cursor: pointer;
 }
