@@ -38,6 +38,9 @@
 			            {{ flashMessage }}
 			        </div>
 			    {% endfor %}
+                {% if vacancy.published == 3 %}
+					<span>({{ "vacancy.vacancy.unfinished" | trans }})</span>
+                {% endif %}
 				<header><h1 id="vacancy_title">{{ vacancy.title }}</h1></header>
 				<dl>
 					{% if vacancy.summary %}

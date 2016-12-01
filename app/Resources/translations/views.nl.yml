@@ -372,6 +372,7 @@ vacancy:
             modify: Vacature aanpassen
             select: Kandidaten selecteren
             delete: Vacature verwijderen
+        unfinished: Onafgewerkt
     modify:
         title: Vacature Aanpassen
         anul: Annuleren
