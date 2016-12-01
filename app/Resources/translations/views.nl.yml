@@ -95,6 +95,7 @@ def: #default
         notsure: Niet zeker wat je wil?
         notsureteaser: Door middel van enkele simpele vragen leidt de site je naar de perfecte vrijwilligerstaak.
         test: Doe hier de test!
+        mapstitle: Overzicht van alle verenigingen
     index:
         logintitle: Log in met je gebruikersgegevens
         id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
@@ -243,6 +244,10 @@ person:
         notifications:
             notifications: Notificatie(s)
             see: Bekijk
+        testimonials:
+            testimonials: Getuigschrift(en)
+            from: Van
+            vacancy: Vacature
     rules:
         name: Vrijwilliger vinden
     search:
@@ -372,6 +377,9 @@ vacancy:
             modify: Vacature aanpassen
             select: Kandidaten selecteren
             delete: Vacature verwijderen
+            testimonial: Getuigschrift sturen naar vrijwilliger
+        volunteer:
+            testimonial: Getuigschrift sturen naar organisatie
     modify:
         title: Vacature Aanpassen
         anul: Annuleren
@@ -405,3 +413,15 @@ vacancy:
         title: Vacature aanmaken
         looking: Op zoek naar vrijwilligers?
         fill: Vul hier de gegevens van je vacature in.
+testimonial:
+    send:
+        title: Getuigschrift maken
+    form:
+        title: Getuigschrift maken
+    tab:
+        from: Van
+        title: Getuigschrift(en)
+        pendingtitle: Getuigschrift(en) in behandeling
+    button:
+        approve: Goedkeuren
+        remove: Verwijderen

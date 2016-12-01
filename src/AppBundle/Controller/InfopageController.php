@@ -66,8 +66,7 @@ class InfopageController extends UtilityController
                 'txt/plain' => 'contact.txt.twig',
                 'data' => array(
                     'contact' => $contact,
-                ),
-                'event' => DigestEntry::NEWADMIN,
+                ), 
             );
             $this->sendMail($target, $info);
 

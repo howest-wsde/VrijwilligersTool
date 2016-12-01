@@ -1,0 +1,13 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+    <h1>{{ "testimonialFromPerson.header" | trans }}</h1>
+
+    <p>{{ "testimonialFromPerson.firstp" |trans }} {{ user.firstname }} {{ user.lastname }},</p>
+
+    <p>
+        {{ "testimonialFromPerson.secondp.fpart" |trans }}{{ org.name }} {{ "testimonialFromPerson.secondp.spart" | trans }} <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlid }) }}">"{{ vacancy.title }}".</a>
+        {{ "testimonialFromVacancy.secondp.tpart" |trans }}
+    </p>
+{% endblock %}

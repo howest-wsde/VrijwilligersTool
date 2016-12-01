@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DigestEntry;
+use AppBundle\Entity\Person;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -280,21 +281,35 @@ class PersonController extends UtilityController
 
     /**
      * Create a list of all notifications
-     * @param person $user a user
+     * @param Person $user a user
+     * @param Organisation $organisation an organisation
+     * @param Vacancy $vacancy a vacancy
+     * @return Response
      */
-    public function listNotificationsAction($user)
+    public function listNotificationsAction($user, $organisation = null, $vacancy = null)
     {
         $digestNotifications = [];
         $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
 
-        $digests  = $qb->select(array('dE')) //Get all notifications except the ones from registration.
-            ->from('AppBundle:DigestEntry', 'dE')
+        $qb->select(array('dE')) //Get all notifications except the ones from registration.
+        ->from('AppBundle:DigestEntry', 'dE')
             ->where($qb->expr()->andX(
                 $qb->expr()->eq('dE.handled', 0),
                 $qb->expr()->eq('dE.user', $user->getId()),
-                $qb->expr()->neq('dE.event', 1)))
-            ->add('orderBy', 'dE.id DESC')
-            ->getQuery()->getResult();
+                $qb->expr()->neq('dE.event', 1)));
+
+        if($organisation) {
+            $qb->where('dE.Organisation = :organisation')
+                ->setParameter('organisation', $organisation->getId());
+        }
+
+        if($vacancy) {
+            $qb->where('dE.vacancy = :vacancy')
+                ->setParameter('vacancy', $vacancy->getId());
+        }
+
+        $qb->add('orderBy', 'dE.id DESC');
+        $digests = $qb->getQuery()->getResult();
 
         foreach ($digests as $digest){
             $textAndActionLink = $this->getTextAndActionLinkForEvent($digest);
@@ -361,6 +376,16 @@ class PersonController extends UtilityController
                 $organisationName = $digest->getOrganisation()->getName();
                 $translation = 'person.events.savedorganisation';
                 break;
+            case DigestEntry::NEWTESTIMONIALTOPERSON:
+                $personName = $digest->getCandidate()->getFullName();
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $translation = 'person.events.newtestimonialtoperson';
+                break;
+            case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                $vacancyTitle = $digest->getVacancy()->getTitle();
+                $personName = $digest->getCandidate()->getFullName();
+                $translation = 'person.events.newtestimonialtovacancy';
+                break;
         }
 
         $replaceBy = [$personName, $vacancyTitle, $organisationName];
@@ -414,11 +439,60 @@ class PersonController extends UtilityController
                 case DigestEntry::SAVEDORGANISATION:
                     $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId()));
                     break;
+                case DigestEntry::NEWTESTIMONIALTOPERSON:
+                    $actionLink = $this->generateUrl('person_username', array('username' => $digest->getCandidate()->getUsername())) . "#testimonialsTab";
+                    break;
+                case DigestEntry::NEWTESTIMONIALTOVACANCY:
+                    $actionLink = $this->generateUrl('organisation_by_urlid', array('urlid' => $digest->getOrganisation()->getUrlId())) . "#testimonialsTab";
+                    break;
             }
 
             return $this->redirect($actionLink);
         } else {
             return $this->redirectToRoute('homepage');
         }
+    }
+
+    /**
+     * Create a list of all testimonials
+     * @param person $user a user
+     */
+    public function listTestimonialsAction($user, $organisation = null, $vacancy = null)
+    {
+        $testimonials = [];
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select(array('t'))
+        ->from('AppBundle:Testimonial', 't')
+            ->where($qb->expr()->andX($qb->expr()->eq('t.receiverPerson', $user->getId())));
+
+        if($organisation) {
+            $qb->where("t.senderVacancy IN (:vacanciesOfOrganisation)")
+                ->setParameter('vacanciesOfOrganisation', array_values($this->getArrayOfVacanciesIds($organisation)));
+        }
+
+        if($vacancy) {
+            $qb->where('t.receiverVacancy = :vacancy')
+                ->setParameter('vacancy', $vacancy->getId());
+        }
+
+        $qb->add('orderBy', 't.id DESC');
+
+        $testimonials = $qb->getQuery()->getResult();
+
+        return $this->render("person/persoon_getuigschriften.html.twig", [
+            "testimonials" => $testimonials
+        ]);
+    }
+
+    private function getArrayOfVacanciesIds($organisation){
+        $vacanciesIds = [];
+        $vacancies = $organisation->getVacancies();
+
+        for ($i = 0, $l = count($vacancies); $i < $l; $i++){
+            $vacanciesIds[] = $vacancies[$i]->getId();
+        }
+
+        return $vacanciesIds;
     }
 }

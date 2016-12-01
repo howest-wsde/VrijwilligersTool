@@ -244,6 +244,10 @@ person:
         notifications:
             notifications: Notification(s)
             see: See
+        testimonials:
+            testimonials: Testimonial(s)
+            from: From
+            vacancy: Vacancy
     rules:
         name: Find volunteers
     search:
@@ -373,6 +377,9 @@ vacancy:
             modify: Modify vacancy
             select: Select candidates
             delete: Remove vacancy
+            testimonial: Sent testimonial to volunteer
+        volunteer:
+            testimonial: Sent testimonial to organisation
     modify:
         title: Adjust vacancy
         anul: Cancel
@@ -406,3 +413,15 @@ vacancy:
         title: Create vacancy
         looking: Looking for volunteers?
         fill: Fill out the vacancy data.
+testimonial:
+    send:
+        title: Creating a testimonial
+    form:
+        title: Creating a testimonial
+    tab:
+        from: From
+        title: Testimonial(s)
+        pendingtitle: Pending testimonial(s)
+    button:
+        approve: Approve
+        remove: Remove
