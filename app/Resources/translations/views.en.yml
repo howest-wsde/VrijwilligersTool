@@ -96,6 +96,7 @@ def: #default
         notsure: Not sure what you want?
         test: Do the test!
         notsureteaser: Through a few simple questions, the site will lead you to the perfect volunteer job.
+        mapstitle: Overview of all organisation
     index:
         logintitle: 'Log in with your userdata, mail or passphrase or password.'
         id: 'Username, e-mail or phone number'

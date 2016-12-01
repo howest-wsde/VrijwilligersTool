@@ -4,7 +4,7 @@
 		$(".steps .steptitle").click(function(){
 			$(".steps .step").removeClass("actief");
 			$(this).next(".step").addClass("actief");
-		})
+		});
 		if ($(".steps .step.actief").length == 0) $(".steps .step:first").addClass("actief");
 
 		$("input[type=file]").each(function(){
