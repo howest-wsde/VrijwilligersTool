@@ -267,6 +267,8 @@ person:
         address: Adresgegevens
         map: map preview
         preferences: 'Interesses & Voorkeuren'
+        alerts: 'Mailinstellingen'
+        alertwut: 'Geef hier aan waarover je meldingen wil krijgen'
         interesting: Kijk welke vacatures interessant zijn
         goodvol: Geslaagd vrijwilligerswerk begint bij werk dat je interessant vindt.  In de sectie
         search: zoek naar vacatures

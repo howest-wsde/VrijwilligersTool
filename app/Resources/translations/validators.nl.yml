@@ -161,6 +161,9 @@ person:
         backToRegistration: Terug naar de vorige stap
         backToGeneral: Terug naar de vorige stap
         mailPreference: Geef hier aan hoe vaak u meldingen wil krijgen via mail
+        alertPersonal: Persoonlijke meldingen
+        alertOrganisations: meldingen over uw organisaties
+        alertVacancies: Meldingen over vacatures
         accessible: Bent u mindermobiel?
         renumeration: Bent u bereid om vrijwilligerswerk te doen waar geen financiële beloning tegenover staat?
         longterm: Bent u bereid om een langdurig engagement aan te gaan?
@@ -177,6 +180,11 @@ person:
         all: Hoe meer hoe liever!
         normal: 'Niet speciaal veel, niet speciaal weinig'
         little: Liefst niet te veel
+    alertsettings:
+        yes: Alle
+        no: Geen
+        customorganisations: Instellen per organisatie
+        customvacancies: Instellen per vacature
 search:
     label:
         hoursAWeek: uren per week

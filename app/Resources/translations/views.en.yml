@@ -267,6 +267,8 @@ person:
         address: Address
         map: map preview
         preferences: 'Interests & Preferences'
+        alerts: 'Mailsettings'
+        alertwut: 'What alerts do you want to receive?'
         interesting: Check out vacancies
         goodvol: A good experience starts with finding something you are passionate about.  In the section
         search: search for vacancies

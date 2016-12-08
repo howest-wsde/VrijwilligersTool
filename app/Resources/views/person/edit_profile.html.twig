@@ -93,20 +93,15 @@
                 </fieldset>
                 <fieldset>
                     <div class='col-md-12'>
-                        {{ form_row (form.digest) }}
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <div class='col-md-12'>
                         {{ form_row(form.access) }}
                     </div>
                     <div class='col-md-12'>
                         {{ form_row(form.renumerate) }}
                     </div>
-                    <div class='col-md-6'>
+                    <div class='col-md-12'>
                         {{ form_row(form.longterm) }}
                     </div>
-                    <div class='col-md-6'>
+                    <div class='col-md-12'>
                         {{ form_row(form.estimatedWorkInHours) }}
                     </div>
                     <div class='col-md-12'>
@@ -115,6 +110,32 @@
                 </fieldset>
                 <fieldset>
                     {{ form_row (form.submit2) }}
+                </fieldset>
+            </div>
+
+            <h2 class="steptitle geel"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.alerts"|trans }}</a></h2>
+            <div class="step grijs geel">
+                <fieldset>
+                    <div class='col-md-12'>
+                        {{ form_row (form.digest) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class='col-md-12'>
+                        <p>{{ "person.become.alertwut"|trans }}</p>
+                    </div>
+                    <div class='col-md-4'>
+                        {{ form_row (form.alertPersonal) }}
+                    </div>
+                    <div class='col-md-4'>
+                        {{ form_row (form.alertOrganisations) }}
+                    </div>
+                    <div class='col-md-4'>
+                        {{ form_row (form.alertVacancies) }}
+                    </div>
+                </fieldset>
+                <fieldset>
+                    {{ form_row (form.submit3) }}
                 </fieldset>
             </div>
             {{ form_row(form._token) }}
