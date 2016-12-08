@@ -1,0 +1,30 @@
+AppBundle\Entity\AlertSetting:
+    type: entity
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        state:
+            type: smallint
+            options: { default: 0 }
+            nullable: true
+    manyToOne:
+        person:
+            targetEntity: Person
+            inversedBy: alertsettings
+            joinColumn:
+                name: person_id
+                referencedColumnName: id
+        organisation:
+            targetEntity: Organisation
+            inversedBy: alertsettings
+            joinColumn:
+                name: organisation_id
+                referencedColumnName: id
+        vacancy:
+            targetEntity: Vacancy
+            inversedBy: alertsettings
+            joinColumn:
+                name: vacancy_id
+                referencedColumnName: id

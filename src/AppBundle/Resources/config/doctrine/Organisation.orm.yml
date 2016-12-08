@@ -104,3 +104,6 @@ AppBundle\Entity\Organisation:
             nullable: true
             targetEntity: Vacancy
             mappedBy: organisation
+        alertsettings:
+            targetEntity: AlertSetting
+            mappedBy: organisation_id

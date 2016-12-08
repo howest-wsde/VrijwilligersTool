@@ -1143,4 +1143,43 @@ class Vacancy extends EntityBase
     {
         return $this->creator;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alertsettings;
+
+
+    /**
+     * Add alertsetting
+     *
+     * @param \AppBundle\Entity\AlertSetting $alertsetting
+     *
+     * @return Vacancy
+     */
+    public function addAlertsetting(\AppBundle\Entity\AlertSetting $alertsetting)
+    {
+        $this->alertsettings[] = $alertsetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove alertsetting
+     *
+     * @param \AppBundle\Entity\AlertSetting $alertsetting
+     */
+    public function removeAlertsetting(\AppBundle\Entity\AlertSetting $alertsetting)
+    {
+        $this->alertsettings->removeElement($alertsetting);
+    }
+
+    /**
+     * Get alertsettings
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlertsettings()
+    {
+        return $this->alertsettings;
+    }
 }
