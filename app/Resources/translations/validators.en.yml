@@ -139,6 +139,7 @@ person:
     label:
         firstname: First name
         lastname: Surname
+        birthdate: Date of birth
         username: User name
         avatar: Photo
         email: Email

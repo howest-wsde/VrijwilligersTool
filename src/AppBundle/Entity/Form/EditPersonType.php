@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +34,12 @@ class EditPersonType extends AbstractType
             ->add("lastname", TextType::class, array(
                 "label" => "person.label.lastname",
                 "attr" => array("placeholder" => "person.label.lastname")
+            ))
+            ->add("birthdate", BirthdayType::class, array(
+                "label" => "person.label.birthdate",
+                "widget" => "single_text",
+                "format" => "yyyy-MM-dd",
+                "data" => new \DateTime("1970/01/01")
             ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",

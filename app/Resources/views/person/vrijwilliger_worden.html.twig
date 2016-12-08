@@ -44,6 +44,7 @@
 							<h3>{{ "person.become.personal"|trans }}</h3>
 						    {{ form_row (form.firstname) }}
 						    {{ form_row (form.lastname) }}
+							{{ form_row (form.birthdate) }}
 						</div>
 						<div class="col-md-4">
 							{{ form_row (form.avatarFile) }}
@@ -155,7 +156,7 @@
 		<div id="interessant" class="step grijs geel">
 			<p>
 				{{ "person.become.goodvol"|trans }} <a href="#zoekVacatures">{{ "person.become.search"|trans }}</a> {{ "person.become.but"|trans }}</p>
-			<div class="doetest"><a href="{{ path("test_type") }}" class="geel cta">
+			<div class="doetest"><a href="{{ path("test_type") }}" class="geel cta">LikeShow more reactions
 					{{ "person.become.dotest"|trans }}
 				</a>
 			</div>

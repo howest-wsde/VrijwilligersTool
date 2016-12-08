@@ -2,7 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use Datetime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -115,6 +117,14 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      groups = {"secondStep", "edit"}
      * )
      */
+
+
+    /**
+     * @var BirthdayType
+     */
+    protected $birthdate;
+
+
     protected $street;
 
     /**
@@ -1483,4 +1493,23 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->vacancies;
     }
+
+
+    /**
+     * @return BirthdayType
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * @param BirthdayType $birthdate
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+    }
+
+
 }

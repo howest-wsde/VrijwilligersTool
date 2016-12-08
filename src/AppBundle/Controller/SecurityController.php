@@ -83,7 +83,7 @@ class SecurityController extends UtilityController
                                 'org' => $contactOrganisation,
                             ),
                             'event' => DigestEntry::NEWCHARGE,
-                            'newCharge' => $user,
+                            'newCharge' => $user
                         );
                 $this->digestAndMail($info);
             }

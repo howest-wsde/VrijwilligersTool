@@ -26,11 +26,19 @@
                         <h3>{{ "person.become.personal"|trans }}</h3>
                         {{ form_row (form.firstname) }}
                         {{ form_row (form.lastname) }}
-                        {{ form_row (form.username) }}
+
+                        <div class="col-md-6">
+                            {{ form_row (form.username) }}
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form_row (form.birthdate) }}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        {{ form_row (form.avatarFile) }}
-                    </div>
+
+                        <div class="col-md-4">
+                            {{ form_row (form.avatarFile) }}
+                        </div>
                 </fieldset>
                 <fieldset>
                     <div>

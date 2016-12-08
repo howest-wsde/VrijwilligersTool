@@ -139,6 +139,7 @@ person:
     label:
         firstname: Voornaam
         lastname: Familienaam
+        birthdate: Geboortedatum
         username: Gebruikersnaam
         avatar: Foto
         email: E-mailadres

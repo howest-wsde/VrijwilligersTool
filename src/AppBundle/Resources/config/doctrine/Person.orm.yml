@@ -18,6 +18,9 @@ AppBundle\Entity\Person:
         passphrase:
             type: string
             length: 60
+        birthdate:
+            type: date
+            nullable: true
         street:
             type: string
             scale: 255
