@@ -82,7 +82,7 @@ AppBundle\Entity\Organisation:
           mappedBy: organisations
         alerts:
           targetEntity: Person
-          mappedBy: organisation_alerts
+          mappedBy: alert_organisations
         likers:
           targetEntity: Person
           mappedBy: liked_organisations

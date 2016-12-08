@@ -101,7 +101,7 @@ AppBundle\Entity\Vacancy:
     manyToMany:
         alerts:
           targetEntity: Person
-          mappedBy: vacancy_alerts
+          mappedBy: alert_vacancies
         skills:
             targetEntity: Skill
             nullable: true
