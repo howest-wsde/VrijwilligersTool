@@ -1600,4 +1600,33 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         $this->alert_organisations->removeElement($alertOrganisation);
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alert_vacancies;
+
+
+    /**
+     * Add alertVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     *
+     * @return Person
+     */
+    public function addAlertVacancy(\AppBundle\Entity\Vacancy $alertVacancy)
+    {
+        $this->alert_vacancies[] = $alertVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove alertVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     */
+    public function removeAlertVacancy(\AppBundle\Entity\Vacancy $alertVacancy)
+    {
+        $this->alert_vacancies->removeElement($alertVacancy);
+    }
 }

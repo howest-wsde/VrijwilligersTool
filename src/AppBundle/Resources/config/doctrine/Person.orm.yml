@@ -180,7 +180,7 @@ AppBundle\Entity\Person:
             inverseJoinColumns:
               organisation_id:
                 referencedColumnName: id
-        liked_vacancies:
+        alert_vacancies:
           targetEntity: Vacancy
           inversedBy: alerts
           cascade: ["persist"]

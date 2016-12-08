@@ -54,12 +54,13 @@
 				{% if app.user in organisation.administrators %}
 					<div>
 						<a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}" class="cta groen">{{ "general.admin.modify"|trans }}</a>
-
-					    {% if app.user in organisation.alerts %}
-					        <a class="fav liked" title="{{ "org.min.remove"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
-					    {% else %}
-					        <a class="fav notliked" title="{{ "general.button.like"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
-					    {% endif %}
+ 						{% if app.user.alertOrganisations == 2 %}
+						    {% if app.user in organisation.alerts %}
+						        <a class="alert" title="{{ "org.alert.remove"|trans }}" href="{{ path("organisation_alert", {"urlid": organisation.urlId, "action":"remove" }) }}"><span>{{ "org.alert.remove"|trans }}</span></a>
+						    {% else %}
+						        <a class="noalert" title="{{ "org.alert.add"|trans }}" href="{{ path("organisation_alert", {"urlid": organisation.urlId, "action":"add" }) }}"><span>{{ "org.alert.add"|trans }}</span></a>
+						    {% endif %}
+ 						{% endif %}
 					</div>
 				{% endif %}
 				<div>

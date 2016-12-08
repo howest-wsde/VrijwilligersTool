@@ -161,6 +161,32 @@ class VacancyController extends UtilityController
             ["vacancy" => $vacancy]);
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{action}",
+     *              name="vacancy_alert",
+     *              requirements={"action": "add|remove"})
+     */
+    public function vacancyAlertAction($urlid, $action)
+    {
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $user->removeAlertVacancy($vacancy); // standaard removen om geen doubles te creeren
+
+        if ($action == "add") {
+            $user->addAlertVacancy($vacancy);
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
+
     /**
      * Kandidaat stellen voor een vacature
      * @Security("has_role('ROLE_USER')")
