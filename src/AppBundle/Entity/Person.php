@@ -1486,96 +1486,100 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * @var integer
      */
-    private $alertPersonal = 1;
+    private $personalAlert = 1;
 
     /**
      * @var integer
      */
-    private $alertOrganisations = 1;
+    private $organisationAlert = 1;
 
     /**
      * @var integer
      */
-    private $alertVacancies = 1;
-
-
-    /**
-     * Set alertPersonal
-     *
-     * @param integer $alertPersonal
-     *
-     * @return Person
-     */
-    public function setAlertPersonal($alertPersonal)
-    {
-        $this->alertPersonal = $alertPersonal;
-
-        return $this;
-    }
-
-    /**
-     * Get alertPersonal
-     *
-     * @return integer
-     */
-    public function getAlertPersonal()
-    {
-        return $this->alertPersonal;
-    }
-
-    /**
-     * Set alertOrganisations
-     *
-     * @param integer $alertOrganisations
-     *
-     * @return Person
-     */
-    public function setAlertOrganisations($alertOrganisations)
-    {
-        $this->alertOrganisations = $alertOrganisations;
-
-        return $this;
-    }
-
-    /**
-     * Get alertOrganisations
-     *
-     * @return integer
-     */
-    public function getAlertOrganisations()
-    {
-        return $this->alertOrganisations;
-    }
-
-    /**
-     * Set alertVacancies
-     *
-     * @param integer $alertVacancies
-     *
-     * @return Person
-     */
-    public function setAlertVacancies($alertVacancies)
-    {
-        $this->alertVacancies = $alertVacancies;
-
-        return $this;
-    }
-
-    /**
-     * Get alertVacancies
-     *
-     * @return integer
-     */
-    public function getAlertVacancies()
-    {
-        return $this->alertVacancies;
-    }
+    private $vacancyAlert = 1;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $alert_organisations;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alert_vacancies;
+
+
+    /**
+     * Set personalAlert
+     *
+     * @param integer $personalAlert
+     *
+     * @return Person
+     */
+    public function setPersonalAlert($personalAlert)
+    {
+        $this->personalAlert = $personalAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get personalAlert
+     *
+     * @return integer
+     */
+    public function getPersonalAlert()
+    {
+        return $this->personalAlert;
+    }
+
+    /**
+     * Set organisationAlert
+     *
+     * @param integer $organisationAlert
+     *
+     * @return Person
+     */
+    public function setOrganisationAlert($organisationAlert)
+    {
+        $this->organisationAlert = $organisationAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get organisationAlert
+     *
+     * @return integer
+     */
+    public function getOrganisationAlert()
+    {
+        return $this->organisationAlert;
+    }
+
+    /**
+     * Set vacancyAlert
+     *
+     * @param integer $vacancyAlert
+     *
+     * @return Person
+     */
+    public function setVacancyAlert($vacancyAlert)
+    {
+        $this->vacancyAlert = $vacancyAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get vacancyAlert
+     *
+     * @return integer
+     */
+    public function getVacancyAlert()
+    {
+        return $this->vacancyAlert;
+    }
 
     /**
      * Add alertOrganisation
@@ -1600,11 +1604,16 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         $this->alert_organisations->removeElement($alertOrganisation);
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $alert_vacancies;
 
+    /**
+     * Get alertOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlertOrganisations()
+    {
+        return $this->alert_organisations;
+    }
 
     /**
      * Add alertVacancy
@@ -1629,4 +1638,61 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         $this->alert_vacancies->removeElement($alertVacancy);
     }
+
+    /**
+     * Get alertVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlertVacancies()
+    {
+        return $this->alert_vacancies;
+    }
+
+
+    /**
+     * checks if alert has to be sent
+     *
+     * @param \AppBundle\Entity\Organisation $alertOrganisation
+     *
+     * @return Boolean
+     */
+    public function getsAlertForOrganisation(\AppBundle\Entity\Organisation $alertOrganisation) {
+        switch($this->getOrganisationAlert()) {
+            case 0:
+                return false;
+                break;
+            case 1:
+                return true;
+                break;
+            case 2:
+                foreach ($this->getAlertOrganisations() as $org) if ($alertOrganisation==$org) return true;
+                return false;
+                break;
+        }
+    }
+
+
+    /**
+     * checks if alert has to be sent
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     *
+     * @return Boolean
+     */
+    public function getsAlertForVacancy(\AppBundle\Entity\Vacancy $alertVacancy) {
+        switch($this->getVacancyAlert()) {
+            case 0:
+                return false;
+                break;
+            case 1:
+                return true;
+                break;
+            case 2:
+                foreach ($this->getAlertVacancies() as $vacancy) if ($alertVacancy==$vacancy) return true;
+                return false;
+                break;
+        }
+    }
+
 }

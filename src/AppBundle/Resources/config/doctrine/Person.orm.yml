@@ -87,15 +87,15 @@ AppBundle\Entity\Person:
         superadmin:
             type: boolean
             options: { default: false }
-        alertPersonal:
+        personalAlert:
             type: smallint
             nullable: true
             options: { default: 1 }
-        alertOrganisations:
+        organisationAlert:
             type: smallint
             nullable: true
             options: { default: 1 }
-        alertVacancies:
+        vacancyAlert:
             type: smallint
             nullable: true
             options: { default: 1 }

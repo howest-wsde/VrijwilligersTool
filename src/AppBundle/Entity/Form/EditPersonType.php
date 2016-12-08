@@ -200,7 +200,7 @@ class EditPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
-            ->add("alertPersonal", ChoiceType::class, array(
+            ->add("personalAlert", ChoiceType::class, array(
                 'label' => 'person.label.alertPersonal',
                 'placeholder' => false,
                 'choices'  => array(
@@ -212,7 +212,7 @@ class EditPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
-            ->add("alertOrganisations", ChoiceType::class, array(
+            ->add("organisationAlert", ChoiceType::class, array(
                 'label' => 'person.label.alertOrganisations',
                 'placeholder' => false,
                 'choices'  => array(
@@ -225,7 +225,7 @@ class EditPersonType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ))
-            ->add("alertVacancies", ChoiceType::class, array(
+            ->add("vacancyAlert", ChoiceType::class, array(
                 'label' => 'person.label.alertVacancies',
                 'placeholder' => false,
                 'choices'  => array(

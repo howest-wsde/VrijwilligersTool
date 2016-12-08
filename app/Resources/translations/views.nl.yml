@@ -203,6 +203,10 @@ org:
         which: Voor welke vereniging wil je een vrijwilliger vinden?
         new: Ik wil eerst een nieuwe vereniging aanmaken
         self: Ik wil als particulier een vrijwilliger zoeken
+    alert:
+        button: Ontvang meldingen
+        remove: stop meldingen
+        add: start meldingen
 person:
     general:
         volunteer: vrijwilliger
@@ -415,6 +419,10 @@ vacancy:
         title: Vacature aanmaken
         looking: Op zoek naar vrijwilligers?
         fill: Vul hier de gegevens van je vacature in.
+    alert:
+        button: Ontvang meldingen
+        remove: stop meldingen
+        add: start meldingen
 testimonial:
     send:
         title: Getuigschrift maken
