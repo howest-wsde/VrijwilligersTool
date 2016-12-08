@@ -1064,4 +1064,43 @@ class Organisation extends EntityBase
     {
         return 'nomap';
     }
+    /**
+     * Add alert
+     *
+     * @param \AppBundle\Entity\Person $alert
+     *
+     * @return Organisation
+     */
+    public function addAlert(\AppBundle\Entity\Person $alert)
+    {
+        $this->alerts[] = $alert;
+
+        return $this;
+    }
+
+    /**
+     * Remove alert
+     *
+     * @param \AppBundle\Entity\Person $alert
+     */
+    public function removeAlert(\AppBundle\Entity\Person $alert)
+    {
+        $this->alerts->removeElement($alert);
+    }
+
+    /**
+     * Get alerts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlerts()
+    {
+        return $this->alerts;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alerts;
+
+
 }

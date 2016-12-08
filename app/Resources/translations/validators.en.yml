@@ -161,6 +161,9 @@ person:
         backToRegistration: Back to registration
         backToGeneral: Back to general info
         mailPreference: Please choose here how often you'd like to receive notifications via mail
+        alertPersonal: Personal alerts
+        alertOrganisations: Alerts about your organisations
+        alertVacancies: Alerts about vacancies
         accessible: Are you less-mobile?
         renumeration: Are you willing to do volunteer-work that is not renumerated financially?
         longterm: Are you willing to engage into a recurring commitment?
@@ -177,6 +180,11 @@ person:
         all: The more the better!
         normal: 'Not too much, not too little'
         little: Not too much preferably
+    alertsettings:
+        yes: All
+        no: None
+        customorganisations: Customized per organisation
+        customvacancies: Customized per vacancy
 search:
     label:
         hoursaweek: hours per week

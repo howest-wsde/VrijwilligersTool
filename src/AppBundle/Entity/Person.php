@@ -1483,4 +1483,216 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->vacancies;
     }
+    /**
+     * @var integer
+     */
+    private $personalAlert = 1;
+
+    /**
+     * @var integer
+     */
+    private $organisationAlert = 1;
+
+    /**
+     * @var integer
+     */
+    private $vacancyAlert = 1;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alert_organisations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alert_vacancies;
+
+
+    /**
+     * Set personalAlert
+     *
+     * @param integer $personalAlert
+     *
+     * @return Person
+     */
+    public function setPersonalAlert($personalAlert)
+    {
+        $this->personalAlert = $personalAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get personalAlert
+     *
+     * @return integer
+     */
+    public function getPersonalAlert()
+    {
+        return $this->personalAlert;
+    }
+
+    /**
+     * Set organisationAlert
+     *
+     * @param integer $organisationAlert
+     *
+     * @return Person
+     */
+    public function setOrganisationAlert($organisationAlert)
+    {
+        $this->organisationAlert = $organisationAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get organisationAlert
+     *
+     * @return integer
+     */
+    public function getOrganisationAlert()
+    {
+        return $this->organisationAlert;
+    }
+
+    /**
+     * Set vacancyAlert
+     *
+     * @param integer $vacancyAlert
+     *
+     * @return Person
+     */
+    public function setVacancyAlert($vacancyAlert)
+    {
+        $this->vacancyAlert = $vacancyAlert;
+
+        return $this;
+    }
+
+    /**
+     * Get vacancyAlert
+     *
+     * @return integer
+     */
+    public function getVacancyAlert()
+    {
+        return $this->vacancyAlert;
+    }
+
+    /**
+     * Add alertOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $alertOrganisation
+     *
+     * @return Person
+     */
+    public function addAlertOrganisation(\AppBundle\Entity\Organisation $alertOrganisation)
+    {
+        $this->alert_organisations[] = $alertOrganisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove alertOrganisation
+     *
+     * @param \AppBundle\Entity\Organisation $alertOrganisation
+     */
+    public function removeAlertOrganisation(\AppBundle\Entity\Organisation $alertOrganisation)
+    {
+        $this->alert_organisations->removeElement($alertOrganisation);
+    }
+
+    /**
+     * Get alertOrganisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlertOrganisations()
+    {
+        return $this->alert_organisations;
+    }
+
+    /**
+     * Add alertVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     *
+     * @return Person
+     */
+    public function addAlertVacancy(\AppBundle\Entity\Vacancy $alertVacancy)
+    {
+        $this->alert_vacancies[] = $alertVacancy;
+
+        return $this;
+    }
+
+    /**
+     * Remove alertVacancy
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     */
+    public function removeAlertVacancy(\AppBundle\Entity\Vacancy $alertVacancy)
+    {
+        $this->alert_vacancies->removeElement($alertVacancy);
+    }
+
+    /**
+     * Get alertVacancies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlertVacancies()
+    {
+        return $this->alert_vacancies;
+    }
+
+
+    /**
+     * checks if alert has to be sent
+     *
+     * @param \AppBundle\Entity\Organisation $alertOrganisation
+     *
+     * @return Boolean
+     */
+    public function getsAlertForOrganisation(\AppBundle\Entity\Organisation $alertOrganisation) {
+        switch($this->getOrganisationAlert()) {
+            case 0:
+                return false;
+                break;
+            case 1:
+                return true;
+                break;
+            case 2:
+                foreach ($this->getAlertOrganisations() as $org) if ($alertOrganisation==$org) return true;
+                return false;
+                break;
+        }
+    }
+
+
+    /**
+     * checks if alert has to be sent
+     *
+     * @param \AppBundle\Entity\Vacancy $alertVacancy
+     *
+     * @return Boolean
+     */
+    public function getsAlertForVacancy(\AppBundle\Entity\Vacancy $alertVacancy) {
+        switch($this->getVacancyAlert()) {
+            case 0:
+                return false;
+                break;
+            case 1:
+                return true;
+                break;
+            case 2:
+                foreach ($this->getAlertVacancies() as $vacancy) if ($alertVacancy==$vacancy) return true;
+                return false;
+                break;
+        }
+    }
+
 }
