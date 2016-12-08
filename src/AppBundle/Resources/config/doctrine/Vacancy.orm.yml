@@ -98,10 +98,10 @@ AppBundle\Entity\Vacancy:
         candidacies:
             targetEntity: Candidacy
             mappedBy: vacancy
-        alertsettings:
-            targetEntity: AlertSetting
-            mappedBy: vacancy_id
     manyToMany:
+        alerts:
+          targetEntity: Person
+          mappedBy: vacancy_alerts
         skills:
             targetEntity: Skill
             nullable: true

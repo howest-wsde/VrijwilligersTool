@@ -106,9 +106,6 @@ AppBundle\Entity\Person:
         candidacies:
             targetEntity: Candidacy
             mappedBy: candidate
-        alertsettings:
-            targetEntity: AlertSetting
-            mappedBy: person_id
         vacancies:
             targetEntity: Vacancy
             mappedBy: creator
@@ -164,6 +161,31 @@ AppBundle\Entity\Person:
           cascade: ["persist"]
           joinTable:
             name: vacancies_likers
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              vacancy_id:
+                referencedColumnName: id
+
+        alert_organisations:
+          targetEntity: Organisation
+          inversedBy: alerts
+          cascade: ["persist"]
+          joinTable:
+            name: organisation_alerts
+            joinColumns:
+              person_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              organisation_id:
+                referencedColumnName: id
+        liked_vacancies:
+          targetEntity: Vacancy
+          inversedBy: alerts
+          cascade: ["persist"]
+          joinTable:
+            name: vacancy_alerts
             joinColumns:
               person_id:
                 referencedColumnName: id

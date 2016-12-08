@@ -1065,42 +1065,42 @@ class Organisation extends EntityBase
         return 'nomap';
     }
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $alertsettings;
-
-
-    /**
-     * Add alertsetting
+     * Add alert
      *
-     * @param \AppBundle\Entity\AlertSetting $alertsetting
+     * @param \AppBundle\Entity\Person $alert
      *
      * @return Organisation
      */
-    public function addAlertsetting(\AppBundle\Entity\AlertSetting $alertsetting)
+    public function addAlert(\AppBundle\Entity\Person $alert)
     {
-        $this->alertsettings[] = $alertsetting;
+        $this->alerts[] = $alert;
 
         return $this;
     }
 
     /**
-     * Remove alertsetting
+     * Remove alert
      *
-     * @param \AppBundle\Entity\AlertSetting $alertsetting
+     * @param \AppBundle\Entity\Person $alert
      */
-    public function removeAlertsetting(\AppBundle\Entity\AlertSetting $alertsetting)
+    public function removeAlert(\AppBundle\Entity\Person $alert)
     {
-        $this->alertsettings->removeElement($alertsetting);
+        $this->alerts->removeElement($alert);
     }
 
     /**
-     * Get alertsettings
+     * Get alerts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAlertsettings()
+    public function getAlerts()
     {
-        return $this->alertsettings;
+        return $this->alerts;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $alerts;
+
+
 }

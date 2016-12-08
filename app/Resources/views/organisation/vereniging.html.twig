@@ -52,7 +52,15 @@
 			</div>
 			<footer>
 				{% if app.user in organisation.administrators %}
-					<div><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}" class="cta groen">{{ "general.admin.modify"|trans }}</a></div>
+					<div>
+						<a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}" class="cta groen">{{ "general.admin.modify"|trans }}</a>
+
+					    {% if app.user in organisation.alerts %}
+					        <a class="fav liked" title="{{ "org.min.remove"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
+					    {% else %}
+					        <a class="fav notliked" title="{{ "general.button.like"|trans }}" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"save" }) }}"><span>{{ "general.button.like"|trans }}</span></a>
+					    {% endif %}
+					</div>
 				{% endif %}
 				<div>
 					{% embed "default/socialshare.html.twig" %}{% endembed %}
