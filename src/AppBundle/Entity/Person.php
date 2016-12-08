@@ -110,6 +110,15 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     protected $plainPassword;
 
     /**
+     * @var BirthdayType
+     * @Assert\LessThan(
+     *     value = "today",
+     *     message = "person.birthdate_not_today"
+     * )
+     */
+    protected $birthdate;
+
+    /**
      * @var string
      * @Assert\Length(
      *      max = 255,
@@ -117,14 +126,6 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      groups = {"secondStep", "edit"}
      * )
      */
-
-
-    /**
-     * @var BirthdayType
-     */
-    protected $birthdate;
-
-
     protected $street;
 
     /**

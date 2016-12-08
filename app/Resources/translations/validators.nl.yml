@@ -1,7 +1,7 @@
 vacancy:
     not_blank: Gelieve een waarde op te geven.
     min_message: Gelieve minimum {{ limit }} tekens in te geven.
-    min_message_one: Gelieve minimum {{ limit }} teken in te geven.
+    min_message_one: Gelieve minimum {{ limit }} tekensµ in te geven.
     max_message: Gelieve maximum {{ limit }} tekens in te geven.
     not_numeric: Gelieve een numerieke waarde op te geven.
     not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
@@ -117,6 +117,7 @@ person:
     no_whitespaces: Mag geen spaties bevatten.
     exact: De waarde moet exact {{ limit }} tekens langs zijn.
     one_of_three: 'Gelieve hetzij een telefoonnummer of een e-mailadres in te geven, hetzij een bemiddelingsorganisatie te kiezen.  Wij hebben een manier nodig om u te contacteren.'
+    birthdate_not_today: Uw geboortedatum kan niet vandaag of in de toekomst zijn!
     email:
         valid: Gelieve een geldig e-mailaddres in te geven.
         already_used: Dit e-mailadres is reeds in gebruik.

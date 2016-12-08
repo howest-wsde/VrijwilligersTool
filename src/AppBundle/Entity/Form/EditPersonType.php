@@ -39,7 +39,7 @@ class EditPersonType extends AbstractType
                 "label" => "person.label.birthdate",
                 "widget" => "single_text",
                 "format" => "yyyy-MM-dd",
-                "data" => new \DateTime("1970/01/01")
+                //"data" => new \DateTime("1970/01/01")
             ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",

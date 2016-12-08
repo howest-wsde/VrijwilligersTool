@@ -117,6 +117,7 @@ person:
     no_whitespaces: May not contain spaces.
     exact: The value needs to be exactly {{ limit }} amount of characters.
     one_of_three: 'Please supply either a phone number, an emailadress or choose an intermediary organisation.  We need a way to contact you.'
+    birthdate_not_today: Your birthday must not be today or in the future!
     email:
         valid: Please enter a valid email.
         already_used: This email address is already in use.

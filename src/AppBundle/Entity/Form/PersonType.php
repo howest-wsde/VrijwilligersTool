@@ -39,7 +39,8 @@ class PersonType extends AbstractType
                 "label" => "person.label.birthdate",
                 "widget" => "single_text",
                 "format" => "yyyy-MM-dd",
-                "data" => new \DateTime("1970/01/01")
+                "required" => true,
+                //"data" => new \DateTime("1970/01/01")
             ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",
