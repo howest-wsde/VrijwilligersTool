@@ -1483,4 +1483,91 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     {
         return $this->vacancies;
     }
+    /**
+     * @var integer
+     */
+    private $alertPersonal = 1;
+
+    /**
+     * @var integer
+     */
+    private $alertOrganisations = 1;
+
+    /**
+     * @var integer
+     */
+    private $alertVacancies = 1;
+
+
+    /**
+     * Set alertPersonal
+     *
+     * @param integer $alertPersonal
+     *
+     * @return Person
+     */
+    public function setAlertPersonal($alertPersonal)
+    {
+        $this->alertPersonal = $alertPersonal;
+
+        return $this;
+    }
+
+    /**
+     * Get alertPersonal
+     *
+     * @return integer
+     */
+    public function getAlertPersonal()
+    {
+        return $this->alertPersonal;
+    }
+
+    /**
+     * Set alertOrganisations
+     *
+     * @param integer $alertOrganisations
+     *
+     * @return Person
+     */
+    public function setAlertOrganisations($alertOrganisations)
+    {
+        $this->alertOrganisations = $alertOrganisations;
+
+        return $this;
+    }
+
+    /**
+     * Get alertOrganisations
+     *
+     * @return integer
+     */
+    public function getAlertOrganisations()
+    {
+        return $this->alertOrganisations;
+    }
+
+    /**
+     * Set alertVacancies
+     *
+     * @param integer $alertVacancies
+     *
+     * @return Person
+     */
+    public function setAlertVacancies($alertVacancies)
+    {
+        $this->alertVacancies = $alertVacancies;
+
+        return $this;
+    }
+
+    /**
+     * Get alertVacancies
+     *
+     * @return integer
+     */
+    public function getAlertVacancies()
+    {
+        return $this->alertVacancies;
+    }
 }

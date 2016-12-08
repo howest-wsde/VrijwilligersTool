@@ -87,6 +87,18 @@ AppBundle\Entity\Person:
         superadmin:
             type: boolean
             options: { default: false }
+        alertPersonal:
+            type: smallint
+            nullable: true
+            options: { default: 1 }
+        alertOrganisations:
+            type: smallint
+            nullable: true
+            options: { default: 1 }
+        alertVacancies:
+            type: smallint
+            nullable: true
+            options: { default: 1 }
     oneToMany:
         organisation:
             targetEntity: Organisation
