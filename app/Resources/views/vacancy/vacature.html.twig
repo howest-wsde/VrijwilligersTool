@@ -115,6 +115,7 @@
 
 		{% if admin %}
 			<section class="administrators tabblad tiles">
+
 				{% set open = [] %}
 				{% set candidates = [] %}
 				{% set declined = [] %}
@@ -187,6 +188,14 @@
 			</section>
 
 			<section class="administrators blok">
+				{% if app.user.vacancyAlert == 2 %}
+				    {% if app.user in vacancy.alerts %}
+				        <a class="cta geel checkon" title="{{ "vacancy.alert.remove"|trans }}" href="{{ path("vacancy_alert", {"urlid": vacancy.urlId, "action":"remove" }) }}"><span>{{ "vacancy.alert.button"|trans }}</span></a>
+				    {% else %}
+				        <a class="cta geel checkoff" title="{{ "vacancy.alert.add"|trans }}" href="{{ path("vacancy_alert", {"urlid": vacancy.urlId, "action":"add" }) }}"><span>{{ "vacancy.alert.button"|trans }}</span></a>
+				    {% endif %}
+				{% endif %}
+
 				<a class="cta groen" href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a>
 
 				{% if vacancy.published != 4 %}

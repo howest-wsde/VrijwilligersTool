@@ -289,6 +289,32 @@ class OrganisationController extends UtilityController
 
     /**
      * @Security("has_role('ROLE_USER')")
+     * @Route("/vereniging/{urlid}/{action}",
+     *              name="organisation_alert",
+     *              requirements={"action": "add|remove"})
+     */
+    public function organisationAlertAction($urlid, $action)
+    {
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $organisation = $em->getRepository("AppBundle:Organisation")
+            ->findOneByUrlid($urlid);
+        $user->removeAlertOrganisation($organisation); // standaard removen om geen doubles te creeren
+
+        if ($action == "add") {
+            $user->addAlertOrganisation($organisation);
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("organisation_by_urlid", ["urlid" => $urlid]);
+    }
+
+
+
+    /**
+     * @Security("has_role('ROLE_USER')")
      * @Route("/vereniging/{urlid}/{saveaction}",
      *              name="organisation_save",
      *              requirements={"saveaction": "save|remove"})
@@ -355,6 +381,8 @@ class OrganisationController extends UtilityController
             return $response;
         }
     }
+
+
     /**
      * Function called from a twig template (base) in order to show a list of recent organisations.
      * @param  int $nr the amount of organisations to be listed

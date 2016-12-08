@@ -84,14 +84,23 @@ class UtilityController extends Controller
         $admins = $org->getAdministratorsByDigest(1);
 
         if ($isForCandidate && $hasCandidateDigest1){
-            $info['to'] = $candidate->getEmail();
-            $this->sendMail($candidate, $info);
+            if ($candidate->getPersonalAlert() == 1) {
+                $info['to'] = $candidate->getEmail();
+                $this->sendMail($candidate, $info);
+            }
         }
         else if($admins)
         {
             foreach ($admins as $admin) {
-                $info['to'] = $admin->getEmail();
-                $this->sendMail($admin, $info);
+                if (isset($info['vacancy'])) {
+                    if ($admin->getsAlertForVacancy($info['vacancy'])) {
+                        $info['to'] = $admin->getEmail();
+                        $this->sendMail($admin, $info);
+                    }
+                } else if ($admin->getsAlertForOrganisation($org)) {
+                    $info['to'] = $admin->getEmail();
+                    $this->sendMail($admin, $info);
+                }
             }
         }
     }
@@ -109,16 +118,26 @@ class UtilityController extends Controller
         $admins = $org->getAdministrators();
 
         if ($isForCandidate){
-            $info['user'] = $candidate;
-            if ($sent) $this->setDigestEntrySent($info, $org);
-            else $this->addDigestEntry($info, $org);
+            if ($candidate->getPersonalAlert() == 1) {
+                $info['user'] = $candidate;
+                if ($sent) $this->setDigestEntrySent($info, $org);
+                else $this->addDigestEntry($info, $org);
+            }
         }
         else if ($admins) {
             foreach ($admins as $admin) {
                 if (!$this->isAdminTheCandidateIfCandidacyEvent($admin, $candidate, $info['event']) || $info["event"] == DigestEntry::NEWTESTIMONIALTOVACANCY) {
-                    $info['user'] = $admin;
-                    if ($sent) $this->setDigestEntrySent($info, $org);
-                    else $this->addDigestEntry($info, $org);
+                    if (isset($info['vacancy'])) {
+                        if ($admin->getsAlertForVacancy($info['vacancy'])) {
+                            $info['user'] = $admin;
+                            if ($sent) $this->setDigestEntrySent($info, $org);
+                            else $this->addDigestEntry($info, $org);
+                        }
+                    } else if ($admin->getsAlertForOrganisation($org)) {
+                        $info['user'] = $admin;
+                        if ($sent) $this->setDigestEntrySent($info, $org);
+                        else $this->addDigestEntry($info, $org);
+                    }
                 }
             }
         }

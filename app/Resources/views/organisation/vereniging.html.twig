@@ -52,7 +52,16 @@
 			</div>
 			<footer>
 				{% if app.user in organisation.administrators %}
-					<div><a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}" class="cta groen">{{ "general.admin.modify"|trans }}</a></div>
+					<div>
+						<a href="{{ path("organisation_edit", {"urlid": organisation.urlId }) }}" class="cta groen">{{ "general.admin.modify"|trans }}</a>
+ 						{% if app.user.organisationAlert == 2 %}
+						    {% if app.user in organisation.alerts %}
+						        <a class="cta geel checkon" title="{{ "org.alert.remove"|trans }}" href="{{ path("organisation_alert", {"urlid": organisation.urlId, "action":"remove" }) }}"><span>{{ "org.alert.button"|trans }}</span></a>
+						    {% else %}
+						        <a class="cta geel checkoff" title="{{ "org.alert.add"|trans }}" href="{{ path("organisation_alert", {"urlid": organisation.urlId, "action":"add" }) }}"><span>{{ "org.alert.button"|trans }}</span></a>
+						    {% endif %}
+ 						{% endif %}
+					</div>
 				{% endif %}
 				<div>
 					{% embed "default/socialshare.html.twig" %}{% endembed %}
