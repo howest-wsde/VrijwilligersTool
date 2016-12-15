@@ -7,7 +7,7 @@
     } %}
 {% endif %}
 
-<article class="vereniging cta">
+<article class="vereniging cta" style="cursor: pointer" onclick="location.href='{{ path("organisation_by_urlid", { "urlid": organisation.urlid }) }}';">
     {% if app.user %}
         {% if app.user in organisation.likers %}
             <a class="fav liked" title="Verwijder uit bewaarde organisaties" href="{{ path("organisation_save", {"urlid": organisation.urlId, "saveaction":"remove" }) }}"><span>{{ "org.min.remove"|trans }}</span></a>
