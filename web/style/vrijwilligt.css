@@ -1442,6 +1442,7 @@ h3 {
   -webkit-flex: 0 1 270px;
   -ms-flex: 0 1 270px;
   flex: 0 1 270px;
+  padding: 5px;
 }
 .steps .step .frm_vacancy_renumeration .vals input {
   margin-left: 10px;
@@ -1486,6 +1487,7 @@ h3 {
 .steps #edit_person_skills div.option,
 .steps #organisation_sectors div.option,
 .steps #vacancy_skills div.option {
+  padding: 5px;
   -webkit-flex: 0 1 250px;
   -ms-flex: 0 1 250px;
   flex: 0 1 250px;
