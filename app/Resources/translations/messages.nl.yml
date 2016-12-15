@@ -50,6 +50,14 @@ person:
         savedorganisation: "[personName] heeft uw organisatie '[organisationName]' opgeslagen."
         newtestimonialtovacancy: "[personName] heeft een getuigschrift gemaakt voor uw vacature '[vacancyTitle]'."
         newtestimonialtoperson: "U heeft een getuigschrift ontvangen van vacature '[vacancyTitle]'."
+    form:
+        validity:
+            firstname: Enkel letters, spaties en koppeltekens toegestaan
+            lastname: Enkel letters, spaties en koppeltekens toegestaan
+            username: Enkel letters en cijfers toegestaan
+        info:
+            organisation: "Beheert een bemiddelingsorganisatie uw profiel? Kies dan voor deze optie. "
+            password: "Een wachtzin is het 'nieuwe en veilige wachtwoord'. In plaats van één woord gebruikt u een volledige zin. Deze is makkelijker te onthouden en moeilijker te hacken. "
 vacancy:
     template:
         vacancyFit: Vacatures op maat

@@ -24,7 +24,9 @@ class SecurityController extends UtilityController
     {
         $t = $this->get('translator');
         //TODO: http://symfony.com/doc/current/cookbook/doctrine/registration_form.html
-        $form = $this->createForm(PersonType::class, new Person());
+        $form = $this->createForm(PersonType::class, new Person(), array(
+            'translator' => $t
+        ));
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -46,7 +48,7 @@ class SecurityController extends UtilityController
             $em->flush();
 
             //recreate form to ensure all changes are visible
-            $form = $this->createForm(PersonType::class, $user);
+            $form = $this->createForm(PersonType::class, $user, array("translator" => $t));
 
             //log in the user as far as Symfony is concerned
             $token = new UsernamePasswordToken($user, $password, 'main', array('ROLE_USER'));

@@ -39,7 +39,7 @@
                                 {% if app.user.superadmin %}
                                     <li><a href="{{ path("superadmin_main") }}" class="{% if app.request.attributes.get('_route') == 'superadmin_main' %}actief{% endif %}">{{ "base.body.header.menu.superadmin"|trans }}</a></li>
                                 {% endif %}
-                                <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }}</a></li>
+                                <li><a href="{{ path("logout") }}">{{ "base.body.header.menu.logout"|trans }} ({{ app.user.firstname }} {{ app.user.lastname }})</a></li>
                             {% else %}
                                 <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>
                             {% endif %}
