@@ -51,8 +51,8 @@ person:
         newtestimonialtoperson: "You just received a testimonial for vacancy '[vacancyTitle]'."
     form:
         validity:
-            firstname: Only letters and hyphens are allowed
-            lastname: Only letters and hyphens are allowed
+            firstname: Only letters, spaces and hyphens are allowed
+            lastname: Only letters, spaces and hyphens are allowed
             username: Only letters and digits are allowed
         info:
             organisation: "Is an intermediary organization managing your profile? Choose this option. "

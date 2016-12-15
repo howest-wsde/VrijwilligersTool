@@ -52,8 +52,8 @@ person:
         newtestimonialtoperson: "U heeft een getuigschrift ontvangen van vacature '[vacancyTitle]'."
     form:
         validity:
-            firstname: Enkel letters en koppeltekens toegestaan
-            lastname: Enkel letters en koppeltekens toegestaan
+            firstname: Enkel letters, spaties en koppeltekens toegestaan
+            lastname: Enkel letters, spaties en koppeltekens toegestaan
             username: Enkel letters en cijfers toegestaan
         info:
             organisation: "Beheert een bemiddelingsorganisatie uw profiel? Kies dan voor deze optie. "
