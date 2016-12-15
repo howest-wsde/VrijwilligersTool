@@ -122,6 +122,7 @@ class CandidacyController extends UtilityController
     }
 
     private function handleDigestsAndMailForCandidate($candidate, $vacancy, $subject, $template, $event){
+
         $info = [
             'subject' => $subject,
             'template' => $template . '.html.twig',

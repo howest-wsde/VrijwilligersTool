@@ -124,21 +124,6 @@ class EditPersonType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ))
-            ->add("digest", ChoiceType::class, array(
-                'label' => 'person.label.mailPreference',
-                'placeholder' => false,
-                'choices'  => array(
-                    'person.choices.immediately' => '1',
-                    'person.choices.daily' => '2',
-                    'person.choices.weekly' => '3',
-                    'person.choices.monthly' => '4',
-                    'person.choices.nomail' => '5',
-                ),
-                // render as radio buttons
-                'expanded' => true,
-                'multiple' => false,
-                'required' => false,
-            ))
             ->add('access', ChoiceType::class, array(
                 'label' => 'person.label.accessible',
                 'placeholder' => false,
@@ -197,6 +182,63 @@ class EditPersonType extends AbstractType
                 "validation_groups" => array('edit'),
             ))
             ->add("submit2", SubmitType::class, array(
+                "label" => "person.label.finish",
+                "validation_groups" => array('edit'),
+            ))
+            ->add("digest", ChoiceType::class, array(
+                'label' => 'person.label.mailPreference',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.choices.immediately' => '1',
+                    'person.choices.daily' => '2',
+                    'person.choices.weekly' => '3',
+                    'person.choices.monthly' => '4',
+                    'person.choices.nomail' => '5',
+                ),
+                // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("personalAlert", ChoiceType::class, array(
+                'label' => 'person.label.alertPersonal',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.alertsettings.no' => '0',
+                    'person.alertsettings.yes' => '1',
+                ),
+                // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("organisationAlert", ChoiceType::class, array(
+                'label' => 'person.label.alertOrganisations',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.alertsettings.no' => '0',
+                    'person.alertsettings.yes' => '1',
+                    'person.alertsettings.customorganisations' => '2',
+                ),
+                // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("vacancyAlert", ChoiceType::class, array(
+                'label' => 'person.label.alertVacancies',
+                'placeholder' => false,
+                'choices'  => array(
+                    'person.alertsettings.no' => '0',
+                    'person.alertsettings.yes' => '1',
+                    'person.alertsettings.customvacancies' => '2',
+                ),
+                // render as radio buttons
+                'expanded' => true,
+                'multiple' => false,
+                'required' => false,
+            ))
+            ->add("submit3", SubmitType::class, array(
                 "label" => "person.label.finish",
                 "validation_groups" => array('edit'),
             )); #http://symfony.com/doc/current/form/validation_groups.html

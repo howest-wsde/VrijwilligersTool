@@ -161,6 +161,32 @@ class VacancyController extends UtilityController
             ["vacancy" => $vacancy]);
     }
 
+
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @Route("/vacature/{urlid}/{action}",
+     *              name="vacancy_alert",
+     *              requirements={"action": "add|remove"})
+     */
+    public function vacancyAlertAction($urlid, $action)
+    {
+        $t = $this->get('translator');
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+        $user->removeAlertVacancy($vacancy); // standaard removen om geen doubles te creeren
+
+        if ($action == "add") {
+            $user->addAlertVacancy($vacancy);
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);
+    }
+
+
     /**
      * Kandidaat stellen voor een vacature
      * @Security("has_role('ROLE_USER')")
@@ -191,23 +217,25 @@ class VacancyController extends UtilityController
             //set a success message
             $this->addFlash('approve_message', $t->trans('vacancy.flash.okRemoveSubscribe'));
 
-            //set digest sent / send email to all administrators
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
-            $organisation = $vacancy->getOrganisation();
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'ranCandidate.html.twig',
-                        'txt/plain' => 'ranCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'vacancy' => $vacancy,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWCANDIDATE,
-                        'sent' => true,
-                    );
-            $this->digestAndMail($info);
+            if ($vacancy->getOrganisation()) {
+                //set digest sent / send email to all administrators
+                $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                           ' ' . $t->trans('vacancy.mail.removeCandidacySubjectStart') . ' "' . $vacancy->getTitle() . '" ' . $t->trans('vacancy.mail.removeCandidacySubjectEnd');
+                $organisation = $vacancy->getOrganisation();
+                $info = array(
+                            'subject' => $subject,
+                            'template' => 'ranCandidate.html.twig',
+                            'txt/plain' => 'ranCandidate.txt.twig',
+                            'data' => array(
+                                'candidate' => $person,
+                                'vacancy' => $vacancy,
+                                'org' => $organisation,
+                            ),
+                            'event' => DigestEntry::NEWCANDIDATE,
+                            'sent' => true,
+                        );
+                $this->digestAndMail($info);
+            }
         } else {
             $candidacies = $em->getRepository('AppBundle:Candidacy')
                 ->findBy(array(
@@ -229,22 +257,24 @@ class VacancyController extends UtilityController
             //set a success message
             $this->addFlash('approve_message', $t->trans('vacancy.flash.submitCandidacy'));
 
-            //set digest / send email to all administrators
-            $subject = $person->getFirstname() . ' ' . $person->getLastname() .
-                       ' ' . $t->trans('vacancy.mail.submitCandidacy') . ' ' . $vacancy->getTitle();
-            $organisation = $vacancy->getOrganisation();
-            $info = array(
-                        'subject' => $subject,
-                        'template' => 'newCandidate.html.twig',
-                        'txt/plain' => 'newCandidate.txt.twig',
-                        'data' => array(
-                            'candidate' => $person,
-                            'vacancy' => $vacancy,
-                            'org' => $organisation,
-                        ),
-                        'event' => DigestEntry::NEWCANDIDATE,
-                    );
-            $this->digestAndMail($info);
+            if ($vacancy->getOrganisation()) {
+                //set digest / send email to all administrators
+                $subject = $person->getFirstname() . ' ' . $person->getLastname() .
+                           ' ' . $t->trans('vacancy.mail.submitCandidacy') . ' ' . $vacancy->getTitle();
+                $organisation = $vacancy->getOrganisation();
+                $info = array(
+                            'subject' => $subject,
+                            'template' => 'newCandidate.html.twig',
+                            'txt/plain' => 'newCandidate.txt.twig',
+                            'data' => array(
+                                'candidate' => $person,
+                                'vacancy' => $vacancy,
+                                'org' => $organisation,
+                            ),
+                            'event' => DigestEntry::NEWCANDIDATE,
+                        );
+                $this->digestAndMail($info);
+            }
         }
 
         return $this->redirectToRoute("vacancy_by_urlid", ["urlid" => $urlid]);

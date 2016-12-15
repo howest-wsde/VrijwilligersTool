@@ -667,6 +667,8 @@ h3 {.grijzetitel(); }
 
 			.frm_search_filter_sort, .filtertype {width: 50%; display: inline-block; }
 			.filtertype div.lbl {display: none; }
+
+			.vals > input { padding-left: 5px; }
 		}
 		//.flex(1);
 		/*
@@ -886,6 +888,9 @@ a.cta {
 	&.blauw {.schaduwblok(@cBlauw); }
 	&.geel {.schaduwblok(@cGeel); }
 	&.paars {.schaduwblok(@cPaars); }
+	&.checkon, &.checkoff {padding-left: 46px; background-repeat: no-repeat; background-position: 15px center; background-size: 20px 20px;  }
+	&.checkon {background-image: url(../images/checkboxon.png); }
+	&.checkoff {background-image: url(../images/checkboxoff.png); }
 }
 
 ul.quiz {
@@ -963,4 +968,10 @@ body {background: @cMainBG; }
 #map-preview{
 	padding:0;
 	height: 300px;
+}
+
+.form-control-clear {
+	z-index: 10;
+	pointer-events: auto;
+	cursor: pointer;
 }

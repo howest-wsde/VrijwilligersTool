@@ -203,6 +203,10 @@ org:
         which: Which organisation do you want to find a volunteer for?
         new: I want to create an organisation first
         self: I want to find a volunteer as an individual
+    alert:
+        button: Receive alerts
+        remove: stop alerts
+        add: start alerts
 person:
     general:
         volunteer: volunteer
@@ -267,6 +271,8 @@ person:
         address: Address
         map: map preview
         preferences: 'Interests & Preferences'
+        alerts: 'Mailsettings'
+        alertwut: 'What alerts do you want to receive?'
         interesting: Check out vacancies
         goodvol: A good experience starts with finding something you are passionate about.  In the section
         search: search for vacancies
@@ -413,6 +419,10 @@ vacancy:
         title: Create vacancy
         looking: Looking for volunteers?
         fill: Fill out the vacancy data.
+    alert:
+        button: Receive alerts
+        remove: stop alerts
+        add: start alerts
 testimonial:
     send:
         title: Creating a testimonial
