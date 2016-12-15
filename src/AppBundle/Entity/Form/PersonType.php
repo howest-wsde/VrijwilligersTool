@@ -28,14 +28,14 @@ class PersonType extends AbstractType
                 "attr" => array("placeholder" => "person.label.firstname",
                     "pattern" => "[a-zA-Z \-]+",
                     "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.firstname') . '")',
-                    "onchange" => 'setCustomValidity("")')
+                    "onchange" => 'try{setCustomValidity(\'\')}catch(e){}')
             ))
             ->add("lastname", TextType::class, array(
                 "label" => "person.label.lastname",
                 "attr" => array("placeholder" => "person.label.lastname",
                     "pattern" => "[a-zA-Z \-]+",
                     "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.lastname') . '")',
-                    "onchange" => 'setCustomValidity("")')
+                    "onchange" => 'try{setCustomValidity(\'\')}catch(e){}')
             ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",
@@ -93,7 +93,7 @@ class PersonType extends AbstractType
                                 "pattern" => "[a-zA-Z0-9]+",
                                 "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.username') . '")',
                                 'required' => false,
-                                "onchange" => 'setCustomValidity("")')
+                                "onchange" => 'try{setCustomValidity(\'\')}catch(e){}')
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
