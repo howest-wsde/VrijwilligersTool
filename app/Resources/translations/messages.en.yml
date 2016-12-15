@@ -49,6 +49,11 @@ person:
         savedorganisation: "[personName] has saved your organisation '[organisationName]'."
         newtestimonialtovacancy: "[personName] has sent a testimonial to your vacancy '[vacancyTitle]'."
         newtestimonialtoperson: "You just received a testimonial for vacancy '[vacancyTitle]'."
+    form:
+        validity:
+            firstname: Only letters and hyphens are allowed
+            lastname: Only letters and hyphens are allowed
+            username: Only letters and digits are allowed
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you

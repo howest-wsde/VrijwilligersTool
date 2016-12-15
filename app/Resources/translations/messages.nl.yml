@@ -50,6 +50,11 @@ person:
         savedorganisation: "[personName] heeft uw organisatie '[organisationName]' opgeslagen."
         newtestimonialtovacancy: "[personName] heeft een getuigschrift gemaakt voor uw vacature '[vacancyTitle]'."
         newtestimonialtoperson: "U heeft een getuigschrift ontvangen van vacature '[vacancyTitle]'."
+    form:
+        validity:
+            firstname: Enkel letters en koppeltekens toegestaan
+            lastname: Enkel letters en koppeltekens toegestaan
+            username: Enkel letters en cijfers toegestaan
 vacancy:
     template:
         vacancyFit: Vacatures op maat

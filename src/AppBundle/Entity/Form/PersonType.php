@@ -5,19 +5,16 @@ namespace AppBundle\Entity\Form;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
@@ -28,11 +25,17 @@ class PersonType extends AbstractType
         $builder
             ->add("firstname", TextType::class, array(
                 "label" => "person.label.firstname",
-                "attr" => array("placeholder" => "person.label.firstname")
+                "attr" => array("placeholder" => "person.label.firstname",
+                    "pattern" => "[a-zA-Z \-]+",
+                    "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.firstname') . '")',
+                    "onchange" => 'setCustomValidity("")')
             ))
             ->add("lastname", TextType::class, array(
                 "label" => "person.label.lastname",
-                "attr" => array("placeholder" => "person.label.lastname")
+                "attr" => array("placeholder" => "person.label.lastname",
+                    "pattern" => "[a-zA-Z \-]+",
+                    "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.lastname') . '")',
+                    "onchange" => 'setCustomValidity("")')
             ))
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",
@@ -87,8 +90,10 @@ class PersonType extends AbstractType
             ->add("username", TextType::class, array(
                 "label" => "person.label.username",
                 "attr" => array("placeholder" => "person.label.username",
-                                "pattern" => "^[^ /]+$"),
-                'required' => false,
+                                "pattern" => "[a-zA-Z0-9]+",
+                                "oninvalid" =>  'setCustomValidity("' . $options["translator"]->trans('person.form.validity.username') . '")',
+                                'required' => false,
+                                "onchange" => 'setCustomValidity("")')
             ))
             ->add("street", TextType::class, array(
                 "label" => "person.label.street",
@@ -234,5 +239,7 @@ class PersonType extends AbstractType
             // a unique key to help generate the secret token
             "csrf_token_id"   => "id",
         ));
+
+        $resolver->setRequired('translator');
     }
 }
