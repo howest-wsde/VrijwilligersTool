@@ -54,6 +54,9 @@ person:
             firstname: Only letters and hyphens are allowed
             lastname: Only letters and hyphens are allowed
             username: Only letters and digits are allowed
+        info:
+            organisation: "Is an intermediary organization managing your profile? Choose this option. "
+            password: "A passphrase is the 'new and safe password'. Instead of using only one word, you use a full phrase so you it is easier to remember and harder to hack. "
 vacancy:
     template:
         vacancyFit: Vacancies tailored to you
