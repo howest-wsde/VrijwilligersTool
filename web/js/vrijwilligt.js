@@ -9,9 +9,11 @@ $(function() {
     }
 
     function favVacancyOrOrganisation(self){
+        var section = "#" + $(self).closest("section.part").attr("id");
+        console.log(section);
         $(self).removeClass("liked").removeClass("notliked");
         var stringUrl = $(self).attr("href");
-        var activeTabId = $('#part_of_organisations .nav.nav-tabs li.active').attr("id");
+        var activeTabId = $(section + ' .nav.nav-tabs li.active').attr("id");
 
         $.ajax({
             type: "GET",
@@ -20,7 +22,7 @@ $(function() {
             dataType: "json",
             success: function() {
                 $.get(window.location.href, function(data) {
-                    $("#part_of_organisations").replaceWith($(data).find("#part_of_organisations"));
+                    $(section).replaceWith($(data).find(section));
                     reloadFavClickEvent();
                     $("#" + activeTabId + " a").click();
                 });
