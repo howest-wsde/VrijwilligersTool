@@ -82,9 +82,8 @@ class VacancyController extends UtilityController
     {
         $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
-        $isFromOrganisation = $organisation_urlid;
 
-        if($isFromOrganisation){
+        if($organisation_urlid){
             $user = $this->getUser();
             $organisation = $em->getRepository("AppBundle:Organisation")
                                 ->findOneByUrlid($organisation_urlid);
@@ -147,7 +146,6 @@ class VacancyController extends UtilityController
             [
                 "form" => $form->createView(),
                 "createForm" => true,
-                "is_from_organisation" => $isFromOrganisation
             ]);
     }
 

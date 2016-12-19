@@ -13,9 +13,6 @@
 
 	<section class="steps">
 		{% if app.user %}
-
-        {% if organisations|length > 0 %}
-
 		    <h2 class="steptitle rood"><a href="#kiesvereniging" name="kiesvereniging">{{ "org.find.which"|trans }}</a></h2>
 		    <div class="step actief grijs">
 
@@ -24,8 +21,6 @@
 				    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "cta": {"txt" : "selecteer", "href" : path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) } }%}{% endembed %}
 				{% endfor %}
 			</div>
-
-         {% endif %}
 
 		    <h2 class="steptitle blauw"><a href="{{ path("create_organisation") }}">{{ "org.find.new"|trans }}</a></h2>
 

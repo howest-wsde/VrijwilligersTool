@@ -59,14 +59,8 @@
         <fieldset>
             {{ form_row(form.skills) }}
         </fieldset>
-        {% if is_from_organisation == false %}
-        {{ form_row(form.submit) }}
-        {{ form_row(form.save) }}
-        {% endif %}
-
     </div>
 
-    {% if is_from_organisation == true %}
     <h2 class="steptitle rood"><a href="#voordelen" name="voordelen">{{ "vacancy.form.advantages"|trans }}</a></h2>
     <div class="step grijs rood">
         <fieldset>
@@ -76,5 +70,4 @@
         {{ form_row(form.submit) }}
         {{ form_row(form.save) }}
     </div>
-    {% endif %}
 {{ form_end(form) }}
