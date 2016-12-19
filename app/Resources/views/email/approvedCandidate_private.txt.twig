@@ -1,0 +1,11 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+{{ "candidate.header.title"|trans }}
+
+{{ "candidate.paragrafs.firstp_private" |trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},,
+
+{{ "candidate.paragrafs.secondp.first"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "candidate.paragrafs.secondp.second"|trans }} {{ vacancy.title }}.
+
+{% endblock %}

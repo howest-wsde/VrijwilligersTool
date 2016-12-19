@@ -1,0 +1,13 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.html.twig" %}
+
+{% block body %}
+	<h1>{{ "candidate.header.title"|trans }}</h1>
+
+	<p>{{ "candidate.paragrafs.firstp_private" |trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},</p>
+
+	<p>
+	{{ "candidate.paragrafs.secondp.first"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "candidate.paragrafs.secondp.second"|trans }} <a href="{{ url("vacancy_by_urlid", { "urlid": vacancy.urlId }) }}">{{ vacancy.title }}</a>.
+	</p>
+
+{% endblock %}

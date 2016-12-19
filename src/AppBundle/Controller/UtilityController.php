@@ -80,8 +80,9 @@ class UtilityController extends Controller
     {
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
+        $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $hasCandidateDigest1 = ($isForCandidate) ? $candidate->getDigest() === Person::IMMEDIATELY : null;
-        $admins = $org->getAdministratorsByDigest(1);
+        $admins = ($org) ? $org->getAdministratorsByDigest(1) : null;
 
         if ($isForCandidate && $hasCandidateDigest1){
             if ($candidate->getPersonalAlert() == 1) {
@@ -103,6 +104,11 @@ class UtilityController extends Controller
                 }
             }
         }
+        else if ($vacancy){
+            $creator = $vacancy->getCreator();
+            $info['to'] = $creator->getEmail();
+            $this->sendMail($creator, $info);
+        }
     }
 
     /**
@@ -114,8 +120,9 @@ class UtilityController extends Controller
     protected function addOrSetDigestsSent($info, $org){
         $sent = array_key_exists('sent', $info);
         $isForCandidate = array_key_exists('isForCandidate', $info) ? $info['isForCandidate'] : null;
+        $vacancy = array_key_exists('vacancy', $info['data']) ? $info['data']['vacancy'] : null;
         $candidate = array_key_exists('candidate', $info['data']) ? $info['data']['candidate'] : null;
-        $admins = $org->getAdministrators();
+        $admins = ($org) ? $org->getAdministratorsByDigest(1) : null;
 
         if ($isForCandidate){
             if ($candidate->getPersonalAlert() == 1) {
@@ -140,6 +147,12 @@ class UtilityController extends Controller
                     }
                 }
             }
+        }
+        else if ($vacancy){
+            $creator = $vacancy->getCreator();
+            $info['user'] = $creator;
+            if ($sent) $this->setDigestEntrySent($info, $org);
+            else $this->addDigestEntry($info, $org);
         }
     }
 

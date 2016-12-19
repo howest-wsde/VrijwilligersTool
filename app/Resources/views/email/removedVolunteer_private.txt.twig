@@ -1,0 +1,11 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+{{ "remVol.header"|trans }}
+
+{{ "remVol.firstp_private"|trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},,
+
+{{ "remVol.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "remVol.secondp.spart"|trans }} {{ vacancy.title }}.
+
+{% endblock %}

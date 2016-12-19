@@ -2,7 +2,8 @@ candidate:
       header:
           title: 'Kandidaat goedgekeurd!'
       paragrafs:
-          firstp: Beste beheerder voor
+          firstp: "Beste beheerder voor "
+          firstp_private: "Beste "
           secondp:
               first: zonet werd
               second: goedgekeurd als vrijwilliger voor de vacature
@@ -81,6 +82,7 @@ digest:
 disaproved:
       header: "Kandidaat afgekeurd!"
       firstp: "Beste beheerder voor "
+      firstp: "Beste "
       secondp:
           fpart: zonet werd
           spart:  afgekeurd als vrijwilliger voor de vacature
@@ -151,7 +153,8 @@ remAdm:
           spart: verwijderd als beheerder voor
 remVol:
       header: "Vrijwilliger verwijderd!"
-      fristp: Beste beheerder voor
+      fristp: "Beste beheerder voor "
+      firstp_private: "Beste "
       secondp:
           fpart: zonet werd
           spart: verwijderd als vrijwilliger voor de vacature

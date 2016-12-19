@@ -48,6 +48,7 @@ class CandidacyController extends UtilityController
         $candidacy->setState(Candidacy::APPROVED);
         $em->persist($candidacy);
         $em->flush();
+        $template = ($vacancy->getOrganisation()) ? "approvedCandidate" : "approvedCandidate_private";
 
         $mailInfo = [
             "candidate" => [
@@ -55,8 +56,8 @@ class CandidacyController extends UtilityController
                 "template" => "notifyCandidateApproved"
             ],
             "admins" => [
-                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.approve'),
-                "template" => "approvedCandidate"
+                "subject" => $candidacy->getCandidate()->getFullName() . $t->trans('candidacy.mail.approve'),
+                "template" => $template
             ]
         ];
 
@@ -70,6 +71,7 @@ class CandidacyController extends UtilityController
         $candidacy->setState(Candidacy::DECLINED);
         $em->persist($candidacy);
         $em->flush();
+        $template = ($vacancy->getOrganisation()) ? "disapprovedCandidate" : "disapprovedCandidate_private";
 
         $mailInfo = [
             "candidate" => [
@@ -77,8 +79,8 @@ class CandidacyController extends UtilityController
                 "template" => "notifyCandidateDisapproved"
             ],
             "admins" => [
-                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.disapprove'),
-                "template" => "disapprovedCandidate"
+                "subject" => $candidacy->getCandidate()->getFullName() . $t->trans('candidacy.mail.disapprove'),
+                "template" => $template
             ]
         ];
 
@@ -96,6 +98,7 @@ class CandidacyController extends UtilityController
         $em->persist($candidacy);
         $em->persist($vacancy);
         $em->flush();
+        $template = ($vacancy->getOrganisation()) ? "removedVolunteer" : "removedVolunteer_private";
 
         $mailInfo = [
             "candidate" => [
@@ -103,8 +106,8 @@ class CandidacyController extends UtilityController
                 "template" => "notifyVolunteerRemoved"
             ],
             "admins" => [
-                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.remove'),
-                "template" => "removedVolunteer"
+                "subject" => $candidacy->getCandidate()->getFullName() . $t->trans('candidacy.mail.remove'),
+                "template" => $template
             ]
         ];
 

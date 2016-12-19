@@ -1,0 +1,11 @@
+{% trans_default_domain "mail" %}
+{% extends "emailbase.txt.twig" %}
+
+{% block body %}
+{{ "disaproved.header" |trans }}
+
+{{ "disaproved.firstp_private"|trans }} {{ vacancy.creator.firstname }} {{ vacancy.creator.lastname }},,
+
+{{ "disaproved.secondp.fpart"|trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "dissaproved.secondp.spart" |trans }} {{ vacancy.title }}.
+
+{% endblock %}

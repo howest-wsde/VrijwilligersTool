@@ -3,6 +3,7 @@ candidate:
           title: 'Candidate approved!'
       paragrafs:
           firstp: 'Dear admin,'
+          firstp_private: "Dear "
           secondp:
               first: a moment ago
               second: was approved as volunteer for the vacancy
@@ -81,6 +82,7 @@ digest:
 disaproved:
       header: "Candidate disapproved"
       firstp: "Dear admin for "
+      firstp_private: "Dear "
       secondp:
           fpart: a moment ago
           spart:  was disapproved as a volunteer for the vacancy
@@ -152,6 +154,7 @@ remAdm:
 remVol:
       header: "Volunteer deleted!"
       firstp: Dear admin for
+      firstp_private: "Dear "
       secondp:
           fpart: a moment ago
           spart: was deleted as volunteer for this vacancy
