@@ -188,7 +188,12 @@
 
 			<section class="administrators blok">
 				<a class="cta groen" href="{{ path("vacancy_edit", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.modify"|trans }}</a>
-
+                {% if vacancy.published != 2 %}
+				    <a class="cta blauw" href="{{ path("close_vacancy", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.close"|trans }}</a>
+				{% endif %}
+                {% if vacancy.published == 2 %}
+                    <a class="cta blauw" href="{{ path("open_vacancy", {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.open"|trans }}</a>
+                {% endif %}
 				{% if vacancy.published != 4 %}
 					<a class="cta rood" href="{{ path('delete_vacancy', {'urlid': vacancy.urlId }) }}">{{ "vacancy.vacancy.admin.delete"|trans }}</a>
 				{% endif %}

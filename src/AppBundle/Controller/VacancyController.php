@@ -80,6 +80,7 @@ class VacancyController extends UtilityController
     {
         $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
+        $organisation = null;
 
         if($organisation_urlid){
             $user = $this->getUser();
@@ -589,8 +590,50 @@ class VacancyController extends UtilityController
         $em = $this->getDoctrine()->getManager();
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
-        if($vacancy->getOrganisation()->getAdministrators()->contains($user)){
+        if(($vacancy->getOrganisation() == null && $vacancy->getCreator() == $user) || $vacancy->getOrganisation()->getAdministrators()->contains($user)){
             $vacancy->setPublished($deleted);
+            $em->persist($vacancy);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('vacancy_by_urlid', array('urlid' => $urlid));
+    }
+
+    /**
+     * Close a vacancy
+     * @Route("/vacature/{urlid}/close", name="close_vacancy")
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be closed
+     */
+    public function closeVacancyAction($urlid)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+
+        if (($vacancy->getOrganisation() == null && $vacancy->getCreator() == $user) || $vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $vacancy->setPublished(Vacancy::CLOSED);
+            $em->persist($vacancy);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('vacancy_by_urlid', array('urlid' => $urlid));
+    }
+
+    /**
+     * Open a vacancy
+     * @Route("/vacature/{urlid}/open", name="open_vacancy")
+     * @param  AppBundle\Entity\Vacancy $vacancy the vacancy to be opened
+     */
+    public function openVacancyAction($urlid)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $vacancy = $em->getRepository("AppBundle:Vacancy")
+            ->findOneByUrlid($urlid);
+
+        if (($vacancy->getOrganisation() == null && $vacancy->getCreator() == $user) || $vacancy->getOrganisation()->getAdministrators()->contains($user)){
+            $vacancy->setPublished(Vacancy::OPEN);
             $em->persist($vacancy);
             $em->flush();
         }

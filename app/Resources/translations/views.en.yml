@@ -373,6 +373,8 @@ vacancy:
             modify: Modify vacancy
             select: Select candidates
             delete: Remove vacancy
+            close: Close vacancy
+            open: Open vacancy
         unfinished: Unfinished
     modify:
         title: Adjust vacancy
