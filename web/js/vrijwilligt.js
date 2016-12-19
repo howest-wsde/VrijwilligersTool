@@ -10,7 +10,6 @@ $(function() {
 
     function favVacancyOrOrganisation(self){
         var section = "#" + $(self).closest("section.part").attr("id");
-        console.log(section);
         $(self).removeClass("liked").removeClass("notliked");
         var stringUrl = $(self).attr("href");
         var activeTabId = $(section + ' .nav.nav-tabs li.active').attr("id");
@@ -29,6 +28,7 @@ $(function() {
             },
             knop: self
         });
+
         return false;
     }
 
@@ -63,8 +63,7 @@ $(function() {
 
 
 function share(strURL) {
-    var leftPosition, topPosition;
-    iW=500, iH=300;
+    var leftPosition, topPosition, iW=500, iH=300;
     leftPosition = (window.screen.width / 2) - ((iW / 2) + 10);
     topPosition = (window.screen.height / 2) - ((iH / 2) + 50);
     var windowFeatures = "status=no,height=" + iH + ",width=" + iW + ",resizable=yes,left=" + leftPosition + ",top=" + topPosition + ",screenX=" + leftPosition + ",screenY=" + topPosition + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no";
