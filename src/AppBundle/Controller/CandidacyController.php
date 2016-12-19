@@ -55,7 +55,7 @@ class CandidacyController extends UtilityController
                 "template" => "notifyCandidateApproved"
             ],
             "admins" => [
-                "subject" => $t->trans('candidacy.mail.approve'),
+                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.approve'),
                 "template" => "approvedCandidate"
             ]
         ];
@@ -77,7 +77,7 @@ class CandidacyController extends UtilityController
                 "template" => "notifyCandidateDisapproved"
             ],
             "admins" => [
-                "subject" => $t->trans('candidacy.mail.disapprove'),
+                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.disapprove'),
                 "template" => "disapprovedCandidate"
             ]
         ];
@@ -103,7 +103,7 @@ class CandidacyController extends UtilityController
                 "template" => "notifyVolunteerRemoved"
             ],
             "admins" => [
-                "subject" => $t->trans('candidacy.mail.remove'),
+                "subject" => $candidacy->getCandidate()->getFullName() + $t->trans('candidacy.mail.remove'),
                 "template" => "removedVolunteer"
             ]
         ];
