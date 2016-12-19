@@ -83,12 +83,12 @@
 
 {# --------------------------- TABS ORGANISATIES ------------------------------------- #}
 
-        <section class="part"><div class="container tabblad spacing">
+        <section class="part" id="part_of_organisations"><div class="container tabblad spacing">
             <ul class="nav nav-tabs">
-                <li class="rood active"><a href="#spot" data-toggle="tab">{{ "person.dash.org.spotlights"|trans }}</a></li>
-                <li class="blauw"><a href="#orgopmaat" data-toggle="tab">{{ "person.dash.org.personal"|trans }}</a></li>
+                <li class="rood active" id="tabs_spot"><a href="#spot" data-toggle="tab">{{ "person.dash.org.spotlights"|trans }}</a></li>
+                <li class="blauw" id="tabs_maat"><a href="#orgopmaat" data-toggle="tab">{{ "person.dash.org.personal"|trans }}</a></li>
                 {% if person.likedorganisations|length > 0 %}
-                    <li class="groen"><a href="#savedorgs" data-toggle="tab">{{ "person.dash.org.saved"|trans }}</a></li>
+                    <li class="groen" id="tabs_save"><a href="#savedorgs" data-toggle="tab">{{ "person.dash.org.saved"|trans }}</a></li>
                 {% endif %}
             </ul>
 

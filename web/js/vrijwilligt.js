@@ -1,19 +1,35 @@
 $(function() {
-    $(".fav").click(function() {
-        $(this).removeClass("liked").removeClass("notliked");
-        strURL = $(this).attr("href");
+    reloadFavClickEvent();
+
+    function reloadFavClickEvent(){
+        $(".fav").off("click").on("click", function() {
+            favVacancyOrOrganisation(this);
+            return false;
+        });
+    }
+
+    function favVacancyOrOrganisation(self){
+        $(self).removeClass("liked").removeClass("notliked");
+        var stringUrl = $(self).attr("href");
+        var activeTabId = $('#part_of_organisations .nav.nav-tabs li.active').attr("id");
+
         $.ajax({
             type: "GET",
-            url: strURL,
+            url: stringUrl,
             data: "ajax",
             dataType: "json",
-            success: function(result) {
-                $(this.knop).addClass(result.class).attr("href", result.url).attr("title", result.text);
+            success: function() {
+                $.get(window.location.href, function(data) {
+                    $("#part_of_organisations").replaceWith($(data).find("#part_of_organisations"));
+                    reloadFavClickEvent();
+                    $("#" + activeTabId + " a").click();
+                });
             },
-            knop: this,
+            knop: self
         });
         return false;
-    });
+    }
+
     $(".social li.facebook a").click(function() {
         return share('http://www.facebook.com/sharer.php?u='+encodeURIComponent($(this).attr("href"))+'&t=');
     });
