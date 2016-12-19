@@ -1,10 +1,17 @@
 $(function() {
     reloadFavClickEvent();
 
+    var lastClickedTabs = {};
+
     function reloadFavClickEvent(){
         $(".fav").off("click").on("click", function() {
             favVacancyOrOrganisation(this);
             return false;
+        });
+
+        $(".nav.nav-tabs li").off("click").on("click", function(){
+            var section = "#" + $(this).closest("section.part").attr("id");
+            lastClickedTabs[section] = "#" + $(this).attr("id");
         });
     }
 
@@ -12,7 +19,6 @@ $(function() {
         var section = "#" + $(self).closest("section.part").attr("id");
         $(self).removeClass("liked").removeClass("notliked");
         var stringUrl = $(self).attr("href");
-        var activeTabId = $(section + ' .nav.nav-tabs li.active').attr("id");
 
         $.ajax({
             type: "GET",
@@ -23,7 +29,7 @@ $(function() {
                 $.get(window.location.href, function(data) {
                     $(section).replaceWith($(data).find(section));
                     reloadFavClickEvent();
-                    $("#" + activeTabId + " a").click();
+                    $(lastClickedTabs[section] + " a").click();
                 });
             },
             knop: self
