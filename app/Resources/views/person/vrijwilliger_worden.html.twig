@@ -191,7 +191,11 @@
 			<h2 class="steptitle groen"><a href="#opmaat" name="opmaat">{{ "person.become.tailoredtitle"|trans }}</a></h2>
 			<div id="vacaturesOpMaat" class="step grijs groen">
 		        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }} {# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
-		        <h2>{{ "person.become.saved"|trans }}</h2>
+
+				{% if app.user.likedvacancies is not empty %}
+		        	<h2>{{ "person.become.saved"|trans }}</h2>
+				{% endif %}
+
 				{{ render(controller("AppBundle:Vacancy:listSavedVacancies", { "user": app.user } )) }}
 			</div>
 		{% endif %}
