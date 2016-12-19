@@ -74,8 +74,6 @@ vacancy:
         removeCandidacySubjectStart: withdrew his/her candidacy for the vacancy titled
         removeCandidacySubjectEnd: '.'
         submitCandidacy: 'submitted his/her candidacy for the vacancy titled:'
-    exception:
-        invalidCreation: Your vacancy is not valid, please recheck it.
 org:
     label:
         addAdmin: Select extra admin

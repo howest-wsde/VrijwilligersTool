@@ -139,7 +139,8 @@ class VacancyController extends UtilityController
         }
         else if ($form->isSubmitted() && !$form->isValid())
         {
-            $this->addFlash('error', $t->trans('vacancy.exception.invalidCreation'));
+            //set an error message
+            $this->addFlash('error', $t->trans('general.flash.formError'));
         }
 
         return $this->render("vacancy/vacature_nieuw.html.twig",
