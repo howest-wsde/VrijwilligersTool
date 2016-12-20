@@ -21,9 +21,6 @@ $(function() {
 
     function favVacancyOrOrganisation(self){
         var sectionId = $(self).closest("section.part").attr("id") || $(self).closest("div.step").attr("id");
-        console.log("current sectionId " + sectionId);
-        console.log("current lastClickedTabitles");
-        console.log(lastClickedTabTitles);
         $(self).removeClass("liked").removeClass("notliked");
         var stringUrl = $(self).attr("href");
 
@@ -34,12 +31,9 @@ $(function() {
             dataType: "json",
             success: function() {
                 $.get(window.location.href, function(data) {
-                    console.log("Requesting " + "#" + sectionId);
                     $("#" + sectionId).replaceWith($(data).find("#" + sectionId));
                     reloadFavClickEvent();
-                    console.log("now clicking " + "#" + lastClickedTabTitles[window.location.href] + " a");
                     $("#" + lastClickedTabTitles[window.location.href] + " a").click();
-                    console.log("now clicking " + "#" + lastClickedTabs[window.location.href] + " a");
                     $("#" + lastClickedTabs[window.location.href] + " a").click();
                 });
             },
