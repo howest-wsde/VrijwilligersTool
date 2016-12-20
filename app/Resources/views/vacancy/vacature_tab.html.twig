@@ -19,17 +19,17 @@
 <script>
 
     $(document).ready(function () {
-        $(".vacatures").css({"overflow": "hidden"});
+        //$(".vacatures").css({"overflow": "hidden"});
         $("#left").css({"float": "left", "margin": "auto"});
         $("#right").css({"float": "right", "margin": "auto"});
 
         $("#right").on('click', function () {
-            console.log('clicked left');
-            $(".vacatures").animate({scrollLeft: '+=200'}, 333);
+            console.log('clicked right');
+            $(".vacatures").animate({scrollLeft: '+=100'}, 100);
         });
 
         $("#left").on('click', function () {
-            console.log('clicked righ');
+            console.log('clicked left');
             $(".vacatures").animate({scrollRight: '-=200'}, 333);
         });
     });
