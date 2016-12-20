@@ -1,4 +1,5 @@
 {% trans_default_domain "views" %}
+<button class="glyphicon-arrow-left" id="left"></button>
 <div class="vacatures">
     {% if vacancies %}
         {% for vacancy in vacancies %}
@@ -8,3 +9,28 @@
         <p>{{ "general.tailored.novacancy"|trans }}</p>
     {% endif %}
 </div>
+<button class="glyphicon-arrow-right" id="right"></button>
+
+
+<script
+        src="https://code.jquery.com/jquery-3.1.1.js"
+        integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+        crossorigin="anonymous"></script>
+<script>
+
+    $(document).ready(function () {
+        $(".vacatures").css({"overflow": "hidden"});
+        $("#left").css({"float": "left", "margin": "auto"});
+        $("#right").css({"float": "right", "margin": "auto"});
+
+        $("#right").on('click', function () {
+            console.log('clicked left');
+            $(".vacatures").animate({scrollLeft: '+=200'}, 333);
+        });
+
+        $("#left").on('click', function () {
+            console.log('clicked righ');
+            $(".vacatures").animate({scrollRight: '-=200'}, 333);
+        });
+    });
+</script>

@@ -30,7 +30,6 @@ class FeedbackController extends controller
             $em->flush();
 
         }
-
        return $this->redirect($request->server->get('HTTP_REFERER'));
 
     }

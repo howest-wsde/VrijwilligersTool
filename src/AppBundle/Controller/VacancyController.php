@@ -383,7 +383,6 @@ class VacancyController extends UtilityController
                     },
                     "size": ' . $nr . '
                 }';
-
         return $this->render("vacancy/vacatures_oplijsten.html.twig", [
                 "vacancies" => $es->requestByType($query, 'vacancy'),
                  "viewMode" => $viewMode
