@@ -33,8 +33,8 @@
 	        </div>
 	    {% endfor %}
 
-		{% if not app.user %}
-			{{ form_start(form) }}
+        {{ form_start(form) }}
+		    {% if not app.user %}
 				<h2 class="steptitle rood" id="steptitle_profiel"><a href="#profiel" name="profiel">{{ "person.become.create"|trans }}</a></h2>
 				<div class="step grijs rood">
 					{% block bron %}{% endblock %}
@@ -71,8 +71,9 @@
 						</div>
 					</fieldset>
 				</div>
+        {% endif %}
 
-
+        {% if not app.user or (app.user.street is null and app.user.city is null and app.user.bus is null and app.user.number is null and app.user.postalcode is null)%}
 				<h2 class="steptitle groen" id="steptitle_contactgegevens"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
 				<div class="step grijs groen">
 					<fieldset>
@@ -106,12 +107,16 @@
 							{{ form_row (form.linkedinUrl) }}
 							<div class="submits">
 								{{ form_row (form.submit2) }}
+                                {% if not app.user %}
 								{{ form_row (form.backToRegistration) }}
+                                {% endif %}
 							</div>
 						</div>
 					</fieldset>
 				</div>
+        {%  endif %}
 
+        {% if not app.user %}
 				<h2 class="steptitle paars" id="steptitle_vaardigheden"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
 				<div class="step grijs paars">
 					<fieldset>
