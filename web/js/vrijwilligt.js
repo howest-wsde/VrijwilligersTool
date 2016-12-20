@@ -2,6 +2,7 @@ $(function() {
     reloadFavClickEvent();
 
     var lastClickedTabs = {};
+    var lastClickedTabTitles = {};
 
     function reloadFavClickEvent(){
         $(".fav").off("click").on("click", function() {
@@ -10,13 +11,19 @@ $(function() {
         });
 
         $(".nav.nav-tabs li").off("click").on("click", function(){
-            var section = "#" + $(this).closest("section.part").attr("id");
-            lastClickedTabs[section] = "#" + $(this).attr("id");
+            lastClickedTabs[window.location.href] = $(this).attr("id");
+        });
+
+        $(".steptitle a").on("click", function(){
+            lastClickedTabTitles[window.location.href] = $(this).parent().attr("id"); //Link element is inside h2
         });
     }
 
     function favVacancyOrOrganisation(self){
-        var section = "#" + $(self).closest("section.part").attr("id");
+        var sectionId = $(self).closest("section.part").attr("id") || $(self).closest("div.step").attr("id");
+        console.log("current sectionId " + sectionId);
+        console.log("current lastClickedTabitles");
+        console.log(lastClickedTabTitles);
         $(self).removeClass("liked").removeClass("notliked");
         var stringUrl = $(self).attr("href");
 
@@ -27,9 +34,13 @@ $(function() {
             dataType: "json",
             success: function() {
                 $.get(window.location.href, function(data) {
-                    $(section).replaceWith($(data).find(section));
+                    console.log("Requesting " + "#" + sectionId);
+                    $("#" + sectionId).replaceWith($(data).find("#" + sectionId));
                     reloadFavClickEvent();
-                    $(lastClickedTabs[section] + " a").click();
+                    console.log("now clicking " + "#" + lastClickedTabTitles[window.location.href] + " a");
+                    $("#" + lastClickedTabTitles[window.location.href] + " a").click();
+                    console.log("now clicking " + "#" + lastClickedTabs[window.location.href] + " a");
+                    $("#" + lastClickedTabs[window.location.href] + " a").click();
                 });
             },
             knop: self

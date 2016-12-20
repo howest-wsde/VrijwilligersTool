@@ -35,7 +35,7 @@
 
 		{% if not app.user %}
 			{{ form_start(form) }}
-				<h2 class="steptitle rood"><a href="#profiel" name="profiel">{{ "person.become.create"|trans }}</a></h2>
+				<h2 class="steptitle rood" id="steptitle_profiel"><a href="#profiel" name="profiel">{{ "person.become.create"|trans }}</a></h2>
 				<div class="step grijs rood">
 					{% block bron %}{% endblock %}
 					<!-- <input type="hidden" value="{# block bron #}{# endblock #}" /> -->
@@ -73,7 +73,7 @@
 				</div>
 
 
-				<h2 class="steptitle groen"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
+				<h2 class="steptitle groen" id="steptitle_contactgegevens"><a href="#contactgegevens" name="contactgegevens">{{ "person.become.contact"|trans }}</a></h2>
 				<div class="step grijs groen">
 					<fieldset>
 						<div class="col-md-12">{{ form_row (form.username) }}</div>
@@ -112,7 +112,7 @@
 					</fieldset>
 				</div>
 
-				<h2 class="steptitle paars"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
+				<h2 class="steptitle paars" id="steptitle_vaardigheden"><a href="#vaardigheden" name="vaardigheden">{{ "person.become.preferences"|trans }}</a></h2>
 				<div class="step grijs paars">
 					<fieldset>
 						{{ form_row (form.skills) }}
@@ -151,7 +151,7 @@
 
 
 		{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
-		<h2 class="steptitle geel"><a href="#interessantevacatures" name="interessantevacatures">{{ "person.become.interesting"|trans }}</a></h2>
+		<h2 class="steptitle geel" id="steptitle_interessantevacatures"><a href="#interessantevacatures" name="interessantevacatures">{{ "person.become.interesting"|trans }}</a></h2>
 		<div id="interessant" class="step grijs geel">
 			<p>
 				{{ "person.become.goodvol"|trans }} <a href="#zoekVacatures">{{ "person.become.search"|trans }}</a> {{ "person.become.but"|trans }}</p>
@@ -161,13 +161,13 @@
 			</div>
 		</div>
 
-		<h2 class="steptitle blauw"><a href="#spelregels" name="spelregels">{{ "person.become.rules"|trans }}</a></h2>
+		<h2 class="steptitle blauw" id="steptitle_spelregels"><a href="#spelregels" name="spelregels">{{ "person.become.rules"|trans }}</a></h2>
 		<div class="step grijs blauw">
             {% embed "info/part.spelregels-vrijwilliger.html.twig" %}{% endembed %}
             {% embed "info/part.spelregels-vereniging.html.twig" %}{% endembed %}
 		</div>
 
-		<h2 class="steptitle rood"><a href="#zoek" name="zoek">{{ "person.become.search"|trans|capitalize }}</a></h2>
+		<h2 class="steptitle rood" id="steptitle_zoek"><a href="#zoek" name="zoek"  id="zoek">{{ "person.become.search"|trans|capitalize }}</a></h2>
 		<div id="zoekVacatures" class="step grijs rood">
 			<p>{{ "person.become.ways"|trans }}</p>
 			<ul>
@@ -188,7 +188,7 @@
 
 		{# Vacature/organisatieblock #}
 		{% if app.user %}
-			<h2 class="steptitle groen"><a href="#opmaat" name="opmaat">{{ "person.become.tailoredtitle"|trans }}</a></h2>
+			<h2 class="steptitle groen"  id="steptitle_opmaat"><a href="#opmaat" name="opmaat">{{ "person.become.tailoredtitle"|trans }}</a></h2>
 			<div id="vacaturesOpMaat" class="step grijs groen">
 		        {{ render(controller("AppBundle:Vacancy:vacaturesOpMaat", { "user": app.user } )) }} {# TODO: replace this by vacature block once finished (with all tabs) issue #155 & #163 #}
 		        <h2>{{ "person.become.saved"|trans }}</h2>
