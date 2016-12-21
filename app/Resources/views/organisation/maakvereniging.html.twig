@@ -37,14 +37,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-
-    <script>
-        var translations = {
-            "not_valid" : "{{ "org.file.not_valid"|trans }}",
-            "too_large" : "{{ "org.file.too_large"|trans }}"
-        }
-    </script>
-
     <script src="https://maps.googleapis.com/maps/api/js?key={{ googlemaps_key }}"></script>
     <script src="{{ asset('js/livemap.js') }}"></script>
     <script src="{{ asset("js/forms.js") }}"></script>

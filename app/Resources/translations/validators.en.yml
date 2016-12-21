@@ -61,8 +61,6 @@ organisation:
     not_numeric: Please enter a numeric value.
     not_positive: Please enter a value greater than {{ limit }}.
     not_more_than: Please enter a value not exceeding {{ limit }}.
-    image__too_large: Please choose an image smaller than 2MB.
-    image_not_valid: Please choose a valid image.
     exact: The value must be exactly {{ limit }} characters long.
     name:
         already_used: This name is already in use.
@@ -240,3 +238,6 @@ testimonial:
         submit: Send
     placeholder:
         to: Select a volunteer
+file:
+    image__too_large: Please choose an image smaller than 2MB.
+    image_not_valid: Please choose a valid image.

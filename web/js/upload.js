@@ -1,12 +1,15 @@
 "use strict";
 (function () {
-    $('form[name="organisation"]').on("submit", function(event){
+    var $usedForm;
+
+    $('form').on("submit", function(event){
         event.preventDefault();
 
-        var blob = document.getElementById('organisation_logoFile').files[0];
+        $usedForm = this;
+        var blob = $('input:file')[0].files[0];
 
         if (typeof blob == "undefined"){
-            submitForm()
+            submitForm();
         } else {
             var fileReader = new FileReader();
             fileReader.onloadend = function (e) {
@@ -19,7 +22,7 @@
                 switch (header) {
                     case "89504e47": //image/png
                     case "ffd8ffe0": //image/jpeg
-                    case "ffd8ffe1": //image/
+                    case "ffd8ffe1": //image/jpeg
                     case "ffd8ffe2": //image/jpeg
                         submitForm();
                         return;
@@ -40,6 +43,6 @@
     });
 
     function submitForm(){
-        $('form[name="organisation"]')[0].submit();
+        $usedForm.submit();
     }
 })();

@@ -189,9 +189,9 @@ class Organisation extends EntityBase
      * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
      * @Assert\File(
      *      maxSize = "2M",
-     *      maxSizeMessage = "organisation.image_too_large",
-     *      mimeTypes = {"image/*"},
-     *      mimeTypesMessage = "organisation.image_not_valid",
+     *      maxSizeMessage = "file.image_too_large",
+     *      mimeTypes = {"image/png, image/jpg, image/jpeg"},
+     *      mimeTypesMessage = "file.image_not_valid",
      *      groups= "firstStep"
      * )
      */

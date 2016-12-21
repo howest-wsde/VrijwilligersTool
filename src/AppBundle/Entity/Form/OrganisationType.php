@@ -39,7 +39,7 @@ class OrganisationType extends AbstractType
             ->add("logoFile", FileType::class, array(
                 "label" => "organisation.label.logo",
                 "required" => false,
-                "attr" => array("accept" => "image/*")
+                "attr" => array("accept" => "images/png, images/jpg, images/jpeg")
             ))
             ->add("type", ChoiceType::class, array(
                 'label' => 'organisation.label.type',

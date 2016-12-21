@@ -37,6 +37,7 @@ class EditPersonType extends AbstractType
             ->add("avatarFile", FileType::class, array(
                 "label" => "person.label.avatar",
                 "required" => false,
+                "attr" => array("accept" => "images/png, images/jpg, images/jpeg")
             ))
             ->add("email", EmailType::class, array(
                 "label" => "person.label.email",

@@ -61,8 +61,6 @@ organisation:
     not_numeric: Gelieve een numerieke waarde op te geven.
     not_positive: Gelieve een waarde hoger dan {{ limit }} in te geven.
     not_more_than: Gelieve niet meer dan {{ limit }} in te geven.
-    image__too_large: Gelieve een afbeelding te kiezen die kleiner is dan 2MB.
-    image_not_valid: Gelieve een geldige afbeelding te kiezen.
     exact: De waarde moet exact {{ limit }} tekens langs zijn.
     name:
         already_used: Deze naam is reeds in gebruik.
@@ -240,3 +238,6 @@ testimonial:
         submit: Verzenden
     placeholder:
         to: Selecteer een vrijwilliger
+file:
+    image__too_large: Gelieve een afbeelding te kiezen die kleiner is dan 2MB.
+    image_not_valid: Gelieve een geldige afbeelding te kiezen.

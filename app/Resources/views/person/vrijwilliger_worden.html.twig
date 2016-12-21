@@ -202,9 +202,16 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        var translations = {
+            "not_valid" : "{{ "general.file.not_valid_image"|trans }}",
+            "too_large" : "{{ "general.file.too_large"|trans }}"
+        }
+    </script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ googlemaps_key }}"></script>
     <script src="{{ asset("js/forms.js") }}"></script>
 	<script src="{{ asset('js/livemap.js') }}"></script>
 	<script src="{{ asset('js/passwordView.js') }}"></script>
+	<script src="{{ asset('js/upload.js') }}"></script>
 {% endblock %}
 
