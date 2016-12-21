@@ -99,7 +99,7 @@ def: #default
         logintitle: Log in met je gebruikersgegevens
         id: 'Gebruikersnaam, e-mailadres of telefoonnummer'
         phrase: Wachtzin of wachtwoord
-        login: login
+        login: Login
         external: Log in via een externe site
         google: Inloggen via je Google-account
         fb: Inloggen via Facebook

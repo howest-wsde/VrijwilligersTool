@@ -100,7 +100,7 @@ def: #default
         logintitle: 'Log in with your userdata, mail or passphrase or password.'
         id: 'Username, e-mail or phone number'
         phrase: Passphrase or password
-        login: login
+        login: Login
         external: Log in through an external site
         google: Log in with your google account
         fb: Log in via facebook
