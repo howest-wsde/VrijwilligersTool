@@ -187,8 +187,13 @@ class Organisation extends EntityBase
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="organisation_logo", fileNameProperty="logoName")
-     *
-     * @var File
+     * @Assert\File(
+     *      maxSize = "2M",
+     *      maxSizeMessage = "organisation.image_too_large",
+     *      mimeTypes = {"image/*"},
+     *      mimeTypesMessage = "organisation.image_not_valid",
+     *      groups= "firstStep"
+     * )
      */
     protected $logoFile;
 
