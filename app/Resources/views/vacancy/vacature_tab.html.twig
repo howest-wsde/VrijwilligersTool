@@ -1,6 +1,6 @@
 {% trans_default_domain "views" %}
-<button class="glyphicon-arrow-left" id="left"></button>
-<div class="vacatures">
+
+<div class="vacatures arrow-scrollable">
     {% if vacancies %}
         {% for vacancy in vacancies %}
             {% embed "vacancy/vacature_min.html.twig" with {"vacancy": vacancy, "count": vacancies|length}%}{% endembed %}
@@ -9,28 +9,53 @@
         <p>{{ "general.tailored.novacancy"|trans }}</p>
     {% endif %}
 </div>
-<button class="glyphicon-arrow-right" id="right"></button>
-
 
 <script
         src="https://code.jquery.com/jquery-3.1.1.js"
         integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
+
 <script>
-
     $(document).ready(function () {
-        //$(".vacatures").css({"overflow": "hidden"});
-        $("#left").css({"float": "left", "margin": "auto"});
-        $("#right").css({"float": "right", "margin": "auto"});
+        let scrollbox = $(".arrow-scrollable");
+        if(scrollbox.length !== 0){ //there are elements that need arrows
 
-        $("#right").on('click', function () {
-            console.log('clicked right');
-            $(".vacatures").animate({scrollLeft: '+=100'}, 100);
-        });
+            scrollbox.parent().after("<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden='true' id=\"left\"></span>")
+                     .after("<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden='true' id=\"right\"></span>");
 
-        $("#left").on('click', function () {
-            console.log('clicked left');
-            $(".vacatures").animate({scrollRight: '-=200'}, 333);
-        });
+
+            scrollbox.css({"overflow": "hidden"});
+
+            $("#left").css({
+                "cursor" : "default",
+                "float": "left",
+                "top": "50%",
+                "transform" : "translateY(-50%)"
+            });
+
+            $("#right").css({
+                "cursor" : "default",
+                "float": "right",
+                "top": "50%",
+                "transform" : "translateY(-50%)"
+            });
+
+
+
+
+    $("#right").on('click', function () {
+                console.log('clicked right');
+                $(".vacatures").animate({scrollLeft: '+=313'}, 333);
+            });
+
+            $("#left").on('click', function () {
+                console.log('clicked left');
+                $(".vacatures").animate({scrollLeft: '-=313'}, 333);
+            });
+        }
+        else console.log("Arrow vertical scrolling loaded but no elements were found needing this!");
     });
 </script>
+
+
