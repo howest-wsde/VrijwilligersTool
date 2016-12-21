@@ -207,6 +207,9 @@ org:
         button: Receive alerts
         remove: stop alerts
         add: start alerts
+    file:
+        not_valid: Please upload a valid image.
+        too_large: Please upload an image smaller than 2MB.
 person:
     general:
         volunteer: volunteer

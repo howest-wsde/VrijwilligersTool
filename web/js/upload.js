@@ -24,12 +24,12 @@
                         submitForm();
                         return;
                     default:
-                        alert("Gelieve een geldige afbeelding op te laden.");
+                        alert(translations.not_valid);
                         return;
                 }
 
                 if (blob.size > 2000000){
-                    alert("Gelieve een afbeelding op te laden die maximum 2MB groot is.");
+                    alert(translations.too_large);
                 } else {
                     submitForm();
                 }

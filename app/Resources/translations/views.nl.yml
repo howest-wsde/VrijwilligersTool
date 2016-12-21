@@ -207,6 +207,9 @@ org:
         button: Ontvang meldingen
         remove: stop meldingen
         add: start meldingen
+    file:
+        not_valid: Gelieve een geldige afbeelding te selecteren.
+        too_large: Gelieve een afbeelding te selecteren die kleiner is dan 2MB.
 person:
     general:
         volunteer: vrijwilliger
