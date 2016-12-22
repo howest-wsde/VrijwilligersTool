@@ -18,7 +18,7 @@
 
 			<div class="organisaties">
 				{% for organisation in organisations %}
-				    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "cta": {"txt" : "selecteer", "href" : path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) } }%}{% endembed %}
+				    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation, "cta": {"txt" :  "general.select"|trans, "href" : path("create_vacancy_for_organisation", { "organisation_urlid": organisation.urlId }) } }%}{% endembed %}
 				{% endfor %}
 			</div>
 
