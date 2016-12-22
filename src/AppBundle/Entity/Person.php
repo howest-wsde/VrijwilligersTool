@@ -210,7 +210,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      *      maxSizeMessage = "file.image_too_large",
      *      mimeTypes = {"image/png, image/jpg, image/jpeg"},
      *      mimeTypesMessage = "file.image_not_valid",
-     *      groups= "firstStep"
+     *      groups= {"firstStep", "edit"}
      * )
      */
     protected $avatarFile;
