@@ -5,7 +5,7 @@
         "txt": 'lees meer'
     } %}
 {% endif %}
-<article class="vacature cta">
+<article class="vacature cta" id="vac_{{ vacancy.urlId }}" onclick="window.location.href='{{ path("vacancy_by_urlid", { "urlid": vacancy.urlid }) }}'">
 
     {% if vacancy.published == 3 %}
         <span>({{ "vacancy.vacancy.unfinished" | trans }})</span>

@@ -1,4 +1,7 @@
 $(function() {
+    $(document).ready(function(){
+        $(".vacature, .vereniging").css("cursor", "pointer");
+    });
     reloadFavClickEvent();
 
     var lastClickedTabs = {};
