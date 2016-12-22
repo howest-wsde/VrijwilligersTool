@@ -25,7 +25,6 @@ $(document).ready(function () {
             "transform" : "translateY(-50%)"
         });
 
-
         $(".right").on('click', function () {
             console.log("right");
             $(this).closest(".scrollcontainer").find(".arrow-scrollable").css({"color" : "red"});
