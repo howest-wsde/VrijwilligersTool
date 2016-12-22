@@ -204,8 +204,9 @@
     {{ parent() }}
     <script>
         var translations = {
-            "not_valid" : "{{ "general.file.not_valid_image"|trans }}",
-            "too_large" : "{{ "general.file.too_large"|trans }}"
+            "not_valid" : "{{ "general.validation.not_valid_image"|trans }}",
+            "too_large" : "{{ "general.validation.too_large"|trans }}",
+            "invalid_input" : "{{ "general.validation.invalid_input"|trans }}"
         }
     </script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ googlemaps_key }}"></script>

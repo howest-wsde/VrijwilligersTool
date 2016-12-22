@@ -35,9 +35,10 @@ general:
         deleteorg: Organisatie verwijderen
         admins: Beheerders
         away: ontneem admin rechten
-    file:
+    validation:
         not_valid_image: Gelieve een geldige afbeelding te selecteren.
         too_large: Gelieve een afbeelding te selecteren die kleiner is dan 2MB.
+        invalid_input: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en de instructies bij het veld / de velden waar de foutmelding staat de nodige stappen te ondernemen.'
 base:
     general:
         name: Roeselare vrijwilligt

@@ -27,12 +27,12 @@
                         submitForm();
                         return;
                     default:
-                        alert(translations.not_valid);
+                        addErrorMessage(translations.not_valid);
                         return;
                 }
 
                 if (blob.size > 2000000){
-                    alert(translations.too_large);
+                    addErrorMessage(translations.too_large);
                 } else {
                     submitForm();
                 }
@@ -44,5 +44,10 @@
 
     function submitForm(){
         $usedForm.submit();
+    }
+
+    function addErrorMessage(message){
+        $("main").prepend('<div class="alert alert-danger">' + translations.invalid_input +'</div>');
+        $('input:file').parent().after('<div class="error"><ul><li>' + message + '</li></ul></div>');
     }
 })();
