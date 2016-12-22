@@ -5,7 +5,7 @@
     {% endfor %}
 </ul>
 {% elseif viewMode == 'tile' %}
-	<div class="organisaties">
+	<div class="organisaties arrow-scrollable">
 		{% for organisation in organisations %}
 		    {% embed "organisation/vereniging_min.html.twig" with {"organisation": organisation }%}{% endembed %}
 		{% endfor %}
