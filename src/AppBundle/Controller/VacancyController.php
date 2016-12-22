@@ -146,6 +146,7 @@ class VacancyController extends UtilityController
             [
                 "form" => $form->createView(),
                 "createForm" => true,
+                "private" => is_null($organisation_urlid)
             ]);
     }
 

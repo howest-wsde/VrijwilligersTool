@@ -58,9 +58,14 @@
     <div class="step grijs blauw">
         <fieldset>
             {{ form_row(form.skills) }}
+            {% if private %}
+                {{ form_row(form.submit) }}
+                {{ form_row(form.save) }}
+            {% endif %}
         </fieldset>
     </div>
 
+    {% if not private %}
     <h2 class="steptitle rood"><a href="#voordelen" name="voordelen">{{ "vacancy.form.advantages"|trans }}</a></h2>
     <div class="step grijs rood">
         <fieldset>
@@ -70,4 +75,5 @@
         {{ form_row(form.submit) }}
         {{ form_row(form.save) }}
     </div>
-{{ form_end(form) }}
+    {% endif %}
+{{ form_end(form, {'render_rest': false }) }}
