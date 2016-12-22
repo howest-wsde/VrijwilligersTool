@@ -75,6 +75,8 @@ vacancy:
         removeCandidacySubjectStart: trok haar/zijn kandidaat voor de vacature met titel
         removeCandidacySubjectEnd: 'in.'
         submitCandidacy: 'stelde zich kandidaat voor de vacature met titel:'
+    exception:
+        invalidCreation: Je vacature is niet geldig, controleer het opnieuw a.u.b.
 org:
     label:
         addAdmin: Nieuwe beheerder
