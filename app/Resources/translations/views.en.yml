@@ -16,7 +16,7 @@ general:
         click: click this link
         unlike: Remove
         like: Save
-        more: read more
+        more: Read more
     map:
         show: show route
         select: select your desired mode of transport
@@ -34,7 +34,7 @@ general:
         createvacancy: Create vacancy
         deleteorg: Remove organisation
         admins: Admins
-        away: revoke admin rights
+        away: Revoke admin rights
 
 base:
     general:

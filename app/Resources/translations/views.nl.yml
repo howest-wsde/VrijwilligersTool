@@ -16,7 +16,7 @@ general:
         click: klik dan op deze link
         unlike: Verwijder
         like: Bewaar
-        more: lees meer
+        more: Lees meer
     map:
         show: Toon routebeschrijving
         select: selecteer uw gewenste transportwijze
@@ -34,7 +34,7 @@ general:
         createvacancy: Vacature aanmaken
         deleteorg: Organisatie verwijderen
         admins: Beheerders
-        away: ontneem admin rechten
+        away: Ontneem admin rechten
 base:
     general:
         name: Roeselare vrijwilligt
