@@ -292,6 +292,10 @@ person:
         saved: Bewaarde vacatures
         candidate: Stel je kandidaat
         candidateexplanation: Je kandidaat stellen kan niet eenvoudiger zijn.  Klik op de knop "solliciteer" onder een vacature en de organisatie zal onmiddelijk een verwittiging ontvangen dat jij kandidaat bent om hen voor die vacature te helpen.
+        changes: Nog enkele wijzigingen
+        myprofile: Mijn profiel
+        changeprofile: Moet je nog enkele instellingen aanpassen of vervolledigen? Klik op de knop hieronder om nog enkele aanpassingen te doen aan jouw profiel.
+
 search:
     recent: Recente zoekopdrachten
     saved: Mijn bewaarde zoekopdrachten

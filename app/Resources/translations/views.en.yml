@@ -292,6 +292,9 @@ person:
         saved: Saved vacancies
         candidate: Submit your candidacy
         candidateexplanation: Submitting your candidacy couldn't be easier.  Just click the button "apply" below a vacancy and that's it.  The organisation will receive a notification about your willingness to help out for that vacancy and will contact you shortly.
+        changes: A few more changes
+        myprofile: My profile
+        changeprofile: Do you still need to make some changes to your profile? Click the button to edit your profile.
 search:
     recent: Recent searches
     saved: Saved searches
