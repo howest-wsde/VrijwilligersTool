@@ -20,21 +20,26 @@ class CandidacyController extends UtilityController
      */
     public function approveCandidacy(Request $request, $candidacyId, $action)
     {
-        $t = $this->get('translator');
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository("AppBundle:Candidacy");
         $candidacy = $repository->findOneById($candidacyId);
-        $person = $candidacy->getCandidate();
         $vacancy = $candidacy->getVacancy();
+        $creator = $vacancy->getCreator();
 
-        if($action == "approve") { //kandidaat goedkeuren
-            $this->approveCandidate($person, $candidacy, $vacancy, $em, $t);
-        }
-        else if($action == "cancel"){ //kandidaat afwijzen
-            $this->rejectCandidate($person, $candidacy, $vacancy, $em, $t);
-        }
-        else if($action == "remove"){ //actieve vrijwilliger verwijderen
-            $this->removeCandidate($person, $candidacy, $vacancy, $em, $t);
+        if($creator == $this->getUser() ) {
+            $t = $this->get('translator');
+
+            $person = $candidacy->getCandidate();
+
+            if($action == "approve") { //kandidaat goedkeuren
+                $this->approveCandidate($person, $candidacy, $vacancy, $em, $t);
+            }
+            else if($action == "cancel"){ //kandidaat afwijzen
+                $this->rejectCandidate($person, $candidacy, $vacancy, $em, $t);
+            }
+            else if($action == "remove"){ //actieve vrijwilliger verwijderen
+                $this->removeCandidate($person, $candidacy, $vacancy, $em, $t);
+            }
         }
 
         return $this->redirect($request->headers->get('referer')); //return to sender -Elvis Presley, 1962
