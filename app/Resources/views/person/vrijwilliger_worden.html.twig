@@ -147,19 +147,19 @@
 				{{ form_row(form._token) }}
 			    {# {{ form_row (form.termsAccepted) }} #}
 			{{ form_end(form) }}
+        {% elseif app.user %}
+            {# enkel na registratie #}
+            <h2 class="steptitle groen"><a href="#profielAanpassen" name="profielAanpassen">{{ "person.become.changes" | trans }}</a></h2>
+            <div class="step grijs groen">
+                <p>{{ "person.become.changeprofile" | trans }}</p>
+                <div class="doetest"><a href="{{ path("profile_edit") }}" class="groen cta">
+                        {{ "person.become.myprofile" | trans }}
+                    </a>
+                </div>
+            </div>
 		{% endif %}
 
-
-		{# gelijk voor ingelogde en niet-ingelogde gebruiker #}
-        <h2 class="steptitle paars"><a href="#profielAanpassen" name="profielAanpassen">{{ "person.become.changes" | trans }}</a></h2>
-        <div class="step grijs paars">
-            <p>{{ "person.become.changeprofile" | trans }}</p>
-            <div class="doetest"><a href="{{ path("profile_edit") }}" class="paars cta">
-                    {{ "person.become.myprofile" | trans }}
-                </a>
-            </div>
-        </div>
-
+        {# gelijk voor ingelogde en niet-ingelogde gebruiker #}
 		<h2 class="steptitle geel"><a href="#interessantevacatures" name="interessantevacatures">{{ "person.become.interesting"|trans }}</a></h2>
 		<div id="interessant" class="step grijs geel">
 			<p>
