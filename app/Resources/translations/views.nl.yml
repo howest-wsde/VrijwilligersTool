@@ -52,8 +52,8 @@ base:
             menu:
                 about: over ons
                 contact: contact
-                profile: mijn profiel
-                editprofile: instellingen
+                profile: dashboard
+                editprofile: mijn profiel
                 logout: uitloggen
                 login: inloggen
                 become: vrijwilliger worden

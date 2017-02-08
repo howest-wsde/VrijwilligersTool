@@ -53,8 +53,8 @@ base:
             menu:
                 about: about us
                 contact: contact
-                profile: my profile
-                editprofile: settings
+                profile: dashboard
+                editprofile: my profile
                 logout: logout
                 login: login
                 become: becoming a volunteer
