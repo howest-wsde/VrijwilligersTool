@@ -44,6 +44,13 @@
 						</ul></li>
 					{% endfor %}
 				</ol>
+				<ol class="admin">
+					<li class="th">
+						<ul>
+							<li>Aantal vacatures: {{ vacancies|length }}</li>
+						</ul>
+					</li>
+				</ol>
 			{% else %}
 				<ol class="admin"><li>Geen vacatures gevonden</li></ol>
 			{% endif %}
