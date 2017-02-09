@@ -116,7 +116,10 @@ class VacancyController extends UtilityController
             $this->addFlash('approve_message', $t->trans('vacancy.flash.createStart') . ' ' . $vacancy->getTitle() . ' ' . $t->trans('vacancy.flash.createEnd')
             );
 
-            if (!is_null($organisation_urlid)){
+            if ($form->get('save')->isClicked()) {
+                // saved but not published
+            }
+            else if (!is_null($organisation_urlid)){  // published and email is sent
                 //set digest / send email to all administrators
                 $info = array(
                             'subject' => $t->trans('vacancy.mail.create'),
