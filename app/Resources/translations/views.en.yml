@@ -1,4 +1,5 @@
 general:
+    sitename: Roeselare
     register: register
     login: login
     search: search
