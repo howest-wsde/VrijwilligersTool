@@ -175,6 +175,7 @@ org:
         unjust: 'Indien dit onterecht was en u de verwijdering ongedaan wil maken,'
         noadres: Voor deze organisatie is geen adres bekend.
         vacancies: Vacatures
+        intermediaries: Bemiddelde personen
     modify:
         title: Organisatie-gegevens aanpassen
         data: Gegevens
@@ -215,6 +216,7 @@ person:
         username: gebruikersnaam
         fullname: naam
         vols: vrijwilligt
+        nocontactdata: Deze persoon heeft nog geen contactinformatie opgegeven
     dash:
         dash: dashboard
         vol:

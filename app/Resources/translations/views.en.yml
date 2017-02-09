@@ -175,6 +175,7 @@ org:
         unjust: 'If you feel the removal was unwarranted and wish to undo the deletion,'
         noadres: No address known for this organisation.
         vacancies: Vacancies
+        intermediaries: Intermediaries
     modify:
         title: Modify organisation data
         data: Data
@@ -215,6 +216,7 @@ person:
         username: username
         fullname: name
         vols: volunteers
+        nocontactdata: This person has not set any contact information yet.
     dash:
         dash: dashboard
         vol:

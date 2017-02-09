@@ -1,3 +1,4 @@
+{% trans_default_domain "views" %}
 {% if cta is not defined %}
 	{% set cta = [] %}{# formaat: actions = [{"href": "#", "txt": "link"}] #}
 {% elseif cta.href is defined %}
@@ -15,6 +16,13 @@
 	        {% if person.telephone %}<li class="phone">{{ person.telephone }}</li>{% endif %}
 	        {% if person.email %}<li class="mail"><a href="mailto:{{ person.email }}">{{ person.email }}</a></li>{% endif %}
     	{% endif %}
+
+        {% if contact and
+            not person.city and
+            not person.telephone and
+            not person.email %}
+            {{ "person.general.nocontactdata" | trans }}
+        {% endif %}
     </ul>
     {% if cta|length > 0 %}<div class="cta">
 		{% for action in cta %}

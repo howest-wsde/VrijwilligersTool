@@ -98,6 +98,12 @@
 		{{ render(controller("AppBundle:Vacancy:ListOrganisationVacancies", { "id": organisation.Id, "status": 1 })) }}
 	{% endif %}
 
+    {% if organisation.intermediary %}
+        <a name="personen"></a>
+            <h2>{{ "org.org.intermediaries" | trans }}</h2>
+            {{ render(controller("AppBundle:Vacancy:ListOrganisationIntermediaries", { "organisationId": organisation.Id})) }}
+    {% endif %}
+
 {% endif %}
 {% endblock %}
 
