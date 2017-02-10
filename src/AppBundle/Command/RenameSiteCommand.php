@@ -86,14 +86,15 @@ class RenameSiteCommand extends ContainerAwareCommand
     private function renameInFile($fileName, $renames) {
         $fullFilePath = getcwd().$this::$TRANSLATION_FILES_DIRECTORY.$fileName;
         $fileLanguage = explode(".", $fileName)[1];
-        $renameKeys = $renames[$fileLanguage];
+        $renames = $renames[$fileLanguage];
 
         $renamedLines = array();
 
         $fileContents = file($fullFilePath);
         foreach ($fileContents as $i=>$line) {
-            if ($this->contains($line, "Roeselare")) {
-                $line = str_replace("Roeselare", "DERP", $line);
+            foreach ($renames as $renameFrom=>$renameTo)
+            if ($this->contains($line, $renameFrom)) {
+                $line = str_replace($renameFrom, $renameTo, $line);
                 $fileContents[$i] = $line;
                 array_push($renamedLines, $line);
             }
@@ -102,10 +103,7 @@ class RenameSiteCommand extends ContainerAwareCommand
         return $renamedLines;
     }
 
-    private function contains($haystack, $needles) {
-        foreach ($needles as $needle) {
-            return $needle;
-        }
-        return false;
+    private function contains($haystack, $needle) {
+        return strpos($haystack, $needle) !== false;
     }
 }
