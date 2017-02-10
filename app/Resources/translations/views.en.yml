@@ -1,5 +1,6 @@
 general:
     sitename: Roeselare
+    vrijwilligt: vrijwilligt # yes it's in dutch
     register: register
     login: login
     search: search
