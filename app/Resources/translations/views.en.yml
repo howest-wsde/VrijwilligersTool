@@ -1,6 +1,6 @@
 general:
     sitename: Roeselare
-    vrijwilligt: vrijwilligt # yes it's in dutch
+    siteslogan: Volunteers
     register: register
     login: login
     search: search
@@ -40,7 +40,6 @@ general:
 
 base:
     general:
-        name: Roeselare Volunteers
         about:
             stimulate: 'Roeselare Volunteers is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
             develop: 'supports you to show, develop and share your talents and interests.'

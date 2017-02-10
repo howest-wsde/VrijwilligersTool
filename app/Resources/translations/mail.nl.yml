@@ -13,7 +13,7 @@ contact:
       message: 'Bericht:'
 digest:
       header:
-          title: notificaties voor Roeselare Vrijwilligt
+          title: notificaties voor
       paragrafs:
           firstp: 'Beste beheerder,'
           secondp:
@@ -95,7 +95,8 @@ newCandidate:
       firstp: Beste beheerder voor
       secondp:
           fpart: zonet gaf
-          spart: zich op Roeselare Vrijwilligt als kandidaat voor de vacature
+          spart: zich op
+          spart2: als kandidaat voor de vacature
           tpart: "U kan deze vacature hier goed/afkeuren."
 newCharge:
       header: "Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie!"
@@ -175,8 +176,3 @@ testimonialFromVacancy:
           fpart: U heeft een getuigschrift gekregen van
           spart: "voor de volgende vacature:"
           tpart: "Klik hier om het getuigschrift te bekijken."
-
-
-
-
-
