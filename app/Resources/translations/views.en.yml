@@ -1,5 +1,6 @@
 general:
     sitename: Roeselare
+    siteslogan: Volunteers
     register: register
     login: login
     search: search
@@ -39,18 +40,14 @@ general:
 
 base:
     general:
-        name: Roeselare Volunteers
         about:
-            stimulate: 'Roeselare Volunteers is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
+            stimulate: 'is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
             develop: 'supports you to show, develop and share your talents and interests.'
             capital: 'supports your organisation in the quest for human capital.'
-            initiative: "Roeselare Volunteers is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
+            initiative: "is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
             platform: The platform was developped by Howest University.
-    head:
-        title: Roeselare Volunteers
     body:
         header:
-            title: Roeselare Volunteers
             menu:
                 about: about us
                 contact: contact
@@ -81,7 +78,7 @@ base:
             contact: contact
             partners: partners
             howest: Howest University
-            city: Roeselare City
+            city: City
             privacy: Privacy and legal terms
             volunteers: info for volunteers
             organisations: info about organisations
@@ -123,7 +120,7 @@ def: #default
                 d: "I am a volunteer at the Executive Residence in Roeselare, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
         info:
             title: Information
-            teaser: 'Roeselare Vrijwilligt is an open, independent platform that encourages collaboration and supports Roeselare..'
+            teaser: 'is an open, independent platform that encourages collaboration and supports Roeselare..'
         test:
             title: Take the test
             teaser: 'Not sure how to optimize your profile? Answer a few simple questions and let us find your ideal volunteer organization.'
@@ -146,14 +143,14 @@ info:
         title: Terms of engagement
         volunteer:
             title: Terms of engagement for volunteers
-            intro: Roeselare Volunteers drafted four terms of engagement.  Every volunteer has to stick by these rules.
+            intro: drafted four terms of engagement.  Every volunteer has to stick by these rules.
             honour: You stick to your agreements.
             secret: You are sworn to secrecy about things you encounter during volunteering.  Organisations will notify you about exceptions.
             respect: You behave yourself in a respectfull manner.
             legal: You are aware of the legal stipulations.
         org:
             title: Terms of engagement for organisations
-            intro: Roeselare Volunteers drafted five terms of engagement. Every organisation is expected to stick by these rules.
+            intro: drafted five terms of engagement. Every organisation is expected to stick by these rules.
             honour: You stick to your agreements.
             respect: You behave yourself in a respectfull manner.
             privacy: You respect every volunteers privacy.
@@ -309,7 +306,7 @@ search:
         enddate: expiration date
         location: location
     page:
-        title: Search within Roeselare Volunteers
+        title: Search within Roeselare Volunteers #Unused afaik
         site: Search our site
         filters: Filters
         type: Filter by type

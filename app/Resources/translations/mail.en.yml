@@ -13,7 +13,7 @@ contact:
       message: 'message:'
 digest:
       header:
-          title: Notfications from Roeselare Vrijwilligt
+          title: Notfications from
       paragrafs:
           firstp: 'Dear admin,'
           secondp:
@@ -95,7 +95,8 @@ newCandidate:
       firstp: 'Dear admin,'
       secondp:
           fpart: a moment ago
-          spart: introduced himself as candidate on Roeselare Vrijwilligt for this vacancy
+          spart: introduced himself as candidate on
+          spart2: for this vacancy
           tpart: "Here you can dis/approve this candidate."
 newCharge:
       header: "A new volunteer chose you as intermediary organization!"
@@ -175,4 +176,3 @@ testimonialFromVacancy:
           fpart: You have received a testimonial from
           spart: "for the following vacancy:"
           tpart: "Click here to view the testimonial."
-

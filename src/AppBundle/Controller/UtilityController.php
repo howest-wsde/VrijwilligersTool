@@ -22,7 +22,12 @@ class UtilityController extends Controller
     {
         $t = $this->get('translator');
         $email = array_key_exists('to', $info) ? $info['to'] : $user->getEmail();
-        $subject = array_key_exists('subject', $info) ? $info['subject'] : $t->trans('utility.send.subject');
+        $subject = array_key_exists('subject', $info) ? $info['subject'] :
+            $t->trans('utility.send.from') .
+            ' ' .
+            $t->trans('general.sitename') .
+            ' ' .
+            $t->trans('general.siteslogan');
         $from = array_key_exists('from', $info) ? $info['from'] : 'info@roeselareVrijwilligt.be';
         $datatxt = array_key_exists('datatxt', $info) ? $info['datatxt'] : $info['data'];
         $template = 'email/' . $info['template'];

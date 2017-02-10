@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}{% endblock %} {{"general.sitename"|trans}} vrijwilligt</title>
+        <title>{% block title %}{% endblock %} {{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
             <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css?v2") }}" />
@@ -23,7 +23,7 @@
         {% block header %}
             <header>
                 <div class="container mainnav">
-                    <a href="{{ path("homepage") }}" class="logo"><h1>{{"base.body.header.title"|trans}}</h1></a>
+                    <a href="{{ path("homepage") }}" class="logo"><h1>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</h1></a>
 
                     <a class="burger" href="#menu" data-toggle="collapse" data-target=".hoofdnavigatie"><span></span><span></span><span></span></a>
 
@@ -126,7 +126,7 @@
                             </ul>
                         </section>
                         <section class="col-md-3">
-                            <header><h1>{{ "base.general.name"|trans|capitalize }}</h1></header>
+                            <header><h1>{{ "general.sitename"|trans|capitalize }} {{ "general.siteslogan"|trans|capitalize }}</h1></header>
                             <ul>
                                 <li><a href="{{ path("info_over_ons") }}">{{ "base.body.footer.about"|trans|capitalize }}</a></li>
                                 <li><a href="{{ path("info_contact") }}">{{ "base.body.footer.contact"|trans|capitalize }}</a></li>
@@ -139,7 +139,7 @@
                 <section id="partners"><div class="container blokken">
                     <h3>{{ "base.body.footer.partners"|trans|capitalize }}:</h3>
 
-                    <a class="blok" href="http://www.roeselare.be" target="_blank"><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Stad Roeselare" /></a>
+                    <a class="blok" href="http://www.roeselare.be" target="_blank"><img src="{{ asset("images/partners/roeselare.png") }}" alt="logo Stad {{"general.sitename"|trans}}" /></a>
 
                     <a class="blok" href="http://www.howest.be" target="_blank"><img src="{{ asset("images/partners/howest.png") }}" alt="logo Howest" /></a>
 
@@ -160,8 +160,8 @@
                 <div id="contactdata">
                     <div class="container">
                         <address class="col-md-3">
-                            <h2>{{ "base.general.name"|trans }}</h2>
-                            <p><strong>Vrijetijdspunt</strong><br />Zuidstraat 17, 8800 Roeselare</p>
+                            <h2>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</h2>
+                            <p><strong>Vrijetijdspunt</strong><br />Zuidstraat 17, 8800 {{"general.sitename"|trans}}</p>
                             <dl>
                                 <dt>tel: </dt>
                                 <dd>051 26 24 00</dd>
@@ -171,13 +171,13 @@
                         </address>
                         <div class="col-md-9">
                             <h3>{{ "base.body.footer.about"|trans|capitalize }}</h3>
-                            <p>{{ "base.general.about.stimulate"|trans|capitalize }}</p>
-                            <p>{{ "base.general.name"|trans }}</p>
+                            <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}} {{ "base.general.about.stimulate"|trans|capitalize }}</p>
+                            <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</p>
                             <ul>
                                 <li>{{ "base.general.about.develop"|trans }}</li>
                                 <li>{{ "base.general.about.capital"|trans }}</li>
                             </ul>
-                            <p>{{ "base.general.about.initiative"|trans }}</p>
+                            <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}} {{ "base.general.about.initiative"|trans }}</p>
                             <p>{{ "base.general.about.platform"|trans }}</p>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                 <div id="legalfooter">
                     <div class="container">
                         <div class="col-md-6">
-                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">{{ "base.body.footer.howest"|trans }}</a> &amp; <a href="http://www.roeselare.be" target="_blank">{{ "base.body.footer.city"|trans }}</a></span> -
+                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">{{ "base.body.footer.howest"|trans }}</a> &amp; <a href="http://www.roeselare.be" target="_blank">{{"general.sitename"|trans}} {{ "base.body.footer.city"|trans }}</a></span> -
                             <span><a href="{{ path("info_privacy_and_legal") }}">{{ "base.body.footer.privacy"|trans }}</a></span>
                         </div>
                     </div>
