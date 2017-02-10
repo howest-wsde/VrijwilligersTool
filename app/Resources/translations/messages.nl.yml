@@ -23,7 +23,7 @@ candidacy:
           remove: U werd verwijderd als vrijwilliger
 utility:
     send:
-        subject: Mail vanwege Roeselare Vrijwilligt
+        from: Mail vanwege
 security:
     mail:
         welcome: Welkom bij Roeselare Vrijwilligt

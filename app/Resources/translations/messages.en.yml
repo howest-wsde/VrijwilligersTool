@@ -22,7 +22,7 @@ candidacy:
           remove: You were removed as a volunteer
 utility:
     send:
-        subject: Mail from Roeselare Vrijwilligt
+        from: Mail from
 security:
     mail:
         welcome: Welcome to Roeselare Vrijwilligt
