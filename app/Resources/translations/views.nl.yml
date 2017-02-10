@@ -40,16 +40,13 @@ general:
 base:
     general:
         about:
-            stimulate: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
+            stimulate: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
             develop: 'ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.'
             capital: 'ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.'
-            initiative: "Roeselare Vrijwilligt is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
+            initiative: "is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
             platform: Het platform werd ontwikkeld door Howest.
-    head:
-        title: Roeselare Vrijwilligt
     body:
         header:
-            title: Roeselare Vrijwilligt
             menu:
                 about: over ons
                 contact: contact
@@ -83,7 +80,7 @@ base:
             contact: contact
             partners: partners
             howest: Howest
-            city: Stad Roeselare
+            city: Stad
             privacy: Privacy en legale voorwaarden
 def: #default
     carousel:

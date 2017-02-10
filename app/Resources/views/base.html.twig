@@ -23,7 +23,7 @@
         {% block header %}
             <header>
                 <div class="container mainnav">
-                    <a href="{{ path("homepage") }}" class="logo"><h1>{{"base.body.header.title"|trans}}</h1></a>
+                    <a href="{{ path("homepage") }}" class="logo"><h1>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</h1></a>
 
                     <a class="burger" href="#menu" data-toggle="collapse" data-target=".hoofdnavigatie"><span></span><span></span><span></span></a>
 
@@ -171,13 +171,13 @@
                         </address>
                         <div class="col-md-9">
                             <h3>{{ "base.body.footer.about"|trans|capitalize }}</h3>
-                            <p>{{ "base.general.about.stimulate"|trans|capitalize }}</p>
+                            <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}} {{ "base.general.about.stimulate"|trans|capitalize }}</p>
                             <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</p>
                             <ul>
                                 <li>{{ "base.general.about.develop"|trans }}</li>
                                 <li>{{ "base.general.about.capital"|trans }}</li>
                             </ul>
-                            <p>{{ "base.general.about.initiative"|trans }}</p>
+                            <p>{{"general.sitename"|trans}} {{"general.siteslogan"|trans}} {{ "base.general.about.initiative"|trans }}</p>
                             <p>{{ "base.general.about.platform"|trans }}</p>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                 <div id="legalfooter">
                     <div class="container">
                         <div class="col-md-6">
-                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">{{ "base.body.footer.howest"|trans }}</a> &amp; <a href="http://www.roeselare.be" target="_blank">{{ "base.body.footer.city"|trans }}</a></span> -
+                            <span>&copy; 2016 <a href="http://www.howest.be" target="_blank">{{ "base.body.footer.howest"|trans }}</a> &amp; <a href="http://www.roeselare.be" target="_blank">{{"general.sitename"|trans}} {{ "base.body.footer.city"|trans }}</a></span> -
                             <span><a href="{{ path("info_privacy_and_legal") }}">{{ "base.body.footer.privacy"|trans }}</a></span>
                         </div>
                     </div>

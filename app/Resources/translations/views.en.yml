@@ -41,16 +41,13 @@ general:
 base:
     general:
         about:
-            stimulate: 'Roeselare Volunteers is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
+            stimulate: 'is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
             develop: 'supports you to show, develop and share your talents and interests.'
             capital: 'supports your organisation in the quest for human capital.'
-            initiative: "Roeselare Volunteers is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
+            initiative: "is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
             platform: The platform was developped by Howest University.
-    head:
-        title: Roeselare Volunteers
     body:
         header:
-            title: Roeselare Volunteers
             menu:
                 about: about us
                 contact: contact
@@ -81,7 +78,7 @@ base:
             contact: contact
             partners: partners
             howest: Howest University
-            city: Roeselare City
+            city: City
             privacy: Privacy and legal terms
             volunteers: info for volunteers
             organisations: info about organisations
