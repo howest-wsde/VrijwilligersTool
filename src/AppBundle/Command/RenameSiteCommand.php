@@ -87,16 +87,21 @@ class RenameSiteCommand extends ContainerAwareCommand
         $fileLanguage = explode(".", $fileName)[1];
         $renames = $renames[$fileLanguage];
 
+        echo $fileName;
+
         $renamedLines = array();
 
         $fileContents = file($fullFilePath);
         foreach ($fileContents as $i=>$line) {
-            foreach ($renames as $renameFrom=>$renameTo)
-            if ($this->contains($this->valueOf($line), $renameFrom)) {
-                $replacedValue = str_replace($renameFrom, $renameTo, $this->valueOf($line));
-                $line = $this->keyOf($line).$replacedValue;
-                $fileContents[$i] = $line;
-                array_push($renamedLines, $line);
+            echo $i;
+            foreach ($renames as $renameFrom=>$renameTo) {
+                if ($this->contains($this->valueOf($line), $renameFrom)) {
+                    $replacedValue = str_replace($renameFrom, $renameTo, $this->valueOf($line));
+
+                    $line = $this->keyOf($line).$replacedValue;
+                    $fileContents[$i] = $line;
+                    array_push($renamedLines, $line);
+                }
             }
         }
         file_put_contents($fullFilePath, $fileContents);
@@ -108,15 +113,19 @@ class RenameSiteCommand extends ContainerAwareCommand
     }
 
     private function valueOf($ymlLine) {
-        if (ctype_space($ymlLine || $ymlLine == "\n")) {
-            return explode(": ", $ymlLine)[1];
+        if ($ymlLine !== "\n") {
+            echo "\n";
+            echo $ymlLine."\n";
+            echo json_encode(explode(":", $ymlLine) )."\n";
+
+            return explode(":", $ymlLine)[1];
         }
         return "";
     }
 
     private function keyOf($ymlLine) {
-        if (ctype_space($ymlLine || $ymlLine == "\n")) {
-            return explode(": ", $ymlLine)[0];
+        if ($ymlLine !== "\n") {
+            return explode(":", $ymlLine)[0];
         }
         return "";
     }
