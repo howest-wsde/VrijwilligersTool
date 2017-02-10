@@ -87,18 +87,15 @@ class RenameSiteCommand extends ContainerAwareCommand
         $fileLanguage = explode(".", $fileName)[1];
         $renames = $renames[$fileLanguage];
 
-        echo $fileName;
-
         $renamedLines = array();
 
         $fileContents = file($fullFilePath);
         foreach ($fileContents as $i=>$line) {
-            echo $i;
             foreach ($renames as $renameFrom=>$renameTo) {
                 if ($this->contains($this->valueOf($line), $renameFrom)) {
                     $replacedValue = str_replace($renameFrom, $renameTo, $this->valueOf($line));
 
-                    $line = $this->keyOf($line).$replacedValue;
+                    $line = $this->keyOf($line).":".$replacedValue;
                     $fileContents[$i] = $line;
                     array_push($renamedLines, $line);
                 }
@@ -114,11 +111,14 @@ class RenameSiteCommand extends ContainerAwareCommand
 
     private function valueOf($ymlLine) {
         if ($ymlLine !== "\n") {
-            echo "\n";
-            echo $ymlLine."\n";
-            echo json_encode(explode(":", $ymlLine) )."\n";
-
-            return explode(":", $ymlLine)[1];
+            $fragments = explode(":", $ymlLine);
+            $result = $fragments[1];
+            foreach ($fragments as $i=>$fragment) {
+                if ($i > 1) {
+                    $result .= ":".$fragment;
+                }
+            }
+            return $result;
         }
         return "";
     }
