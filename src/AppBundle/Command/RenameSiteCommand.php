@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class RenameSiteCommand extends ContainerAwareCommand
 {
     private static $TRANSLATION_FILES_DIRECTORY = "\\app\\Resources\\translations\\";
-    private static $LANGUAGES = array("en", "nl");
     private static $EXCLUDED_FILES = array(".", "..");
 
     protected function configure()
@@ -50,11 +49,11 @@ class RenameSiteCommand extends ContainerAwareCommand
             while (false !== ($fileName = readdir($directoryHandle))) { // php, you crazy!
                 if (!in_array($fileName, $this::$EXCLUDED_FILES)) {
                     array_push($fileNames, $fileName);
-                    $output->writeln($fileName);
                 }
             }
             closedir($directoryHandle);
         }
+        $io->listing($fileNames);
         $io->newLine();
         $io->progressStart(count($fileNames));
 
@@ -71,9 +70,9 @@ class RenameSiteCommand extends ContainerAwareCommand
             ));
             $io->progressAdvance();
             $io->newLine();
-            $io->note($renamedLines);
+            $io->note("List of renamed instances");
+            $io->listing($renamedLines);
         }
-        $io->progressFinish();
 
         $io->section('Just one more thing!');
         $io->caution(array(
@@ -93,8 +92,9 @@ class RenameSiteCommand extends ContainerAwareCommand
         $fileContents = file($fullFilePath);
         foreach ($fileContents as $i=>$line) {
             foreach ($renames as $renameFrom=>$renameTo)
-            if ($this->contains($line, $renameFrom)) {
-                $line = str_replace($renameFrom, $renameTo, $line);
+            if ($this->contains($this->valueOf($line), $renameFrom)) {
+                $replacedValue = str_replace($renameFrom, $renameTo, $this->valueOf($line));
+                $line = $this->keyOf($line).$replacedValue;
                 $fileContents[$i] = $line;
                 array_push($renamedLines, $line);
             }
@@ -105,5 +105,19 @@ class RenameSiteCommand extends ContainerAwareCommand
 
     private function contains($haystack, $needle) {
         return strpos($haystack, $needle) !== false;
+    }
+
+    private function valueOf($ymlLine) {
+        if (ctype_space($ymlLine || $ymlLine == "\n")) {
+            return explode(": ", $ymlLine)[1];
+        }
+        return "";
+    }
+
+    private function keyOf($ymlLine) {
+        if (ctype_space($ymlLine || $ymlLine == "\n")) {
+            return explode(": ", $ymlLine)[0];
+        }
+        return "";
     }
 }
