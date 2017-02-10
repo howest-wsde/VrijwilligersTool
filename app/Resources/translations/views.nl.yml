@@ -39,7 +39,6 @@ general:
         away: Ontneem admin rechten
 base:
     general:
-        name: Roeselare vrijwilligt
         about:
             stimulate: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
             develop: 'ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.'
@@ -124,7 +123,7 @@ def: #default
                 d: 'Ik ben vrijwilliger bij de Directeurswoning in Roeselare, daar doe ik het onthaal van bezoekers bij expo’s. Ik koos voor vrijwilligerswerk want kunst en cultuur ...'
         info:
             title: Vrijwilligersinfo
-            teaser: 'Roeselare vrijwilligt is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare..'
+            teaser: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in roeselare..'
         test:
             title: Doe de test
             teaser: 'Weet je niet zeker hoe je profiel te optimaliseren? Beantwoord enkele simpele vragen en wij zoeken je ideale vrijwilligersorganisatie. '
@@ -147,14 +146,14 @@ info:
         title: Spelregels
         volunteer:
             title: Spelregels voor vrijwilligers
-            intro: Roeselare vrijwilligt heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
+            intro: heeft vier spelregels opgesteld. Iedere vrijwilliger moet zich aan deze spelregels houden.
             honour: Je houdt je aan je afspraken.
             secret: Je hebt geheimhoudingsplicht over wat je in je werk tegenkomt.  Uitzonderingen worden door de organisatie meegedeeld.
             respect: Je gedraagt je respectvol.
             legal: Je bent op de hoogte van de wettelijke bepalingen.
         org:
             title: Spelregels voor verenigingen
-            intro: Roeselare vrijwilligt heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
+            intro: heeft vijf spelregels opgesteld. Iedere organisatie moet zich aan deze spelregels houden.
             honour: Je houdt je aan je afspraken.
             respect: Je gedraagt je respectvol.
             privacy: Je respecteert de privacy van elke vrijwilliger.
@@ -311,7 +310,7 @@ search:
         enddate: vervaldatum
         location: locatie
     page:
-        title: Zoeken binnen Roeselare Vrijwilligt
+        title: Zoeken binnen Roeselare Vrijwilligt #Unused afaik
         site: Doorzoek onze site
         filters: Filters
         type: Filter op type

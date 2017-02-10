@@ -123,7 +123,7 @@ def: #default
                 d: "I am a volunteer at the Executive Residence in Roeselare, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
         info:
             title: Information
-            teaser: 'Roeselare Vrijwilligt is an open, independent platform that encourages collaboration and supports Roeselare..'
+            teaser: 'is an open, independent platform that encourages collaboration and supports Roeselare..'
         test:
             title: Take the test
             teaser: 'Not sure how to optimize your profile? Answer a few simple questions and let us find your ideal volunteer organization.'
@@ -146,14 +146,14 @@ info:
         title: Terms of engagement
         volunteer:
             title: Terms of engagement for volunteers
-            intro: Roeselare Volunteers drafted four terms of engagement.  Every volunteer has to stick by these rules.
+            intro: drafted four terms of engagement.  Every volunteer has to stick by these rules.
             honour: You stick to your agreements.
             secret: You are sworn to secrecy about things you encounter during volunteering.  Organisations will notify you about exceptions.
             respect: You behave yourself in a respectfull manner.
             legal: You are aware of the legal stipulations.
         org:
             title: Terms of engagement for organisations
-            intro: Roeselare Volunteers drafted five terms of engagement. Every organisation is expected to stick by these rules.
+            intro: drafted five terms of engagement. Every organisation is expected to stick by these rules.
             honour: You stick to your agreements.
             respect: You behave yourself in a respectfull manner.
             privacy: You respect every volunteers privacy.
@@ -309,7 +309,7 @@ search:
         enddate: expiration date
         location: location
     page:
-        title: Search within Roeselare Volunteers
+        title: Search within Roeselare Volunteers #Unused afaik
         site: Search our site
         filters: Filters
         type: Filter by type
