@@ -418,8 +418,8 @@ vacancy:
         delete: Delete
         1place: 1 volunteer wanted
         xplaces: volunteers wanted
-        opencadidacy: unreplied candidate
-        opencadidacies: unreplied candidates
+        opencanidacy: unreplied candidate # typo but can't fix that now
+        opencanidacies: unreplied candidates # typo but can't fix that now
     new:
         title: Create vacancy
         looking: Looking for volunteers?
