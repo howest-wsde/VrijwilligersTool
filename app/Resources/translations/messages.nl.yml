@@ -1,4 +1,6 @@
 general:
+    sitename: Roeselare
+    vrijwilligt: vrijwilligt
     label:
         previous: Vorige
         save: Bewaar

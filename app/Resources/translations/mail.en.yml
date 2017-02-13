@@ -1,3 +1,6 @@
+general:
+    sitename: Roeselare
+    siteslogan: Volunteers
 candidate:
       header:
           title: 'Candidate approved!'

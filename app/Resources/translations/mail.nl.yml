@@ -1,3 +1,6 @@
+general:
+    sitename: Roeselare
+    vrijwilligt: vrijwilligt
 candidate:
       header:
           title: 'Kandidaat goedgekeurd!'
