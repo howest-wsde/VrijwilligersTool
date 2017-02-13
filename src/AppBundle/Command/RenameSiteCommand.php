@@ -35,8 +35,8 @@ class RenameSiteCommand extends ContainerAwareCommand
         $io->section('Asking the though questions');
         $cityNameDutch = $io->ask('city name in dutch?', "RoeselareDUTCH");
         $cityNameEnglish = $io->ask('city name in english?', "RoeselareENGLISH");
-        $citySloganDutch = $io->ask('city slogan in dutch?', "vrijwilligtDUTCH");
-        $citySloganEnglish = $io->ask('city slogan in english?', "volunteersENGLISH");
+        $citySloganDutch = $io->ask('city slogan in dutch?', "vrijwilligt");
+        $citySloganEnglish = $io->ask('city slogan in english?', "volunteers");
 
         $io->section('Renaming the website');
         $translationFilesDirectory = getcwd().$this::$TRANSLATION_FILES_DIRECTORY;
