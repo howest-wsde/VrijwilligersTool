@@ -338,6 +338,8 @@ security:
 skills:
     vacancytypes: Vacancy types
 tests:
+    title: The volunteer test
+    finishedtitle: Your type
     volunteer:
         title: What kind of volunteer are you?
         body: Go ahead and tell us

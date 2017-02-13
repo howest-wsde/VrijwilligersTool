@@ -339,6 +339,8 @@ security:
 skills:
     vacancytypes: Vacature types
 tests:
+    title: De vrijwilligerstest
+    finishedtitle: Jouw type
     volunteer:
         title: Welk type vrijwilliger ben jij?
         body: Zeg het maar eens
