@@ -1,14 +1,17 @@
 general:
     sitename: Roeselare
     siteslogan: Volunteers
-general:
     label:
         previous: Back
     flash:
+        success: Success!
+        fail: Disapproved!
         formError: 'You forgot a field, or entered an invalid value for one of the fields.  Please check the form en follow the instructions for the field(s) with an error message.'
         formOK: 'Your form was successfully processed'
     newsletter:
         ok: you successfully subscribed to the newsletter
+    map:
+        show: show route
 candidacy:
     mail:
         approve: was approved as a volunteer
@@ -111,3 +114,8 @@ testimonial:
     flash:
         approved: The testimonial has been approved and is now visible for everyone
         removed: The testimonial has been disapproved and removed
+contact:
+    name: Name
+    email: Email
+    telephone:  Telephone
+    message: Uw bericht
