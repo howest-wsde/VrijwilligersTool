@@ -1,5 +1,5 @@
 general:
-    sitename: Roeselare
+    sitename: Zwevegem
     vrijwilligt: vrijwilligt
     label:
         previous: Vorige
@@ -28,7 +28,7 @@ utility:
         from: Mail vanwege
 security:
     mail:
-        welcome: Welkom bij Roeselare Vrijwilligt
+        welcome: Welkom bij Zwevegem Vrijwilligt
         newCharge: Een nieuwe vrijwilliger koos u als bemiddelingsorganisatie
     flash:
         newUserStart: Een nieuwe gebruiker met naam
