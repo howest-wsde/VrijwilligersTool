@@ -1,4 +1,7 @@
 general:
+    sitename: Roeselare
+    siteslogan: Volunteers
+general:
     label:
         previous: Back
     flash:
