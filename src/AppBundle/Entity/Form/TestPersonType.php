@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
+// I know it's not the correct classname
+// But there's now way for me to find out what will break if I correct it
 class PersonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
