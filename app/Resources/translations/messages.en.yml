@@ -1,5 +1,5 @@
 general:
-    sitename: Zwevegem
+    sitename: Roeselare
     siteslogan: Volunteers
 general:
     label:
@@ -28,7 +28,7 @@ utility:
         from: Mail from
 security:
     mail:
-        welcome: Welcome to Zwevegem Vrijwilligt
+        welcome: Welcome to Roeselare Vrijwilligt
         newCharge: Another volunteer chose you as an intermediary organisation
     flash:
         newUserStart: A new user named

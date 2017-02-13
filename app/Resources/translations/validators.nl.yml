@@ -1,6 +1,6 @@
 general:
-    sitename: Zwevegem
-    vrijwilligt: vrijwilligt
+    sitename: Roeselare
+    siteslogan: vrijwilligt
 vacancy:
     not_blank: Gelieve een waarde op te geven.
     min_message: Gelieve minimum {{ limit }} tekens in te geven.

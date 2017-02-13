@@ -1,5 +1,5 @@
 general:
-    sitename: Zwevegem
+    sitename: Roeselare
     siteslogan: Volunteers
     register: register
     login: login
@@ -41,10 +41,10 @@ general:
 base:
     general:
         about:
-            stimulate: 'is an open, autonomous platform which stimulates and supports cooperation in Zwevegem.'
+            stimulate: 'is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
             develop: 'supports you to show, develop and share your talents and interests.'
             capital: 'supports your organisation in the quest for human capital.'
-            initiative: "is an initiative by Zwevegem city, Zwevegem OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
+            initiative: "is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
             platform: The platform was developped by Howest University.
     body:
         header:
@@ -110,17 +110,17 @@ def: #default
         more: read more
         how:
             title: How does it work?
-            teaser: On Zwevegem Vrijwilligt we agreed to join volunteer organizations from Zwevegem and their available jobs. Via simple searches can you find an ideal job.
+            teaser: On Roeselare Vrijwilligt we agreed to join volunteer organizations from Roeselare and their available jobs. Via simple searches can you find an ideal job.
         stories:
             title: Stories
             teaser:
                 a: "I have been working for several years as a volunteer at the Speelpleinwerking Speelodroom and especially like the children. I'm always ready to jump in ..."
-                b: "I'm Jochen and I'm 1 of the TRAX buddies. I briefly describe what our job is on the trax site in Zwevegem. Managed by a fixed ..."
+                b: "I'm Jochen and I'm 1 of the TRAX buddies. I briefly describe what our job is on the trax site in Roeselare. Managed by a fixed ..."
                 c: "One of my commitments is being a volunteer for the Trax Festival. I'm in touch for the communication. Together with other people, I try Trax Festival to get kwown by everyone. ..."
-                d: "I am a volunteer at the Executive Residence in Zwevegem, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
+                d: "I am a volunteer at the Executive Residence in Roeselare, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
         info:
             title: Information
-            teaser: 'is an open, independent platform that encourages collaboration and supports Zwevegem..'
+            teaser: 'is an open, independent platform that encourages collaboration and supports Roeselare..'
         test:
             title: Take the test
             teaser: 'Not sure how to optimize your profile? Answer a few simple questions and let us find your ideal volunteer organization.'
@@ -306,7 +306,7 @@ search:
         enddate: expiration date
         location: location
     page:
-        title: Search within Zwevegem Volunteers #Unused afaik
+        title: Search within Roeselare Volunteers #Unused afaik
         site: Search our site
         filters: Filters
         type: Filter by type

@@ -1,6 +1,6 @@
 general:
-    sitename: Zwevegem
-    vrijwilligt: vrijwilligt
+    sitename: Roeselare
+    siteslogan: vrijwilligt
 candidate:
       header:
           title: 'Kandidaat goedgekeurd!'
@@ -106,9 +106,9 @@ newCharge:
       firstp: Beste beheerder voor
       secondp:
           fpart: zonet registreerde
-          spart: " zich op Zwevegem Vrijwilligt en gaf uw organisatie op als contactmogelijkheid.  Wij houden er dan ook aan om u hiervan op de hoogte te brengen."
+          spart: " zich op Roeselare Vrijwilligt en gaf uw organisatie op als contactmogelijkheid.  Wij houden er dan ook aan om u hiervan op de hoogte te brengen."
       thirdp: "U kan zijn/haar profiel bekijken op uw dashboard."
-      fourthp: "Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Zwevegem!"
+      fourthp: "Wij zijn alvast zeer enthousiast dat u mee bouwt aan een dynamisch Roeselare!"
 notCanApp:
       header: "Uw kandidatuur werd goedgekeurd!"
       firstp: Beste
@@ -117,7 +117,7 @@ notCanApp:
           spart: "goedgekeurd."
       thirdp:
           fpart: "Met vriendelijke groeten,"
-          spart: Zwevegem Vrijwilligt
+          spart: Roeselare Vrijwilligt
 notCanDis:
       header: "Uw kandidatuur werd afgekeurd!"
       firstp: Beste
@@ -126,7 +126,7 @@ notCanDis:
           spart: "afgekeurd."
       thirdp:
           fpart: "Met vriendelijke groeten,"
-          spart: "Zwevegem Vrijwilligt"
+          spart: "Roeselare Vrijwilligt"
 notVolRem:
        header: "Bedankt voor uw inzet!"
        firstp: Beste
@@ -135,18 +135,18 @@ notVolRem:
           spart: "Wij bedanken u van harte voor uw inzet!"
        thirdp:
           fpart: "Met vriendelijke groeten,"
-          spart: "Zwevegem Vrijwilligt"
+          spart: "Roeselare Vrijwilligt"
 ranCan:
       header: "Een kandidaat droop af!"
       firstp: Beste beheerder voor
       secondp:
           fpart: zonet trok
-          spart: "op Zwevegem Vrijwilligt haar / zijn kandidatuur voor de vacature"
+          spart: "op Roeselare Vrijwilligt haar / zijn kandidatuur voor de vacature"
           tpart: "in."
 reg:
-      header: "Welkom bij Zwevegem Vrijwilligt!"
+      header: "Welkom bij Roeselare Vrijwilligt!"
       firstp: Dag
-      secondp: " u bent succesvol geregistreerd bij Zwevegem Vrijwilligt.  U bent automatisch ingelogd na registratie.  Bij een toekomstig bezoek kan u inloggen via deze link:"
+      secondp: " u bent succesvol geregistreerd bij Roeselare Vrijwilligt.  U bent automatisch ingelogd na registratie.  Bij een toekomstig bezoek kan u inloggen via deze link:"
 remAdm:
       header: Beheerder verwijderd
       firstp: Beste beheerder voor
