@@ -27,7 +27,7 @@
                                     {% for candidacy in vacancy.candidacies %}
                                         <li>
                                             {{ candidacy.candidate.firstname }} {{ candidacy.candidate.lastname }}
-                                            {{ "security.status.status"|trans }}: {{ (candidacy.state) ? {{ "security.status.approved"|trans }} : {{ "security.status.pending"|trans }} }}
+                                            {{ "security.status.status"|trans }}: {{ (candidacy.state) ? "security.status.approved"|trans : "security.status.pending"|trans }}
                                         </li>
                                     {% endfor %}
                                 </ul>

@@ -98,17 +98,21 @@ class SuperadminController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
+        $photoUrl = "";
+
         $em = $this->getDoctrine()->getManager();
         switch($type) {
             case "person":
                 $entity = $em->getRepository('AppBundle:Person')->findOneByUsername($urlid);
                 $form = $this->createForm(SuperadminPersonType::class, $entity);
                 $redirectPath = $this->generateUrl("superadmin_users");
+                $photoUrl = $entity->getAvatarName();
                 break;
             case "organisation":
                 $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($urlid);
                 $form = $this->createForm(SuperadminOrganisationType::class, $entity);
                 $redirectPath = $this->generateUrl("superadmin_organisations");
+                $photoUrl = 'organisations/'.$entity->getLogoName();
                 break;
             case "vacancy":
                 $entity = $em->getRepository('AppBundle:Vacancy')->findOneByUrlid($urlid);
@@ -144,7 +148,9 @@ class SuperadminController extends Controller
         }
 
         return $this->render('superadmin/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'photoUrl' => $photoUrl
+
         ]);
 
     }

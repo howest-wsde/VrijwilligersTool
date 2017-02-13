@@ -11,7 +11,6 @@
             <li class="blauw"><a href="{{ path("superadmin_organisations") }}">Verenigingen</a></li>
             <li class="rood"><a href="{{ path("superadmin_vacancies") }}">Vacatures</a></li>
         </ul>
-
         <div class="tab-content clearfix blok grijs adminform">
 
 		    {% for flashMessage in app.session.flashbag.get('approve_message') %}
@@ -25,6 +24,9 @@
 		        </div>
 		    {% endfor %}
 
+            {% if photoUrl %}
+                <img class="avatar" src=" {{ asset('images/' ~ photoUrl) }}">
+            {% endif %}
 	        {{ form_start(form) }}{{ form_end(form) }}
         </div>
 	</div>
