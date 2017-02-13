@@ -106,7 +106,7 @@ class SuperadminController extends Controller
                 $entity = $em->getRepository('AppBundle:Person')->findOneByUsername($urlid);
                 $form = $this->createForm(SuperadminPersonType::class, $entity);
                 $redirectPath = $this->generateUrl("superadmin_users");
-                $photoUrl = $entity->getAvatarName();
+                $photoUrl = 'users/'.$entity->getAvatarName();
                 break;
             case "organisation":
                 $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($urlid);
