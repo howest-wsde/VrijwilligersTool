@@ -97,7 +97,7 @@ class RenameSiteCommand extends ContainerAwareCommand
 
                     $line = $this->keyOf($line).":".$replacedValue;
                     $fileContents[$i] = $line;
-                    array_push($renamedLines, $line);
+                    array_push($renamedLines, trim($line));
                 }
             }
         }
