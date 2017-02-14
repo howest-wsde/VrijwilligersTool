@@ -116,7 +116,10 @@ class VacancyController extends UtilityController
             $this->addFlash('approve_message', $t->trans('vacancy.flash.createStart') . ' ' . $vacancy->getTitle() . ' ' . $t->trans('vacancy.flash.createEnd')
             );
 
-            if (!is_null($organisation_urlid)){
+            if ($form->get('save')->isClicked()) {
+                // saved but not published
+            }
+            else if (!is_null($organisation_urlid)){  // published and email is sent
                 //set digest / send email to all administrators
                 $info = array(
                             'subject' => $t->trans('vacancy.mail.create'),
@@ -588,9 +591,9 @@ class VacancyController extends UtilityController
     }
 
     /**
-     * Create a list of all vacancies that are currently open, for a given organisation
-     * @param integer $id an organisation id
-     */
+ * Create a list of all vacancies that are currently open, for a given organisation
+ * @param integer $id an organisation id
+ */
     public function ListOrganisationVacanciesAction($id, $status = Vacancy::OPEN)
     {
         $vacancy = $this->getVacancyRepository();
@@ -603,10 +606,36 @@ class VacancyController extends UtilityController
         $vacancies = $query->getResult();
 
         return $this->render("vacancy/vacatures_oplijsten.html.twig",
-                [
-                    "vacancies" => $vacancies,
-                    "viewMode" => "tile",
-                ]);
+            [
+                "vacancies" => $vacancies,
+                "viewMode" => "tile",
+            ]);
+    }
+
+    /**
+     * Create the list of user where this organisation is the intermediary
+     * @param integer $organisationId an organisation id
+     */
+    public function ListOrganisationIntermediariesAction($organisationId)
+    {
+        $personRepository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository("AppBundle:Person");
+
+        $query = $personRepository->createQueryBuilder("p")
+            ->where("p.contactOrganisation = :organisationId")
+            ->setParameter('organisationId', $organisationId)
+            ->getQuery();
+
+        $persons = $query->getResult();
+
+        return $this->render("person/personen_oplijsten.html.twig",
+            [
+                "persons" => $persons,
+                "contact" => true,
+                "viewMode" => "tile",
+            ]);
     }
 
     /**

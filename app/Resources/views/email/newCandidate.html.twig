@@ -7,7 +7,7 @@
 <p>{{ "newCandidate.firstp" |trans }} <a href="{{ url("organisation_by_urlid", { "urlid": org.urlid }) }}">{{ org.name }}</a></p>
 
 <p>
-    {{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}">{{ "newCandidate.secondp.tpart" |trans }}</a>
+    {{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{"general.sitename" | trans}} {{"general.siteslogan" | trans}} {{ "newCandidate.secondp.spart2" | trans }} {{ vacancy.title }}.  <a href="{{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}">{{ "newCandidate.secondp.tpart" |trans }}</a>
 </p>
 
 {% endblock %}

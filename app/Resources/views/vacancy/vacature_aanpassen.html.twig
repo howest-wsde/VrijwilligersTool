@@ -18,8 +18,8 @@
 
         {% embed "vacancy/vacature_form.html.twig" with { 'form': form } %}{% endembed %}
 
-        <form action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
-            <input type="submit" value="{{ "vacancy.modify.anul"|trans }}"/>
+        <form class="part blok special" action="{{ path("vacancy_by_urlid", {"urlid": urlid }) }}">
+            <input class="cta" type="submit" value="{{ "vacancy.modify.anul"|trans }}"/>
         </form>
     </section>
 {% endblock %}

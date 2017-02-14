@@ -1,3 +1,6 @@
+general:
+    sitename: Roeselare
+    siteslogan: Volunteers
 vacancy:
     not_blank: Please enter a value.
     min_message: Please enter at least {{ limit }} characters.

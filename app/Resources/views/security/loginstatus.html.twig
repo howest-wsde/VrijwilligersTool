@@ -21,13 +21,13 @@
                         {% for vacancy in organisation.vacancies  %}
                             {#TODO: edit button, waiting on koen merge#}
                             <li>{{ vacancy.title }}
-                                <a href="{{ path("vacancy_candidacies",{'urlid' :vacancy.id}) }}">{{ "security.status.approve"|trans }}</a>
+                                <a href="{{ path("vacancy_candidacies",{'urlid' :vacancy.id}) }}">{{ "security.status.approved"|trans }}</a>
                                 {#<a href="{{ path("vacancy_edit",vacancy.id)}}">edit</a>#} <br/>{{ "security.status.candidates"|trans }}:</li>
                                 <ul>
                                     {% for candidacy in vacancy.candidacies %}
                                         <li>
                                             {{ candidacy.candidate.firstname }} {{ candidacy.candidate.lastname }}
-                                            {{ "security.status.status"|trans }}: {{ (candidacy.state) ? {{ "security.status.approved"|trans }} : {{ "security.status.pending"|trans }} }}
+                                            {{ "security.status.status"|trans }}: {{ (candidacy.state) ?  "security.status.approved"|trans  :  "security.status.pending"|trans  }}
                                         </li>
                                     {% endfor %}
                                 </ul>

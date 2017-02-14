@@ -43,8 +43,15 @@
 						</ul></li>
 					{% endfor %}
 				</ol>
+				<ol class="admin">
+					<li class="th">
+						<ul>
+							<li>Aantal verenigingen: {{ organisations|length }}</li>
+						</ul>
+					</li>
+				</ol>
 			{% else %}
-				<ol><li>Geen organisaties gevonden</li></ol>
+				<ol><li>Geen verenigingen gevonden</li></ol>
 			{% endif %}
 
         </div>

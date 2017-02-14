@@ -6,6 +6,6 @@
 
 {{ "newCandidate.firstp" |trans }} {{ org.name }},
 
-{{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{ vacancy.title }}.  {{ "newCandidate.secondp.tpart" | trans }} {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
+{{ "newCandidate.secondp.fpart" | trans }} {{ candidate.firstname }} {{ candidate.lastname }} {{ "newCandidate.secondp.spart" | trans }} {{"general.sitename" | trans}} {{"general.siteslogan" | trans}} {{ "newCandidate.secondp.spart2" | trans }} {{ vacancy.title }}.  {{ "newCandidate.secondp.tpart" | trans }} {{ url('vacancy_by_urlid', {'urlid': vacancy.urlId }) }}
 
 {% endblock %}

@@ -1,4 +1,6 @@
 general:
+    sitename: Roeselare
+    siteslogan: Volunteers
     register: register
     login: login
     search: search
@@ -16,7 +18,7 @@ general:
         click: click this link
         unlike: Remove
         like: Save
-        more: read more
+        more: Read more
     map:
         show: show route
         select: select your desired mode of transport
@@ -34,27 +36,23 @@ general:
         createvacancy: Create vacancy
         deleteorg: Remove organisation
         admins: Admins
-        away: revoke admin rights
+        away: Revoke admin rights
 
 base:
     general:
-        name: Roeselare Volunteers
         about:
-            stimulate: 'Roeselare Volunteers is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
+            stimulate: 'is an open, autonomous platform which stimulates and supports cooperation in Roeselare.'
             develop: 'supports you to show, develop and share your talents and interests.'
             capital: 'supports your organisation in the quest for human capital.'
-            initiative: "Roeselare Volunteers is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
+            initiative: "is an initiative by Roeselare city, Roeselare OCMW, 't hope vzw, Groep Intro vzw and Voc Opstap vzw."
             platform: The platform was developped by Howest University.
-    head:
-        title: Roeselare Volunteers
     body:
         header:
-            title: Roeselare Volunteers
             menu:
                 about: about us
                 contact: contact
-                profile: my profile
-                editprofile: settings
+                profile: dashboard
+                editprofile: my profile
                 logout: logout
                 login: login
                 become: becoming a volunteer
@@ -80,7 +78,7 @@ base:
             contact: contact
             partners: partners
             howest: Howest University
-            city: Roeselare City
+            city: City
             privacy: Privacy and legal terms
             volunteers: info for volunteers
             organisations: info about organisations
@@ -122,7 +120,7 @@ def: #default
                 d: "I am a volunteer at the Executive Residence in Roeselare, as I do at the exhibit's reception of visitors. I chose to volunteer for arts and culture ..."
         info:
             title: Information
-            teaser: 'Roeselare Vrijwilligt is an open, independent platform that encourages collaboration and supports Roeselare..'
+            teaser: 'is an open, independent platform that encourages collaboration and supports Roeselare..'
         test:
             title: Take the test
             teaser: 'Not sure how to optimize your profile? Answer a few simple questions and let us find your ideal volunteer organization.'
@@ -145,14 +143,14 @@ info:
         title: Terms of engagement
         volunteer:
             title: Terms of engagement for volunteers
-            intro: Roeselare Volunteers drafted four terms of engagement.  Every volunteer has to stick by these rules.
+            intro: drafted four terms of engagement.  Every volunteer has to stick by these rules.
             honour: You stick to your agreements.
             secret: You are sworn to secrecy about things you encounter during volunteering.  Organisations will notify you about exceptions.
             respect: You behave yourself in a respectfull manner.
             legal: You are aware of the legal stipulations.
         org:
             title: Terms of engagement for organisations
-            intro: Roeselare Volunteers drafted five terms of engagement. Every organisation is expected to stick by these rules.
+            intro: drafted five terms of engagement. Every organisation is expected to stick by these rules.
             honour: You stick to your agreements.
             respect: You behave yourself in a respectfull manner.
             privacy: You respect every volunteers privacy.
@@ -175,6 +173,7 @@ org:
         unjust: 'If you feel the removal was unwarranted and wish to undo the deletion,'
         noadres: No address known for this organisation.
         vacancies: Vacancies
+        intermediaries: Intermediaries
     modify:
         title: Modify organisation data
         data: Data
@@ -215,6 +214,7 @@ person:
         username: username
         fullname: name
         vols: volunteers
+        nocontactdata: This person has not set any contact information yet.
     dash:
         dash: dashboard
         vol:
@@ -292,6 +292,9 @@ person:
         saved: Saved vacancies
         candidate: Submit your candidacy
         candidateexplanation: Submitting your candidacy couldn't be easier.  Just click the button "apply" below a vacancy and that's it.  The organisation will receive a notification about your willingness to help out for that vacancy and will contact you shortly.
+        changes: A few more changes
+        myprofile: My profile
+        changeprofile: Do you still need to make some changes to your profile? Click the button to edit your profile.
 search:
     recent: Recent searches
     saved: Saved searches
@@ -303,7 +306,7 @@ search:
         enddate: expiration date
         location: location
     page:
-        title: Search within Roeselare Volunteers
+        title: Search within Roeselare Volunteers #Unused afaik
         site: Search our site
         filters: Filters
         type: Filter by type
@@ -335,6 +338,8 @@ security:
 skills:
     vacancytypes: Vacancy types
 tests:
+    title: The volunteer test
+    finishedtitle: Your type
     volunteer:
         title: What kind of volunteer are you?
         body: Go ahead and tell us
@@ -413,8 +418,8 @@ vacancy:
         delete: Delete
         1place: 1 volunteer wanted
         xplaces: volunteers wanted
-        opencadidacy: unreplied candidate
-        opencadidacies: unreplied candidates
+        opencanidacy: unreplied candidate # typo but can't fix that now
+        opencanidacies: unreplied candidates # typo but can't fix that now
     new:
         title: Create vacancy
         looking: Looking for volunteers?

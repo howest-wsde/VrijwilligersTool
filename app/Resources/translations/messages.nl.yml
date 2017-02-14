@@ -1,12 +1,18 @@
 general:
+    sitename: Roeselare
+    siteslogan: vrijwilligt
     label:
         previous: Vorige
         save: Bewaar
     flash:
+        success: Success!
+        fail: Afgekeurd!
         formError: 'U vergat een veld of gaf een foutieve waarde in voor één van de velden.  Gelieve het formulier na te kijken en de instructies bij het veld / de velden waar de foutmelding staat de nodige stappen te ondernemen.'
         formOK: 'Uw formulier werd succesvol verwerkt.'
     newsletter:
         ok: U werd succesvol ingeschreven voor de nieuwsbrief.
+    map:
+        show: Toon routebeschrijving
 candidacy:
     mail:
         approve: werd goedgekeurd als vrijwilliger
@@ -23,7 +29,7 @@ candidacy:
           remove: U werd verwijderd als vrijwilliger
 utility:
     send:
-        subject: Mail vanwege Roeselare Vrijwilligt
+        from: Mail vanwege
 security:
     mail:
         welcome: Welkom bij Roeselare Vrijwilligt
@@ -109,3 +115,8 @@ testimonial:
     flash:
         approved: Het getuigschrift is goedgekeurd en is nu voor iedereen zichtbaar
         removed: Het getuigschrift is afgekeurd en verwijderd
+contact:
+    name: Naam
+    email:  E-mailadres
+    telephone:  Telefoon
+    message: Uw bericht
