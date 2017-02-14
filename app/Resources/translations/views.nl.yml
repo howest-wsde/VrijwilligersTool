@@ -1,5 +1,5 @@
 general:
-    sitename: Roeselare
+    sitename: Zwevegem
     siteslogan: vrijwilligt
     register: registreer
     login: login
@@ -40,10 +40,10 @@ general:
 base:
     general:
         about:
-            stimulate: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare.'
+            stimulate: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Zwevegem.'
             develop: 'ondersteunt jou om je interesses en talenten te tonen, te ontplooien en maatschappelijk te delen.'
             capital: 'ondersteunt jouw organisatie in de zoektocht naar menselijk kapitaal.'
-            initiative: "is een initiatief van Stad en OCMW Roeselare, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
+            initiative: "is een initiatief van Stad en OCMW Zwevegem, 't hope vzw, Groep Intro vzw en Voc Opstap vzw."
             platform: Het platform werd ontwikkeld door Howest.
     body:
         header:
@@ -110,17 +110,17 @@ def: #default
         more: lees meer
         how:
             title: Hoe werkt het?
-            teaser: 'Op Roeselare Vrijwilligt bundelen we de vrijwilligersorganisaties uit Roeselare en hun beschikbare taken. Via simpele zoekopdrachten kun jij een ideale taak vinden. '
+            teaser: 'Op Zwevegem Vrijwilligt bundelen we de vrijwilligersorganisaties uit Zwevegem en hun beschikbare taken. Via simpele zoekopdrachten kun jij een ideale taak vinden. '
         stories:
             title: Verhalen
             teaser:
                 a: 'Ik werk al enkele jaren als vrijwilliger op de Speelpleinwerking Speelodroom en vind het vooral leuk  bij de kleuters. Ik sta altijd paraat om in te springen ...'
-                b: 'Ik ben Jochen en ben 1 van de TRAX buddies. Eventjes kort beschrijven wat zoal onze taak is op de trax site in Roeselare. Aangestuurd door een vaste ...'
+                b: 'Ik ben Jochen en ben 1 van de TRAX buddies. Eventjes kort beschrijven wat zoal onze taak is op de trax site in Zwevegem. Aangestuurd door een vaste ...'
                 c: 'Eén van mijn engagementen is vrijwilliger voor het Trax Festival. Ik zorg er voor de communicatie. Samen met anderen probeer ik Trax Festival dus gekend te maken. ...'
-                d: 'Ik ben vrijwilliger bij de Directeurswoning in Roeselare, daar doe ik het onthaal van bezoekers bij expo’s. Ik koos voor vrijwilligerswerk want kunst en cultuur ...'
+                d: 'Ik ben vrijwilliger bij de Directeurswoning in Zwevegem, daar doe ik het onthaal van bezoekers bij expo’s. Ik koos voor vrijwilligerswerk want kunst en cultuur ...'
         info:
             title: Vrijwilligersinfo
-            teaser: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Roeselare..'
+            teaser: 'is een open, autonoom platform dat samenwerking stimuleert en ondersteunt in Zwevegem..'
         test:
             title: Doe de test
             teaser: 'Weet je niet zeker hoe je profiel te optimaliseren? Beantwoord enkele simpele vragen en wij zoeken je ideale vrijwilligersorganisatie. '
@@ -307,7 +307,7 @@ search:
         enddate: vervaldatum
         location: locatie
     page:
-        title: Zoeken binnen Roeselare Vrijwilligt #Unused afaik
+        title: Zoeken binnen Zwevegem Vrijwilligt #Unused afaik
         site: Doorzoek onze site
         filters: Filters
         type: Filter op type
