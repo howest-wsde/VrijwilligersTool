@@ -35,7 +35,7 @@ general:
         deleteorg: Remove organisation
         admins: Admins
         away: revoke admin rights
-    validatoion:
+    validation:
         not_valid_image: Please upload a valid image.
         too_large: Please upload an image smaller than 2MB.
         invalid_input: 'You forgot a field, or entered an invalid value for one of the fields.  Please check the form en follow the instructions for the field(s) with an error message.'
