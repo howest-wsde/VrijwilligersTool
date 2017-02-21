@@ -247,7 +247,7 @@ body>header {
 			display: block;
 			background: url("../images/hoewerkthet.png") no-repeat center top; padding-top: 80px;
 		}
-	 }
+	}
 	.hoewerkthet {
 		h3 a {background-image: url("../images/hoewerkthet.png"); }
 	}
@@ -350,22 +350,22 @@ article.vacature, article.vereniging, .blok {
 		#map-canvas {width: 100%; height: 350px; z-index: 10; }
 		#targetaddress {display: none; position: absolute; right: 10px; top: 10px; z-index: 50; padding: 10px 15px;
 			background-color: #fff; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-		 }
-		 ul.transit {
-		 	position: absolute; right: 10px; bottom: 78px; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3); z-index: 50; background: white; padding: 0;
-		 	li {
-		 		display: block; margin: 0; padding: 0;
-		 		a {
-		 			background: #999999 url("../images/map_walk.png") no-repeat center center; width: 28px; height: 28px; display: block;
-		 			&:hover {background-color: #333333; }
-		 			&.actief {background-color: black; }
-		 			&.walking {background-image: url("../images/map_walking.png"); }
-		 			&.bike {background-image: url("../images/map_bike.png"); }
-		 			&.driving {background-image: url("../images/map_car.png"); }
-		 			&.transit {background-image: url("../images/map_bus.png"); }
-		 		}
-		 	}
-		 }
+		}
+		ul.transit {
+			position: absolute; right: 10px; bottom: 78px; border-radius: 2px; box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3); z-index: 50; background: white; padding: 0;
+			li {
+				display: block; margin: 0; padding: 0;
+				a {
+					background: #999999 url("../images/map_walk.png") no-repeat center center; width: 28px; height: 28px; display: block;
+					&:hover {background-color: #333333; }
+					&.actief {background-color: black; }
+					&.walking {background-image: url("../images/map_walking.png"); }
+					&.bike {background-image: url("../images/map_bike.png"); }
+					&.driving {background-image: url("../images/map_car.png"); }
+					&.transit {background-image: url("../images/map_bus.png"); }
+				}
+			}
+		}
 	}
 }
 
@@ -379,7 +379,7 @@ div.vacatures, div.organisaties, .blokken {
 		>article.vacature, >article.vereniging {.flex(0 0 235px); }
 	}
 	.tabblad.tiles & {
-	    .flex-flow(row wrap) ;
+		.flex-flow(row wrap) ;
 		>.blok, >article.vacature, >article.vereniging {
 			.flex(0 1 235px);
 		}
@@ -427,24 +427,24 @@ div.cta a.cta {display: inline-block; }
 
 .tabblad {
 	.nav-tabs, .nav-pills {
-	    border: 0; text-align: center;
-	    li {
-	    	float: none; display: inline-block; padding: 0 5px;
-	    	a, a:hover, a:active, a:link, a:visited {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
-    		&.active a  {color: @cRood; }
-    		&.active.geel a  {color: @cGeel; }
-    		&.active.groen a {color: @cGroen; }
-    		&.active.blauw a  {color: @cBlauw; }
-    		&.active.paars a {color: @cPaars; }
-    		&.rood a  {background-color: @cRood; border-color: @cRood; }
-    		&.geel a  {background-color: @cGeel; border-color: @cGeel; }
-    		&.groen a {background-color: @cGroen; border-color: @cGroen; }
-    		&.blauw a  {background-color: @cBlauw; border-color: @cBlauw; }
-    		&.paars a {background-color: @cPaars; border-color: @cPaars; }
-	    	&.active a {
-	    		background-color: @cBGgrijsA;
-	    	}
-	    }
+		border: 0; text-align: center;
+		li {
+			float: none; display: inline-block; padding: 0 5px;
+			a, a:hover, a:active, a:link, a:visited {font-weight: bold; color: white; font-size: 17px; border: 0; background-color: @cRood;  }
+			&.active a  {color: @cRood; }
+			&.active.geel a  {color: @cGeel; }
+			&.active.groen a {color: @cGroen; }
+			&.active.blauw a  {color: @cBlauw; }
+			&.active.paars a {color: @cPaars; }
+			&.rood a  {background-color: @cRood; border-color: @cRood; }
+			&.geel a  {background-color: @cGeel; border-color: @cGeel; }
+			&.groen a {background-color: @cGroen; border-color: @cGroen; }
+			&.blauw a  {background-color: @cBlauw; border-color: @cBlauw; }
+			&.paars a {background-color: @cPaars; border-color: @cPaars; }
+			&.active a {
+				background-color: @cBGgrijsA;
+			}
+		}
 	}
 	.nav-pills {
 		margin-bottom: 15px;
@@ -535,7 +535,7 @@ h3 {.grijzetitel(); }
 		&.actief {display: block; }
 		h3 {margin-bottom: 15px; }
 		legend {color: @cTXTgrijs; border: 0; font-weight:  bold; margin-bottom: 10px; }
-		input, textarea, select {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white;  }
+		input, textarea, select {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white; }
 		.inputlike {border: 0; padding: 5px 10px; .rounded(5px); display: block; margin-bottom: 15px; width: 100%; background: white; }
 		textarea {height: 150px; }
 		label {font-weight: normal; }
@@ -559,7 +559,7 @@ h3 {.grijzetitel(); }
 				margin: 0; padding: 0;
 				li {display: block; }
 			}
-		 }
+		}
 		button {padding: 5px 15px; border: 0; color: white; .schaduwblok(@cRood, 2px); .rounded(5px); margin: 3px; }
 		&.geel button {.schaduwblok(@cGeel, 2px);}
 		&.blauw button {.schaduwblok(@cBlauw, 2px);}
@@ -597,39 +597,39 @@ h3 {.grijzetitel(); }
 			}
 			input#vacancy_skills_49 + label, input#edit_person_skills_49 + label, input#edit_person_skills_49 + label {background-image: url("../images/skills/administratie.svg"); }
 			input#vacancy_skills_66 + label, input#edit_person_skills_66 + label, input#person_skills_66 + label
-			 {background-image: url("../images/skills/andere.svg"); }
+			{background-image: url("../images/skills/andere.svg"); }
 			input#vacancy_skills_51 + label, input#edit_person_skills_51 + label, input#person_skills_51 + label
-			 {background-image: url("../images/skills/communicatie.svg"); }
+			{background-image: url("../images/skills/communicatie.svg"); }
 			input#vacancy_skills_50 + label, input#edit_person_skills_50 + label, input#person_skills_50 + label  {background-image: url("../images/skills/computer.svg"); }
 			input#vacancy_skills_1 + label, input#edit_person_skills_1 + label, input#person_skills_1 + label
-			 {background-image: url("../images/skills/creatief.svg"); }
+			{background-image: url("../images/skills/creatief.svg"); }
 			input#vacancy_skills_62 + label, input#edit_person_skills_62 + label, input#person_skills_62 + label
-			 {background-image: url("../images/skills/cultuur.svg"); }
+			{background-image: url("../images/skills/cultuur.svg"); }
 			input#vacancy_skills_22 + label, input#edit_person_skills_22 + label, input#person_skills_22 + label
-			 {background-image: url("../images/skills/dieren.svg"); }
+			{background-image: url("../images/skills/dieren.svg"); }
 			input#vacancy_skills_64 + label, input#edit_person_skills_64 + label, input#person_skills_64 + label
-			 {background-image: url("../images/skills/goededoelen.svg"); }
+			{background-image: url("../images/skills/goededoelen.svg"); }
 			input#vacancy_skills_15 + label, input#edit_person_skills_15 + label, input#person_skills_15 + label {background-image: url("../images/skills/handenarbeid.svg"); }
 			input#vacancy_skills_10 + label, input#edit_person_skills_10 + label, input#person_skills_10 + label
-			 {background-image: url("../images/skills/klussen.svg"); }
+			{background-image: url("../images/skills/klussen.svg"); }
 			input#vacancy_skills_52 + label, input#edit_person_skills_52 + label, input#person_skills_52 + label
-			 {background-image: url("../images/skills/mensen.svg"); }
+			{background-image: url("../images/skills/mensen.svg"); }
 			input#vacancy_skills_35 + label, input#edit_person_skills_35 + label, input#person_skills_35 + label
-			 {background-image: url("../images/skills/muziek.svg"); }
+			{background-image: url("../images/skills/muziek.svg"); }
 			input#vacancy_skills_63 + label, input#edit_person_skills_63 + label, input#person_skills_63 + label
-			 {background-image: url("../images/skills/onderwijs.svg"); }
+			{background-image: url("../images/skills/onderwijs.svg"); }
 			input#vacancy_skills_60 + label, input#edit_person_skills_60 + label, input#person_skills_60 + label
-			 {background-image: url("../images/skills/onthaal.svg"); }
+			{background-image: url("../images/skills/onthaal.svg"); }
 			input#vacancy_skills_61 + label, input#edit_person_skills_61 + label, input#person_skills_61 + label
-			 {background-image: url("../images/skills/organisatie.svg"); }
+			{background-image: url("../images/skills/organisatie.svg"); }
 			input#vacancy_skills_16 + label, input#edit_person_skills_16 + label, input#person_skills_16 + label
-			 {background-image: url("../images/skills/planten.svg"); }
+			{background-image: url("../images/skills/planten.svg"); }
 			input#vacancy_skills_36 + label, input#edit_person_skills_36 + label, input#person_skills_36 + label
-			 {background-image: url("../images/skills/sector.svg"); }
+			{background-image: url("../images/skills/sector.svg"); }
 			input#vacancy_skills_24 + label, input#edit_person_skills_24 + label, input#person_skills_24 + label
-			 {background-image: url("../images/skills/sport.svg"); }
+			{background-image: url("../images/skills/sport.svg"); }
 			input#vacancy_skills_65 + label, input#edit_person_skills_65 + label, input#person_skills_65 + label
-			 {background-image: url("../images/skills/zingeving.svg"); }
+			{background-image: url("../images/skills/zingeving.svg"); }
 			input:checked + label {
 				background-image: url("../images/skills/checkmark-checked.svg");
 				opacity: 1; filter: alpha(opacity=100); color: inherit;
@@ -709,10 +709,10 @@ h3 {.grijzetitel(); }
 	.flex-display(flex);  .flex-flow(row wrap) ;
 	a {
 		background: #ff6952 none no-repeat left center; display: block;
-	    height: 47px; margin: 10px; .rounded(5px); text-align: center;
-	    padding-left: 47px; color: white; font-weight: bold;
-	    .flex-display(flex);  .align-items(center); .flex(1 1 200px); .justify-content(center);
-	    &:hover {text-decoration: none; }
+		height: 47px; margin: 10px; .rounded(5px); text-align: center;
+		padding-left: 47px; color: white; font-weight: bold;
+		.flex-display(flex);  .align-items(center); .flex(1 1 200px); .justify-content(center);
+		&:hover {text-decoration: none; }
 		&.googlelogin {background-image: url(../images/google.png);  }
 		&.fblogin {background-image: url(../images/fb.png); background-color: #5b76b3; }
 	}
@@ -939,8 +939,8 @@ ol.admin {
 			}
 		}
 		div.error {
-		    border: 1px solid #ebccd1; .rounded(4px); padding: 15px; background-color: #f2dede; color: #a94442;
-		    	margin-top: 10px; margin-left: 220px; width: 100%;
+			border: 1px solid #ebccd1; .rounded(4px); padding: 15px; background-color: #f2dede; color: #a94442;
+			margin-top: 10px; margin-left: 220px; width: 100%;
 			ul {
 				padding: 0; margin: 0;
 				li {display: block; }
@@ -974,4 +974,31 @@ body {background: @cMainBG; }
 	z-index: 10;
 	pointer-events: auto;
 	cursor: pointer;
+}
+
+// yes, I didn't use less variables....no, they don't work!
+#language-select {
+	background: transparent;
+	text-transform: uppercase;
+	border-color: transparent;
+	margin: 0;
+	padding: 0;
+	button {
+		color: #fff;
+		background: transparent;
+		text-transform: uppercase;
+		border-color: transparent;
+		.dropdown-toggle {
+			text-transform: uppercase;
+			border-color: transparent;
+		}
+	}
+	.dropdown-menu {
+		background: #52b8af;
+		.rounded(5px);
+		margin: 0;
+	}
+	a {
+		background: transparent;
+	}
 }
