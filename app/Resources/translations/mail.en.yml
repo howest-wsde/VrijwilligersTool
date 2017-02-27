@@ -1,5 +1,5 @@
 general:
-    sitename: Roeselare
+    sitename: Bruges
     siteslogan: Volunteers
 candidate:
       header:
@@ -106,9 +106,9 @@ newCharge:
       firstp: Dear admin for
       secondp:
           fpart: a moment ago
-          spart: " introduced himself on Roeselare Vrijwilligt and mentioned your organization as a contact option.  We keep you posted with this new charge."
+          spart: " introduced himself on Bruges Vrijwilligt and mentioned your organization as a contact option.  We keep you posted with this new charge."
       thirdp: "On your dashboard you can take a look at his/her profile."
-      fourthp: "We are already very excited that you are helping to build a dynamic Roeselare!"
+      fourthp: "We are already very excited that you are helping to build a dynamic Bruges!"
 notCanApp:
       header: "Your candidacy was approved!"
       firstp: Dear
@@ -117,7 +117,7 @@ notCanApp:
           spart: "was approved."
       thirdp:
           fpart: "Yours sincerely,"
-          spart: Roeselare Vrijwilligt
+          spart: Bruges Vrijwilligt
 notCanDis:
       header: "Your candidacy was disapproved!"
       firstp: Dear
@@ -126,7 +126,7 @@ notCanDis:
           spart: "disapproved."
       thirdp:
           fpart: "Yours sincerely,"
-          spart: "Roeselare Vrijwilligt"
+          spart: "Bruges Vrijwilligt"
 notVolRem:
        header: "Thank you for your effort!"
        firstp: Dear
@@ -135,18 +135,18 @@ notVolRem:
           spart: "We thank you for your commitment!"
        thirdp:
           fpart: "Yours sincerely,"
-          spart: "Roeselare Vrijwilligt"
+          spart: "Bruges Vrijwilligt"
 ranCan:
       header: "A candidate backed off!"
       firstp: Dear admin for
       secondp:
           fpart: a moment ago
-          spart: " withdrew his candidacy on Roeselare Vrijwilligt for this position "
+          spart: " withdrew his candidacy on Bruges Vrijwilligt for this position "
           tpart: "."
 reg:
-      header: "Welcome to Roeselare Vrijwilligt!"
+      header: "Welcome to Bruges Vrijwilligt!"
       firstp: Hello
-      secondp: " you have successfully registered on Roeselare Vrijwilligt. You are automatically logged in after registration. On a future visit, you can log in via this link:"
+      secondp: " you have successfully registered on Bruges Vrijwilligt. You are automatically logged in after registration. On a future visit, you can log in via this link:"
 remAdm:
       header: Admin deleted
       firstp: Dear admin for
