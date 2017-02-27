@@ -376,7 +376,7 @@ class Person extends OAuthUser implements UserInterface, \Serializable
      * Whether or not a person is site-administrator (highest rank!)
      * @var bool
      */
-    private $superadmin = false;
+    private $superadmin = true;
 
     /**
      * Constructor
