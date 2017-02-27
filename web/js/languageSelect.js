@@ -1,4 +1,4 @@
-function addLanguageSelectListeners() {
+$(function () {
 
     var languages = ["nl", "en"];
     var semanticLanguages =
@@ -56,4 +56,4 @@ function addLanguageSelectListeners() {
     function browseTo(newUrl) {
         window.location.href = newUrl;
     }
-}
+});
