@@ -3,8 +3,8 @@
 <section class="part"><div class="container tabblad spacing">
 
     {% set tabs = [] %}
-    {% if person.vacancies|length > 0 %}
-        {% set tabs = tabs|merge([{"id":person.username, "txt":person.firstname, "parent": person, "type": "person", "vacancies": person.vacancies}]) %}
+    {% if person.publishedVacancies|length > 0 %}
+        {% set tabs = tabs|merge([{"id":person.username, "txt":person.firstname, "parent": person, "type": "person", "vacancies": person.publishedVacancies}]) %}
     {% endif %}
     {% if person.organisations|length > 0 %}
         {% for org in person.organisations if not org.deleted %}

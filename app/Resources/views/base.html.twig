@@ -8,6 +8,8 @@
         <title>{% block title %}{% endblock %} {{"general.sitename"|trans}} {{"general.siteslogan"|trans}}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+            <!-- Bootstrap-select from: https://silviomoreto.github.io/bootstrap-select/ -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
             <link rel="stylesheet" type="text/css" href="{{ asset("style/vrijwilligt.css?v2") }}" />
             <link rel="stylesheet" type="text/css" href="{{ asset("style/feedback.css") }}" />
         {% endblock %}
@@ -17,6 +19,8 @@
             }
         </script>
         <link rel="icon" type="image/x-icon" href="{{ asset("favicon.ico") }}" />
+        <meta name="description" content="Roeselare vijwilligt, Roeselare volunteers vijwilligersplatform">
+        <meta name="keywords" content="volunteer, vrijwilligers">
         {%  block head %} {% endblock %}
     </head>
     <body>
@@ -43,7 +47,7 @@
                             {% else %}
                                 <li><a href="{{ path("login") }}" class="{% if app.request.attributes.get('_route') == 'login' %}actief{% endif %}">{{ "base.body.header.menu.login"|trans }}</a></li>
                             {% endif %}
-
+                            <li id="language-select"><select class="selectpicker" data-width="fit"><option>Nederlands</option><option>English</option></select></li>
                         </ul>
 
                         <ul class="mainmenu">
@@ -206,6 +210,9 @@
             <script src="{{ asset("js/feedback.js") }}"></script>
             <script src="{{ asset("js/search.js") }}"></script>
             <script src="{{ asset("js/vrijwilligt.js") }}"></script>
+            <script src="{{ asset("js/languageSelect.js") }}"></script>
+            <!-- Bootstrap select js from: https://silviomoreto.github.io/bootstrap-select/ -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js" ></script>
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

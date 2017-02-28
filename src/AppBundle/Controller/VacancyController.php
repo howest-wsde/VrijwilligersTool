@@ -665,6 +665,7 @@ class VacancyController extends UtilityController
 
     /**
      * Send a testimonial to volunteer
+     * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/testimonial-to-volunteer", name="send_testimonial_to_volunteer")
      * @param  AppBundle\Entity\Vacancy $vacancy the vacancy where the candidates will get a testimonial
      */
@@ -677,6 +678,9 @@ class VacancyController extends UtilityController
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
 
+        if ($vacancy->getCreator() != $user) {
+            return $this->redirectToRoute('homepage');
+        }
 
         $receiverType = "person";
         $testimonial = new Testimonial();
@@ -724,7 +728,8 @@ class VacancyController extends UtilityController
     }
 
     /**
-     * Send a testimonial to vacancy
+     * Send a testimonial from a candidate to the vacancy
+     * @Security("has_role('ROLE_USER')")
      * @Route("/vacature/{urlid}/testimonial-to-vacancy", name="send_testimonial_to_vacancy")
      * @param  AppBundle\Entity\Vacancy $vacancy the vacancy where the candidates will get a testimonial
      */
@@ -737,6 +742,9 @@ class VacancyController extends UtilityController
         $vacancy = $em->getRepository("AppBundle:Vacancy")
             ->findOneByUrlid($urlid);
 
+        if (!in_array($user, $vacancy->getVolunteers())) {
+            return $this->redirectToRoute('homepage');
+        }
 
         $receiverType = "vacancy";
         $testimonial = new Testimonial();
