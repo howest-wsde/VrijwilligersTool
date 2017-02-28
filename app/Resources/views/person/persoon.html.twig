@@ -41,7 +41,7 @@
 {# --------------------------- EIGEN AANBOD  ------------------------------------- #}
 
 
-        {% if person.organisations|length + person.vacancies|length > 0 %}
+        {% if person.organisations|length + person.publishedVacancies|length > 0 %}
             {% embed "person/persoon.openstaand.html.twig" %}{% endembed %}
         {% endif %}
 

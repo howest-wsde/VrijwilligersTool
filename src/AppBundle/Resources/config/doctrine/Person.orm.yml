@@ -106,7 +106,7 @@ AppBundle\Entity\Person:
         candidacies:
             targetEntity: Candidacy
             mappedBy: candidate
-        vacancies:
+        publishedVacancies:
             targetEntity: Vacancy
             mappedBy: creator
 
