@@ -22,10 +22,10 @@
 		        <div class="alert alert-danger">
 		            {{ flashMessage }}
 		        </div>
-		    {% endfor %}
+		    {% endfor %}}
 
             {% if photoUrl %}
-                <img class="avatar" src=" {{ asset('images/' ~ photoUrl) }}">
+                <img class="avatar" src="{{ asset('images/' ~ photoUrl) }}">
             {% endif %}
 	        {{ form_start(form) }}{{ form_end(form) }}
         </div>
