@@ -1182,5 +1182,15 @@ class Vacancy extends EntityBase
      */
     private $alerts;
 
-
+    /**
+     * @return bool whether the entity should persist to Elasticsearch
+     * Is used in elasticsearch.yml config file
+     */
+    public function shouldPersistToElasticsearch()
+    {
+        $isPublished = $this->getPublished();
+        return  $isPublished != Vacancy::CLOSED ||
+                $isPublished != Vacancy::SAVED ||
+                $isPublished != Vacancy::DELETED;
+    }
 }
