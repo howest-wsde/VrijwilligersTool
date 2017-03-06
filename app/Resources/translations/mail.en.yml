@@ -3,7 +3,7 @@ general:
     siteslogan: Volunteers
 candidate:
       header:
-          title: 'Candidate approved!'
+          title: 'Candidacy was not retained'
       paragrafs:
           firstp: 'Dear admin,'
           secondp:
@@ -82,7 +82,7 @@ digest:
                 organisation: Name organisation
                 vacancy: Title vacancy
 disaproved:
-      header: "Candidate disapproved"
+      header: "Candidacy was retained"
       firstp: "Dear admin for "
       secondp:
           fpart: a moment ago
