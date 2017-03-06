@@ -1103,4 +1103,14 @@ class Organisation extends EntityBase
     private $alerts;
 
 
+    /**
+     * @return bool whether the entity should persist to Elasticsearch
+     * Is used in elasticsearch.yml config file
+     */
+    public function shouldPersistToElasticsearch()
+    {
+        return !$this->getDeleted();
+    }
+
+
 }
