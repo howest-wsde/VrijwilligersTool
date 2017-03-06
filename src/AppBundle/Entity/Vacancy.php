@@ -1189,8 +1189,8 @@ class Vacancy extends EntityBase
     public function shouldPersistToElasticsearch()
     {
         $isPublished = $this->getPublished();
-        return  $isPublished != Vacancy::CLOSED ||
-                $isPublished != Vacancy::SAVED ||
+        return  $isPublished != Vacancy::CLOSED and
+                $isPublished != Vacancy::SAVED and
                 $isPublished != Vacancy::DELETED;
     }
 }
