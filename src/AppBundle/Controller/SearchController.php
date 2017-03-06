@@ -169,7 +169,7 @@ class SearchController extends Controller
         $query = $request->query->get("q");
         if ($query)
         {
-            $results = $this->plainSearch($query);
+            $results = $this->plainSearch($query, $types = ["vacancy", "organisation"]);
         }
 
         $response = new Response(
