@@ -197,6 +197,9 @@ person:
         customorganisations: Customized per organisation
         customvacancies: Customized per vacancy
     avatar:
+        mimeTypesMessage: Please choose a jpeg or png image instead.
+        maxSizeMessage: The image is too big, please choose an image smaller than 2MB.
+        uploadErrorMessage: There was an error uploading your image, please try another.
 search:
     label:
         hoursaweek: hours per week

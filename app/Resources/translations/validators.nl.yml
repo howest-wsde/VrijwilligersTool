@@ -189,6 +189,9 @@ person:
         customorganisations: Instellen per organisatie
         customvacancies: Instellen per vacature
     avatar:
+            mimeTypesMessage: Gelieve een jpeg of png foto te kiezen.
+            maxSizeMessage: Jouw foto is te groot, gelieve een kleinere foto te kiezen.
+            uploadErrorMessage: Er was een fout tijdens het versturen van jouw foto, gelieve een andere foto te kiezen.
 search:
     label:
         hoursAWeek: uren per week
