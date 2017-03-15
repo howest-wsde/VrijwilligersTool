@@ -188,6 +188,7 @@ person:
         no: Geen
         customorganisations: Instellen per organisatie
         customvacancies: Instellen per vacature
+    avatar:
 search:
     label:
         hoursAWeek: uren per week

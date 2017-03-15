@@ -196,6 +196,7 @@ person:
         no: None
         customorganisations: Customized per organisation
         customvacancies: Customized per vacancy
+    avatar:
 search:
     label:
         hoursaweek: hours per week

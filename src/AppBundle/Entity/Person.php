@@ -202,6 +202,15 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
+     * @Assert\Image(
+     *     maxSize = "2M",
+     *     maxSizeMessage="person.avatar.maxSizeMessage",
+     *     mimeTypes={ "image/jpeg", "image/png" },
+     *     mimeTypesMessage="person.avatar.mimeTypesMessage",
+     *     uploadErrorMessage="person.avatar.uploadErrorMessage",
+     *     groups={ "firstStep", "edit" }
+     * )
+     *
      * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
      *
      * @var File
