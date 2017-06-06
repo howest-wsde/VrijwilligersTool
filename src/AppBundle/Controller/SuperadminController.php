@@ -55,28 +55,27 @@ class SuperadminController extends Controller
     }
 
     /**
-     * @Route("/admin/{organisation}/vacancies", name="superadmin_organisation_vacancies")
-     * @Route("/admin/vacancies", name="superadmin_vacancies", defaults={"organisation" = ""})
+     * @Route("/admin/{organisation_urlid}/vacancies", name="superadmin_organisation_vacancies")
+     * @Route("/admin/vacancies", name="superadmin_vacancies", defaults={"organisation_urlid" = ""})
      */
-    public function adminVacanciesAction($organisation)
+    public function adminVacanciesAction($organisation_urlid)
     {
         $user = $this->getUser();
         if(!$user || !$user->getSuperadmin()) {
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        if ($organisation != "") {
+        if ($organisation_urlid != "") {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($organisation);
+            $organisation = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($organisation_urlid);
             $vacancies = $this->getDoctrine()
                 ->getRepository("AppBundle:Vacancy")
-                ->findBy(array("organisation"=>$entity), array('id' => 'DESC'));
+                ->findBy(array("organisation" => $organisation), array('id' => 'DESC'));
         } else {
             $vacancies = $this->getDoctrine()
                 ->getRepository("AppBundle:Vacancy")
                 ->findBy(array(), array('id' => 'DESC'));
         }
-
 
         return $this->render('superadmin/vacancies.html.twig', [
             'vacancies' => $vacancies
@@ -98,17 +97,21 @@ class SuperadminController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
+        $photoUrl = "";
+
         $em = $this->getDoctrine()->getManager();
         switch($type) {
             case "person":
                 $entity = $em->getRepository('AppBundle:Person')->findOneByUsername($urlid);
                 $form = $this->createForm(SuperadminPersonType::class, $entity);
                 $redirectPath = $this->generateUrl("superadmin_users");
+                $photoUrl = 'users/'.$entity->getAvatarName();
                 break;
             case "organisation":
                 $entity = $em->getRepository('AppBundle:Organisation')->findOneByUrlid($urlid);
                 $form = $this->createForm(SuperadminOrganisationType::class, $entity);
                 $redirectPath = $this->generateUrl("superadmin_organisations");
+                $photoUrl = 'organisations/'.$entity->getLogoName();
                 break;
             case "vacancy":
                 $entity = $em->getRepository('AppBundle:Vacancy')->findOneByUrlid($urlid);
@@ -144,7 +147,10 @@ class SuperadminController extends Controller
         }
 
         return $this->render('superadmin/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'photoUrl' => $photoUrl,
+            "entity" => $entity
+
         ]);
 
     }

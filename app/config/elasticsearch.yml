@@ -140,6 +140,7 @@ fos_elastica:
                         elastica_to_model_transformer:
                             ignore_missing: true
                 organisation:
+                    indexable_callback: 'shouldPersistToElasticsearch'
                     mappings:
                         id: { type: integer }
                         name: { type: string, analyzer: nl_analyzer }
@@ -230,6 +231,7 @@ fos_elastica:
                 # #             ignore_missing: true
 
                 vacancy:
+                    indexable_callback: 'shouldPersistToElasticsearch'
                     mappings:
                         id: { type: integer }
                         title: { type: string, analyzer: nl_analyzer }

@@ -89,7 +89,7 @@ AppBundle\Entity\Vacancy:
                 referencedColumnName: id
         creator:
              targetEntity: Person
-             inversedBy: vacancies
+             inversedBy: publishedVacancies
              joinColumn:
                 name: creator_id
                 referencedColumnName: id

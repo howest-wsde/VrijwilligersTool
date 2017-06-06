@@ -1,6 +1,14 @@
 general:
     sitename: Roeselare
     siteslogan: Volunteers
+    label:
+        previous: Previous
+        next: Next
+        submit: Indienen
+        save: Save
+    choices:
+        yes: Yes
+        no: No
 vacancy:
     not_blank: Please enter a value.
     min_message: Please enter at least {{ limit }} characters.
@@ -188,6 +196,10 @@ person:
         no: None
         customorganisations: Customized per organisation
         customvacancies: Customized per vacancy
+    avatar:
+        mimeTypesMessage: Please choose a jpeg or png image instead.
+        maxSizeMessage: The image is too big, please choose an image smaller than 2MB.
+        uploadErrorMessage: There was an error uploading your image, please try another.
 search:
     label:
         hoursaweek: hours per week
@@ -225,15 +237,6 @@ contact:
         description: Your message
     flash:
         sent: Your message was sent successfully.
-general:
-    label:
-        previous: Previous
-        next: Next
-        submit: Indienen
-        save: Save
-    choices:
-        yes: Yes
-        no: No
 testimonial:
     label:
         to: To

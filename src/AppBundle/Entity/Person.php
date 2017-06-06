@@ -202,6 +202,15 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
+     * @Assert\Image(
+     *     maxSize = "2M",
+     *     maxSizeMessage="person.avatar.maxSizeMessage",
+     *     mimeTypes={ "image/jpeg", "image/png" },
+     *     mimeTypesMessage="person.avatar.mimeTypesMessage",
+     *     uploadErrorMessage="person.avatar.uploadErrorMessage",
+     *     groups={ "firstStep", "edit" }
+     * )
+     *
      * @Vich\UploadableField(mapping="person_avatar", fileNameProperty="avatarName")
      *
      * @var File
@@ -1447,41 +1456,41 @@ class Person extends OAuthUser implements UserInterface, \Serializable
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $vacancies;
+    private $publishedVacancies;
 
 
     /**
-     * Add vacancy
+     * Add PublishedVacancy
      *
      * @param \AppBundle\Entity\Vacancy $vacancy
      *
      * @return Person
      */
-    public function addVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    public function addPublishedVacancy(\AppBundle\Entity\Vacancy $vacancy)
     {
-        $this->vacancies[] = $vacancy;
+        $this->publishedVacancies[] = $vacancy;
 
         return $this;
     }
 
     /**
-     * Remove vacancy
+     * Remove PublishedVacancy
      *
      * @param \AppBundle\Entity\Vacancy $vacancy
      */
-    public function removeVacancy(\AppBundle\Entity\Vacancy $vacancy)
+    public function removePublishedVacancy(\AppBundle\Entity\Vacancy $vacancy)
     {
-        $this->vacancies->removeElement($vacancy);
+        $this->publishedVacancies->removeElement($vacancy);
     }
 
     /**
-     * Get vacancies
+     * Get publishedVacancies
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getVacancies()
+    public function getPublishedVacancies()
     {
-        return $this->vacancies;
+        return $this->publishedVacancies;
     }
     /**
      * @var integer

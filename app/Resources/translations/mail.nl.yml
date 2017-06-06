@@ -3,7 +3,7 @@ general:
     siteslogan: vrijwilligt
 candidate:
       header:
-          title: 'Kandidaat goedgekeurd!'
+          title: 'Kandidatuur werd niet weerhouden'
       paragrafs:
           firstp: Beste beheerder voor
           secondp:
@@ -82,7 +82,7 @@ digest:
                 organisation: Naam organistatie
                 vacancy: Titel vacature
 disaproved:
-      header: "Kandidaat afgekeurd!"
+      header: "Kandidatuur werd weerhouden"
       firstp: "Beste beheerder voor "
       secondp:
           fpart: zonet werd
