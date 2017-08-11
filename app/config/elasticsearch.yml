@@ -18,119 +18,10 @@ fos_elastica:
                         id: { type: integer }
                         firstName: { type: string, index: not_analyzed }
                         lastName: { type: string, index: not_analyzed }
-                        username: { type: string, index: not_analyzed }
-                        email: { type: string, index: no }
-                        street: { type: string, index: no }
-                        number: { type: integer }
-                        bus: { type: string, index: no }
                         postalcode: { type: integer }
                         city: { type: string, index: not_analyzed }
                         location: { type: geo_point, property_path: esGetLocation }
-                        telephone: { type: string, index: no }
-                        language: { type: string, index: not_analyzed }
-                        linkedinUrl: { type: string, index: not_analyzed }
-                        access: { type: boolean }
-                        renumerate: { type: boolean }
-                        longterm: { type: boolean }
-                        estimatedWorkInHours: { type: integer }
-                        socialInteraction: { type: string, index: not_analyzed }
-#                        contactOrganisation:
-#                            type: object
-#                            properties:
-#                                id: { type: integer }
-#                                entity: { type: string, property_path: esGetEntityName, index: no }
-#                                name: { type: string, analyzer: nl_analyzer }
-#                                type: { type: string, index: not_analyzed }
-#                                intermediary: { type: boolean }
-#                                deleted: { type: boolean }
-#                                description: { type: string, analyzer: nl_analyzer }
-#                                email: { type: string, index: not_analyzed }
-#                                street: { type: string, index: not_analyzed }
-#                                number: { type: integer }
-#                                postalcode: { type: integer }
-#                                bus: { type: string, index: not_analyzed }
-#                                city: { type: string, index: not_analyzed }
-#                                urlId: { type: string, index: not_analyzed }
-#                                slogan: { type: string, analyzer: nl_analyzer }
-#                                telephone: { type: string, index: not_analyzed }
-#                                website: { type: string, index: not_analyzed }
-#                        organisations:
-#                            type: object
-#                            properties:
-#                                id: { type: integer }
-#                                entity: { type: string, property_path: esGetEntityName, index: no }
-#                                name: { type: string, analyzer: nl_analyzer }
-#                                type: { type: string, index: not_analyzed }
-#                                intermediary: { type: boolean }
-#                                deleted: { type: boolean }
-#                                description: { type: string, analyzer: nl_analyzer }
-#                                email: { type: string, index: not_analyzed }
-#                                street: { type: string, index: not_analyzed }
-#                                number: { type: integer }
-#                                postalcode: { type: integer }
-#                                bus: { type: string, index: not_analyzed }
-#                                city: { type: string, index: not_analyzed }
-#                                urlId: { type: string, index: not_analyzed }
-#                                slogan: { type: string, analyzer: nl_analyzer }
-#                                telephone: { type: string, index: not_analyzed }
-#                                website: { type: string, index: not_analyzed }
-#                        liked_organisations:
-#                            type: object
-#                            properties:
-#                                id: { type: integer }
-#                                entity: { type: string, property_path: esGetNoMap, index: no }
-#                                name: { type: string, analyzer: nl_analyzer }
-#                                type: { type: string, index: not_analyzed }
-#                                intermediary: { type: boolean }
-#                                deleted: { type: boolean }
-#                                description: { type: string, analyzer: nl_analyzer }
-#                                email: { type: string, index: not_analyzed }
-#                                street: { type: string, index: not_analyzed }
-#                                number: { type: integer }
-#                                postalcode: { type: integer }
-#                                bus: { type: string, index: not_analyzed }
-#                                city: { type: string, index: not_analyzed }
-#                                urlId: { type: string, index: not_analyzed }
-#                                slogan: { type: string, analyzer: nl_analyzer }
-#                                telephone: { type: string, index: not_analyzed }
-#                                website: { type: string, index: not_analyzed }
-#                        liked_vacancies:
-#                            type: object
-#                            properties:
-#                                id: { type: integer }
-#                                entity: { type: string, property_path: esGetNoMap, index: no }
-#                                title: { type: string, analyzer: nl_analyzer }
-#                                description: { type: string, analyzer: nl_analyzer }
-#                                startdate: { type: date }
-#                                enddate: { type: date }
-#                                urlId: { type: string, index: not_analyzed }
-#                                likers: { type: integer, property_path: esGetNumberOfLikers }
-#                        candidacies:
-#                            type: nested
-#                            properties:
-#                                id: { type: integer }
-#                                entity: { type: string, property_path: esGetNoMap, index: no }
-#                                state: { type: integer }
-#                                vacancy:
-#                                    type: object
-#                                    properties:
-#                                        id: { type: integer }
-#                                        entity: { type: string, property_path: esGetEntityName, index: no }
-#                                        title: { type: string, analyzer: nl_analyzer }
 
-                        # testimonials: "%nl%" TODO: change to object mapping
-                        skills:
-                            type: object
-                            properties:
-                                id: { type: integer }
-                                name: { type: string, analyzer: nl_analyzer }
-                                entity: { type: string, property_path: esGetEntityName, index: no }
-                                parent:
-                                    type: object
-                                    properties:
-                                        id: { type: integer }
-                                        name: { type: string, analyzer: nl_analyzer }
-                                        entity: { type: string, property_path: esGetEntityName, index: no }
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Person
@@ -179,16 +70,6 @@ fos_elastica:
                                 entity: { type: string, property_path: esGetEntityName, index: no }
                                 firstName: { type: string, index: not_analyzed }
                                 lastName: { type: string, index: not_analyzed }
-                                username: { type: string, index: not_analyzed }
-                                email: { type: string, index: not_analyzed }
-                                street: { type: string, index: not_analyzed }
-                                number: { type: integer }
-                                bus: { type: string, index: not_analyzed }
-                                postalcode: { type: integer }
-                                city: { type: string, index: not_analyzed }
-                                telephone: { type: string, index: not_analyzed }
-                                language: { type: string, index: not_analyzed }
-                                linkedinUrl: { type: string, index: not_analyzed }
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Organisation
