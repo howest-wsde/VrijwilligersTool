@@ -3,10 +3,12 @@
 {% import 'snippets/dates.html.twig' as datum %}
 
 {% set admin = false %}
-{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
-	{% set admin = true %}
-{% elseif vacancy.creator == app.user %}
-	{% set admin = true %}
+{% if app.user %}
+	{% if vacancy.organisation and app.user in vacancy.organisation.administrators %}
+		{% set admin = true %}
+	{% elseif vacancy.creator == app.user %}
+		{% set admin = true %}
+	{% endif %}
 {% endif %}
 
 {% block title %}{{ vacancy.title }}{% endblock %}
@@ -14,7 +16,12 @@
 {% block body %}
 {% if vacancy.published == 4 %}
 	<h1>{{ vacancy.title }}</h1>
-	<p>{{ "vacancy.vacancy.removed"|trans }}  {% if (vacancy.organisation) and app.user in vacancy.organisation.administrators %}{{ "vacancy.vacancy.undo"|trans }} <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
+	<p>{{ "vacancy.vacancy.removed"|trans }}  {% if (vacancy.organisation) and app.user in vacancy.organisation.
+	
+	
+	
+	
+	istrators %}{{ "vacancy.vacancy.undo"|trans }} <a href="{{ path('restore_vacancy', {'urlid': vacancy.urlId }) }}">{{ "general.button.click"|trans }}</a>.{% endif %}</p>
 {% else %}
 	<div class="vacaturepage">
 		<article class="vacature">
